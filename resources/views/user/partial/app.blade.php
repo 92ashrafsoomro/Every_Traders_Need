@@ -42,6 +42,13 @@
                 <ul class="menu-inner py-1">
                     @include('user.partial.menu')
                 </ul>
+                <li class="menu-item -mt-28">
+                    <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
+                        data-i18n="Profile">Profile </div>
+                </li>
+                <ul class="menu-inner py-1">
+                    @include('user.partial.profile_menu')
+                </ul>
             </aside>
 
             <div class="menu-mobile-toggler d-xl-none rounded-1">

@@ -171,21 +171,33 @@ class AuctionFinderDataController extends Controller
             $dateRange = $request->has('date') ? $request->date : 'past_3_months';
             $now = \Carbon\Carbon::now();
             $fromDate = match ($dateRange) {
-                'today' => $now->copy()->startOfDay(),
-                'yesterday' => $now->copy()->subDay()->startOfDay(),
-                'last_week' => $now->copy()->subWeek(),
-                'last_month' => $now->copy()->subMonth(),
-                'past_3_months' => $now->copy()->subMonths(3),
-                default => $now->copy()->subMonths(3),
+                'next_week'     => $now->copy()->startOfDay(),
+                'next_month'    => $now->copy()->startOfDay(),
+                'next_3_months' => $now->copy()->startOfDay(),
+                'last_week'     => $now->copy()->subWeek()->startOfWeek(),
+                'last_month'    => $now->copy()->subMonth()->startOfMonth(),
+                'past_3_months' => $now->copy()->subMonths(3)->startOfDay(),
+                default          => $now->copy()->startOfDay(),
+            };
+            $toDate = match ($dateRange) {
+                'next_week'     => $now->copy()->addWeek()->endOfDay(),
+                'next_month'    => $now->copy()->addMonth()->endOfDay(),
+                'next_3_months' => $now->copy()->addMonths(3)->endOfDay(),
+                default          => $now->copy()->endOfDay(),
             };
 
-            $toDate = $now->copy()->endOfDay();
-            $query->whereBetween('vehicles.start_date', [$fromDate->toDateString(), $toDate->toDateString()]);
+            $query->whereBetween(\DB::raw('DATE(auctions.auction_date)'), [
+                $fromDate->toDateString(),
+                $toDate->toDateString(),
+            ]);
 
-            // Count total BEFORE limit/offset
+
+
+
+    
             $total = $query->count(); 
 
-            //Results
+       
             $results = (clone $query)
             ->offset($offset)
             ->limit($perPage)
@@ -512,28 +524,69 @@ class AuctionFinderDataController extends Controller
     }
 
     
-       public function getMakes(Request $request)
-    {
+public function getMakes(Request $request)
+{
+    $dateRange = $request->input('date', 'past_3_months');
+    $now = \Carbon\Carbon::now();
+    switch ($dateRange) {
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
 
-        $data = DB::table('make')
+        case 'next_week':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'next_month':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addMonth()->endOfDay();
+            break;
+
+        case 'next_3_months':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addMonths(3)->endOfDay();
+            break;
+
+        case 'last_week':
+            $fromDate = $now->copy()->subWeek()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'last_month':
+            $fromDate = $now->copy()->subMonth()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'past_3_months':
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+    }
+    $data = DB::table('make')
         ->join('vehicles', 'vehicles.make_id', '=', 'make.id')
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [$fromDate, $toDate])
         ->select([
             'make.id',
             'make.name as label',
-             DB::raw('COUNT(vehicles.id) as count')
-        ]);
-
-
-
-        $data = $data->groupBy('make.id','make.name')
-        ->orderBy('count','desc')
+            DB::raw('COUNT(vehicles.id) as count'),
+        ])
+        ->groupBy('make.id', 'make.name')
+        ->orderByDesc('count')
         ->get();
 
-        return response()->json([
-            "data" => $data
-        ],200);
+    return response()->json([
+        'data' => $data,
+        'range' => [
+            'from' => $fromDate->toDateTimeString(),
+            'to'   => $toDate->toDateTimeString(),
+        ],
+    ], 200);
+}
 
-    }
 
 
         public function getModels(Request $request)

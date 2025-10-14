@@ -3,7 +3,9 @@
     data-assets-path="../assets/" data-template="vertical-menu-template" data-bs-theme="dark">
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ asset('public/theme/css/toastr.min.css') }}">
     @include('admin.partial.head')
     <style>
@@ -15,6 +17,7 @@
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.5);
         }
     </style>
+
     @yield('css')
 </head>
 
@@ -29,11 +32,14 @@
                     <img src="{{ asset('public/themeadmin/images/logo/logo.png') }}" />
                 </div>
                 <div class="menu-inner-shadow"></div>
+                <li class="menu-item">
+
+                    <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
+                        data-i18n="Menu">
+
+                        Menu </div>
+                </li>
                 <ul class="menu-inner py-1">
-                    <li class="menu-item">
-                        <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
-                            data-i18n="Menu">Menu </div>
-                    </li>
                     @include('user.partial.menu')
                 </ul>
             </aside>

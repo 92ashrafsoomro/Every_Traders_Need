@@ -3962,11 +3962,6 @@ fieldset:disabled .btn {
 }
 
 
-
-.menu-link div {
-  color: white !important;
-}
-
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #0080FF;

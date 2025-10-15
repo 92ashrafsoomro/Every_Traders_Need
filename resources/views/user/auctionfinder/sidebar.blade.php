@@ -151,18 +151,18 @@
 
 
 
-<!-- Door -->
+<!-- doors -->
 <div class="accordion-item  ">
    <h2 class="accordion-header">
       <button class="accordion-button collapsed py-2" type="button"
-         data-bs-toggle="collapse" data-bs-target="#collapsedoor"
-         aria-expanded="false" aria-controls="collapsedoor">
+         data-bs-toggle="collapse" data-bs-target="#collapsedoors"
+         aria-expanded="false" aria-controls="collapsedoors">
          Doors
       </button>
    </h2>
-   <div id="collapsedoor" class="accordion-collapse collapse"
+   <div id="collapsedoors" class="accordion-collapse collapse"
       data-bs-parent="#filterAccordion"></div>
-   <div class="tags tags-door"></div>
+   <div class="tags tags-doors"></div>
 </div>
 
 <!-- Seats -->

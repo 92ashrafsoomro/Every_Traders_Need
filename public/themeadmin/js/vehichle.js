@@ -116,10 +116,10 @@
                 });
             }
 
-            $(`.tags-door`).html('');
-            if(auctions.filters.door){
-                auctions.filters.door.split(',').forEach((value) => {
-                    $(`.tags-door`).append(`<span data-key="door" data-value="${value}" class="badge mx-2">${value}X</span>`);
+            $(`.tags-doors`).html('');
+            if(auctions.filters.doors){
+                auctions.filters.doors.split(',').forEach((value) => {
+                    $(`.tags-doors`).append(`<span data-key="doors" data-value="${value}" class="badge mx-2">${value}X</span>`);
                 });
             }
 
@@ -207,31 +207,31 @@
     auctions.showHeadings = function(){  
 
     if (auctions.filters.display_type == 'auction') {
-            $('table thead').html(`
-                <tr>
-                    <th>Vehicle</th>
-                    <th>Year / CC</th>
-                    <th>Mileage</th>
-                    <th>Transmission</th>
-                    <th>Grade</th>
-                    <th>Date Time</th>
-                    <th>Auction House</th>
-                </tr>
-            `);
-        } else if (auctions.filters.display_type == 'car') {
-            $('table thead').html(`
-                <tr>
-                    <th>Vehicle</th>
-                    <th>Grade</th>
-                    <th>CAP</th>
-                    <th>Autotrader</th>
-                    <th>Retail</th>
- 
-                    <th>Date Time</th>
-                    <th>Autoboli</th>
-                </tr>
-            `);
-        }
+    $('table thead').html(`
+        <tr>
+            <th data-column="make_name">Vehicle</th>
+            <th data-column="year">Year / CC</th>
+            <th data-column="mileage">Mileage</th>
+            <th data-column="transmission">Transmission</th>
+            <th data-column="grade">Grade</th>
+            <th data-column="auction_date">Date Time</th>
+            <th data-column="auction_name">Auction House</th>
+        </tr>
+    `);
+} else {
+    $('table thead').html(`
+        <tr>
+            <th data-column="make_name">Vehicle</th>
+            <th data-column="grade">Grade</th>
+            <th data-column="cap_clean">CAP</th>
+            <th data-column="autotrader_trade_value">Autotrader</th>
+            <th data-column="autotrader_retail_value">Retail</th>
+            <th data-column="auction_date">Date Time</th>
+            <th data-column="auto_boli">Autoboli</th>
+        </tr>
+    `);
+}
+
 
 
     }
@@ -388,6 +388,25 @@
                 });
 
     }
+$(document).on('click', 'table thead th', function() {
+    let column = $(this).data('column'); // custom attribute se column name milega
+    if (!column) return;
+
+    // Toggle sort order (asc/desc)
+    if (auctions.filters.sort_by === column) {
+        auctions.filters.sort_order = auctions.filters.sort_order === 'asc' ? 'desc' : 'asc';
+    } else {
+        auctions.filters.sort_by = column;
+        auctions.filters.sort_order = 'asc';
+    }
+
+    // Heading pe indicator dikhao
+    $('table thead th').removeClass('sorting-asc sorting-desc');
+    $(this).addClass(`sorting-${auctions.filters.sort_order}`);
+
+    // Re-fetch data
+    auctions.searchrecord();
+});
 
 
     auctions.getPlatforms = function  () {      
@@ -692,6 +711,7 @@ auctions.getMakes = function() {
             url: url+"/auction-finder/data/getTransmissions",
             method: "GET",
             data: { date: auctions.filters },
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapseTransmission").html('');
@@ -733,6 +753,7 @@ auctions.getMakes = function() {
          $.ajax({
             url: url+"/auction-finder/data/getFuelType",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapsefuel").html('');
@@ -776,6 +797,7 @@ auctions.getMakes = function() {
          $.ajax({
             url: url+"/auction-finder/data/getBodyType",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapseVehiclebody").html('');
@@ -860,30 +882,32 @@ auctions.getMakes = function() {
 
 
 
-    auctions.getDoors = function  () {      
+    auctions.getdoors = function  () {     
+    
 
          $.ajax({
-            url: url+"/auction-finder/data/getDoors",
+            url: url+"/auction-finder/data/getdoors",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
-                $("#collapsedoor").html('');
+                $("#collapsedoors").html('');
                 response.data.forEach(element => {
 
                     let selected = '';
-                    if(auctions.filters.door){
-                        let door = auctions.filters.door.split(',');
-                        if(door.includes(String(element.label))) {
+                    if(auctions.filters.doors){
+                        let doors = auctions.filters.doors.split(',');
+                        if(doors.includes(String(element.label))) {
                             selected = 'checked';
                         }
                     }
 
-                    $("#collapsedoor").append(`
+                    $("#collapsedoors").append(`
                     <div class="accordion-body py-1">
                         <div class="form-check d-flex justify-content-between align-items-center">
                             <div>
-                                <input ${selected} class="form-check-input me-1" type="checkbox" name="door[]" value="${element.label}" id="door_${element.label}">
-                                <label class="form-check-label" for="door_${element.label}">${element.label}</label>
+                                <input ${selected} class="form-check-input me-1" type="checkbox" name="doors[]" value="${element.label}" id="doors_${element.label}">
+                                <label class="form-check-label" for="doors_${element.label}">${element.label}</label>
                             </div>
                             <span class="badge bg-light text-muted">${element.count}</span>
                         </div>
@@ -892,7 +916,7 @@ auctions.getMakes = function() {
 
             },
             error: function (response) {
-                $("#collapsedoor").html('');
+                $("#s").html('');
             },
          });
 
@@ -900,11 +924,12 @@ auctions.getMakes = function() {
 
 
 
-     auctions.getSeats = function  () {      
+    auctions.getSeats = function  () {      
 
          $.ajax({
             url: url+"/auction-finder/data/getSeats",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapseseats").html('');
@@ -940,11 +965,12 @@ auctions.getMakes = function() {
 
 
 
-     auctions.getGrade = function  () {      
+    auctions.getGrade = function  () {      
 
          $.ajax({
             url: url+"/auction-finder/data/getGrade",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapsegrade").html('');
@@ -979,11 +1005,12 @@ auctions.getMakes = function() {
 
 
 
-     auctions.getV5 = function  () {      
+    auctions.getV5 = function  () {      
 
          $.ajax({
             url: url+"/auction-finder/data/getV5",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapsev5").html('');
@@ -1025,6 +1052,7 @@ auctions.getMakes = function() {
          $.ajax({
             url: url+"/auction-finder/data/getEngineSize",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapsecc").html('');
@@ -1064,6 +1092,7 @@ auctions.getMakes = function() {
          $.ajax({
             url: url+"/auction-finder/data/getFormerKeepers",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapseformer_keepers").html('');
@@ -1103,6 +1132,7 @@ auctions.getMakes = function() {
          $.ajax({
             url: url+"/auction-finder/data/getNoOfservices",
             method: "GET",
+            data: { date: auctions.filters },
             success: function (response) {
 
                 $("#collapsenumber_of_services").html('');
@@ -1577,14 +1607,14 @@ $(document).ready(function() {
     });
 
 
-    $(document).on('change','input[name="door[]"]', function () {
+    $(document).on('change','input[name="doors[]"]', function () {
         let selected = [];
-        $('input[name="door[]"]:checked').each(function () {
+        $('input[name="doors[]"]:checked').each(function () {
             selected.push($(this).val());
         });
 
         const url = new URL(window.location.href);
-        url.searchParams.set('door', selected.toString());
+        url.searchParams.set('doors', selected.toString());
         history.pushState({}, '', url);
         auctions.onLoad();
     });
@@ -1700,8 +1730,8 @@ $(document).ready(function() {
                 case 'color':
                    $("#collapseVehiclecolor").find(`input[value="${value}"]`).trigger('click');
                 break;
-                case 'door':
-                   $("#collapsedoor").find(`input[value="${value}"]`).trigger('click');
+                case 'doors':
+                   $("#collapsedoors").find(`input[value="${value}"]`).trigger('click');
                 break;
                 case 'seat':
                    $("#collapseseats").find(`input[value="${value}"]`).trigger('click');
@@ -1790,8 +1820,8 @@ $(document).ready(function() {
     auctions.getTransmissions();
     auctions.getFuelType();
     auctions.getBodyType();
-    auctions.getColors();
-    auctions.getDoors();
+    // auctions.getColors();
+    auctions.getdoors();
     auctions.getSeats();
     auctions.getGrade();
     auctions.getV5();
@@ -1809,22 +1839,63 @@ $(document).ready(function() {
     
 });
 
+let lastDateValue = $('#dateFilter').val(); 
 
+
+$('#dateFilter').on('mousedown', function (e) {
+    if ($('input[type="checkbox"]:checked').length > 0) {
+        e.preventDefault(); 
+
+        toastr.warning('Please clear all filters before changing the date!', 'Warning', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+        });
+
+        return false;
+    }
+});
+
+$('#dateFilter').on('focus', function () {
+    lastDateValue = this.value;
+});
 
 $('#dateFilter').on('change', function() {
+   
     auctions.getMakes();
     auctions.getAuctionHouse();
     auctions.getAuctionCenter();
     auctions.getYears();
     auctions.getTransmissions();
+    auctions.getFuelType();
+    auctions.getBodyType();
+    auctions.getdoors();
+    auctions.getSeats();
+    auctions.getGrade();
+    auctions.getV5();
+    auctions.getEngineSize();
+    auctions.getFormerKeepers();
+    auctions.getNoOfservices();
+
 });
 
 $(document).on('change', 'input[type="checkbox"]', function() {
+   
     auctions.getMakes();
     auctions.getAuctionHouse();
     auctions.getAuctionCenter();
     auctions.getYears();
     auctions.getTransmissions();
+    auctions.getFuelType();
+    auctions.getBodyType();
+    auctions.getdoors();
+    auctions.getSeats();
+    auctions.getGrade();
+    auctions.getV5();
+    auctions.getEngineSize();
+    auctions.getFormerKeepers();
+    auctions.getNoOfservices();
 });
 
 

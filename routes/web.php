@@ -320,7 +320,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
             Route::get('/auction-finder/data/getFuelType', [AuctionFinderDataController::class,'getFuelType']);
             Route::get('/auction-finder/data/getBodyType', [AuctionFinderDataController::class,'getBodyType']);
             Route::get('/auction-finder/data/getColors', [AuctionFinderDataController::class,'getColors']);
-            Route::get('/auction-finder/data/getDoors', [AuctionFinderDataController::class,'getDoors']);
+            Route::get('/auction-finder/data/getdoors', [AuctionFinderDataController::class,'getDoors']);
             Route::get('/auction-finder/data/getSeats', [AuctionFinderDataController::class,'getSeats']);
             Route::get('/auction-finder/data/getGrade', [AuctionFinderDataController::class,'getGrade']);
             Route::get('/auction-finder/data/getV5', [AuctionFinderDataController::class,'getV5']);

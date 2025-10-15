@@ -464,7 +464,7 @@ auctions.getMakes = function() {
     $.ajax({
         url: url + "/auction-finder/data/getMakes",
         method: "GET",
-        data: { date: auctions.filters.date }, // 🔥 date filter bhej diya
+        data: { date: auctions.filters },
         success: function(response) {
 
             $("#collapseVehiclemake").html('');
@@ -1806,11 +1806,15 @@ $(document).ready(function() {
 });
 
 
-$('#dateFilter').on('change', function() {
-     auctions.getMakes();
 
-    
+$('#dateFilter').on('change', function() {
+    auctions.getMakes();
 });
+
+$(document).on('change', 'input[type="checkbox"]', function() {
+    auctions.getMakes();
+});
+
 
 
 

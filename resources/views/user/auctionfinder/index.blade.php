@@ -204,19 +204,12 @@
                   <div class="d-flex flex-wrap justify-content-end">
                      
                      <div class="invoice_status">
-                        <select name="date" id="dateFilter" class="form-select">
-                           <optgroup label="⏳ Upcoming">
-                              <option value="next_week">Next Week</option>
-                              <option value="next_month">Next Month</option>
-                              <option value="next_3_months">Next 3 Months</option>
-                           </optgroup>
+                   <select name="date" id="dateFilter" class="form-select">
+                        <option value="upcoming">Upcoming</option>
+                        <option selected value="today" selected>Today</option>
+                        <option value="previous">Previous</option>
+                     </select>
 
-                           <optgroup label="📅 Past">
-                              <option value="last_week">Last Week</option>
-                              <option value="last_month">Last Month</option>
-                              <option selected value="past_3_months">Past 3 Months</option>
-                           </optgroup>
-                        </select>
                      </div>
                   </div>
                </div>

@@ -166,30 +166,43 @@ class AuctionFinderDataController extends Controller
             if($request->has('mileage_to') && $request->mileage_to != ''){
                 $query->where('vehicles.mileage', '<=', $request->mileage_to);
             }
-
-
-            $dateRange = $request->has('date') ? $request->date : 'past_3_months';
+            $dateRange = $request->has('date') ? $request->date : 'previous';
             $now = \Carbon\Carbon::now();
-            $fromDate = match ($dateRange) {
-                'next_week'     => $now->copy()->startOfDay(),
-                'next_month'    => $now->copy()->startOfDay(),
-                'next_3_months' => $now->copy()->startOfDay(),
-                'last_week'     => $now->copy()->subWeek()->startOfWeek(),
-                'last_month'    => $now->copy()->subMonth()->startOfMonth(),
-                'past_3_months' => $now->copy()->subMonths(3)->startOfDay(),
-                default          => $now->copy()->startOfDay(),
-            };
-            $toDate = match ($dateRange) {
-                'next_week'     => $now->copy()->addWeek()->endOfDay(),
-                'next_month'    => $now->copy()->addMonth()->endOfDay(),
-                'next_3_months' => $now->copy()->addMonths(3)->endOfDay(),
-                default          => $now->copy()->endOfDay(),
-            };
 
-            $query->whereBetween(\DB::raw('DATE(auctions.auction_date)'), [
-                $fromDate->toDateString(),
-                $toDate->toDateString(),
+            switch ($dateRange) {
+                case 'upcoming':
+           
+                    $fromDate = $now->copy()->startOfDay();
+                    $toDate = $now->copy()->addWeek()->endOfDay();
+                    break;
+
+                case 'today':
+ 
+                    $fromDate = $now->copy()->startOfDay();
+                    $toDate = $now->copy()->endOfDay();
+                    break;
+
+                case 'previous':
+               
+                    $fromDate = $now->copy()->subMonths(3)->startOfDay();
+                    $toDate = $now->copy()->endOfDay();
+                    break;
+
+                default:
+                 
+                    $fromDate = $now->copy()->subMonths(3)->startOfDay();
+                    $toDate = $now->copy()->addWeek()->endOfDay();
+                    break;
+            }
+
+            $query->whereBetween('auctions.auction_date', [
+                $fromDate->toDateTimeString(),
+                $toDate->toDateTimeString(),
             ]);
+
+
+
+
 
 
 
@@ -526,45 +539,36 @@ class AuctionFinderDataController extends Controller
     
 public function getMakes(Request $request)
 {
-    $dateRange = $request->input('date', 'past_3_months');
+    $dateRange = $request->input('date', 'previous');
     $now = \Carbon\Carbon::now();
-    switch ($dateRange) {
-        case 'today':
-            $fromDate = $now->copy()->startOfDay();
-            $toDate = $now->copy()->endOfDay();
-            break;
 
-        case 'next_week':
-            $fromDate = $now->copy()->startOfDay();
-            $toDate = $now->copy()->addWeek()->endOfDay();
-            break;
+        switch ($dateRange) {
+            case 'upcoming':
+         
+                $fromDate = $now->copy()->startOfDay();
+                $toDate = $now->copy()->addWeek()->endOfDay();
+                break;
 
-        case 'next_month':
-            $fromDate = $now->copy()->startOfDay();
-            $toDate = $now->copy()->addMonth()->endOfDay();
-            break;
+            case 'today':
+         
+                $fromDate = $now->copy()->startOfDay();
+                $toDate = $now->copy()->endOfDay();
+                break;
 
-        case 'next_3_months':
-            $fromDate = $now->copy()->startOfDay();
-            $toDate = $now->copy()->addMonths(3)->endOfDay();
-            break;
+            case 'previous':
+        
+                $fromDate = $now->copy()->subMonths(3)->startOfDay();
+                $toDate = $now->copy()->endOfDay();
+                break;
 
-        case 'last_week':
-            $fromDate = $now->copy()->subWeek()->startOfDay();
-            $toDate = $now->copy()->endOfDay();
-            break;
+            default:
+         
+                $fromDate = $now->copy()->subMonths(3)->startOfDay();
+                $toDate = $now->copy()->addWeek()->endOfDay();
+                break;
+        }
 
-        case 'last_month':
-            $fromDate = $now->copy()->subMonth()->startOfDay();
-            $toDate = $now->copy()->endOfDay();
-            break;
 
-        case 'past_3_months':
-        default:
-            $fromDate = $now->copy()->subMonths(3)->startOfDay();
-            $toDate = $now->copy()->endOfDay();
-            break;
-    }
     $data = DB::table('make')
         ->join('vehicles', 'vehicles.make_id', '=', 'make.id')
         ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')

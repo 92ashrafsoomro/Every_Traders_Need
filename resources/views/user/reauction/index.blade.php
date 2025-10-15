@@ -25,20 +25,20 @@
         }
 
         /* .negative-margin {
-                                            margin-top: -13rem;
-                                        }
-
-                                        @media (max-width: 1024px) {
-                                            .negative-margin {
-                                                margin-top: -5rem;
+                                                margin-top: -13rem;
                                             }
-                                        }
 
-                                        @media (max-width: 425px) {
-                                            .negative-margin {
-                                                margin-top: -1rem;
+                                            @media (max-width: 1024px) {
+                                                .negative-margin {
+                                                    margin-top: -5rem;
+                                                }
                                             }
-                                        } */
+
+                                            @media (max-width: 425px) {
+                                                .negative-margin {
+                                                    margin-top: -1rem;
+                                                }
+                                            } */
     </style>
 @endsection
 @section('content')
@@ -123,7 +123,7 @@
                         <!-- Table -->
                         <div class="table-responsive">
                             <table id="blogTable" class="table table-bordered table-hover align-middle">
-                                <thead class="table-light">
+                                <thead class="">
                                     <tr>
                                         <th>Vehicle</th>
                                         <th>Reg</th>

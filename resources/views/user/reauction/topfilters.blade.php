@@ -16,7 +16,7 @@
             class="container mx-auto d-flex flex-column flex-md-row justify-content-start align-items-center gap-5 text-center text-md-start py-5">
 
             <!-- Stats Card -->
-            <div class="stats-card text-white px-4 py-3 border rounded-4 shadow-sm text-center">
+            <div class="stats-card text-white px-4 py-3 rounded-4 shadow-sm text-center bg-red-700 z-10">
                 <h3 class="display-5 fw-bold mb-1" id="vehicleCountToday">0</h3>
                 <p class="mb-0 fs-6 text-muted">Today</p>
             </div>

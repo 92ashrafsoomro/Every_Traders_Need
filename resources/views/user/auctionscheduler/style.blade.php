@@ -119,7 +119,7 @@
 
 
         .custom-tab {
-            background-color: #475569;
+            /* background-color: #475569; */
             color: white;
             border: none;
             border-radius: 6px;
@@ -130,10 +130,10 @@
             font-weight: 500;
         }
 
-        .custom-tab:hover {
+        /* .custom-tab:hover {
             background-color: #64748b;
             color: white;
-        }
+        } */
 
 
 

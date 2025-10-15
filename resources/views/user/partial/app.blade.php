@@ -15,6 +15,15 @@
             border-left: 5px solid #b91c1c !important;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.5);
         }
+
+
+        .sidebar_T {
+            color: white !important;
+        }
+
+        .negative-margin {
+            margin-top: -7rem;
+        }
     </style>
 
     @yield('css')
@@ -41,7 +50,7 @@
                 <ul class="menu-inner py-1">
                     @include('user.partial.menu')
                 </ul>
-                <li class="menu-item -mt-28">
+                <li class="menu-item negative-margin">
                     <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
                         data-i18n="Profile">Profile </div>
                 </li>

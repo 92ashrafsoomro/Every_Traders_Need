@@ -58,25 +58,23 @@
                 <div class=" max-w-7xl mx-auto flex items-center flex-wrap gap-5 overflow-x-auto overflow-y-hidden py-10">
 
                     @foreach ($days as $index => $day)
-                        <button class="custom-tab flex-fill rounded {{ $index === 0 ? 'active' : '' }}"
-                            data-date="{{ $day['date'] }}"
+                        <button class="custom-tab flex-fill rounded z-10 {{ $index === 0 ? 'active' : '' }}"
                             style="
-                                    background-color: {{ $index === 0 ? '#1a2533' : '#1b2737' }};
+                                    background-color: {{ $index === 0 ? '#0f1c2c' : '#0f1c2c' }};
                                     border: 1px solid {{ $index === 0 ? '#0d6efd' : '#2b3b4f' }};
                                     color: #fff;
                                     padding: 10px 15px;
                                     min-width: 120px;
                                     text-align: center;
                                     transition: all 0.3s ease;
-                                    white-space: nowrap;
                                     font-weight: {{ $index === 0 ? '600' : '400' }};
-                                ">
+                                "
+                            data-date="{{ $day['date'] }}">
                             <span style="display: block;">{{ $day['label'] }}</span>
 
                             <div class="border-b border-[#2b3b4f] py-1.5 pb-1"></div>
-                            <div class="tab-numbers d-flex
-                                    gap-3 align-items-center text-white"
-                                style="margin-top: 4px; justify-content: space-between !important;">
+                            <div class="tab-numbers d-flex gap-3 align-items-center text-white"
+                                style="margin-top: 4px; justify-content: space-between !important; ">
                                 <small class="d-flex align-items-center gap-1" style="font-size: 12px; color: #ccc;">
                                     <i class="fas fa-gavel text-primary"></i>
                                     {{ $day['auctions'] }}
@@ -95,7 +93,6 @@
                             </div>
                         </button>
                     @endforeach
-
                 </div>
             </div>
         </div>
@@ -248,7 +245,7 @@
         $(document).ready(function() {
 
             let table = $('.table').DataTable({
-                processing: true,
+                processing: false,
                 serverSide: true,
                 ordering: false,
                 ajax: {
@@ -275,13 +272,11 @@
 
                     if (todayTab.length) {
                         $('.custom-tab').removeClass('active').css({
-                            'background-color': '#1b2737',
                             'border': '1px solid #2b3b4f',
                             'font-weight': '400'
                         });
 
                         todayTab.addClass('active').css({
-                            'background-color': '#1a2533',
                             'border': '1px solid #0d6efd',
                             'font-weight': '600'
                         });
@@ -308,12 +303,10 @@
                 }
 
                 $('.custom-tab').removeClass('active').css({
-                    'background-color': '#1b2737',
                     'border': '1px solid #2b3b4f',
                     'font-weight': '400'
                 });
                 $(this).addClass('active').css({
-                    'background-color': '#1a2533',
                     'border': '1px solid #0d6efd',
                     'font-weight': '600'
                 });

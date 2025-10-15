@@ -6,6 +6,8 @@
     @include('user.auctionscheduler.style')
 @endsection
 @section('content')
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <div class="autionshadular">
         <div class="relative w-full h-auto lg:h-[40vh] bg-[#000f21] overflow-hidden space-y-5">
             <div

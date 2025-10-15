@@ -247,7 +247,7 @@
                   </table>
                </div>
 
-               <div class=" d-flex align-items-center justify-content-center gap-4 pt-4" >
+               <div class=" d-flex align-items-center justify-content-center gap-4 pt-4" style="overflow: scroll">
                      <div class="dt-paging">
                            <nav aria-label="pagination">
                                  <ul class="pagination">

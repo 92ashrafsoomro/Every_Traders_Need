@@ -1,22 +1,34 @@
 <!doctype html>
-<html lang="en" class="layout-navbar-fixed layout-menu-fixed layout-wide" dir="ltr" data-skin="default" data-assets-path="../assets/" data-template="vertical-menu-template" data-bs-theme="dark">
+<html lang="en" class="layout-navbar-fixed layout-menu-fixed layout-wide" dir="ltr" data-skin="default"
+    data-assets-path="../assets/" data-template="vertical-menu-template" data-bs-theme="dark">
+
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{{asset('public/theme/css/toastr.min.css')}}">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="{{ asset('public/theme/css/toastr.min.css') }}">
     @include('admin.partial.head')
     <style>
+        #toast-container>.toast-error {
+            background-color: #dc2626 !important;
+            color: #fff !important;
+            font-weight: 500;
+            border-left: 5px solid #b91c1c !important;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.5);
+        }
 
-#toast-container > .toast-error {
-    background-color: #dc2626 !important;  
-    color: #fff !important;
-    font-weight: 500;
-    border-left: 5px solid #b91c1c !important;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.5);
-}
 
+        .sidebar_T {
+            color: white !important;
+        }
+
+        .negativemargin {
+            margin-top: -5rem;
+        }
     </style>
+
     @yield('css')
 </head>
+
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -28,11 +40,22 @@
                     <img src="{{ asset('public/themeadmin/images/logo/logo.png') }}" />
                 </div>
                 <div class="menu-inner-shadow"></div>
+                <li class="menu-item">
+
+                    <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
+                        data-i18n="Menu">
+
+                        Menu </div>
+                </li>
                 <ul class="menu-inner py-1">
-                    <li class="menu-item">
-                        <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)" data-i18n="Menu">Menu </div>
-                    </li>
                     @include('user.partial.menu')
+                </ul>
+                <li class="menu-item negativemargin">
+                    <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
+                        data-i18n="Profile">Profile </div>
+                </li>
+                <ul class="menu-inner py-1">
+                    @include('user.partial.profile_menu')
                 </ul>
             </aside>
 
@@ -45,7 +68,8 @@
             </div>
 
             <div class="layout-page">
-                <nav class="layout-navbar navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme container-fluid" id="layout-navbar">
+                <nav class="layout-navbar navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme container-fluid"
+                    id="layout-navbar">
                     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
                         <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
                             <i class="icon-base ti tabler-menu-2 icon-md"></i>
@@ -59,6 +83,7 @@
                         </div>
                         <ul class="navbar-nav flex-row align-items-center ms-md-auto">
                             @include('admin.partial.quickLink')
+                            @include('admin.partial.fullscreen')
                             @include('admin.partial.mode')
                             @include('admin.partial.notification')
                             @include('admin.partial.profile')
@@ -71,8 +96,12 @@
                         <div class="container-xxl">
                             <div
                                 class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                                <div class="text-body">© <script> document.write(new Date().getFullYear()); </script>
-                                    Design & Develop By <a href="https://daprimeproductions.com" target="_blank" class="footer-link">DaPrimeProductions</a>
+                                <div class="text-body">©
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    Design & Develop By <a href="https://daprimeproductions.com" target="_blank"
+                                        class="footer-link">DaPrimeProductions</a>
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     {{-- <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a> --}}
@@ -94,4 +123,5 @@
     @include('admin.partial.notifiction_script')
     @yield('js')
 </body>
+
 </html>

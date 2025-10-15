@@ -98,7 +98,7 @@
             color: var(--bs-body-color) !important;
         }
 
-        .autionshadular {
+        /* .autionshadular {
             position: relative;
             width: 100%;
             background-image: url("{{ url('/public/theme/assets/Dots.png') }}");
@@ -106,17 +106,20 @@
             background-position: center;
             background-repeat: no-repeat;
             overflow-x: hidden;
-        }
+        } */
 
 
         .tabs-container {
-      
+
             border-radius: 8px;
             padding: 4px;
         }
 
+
+
+
         .custom-tab {
-            background-color: #475569;
+            /* background-color: #475569; */
             color: white;
             border: none;
             border-radius: 6px;
@@ -125,11 +128,6 @@
             transition: all 0.2s ease;
             min-width: 120px;
             font-weight: 500;
-        }
-
-        .custom-tab:hover {
-            background-color: #64748b;
-            color: white;
         }
 
 

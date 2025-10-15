@@ -204,14 +204,12 @@
                   <div class="d-flex flex-wrap justify-content-end">
                      
                      <div class="invoice_status">
-                        <select name="date" class="form-select">
-                           {{-- <option value="">Select Range</option> --}}
-                           <option value="today">Today</option>
-                           <option value="yesterday">Yesterday</option>
-                           <option value="last_week">Last Week</option>
-                           <option value="last_month">Last Month</option>
-                           <option selected value="past_3_months">Past 3 Months</option>
-                        </select>
+                   <select name="date" id="dateFilter" class="form-select">
+                        <option value="upcoming">Upcoming</option>
+                        <option selected value="today" selected>Today</option>
+                        <option value="previous">Previous</option>
+                     </select>
+
                      </div>
                   </div>
                </div>

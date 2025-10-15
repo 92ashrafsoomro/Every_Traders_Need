@@ -446,134 +446,96 @@ class AuctionFinderDataController extends Controller
 
 
 
-     public function getYears(Request $request)
-    {
-        $data = Vehicle::select('year As label', \DB::raw('COUNT(*) as count'))
-            ->whereNotNull('year')
-            ->where('year' , '!=', '')
-            ->groupBy('year')
-            ->orderByDesc('year')
-            ->get();
-
-        return response()->json([
-            "data" => $data
-        ],200);
-
-    }
 
 
-      public function getTransmissions(Request $request)
-    {
-
-        $data = Vehicle::select('transmission As label', \DB::raw('COUNT(*) as count'))
-            ->whereNotNull('transmission')
-            ->where('transmission', '!=', '')
-            ->groupBy('transmission')
-            ->orderByDesc('count')
-            ->get();
-
-        return response()->json([
-            "data" => $data,
-        ],200);
-
-    }
 
     
-      public function getFuelType(Request $request)
-    {
+private function applyFilters($query, Request $request, $exclude = [])
+{
+    $filters = [
+        'platform'         => 'auctions.platform_id',
+        'type'             => 'vehicles.vehicle_id',
+        'make'             => 'vehicles.make_id',
+        'model'            => 'vehicles.model_id',
+        'variant'          => 'vehicles.variant_id',
+        'year'             => 'vehicles.year',
+        'transmission'     => 'vehicles.transmission',
+        'fuel_type'        => 'vehicles.fuel_type',
+        'body'             => 'vehicles.body_id',
+        'color'            => 'vehicles.color_id',
+        'doors'            => 'vehicles.doors',
+        'seat'             => 'vehicles.seats',
+        'grade'            => 'vehicles.grade',
+        'v5'               => 'vehicles.v5',
+        'cc'               => 'vehicles.cc',
+        'former_keeper'    => 'vehicles.former_keepers',
+        'no_of_service'    => 'vehicles.no_of_services',
+        'auction_house'    => 'auctions.platform_id',
+        'auction_center'   => 'vehicles.center_id',
+    ];
 
-         $data = Vehicle::select('fuel_type As label', \DB::raw('COUNT(*) as count'))
-            ->whereNotNull('fuel_type')
-            ->where('fuel_type', '!=', '')
-            ->groupBy('fuel_type')
-            ->orderByDesc('count')
-            ->get();
+    foreach ($filters as $param => $column) {
+        if (in_array($param, $exclude)) {
+            continue;
+        }
 
-        return response()->json([
-            "data" => $data
-        ],200);
+        $value = $request->input($param) ?? $request->input("date.$param");
 
+        if ($value !== null && $value !== '') {
+            $values = is_array($value) ? $value : explode(',', $value);
+            $query->whereIn($column, $values);
+        }
     }
 
-
-       public function getBodyType(Request $request)
-    {
-
-        $data = DB::table('body_types')
-        ->join('vehicles', 'vehicles.body_id', '=', 'body_types.id')
-        ->select([
-            'body_types.id',
-            'body_types.name as label',
-            DB::raw('COUNT(vehicles.id) as count')
-        ])
-        ->groupBy('body_types.id','body_types.name')
-        ->orderBy('count','desc')
-        ->get();
-
-        return response()->json([
-            "data" => $data
-        ],200);
-
+    if ($request->filled('mileage_from')) {
+        $query->where('vehicles.mileage', '>=', $request->mileage_from);
     }
 
-        public function getVehicleTypes(Request $request)
-    {
-
-        $data = DB::table('vehicle_type')
-        ->join('vehicles', 'vehicles.vehicle_id', '=', 'vehicle_type.id')
-        ->select([
-            'vehicle_type.id',
-            'vehicle_type.name as label',
-            DB::raw('COUNT(vehicles.id) as count')
-        ])
-        ->groupBy('vehicle_type.id','vehicle_type.name')
-        ->orderBy('count','desc')
-        ->get();
-
-        return response()->json([
-            "data" => $data
-        ],200);
-
+    if ($request->filled('mileage_to')) {
+        $query->where('vehicles.mileage', '<=', $request->mileage_to);
     }
 
-    
+    return $query;
+}
+
 public function getMakes(Request $request)
 {
     $dateRange = $request->input('date', 'previous');
     $now = \Carbon\Carbon::now();
 
-        switch ($dateRange) {
-            case 'upcoming':
-         
-                $fromDate = $now->copy()->startOfDay();
-                $toDate = $now->copy()->addWeek()->endOfDay();
-                break;
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
 
-            case 'today':
-         
-                $fromDate = $now->copy()->startOfDay();
-                $toDate = $now->copy()->endOfDay();
-                break;
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
 
-            case 'previous':
-        
-                $fromDate = $now->copy()->subMonths(3)->startOfDay();
-                $toDate = $now->copy()->endOfDay();
-                break;
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
 
-            default:
-         
-                $fromDate = $now->copy()->subMonths(3)->startOfDay();
-                $toDate = $now->copy()->addWeek()->endOfDay();
-                break;
-        }
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
 
 
-    $data = DB::table('make')
+    $query = DB::table('make')
         ->join('vehicles', 'vehicles.make_id', '=', 'make.id')
         ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
-        ->whereBetween('auctions.auction_date', [$fromDate, $toDate])
-        ->select([
+        ->whereBetween('auctions.auction_date', [$fromDate, $toDate]);
+
+
+    $query = $this->applyFilters($query, $request, ['make']);
+
+
+    $data = $query->select([
             'make.id',
             'make.name as label',
             DB::raw('COUNT(vehicles.id) as count'),
@@ -582,14 +544,21 @@ public function getMakes(Request $request)
         ->orderByDesc('count')
         ->get();
 
+
+    $usedFilters = collect($request->all())->filter(function ($value, $key) {
+        return $value !== null && $value !== '';
+    });
+
     return response()->json([
         'data' => $data,
+        'filters' => $usedFilters, 
         'range' => [
             'from' => $fromDate->toDateTimeString(),
             'to'   => $toDate->toDateTimeString(),
         ],
     ], 200);
 }
+
 
 
 
@@ -805,8 +774,367 @@ public function getMakes(Request $request)
             "data" => $data
         ],200);
     }
+public function getYears(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+ 
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = Vehicle::query()
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ])
+        ->whereNotNull('vehicles.year')
+        ->where('vehicles.year', '!=', '');
+
+  
+    $query = $this->applyFilters($query, $request, ['year']);
+
+    $data = $query->select('vehicles.year as label', \DB::raw('COUNT(*) as count'))
+        ->groupBy('vehicles.year')
+        ->orderByDesc('vehicles.year')
+        ->get();
+
+    return response()->json([
+        "data" => $data
+    ], 200);
+}
 
 
+
+public function getTransmissions(Request $request)
+{
+    
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+   
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = Vehicle::query()
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ])
+        ->whereNotNull('vehicles.transmission')
+        ->where('vehicles.transmission', '!=', '');
+
+   
+    $query = $this->applyFilters($query, $request, ['transmission']);
+
+    $data = $query->select('vehicles.transmission as label', \DB::raw('COUNT(*) as count'))
+        ->groupBy('vehicles.transmission')
+        ->orderByDesc('count')
+        ->get();
+
+    return response()->json([
+        "data" => $data,
+    ], 200);
+}
+
+
+public function getFuelType(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = Vehicle::query()
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ])
+        ->whereNotNull('vehicles.fuel_type')
+        ->where('vehicles.fuel_type', '!=', '');
+
+    // 🔹 Apply filters, ignore "fuel_type" itself
+    $query = $this->applyFilters($query, $request, ['fuel_type']);
+
+    $data = $query->select('vehicles.fuel_type as label', \DB::raw('COUNT(*) as count'))
+        ->groupBy('vehicles.fuel_type')
+        ->orderByDesc('count')
+        ->get();
+
+    return response()->json([
+        "data" => $data,
+    ], 200);
+}
+
+
+
+public function getBodyType(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = DB::table('body_types')
+        ->join('vehicles', 'vehicles.body_id', '=', 'body_types.id')
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ]);
+
+
+    $query = $this->applyFilters($query, $request, ['body']);
+
+    $data = $query->select(
+            'body_types.id',
+            'body_types.name as label',
+            DB::raw('COUNT(vehicles.id) as count')
+        )
+        ->groupBy('body_types.id', 'body_types.name')
+        ->orderBy('count', 'desc')
+        ->get();
+
+    return response()->json([
+        "data" => $data
+    ], 200);
+}
+
+public function getVehicleTypes(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = DB::table('vehicle_type')
+        ->join('vehicles', 'vehicles.vehicle_id', '=', 'vehicle_type.id')
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ]);
+
+    $query = $this->applyFilters($query, $request, ['type']);
+
+    $data = $query->select(
+            'vehicle_type.id',
+            'vehicle_type.name as label',
+            DB::raw('COUNT(vehicles.id) as count')
+        )
+        ->groupBy('vehicle_type.id','vehicle_type.name')
+        ->orderBy('count','desc')
+        ->get();
+
+    return response()->json([
+        "data" => $data
+    ], 200);
+}
+
+public function getAuctionHouse(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = AuctionPlatform::query()
+        ->join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
+        ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id')
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(), 
+            $toDate->toDateTimeString()
+        ]);
+
+
+    $query = $this->applyFilters($query, $request, ['auction_house']);
+
+    $data = $query->select(
+        'auction_platform.id',
+        'auction_platform.name as label',
+        \DB::raw('COUNT(vehicles.id) as vehicle_count')
+    )
+    ->groupBy('auction_platform.id', 'auction_platform.name')
+    ->orderBy('auction_platform.name', 'ASC')
+    ->get();
+
+    return response()->json(['data' => $data]);
+}
+
+
+public function getAuctionCenter(Request $request)
+{
+    $dateRange = $request->input('date', ['date' => 'previous']); 
+    $now = \Carbon\Carbon::now();
+
+    switch ($dateRange['date']) {
+        case 'upcoming':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+
+        case 'today':
+            $fromDate = $now->copy()->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        case 'previous':
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+            break;
+
+        default:
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->addWeek()->endOfDay();
+            break;
+    }
+
+    $query = AuctionCenter::query()
+        ->join('vehicles', 'vehicles.center_id', '=', 'auction_center.id')
+        ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id') 
+        ->whereBetween('auctions.auction_date', [
+            $fromDate->toDateTimeString(),
+            $toDate->toDateTimeString()
+        ]);
+
+
+    $query = $this->applyFilters($query, $request, ['auction_center']);
+
+    $data = $query->select(
+        'auction_center.id',
+        'auction_center.name as label',
+        \DB::raw('COUNT(vehicles.id) as vehicle_count')
+    )
+    ->groupBy('auction_center.id', 'auction_center.name')
+    ->orderBy('auction_center.name', 'ASC')
+    ->get();
+
+    return response()->json(['data' => $data]);
+}
 
 
 }

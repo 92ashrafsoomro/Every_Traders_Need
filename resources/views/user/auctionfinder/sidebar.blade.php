@@ -136,7 +136,7 @@
 </div>
 
 <!-- Color -->
-<div class="accordion-item  ">
+{{-- <div class="accordion-item  ">
    <h2 class="accordion-header">
       <button class="accordion-button collapsed py-2" type="button"
          data-bs-toggle="collapse" data-bs-target="#collapseVehiclecolor"
@@ -147,7 +147,7 @@
    <div id="collapseVehiclecolor" class="accordion-collapse collapse"
       data-bs-parent="#filterAccordion"></div>
    <div class="tags tags-color"></div>
-</div>
+</div> --}}
 
 
 

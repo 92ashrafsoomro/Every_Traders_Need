@@ -327,8 +327,8 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
             Route::get('/auction-finder/data/getEngineSize', [AuctionFinderDataController::class,'getEngineSize']);
             Route::get('/auction-finder/data/getFormerKeepers', [AuctionFinderDataController::class,'getFormerKeepers']);
             Route::get('/auction-finder/data/getNoOfservices', [AuctionFinderDataController::class,'getNoOfservices']);
-            Route::get('/auction-finder/data/getAuctionHouse', [AuctionFinderController::class, 'getAuctionHouse']);
-            Route::get('/auction-finder/data/getAuctionCenter', [AuctionFinderController::class, 'getAuctionCenter']);
+            Route::get('/auction-finder/data/getAuctionHouse', [AuctionFinderDataController::class, 'getAuctionHouse']);
+            Route::get('/auction-finder/data/getAuctionCenter', [AuctionFinderDataController::class, 'getAuctionCenter']);
 
             
         

@@ -94,6 +94,8 @@
                         </button>
                     @endforeach
                 </div>
+                <!-- ✅ Add this hidden input right after tabs -->
+                <input type="hidden" id="selectedDate" value="{{ $days[0]['date'] ?? '' }}">
             </div>
         </div>
         <div class="py-5">

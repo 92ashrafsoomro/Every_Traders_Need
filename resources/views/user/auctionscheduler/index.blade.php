@@ -13,7 +13,7 @@
             <div
                 class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
             </div>
-            <div class="relative z-10 px-4 max-w-7xl mx-auto pt-20">
+            <div class="relative z-10 container mx-auto pt-20">
                 <h1 class="text-5xl font-bold text-white mb-4 text-left">Auction Scheduler</h1>
                 <p class="text-lg text-gray-300 mx-auto text-left">
                     Manage and view platform auctions across all centers in one place.
@@ -21,10 +21,10 @@
             </div>
             <div class="fade show active" id="tab1">
 
-                <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-4 pb-4">
+                <div class="container mx-auto flex flex-wrap items-center gap-4 pb-4">
 
                     <!-- Platform -->
-                    <div class="w-full sm:w-auto">
+                    <div class="w-full sm:w-auto z-10">
                         <select id="selectedPlatform"
                             class="w-full text-white bg-[#1a2533] border border-[#2b3b4f] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">Select Platform</option>
@@ -35,7 +35,7 @@
                     </div>
 
                     <!-- Center -->
-                    <div class="w-full sm:w-auto">
+                    <div class="w-full sm:w-auto z-10">
                         <select id="selectedCenter"
                             class="w-full text-white bg-[#1a2533] border border-[#2b3b4f] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">Select Center</option>
@@ -46,7 +46,7 @@
                     </div>
 
                     <!-- Status Switch -->
-                    <div class="form-check form-switch w-full sm:w-auto flex items-center gap-2">
+                    <div class="form-check form-switch w-full sm:w-auto flex items-center gap-2 z-10">
                         <input class="form-check-input" type="checkbox" id="selectedStatus"
                             style="width: 2.3rem; height: 1.3rem; cursor: pointer;" />
                         <label class="form-check-label text-light" for="selectedStatus"
@@ -55,7 +55,7 @@
                         </label>
                     </div>
                 </div>
-                <div class=" max-w-7xl mx-auto flex items-center flex-wrap gap-5 overflow-x-auto overflow-y-hidden py-10">
+                <div class=" container mx-auto flex items-center flex-wrap gap-5 overflow-x-auto overflow-y-hidden py-10">
 
                     @foreach ($days as $index => $day)
                         <button class="custom-tab flex-fill rounded z-10 {{ $index === 0 ? 'active' : '' }}"
@@ -99,7 +99,7 @@
         <div class="py-5">
             <div class="tab-content my-4">
                 <div class="fade show active" id="tab1">
-                    <div class="max-w-7xl mx-auto bg-[#0f1c2c] h-full">
+                    <div class="container mx-auto bg-[#0f1c2c] h-full">
                         <div>
                             <div class="w-full">
                                 @if (session('success'))

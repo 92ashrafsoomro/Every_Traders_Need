@@ -24,27 +24,27 @@
             font-size: 0.85rem;
         }
 
-        .negative-margin {
-            margin-top: -13rem;
-        }
+        /* .negative-margin {
+                                            margin-top: -13rem;
+                                        }
 
-        @media (max-width: 1024px) {
-            .negative-margin {
-                margin-top: -5rem;
-            }
-        }
+                                        @media (max-width: 1024px) {
+                                            .negative-margin {
+                                                margin-top: -5rem;
+                                            }
+                                        }
 
-        @media (max-width: 425px) {
-            .negative-margin {
-                margin-top: -1rem;
-            }
-        }
+                                        @media (max-width: 425px) {
+                                            .negative-margin {
+                                                margin-top: -1rem;
+                                            }
+                                        } */
     </style>
 @endsection
 @section('content')
     @include('user.reauction.topfilters')
 
-    <div class="container-fluid container-p-y negative-margin">
+    <div class="container mx-auto py-10">
         <div class="row g-4">
             <div class="col-12">
 
@@ -56,11 +56,6 @@
                 @endif
 
                 <div class="card shadow-sm rounded-3 border">
-                    <div class="card-header pb-2">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <h4 class="mb-0 fw-semibold">Reauction Details</h4>
-                        </div>
-                    </div>
 
                     <div class="card-body">
 

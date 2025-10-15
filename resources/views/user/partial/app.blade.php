@@ -21,8 +21,8 @@
             color: white !important;
         }
 
-        .negative-margin {
-            margin-top: -7rem;
+        .negativemargin {
+            margin-top: -5rem;
         }
     </style>
 
@@ -50,7 +50,7 @@
                 <ul class="menu-inner py-1">
                     @include('user.partial.menu')
                 </ul>
-                <li class="menu-item negative-margin">
+                <li class="menu-item negativemargin">
                     <div style="margin: 0px 15px;border-bottom: 1px solid var(--bs-border-color);padding-bottom: 9px;padding-top: 16px; font-size: var(--font-p2)"
                         data-i18n="Profile">Profile </div>
                 </li>

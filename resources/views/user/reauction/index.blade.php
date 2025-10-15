@@ -4,259 +4,146 @@
 @endpush
 @section('css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-
     <style>
-        .dataTables_length {
-            display: none !important;
+        .dropdown-menu {
+            max-height: 300px;
+            overflow-y: auto;
         }
 
-        .table {
-            width: 100% !important;
+        .form-label {
+            font-weight: 500;
         }
 
-        .dataTables_info {
-            /* display: inline!important; */
+        .table thead th {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        .datatables-products th {
-            text-align: center;
+        .table tbody td {
+            font-size: 0.85rem;
         }
 
-        .datatables-products td {
-            text-align: center;
-        }
+        /* .negative-margin {
+                                                margin-top: -13rem;
+                                            }
 
-        .table-responsive {
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-        }
+                                            @media (max-width: 1024px) {
+                                                .negative-margin {
+                                                    margin-top: -5rem;
+                                                }
+                                            }
 
-
-     
-    </style>
-
-    {{-- Top bar Css --}}
-    <style>
-        .stats-card {
-            background: #570303;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 10px
-        }
-
-        .stats-number {
-
-            margin: 0;
-        }
-
-        .stats-label {
-            /* font-size: 0.9rem; */
-            opacity: 0.9;
-            margin: 0;
-        }
-
-        .platform-info {
-
-            border-radius: var(--btn-border-radis);
-            padding: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-
-        .platform-details {
-            font-size: var(--font-p2);
-            opacity: 0.8;
-            line-height: 1.4;
-        }
-
-
-
-        .badge-box {
-            display: inline-block;
-            padding: 4px 10px;
-            margin-left: 6px;
-            font-size: var(--font-p2);
-            ;
-            color: #fff;
-            background-color: rgba(253, 5, 5, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--btn-border-radis);
-        }
-
-        .platform-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            overflow: hidden;
-            height: 20px;
-        }
-
-        .platform-badge {
-            padding: 1px 16px;
-            border-radius: var(--btn-border-radis);
-            color: white;
-            border: 1px solid #570303;
-            transition: all 0.3s ease;
-            border-radius: var(--btn-border-radis);
-            font-size: var(--font-p3)
-        }
-
-        .platform-badge.active {
-            border: 2px solid #570303;
-            color: white;
-            background-color: #570303;
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
-        }
-
-        .platform-badges:hover {
-            min-width: auto;
-            height: auto;
-            overflow: inherit;
-        }
-
-        .platefrom_mar {
-            margin-top: 9px;
-        }
-
-
-        .costome-table-chagefont .costome-table-childchagefont th {
-            font-size: var(--font-p1);
-            color: var(--bs-heading-color);
-            border: none;
-        }
-
-        .costome-table-childchagefont tr td {
-            font-size: var(--font-p1);
-            color: var(--bs-heading-color);
-            border: none;
-
-        }
-
-        .costome-table-childchagefont tr {
-
-            border: none;
-
-        }
-
-        .costome-table-childchagefont tr td .PreviousBtnRec {
-            border-radius: var(--btn-border-radis)
-        }
-
-        .table-responsive .table-bordered tbody tr:hover {
-            background: var(--new-bs-bg);
-            cursor: pointer;
-        }
-
-        @media only screen and (max-width: 576px) {
-
-            .inner-tag {
-                flex-direction: column;
-                gap: 2px;
-                margin-top: 5px;
-            }
-
-            .platefrom_mar {
-                margin-top: 0px;
-            }
-
-        }
+                                            @media (max-width: 425px) {
+                                                .negative-margin {
+                                                    margin-top: -1rem;
+                                                }
+                                            } */
     </style>
 @endsection
 @section('content')
     @include('user.reauction.topfilters')
 
-    <div class="container-fluid container-p-y">
-        <div class="row g-6">
-            <div class="col-md-12">
+    <div class="container mx-auto py-10">
+        <div class="row g-4">
+            <div class="col-12">
 
                 @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 @endif
 
-                <div class="card">
+                <div class="card shadow-sm rounded-3 border">
 
+                    <div class="card-body">
 
-                    <div class="card-header">
-                        <div class="container-fluid">
-                                <!-- Header -->
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <h4 class="card-title">Reauction Details</h4>
-                                    </div>
-                                </div>
+                        <!-- Filters -->
+                        <div class="row g-3 align-items-end mb-4">
 
-                                <!-- Filters Section -->
-                                <div class="row align-items-center mb-3">
-                                    <!-- Page Length Selector -->
-                                    <div class="col-md-8 d-flex align-items-center">
-                                        <select id="pageLength" class="form-select me-2" style="max-width: 120px;">
-                                            <option value="10">10</option>
-                                            <option value="100">100</option>
-                                            <option value="200">200</option>
-                                            <option value="500">500</option>
-                                        </select>
-                                        <span class="pageinfo">0</span>
-                                    </div>
-
-                                    <!-- Auction Selector + Search + Interest -->
-                                    <div class="col-md-4 d-flex justify-content-end gap-2">
-                                        <!-- Auction Selector -->
-                                        <select id="auctionSelector" class="form-select" style="min-width: 250px;">
-                                            <option value="">Select Auction Date</option>
-                                        </select>
-
-                                        <!-- Search by Registration -->
-                                        <input type="text" name="search" class="form-control" placeholder="Search by Reg" style="min-width: 180px;" />
-
-                                        <!-- Interest Dropdown -->
-                                        <div class="dropdown">
-                                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="interestDropdownBtn"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Select Interest
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="interestDropdownBtn" id="interestDropdown">
-                                                <li>
-                                                    <a class="dropdown-item" data-id="">Select Interest</a>
-                                                </li>
-                                                @forelse($interests as $interest)
-                                                    <li>
-                                                        <a class="dropdown-item" href="#" data-id="{{ $interest->id }}">
-                                                            {{ $interest->title }}
-                                                        </a>
-                                                    </li>
-                                                @empty
-                                                    <li><span class="dropdown-item text-muted">No interests found</span></li>
-                                                @endforelse
-                                            </ul>
-                                            <input type="hidden" id="selected_interest_id" value="">
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- Page Length -->
+                            <div class="col-md-2">
+                                <label for="pageLength" class="form-label">Rows per page</label>
+                                <select id="pageLength" class="form-select">
+                                    <option value="10">10</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                </select>
                             </div>
 
+                            <!-- Auction Selector -->
+                            <div class="col-md-3">
+                                <label for="auctionSelector" class="form-label">Auction Date</label>
+                                <select id="auctionSelector" class="form-select">
+                                    <option value="">Select Auction Date</option>
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
 
-                        <div class="pt-5 table-responsive text-nowrap">
-                            <table id="blogTable" class="table table-bordered">
-                                <thead class="costome-table-chagefont">
-                                    <tr class="costome-table-childchagefont">
+                            <!-- Search Input -->
+                            <div class="col-md-3">
+                                <label for="search" class="form-label">Search by Reg</label>
+                                <input type="text" name="search" class="form-control" placeholder="Enter registration">
+                            </div>
+
+                            <!-- Interest Dropdown -->
+                            <div class="col-md-4">
+                                <label class="form-label d-block">Select Interest</label>
+                                <div class="dropdown w-100">
+                                    <button class="btn btn-outline-primary dropdown-toggle w-100 text-start" type="button"
+                                        id="interestDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select Interest
+                                    </button>
+                                    <ul class="dropdown-menu w-100" aria-labelledby="interestDropdownBtn"
+                                        id="interestDropdown">
+                                        <li><a class="dropdown-item" data-id="">Select Interest</a></li>
+                                        @forelse($interests as $interest)
+                                            <li>
+                                                <a class="dropdown-item" href="#" data-id="{{ $interest->id }}">
+                                                    {{ $interest->title }}
+                                                </a>
+                                            </li>
+                                        @empty
+                                            <li><span class="dropdown-item text-muted">No interests found</span></li>
+                                        @endforelse
+                                    </ul>
+                                    <input type="hidden" id="selected_interest_id" value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page Info -->
+                        <div class="mb-3">
+                            <span class="text-muted small">Showing <span class="pageinfo fw-semibold">0</span>
+                                entries</span>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="table-responsive">
+                            <table id="blogTable" class="table table-bordered table-hover align-middle">
+                                <thead class="">
+                                    <tr>
                                         <th>Vehicle</th>
                                         <th>Reg</th>
                                         <th>Previous</th>
                                         <th>Platform</th>
                                         <th>Center</th>
-                                        <th>Cap clean</th>
+                                        <th>Cap Clean</th>
                                         <th>Cap Avg</th>
                                         <th>Status</th>
                                         <th>Time</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-border-bottom-0 costome-table-childchagefont"></tbody>
+                                <tbody class="text-nowrap">
+                                    <!-- Dynamically populated -->
+                                </tbody>
                             </table>
                         </div>
 
-
+                        <!-- Previous Popup -->
                         @include('user.reauction.previouspopup')
                     </div>
                 </div>
@@ -267,139 +154,144 @@
 
 @section('js')
     <script>
-$(document).ready(function() {
+        $(document).ready(function() {
 
-    // Get today's date in Y-m-d
-    function getTodayDate() {
-        let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}`;
-    }
-
-    // Initialize default filter
-    let defaultDate = getTodayDate();
-    $('#auctionSelector').val(defaultDate).trigger('change');
-
-    let table = $('#blogTable').DataTable({
-        processing: true,
-        ordering: false,
-        serverSide: true,
-        ajax: {
-            url: "{{ url('/reauction') }}",
-            data: function(d) {
-                d.inprogress_check = $('#inprogress_check').is(':checked') ? 1 : 0;
-                d.interest_id = $('#selected_interest_id').val();
-                d.auction_date = $('#auctionSelector').val(); // date filter
-            },
-            dataSrc: function(json) {
-                updatePlatformCenterUI(json.platforms, json.centers, json.recordsTotal);
-                return json.data;
-            }
-        }
-    });
-
-
-    table.on('draw.dt', function() {
-        var info = table.page.info();
-        $('.pageinfo').html(`Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`);
-    });
-
-
-    $("input[name='search']").on('keyup change', function() {
-        table.search(this.value).draw();
-    });
-
-
-    $("select[name='length']").on('change', function() {
-        table.page.len($(this).val()).draw();
-    }).trigger('change');
-
-
-    $('#inprogress_check').on('change', function() { table.ajax.reload(); });
-
-
-    $('#interestDropdown').on('click', '.dropdown-item', function(e) {
-        e.preventDefault();
-        $('#selected_interest_id').val($(this).data('id'));
-        $('#dropdownMenuButton').text($(this).text());
-        table.ajax.reload();
-    });
-
-
-    $('#auctionSelector').on('change', function() {
-        table.ajax.reload();
-    });
-
-
-function updatePlatformCenterUI(platforms, centers, recordsTotal) {
-    const platformContainer = $('.platforms-container');
-    const centerContainer = $('.centers-container');
-    const vehicleCountToday = $('#vehicleCountToday');
-
-
-    platformContainer.empty();
-    centerContainer.empty();
-    vehicleCountToday.text(recordsTotal || 0);
-
-
-    if(platforms?.length) {
-        $.each(platforms, function(i, p){
-            platformContainer.append(`<span class="platform-badge">${p}</span>`);
-        });
-    } else {
-        platformContainer.append(`<span style="color: gray;">No Platforms</span>`);
-    }
-
-
-    if(centers?.length) {
-        $.each(centers, function(i, c){
-            centerContainer.append(`<span class="center-badge" style="font-size: var(--font-p3); color: var(--dimtext)">${c}</span>`);
-        });
-    } else {
-        centerContainer.append(`<span style="color: gray;">No Centers</span>`);
-    }
-}
-
-
-});
-
-
-
-
-
-
-
-$(document).on('click', '.PreviousBtnRec', function() {
-    let reg = $(this).data('ref');
-    if (!reg) return;
-
-    let isUpcoming = $('#Upcoming').is(':checked') ? 1 : 0;
-
-    $.ajax({
-        url: '{{ route('reauctioninfo') }}',
-        method: 'POST',
-        data: {
-            reg: reg,
-            upcoming: isUpcoming, 
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            if (response.length === 0) {
-                $('#vehicleModalTableBody').html(
-                    '<tr><td colspan="6">No data found.</td></tr>');
-                return;
+            // Get today's date in Y-m-d
+            function getTodayDate() {
+                let today = new Date();
+                let yyyy = today.getFullYear();
+                let mm = String(today.getMonth() + 1).padStart(2, '0');
+                let dd = String(today.getDate()).padStart(2, '0');
+                return `${yyyy}-${mm}-${dd}`;
             }
 
-            $('.vehicleName').html(
-                response[0].name + ' - ' + response[0].variant + ' - ' +
-                '<small class="text-danger" style="font-size: 80%;">' + reg + '</small>'
-            );
+            // Initialize default filter
+            let defaultDate = getTodayDate();
+            $('#auctionSelector').val(defaultDate).trigger('change');
 
-            $('#vehicleModalTableBody').empty();
-            response.forEach(function(item) {
-                let row = `
+            let table = $('#blogTable').DataTable({
+                processing: false,
+                ordering: false,
+                serverSide: true,
+                ajax: {
+                    url: "{{ url('/reauction') }}",
+                    data: function(d) {
+                        d.inprogress_check = $('#inprogress_check').is(':checked') ? 1 : 0;
+                        d.interest_id = $('#selected_interest_id').val();
+                        d.auction_date = $('#auctionSelector').val(); // date filter
+                    },
+                    dataSrc: function(json) {
+                        updatePlatformCenterUI(json.platforms, json.centers, json.recordsTotal);
+                        return json.data;
+                    }
+                }
+            });
+
+
+            table.on('draw.dt', function() {
+                var info = table.page.info();
+                $('.pageinfo').html(
+                    `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`);
+            });
+
+
+            $("input[name='search']").on('keyup change', function() {
+                table.search(this.value).draw();
+            });
+
+
+            $("select[name='length']").on('change', function() {
+                table.page.len($(this).val()).draw();
+            }).trigger('change');
+
+
+            $('#inprogress_check').on('change', function() {
+                table.ajax.reload();
+            });
+
+
+            $('#interestDropdown').on('click', '.dropdown-item', function(e) {
+                e.preventDefault();
+                $('#selected_interest_id').val($(this).data('id'));
+                $('#dropdownMenuButton').text($(this).text());
+                table.ajax.reload();
+            });
+
+
+            $('#auctionSelector').on('change', function() {
+                table.ajax.reload();
+            });
+
+
+            function updatePlatformCenterUI(platforms, centers, recordsTotal) {
+                const platformContainer = $('.platforms-container');
+                const centerContainer = $('.centers-container');
+                const vehicleCountToday = $('#vehicleCountToday');
+
+
+                platformContainer.empty();
+                centerContainer.empty();
+                vehicleCountToday.text(recordsTotal || 0);
+
+
+                if (platforms?.length) {
+                    $.each(platforms, function(i, p) {
+                        platformContainer.append(`<span class="platform-badge">${p}</span>`);
+                    });
+                } else {
+                    platformContainer.append(`<span style="color: gray;">No Platforms</span>`);
+                }
+
+
+                if (centers?.length) {
+                    $.each(centers, function(i, c) {
+                        centerContainer.append(
+                            `<span class="center-badge" style="font-size: var(--font-p3); color: var(--dimtext)">${c}</span>`
+                        );
+                    });
+                } else {
+                    centerContainer.append(`<span style="color: gray;">No Centers</span>`);
+                }
+            }
+
+
+        });
+
+
+
+
+
+
+
+        $(document).on('click', '.PreviousBtnRec', function() {
+            let reg = $(this).data('ref');
+            if (!reg) return;
+
+            let isUpcoming = $('#Upcoming').is(':checked') ? 1 : 0;
+
+            $.ajax({
+                url: '{{ route('reauctioninfo') }}',
+                method: 'POST',
+                data: {
+                    reg: reg,
+                    upcoming: isUpcoming,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.length === 0) {
+                        $('#vehicleModalTableBody').html(
+                            '<tr><td colspan="6">No data found.</td></tr>');
+                        return;
+                    }
+
+                    $('.vehicleName').html(
+                        response[0].name + ' - ' + response[0].variant + ' - ' +
+                        '<small class="text-danger" style="font-size: 80%;">' + reg + '</small>'
+                    );
+
+                    $('#vehicleModalTableBody').empty();
+                    response.forEach(function(item) {
+                        let row = `
                     <tr>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.platform}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.center}</td>
@@ -409,18 +301,18 @@ $(document).on('click', '.PreviousBtnRec', function() {
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.difference}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.time}</td>
                     </tr>`;
-                $('#vehicleModalTableBody').append(row);
-            });
+                        $('#vehicleModalTableBody').append(row);
+                    });
 
-            $('#vehicleModal').modal('show');
-        },
-        error: function() {
-            $('#vehicleModalTableBody').html(
-                '<tr><td colspan="6">Failed to load data.</td></tr>');
-            $('#vehicleModal').modal('show');
-        }
-    });
-});
+                    $('#vehicleModal').modal('show');
+                },
+                error: function() {
+                    $('#vehicleModalTableBody').html(
+                        '<tr><td colspan="6">Failed to load data.</td></tr>');
+                    $('#vehicleModal').modal('show');
+                }
+            });
+        });
 
 
 
@@ -460,34 +352,34 @@ $(document).on('click', '.PreviousBtnRec', function() {
 
         //                 interests.forEach(function(interest) {
         //                     html += `
-        //             <div class="col-auto" style="width: 22%;">
-        //                 <div class="card h-100" style="border-bottom: 4px solid var(--bs-primary)!important;">
-        //                     <div class="card-body pb-1 text-start">
-        //                         <div class="d-flex align-items-start mb-2">
-        //                             <div class="dot-box"
-        //                                 style="width: 40px;height: 40px; background-color: #003164; border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-right: 10px;">
-        //                                 <div class="dot"
-        //                                     style="width: 30px; height: 30px; background-color: #0d6efd; border-radius: 50%;">
-        //                                 </div>
-        //                             </div>
-        //                             <h4 class="mb-0 ms-2">
-        //                                 <span class="auction-count">${interest.matched_reauction_cars}</span>
-        //                             </h4>
-        //                         </div>
-        //                         <p class="text-start mb-1 total_auctions">${interest.title}</p>
-        //                         <p class="mb-0 text-start">
-        //                             <label class="d-flex align-items-center cursor-pointer mb-2">
-        //                                 <input type="checkbox" 
-        //                                        class="secondary-toggle me-2" 
-        //                                        data-id="${interest.interest_id}"
-        //                                        ${interestId == interest.interest_id ? 'checked' : ''}>
-        //                                 <small style="font-size:var(--font-p2)">Include Secondary</small>
-        //                             </label>
-        //                         </p>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //             `;
+    //             <div class="col-auto" style="width: 22%;">
+    //                 <div class="card h-100" style="border-bottom: 4px solid var(--bs-primary)!important;">
+    //                     <div class="card-body pb-1 text-start">
+    //                         <div class="d-flex align-items-start mb-2">
+    //                             <div class="dot-box"
+    //                                 style="width: 40px;height: 40px; background-color: #003164; border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-right: 10px;">
+    //                                 <div class="dot"
+    //                                     style="width: 30px; height: 30px; background-color: #0d6efd; border-radius: 50%;">
+    //                                 </div>
+    //                             </div>
+    //                             <h4 class="mb-0 ms-2">
+    //                                 <span class="auction-count">${interest.matched_reauction_cars}</span>
+    //                             </h4>
+    //                         </div>
+    //                         <p class="text-start mb-1 total_auctions">${interest.title}</p>
+    //                         <p class="mb-0 text-start">
+    //                             <label class="d-flex align-items-center cursor-pointer mb-2">
+    //                                 <input type="checkbox" 
+    //                                        class="secondary-toggle me-2" 
+    //                                        data-id="${interest.interest_id}"
+    //                                        ${interestId == interest.interest_id ? 'checked' : ''}>
+    //                                 <small style="font-size:var(--font-p2)">Include Secondary</small>
+    //                             </label>
+    //                         </p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             `;
         //                 });
 
         //                 $('#scrollableRow').html(html);
@@ -548,65 +440,56 @@ $(document).on('click', '.PreviousBtnRec', function() {
     </script>
 
     <script>
-$(document).ready(function () {
+        $(document).ready(function() {
 
-    // Initialize Select2
-    $('#auctionSelector').select2({
-        placeholder: 'Select Auction Date',
-        allowClear: true,
-        width: '100%'
-    });
-
-    $.ajax({
-        url: "{{ url('get-reauction-stats') }}",
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            let dropdown = $('#auctionSelector');
-            dropdown.empty();
-            dropdown.append('<option value="">Select Auction Date</option>');
-
-            let today = new Date();
-            let tomorrow = new Date();
-            tomorrow.setDate(today.getDate() + 1);
-
-            $.each(response, function (index, item) {
-             
-                let parts = item.auction_date.split('-');
-                let auctionDate = new Date(parts[0], parts[1] - 1, parts[2]);
-
-                let label = '';
-                if (auctionDate.toDateString() === today.toDateString()) {
-                    label = 'Today';
-                } else if (auctionDate.toDateString() === tomorrow.toDateString()) {
-                    label = 'Tomorrow';
-                } else {
-                    label = auctionDate.toLocaleDateString('en-US', { weekday: 'long' });
-                }
-
-                let optionText = `${label} ( ${item.reauction_count} )`;
-                dropdown.append(`<option value="${item.auction_date}">${optionText}</option>`);
+            // Initialize Select2
+            $('#auctionSelector').select2({
+                placeholder: 'Select Auction Date',
+                allowClear: true,
+                width: '100%'
             });
 
-            // Reinitialize Select2 after data load
-            dropdown.trigger('change.select2');
-        },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-        }
-    });
-});
+            $.ajax({
+                url: "{{ url('get-reauction-stats') }}",
+                type: "GET",
+                dataType: "json",
+                success: function(response) {
+                    let dropdown = $('#auctionSelector');
+                    dropdown.empty();
+                    dropdown.append('<option value="">Select Auction Date</option>');
 
+                    let today = new Date();
+                    let tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
 
+                    $.each(response, function(index, item) {
 
+                        let parts = item.auction_date.split('-');
+                        let auctionDate = new Date(parts[0], parts[1] - 1, parts[2]);
 
+                        let label = '';
+                        if (auctionDate.toDateString() === today.toDateString()) {
+                            label = 'Today';
+                        } else if (auctionDate.toDateString() === tomorrow.toDateString()) {
+                            label = 'Tomorrow';
+                        } else {
+                            label = auctionDate.toLocaleDateString('en-US', {
+                                weekday: 'long'
+                            });
+                        }
 
+                        let optionText = `${label} ( ${item.reauction_count} )`;
+                        dropdown.append(
+                            `<option value="${item.auction_date}">${optionText}</option>`);
+                    });
 
-
-
-
-
-
-
+                    // Reinitialize Select2 after data load
+                    dropdown.trigger('change.select2');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
     </script>
 @endsection

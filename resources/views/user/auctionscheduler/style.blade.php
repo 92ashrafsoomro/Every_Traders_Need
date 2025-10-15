@@ -130,11 +130,6 @@
             font-weight: 500;
         }
 
-        /* .custom-tab:hover {
-            background-color: #64748b;
-            color: white;
-        } */
-
 
 
         .tab-content-area {

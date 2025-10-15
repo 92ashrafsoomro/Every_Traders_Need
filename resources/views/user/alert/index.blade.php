@@ -17,6 +17,7 @@
 
             --radius: 10px;
         }
+
         .acsi-theme .card,
         .acsi-theme .table-wrap {
             background: var(--acsi-surface);
@@ -24,10 +25,12 @@
             border-radius: var(--radius);
             transition: all 0.3s ease;
         }
+
         .acsi-theme .label-muted {
             color: var(--acsi-muted);
             font-size: 0.875rem;
         }
+
         .acsi-theme .nav-pills .nav-link {
             color: var(--acsi-muted);
             background: transparent;
@@ -46,6 +49,7 @@
             color: var(--acsi-accent);
             border-radius: 0;
         }
+
         .acsi-theme .nav-pills .nav-link.active::after {
             content: "";
             position: absolute;
@@ -57,6 +61,7 @@
             border-radius: 2px;
             transition: all 0.3s ease;
         }
+
         .acsi-theme .form-select,
         .acsi-theme .form-control {
             color: var(--acsi-foreground);
@@ -93,10 +98,12 @@
         .acsi-theme tbody tr:hover {
             background: rgba(255, 255, 255, 0.05);
         }
+
         .acsi-theme .cell-muted {
             color: var(--acsi-muted);
             font-size: .8125rem;
         }
+
         .acsi-theme .cell-price a,
         .acsi-theme .link-accent {
             color: var(--acsi-accent);
@@ -109,6 +116,7 @@
         .acsi-theme .cell-price a:hover {
             text-decoration: underline;
         }
+
         .acsi-theme .chip {
             display: inline-block;
             padding: 0.125rem 0.5rem;
@@ -132,6 +140,7 @@
             background: rgba(255, 77, 79, .08);
             color: var(--acsi-danger);
         }
+
         .acsi-theme .thumb {
             width: 48px;
             height: 36px;
@@ -145,6 +154,7 @@
             transform: scale(1.05);
             border-color: var(--acsi-accent);
         }
+
         .acsi-theme .soft-sep {
             border-top: 1px solid var(--acsi-border);
         }
@@ -152,6 +162,7 @@
         .acsi-theme .fit {
             white-space: nowrap;
         }
+
         .expandable-row {
             position: relative;
             transition: all 0.3s ease;
@@ -173,86 +184,91 @@
         }
 
         .modal-backdrop.show {
-        opacity: 1 !important;
-        background: var(--acsi-backdrop) !important;
-        backdrop-filter: blur(8px) saturate(120%);
+            opacity: 1 !important;
+            background: var(--acsi-backdrop) !important;
+            backdrop-filter: blur(8px) saturate(120%);
         }
 
         .modal-dialog {
-        margin: 1.25rem auto;
+            margin: 1.25rem auto;
         }
 
         .modal-content {
-        background: transparent !important;
-        border: 0 !important;
-        box-shadow: none !important;
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
         }
+
         .close-btn-custom {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--acsi-surface);
-        color: var(--acsi-foreground);
-        border: 1px solid var(--acsi-border);
-        box-shadow: var(--acsi-shadow);
-        transition: all 160ms ease;
-        font-size: 1.1rem;
-        z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--acsi-surface);
+            color: var(--acsi-foreground);
+            border: 1px solid var(--acsi-border);
+            box-shadow: var(--acsi-shadow);
+            transition: all 160ms ease;
+            font-size: 1.1rem;
+            z-index: 10;
         }
+
         .close-btn-custom:hover,
         .close-btn-custom:focus {
-        background: var(--acsi-accent);
-        color: var(--acsi-accent-ink);
-        transform: rotate(90deg) scale(1.1);
-        box-shadow: 0 10px 26px rgba(0, 128, 255, 0.35);
+            background: var(--acsi-accent);
+            color: var(--acsi-accent-ink);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 10px 26px rgba(0, 128, 255, 0.35);
         }
+
         .close-btn-custom:active {
-        transform: scale(0.95);
+            transform: scale(0.95);
         }
 
 
         #previewImage {
-        border-radius: calc(var(--acsi-radius) + 0.25rem);
-        border: 1px solid var(--acsi-border);
-        box-shadow: var(--acsi-shadow);
-        background: rgba(0, 0, 0, 0.2);
+            border-radius: calc(var(--acsi-radius) + 0.25rem);
+            border: 1px solid var(--acsi-border);
+            box-shadow: var(--acsi-shadow);
+            background: rgba(0, 0, 0, 0.2);
         }
 
 
         .nav-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 9999px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--acsi-surface);
-        color: var(--acsi-foreground);
-        border: 1px solid var(--acsi-border);
-        box-shadow: var(--acsi-shadow);
-        transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--acsi-surface);
+            color: var(--acsi-foreground);
+            border: 1px solid var(--acsi-border);
+            box-shadow: var(--acsi-shadow);
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
         }
+
         .nav-btn:hover,
         .nav-btn:focus {
-        background: var(--acsi-accent);
-        color: var(--acsi-accent-ink);
-        transform: translateY(-1px);
-        box-shadow: 0 12px 28px rgba(0, 128, 255, 0.35);
+            background: var(--acsi-accent);
+            color: var(--acsi-accent-ink);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(0, 128, 255, 0.35);
         }
+
         .nav-btn:active {
-        transform: translateY(0);
+            transform: translateY(0);
         }
 
         .modal-caption {
-        color: var(--acsi-muted);
-        font-size: 0.95rem;
+            color: var(--acsi-muted);
+            font-size: 0.95rem;
         }
 
         .modal-body {
-        position: relative;
+            position: relative;
         }
 
         @keyframes expandFade {
@@ -265,6 +281,10 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        #auction-table {
+            border-radius: 90px !important;
         }
     </style>
 @endsection
@@ -290,8 +310,9 @@
 
 
 
-            <div class="d-flex justify-content-between align-items-center mb-2 mt-10">
-               <div class="d-flex align-items-center gap-2">
+            <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-2 mt-10">
+                <div class="d-flex align-items-center gap-2">
                     <span class="label-muted">Show Entries</span>
                     <select class="form-select entries-length" style="width: 90px;">
                         <option value="50">50</option>
@@ -304,33 +325,36 @@
 
 
 
-                <div class="d-flex gap-2 align-items-center">
-                  
+                <div class="d-flex flex-md-row flex-column gap-2 align-items-md-center">
+
+
                     <div style="position: relative;width:190px;">
-                        <input type="text" id="reg_search" class="form-control form-control-sm" placeholder="Search by Reg Number" 
+                        <input type="text" id="reg_search" class="form-control form-control-sm"
+                            placeholder="Search by Reg Number"
                             style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; width: 193px; padding-top: 6px;padding-bottom: 6px;">
                         <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
                             <i class="fas fa-search"></i>
                         </span>
                     </div>
 
-           
+
                     <select id="make1" class="form-select form-select-sm select2-filter" style="width: 160px;">
                         <option value="">Select Make</option>
                     </select>
 
-    
+
                     <select id="model1" class="form-select form-select-sm select2-filter" style="width: 160px;" disabled>
                         <option value="">Select Model</option>
                     </select>
 
-              
+
                     <select id="year1" class="form-select year select2-filter" style="width: 110px;">
                         <option value="">All Years</option>
                         @foreach ($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
                         @endforeach
                     </select>
+
                 </div>
 
 
@@ -343,7 +367,7 @@
 
 
 
-        <div class="tab-content">
+        <div class="tab-content" style="padding: 0px;">
             <!-- Watchlist Table -->
             <section class="tab-pane fade show active card p-0 overflow-hidden" id="watchlist" role="tabpanel"
                 aria-labelledby="watchlist-tab">
@@ -397,77 +421,48 @@
 
     </main>
 
-<div
-  class="modal fade"
-  id="imagePreviewModal"
-  tabindex="-1"
-  aria-hidden="true"
-  aria-modal="true"
-  role="dialog"
-  aria-labelledby="imagePreviewTitle"
->
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog"
+        aria-labelledby="imagePreviewTitle">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
 
-      <h2 id="imagePreviewTitle" class="visually-hidden">Image Preview</h2>
+                <h2 id="imagePreviewTitle" class="visually-hidden">Image Preview</h2>
 
-      <!-- 🔹 Improved Close Button -->
-      <button
-        type="button"
-        class="close-btn-custom position-absolute top-0 end-0 m-3"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        title="Close preview"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+                <!-- 🔹 Improved Close Button -->
+                <button type="button" class="close-btn-custom position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                    aria-label="Close" title="Close preview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
 
-      <div class="modal-body text-center">
-        <img
-          id="previewImage"
-          src="/placeholder.svg"
-          class="img-fluid"
-          alt="Preview"
-          style="max-height:80vh; object-fit:contain;"
-        />
+                <div class="modal-body text-center">
+                    <img id="previewImage" src="/placeholder.svg" class="img-fluid" alt="Preview"
+                        style="max-height:80vh; object-fit:contain;" />
 
-        <!-- 🔹 Prev Button -->
-        <button
-          class="nav-btn position-absolute top-50 start-0 translate-middle-y prev-img"
-          type="button"
-          aria-label="Previous image"
-          title="Previous"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-          </svg>
-        </button>
+                    <!-- 🔹 Prev Button -->
+                    <button class="nav-btn position-absolute top-50 start-0 translate-middle-y prev-img" type="button"
+                        aria-label="Previous image" title="Previous">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        </svg>
+                    </button>
 
-        <!-- 🔹 Next Button -->
-        <button
-          class="nav-btn position-absolute top-50 end-0 translate-middle-y next-img"
-          type="button"
-          aria-label="Next image"
-          title="Next"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-          </svg>
-        </button>
+                    <!-- 🔹 Next Button -->
+                    <button class="nav-btn position-absolute top-50 end-0 translate-middle-y next-img" type="button"
+                        aria-label="Next image" title="Next">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+                        </svg>
+                    </button>
 
-        <div class="modal-caption mt-3"></div>
-      </div>
+                    <div class="modal-caption mt-3"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
 @endsection
 @section('js')
-@include('user.alert.script')
-<script>
-
-
-
+    @include('user.alert.script')
+    <script>
         $('#auction-table, .alert-table').on('mouseenter', '.expandable-row', function() {
             $(this).addClass('expanded');
         });
@@ -479,9 +474,9 @@
 
         $(document).ready(function() {
 
-          
 
-   
+
+
             function formatDateTime(dateStr) {
                 if (!dateStr) return '';
                 const d = new Date(dateStr);
@@ -560,15 +555,19 @@
                         model: $('#model1').val(),
                         year: $('.year').val(),
                         reg_search: $('#reg_search').val(),
-                        length: length 
+                        length: length
                     },
                     success: function(res) {
                         let auctionTbody = $('#auction-table tbody').empty();
                         let alertTbody = $('#alert-table tbody').empty();
 
                         if (res.auctionData.length === 0 && res.recentData.length === 0) {
-                            auctionTbody.append('<tr><td colspan="10" class="text-center">No vehicles found</td></tr>');
-                            alertTbody.append('<tr><td colspan="10" class="text-center">No vehicles found</td></tr>');
+                            auctionTbody.append(
+                                '<tr><td colspan="10" class="text-center">No vehicles found</td></tr>'
+                            );
+                            alertTbody.append(
+                                '<tr><td colspan="10" class="text-center">No vehicles found</td></tr>'
+                            );
                             $('#entryCount').text('No entries found');
                             return;
                         }
@@ -576,9 +575,10 @@
                         res.recentData.forEach(a => auctionTbody.append(renderRow(a)));
                         res.auctionData.forEach(a => alertTbody.append(renderRow(a, true)));
 
-                
+
                         let activeTab = $('.tab-pane.active').attr('id');
-                        let count = activeTab === 'watchlist' ? res.recentData.length : res.auctionData.length;
+                        let count = activeTab === 'watchlist' ? res.recentData.length : res.auctionData
+                            .length;
                         const selectedLength = $('.entries-length').val();
 
                         $('#entryCount').text(`Showing ${count} of ${selectedLength} entries`);
@@ -644,10 +644,5 @@
             });
 
         });
-
-
-
-
-
     </script>
 @endsection

@@ -1,5 +1,5 @@
     <header id="siteNav" class="sticky top-0 z-40 transition-all duration-300 bg-[#000f21] border-b border-[#353F4C]">
-        <nav class="container h-14  mx-auto flex items-center justify-between">
+        <nav class="container h-14  mx-auto flex items-center justify-between px-5 lg:px-0">
 
             <!-- Logo -->
             <div>
@@ -213,30 +213,30 @@
                             style="font-size: var(--font-p2); color: var(--nave-text-color)">My
                             Account</a> -->
 
-  
-                                @auth
-                        <!-- Agar user login hai -->
-                        <div class="flex items-center gap-2">
-                            <a href="{{ url('/dashboard') }}" 
-                            class="text-white rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
-                                Account
-                            </a>
 
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" 
-                                        class="text-white bg-red-600 hover:bg-red-700 rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    @else
-                        <!-- Agar user login nahi hai -->
-                        <a href="{{ url('/login') }}" 
-                        class="text-white rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
-                            Sign In
+                @auth
+                    <!-- Agar user login hai -->
+                    <div class="flex items-center gap-2">
+                        <a href="{{ url('/dashboard') }}"
+                            class="text-white rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
+                            Account
                         </a>
-                    @endauth
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="text-white bg-red-600 hover:bg-red-700 rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <!-- Agar user login nahi hai -->
+                    <a href="{{ url('/login') }}"
+                        class="text-white rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block">
+                        Sign In
+                    </a>
+                @endauth
 
                 <a class=" hover:bg-[#0080ff] bg-[#0f1c2c] border border-[#353F4C] text-white dark:text-white rounded-md px-2 lg:px-4 py-2 font-medium cursor-pointer transform text-sm hidden lg:block"
                     href="{{ url('/register') }}">Get Started</a>

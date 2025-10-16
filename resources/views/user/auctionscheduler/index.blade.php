@@ -204,9 +204,8 @@
                                 let model = item.model_id ?? "";
                                 let variant = item.variant_id ?? "";
                                 let platform = item.platform_id ?? "";
-                                let status_data = item.status_data ?? "";
                                 let viewUrl =
-                                    `/autoboli/auction-finder?make=${make}&model=${model}&variant=${variant}&platform=${platform}&date=${status_data}`;
+                                    `/autoboli/auction-finder?make=${make}&model=${model}&variant=${variant}&platform=${platform}`;
                                 rows += `
                         <tr>
                             <td>${item.interest_name ?? '-'}</td>

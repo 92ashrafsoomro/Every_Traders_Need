@@ -537,7 +537,9 @@
                             <a href="{{ url('auction-finder/vehicle') }}/${a.vehicle.id}" 
                             target="_blank" 
                             title="View Vehicle">
-                                <i class="fa-solid fa-plus"></i>
+                                <span class="material-symbols-outlined">
+visibility
+</span>
                             </a>
                         </td>
                         <td>

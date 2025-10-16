@@ -288,7 +288,18 @@ class AuctionFinderController extends Controller
                 ->limit($length)
                 ->get()
                 ->map(function ($auction) {
-                    $view = URL::to('/auction-finder?platform='.$auction->platform_id);
+                    $today = date('Y-m-d');
+                    $auctionDate = date('Y-m-d', strtotime($auction->auction_date)); 
+
+                    if ($auctionDate < $today) {
+                        $status_data = 'previous';
+                    } elseif ($auctionDate == $today) {
+                        $status_data = 'today';
+                    } else {
+                        $status_data = $auctionDate;
+                    }
+
+                    $view = URL::to('/auction-finder?platform='.$auction->platform_id.'&date='.$status_data);
 
                     $statusColor = match (strtolower($auction->status)) {
                         'planned'   => 'danger-red',
@@ -333,7 +344,7 @@ class AuctionFinderController extends Controller
                         style="font-size: var(--font-p2) !important; margin-left:5px;">
                             <i class="fas fa-bell"></i> 
                         </button>
-                        <a href="'.$view.'" class="btn btn-sm btn-primary" style="font-size: var(--font-p2) !important;">
+                        <a href="'.$view.'" target="_blank" class="btn btn-sm btn-primary" style="font-size: var(--font-p2) !important;">
                             <i class="fas fa-eye"></i> 
                         </a>'
                     ];
@@ -429,15 +440,18 @@ class AuctionFinderController extends Controller
 
 public function getIntrest(Request $request)
 {
-    $auctionId = $request->auction_id;
-     $platformId  = $request->platform_id;
+    $auctionId  = $request->auction_id;
+    $platformId = $request->platform_id;
+
     $interests = Interest::all();
     $totalVehicles = Vehicle::where('auction_id', $auctionId)->count();
 
     $result = [];
 
     foreach ($interests as $interest) {
-        $interestVehicles = Vehicle::where('auction_id', $auctionId)
+        // Get all matching vehicles (with their auction)
+        $vehicles = Vehicle::with('auction')
+            ->where('auction_id', $auctionId)
             ->when($interest->make_id, fn($q) => $q->where('make_id', $interest->make_id))
             ->when($interest->model_id, fn($q) => $q->where('model_id', $interest->model_id))
             ->when($interest->variant_id, fn($q) => $q->where('variant_id', $interest->variant_id))
@@ -451,14 +465,35 @@ public function getIntrest(Request $request)
             ->when($interest->cc_to, fn($q) => $q->where('cc', '<=', $interest->cc_to))
             ->when($interest->price_from, fn($q) => $q->where('buy_now_price', '>=', $interest->price_from))
             ->when($interest->price_to, fn($q) => $q->where('buy_now_price', '<=', $interest->price_to))
-            ->count();
+            ->get();
+
+        $interestVehicles = $vehicles->count();
+
+        // ✅ Auction date (from the first matching vehicle’s auction)
+        $auctionDate = optional($vehicles->first()?->auction)->auction_date;
+
+        if ($auctionDate) {
+            $today = date('Y-m-d');
+            $auctionDateFormatted = date('Y-m-d', strtotime($auctionDate));
+
+            if ($auctionDateFormatted < $today) {
+                $status_data = 'previous';
+            } elseif ($auctionDateFormatted == $today) {
+                $status_data = 'today';
+            } else {
+                $status_data = $auctionDateFormatted; // upcoming date (e.g. 2025-10-18)
+            }
+        } else {
+            $status_data = null;
+        }
 
         $result[] = [
             "interest_name"     => $interest->title,
             "make_id"           => $interest->make_id,
             "model_id"          => $interest->model_id,
             "variant_id"        => $interest->variant_id,
-            "platform_id"       => $platformId ?? null, 
+            "platform_id"       => $platformId ?? null,
+            "status_data"       => $status_data,
             "make_name"         => optional($interest->make)->name,
             "model_name"        => optional($interest->model)->name,
             "variant_name"      => optional($interest->variant)->name,
@@ -469,6 +504,7 @@ public function getIntrest(Request $request)
 
     return response()->json($result);
 }
+
 
 
 

@@ -288,7 +288,18 @@ class AuctionFinderController extends Controller
                 ->limit($length)
                 ->get()
                 ->map(function ($auction) {
-                    $view = URL::to('/auction-finder?platform='.$auction->platform_id);
+                    $today = date('Y-m-d');
+                    $auctionDate = date('Y-m-d', strtotime($auction->auction_date)); 
+
+                    if ($auctionDate < $today) {
+                        $status_data = 'previous';
+                    } elseif ($auctionDate == $today) {
+                        $status_data = 'today';
+                    } else {
+                        $status_data = $auctionDate;
+                    }
+
+                    $view = URL::to('/auction-finder?platform='.$auction->platform_id.'&date='.$status_data);
 
                     $statusColor = match (strtolower($auction->status)) {
                         'planned'   => 'danger-red',
@@ -333,7 +344,7 @@ class AuctionFinderController extends Controller
                         style="font-size: var(--font-p2) !important; margin-left:5px;">
                             <i class="fas fa-bell"></i> 
                         </button>
-                        <a href="'.$view.'" class="btn btn-sm btn-primary" style="font-size: var(--font-p2) !important;">
+                        <a href="'.$view.'" target="_blank" class="btn btn-sm btn-primary" style="font-size: var(--font-p2) !important;">
                             <i class="fas fa-eye"></i> 
                         </a>'
                     ];

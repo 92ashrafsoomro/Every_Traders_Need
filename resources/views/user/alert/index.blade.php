@@ -286,88 +286,105 @@
         #auction-table {
             border-radius: 90px !important;
         }
+
+        .auction-tabs a {
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-paper-bg);
+        }
+
+        .auction-tabs .active {
+            background: #0080ff;
+        }
+
+        .auction-tabs .active:hover {
+            color: white !important;
+        }
+
+        .auction-tabs .active:focus {
+            color: white !important;
+        }
     </style>
 @endsection
 @section('content')
-    <main class="acsi-theme container-fluid py-4">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <main class="acsi-theme container-fluid py-4"> --}}
+    <div class="relative w-full h-auto lg:h-[40vh] bg-[#000f21] overflow-hidden space-y-4">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
+        </div>
+        <div class="relative z-10 container mx-auto pt-10">
+            <h1 class="text-5xl font-bold text-white mb-4 text-left">Cars I'm Watching</h1>
+            <p class="text-lg text-gray-300 mx-auto text-left">
+                Keep track of vehicles you're interested in..
+            </p>
+            <div class="auction-tabs relative z-10 pt-5">
+                <div
+                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
 
-        <div class="mb-3">
-
-            <ul class="nav nav-pills flex-row mb-2" id="myTab" role="tablist">
-                <li class="nav-item me-2" role="presentation">
-                    <button class="nav-link active" id="watchlist-tab" data-bs-toggle="tab" data-bs-target="#watchlist"
-                        type="button" role="tab" aria-controls="watchlist" aria-selected="true">
-                        Watchlist
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="alerts-tab" data-bs-toggle="tab" data-bs-target="#alerts" type="button"
-                        role="tab" aria-controls="alerts" aria-selected="false">
-                        Your Alerts
-                    </button>
-                </li>
-            </ul>
-
-
-
-            <div
-                class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-2 mt-10">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="label-muted">Show Entries</span>
-                    <select class="form-select entries-length" style="width: 90px;">
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="500">500</option>
-                    </select>
-
-                    <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
+                    <ul class="nav flex-column flex-md-row gap-md-0 gap-2">
+                        <li class="nav-item">
+                            <a class="cursor-pointer display_type nav-link active" id="watchlist-tab" data-bs-toggle="tab"
+                                data-bs-target="#watchlist" role="tab" aria-controls="watchlist" aria-selected="true">
+                                Watchlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="cursor-pointer display_type nav-link" id="alerts-tab" data-bs-toggle="tab"
+                                data-bs-target="#alerts" role="tab" aria-controls="alerts" aria-selected="false"> Your
+                                Alerts</a>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto">
+        <div class="flex items-center justify-between pt-5">
+            <div class="flex items-center gap-2">
+                <span class="label-muted">Show Entries</span>
+                <select class="form-select entries-length" style="width: 90px;">
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                </select>
 
-
-
-                <div class="d-flex flex-md-row flex-column gap-2 align-items-md-center">
-
-
-                    <div style="position: relative;width:190px;">
-                        <input type="text" id="reg_search" class="form-control form-control-sm"
-                            placeholder="Search by Reg Number"
-                            style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; width: 193px; padding-top: 6px;padding-bottom: 6px;">
-                        <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </div>
-
-
-                    <select id="make1" class="form-select form-select-sm select2-filter" style="width: 160px;">
-                        <option value="">Select Make</option>
-                    </select>
-
-
-                    <select id="model1" class="form-select form-select-sm select2-filter" style="width: 160px;" disabled>
-                        <option value="">Select Model</option>
-                    </select>
-
-
-                    <select id="year1" class="form-select year select2-filter" style="width: 110px;">
-                        <option value="">All Years</option>
-                        @foreach ($years as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-
-                </div>
-
-
+                <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
             </div>
 
+            <div class="flex items-center gap-2">
 
 
+                <div style="position: relative;width:190px;">
+                    <input type="text" id="reg_search" class="form-control form-control-sm"
+                        placeholder="Search by Reg Number"
+                        style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; width: 193px; padding-top: 6px;padding-bottom: 6px;">
+                    <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
 
+
+                <select id="make1" class="form-select form-select-sm select2-filter" style="width: 160px;">
+                    <option value="">Select Make</option>
+                </select>
+
+
+                <select id="model1" class="form-select form-select-sm select2-filter" style="width: 160px;" disabled>
+                    <option value="">Select Model</option>
+                </select>
+
+
+                <select id="year1" class="form-select year select2-filter" style="width: 110px;">
+                    <option value="">All Years</option>
+                    @foreach ($years as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
+                </select>
+
+            </div>
         </div>
 
 
-
-        <div class="tab-content" style="padding: 0px;">
+        <div class="tab-content">
             <!-- Watchlist Table -->
             <section class="tab-pane fade show active card p-0 overflow-hidden" id="watchlist" role="tabpanel"
                 aria-labelledby="watchlist-tab">
@@ -398,8 +415,8 @@
             <section class="tab-pane fade card p-0 overflow-hidden" id="alerts" role="tabpanel"
                 aria-labelledby="alerts-tab">
                 <div class="table-responsive table-wrap">
-                    <table class="alert-table align-middle table table-hover" id="alert-table">
-                        <thead class="table-light">
+                    <table class="table align-middle" id="alert-table">
+                        <thead>
                             <tr>
                                 <th style="width:28px"></th>
                                 <th>Vehicle</th>
@@ -416,10 +433,13 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                </div>
             </section>
+
         </div>
 
-    </main>
+    </div>
+    {{-- </main> --}}
 
     <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog"
         aria-labelledby="imagePreviewTitle">
@@ -581,7 +601,7 @@
                             .length;
                         const selectedLength = $('.entries-length').val();
 
-                        $('#entryCount').text(`Showing ${count} of ${selectedLength} entries`);
+                        // $('#entryCount').text(`Showing ${count} of ${selectedLength} entries`);
                     },
 
                     error: function(err) {

@@ -41,38 +41,56 @@
             <h3>{{ $vehicle->year }} {{ $vehicle->make->name ?? " " }} {{ $vehicle->model->name ?? " " }} –
                 {{ $vehicle->variant->name ?? " " }}</h3>
 
-            <section style="background:#061826; padding:20px;">
-                <div class="container" style="max-width:920px;">
-                    <div class="p-3" style="background:#0b2131; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.25); color:#e6edf3;">
-                    <div class="row gy-3 gx-4 align-items-center">
-                        <div class="col-6 col-md-3">
-                        <div class="text-uppercase" style="font-size:12px; letter-spacing:.02em; color:#9fb3c8;">Mileage</div>
-                        <div class="fw-semibold" style="font-size:22px; color:#fff;">5460</div>
-                        </div>
+                <section style="background:#061826; padding-bottom:10px;">
+                    <div style="max-width:920px;">
+                        <div style="background:#0b2131;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.25);color:#e6edf3;padding:10px 15px;">
+                            
+                            <div class="row gx-3 gy-2 align-items-center text-center text-md-start">
 
-                        <div class="col-6 col-md-3">
-                        <div class="text-uppercase" style="font-size:12px; letter-spacing:.02em; color:#9fb3c8;">Grade</div>
-                        <span class="d-inline-flex align-items-center justify-content-center" style="width:36px; height:36px; border-radius:999px; background:#1ed760; color:#063a1f; font-weight:700;">2</span>
-                        </div>
+                                {{-- Mileage --}}
+                                <div class="col-6 col-md-3">
+                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Mileage</div>
+                                    <div style="font-size:18px;color:#fff;font-weight:600;">
+                                        {{ number_format($vehicle->mileage ?? 0) }}
+                                    </div>
+                                </div>
 
-                        <div class="col-6 col-md-3">
-                        <div class="text-uppercase" style="font-size:12px; letter-spacing:.02em; color:#9fb3c8;">Inspection</div>
-                        <button class="btn btn-sm" style="background:#14324a; color:#9cc7ff; border:none; border-radius:8px; font-weight:600; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
-                            Report
-                        </button>
-                        </div>
+                                {{-- Grade --}}
+                                <div class="col-6 col-md-3">
+                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Grade</div>
+                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#1ed760;color:#063a1f;font-weight:700;font-size:15px;">
+                                        {{ $vehicle->grade ?? '-' }}
+                                    </span>
+                                </div>
 
-                        <div class="col-6 col-md-3">
-                        <div class="text-uppercase" style="font-size:12px; letter-spacing:.02em; color:#9fb3c8;">Reg</div>
-                        <span class="d-inline-block" style="background:#fff; color:#0b2131; border-radius:8px; padding:6px 10px; font-weight:800; letter-spacing:.04em; box-shadow:0 2px 0 rgba(0,0,0,0.15);">
-                            VN14 UCD
-                        </span>
+                                {{-- Inspection --}}
+                                <div class="col-6 col-md-3">
+                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Inspection</div>
+                                    @if(!empty($vehicle->inspection_report))
+                                        <a href="{{$vehicle->inspection_report}}" target="_blank"
+                                        style="display:inline-block;background:#14324a;color:#9cc7ff;border:none;border-radius:6px;font-weight:600;font-size:12px;padding:4px 10px;text-decoration:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
+                                            Report
+                                        </a>
+                                    @else
+                                        <span style="font-size:13px;color:#777;">N/A</span>
+                                    @endif
+                                </div>
+
+                                {{-- Registration --}}
+                                <div class="col-6 col-md-3">
+                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Reg</div>
+                                    <span style="display:inline-block;background:#fff;color:#0b2131;border-radius:6px;padding:4px 8px;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,0.15);">
+                                        {{ strtoupper($vehicle->reg ?? 'N/A') }}
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-            </section>
-            <div class="row " style=" border: solid #004890; border-radius: 15px; margin-bottom: 20px;">
+                </section>
+
+
+            {{-- <div class="row " style=" border: solid #004890; border-radius: 15px; margin-bottom: 20px;">
                 <div class="row mt-2  align-self-center " style="border-radius: 5px; margin: 0px">
                     <div class="col-md-3">
                         <ul style="list-style: none; padding-left: 0px; font-size: 15px;">
@@ -149,9 +167,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- Disclaimer Accordion --}}
-            <div class="accordion mt-10" id="disclaimerAccordion">
+            {{-- <div class="accordion mt-10" id="disclaimerAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header " id="headingOne">
                         <button class="accordion-button disc collapsed "
@@ -224,7 +242,133 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+
+            <div style=" background:linear-gradient(135deg,#0f1f2e 0%,#1a2f3f 100%);
+                    border-left:4px solid #0066cc;border-radius:8px;padding:20px;
+                    max-width:900px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,0.3);
+                    font-family:'Segoe UI',sans-serif;">
+
+            <!-- Top Grid -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:15px;align-items:center;">
+
+                <!-- Auction House -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction House</span>
+                    <span style="font-size:14px;color:#0066cc;font-weight:600;">
+                        {{ $vehicle->auction->platform->name ?? 'N/A' }}
+                    </span>
+                </div>
+
+                <!-- Auction Center -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction Center</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ $vehicle->auction->center->name ?? 'N/A' }}
+                    </span>
+                </div>
+
+                <!-- Date / Time / End -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Date / Time / End</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ optional($vehicle->auction->auction_date)->format('d/m/Y H:i') ?? 'N/A' }}
+                        @if($vehicle->auction->end_date)
+                            - {{ \Carbon\Carbon::parse($vehicle->auction->end_date)->format('H:i') }}
+                        @endif
+                    </span>
+                </div>
+
+                <!-- Lot -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Lot</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ $vehicle->lot ?? 'N/A' }}
+                    </span>
+                </div>
             </div>
+
+            <!-- Bottom Grid -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
+                        padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);align-items:center;">
+
+                <!-- Auction Status -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction Status</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ ucfirst($vehicle->bidding_status ?? 'Planned') }}
+                    </span>
+                </div>
+
+                <!-- Previous Auction -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Previous Auc</span>
+                    <button onclick="handleViewDetails({{ $vehicle->previousAuction()->id ?? 0 }})"
+                            style="background-color:#cc3333;color:white;border:none;
+                                padding:5px 10px;border-radius:4px;font-size:11px;
+                                font-weight:600;cursor:pointer;transition:all 0.3s ease;
+                                text-transform:uppercase;letter-spacing:0.5px;">
+                        View
+                    </button>
+                </div>
+
+                <!-- Auction Type -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auc Type</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ ucfirst($vehicle->auction->auction_type ?? 'N/A') }}
+                    </span>
+                </div>
+
+                <!-- Reserve -->
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    {{-- <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Reserve</span>
+                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                        {{ $vehicle->reserve ?? 'Yes' }} --}}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+
+
+            <div style="margin-top: 10px; background-color:#530a0a;border-left:5px solid #8b3a3a;padding:30px;border-radius:4px;width:100%;box-shadow:0 4px 6px rgba(0,0,0,0.3);">
+            <h2 style="color:#ffffff;font-size:24px;font-weight:600;margin-bottom:12px;letter-spacing:0.5px;">Disclaimer</h2>
+            <p style="color:#b0b8c1;font-size:14px;line-height:1.6;margin:0;">
+                AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it 'as-is' to help users make informed decisions, without guaranteeing data accuracy or completeness. 
+                <a href="#" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="color:#0ea5e9;text-decoration:none;cursor:pointer;font-weight:500;transition:color 0.3s ease;">learn more</a>
+            </p>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background-color:#1a1f2e;border:1px solid #2d3748;">
+                <div class="modal-header" style="border-bottom:1px solid #2d3748;">
+                    <h5 class="modal-title" id="disclaimerModalLabel" style="color:#ffffff;font-weight:600;">Full Disclaimer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter:brightness(0) invert(1);"></button>
+                </div>
+                <div class="modal-body" style="color:#b0b8c1;line-height:1.6;">
+                    <p><strong>AUTOBILI LTD Disclaimer:</strong></p>
+                    <p>AUTOBILI LTD aggregates vehicle auction data from third-party sources and provides this information on an 'as-is' basis to help users make informed decisions about vehicle purchases and auctions.</p>
+                    <p><strong>Data Accuracy:</strong> While we strive to provide accurate and up-to-date information, we do not guarantee the accuracy, completeness, or reliability of any data presented on our platform. Vehicle specifications, pricing, auction dates, and other details may change without notice.</p>
+                    <p><strong>Third-Party Sources:</strong> Our data is sourced from multiple third-party providers. We are not responsible for any errors, omissions, or inaccuracies in the original data provided by these sources.</p>
+                    <p><strong>User Responsibility:</strong> Users are responsible for conducting their own due diligence and verification of any information before making purchasing decisions. We recommend independent inspection and verification of vehicles before participation in auctions.</p>
+                    <p><strong>Limitation of Liability:</strong> AUTOBILI LTD shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of our platform or reliance on the information provided.</p>
+                </div>
+                </div>
+            </div>
+            </div>
+
         </div>
     </div>
 </div>

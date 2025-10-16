@@ -225,7 +225,8 @@
   color: #6c757d;
   cursor: not-allowed;
 }
-     
+
+  
 </style>
 @endsection
 
@@ -234,29 +235,60 @@
     <div class="d-flex">
             @include('user.vehicle.sidebar')
             <div class=" py-5 showblade-bg-img-dot " style="width: calc(100% - 281px); ">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="padding-left: 60px;">
+
+                <div class="d-flex justify-content-between align-items-center" style="padding-left: 60px;">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Vehicle Details</button>
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true">
+                                Vehicle Details
+                            </button>
                         </li>
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Vehicle Valuation</button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                Vehicle Valuation
+                            </button>
                         </li>
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                                
+                            <button class="nav-link" id="condition-tab" data-bs-toggle="tab" data-bs-target="#condition"
+                                type="button" role="tab" aria-controls="condition" aria-selected="false">
+                                Conditions
                             </button>
                         </li>
                     </ul>
-                    <div class="tab-content p-0" id="myTabContent" >
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div id="tabContent">
-                                @include('user.vehicle.vehicle_details') 
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                @include('user.vehicle.vehicle_valuation') 
+
+                    <button class="btn btn-light position-relative me-4" id="notificationBtn" title="Notifications">
+                        <i class="fa fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                </div>
+
+     
+                <div class="tab-content p-0" id="myTabContent">
+
+    
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div id="tabContent">
+                            @include('user.vehicle.vehicle_details')
                         </div>
                     </div>
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        @include('user.vehicle.vehicle_valuation')
+                    </div>
+
+                    <div class="tab-pane fade" id="condition" role="tabpanel" aria-labelledby="condition-tab">
+                        @include('user.vehicle.vehicle_conditions')
+                    </div>
+
+                </div>
+
             </div>
     </div>
 </div>
@@ -590,6 +622,19 @@
      trade_history_graph.getTrade();
 
 </script>
+
+
+ <script>
+ 
+        document.addEventListener('DOMContentLoaded', function() {
+         
+        });
+
+  
+        document.querySelector('.disclaimer-link').addEventListener('click', function(e) {
+  
+        });
+    </script>
 @endsection
 
 

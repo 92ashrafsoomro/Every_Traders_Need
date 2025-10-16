@@ -205,8 +205,9 @@
                      
                      <div class="invoice_status">
                    <select name="date" id="dateFilter" class="form-select">
+                        <option selected value="All">All</option>
                         <option value="upcoming">Upcoming</option>
-                        <option selected value="today" selected>Today</option>
+                        <option value="today">Today</option>
                         <option value="previous">Previous</option>
                      </select>
 
@@ -247,7 +248,7 @@
                   </table>
                </div>
 
-               <div class=" d-flex align-items-center justify-content-center gap-4 pt-4" >
+               <div class=" d-flex align-items-center justify-content-center gap-4 pt-4" style="overflow: scroll">
                      <div class="dt-paging">
                            <nav aria-label="pagination">
                                  <ul class="pagination">

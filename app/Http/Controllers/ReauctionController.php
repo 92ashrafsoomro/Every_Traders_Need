@@ -43,12 +43,10 @@ if ($request->ajax()) {
     $today = now()->toDateString();
     $auctionFilter = $request->auction_date ?? $today;
 
-    // 🔹 1. Get auctions for the selected date
     $auctionIds = DB::table('auctions')
         ->whereDate('auction_date', '=', $auctionFilter)
         ->pluck('id');
 
-    // 🔹 2. Fetch vehicles that appeared in previous auctions but also exist on selected date
     $query = DB::table('vehicles')
         ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
         ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
@@ -58,16 +56,17 @@ if ($request->ajax()) {
         ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
         ->whereIn('vehicles.auction_id', $auctionIds)
 
-        // 🔸 Vehicles that appeared in any previous auction as well
+     
         ->whereExists(function ($subQuery) use ($auctionFilter) {
             $subQuery->select(DB::raw(1))
                 ->from('vehicles as v2')
                 ->join('auctions as a2', 'a2.id', '=', 'v2.auction_id')
                 ->whereColumn('v2.reg', 'vehicles.reg')
-                ->whereDate('a2.auction_date', '<', $auctionFilter);
+                ->whereDate('a2.auction_date', '<', $auctionFilter)
+                ->whereColumn('a2.platform_id', '!=', 'auctions.platform_id'); 
         })
 
-        // 🔸 Latest entry for each reg (per selected date)
+ 
         ->whereIn('vehicles.id', function ($sub) use ($auctionFilter) {
             $sub->select(DB::raw('MAX(v3.id)'))
                 ->from('vehicles as v3')

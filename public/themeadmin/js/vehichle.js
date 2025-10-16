@@ -223,13 +223,16 @@
         <tr>
             <th data-column="make_name">Vehicle</th>
             <th data-column="grade">Grade</th>
-            <th data-column="cap_clean">CAP</th>
-            <th data-column="autotrader_trade_value">Autotrader</th>
-            <th data-column="autotrader_retail_value">Retail</th>
+            <th data-column="cap_clean">Cap Clean</th>
+            <th data-column="cap_average">Cap Average</th>
+            <th data-column="cap_below">Cap Below</th>
+            <th data-column="autotrader_trade_value">Autotrader Retail</th>
             <th data-column="auction_date">Date Time</th>
             <th data-column="auto_boli">Autoboli</th>
         </tr>
     `);
+
+     
 }
 
 
@@ -318,50 +321,45 @@
 
                                 }else{
 
-                                    $(`.table tbody`).append(`
-                                    <tr>
-                                   
-                                        <td> <a href="${baseUrl}/${element.id}" target="_blank">
-                                                    ${element.make_name} ${element.model_name} ${element.variant_name}
-                                                    </a>
+                                   $(`.table tbody`).append(`
+                                            <tr>
+                                                <td> <a href="${baseUrl}/${element.id}" target="_blank">
+                                                ${element.make_name} ${element.model_name} ${element.variant_name}
+                                                </a>
+                                                <div class="extra">
+                                                ${image1} ${image2} ${image3}
+                                            </div>
+                                            </td>
+                                                <td>
+                                                <div class="grade-box" style="background-color: ${getGradeColor(element.grade)};color:black;">
+                                                    ${element.grade}
+                                                                                
+                                                </div>
                                                     <div class="extra">
-                                                    ${image1} ${image2} ${image3}
-                                                    </div>
-                                        </td>
-                                         <td>
-                                            <div class="grade-box" style="background-color: ${getGradeColor(element.grade)};color:black;">
-                                                ${element.grade}
-                                               
-                                            </div>
-                                              <div class="extra">
-                                                ${element.auction_name}
-                                                    </div>
-                                            </td>
-                                        <td>${element.cap_clean}</td>
-                                        <td>${element.autotrader_trade_value}</td>
-                                        <td>${element.autotrader_retail_value}</td>
-                                      
-                                      
-                                      <td> ${element.auction_date} </br> ${element.auction_time}
-
-                                               ${element.previousdate 
-                                                    ? `<div class="extra">
-                                                        <span class="prev-icon">⏮️</span> ${element.previousdate}
-                                                    </div>` 
-                                                    : ''
+                                                    ${element.auction_name}
+                                                        </div>
+                                                </td>
+                                                <td>${element.cap_clean}</td>
+                                                <td>${element.cap_average}</td>
+                                                <td>${element.cap_below}</td>
+                                                <td>${element.autotrader_retail_value}</td>
+                                                <td> ${element.auction_date} </br> ${element.auction_time}
+                                                ${element.previousdate 
+                                                ? `<div class="extra">
+                                                    <span class="prev-icon">⏮️</span> ${element.previousdate}
+                                                </div>` 
+                                                : ''
                                                 }
+                                                </td>
+                                                    <td> <span class="auction-badge"> ${element.auto_boli}</span>
+                                                        <div class="extra">
+                                                            <a class="btn btn-primary report-link mt-2" target="_blank" href="${element.inspection_report}">View Report</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>`);
 
-                                           
-                                           </td>
-                                          <td> <span class="auction-badge"> ${element.auto_boli}</span>
-                                            <div class="extra">
-                                                <a class="btn btn-primary report-link mt-2" target="_blank" href="${element.inspection_report}">View Report</a>
-                                            </div>
-                                            </td>
-                                    </tr>`);
-
-                                }
-                        });
+                                            }
+                                });
 
                     if (!response.data || response.data.length === 0) {
                         $('.table tbody').html(`
@@ -388,25 +386,6 @@
                 });
 
     }
-$(document).on('click', 'table thead th', function() {
-    let column = $(this).data('column'); // custom attribute se column name milega
-    if (!column) return;
-
-    // Toggle sort order (asc/desc)
-    if (auctions.filters.sort_by === column) {
-        auctions.filters.sort_order = auctions.filters.sort_order === 'asc' ? 'desc' : 'asc';
-    } else {
-        auctions.filters.sort_by = column;
-        auctions.filters.sort_order = 'asc';
-    }
-
-    // Heading pe indicator dikhao
-    $('table thead th').removeClass('sorting-asc sorting-desc');
-    $(this).addClass(`sorting-${auctions.filters.sort_order}`);
-
-    // Re-fetch data
-    auctions.searchrecord();
-});
 
 
     auctions.getPlatforms = function  () {      
@@ -1841,6 +1820,9 @@ $(document).ready(function() {
 
 let lastDateValue = $('#dateFilter').val(); 
 
+$(document).ready(function() {
+    $('#dateFilter').val('All');
+});
 
 $('#dateFilter').on('mousedown', function (e) {
     if ($('input[type="checkbox"]:checked').length > 0) {
@@ -1898,6 +1880,23 @@ $(document).on('change', 'input[type="checkbox"]', function() {
     auctions.getNoOfservices();
 });
 
+    $(document).on('click', 'table thead th', function() {
+        let column = $(this).data('column'); 
+        if (!column) return;
+        if (auctions.filters.sort_by === column) {
+            auctions.filters.sort_order = auctions.filters.sort_order === 'asc' ? 'desc' : 'asc';
+        } else {
+            auctions.filters.sort_by = column;
+            auctions.filters.sort_order = 'asc';
+        }
+
+
+        $('table thead th').removeClass('sorting-asc sorting-desc');
+        $(this).addClass(`sorting-${auctions.filters.sort_order}`);
+
+ 
+        auctions.searchrecord();
+    });
 
 
 

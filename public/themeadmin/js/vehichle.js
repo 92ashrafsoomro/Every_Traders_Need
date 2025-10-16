@@ -1820,6 +1820,9 @@ $(document).ready(function() {
 
 let lastDateValue = $('#dateFilter').val(); 
 
+$(document).ready(function() {
+    $('#dateFilter').val('All');
+});
 
 $('#dateFilter').on('mousedown', function (e) {
     if ($('input[type="checkbox"]:checked').length > 0) {

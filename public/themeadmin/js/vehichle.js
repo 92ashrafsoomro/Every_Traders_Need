@@ -186,14 +186,18 @@
             }
 
 
-          $(`.tags-auction_center`).html('');
-          if (auctions.selected.auction_center ) {
-                auctions.selected.auction_center.forEach((item) => {
-                    $(`.tags-auction_center`).append(
-                        `<span data-key="auction_center" data-value="${item.id}" class="badge mx-2">${item.label}X</span>`
-                    );
+            $(`.tags-date`).html(''); 
+
+            if (auctions.selected.date) {
+                auctions.selected.date.forEach((item) => {
+                    $(`.tags-date`).append(`
+                        <span data-key="date" data-value="${item.id}" class="badge mx-2">
+                            ${item.label} <span class="ms-1" style="cursor:pointer;">×</span>
+                        </span>
+                    `);
                 });
             }
+
 
 
 
@@ -209,26 +213,26 @@
     if (auctions.filters.display_type == 'auction') {
     $('table thead').html(`
         <tr>
-            <th data-column="make_name">Vehicle</th>
-            <th data-column="year">Year / CC</th>
-            <th data-column="mileage">Mileage</th>
-            <th data-column="transmission">Transmission</th>
-            <th data-column="grade">Grade</th>
-            <th data-column="auction_date">Date Time</th>
-            <th data-column="auction_name">Auction House</th>
+            <th >Vehicle</th>
+            <th >Year / CC</th>
+            <th>Mileage</th>
+            <th >Transmission</th>
+            <th >Grade</th>
+            <th >Date Time</th>
+            <th >Auction House</th>
         </tr>
     `);
 } else {
     $('table thead').html(`
         <tr>
-            <th data-column="make_name">Vehicle</th>
-            <th data-column="grade">Grade</th>
-            <th data-column="cap_clean">Cap Clean</th>
-            <th data-column="cap_average">Cap Average</th>
-            <th data-column="cap_below">Cap Below</th>
-            <th data-column="autotrader_trade_value">Autotrader Retail</th>
-            <th data-column="auction_date">Date Time</th>
-            <th data-column="auto_boli">Autoboli</th>
+            <th >Vehicle</th>
+            <th>Grade</th>
+            <th >Cap Clean</th>
+            <th >Cap Average</th>
+            <th >Cap Below</th>
+            <th >Autotrader Retail</th>
+            <th >Date Time</th>
+            <th >Autoboli</th>
         </tr>
     `);
 
@@ -239,6 +243,19 @@
 
     }
 
+document.getElementById('sortFilter').addEventListener('change', function() {
+    const value = this.value;
+
+    // Break value into parts
+    const [field, order] = value.split('_');
+
+    // Add to filters
+    auctions.filters.sort_by = field;
+    auctions.filters.sort_order = order;
+
+    // Reload data
+    auctions.searchrecord();
+});
 
    auctions.searchrecord = function  () {  
 
@@ -456,60 +473,60 @@
 
 
 
-auctions.getMakes = function() {      
-    auctions.selected.make = [];
+    auctions.getMakes = function() {      
+        auctions.selected.make = [];
 
-    $.ajax({
-        url: url + "/auction-finder/data/getMakes",
-        method: "GET",
-        data: { date: auctions.filters },
-        success: function(response) {
+        $.ajax({
+            url: url + "/auction-finder/data/getMakes",
+            method: "GET",
+            data: { date: auctions.filters },
+            success: function(response) {
 
-            $("#collapseVehiclemake").html('');
+                $("#collapseVehiclemake").html('');
 
-            response.data.forEach(element => {
-                let selected = '';
-                if (auctions.filters.make) {
-                    let make = auctions.filters.make.split(',');
-                    if (make.includes(String(element.id))) {
-                        selected = 'checked';
-                        auctions.selected.make.push({
-                            id: element.id,
-                            title: element.label
-                        });
+                response.data.forEach(element => {
+                    let selected = '';
+                    if (auctions.filters.make) {
+                        let make = auctions.filters.make.split(',');
+                        if (make.includes(String(element.id))) {
+                            selected = 'checked';
+                            auctions.selected.make.push({
+                                id: element.id,
+                                title: element.label
+                            });
+                        }
                     }
-                }
 
-                $("#collapseVehiclemake").append(`
-                    <div class="accordion-body py-1">
-                        <div class="form-check d-flex justify-content-between align-items-center">
-                            <div>
-                                <input ${selected}
-                                    data-name="${element.label}"
-                                    class="form-check-input me-1"
-                                    type="checkbox"
-                                    name="make[]"
-                                    value="${element.id}"
-                                    id="make_${element.id}">
-                                <label class="form-check-label" for="make_${element.id}">
-                                    ${element.label}
-                                </label>
+                    $("#collapseVehiclemake").append(`
+                        <div class="accordion-body py-1">
+                            <div class="form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input ${selected}
+                                        data-name="${element.label}"
+                                        class="form-check-input me-1"
+                                        type="checkbox"
+                                        name="make[]"
+                                        value="${element.id}"
+                                        id="make_${element.id}">
+                                    <label class="form-check-label" for="make_${element.id}">
+                                        ${element.label}
+                                    </label>
+                                </div>
+                                <span class="badge bg-light text-muted">${element.count}</span>
                             </div>
-                            <span class="badge bg-light text-muted">${element.count}</span>
                         </div>
-                    </div>
-                `);
-            });
+                    `);
+                });
 
-            // 🔥 Models reload karo (filtered makes ke basis pe)
-            auctions.getModels();
-        },
-        error: function(response) {
-            $("#collapseVehiclemake").html('');
-            auctions.selected.make = [];
-        },
-    });
-};
+                // 🔥 Models reload karo (filtered makes ke basis pe)
+                auctions.getModels();
+            },
+            error: function(response) {
+                $("#collapseVehiclemake").html('');
+                auctions.selected.make = [];
+            },
+        });
+    };
 
 
 
@@ -764,6 +781,56 @@ auctions.getMakes = function() {
                 $("#collapsefuel").html('');
             },
          });
+
+    }
+    auctions.getDateFilter = function () {      
+
+        $.ajax({
+            url: url + "/auction-finder/data/getDates",
+            method: "GET",
+            data: { filters: auctions.filters }, // agar filters bhejna ho
+            success: function (response) {
+
+                $("#collapseAuctionDate").html('');
+
+                // Agar koi data nahi mila
+                if (!response.data || response.data.length === 0) {
+                    $("#collapseAuctionDate").html('<div class="p-2 text-muted small text-center">No dates found</div>');
+                    return;
+                }
+
+                response.data.forEach(element => {
+
+                    let selected = '';
+                    if (auctions.filters.date) {
+                        let selectedDates = auctions.filters.date.split(',');
+                        if (selectedDates.includes(String(element.value))) {
+                            selected = 'checked';
+                        }
+                    }
+
+                    $("#collapseAuctionDate").append(`
+                        <div class="accordion-body py-1">
+                            <div class="form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input ${selected} class="form-check-input me-1" 
+                                        type="checkbox" name="date[]" 
+                                        value="${element.value}" 
+                                        id="date_${element.value}">
+                                    <label class="form-check-label" for="date_${element.value}">
+                                        ${element.label}
+                                    </label>
+                                </div>
+                                <span class="badge bg-light text-muted">${element.count ?? 0}</span>
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            error: function () {
+                $("#collapseAuctionDate").html('<div class="p-2 text-danger small text-center">Error loading dates</div>');
+            },
+        });
 
     }
 
@@ -1674,6 +1741,20 @@ $(document).ready(function() {
         auctions.onLoad();
     });
 
+    $(document).on('change', 'input[name="date[]"]', function () {
+    let selected = [];
+    $('input[name="date[]"]:checked').each(function () {
+        selected.push($(this).val());
+    });
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('date', selected.toString());
+    history.pushState({}, '', url);
+
+    auctions.onLoad();
+    });
+
+
 
      $(document).on('click','.tags span', function () {
 
@@ -1811,56 +1892,15 @@ $(document).ready(function() {
     auctions.getAuctionCenter();
     // auctions.mileage();
     
-    
+
+   auctions.getDateFilter();
     auctions.onLoad();
     auctions.showHeadings();
     
     
 });
 
-let lastDateValue = $('#dateFilter').val(); 
 
-$(document).ready(function() {
-    $('#dateFilter').val('All');
-});
-
-$('#dateFilter').on('mousedown', function (e) {
-    if ($('input[type="checkbox"]:checked').length > 0) {
-        e.preventDefault(); 
-
-        toastr.warning('Please clear all filters before changing the date!', 'Warning', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: 'toast-top-right',
-            timeOut: 3000
-        });
-
-        return false;
-    }
-});
-
-$('#dateFilter').on('focus', function () {
-    lastDateValue = this.value;
-});
-
-$('#dateFilter').on('change', function() {
-   
-    auctions.getMakes();
-    auctions.getAuctionHouse();
-    auctions.getAuctionCenter();
-    auctions.getYears();
-    auctions.getTransmissions();
-    auctions.getFuelType();
-    auctions.getBodyType();
-    auctions.getdoors();
-    auctions.getSeats();
-    auctions.getGrade();
-    auctions.getV5();
-    auctions.getEngineSize();
-    auctions.getFormerKeepers();
-    auctions.getNoOfservices();
-
-});
 
 $(document).on('change', 'input[type="checkbox"]', function() {
    
@@ -1878,26 +1918,10 @@ $(document).on('change', 'input[type="checkbox"]', function() {
     auctions.getEngineSize();
     auctions.getFormerKeepers();
     auctions.getNoOfservices();
+    auctions.getDateFilter();
 });
 
-    $(document).on('click', 'table thead th', function() {
-        let column = $(this).data('column'); 
-        if (!column) return;
-        if (auctions.filters.sort_by === column) {
-            auctions.filters.sort_order = auctions.filters.sort_order === 'asc' ? 'desc' : 'asc';
-        } else {
-            auctions.filters.sort_by = column;
-            auctions.filters.sort_order = 'asc';
-        }
-
-
-        $('table thead th').removeClass('sorting-asc sorting-desc');
-        $(this).addClass(`sorting-${auctions.filters.sort_order}`);
-
- 
-        auctions.searchrecord();
-    });
-
+   
 
 
 function getGradeColor(grade) {

@@ -200,19 +200,21 @@
 
                   <span class="params" ></span>
                </div>
-               <div class="">
-                  <div class="d-flex flex-wrap justify-content-end">
-                     
-                     <div class="invoice_status">
-                   <select name="date" id="dateFilter" class="form-select">
-                        <option selected value="All">All</option>
-                        <option value="upcoming">Upcoming</option>
-                        <option value="today">Today</option>
-                        <option value="previous">Previous</option>
-                     </select>
-
-                     </div>
-                  </div>
+               <div class="d-flex flex-wrap justify-content-end">
+                  <div class="invoice_sort">
+                 <select id="sortFilter" class="form-select">
+                     <option selected value="">Sort By</option>
+                     <!-- Name -->
+                     <option value="name_asc">Name: A to Z</option>
+                     <option value="name_desc">Name: Z to A</option>
+                     <!-- Grade -->
+                     <option value="grade_asc">Grade: Low to High</option>
+                     <option value="grade_desc">Grade: High to Low</option>
+                     <!-- Date & Time -->
+                     <option value="date_asc">Date & Time: Oldest First</option>
+                     <option value="date_desc">Date & Time: Newest First</option>
+                  </select>
+               </div>
                </div>
             </div>
          </div>

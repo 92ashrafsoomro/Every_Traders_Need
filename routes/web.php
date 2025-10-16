@@ -329,6 +329,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
             Route::get('/auction-finder/data/getNoOfservices', [AuctionFinderDataController::class,'getNoOfservices']);
             Route::get('/auction-finder/data/getAuctionHouse', [AuctionFinderDataController::class, 'getAuctionHouse']);
             Route::get('/auction-finder/data/getAuctionCenter', [AuctionFinderDataController::class, 'getAuctionCenter']);
+            Route::get('/auction-finder/data/getDates', [AuctionFinderDataController::class, 'getDates']);
 
             
         

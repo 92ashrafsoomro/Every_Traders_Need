@@ -4,6 +4,7 @@
 @endpush
 @section('css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .dropdown-menu {
             max-height: 300px;
@@ -23,74 +24,56 @@
         .table tbody td {
             font-size: 0.85rem;
         }
-
-        /* .negative-margin {
-                                                margin-top: -13rem;
-                                            }
-
-                                            @media (max-width: 1024px) {
-                                                .negative-margin {
-                                                    margin-top: -5rem;
-                                                }
-                                            }
-
-                                            @media (max-width: 425px) {
-                                                .negative-margin {
-                                                    margin-top: -1rem;
-                                                }
-                                            } */
     </style>
 @endsection
 @section('content')
     @include('user.reauction.topfilters')
 
     <div class="container mx-auto py-10">
-        <div class="row g-4">
-            <div class="col-12">
+        <div>
 
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
-                <div class="card shadow-sm rounded-3 border">
+            <div class="card shadow-sm rounded-3 border">
 
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <!-- Filters -->
-                        <div class="row g-3 align-items-end mb-4">
-
-                            <!-- Page Length -->
-                            <div class="col-md-2">
-                                <label for="pageLength" class="form-label">Rows per page</label>
-                                <select id="pageLength" class="form-select">
+                    <!-- Filters -->
+                    <div class="flex items-center justify-between w-full py-4">
+                        <div>
+                            <div id="customLengthControl" class="my-length-control flex items-center gap-x-2">
+                                <p>Show Entries</p>
+                                <select id="myLengthSelect" name="length" class="p-2 rounded">
                                     <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
                                     <option value="100">100</option>
-                                    <option value="200">200</option>
-                                    <option value="500">500</option>
                                 </select>
                             </div>
+                        </div>
 
-                            <!-- Auction Selector -->
-                            <div class="col-md-3">
-                                <label for="auctionSelector" class="form-label">Auction Date</label>
+                        <div class="flex items-center justify-end gap-x-3">
+                            <div>
+                                {{-- <label for="auctionSelector" class="form-label">Auction Date</label> --}}
                                 <select id="auctionSelector" class="form-select">
                                     <option value="">Select Auction Date</option>
                                     <!-- Populated dynamically -->
                                 </select>
                             </div>
-
                             <!-- Search Input -->
-                            <div class="col-md-3">
-                                <label for="search" class="form-label">Search by Reg</label>
+                            <div>
+                                {{-- <label for="search" class="form-label">Search by Reg</label> --}}
                                 <input type="text" name="search" class="form-control" placeholder="Enter registration">
                             </div>
 
                             <!-- Interest Dropdown -->
-                            <div class="col-md-4">
-                                <label class="form-label d-block">Select Interest</label>
+                            <div>
+                                {{-- <label class="form-label d-block">Select Interest</label> --}}
                                 <div class="dropdown w-100">
                                     <button class="btn btn-outline-primary dropdown-toggle w-100 text-start" type="button"
                                         id="interestDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,39 +96,33 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Page Info -->
-                        <div class="mb-3">
-                            <span class="text-muted small">Showing <span class="pageinfo fw-semibold">0</span>
-                                entries</span>
-                        </div>
-
-                        <!-- Table -->
-                        <div class="table-responsive">
-                            <table id="blogTable" class="table table-bordered table-hover align-middle">
-                                <thead class="">
-                                    <tr>
-                                        <th>Vehicle</th>
-                                        <th>Reg</th>
-                                        <th>Previous</th>
-                                        <th>Platform</th>
-                                        <th>Center</th>
-                                        <th>Cap Clean</th>
-                                        <th>Cap Avg</th>
-                                        <th>Status</th>
-                                        <th>Time</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-nowrap">
-                                    <!-- Dynamically populated -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Previous Popup -->
-                        @include('user.reauction.previouspopup')
                     </div>
+
+                    <!-- Table -->
+                    <div class="table-responsive">
+                        <table id="blogTable" class="table table-hover align-middle">
+                            <thead class="text-nowrap">
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Reg</th>
+                                    <th>Previous</th>
+                                    <th>Platform</th>
+                                    <th>Center</th>
+                                    <th>Cap Clean</th>
+                                    <th>Cap Avg</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Previous Popup -->
+                    @include('user.reauction.previouspopup')
                 </div>
             </div>
         </div>
@@ -173,12 +150,13 @@
                 processing: false,
                 ordering: false,
                 serverSide: true,
+                lengthChange: false,
                 ajax: {
                     url: "{{ url('/reauction') }}",
                     data: function(d) {
                         d.inprogress_check = $('#inprogress_check').is(':checked') ? 1 : 0;
                         d.interest_id = $('#selected_interest_id').val();
-                        d.auction_date = $('#auctionSelector').val(); // date filter
+                        d.auction_date = $('#auctionSelector').val();
                     },
                     dataSrc: function(json) {
                         updatePlatformCenterUI(json.platforms, json.centers, json.recordsTotal);
@@ -333,82 +311,7 @@
                 behavior: 'smooth'
             });
         });
-    </script>
 
-    <script>
-        // $(document).ready(function() {
-
-
-        //     function loadInterests(interestId = null) {
-        //         $.ajax({
-        //             url: '{{ route('reauction-interest') }}',
-        //             method: 'GET',
-        //             data: interestId ? {
-        //                 secondary: interestId
-        //             } : {},
-        //             dataType: 'json',
-        //             success: function(interests) {
-        //                 let html = '';
-
-        //                 interests.forEach(function(interest) {
-        //                     html += `
-    //             <div class="col-auto" style="width: 22%;">
-    //                 <div class="card h-100" style="border-bottom: 4px solid var(--bs-primary)!important;">
-    //                     <div class="card-body pb-1 text-start">
-    //                         <div class="d-flex align-items-start mb-2">
-    //                             <div class="dot-box"
-    //                                 style="width: 40px;height: 40px; background-color: #003164; border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-right: 10px;">
-    //                                 <div class="dot"
-    //                                     style="width: 30px; height: 30px; background-color: #0d6efd; border-radius: 50%;">
-    //                                 </div>
-    //                             </div>
-    //                             <h4 class="mb-0 ms-2">
-    //                                 <span class="auction-count">${interest.matched_reauction_cars}</span>
-    //                             </h4>
-    //                         </div>
-    //                         <p class="text-start mb-1 total_auctions">${interest.title}</p>
-    //                         <p class="mb-0 text-start">
-    //                             <label class="d-flex align-items-center cursor-pointer mb-2">
-    //                                 <input type="checkbox" 
-    //                                        class="secondary-toggle me-2" 
-    //                                        data-id="${interest.interest_id}"
-    //                                        ${interestId == interest.interest_id ? 'checked' : ''}>
-    //                                 <small style="font-size:var(--font-p2)">Include Secondary</small>
-    //                             </label>
-    //                         </p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             `;
-        //                 });
-
-        //                 $('#scrollableRow').html(html);
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.error('AJAX Error:', error);
-        //                 $('#scrollableRow').html(
-        //                 '<p class="text-danger">Failed to load interests.</p>');
-        //             }
-        //         });
-        //     }
-
-
-        //     loadInterests();
-
-
-        //     $(document).on('change', '.secondary-toggle', function() {
-        //         const interestId = $(this).data('id');
-        //         const isChecked = $(this).is(':checked');
-
-
-        //         loadInterests(isChecked ? interestId : null);
-        //     });
-        // });
-    </script>
-
-
-
-    <script>
         $(document).off('click.addNotify', '.add-notification') // namespace diya
             .on('click.addNotify', '.add-notification', function(e) {
                 e.preventDefault();
@@ -438,7 +341,6 @@
                 });
             });
     </script>
-
     <script>
         $(document).ready(function() {
 

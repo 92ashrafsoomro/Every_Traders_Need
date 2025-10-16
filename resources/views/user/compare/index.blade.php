@@ -128,6 +128,10 @@
             align-items: center;
             cursor: pointer;
         }
+
+        .footer-container {
+            display: none !important;
+        }
     </style>
 @endsection
 @include('user.compare.customestyle')

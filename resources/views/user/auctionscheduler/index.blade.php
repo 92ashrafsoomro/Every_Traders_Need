@@ -9,17 +9,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <div class="autionshadular">
-        <div class="relative w-full h-auto lg:h-[40vh] bg-[#000f21] overflow-hidden space-y-5">
+        <div class="relative w-full h-auto lg:h-[40vh] bg-[#000f21] overflow-hidden space-y-4">
             <div
                 class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
             </div>
-            <div class="relative z-10 container mx-auto pt-20">
+            <div class="relative z-10 container mx-auto pt-10">
                 <h1 class="text-5xl font-bold text-white mb-4 text-left">Auction Scheduler</h1>
                 <p class="text-lg text-gray-300 mx-auto text-left">
                     Manage and view platform auctions across all centers in one place.
                 </p>
             </div>
-            <div class="fade show active" id="tab1">
+            <div class="fade show active pt-4" id="tab1">
 
                 <div class="container mx-auto flex flex-wrap items-center gap-4 pb-4">
 
@@ -55,7 +55,8 @@
                         </label>
                     </div>
                 </div>
-                <div class=" container mx-auto flex items-center flex-wrap gap-5 overflow-x-auto overflow-y-hidden py-10">
+                <div
+                    class=" container mx-auto flex items-center flex-wrap gap-5 overflow-x-auto overflow-y-hidden py-10 pt-1">
 
                     @foreach ($days as $index => $day)
                         <button class="custom-tab flex-fill rounded z-10 {{ $index === 0 ? 'active' : '' }}"
@@ -63,7 +64,6 @@
                                     background-color: {{ $index === 0 ? '#0f1c2c' : '#0f1c2c' }};
                                     border: 1px solid {{ $index === 0 ? '#0d6efd' : '#2b3b4f' }};
                                     color: #fff;
-                                    padding: 10px 15px;
                                     min-width: 120px;
                                     text-align: center;
                                     transition: all 0.3s ease;
@@ -72,7 +72,7 @@
                             data-date="{{ $day['date'] }}">
                             <span style="display: block;">{{ $day['label'] }}</span>
 
-                            <div class="border-b border-[#2b3b4f] py-1.5 pb-1"></div>
+                            <div class="border-b border-[#2b3b4f] py-1.5 mb-4"></div>
                             <div class="tab-numbers d-flex gap-3 align-items-center text-white"
                                 style="margin-top: 4px; justify-content: space-between !important; ">
                                 <small class="d-flex align-items-center gap-1" style="font-size: 12px; color: #ccc;">
@@ -280,6 +280,7 @@
 
                         todayTab.addClass('active').css({
                             'border': '1px solid #0d6efd',
+                            // 'background-color': '#0080ff',
                             'font-weight': '600'
                         });
                         const todayDate = new Date().toISOString().split('T')[0];

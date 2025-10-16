@@ -90,7 +90,7 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="content-wrapper">
+                <div class="">
                     @yield('content')
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl">

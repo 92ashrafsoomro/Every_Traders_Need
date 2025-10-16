@@ -58,6 +58,28 @@
 </div>
 
 <hr class="my-2">
+
+<div class="accordion-item">
+   <h2 class="accordion-header" id="headingAuctionDate">
+      <button class="accordion-button collapsed py-2" type="button"
+         data-bs-toggle="collapse" data-bs-target="#collapseAuctionDate"
+         aria-expanded="false" aria-controls="collapseAuctionDate">
+         Auction Date
+      </button>
+   </h2>
+
+   <div id="collapseAuctionDate" class="accordion-collapse collapse"
+      aria-labelledby="headingAuctionDate" data-bs-parent="#filterAccordion">
+
+      <div id="dateFilterContainer" class="p-3 text-light">
+         <div class="text-center py-2 text-muted small">Loading...</div>
+      </div>
+
+   </div>
+   <div class="tags tags-auction_date"></div>
+</div>
+
+
 <!-- Auction House -->
 <div class="accordion-item">
    <h2 class="accordion-header" id="headingAuctionHouse">
@@ -136,7 +158,7 @@
 </div>
 
 <!-- Color -->
-<div class="accordion-item  ">
+{{-- <div class="accordion-item  ">
    <h2 class="accordion-header">
       <button class="accordion-button collapsed py-2" type="button"
          data-bs-toggle="collapse" data-bs-target="#collapseVehiclecolor"
@@ -147,22 +169,22 @@
    <div id="collapseVehiclecolor" class="accordion-collapse collapse"
       data-bs-parent="#filterAccordion"></div>
    <div class="tags tags-color"></div>
-</div>
+</div> --}}
 
 
 
-<!-- Door -->
+<!-- doors -->
 <div class="accordion-item  ">
    <h2 class="accordion-header">
       <button class="accordion-button collapsed py-2" type="button"
-         data-bs-toggle="collapse" data-bs-target="#collapsedoor"
-         aria-expanded="false" aria-controls="collapsedoor">
+         data-bs-toggle="collapse" data-bs-target="#collapsedoors"
+         aria-expanded="false" aria-controls="collapsedoors">
          Doors
       </button>
    </h2>
-   <div id="collapsedoor" class="accordion-collapse collapse"
+   <div id="collapsedoors" class="accordion-collapse collapse"
       data-bs-parent="#filterAccordion"></div>
-   <div class="tags tags-door"></div>
+   <div class="tags tags-doors"></div>
 </div>
 
 <!-- Seats -->

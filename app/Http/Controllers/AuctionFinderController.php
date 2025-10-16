@@ -501,38 +501,7 @@ public function storeAlert(Request $request)
     ]);
 }
 
-public function getAuctionHouse()
-{
-    $data = AuctionPlatform::query()
-        ->join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
-        ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id')
-        ->select(
-            'auction_platform.id',
-            'auction_platform.name as label',
-            \DB::raw('COUNT(vehicles.id) as vehicle_count')
-        )
-        ->groupBy('auction_platform.id', 'auction_platform.name')
-        ->orderBy('auction_platform.name', 'ASC')
-        ->get();
 
-    return response()->json(['data' => $data]);
-}
-
-public function getAuctionCenter()
-{
-    $data = AuctionCenter::query()
-        ->join('vehicles', 'vehicles.center_id', '=', 'auction_center.id')
-        ->select(
-            'auction_center.id',
-            'auction_center.name as label',
-            \DB::raw('COUNT(vehicles.id) as vehicle_count')
-        )
-        ->groupBy('auction_center.id', 'auction_center.name')
-        ->orderBy('auction_center.name', 'ASC')
-        ->get();
-
-    return response()->json(['data' => $data]);
-}
 
 
 }

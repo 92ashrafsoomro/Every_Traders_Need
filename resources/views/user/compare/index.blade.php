@@ -144,7 +144,7 @@
             <div
                 class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
             </div>
-            <div class="relative z-10 container mx-auto pt-10">
+            <div class="relative z-10 container mx-auto pt-16">
                 <h1 class="text-5xl font-bold text-white mb-4 text-left">Compare Before You Bid</h1>
                 <p class="text-lg text-gray-300 mx-auto text-left">
                     Review multiple auctions side by side to spot the best deal..

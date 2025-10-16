@@ -312,34 +312,7 @@
             });
         });
 
-        $(document).off('click.addNotify', '.add-notification') // namespace diya
-            .on('click.addNotify', '.add-notification', function(e) {
-                e.preventDefault();
 
-                var auction_id = $(this).data('auction-id');
-                console.log("Sending AJAX for auction_id:", auction_id);
-
-                $.ajax({
-                    url: "{{ route('notifications.store') }}",
-                    method: "POST",
-                    data: {
-                        auction_id: auction_id,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        toastr.clear();
-                        if (response.status === 'success') {
-                            toastr.success(response.message);
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function() {
-                        toastr.clear();
-                        toastr.error('Server error! Please try again.');
-                    }
-                });
-            });
     </script>
     <script>
         $(document).ready(function() {
@@ -393,5 +366,36 @@
                 }
             });
         });
+    </script>
+
+    <script>
+                $(document).off('click.addNotify', '.add-notification') // namespace diya
+            .on('click.addNotify', '.add-notification', function(e) {
+                e.preventDefault();
+
+                var auction_id = $(this).data('auction-id');
+
+
+                $.ajax({
+                    url: "{{ route('notifications.store') }}",
+                    method: "POST",
+                    data: {
+                        auction_id: auction_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        toastr.clear();
+                        if (response.status === 'success') {
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function() {
+                        toastr.clear();
+                        toastr.error('Server error! Please try again.');
+                    }
+                });
+            });
     </script>
 @endsection

@@ -27,6 +27,18 @@
     </style>
 @endsection
 @section('content')
+    <script src="https://cdn.tailwindcss.com"></script>
+    <div class="relative w-full h-auto lg:h-[40vh] bg-[#000f21] overflow-hidden space-y-4">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
+        </div>
+        <div class="relative z-10 container mx-auto pt-10">
+            <h1 class="text-5xl font-bold text-white mb-4 text-left">Find Your Next Car with Confidence</h1>
+            <p class="text-lg text-gray-300 mx-auto text-left">
+                Explore a wide range of vehicles tailored to your preferences, needs, and lifestyle
+            </p>
+        </div>
+    </div>
     <div class="container-fluid container-p-y">
         <div class="row g-6">
             <div class="col-md-12">
@@ -48,19 +60,21 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row pt-5">
+                        <div class="row pt-5 space-y-2">
                             <div class="col-md-8">
-                                <select style="max-width:200px;padding:5px;" name="length" class="">
-                                    <option value="10">10</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                    <option value="500">500</option>
-                                </select>
-                                <span style="padding-left: 5px" class="pl-2 pageinfo">0</span>
+                                <div class="flex items-center gap-x-2">
+                                    <span class="label-muted">Show Entries</span>
+                                    <select name="length" class="form-select entries-length" style="width: 90px;">
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="500">500</option>
+                                    </select>
+
+                                </div>
+                                <span class="text-muted ms-2 pageinfo" style="font-size: 0.9rem;"></span>
                             </div>
                             <div class="col-md-4 text-end">
-                                <input style="max-width: 300px" placeholder="Search.." type="text"
-                                    class="d-inline form-control" name="search" />
+                                <input placeholder="Search.." type="text" class="d-inline form-control" name="search" />
                             </div>
                         </div>
 
@@ -106,7 +120,7 @@
             table.on('draw.dt', function() {
                 var info = table.page.info();
                 $('.pageinfo').html(
-                    `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`
+                    // `Showing ${info.start + 1}  of ${info.recordsDisplay} entries`
                 );
             });
 

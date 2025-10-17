@@ -259,14 +259,17 @@
                             </button>
                         </li>
                     </ul>
+        
+                    @if(!empty($notifiction) && $notifiction)
+                    <button id="toggleNotificationBtn" data-noti-id="{{ $notifiction->id }}" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button>
+                    @else
+                    <button id="toggleNotificationBtn" data-noti-id="{{ $vehicle->id }}" data-vehicle-id="{{ $vehicle->id }}" data-exists="false" class="btn btn-sm btn-primary">  <i class="fa fa-bell text-primary"></i></button>
+                    
+                    @endif
 
-                    <button class="btn btn-light position-relative me-4" id="notificationBtn" title="Notifications">
-                        <i class="fa fa-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
+                    
+                       
+                 
                 </div>
 
      
@@ -280,11 +283,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        @include('user.vehicle.vehicle_valuation')
+                        {{-- @include('user.vehicle.vehicle_valuation') --}}
+                        @include('user.vehicle.vehicle_valuation2')
                     </div>
-
+                    
                     <div class="tab-pane fade" id="condition" role="tabpanel" aria-labelledby="condition-tab">
-                        @include('user.vehicle.vehicle_conditions')
+                        @include('user.vehicle.vehicle_valuation')
+                        {{-- @include('user.vehicle.vehicle_conditions') --}}
                     </div>
 
                 </div>
@@ -297,6 +302,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function loadTabFromButton(button) {
             const url = button.getAttribute('data-url');
@@ -635,6 +641,145 @@
   
         });
     </script>
+{{-- <button id="toggleNotificationBtn" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button> --}}
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $('#toggleNotificationBtn').on("click", function () {
+    let btn = $(this);
+    let vehicleId = btn.data('vehicle-id');
+    let notiId = btn.data('noti-id');
+    let exists = btn.data('exists');
+
+    if (!exists) {
+        // 🔔 ADD Notification
+        $.ajax({
+            url: "{{ url('/notificationsstore') }}",
+            method: "POST",
+            data: {
+                auction_id: vehicleId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                 console.log(response.status === 'success');
+                if (response.status === 'success') {
+                    toastr.success(response.message);
+
+              
+                    btn.data('exists', true);
+                    btn.data('noti-id', response.id);
+                    btn.removeClass('btn-primary').addClass('btn-danger');
+                   
+                } else {
+                    toastr.warning(response.message);
+                }
+            },
+            error: function (err) {
+                console.error(err);
+                toastr.error('Something went wrong while adding notification.');
+            }
+        });
+
+    } else {
+      
+        $.ajax({
+            url: "{{ url('/viewhistory/alerts') }}/" + notiId,
+            type: "DELETE",
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                console.log(response.status );
+                if (response.message === "Alert deleted successfully") {
+                    toastr.success('Notification deleted successfully');
+
+                  
+                    btn.data('exists', false);
+                    btn.data('noti-id', '');
+                    btn.removeClass('btn-danger').addClass('btn-primary');
+                  
+                } else {
+                    toastr.warning(response.message);
+                }
+            },
+            error: function (err) {
+                console.error(err);
+                toastr.error('Something went wrong while deleting notification.');
+            }
+        });
+    }
+});
+
+    </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('tradChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
+            datasets: [
+                {
+                    label: 'Autotrader',
+                    data: [13000, 13500, 13800, 14000, 14500, 14700],
+                    borderColor: '#0066ff',
+                    backgroundColor: 'rgba(0,102,255,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                },
+                {
+                    label: 'CAP Clean',
+                    data: [12800, 13200, 13400, 13600, 13900, 14200],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16,185,129,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                },
+                {
+                    label: 'CAP Avg',
+                    data: [12000, 12200, 12500, 12700, 13000, 13200],
+                    borderColor: '#60a5fa',
+                    backgroundColor: 'rgba(96,165,250,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                },
+                {
+                    label: 'CAP B',
+                    data: [11000, 11500, 11800, 12000, 12300, 12500],
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245,158,11,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false } // We already show legend manually below
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#a0a9c9' },
+                    grid: { color: '#1f2547' }
+                },
+                y: {
+                    ticks: { color: '#a0a9c9', callback: val => '£' + val.toLocaleString() },
+                    grid: { color: '#1f2547' }
+                }
+            }
+        }
+    });
+});
+</script>
+
 @endsection
 
 

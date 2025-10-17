@@ -505,7 +505,7 @@ public function notification(Request $request)
         ]);
     }
 
-    Notification::create([
+    $notification =Notification::create([
         'user_id'    => Auth::id(),
         'vehicle_id' => $request->auction_id,
         'is_read'    => 0
@@ -513,7 +513,8 @@ public function notification(Request $request)
 
     return response()->json([
         'status' => 'success',
-        'message' => 'Notification created.'
+        'message' => 'Notification created.',
+        'id' => $notification->id
     ]);
 }
 

@@ -19,6 +19,7 @@ use App\Models\ModelVariant;
 use App\Models\Year;
 use App\Models\BodyType;
 use App\Models\Color;
+use App\Models\Notification;
 use App\Models\Vehicle;
 use DataTables;
 use Carbon\Carbon;
@@ -139,13 +140,14 @@ class AuctionFinderController extends Controller
     public function vehicle($id)
     {
         $vehicle = Vehicle::where('id', $id)->first();
+
         if (!$vehicle) {
             return back()->with('error','Vehicle Not Found');
         }
 
         $userId = Auth::id();
-
-
+        $notifiction =Notification::where('user_id',$userId)->where("vehicle_id", $vehicle->id)->first();
+        
         $existingView = RecentView::where('user_id', $userId)
             ->where('vehicle_id', $id)
             ->first();
@@ -181,6 +183,7 @@ class AuctionFinderController extends Controller
             'colors' => $colors,
             'auctionsPlatform' => $auctionsPlatform,
             'biddingHistoryArray' => $biddingHistoryArray,
+            "notifiction"=>$notifiction,
         ];
         
         return view('user.vehicle.index',$data);

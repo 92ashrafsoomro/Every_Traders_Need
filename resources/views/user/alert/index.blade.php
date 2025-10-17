@@ -338,53 +338,56 @@
         </div>
     </div>
     <div class="container mx-auto">
-        <div class="flex items-center justify-between pt-5">
-            <div class="flex items-center gap-2">
-                <span class="label-muted">Show Entries</span>
-                <select class="form-select entries-length" style="width: 90px;">
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="500">500</option>
-                </select>
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-normal gap-2 lg:justify-between pt-5">
+            <div class="flex items-center">
+                <div class="flex items-center gap-2">
+                    <span class="label-muted">Show Entries</span>
+                    <select class="form-select entries-length" style="width: 90px;">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="500">500</option>
+                    </select>
 
-                <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
+                    <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
+                </div>
+                <div>
+                    <select id="year1" class="form-select year select2-filter" style="width: 110px;">
+                        <option value="">All Years</option>
+                        @foreach ($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class=" flex flex-col lg:flex-row justify-end items-center gap-2 w-full">
 
 
-                <div style="position: relative;width:190px;">
+                <div style="position: relative;" class="w-full">
                     <input type="text" id="reg_search" class="form-control form-control-sm"
                         placeholder="Search by Reg Number"
-                        style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; width: 193px; padding-top: 6px;padding-bottom: 6px;">
+                        style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; padding-top: 6px;padding-bottom: 6px;">
                     <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
                         <i class="fas fa-search"></i>
                     </span>
                 </div>
 
 
-                <select id="make1" class="form-select form-select-sm select2-filter" style="width: 160px;">
+                <select id="make1" class="form-select form-select-sm select2-filter">
                     <option value="">Select Make</option>
                 </select>
 
 
-                <select id="model1" class="form-select form-select-sm select2-filter" style="width: 160px;" disabled>
+                <select id="model1" class="form-select form-select-sm select2-filter" disabled>
                     <option value="">Select Model</option>
                 </select>
 
-
-                <select id="year1" class="form-select year select2-filter" style="width: 110px;">
-                    <option value="">All Years</option>
-                    @foreach ($years as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endforeach
-                </select>
 
             </div>
         </div>
 
 
-        <div class="tab-content">
+        <div class="py-5">
             <!-- Watchlist Table -->
             <section class="tab-pane fade show active card p-0 overflow-hidden" id="watchlist" role="tabpanel"
                 aria-labelledby="watchlist-tab">

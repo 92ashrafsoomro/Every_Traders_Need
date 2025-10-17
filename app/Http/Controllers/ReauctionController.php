@@ -347,19 +347,23 @@ class ReauctionController extends Controller
 
         $response = [];
         foreach ($vehicles as $vehicle) {
-            $diff = $vehicle->last_bid ?? 0 - $vehicle->cap_clean ?? 0;
+            $lastBid   = $vehicle->last_bid ?? 0;
+            $capClean  = $vehicle->cap_clean ?? 0;
 
             $percentDiff = 0;
-            if ($vehicle->cap_clean > 0) {
-                $percentDiff = ($diff / $vehicle->cap_clean) * 100;
-            }
+            $result1 = "<span style='color:gray;'>= At CAP Clean</span>";
 
-            if ($percentDiff > 0) {
-                $result1 = "<span style='color:green;'>▲ " . number_format($percentDiff, 2) . "</span>";
-            } elseif ($percentDiff < 0) {
-                $result1 = "<span style='color:red;'>▼ " . number_format(abs($percentDiff), 2) . "</span>";
-            } else {
-                $result1 = "<span style='color:gray;'>= At CAP Clean</span>";
+            if ($capClean > 0) {
+                $diff = $capClean - $lastBid; // CAP Clean se difference (reverse logic)
+                $percentDiff = ($diff / $capClean) * 100;
+
+                if ($lastBid < $capClean) {
+                    // Last bid CAP se niche hai → positive change (green, +)
+                    $result1 = "<span style='color:green;'>▲ " . number_format($percentDiff, 2) . "%</span>";
+                } elseif ($lastBid > $capClean) {
+                    // Last bid CAP se upar hai → negative change (red, -)
+                    $result1 = "<span style='color:red;'>▼ " . number_format(abs($percentDiff), 2) . "%</span>";
+                }
             }
 
             $actions = '

@@ -1378,6 +1378,52 @@ public function getDates(Request $request)
     return response()->json(['data' => $data], 200);
 }
 
+public function getVehicleDetails(Request $request)
+{
+    $vehicle = DB::table('vehicles as v')
+        ->leftJoin('auctions as a', 'a.id', '=', 'v.auction_id')
+        ->leftJoin('auction_platform as p', 'p.id', '=', 'a.platform_id')
+        ->leftJoin('auction_center as c', 'c.id', '=', 'v.center_id')
+        ->where(function ($q) use ($request) {
+            $q->where('v.id', $request->id)
+              ->orWhere('v.reg', $request->regnum);
+        })
+        ->select(
+            'v.*',
+            'a.name as auction_name',
+            'a.auction_date',
+            'a.status as auction_status',
+            'p.name as platform_name',
+            'c.name as center_name'
+        )
+        ->first();
+
+    if (!$vehicle) {
+        return response()->json(['status' => false, 'message' => 'Vehicle not found']);
+    }
+
+    $previousVehicle = DB::table('vehicles as v')
+        ->leftJoin('auctions as a', 'a.id', '=', 'v.auction_id')
+        ->leftJoin('auction_platform as p', 'p.id', '=', 'a.platform_id')
+        ->where('v.reg', $vehicle->reg)
+        ->where('a.auction_date', '<', $vehicle->auction_date)
+        ->orderBy('a.auction_date', 'desc')
+        ->select(
+            'v.*',
+            'a.name as auction_name',
+            'a.auction_date',
+            'p.name as platform_name'
+        )
+        ->first();
+
+    return response()->json([
+        'status' => true,
+        'vehicle' => $vehicle,
+        'previous_vehicle' => $previousVehicle,
+    ]);
+}
+
+
 
 
 

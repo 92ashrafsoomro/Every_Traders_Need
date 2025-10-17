@@ -297,6 +297,7 @@
             </div>
     </div>
 </div>
+@include('user.vehicle.popup')
 @endsection
 @section('js')
 
@@ -763,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function () {
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false } // We already show legend manually below
+                legend: { display: false }
             },
             scales: {
                 x: {
@@ -779,6 +780,222 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+
+<script>
+$(document).on('click', '#prvactionspopup', function () {
+    let vehicleId = $(this).data('vehid');
+    let regNum = $(this).data('regnum');
+
+    $('#vehicleModal .modal-body').html(`
+        <div style="text-align:center;padding:40px;color:#a0aec0;">
+            Loading vehicle details...
+        </div>
+    `);
+
+    $.ajax({
+        url: '{{ url("/auction-finder/vehicle/get-vehicle-details") }}',
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            id: vehicleId,
+            regnum: regNum
+        },
+        success: function (response) {
+            if (!response.status) {
+                $('#vehicleModal .modal-body').html(`
+                    <p style="color:#dc2626;text-align:center;">${response.message}</p>
+                `);
+                $('#vehicleModal').modal('show');
+                return;
+            }
+
+            const v = response.vehicle;
+            const prev = response.previous_vehicle;
+
+            const mileageDiff = v.mileage && prev?.mileage
+                ? v.mileage - prev.mileage
+                : 0;
+            const mileageDiffHtml = mileageDiff > 0
+                ? `<span style="color:#ff9500;">+${mileageDiff}</span>`
+                : `<span style="color:#10b981;">${mileageDiff}</span>`;
+
+       
+            let vehicleInfo = `
+                <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;margin-bottom:24px;border-left:4px solid #0066ff;">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Auction House</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">${v.platform_name ?? '—'}</span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Date Time / End</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">
+                                ${v.auction_date ? v.auction_date : '—'}
+                                <br><span style="font-size:12px;">${v.auction_end_time ?? '—'}</span>
+                            </span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Auction Status</span>
+                            <span style="font-size:16px;font-weight:600;color:#ff9500;">${v.auction_status ?? '—'}</span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Previous Auction</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">${prev ? "Before " + getDaysDiff(prev.auction_date, v.auction_date) + " Days" : "—"}</span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Mileage</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">
+                                ${v.mileage ?? '—'} ${mileageDiffHtml}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Grade</span>
+                            <span style="background-color:#dc2626;color:#fff;padding:4px 8px;border-radius:4px;display:inline-block;">
+                                ${v.grade ?? '—'}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Last Service</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">${v.last_service ?? '—'}</span>
+                        </div>
+
+                        <div>
+                            <span style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">MOT Expiry</span>
+                            <span style="font-size:16px;font-weight:600;color:#ffffff;">${v.mot_expiry_date ?? '—'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+     
+            let preAucTable = '';
+            if (prev) {
+                preAucTable = `
+                    <div style="margin-top:24px;">
+                        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:#ffffff;">Pre Auc</h3>
+                        <div style="border:1px solid #2a3a52;border-radius:8px;overflow:hidden;">
+                            <table style="width:100%;border-collapse:collapse;background-color:#1a2a42;">
+                                <thead style="background-color:#0f1f35;border-bottom:1px solid #2a3a52;">
+                                    <tr>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">Date</th>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">Auc House</th>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">CAP C</th>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">CAP Avg</th>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">CAP B</th>
+                                        <th style="padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#a0aec0;text-transform:uppercase;">Last Bid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #2a3a52;">
+                                        <td style="padding:12px 16px;">${prev.auction_date ?? '—'}</td>
+                                        <td style="padding:12px 16px;">${prev.auction_name ?? '—'}</td>
+                                        <td style="padding:12px 16px;">${prev.cap_clean ?? '—'}</td>
+                                        <td style="padding:12px 16px;">${prev.cap_average ?? '—'}</td>
+                                        <td style="padding:12px 16px;">${prev.cap_below ?? '—'}</td>
+                                        <td style="padding:12px 16px;">${prev.last_bid ?? '—'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+            const headerTop = `
+            <div style="display:flex;align-items:flex-start;gap:20px;">
+
+                <!-- Badge -->
+                <div style="background:linear-gradient(135deg,#0066ff,#1a7fff);
+                            color:white;
+                            padding:8px 14px;
+                            border-radius:8px;
+                            font-weight:700;
+                            font-size:14px;
+                            letter-spacing:0.5px;
+                            box-shadow:0 0 10px rgba(0,102,255,0.5);">
+                    VN14 UCD
+                </div>
+
+                <!-- Title and Actions -->
+                <div>
+                    <h2 style="font-size:26px;
+                                font-weight:800;
+                                margin-bottom:6px;
+                                color:#ffffff;
+                                text-shadow:0 1px 6px rgba(0,0,0,0.4);
+                                line-height:1.3;">
+                        Make-Model-Variant <br>
+                        <span style="font-size:16px;font-weight:500;color:#a0aec0;">CC-Year</span>
+                    </h2>
+
+                    <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+                        <button style="background:linear-gradient(135deg,#0066ff,#1a7fff);
+                                    color:white;
+                                    border:none;
+                                    padding:6px 14px;
+                                    border-radius:6px;
+                                    font-size:12px;
+                                    font-weight:600;
+                                    cursor:pointer;
+                                    transition:0.3s;">
+                            View Report
+                        </button>
+                        <span style="color:#a0aec0;font-size:14px;">👁️ 234 Views</span>
+                    </div>
+                </div>
+            </div>
+              <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                style="background:none;
+                        border:none;
+                        color:#a0aec0;
+                        font-size:22px;
+                        cursor:pointer;
+                        width:36px;
+                        height:36px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:8px;
+                        transition:0.3s;">
+            ✕
+        </button>
+            `;
+
+            $('#vehicleModal .modal-header').html(headerTop);
+
+            $('#vehicleModal .modal-body').html(vehicleInfo + preAucTable);
+            $('#vehicleModal').modal('show');
+        },
+        error: function () {
+            $('#vehicleModal .modal-body').html(`
+                <div style="text-align:center;padding:40px;color:#dc2626;">
+                    ❌ Failed to load vehicle details.
+                </div>
+            `);
+            $('#vehicleModal').modal('show');
+        }
+    });
+});
+
+// Utility function to calculate days difference
+function getDaysDiff(prevDate, currentDate) {
+    if (!prevDate || !currentDate) return 0;
+    const d1 = new Date(prevDate);
+    const d2 = new Date(currentDate);
+    const diff = Math.abs(d2 - d1);
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+</script>
+
+
+
+
 
 @endsection
 

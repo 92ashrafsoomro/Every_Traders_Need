@@ -1,4 +1,4 @@
-<div style="display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:20px;padding:20px;min-height:100vh;max-width:1600px;margin:0 auto;background:#0a0e27;color:#fff;font-family:Arial, sans-serif;">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:20px;min-height:100vh;max-width:1600px;margin:0 auto;background:#0a0e27;color:#fff;font-family:Arial, sans-serif;">
 
     <!-- Left Panel -->
     <div style="display:flex;flex-direction:column;gap:20px;">
@@ -64,34 +64,9 @@
             </div>
         </div>
 
-        <!-- Trad History Card (Center bottom) -->
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <h3 style="font-size:14px;">Trad History</h3>
-                <select style="background:#1a1f3a;border:1px solid #2a3050;color:#a0a9c9;padding:8px 12px;border-radius:6px;font-size:12px;">
-                    <option>Select range</option>
-                    <option>Last 3 months</option>
-                    <option>Last 6 months</option>
-                    <option>Last year</option>
-                </select>
-            </div>
-            <div>
-                <div style="margin-bottom:16px;">
-                    <span style="font-size:12px;color:#a0a9c9;">Avg Winning</span><br>
-                    <span style="font-size:24px;font-weight:700;">£14,000</span>
-                </div>
-                <div style="height:200px;background:#1a1f3a;border-radius:8px;margin-bottom:16px;">
-                    <canvas id="tradChart"></canvas>
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                    <div><span style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>Autotrader</div>
-                    <div><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP Clean</div>
-                    <div><span style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>CAP Avg</div>
-                    <div><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP B</div>
-                </div>
-            </div>
-        </div>
+    
     </div>
+    
 
     <!-- Right Panel -->
     <div style="display:flex;flex-direction:column;gap:20px;">
@@ -162,18 +137,43 @@
 
                 </div>
         </div>
+    </div>
+<div style="margin-top:20px;
+            background:#111633;
+            border:1px solid #2a3050;
+            border-radius:12px;
+            padding:20px;
+            grid-column:span 2;">
+            
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:14px;">Trad History</h3>
+        <select style="background:#1a1f3a;border:1px solid #2a3050;color:#a0a9c9;padding:8px 12px;border-radius:6px;font-size:12px;">
+            <option>Select range</option>
+            <option>Last 3 months</option>
+            <option>Last 6 months</option>
+            <option>Last year</option>
+        </select>
+    </div>
 
+    <div>
+        <div style="margin-bottom:16px;">
+            <span style="font-size:12px;color:#a0a9c9;">Avg Winning</span><br>
+            <span style="font-size:24px;font-weight:700;">£14,000</span>
+        </div>
 
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <h3 style="font-size:14px;margin-bottom:10px;">Pre Vehicles</h3>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="background:#1a1f3a;padding:10px;border-radius:6px;display:flex;justify-content:space-between;">
-                    <span>ABC 123</span><span>£14,000</span>
-                </div>
-                <div style="background:#1a1f3a;padding:10px;border-radius:6px;display:flex;justify-content:space-between;">
-                    <span>XYZ 456</span><span>£15,500</span>
-                </div>
-            </div>
+        <div style="height:300px;background:#1a1f3a;border-radius:8px;margin-bottom:16px;">
+            <canvas id="tradChart"></canvas>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div><span style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>Autotrader</div>
+            <div><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP Clean</div>
+            <div><span style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>CAP Avg</div>
+            <div><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP B</div>
         </div>
     </div>
 </div>
+
+
+</div>
+

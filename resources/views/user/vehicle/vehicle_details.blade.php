@@ -309,13 +309,13 @@
                 <div style="display:flex;flex-direction:column;gap:4px;">
                     <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
                                 letter-spacing:0.5px;font-weight:600;">Previous Auc</span>
-                    <button onclick="handleViewDetails({{ $vehicle->previousAuction()->id ?? 0 }})"
-                            style="background-color:#cc3333;color:white;border:none;
-                                padding:5px 10px;border-radius:4px;font-size:11px;
-                                font-weight:600;cursor:pointer;transition:all 0.3s ease;
-                                text-transform:uppercase;letter-spacing:0.5px;">
-                        View
-                    </button>
+                     <button id="prvactionspopup"
+                        data-vehid="{{ $vehicle->id }}"
+                        data-regnum="{{ $vehicle->reg }}"
+                        style="background-color:#cc3333;color:white;border:none;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">
+                    View
+                </button>
+
                 </div>
 
                 <!-- Auction Type -->

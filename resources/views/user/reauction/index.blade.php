@@ -24,6 +24,29 @@
         .table tbody td {
             font-size: 0.85rem;
         }
+
+        @media (max-width: 768px) {
+            .platform-badges {
+                overflow-x: auto;
+                flex-wrap: nowrap !important;
+                /* Disable wrapping on mobile */
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                max-width: 100vw;
+                /* Prevent overflowing screen */
+            }
+
+            .platform-badges span {
+                display: inline-block;
+                margin-right: 0.5rem;
+            }
+
+            /* Prevent gap between h6 and scrollable content from breaking layout */
+            .centers-container {
+                flex-shrink: 1;
+                min-width: 0;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -44,7 +67,8 @@
                 <div class="card-body">
 
                     <!-- Filters -->
-                    <div class="flex items-center justify-between w-full py-4">
+                    <div
+                        class="flex flex-col md:flex-row items-start gap-2 md:gap-0 md:items-center justify-between w-full py-4">
                         <div>
                             <div id="customLengthControl" class="my-length-control flex items-center gap-x-2">
                                 <p>Show Entries</p>
@@ -57,7 +81,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-end gap-x-3">
+                        <div class="flex flex-col md:flex-row gap-3 items-start md:items-center justify-end md:gap-x-3">
                             <div>
                                 {{-- <label for="auctionSelector" class="form-label">Auction Date</label> --}}
                                 <select id="auctionSelector" class="form-select">
@@ -110,6 +134,7 @@
                                     <th>Center</th>
                                     <th>Cap Clean</th>
                                     <th>Cap Avg</th>
+                                    <th>Mileage</th>
                                     <th>Status</th>
                                     <th>Time</th>
                                     <th>Action</th>
@@ -275,9 +300,11 @@
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.center}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.last_bid}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.cap_clean}</td>
+                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.mileage}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.status}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.difference}</td>
                         <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.time}</td>
+                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.action}</td>
                     </tr>`;
                         $('#vehicleModalTableBody').append(row);
                     });
@@ -311,8 +338,6 @@
                 behavior: 'smooth'
             });
         });
-
-
     </script>
     <script>
         $(document).ready(function() {
@@ -369,7 +394,7 @@
     </script>
 
     <script>
-                $(document).off('click.addNotify', '.add-notification') // namespace diya
+        $(document).off('click.addNotify', '.add-notification') // 
             .on('click.addNotify', '.add-notification', function(e) {
                 e.preventDefault();
 

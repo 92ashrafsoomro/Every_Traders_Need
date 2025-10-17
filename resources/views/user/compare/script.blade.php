@@ -78,9 +78,9 @@
                                     style="width: 60px; height: 30px; object-fit: contain; border-radius: 6px; background-color: #fff; border: 1px solid #0ea5e9; padding: 4px;">
                                 <span style="font-size: 13px; font-weight: 600;">${vehicle.platform_name ?? 'Unknown Platform'}</span>
                             </div>
-                            <hr style="border: none; height: 1px; background-color: #0ea5e9; width: 70%; margin: 6px auto; opacity: 0.7;">
-                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 12px 0; padding: 8px 10px; background: #03326a; border-radius: 1px; border: 1px solid ##03326a;">
-                                <img src="${firstImage}" alt="${vehicleName}" style="width: 90px; height: 65px; object-fit: cover; border-radius: 6px; border: 1px solid #334155; background: #111827;">
+                            <hr style="border: none; height: 1px; background-color: #0ea5e9; margin: 6px auto; opacity: 0.7;">
+                            <div class="flex flex-col justify-center items-center space-y-2" style="margin: 12px 0; background: #03326a; border-radius: 1px; border: 1px solid ##03326a;">
+                                <img src="${firstImage}" alt="${vehicleName}" style="object-fit: cover; border-radius: 4px; border: 1px solid #334155; background: #111827;">
                                 <div style="flex: 1; text-align: left; color: #fff; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     ${vehicleName}
                                 </div>

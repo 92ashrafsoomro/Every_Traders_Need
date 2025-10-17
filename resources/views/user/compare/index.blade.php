@@ -132,6 +132,14 @@
         .footer-container {
             display: none !important;
         }
+
+        tr {
+            white-space: nowrap;
+        }
+
+        td {
+            border-bottom: none !important;
+        }
     </style>
 @endsection
 @include('user.compare.customestyle')
@@ -164,7 +172,7 @@
                 <div id="filterSection" class="relative z-10">
                     <div class="rounded border border-[#d1d5db] bg-[#000f21] mb-4 ">
 
-                        <div class="p-5 grid grid-cols-1 lg:grid-cols-4 gap-5 !items-center">
+                        <div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 !items-center">
                             <div>
                                 <label class="form-label required" for="make_id">Make</label>
                                 <select name="make_id" id="make_id" class="form-control make select2" required>
@@ -185,7 +193,7 @@
                             </div>
                             <div>
                                 <label class="form-label" for="year">Year</label>
-                                <select name="year" id="year" class="form-control select2">
+                                <select name="year" id="year" class="form-control select2 !bg-[#000f21]">
                                     <option value="">Select Year</option>
                                     @foreach ($years as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -195,7 +203,7 @@
                             <div>
 
                                 <label class="form-label" for="transmission">Transmission</label>
-                                <select name="transmission" id="transmission" class="form-control select2">
+                                <select name="transmission" id="transmission" class="form-control select2 !bg-[#000f21]">
                                     <option value="">Select Transmission</option>
                                     @foreach ($transmissions as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -205,7 +213,7 @@
                             </div>
                             <div>
                                 <label class="form-label" for="fuel">Fuel</label>
-                                <select name="fuel" id="fuel" class="form-control select2">
+                                <select name="fuel" id="fuel" class="form-control select2 !bg-[#000f21]">
                                     <option value="">Select Fuel</option>
                                     @foreach ($fuels as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -214,7 +222,7 @@
                             </div>
                             <div>
                                 <label class="form-label" for="grade">Grade</label>
-                                <select name="grade" id="grade" class="form-control select2">
+                                <select name="grade" id="grade" class="form-control select2 !bg-[#000f21]">
                                     <option value="">Select Grade</option>
                                     @foreach ($grades as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -223,7 +231,7 @@
                             </div>
                             <div>
                                 <label class="form-label" for="platform_id" style="">Auction House</label>
-                                <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2"
+                                <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2 "
                                     multiple="multiple"
                                     style="width: 100%; padding: 0.4rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background:#1f2937; color:#f3f4f6;"
                                     required>
@@ -232,11 +240,12 @@
                             <div>
                                 <label class="form-label" for="mileage_range"
                                     style="font-weight:600;color:#f3f4f6;">Mileage</label>
-                                <select name="mileage_range" id="mileage_rangeMax" class="form-control select2">
+                                <select name="mileage_range" id="mileage_rangeMax"
+                                    class="form-control select2 !bg-[#000f21]">
                                     <option value="">Max</option>
                                 </select>
                             </div>
-                            <div class="col-span-3 flex justify-end items-end">
+                            <div class=" lg:col-span-3 flex justify-end items-end">
                                 <button type="button" id="searchBtn"
                                     class="btn btn-primary d-flex align-items-center justify-content-center"
                                     style="font-size: 14px; border-radius: 6px; gap: 6px;">
@@ -261,60 +270,7 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="relative p-5">
-            <div class="rounded border border-[#d1d5db] bg-[#000f21] compare_data h-auto">
-                <div class="border-b border-b-[#d1d5db] p-5">
-                    Compare
-                </div>
-                
-            </div>
-        </div> --}}
     </section>
-
-
-
-
-
-    {{-- <div class="container-fluid container-p-y">
-        <div class="row g-6">
-            <div class="col-md-12">
-
-
-
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-
-
-                <div class="card">
-                    <div class="card-header border-bottom">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="card-title ">Compare</h5>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="container" style="width: 100%; max-width: 100%; padding: 0;">
-                        <div class="table-section" style="width: 100%;">
-                            <div class="table-container" style="width: 100%; overflow-x: auto;">
-                                <table class="comparison-table" style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr id="comparison-head"></tr>
-                                    </thead>
-                                    <tbody id="comparison-body"></tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @section('js')

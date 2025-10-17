@@ -144,7 +144,7 @@
             <div
                 class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
             </div>
-            <div class="relative z-10 container mx-auto pt-16">
+            <div class="relative z-10 container mx-auto pt-14">
                 <h1 class="text-5xl font-bold text-white mb-4 text-left">Compare Before You Bid</h1>
                 <p class="text-lg text-gray-300 mx-auto text-left">
                     Review multiple auctions side by side to spot the best deal..
@@ -164,7 +164,7 @@
                 <div id="filterSection" class="relative z-10">
                     <div class="rounded border border-[#d1d5db] bg-[#000f21] mb-4 ">
 
-                        <div class="p-5 grid grid-cols-1 lg:grid-cols-4 gap-5 items-center">
+                        <div class="p-5 grid grid-cols-1 lg:grid-cols-4 gap-5 !items-center">
                             <div>
                                 <label class="form-label required" for="make_id">Make</label>
                                 <select name="make_id" id="make_id" class="form-control make select2" required>
@@ -232,18 +232,14 @@
                             <div>
                                 <label class="form-label" for="mileage_range"
                                     style="font-weight:600;color:#f3f4f6;">Mileage</label>
-                                <select name="mileage_range" id="mileage_range" class="form-control select2">
-                                    <option value="">Select Mileage</option>
+                                <select name="mileage_range" id="mileage_rangeMax" class="form-control select2">
+                                    <option value="">Max</option>
                                 </select>
-
-
-                                <small style="color:#9ca3af;margin-top:0.25rem;display:block;">Select mileage range in
-                                    kilometers</small>
                             </div>
-                            <div>
+                            <div class="col-span-3 flex justify-end items-end">
                                 <button type="button" id="searchBtn"
                                     class="btn btn-primary d-flex align-items-center justify-content-center"
-                                    style="font-size: 14px; padding: 6px 12px; border-radius: 6px; gap: 6px;">
+                                    style="font-size: 14px; border-radius: 6px; gap: 6px;">
                                     <i class="fas fa-search"></i> Search
                                 </button>
                             </div>
@@ -323,13 +319,12 @@
 
 @section('js')
     <script>
-        const mileageSelect = document.getElementById('mileage_range');
-
+        const mileageSelectMax = document.getElementById('mileage_rangeMax');
         for (let i = 100000; i <= 1000000; i += 100000) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = i.toLocaleString() + ' km';
-            mileageSelect.appendChild(option);
+            mileageSelectMax.appendChild(option);
         }
 
 

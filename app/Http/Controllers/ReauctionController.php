@@ -513,7 +513,7 @@ class ReauctionController extends Controller
             ]);
         }
 
-        Notification::create([
+        $notification = Notification::create([
             'user_id'    => Auth::id(),
             'vehicle_id' => $request->auction_id,
             'is_read'    => 0
@@ -521,25 +521,8 @@ class ReauctionController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Notification created.'
+            'message' => 'Notification created.',
+            'id'=> $notification->id,
         ]);
     }
-
-
-    $notification =Notification::create([
-        'user_id'    => Auth::id(),
-        'vehicle_id' => $request->auction_id,
-        'is_read'    => 0
-    ]);
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Notification created.',
-        'id' => $notification->id
-    ]);
-}
-
-
-
-
 }

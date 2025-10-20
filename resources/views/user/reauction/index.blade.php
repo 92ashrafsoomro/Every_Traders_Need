@@ -268,6 +268,8 @@
 
         $(document).on('click', '.PreviousBtnRec', function() {
             let reg = $(this).data('ref');
+            let vehicleId = $(this).data('vehid');
+        
             if (!reg) return;
 
             let isUpcoming = $('#Upcoming').is(':checked') ? 1 : 0;
@@ -277,6 +279,7 @@
                 method: 'POST',
                 data: {
                     reg: reg,
+                    vehId: vehicleId,
                     upcoming: isUpcoming,
                     _token: '{{ csrf_token() }}'
                 },
@@ -296,15 +299,15 @@
                     response.forEach(function(item) {
                         let row = `
                     <tr>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.platform}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.center}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.last_bid}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.cap_clean}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.mileage}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.status}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.difference}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.time}</td>
-                        <td style="font-size: var(--font-p2); color: var(--bs-heading-color);">${item.action}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.platform}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.center}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.last_bid}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.cap_clean}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.mileage}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.status}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.difference}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.time}</td>
+                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.action}</td>
                     </tr>`;
                         $('#vehicleModalTableBody').append(row);
                     });

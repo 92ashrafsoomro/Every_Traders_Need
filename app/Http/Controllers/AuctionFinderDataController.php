@@ -1439,12 +1439,13 @@ public function getVehicleDetails(Request $request)
     $viewCount = DB::table('recent_views')
         ->where('vehicle_id', $vehicle->id)
         ->count();
-
+    $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
     return response()->json([
         'status' => true,
         'vehicle' => $vehicle,
         'previous_vehicle' => $previousVehicle,
         'views' => $viewCount,
+        'priceSymbol' => $priceSymbol,
     ]);
 }
 

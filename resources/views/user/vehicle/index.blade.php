@@ -784,9 +784,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script>
-$(document).on('click', '#prvactionspopup', function () {
-    let vehicleId = $(this).data('vehid');
-    let regNum = $(this).data('regnum');
+function loadVehicleDetails(vehicleId, regNum) {
+    
 
     $('#vehicleModal .modal-body').html(`
         <div style="text-align:center;padding:40px;color:#a0aec0;">
@@ -1035,8 +1034,22 @@ $(document).on('click', '#prvactionspopup', function () {
             $('#vehicleModal').modal('show');
         }
     });
+}
+$(document).on('click', '#prvactionspopup', function () {
+    let vehicleId = $(this).data('vehid');
+    let regNum = $(this).data('regnum');
+    loadVehicleDetails(vehicleId, regNum);
 });
 
+
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.has('reg')) {
+        // Automatically trigger click
+        $('#prvactionspopup').trigger('click');
+    }
+});
 
 function getDaysDiff(prevDate, currentDate) {
     if (!prevDate || !currentDate) return 0;

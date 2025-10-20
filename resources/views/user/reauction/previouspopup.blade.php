@@ -13,19 +13,19 @@
                         padding:8px 16px;border-radius:6px;
                         font-weight:700;font-size:14px;min-width:fit-content;
                         background-color:#ffffff;;
-                        border:1px solid  #ffffff;">
-              VN14 UCD
+                        border:1px solid  #ffffff;" id="regnumber_veh">
+              
             </div>
-            <h1 style="font-size:32px;font-weight:700;color:#ffffff;flex:1;min-width:300px;">
-              Make-Model-Veriunt-CC-Year
+            <h1 style="font-size:32px;font-weight:700;color:#ffffff;flex:1;min-width:300px;" id="name_veh">
+           
             </h1>
-            <button class="btn btn-sm btn-primary"  style="color:#ffffff;border:1px solid #64748b;
+            <a href="#" id="DetailView" target="_blank" class="btn btn-sm btn-primary"  style="color:#ffffff;border:1px solid #64748b;
                         
                            padding:10px 24px;border-radius:6px;
                            font-weight:600;font-size:14px;cursor:pointer;
                            transition:all 0.3s ease;">
               Detail View
-            </button>
+        </a>
           </div>
         </div>
 
@@ -47,24 +47,8 @@
                   <th style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;color:#ffffff;">Risk Ratio</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid #475569;">
-                  <td style="padding:14px 12px;font-size:14px;color:#60a5fa;font-weight:500;">14/10/2025</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">Auc House</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">Center</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">64321</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">156615</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">65234</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">65615</td>
-                  <td style="padding:14px 12px;font-size:14px;color:#ffffff;">15312</td>
-                  <td style="padding:14px 12px;">
-                    <span style="color:#dc2626;padding:6px 12px;
-                                 border:1px solid #dc2626;
-                                 border-radius:4px;font-size:12px;font-weight:600;display:inline-block;">
-                      High
-                    </span>
-                  </td>
-                </tr>
+              <tbody id="currentVehicleModalTableBody">
+            
               </tbody>
             </table>
           </div>

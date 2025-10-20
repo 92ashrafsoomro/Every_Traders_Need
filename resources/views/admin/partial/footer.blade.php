@@ -1,3 +1,6 @@
+
+
+
 <script src="{{ asset('public/themeadmin/assets/js/jquery.js') }}"></script>
 {{-- <script src="{{asset('public/themeadmin/assets/vendor/js/template-customizer.js')}}"></script> --}}
 <script src="{{ asset('public/themeadmin/assets/vendor/js/helpers.js') }}"></script>
@@ -17,7 +20,16 @@
 {{-- <script src="{{ asset('public/themeadmin/assets/js/app-academy-course-details.js') }}"></script> --}}
 <script src="{{ asset('public/themeadmin/assets/js/select2.js') }}"></script>
 <script src="{{ asset('public/themeadmin/assets/js/jquertdatatable.js') }}"></script>
+
+
 <script>
+
+      function showLoader() {
+            document.getElementById('globalLoader').style.display = 'flex';
+        }
+        function hideLoader() {
+            document.getElementById('globalLoader').style.display = 'none';
+        }
     $(document).ready(function() {
 
         $('.make').select2({

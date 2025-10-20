@@ -170,7 +170,7 @@
             // Initialize default filter
             let defaultDate = getTodayDate();
             $('#auctionSelector').val(defaultDate).trigger('change');
-
+            showLoader();
             let table = $('#blogTable').DataTable({
                 processing: false,
                 ordering: false,
@@ -182,9 +182,11 @@
                         d.inprogress_check = $('#inprogress_check').is(':checked') ? 1 : 0;
                         d.interest_id = $('#selected_interest_id').val();
                         d.auction_date = $('#auctionSelector').val();
+                        
                     },
                     dataSrc: function(json) {
                         updatePlatformCenterUI(json.platforms, json.centers, json.recordsTotal);
+                        hideLoader();
                         return json.data;
                     }
                 }
@@ -193,6 +195,7 @@
 
             table.on('draw.dt', function() {
                 var info = table.page.info();
+                
                 $('.pageinfo').html(
                     `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`);
             });
@@ -205,10 +208,12 @@
 
             $("select[name='length']").on('change', function() {
                 table.page.len($(this).val()).draw();
+                  showLoader();
             }).trigger('change');
 
 
             $('#inprogress_check').on('change', function() {
+                  showLoader();
                 table.ajax.reload();
             });
 
@@ -217,11 +222,13 @@
                 e.preventDefault();
                 $('#selected_interest_id').val($(this).data('id'));
                 $('#dropdownMenuButton').text($(this).text());
+                  showLoader();
                 table.ajax.reload();
             });
 
 
             $('#auctionSelector').on('change', function() {
+                  showLoader();
                 table.ajax.reload();
             });
 
@@ -284,36 +291,72 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    if (response.length === 0) {
+                    if (!response || !response.current) {
                         $('#vehicleModalTableBody').html(
-                            '<tr><td colspan="6">No data found.</td></tr>');
+                            '<tr><td colspan="6">No data found.</td></tr>'
+                        );
                         return;
                     }
 
+                    let current = response.current;
+                    let previous = response.previous || [];
+
                     $('.vehicleName').html(
-                        response[0].name + ' - ' + response[0].variant + ' - ' +
-                        '<small class="text-danger" style="font-size: 80%;">' + reg + '</small>'
+                        `${current.name} - ${current.variant} 
+                        <small class="text-danger" style="font-size: 80%;">${current.reg}</small>`
                     );
 
                     $('#vehicleModalTableBody').empty();
-                    response.forEach(function(item) {
-                        let row = `
-                    <tr>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.platform}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.center}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.last_bid}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.cap_clean}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.mileage}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.status}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.difference}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.time}</td>
-                        <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.action}</td>
-                    </tr>`;
-                        $('#vehicleModalTableBody').append(row);
-                    });
+                    if( current ){
+                        let currentRow = `
+                                <tr>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.date}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.platform}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.center}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.mileage}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.priceSymbol}${current.cap_clean}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.priceSymbol}${current.cap_average}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.priceSymbol}${current.cap_below}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.priceSymbol}${current.last_bid}</td>
+                                    <td style="padding:14px 12px;">
+                                        <span style="color:#dc2626;padding:6px 12px;
+                                                    border:1px solid #dc2626;
+                                                    border-radius:4px;font-size:12px;font-weight:600;display:inline-block;">
+                                        High
+                                        </span></td>
+                                </tr>`;
+                            $('#currentVehicleModalTableBody').append(currentRow);
+                            $('#regnumber_veh').text(current.reg);
+                            $('#name_veh').text(current.name);
+                            $('#DetailView').attr('href',current.inspection_report);
+                          
+                    }
+
+                    if (previous.length === 0) {
+                        $('#vehicleModalTableBody').html(
+                            '<tr><td colspan="6">No previous records found.</td></tr>'
+                        );
+                    } else {
+                        previous.forEach(function(item) {
+                            let row = `
+                                <tr>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.date}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.platform}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.center}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.mileage}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.priceSymbol}${current.cap_clean}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.priceSymbol}${current.cap_average}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.priceSymbol}${current.cap_below}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.priceSymbol}${current.last_bid}</td>
+                                    <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${item.status}</td>
+                                </tr>`;
+                            $('#vehicleModalTableBody').append(row);
+                        });
+                    }
 
                     $('#vehicleModal').modal('show');
                 },
+
                 error: function() {
                     $('#vehicleModalTableBody').html(
                         '<tr><td colspan="6">Failed to load data.</td></tr>');

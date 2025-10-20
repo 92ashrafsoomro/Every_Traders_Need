@@ -175,6 +175,48 @@
         #tableSection {
             transition: width 0.4s ease;
         }
+
+        .filter_sidebar {
+            width: 25%;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        @media (max-width: 767px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .filter_sidebar {
+                width: 100% !important;
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+
+            .filter_sidebar.open {
+                opacity: 1;
+            }
+
+            #tableSection {
+                width: 100% !important;
+            }
+        }
+
+        .deleteBtn {
+            color: white;
+            background-color: red;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .deleteBtn :hover {
+            text-decoration: none !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -182,7 +224,7 @@
 
     <div class="py-5 container-fluid filter">
 
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap justify-content-between mb-4">
             <div class="auction-tabs">
                 <div
                     class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
@@ -198,14 +240,11 @@
                     </ul>
                     <!-- Toggle Button -->
                     <button id="toggleFiltersBtn" class="btn btn-sm btn-outline-primary"
-                        style="padding: 10px; border-radius: 8px;
-    font-size: small;
-    color: white;
-    border: 1px solid white;">
+                        style="padding: 10px; border-radius: 8px; font-size: small; color: white; border: 1px solid white;">
+                        Show Filters
                         <span class="material-symbols-outlined">
                             filter_alt
                         </span>
-                        Show Filters
                     </button>
                 </div>
             </div>
@@ -213,13 +252,14 @@
                 <div class="d-flex justify-content-between">
                     <div class=" align-self-center show_entries_div">
                         <span style="padding-right: 5px">Show Entries</span>
-                        <select style="height: 38px;padding: 0px 10px;" name="length">
+                        <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;"
+                            name="length">
                             {{-- <option value="10">10</option> --}}
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="500">500</option>
                         </select>
-                        <span class="show_pagging" style="padding-left: 5px"></span>
+                        <span class="show_pagging" style="padding-left: 5px; margin-right: 5px;"></span>
 
                         <span class="params"></span>
                     </div>
@@ -245,14 +285,16 @@
 
         <div class="row" style="display: flex;">
             <!-- Left: 3col Table section -->
-            <div id="filterDIV"
-                style="width:  25%; max-height: 0; overflow: hidden; opacity: 0; transition: all 0.4s ease;">
-                <div class="card p-2" style="position: sticky; top: 100px; z-index: 10;">
+            <div id="filterDIV" class="filter_sidebar">
+                <div class="card p-2" {{-- style="position: sticky; top: 100px; z-index: 10;" --}}>
                     <div class="d-flex justify-content-between align-items-center px-1 pt-1">
                         <h5 class="mb-0">Filters</h5>
                         <div class="d-flex align-items-center gap-2">
-                            <a id="clearFiltersLink" href="{{ url('/auction-finder') }}" class="text-decoration-none d-none"
-                                style="color: red;">
+                            <a id="clearFiltersLink" href="{{ url('/auction-finder') }}"
+                                class="text-decoration-none d-none deleteBtn">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
                                 Clear all
                             </a>
                         </div>
@@ -309,34 +351,68 @@
 
             let isOpen = true;
 
-            // Set initial open styles
-            filterDiv.style.width = "25%";
-            filterDiv.style.opacity = "1";
-            filterDiv.style.maxHeight = "1000px";
-            tableSection.style.width = "75%";
-            toggleBtn.textContent = "Hide Filters";
-            clearLink.classList.remove("d-none");
+            function isMobile() {
+                return window.innerWidth <= 767;
+            }
 
-            toggleBtn.addEventListener("click", function() {
-                if (isOpen) {
-                    filterDiv.style.width = "0";
-                    filterDiv.style.opacity = "0";
-                    filterDiv.style.maxHeight = "0";
-                    tableSection.style.width = "100%";
-                    toggleBtn.textContent = "Show Filters";
-                    clearLink.classList.add("d-none");
+            function openFilter() {
+                if (isMobile()) {
+                    filterDiv.classList.add("open");
                 } else {
                     filterDiv.style.width = "25%";
                     filterDiv.style.opacity = "1";
-                    filterDiv.style.maxHeight = "1000px";
                     tableSection.style.width = "75%";
-                    toggleBtn.textContent = "Hide Filters";
-                    clearLink.classList.remove("d-none");
                 }
+                toggleBtn.textContent = "Hide Filters";
+                clearLink.classList.remove("d-none");
+                isOpen = true;
+            }
 
-                isOpen = !isOpen;
+            function closeFilter() {
+                if (isMobile()) {
+                    filterDiv.classList.remove("open");
+                } else {
+                    filterDiv.style.width = "0";
+                    filterDiv.style.opacity = "0";
+                    tableSection.style.width = "100%";
+                }
+                toggleBtn.textContent = "Show Filters";
+                clearLink.classList.add("d-none");
+                isOpen = false;
+            }
+
+            // Initialize state
+            if (isMobile()) {
+                filterDiv.classList.remove("open");
+                tableSection.style.width = "100%";
+                isOpen = false;
+                toggleBtn.textContent = "Show Filters";
+            } else {
+                openFilter();
+            }
+
+            toggleBtn.addEventListener("click", function() {
+                if (isOpen) {
+                    closeFilter();
+                } else {
+                    openFilter();
+                }
+            });
+
+            // Optional: Adjust layout on resize
+            window.addEventListener("resize", function() {
+                if (isMobile() && isOpen) {
+                    filterDiv.classList.add("open");
+                    tableSection.style.width = "100%";
+                } else if (!isMobile() && isOpen) {
+                    filterDiv.classList.remove("open");
+                    openFilter();
+                } else if (!isMobile() && !isOpen) {
+                    closeFilter();
+                }
             });
         });
+
 
 
 

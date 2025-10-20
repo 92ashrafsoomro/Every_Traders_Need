@@ -6,6 +6,7 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ asset('public/theme/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     @include('admin.partial.head')
     <style>
         #toast-container>.toast-error {
@@ -259,7 +260,6 @@
     margin-left: 0px;
   }
 }
-
 
     </style>
 

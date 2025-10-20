@@ -182,3 +182,4 @@
 
     {{-- Lib --}}
     <link rel="stylesheet" href="{{ asset('public/themeadmin/assets/css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/theme/alter.css') }}" />

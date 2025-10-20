@@ -20,11 +20,12 @@
 {{-- <script src="{{ asset('public/themeadmin/assets/js/app-academy-course-details.js') }}"></script> --}}
 <script src="{{ asset('public/themeadmin/assets/js/select2.js') }}"></script>
 <script src="{{ asset('public/themeadmin/assets/js/jquertdatatable.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
 <script>
 
       function showLoader() {
+        console.log('hello');
             document.getElementById('globalLoader').style.display = 'flex';
         }
         function hideLoader() {

@@ -3,6 +3,8 @@
     Watchlist
 @endpush
 @section('css')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         :root {
             --acsi-bg: #0f172a;
@@ -493,6 +495,15 @@
         $('#auction-table, .alert-table').on('mouseleave', '.expandable-row', function() {
             $(this).removeClass('expanded');
         });
+     
+        $('#alerts-tab').on('click', function () {
+            $('#auction-table').css("display", "none")
+        });
+        $('#watchlist-tab').on('click',function (){
+            $('#auction-table').css("display", "block")
+
+        });
+
 
 
         $(document).ready(function() {
@@ -541,8 +552,8 @@
                             target="_blank" 
                             title="View Vehicle">
                                 <span class="material-symbols-outlined">
-visibility
-</span>
+                                visibility
+                                </span>
                             </a>
                         </td>
                         <td>
@@ -570,7 +581,7 @@ visibility
 
             function loadTables() {
                 let length = $('.entries-length').val() || 50;
-
+                  showLoader();
                 $.ajax({
                     url: "{{ route('get.auction.data') }}",
                     type: "POST",
@@ -583,6 +594,7 @@ visibility
                         length: length
                     },
                     success: function(res) {
+                        hideLoader();
                         let auctionTbody = $('#auction-table tbody').empty();
                         let alertTbody = $('#alert-table tbody').empty();
 
@@ -607,10 +619,12 @@ visibility
                         const selectedLength = $('.entries-length').val();
 
                         // $('#entryCount').text(`Showing ${count} of ${selectedLength} entries`);
+                        
                     },
 
                     error: function(err) {
                         console.error(err);
+                           hideLoader();
                     }
                 });
             }
@@ -624,47 +638,58 @@ visibility
                 $(this).closest('tr').toggleClass('expanded');
             });
 
-
             $('#alert-table').on('click', '.delete-btn', function() {
                 let btn = $(this);
                 let alertId = btn.data('id');
 
-                if (confirm('Are you sure you want to delete this alert?')) {
-                    $.ajax({
-                        url: '{{ url('/viewhistory/alerts/') }}' + '/' + alertId,
-                        type: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(res) {
-
-                            btn.closest('tr').fadeOut(300, function() {
-                                $(this).remove();
-                            });
-
-                            toastr.success('Alert deleted successfully!');
-                        },
-                        error: function(err) {
-                            console.error(err);
-
-
-                            toastr.error('Failed to delete alert!');
-                        }
-                    });
-                }
+                alertify.confirm(
+                    'Delete Alert',
+                    'Are you sure you want to delete this alert?',
+                    function() {
+                
+                        $.ajax({
+                            url: '{{ url("/viewhistory/alerts/") }}/' + alertId,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(res) {
+                                btn.closest('tr').fadeOut(300, function() {
+                                    $(this).remove();
+                                });
+                        
+                                alertify.notify('Alert deleted successfully!', 'success', 5);
+                            },
+                            error: function(err) {
+                                console.error(err);
+                            
+                                alertify.notify('Failed to delete alert!', 'error', 5);
+                            }
+                        });
+                    },
+                    function() {
+                    
+                        alertify.notify('Deletion cancelled', 'message', 3);
+                    }
+                );
             });
+
+
 
 
 
 
             $('#make1, #model1, .year').on('change', function() {
+                  showLoader();
                 loadTables();
             });
             $('#reg_search').on('keyup', function() {
+ 
                 loadTables();
             });
 
             $('.entries-length').on('change', function() {
+                  showLoader();
                 loadTables();
             });
 

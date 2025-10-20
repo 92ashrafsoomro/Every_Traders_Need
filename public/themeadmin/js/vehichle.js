@@ -257,21 +257,23 @@ document.getElementById('sortFilter').addEventListener('change', function () {
     auctions.searchrecord();
 });
 
-auctions.searchrecord = function () {
 
+auctions.searchrecord = function () {
+  
+showLoader();
     $(`.table tbody`).html(`
                     <tr>
                         <td colspan="8" class="text-center" >Loading..</td>
                     </tr>
                 `);
     $(`.pagination`).html('');
-
+   
     $.ajax({
         url: url + "/auction-finder/data/auctionList",
         method: "GET",
         data: auctions.filters,
         success: function (response) {
-
+              hideLoader();
             let start = (response.current_page - 1) * response.per_page + 1;
             let end = Math.min(start + response.per_page - 1, response.total);
 
@@ -395,7 +397,7 @@ auctions.searchrecord = function () {
 
         },
         error: function (xhr) {
-            alert('Something went wrong. Please try again.');
+            // alert('Something went wrong. Please try again.');
         }
     });
 
@@ -2092,5 +2094,10 @@ function getGradeColor(grade) {
 }
 
 
-
+function showLoader() {
+    document.getElementById('globalLoader').style.display = 'flex';
+}
+function hideLoader() {
+    document.getElementById('globalLoader').style.display = 'none';
+}
 

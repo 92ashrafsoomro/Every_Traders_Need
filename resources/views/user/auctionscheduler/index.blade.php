@@ -257,6 +257,12 @@
                         d.center_id = $('#selectedCenter').val();
                         d.status = $('#selectedStatus').is(':checked') ? 'In Progress' : '';
                         d.date = $('#selectedDate').val();
+                    },
+                    beforeSend: function() {
+                        showLoader(); 
+                    },
+                    complete: function() {
+                        hideLoader(); 
                     }
                 }
             });

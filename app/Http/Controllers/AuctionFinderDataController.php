@@ -556,6 +556,7 @@ switch ($sortBy) {
             //Base Query
             $query = Vehicle::join('auctions','auctions.id','=','vehicles.auction_id')
             ->join('auction_platform','auction_platform.id','=','auctions.platform_id')
+            ->join('auction_center','auction_center.id','=','vehicles.center_id')
             ->join('make','make.id','=','vehicles.make_id')
             ->join('model','model.id','=','vehicles.model_id')
             ->join('model_variant','model_variant.id','=','vehicles.variant_id')
@@ -604,6 +605,7 @@ switch ($sortBy) {
                     $query->whereBetween('vehicles.start_date', [$fromDate, $toDate]);
                 }
             }
+       
 
             // Count total BEFORE limit/offset
             $total = $query->count(); 
@@ -615,6 +617,7 @@ switch ($sortBy) {
                 ->select([
                  'vehicles.*',
                  'auction_platform.name as platform_name',
+                 'auction_center.name as center_name',
                  'auctions.auction_date as auction_date',
                  'make.name as make_name',
                  'model.name as model_name',
@@ -625,16 +628,19 @@ switch ($sortBy) {
                 ->map(function ($item) {
 
                     $image = explode(',',$item->images);
-
+                    $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
                     return [
                         'id' => $item->id,
                         'platform_name' => $item->platform_name,
+                        'center_name' => $item->center_name,
                         'year' => $item->year,
+                        'price' => $item->last_bid,
                         'make_name' => $item->make_name,
                         'model_name' => $item->model_name,
                         'variant_name' =>  $item->variant_name,
                         'date' =>  $item->start_date,
                         'image' =>  $image ? $image[0] : '',
+                        'price_symbol' => $priceSymbol,
                     ];
 
                 });
@@ -1384,9 +1390,12 @@ public function getVehicleDetails(Request $request)
         ->leftJoin('auctions as a', 'a.id', '=', 'v.auction_id')
         ->leftJoin('auction_platform as p', 'p.id', '=', 'a.platform_id')
         ->leftJoin('auction_center as c', 'c.id', '=', 'v.center_id')
+        ->leftJoin('make as mk', 'mk.id', '=', 'v.make_id')
+        ->leftJoin('model as m', 'm.id', '=', 'v.model_id')
+        ->leftJoin('model_variant as mv', 'mv.id', '=', 'v.variant_id')
         ->where(function ($q) use ($request) {
-            $q->where('v.id', $request->id)
-              ->orWhere('v.reg', $request->regnum);
+            $q->where('v.id', $request->id);
+            //   ->orWhere('v.reg', $request->regnum);
         })
         ->select(
             'v.*',
@@ -1394,7 +1403,10 @@ public function getVehicleDetails(Request $request)
             'a.auction_date',
             'a.status as auction_status',
             'p.name as platform_name',
-            'c.name as center_name'
+            'c.name as center_name',
+            'mk.name as make_name',
+            'm.name as model_name',
+            'mv.name as variant_name'
         )
         ->first();
 
@@ -1405,21 +1417,34 @@ public function getVehicleDetails(Request $request)
     $previousVehicle = DB::table('vehicles as v')
         ->leftJoin('auctions as a', 'a.id', '=', 'v.auction_id')
         ->leftJoin('auction_platform as p', 'p.id', '=', 'a.platform_id')
+        ->leftJoin('make as mk', 'mk.id', '=', 'v.make_id')
+        ->leftJoin('model as m', 'm.id', '=', 'v.model_id')
+        ->leftJoin('model_variant as mv', 'mv.id', '=', 'v.variant_id')
         ->where('v.reg', $vehicle->reg)
-        ->where('a.auction_date', '<', $vehicle->auction_date)
+        ->where('v.id', '!=', $request->id) 
+        ->whereDate('a.auction_date', '<=', $vehicle->auction_date)
         ->orderBy('a.auction_date', 'desc')
         ->select(
             'v.*',
             'a.name as auction_name',
             'a.auction_date',
-            'p.name as platform_name'
+            'p.name as platform_name',
+            'mk.name as make_name',
+            'm.name as model_name',
+            'mv.name as variant_name'
         )
-        ->first();
+        ->get(); 
+
+
+    $viewCount = DB::table('recent_views')
+        ->where('vehicle_id', $vehicle->id)
+        ->count();
 
     return response()->json([
         'status' => true,
         'vehicle' => $vehicle,
         'previous_vehicle' => $previousVehicle,
+        'views' => $viewCount,
     ]);
 }
 

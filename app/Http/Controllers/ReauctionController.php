@@ -26,7 +26,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Crypt;
 class ReauctionController extends Controller
 {
 
@@ -200,10 +200,10 @@ class ReauctionController extends Controller
                     ->where('vehicles.reg', $vehicle->reg)
                     ->whereDate('auctions.auction_date', '<', $today)
                     ->count();
-
+            $encryptedId = Crypt::encryptString($vehicle->id);
                 $PreviousBtn = '
             <div class="PreviousBtnRec d-flex justify-content-center">
-                <button type="button" class="btn btn-sm btn-primary PreviousBtnRec" data-ref="' . $vehicle->reg . '">
+                <button type="button" class="btn btn-sm btn-primary PreviousBtnRec" data-ref="' . $vehicle->reg . '" data-vehid="'. $encryptedId .'">
                     ' . $previousCount . ' ↑
                 </button>
             </div>';
@@ -307,87 +307,120 @@ class ReauctionController extends Controller
 
 
 
-    public function information(Request $request)
-    {
-        $reg = str_replace('+', ' ', $request->input('reg'));
-        $upcoming = $request->input('upcoming'); // 1 = upcoming checked
-        $today = now()->toDateString();
+public function information(Request $request)
+{
+    $reg = str_replace('+', ' ', $request->input('reg'));
+    $vehId = Crypt::decryptString($request->vehId);
 
-        $vehicles = Vehicle::query()
-            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
-            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-            ->where('vehicles.reg', 'LIKE', "%{$reg}%")
-            ->when($upcoming == 1, function ($q) use ($today) {
-                // ✅ Show today's and future auctions
-                $q->whereDate('auctions.auction_date', '>=', $today);
-            }, function ($q) use ($today) {
-                // ✅ Show only previous auctions
-                $q->whereDate('auctions.auction_date', '<', $today);
-            })
-            ->select(
-                'vehicles.*',
-                'make.name as make_name',
-                'model.name as model_name',
-                'model_variant.name as model_variant_name',
-                'auction_platform.name as platform_name',
-                'auction_center.name as center_name',
-                'auctions.auction_date'
-            )
-            ->orderBy('auctions.auction_date', 'desc')
-            ->get();
+    $upcoming = $request->input('upcoming'); // 1 = upcoming checked
+    $today = now()->toDateString();
 
-        if ($vehicles->isEmpty()) {
-            return response()->json([]);
-        }
+    // 🔹 Current vehicle
+    $currentVehicle = Vehicle::query()
+        ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+        ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+        ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+        ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+        ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+        ->where('vehicles.id', $vehId)
+        ->select(
+            'vehicles.*',
+            'make.name as make_name',
+            'model.name as model_name',
+            'model_variant.name as model_variant_name',
+            'auction_platform.name as platform_name',
+            'auction_center.name as center_name',
+            'auctions.auction_date'
+        )
+        ->first();
 
-
-        $response = [];
-        foreach ($vehicles as $vehicle) {
-            $lastBid   = $vehicle->last_bid ?? 0;
-            $capClean  = $vehicle->cap_clean ?? 0;
-
-            $percentDiff = 0;
-            $result1 = "<span style='color:gray;'>= At CAP Clean</span>";
-
-            if ($capClean > 0) {
-                $diff = $capClean - $lastBid; // CAP Clean se difference (reverse logic)
-                $percentDiff = ($diff / $capClean) * 100;
-
-                if ($lastBid < $capClean) {
-                    // Last bid CAP se niche hai → positive change (green, +)
-                    $result1 = "<span style='color:green;'>▲ " . number_format($percentDiff, 2) . "%</span>";
-                } elseif ($lastBid > $capClean) {
-                    // Last bid CAP se upar hai → negative change (red, -)
-                    $result1 = "<span style='color:red;'>▼ " . number_format(abs($percentDiff), 2) . "%</span>";
-                }
-            }
-
-            $actions = '
-            <a class="btn btn-sm btn-primary add-notification" data-auction-id="' . $vehicle->id . '">
-                <i class="fas fa-eye"></i>
-            </a>';
-            $response[] = [
-                'name'       => strtoupper($vehicle->make_name) . ' - ' . $vehicle->model_name,
-                'variant'    => $vehicle->model_variant_name,
-                'reg'        => $vehicle->reg,
-                'platform'   => $vehicle->platform_name,
-                'center'     => $vehicle->center_name,
-                'last_bid'   => $vehicle->last_bid,
-                'cap_clean'   => $vehicle->cap_clean,
-                'mileage'   => $vehicle->mileage,
-                'status'     => $vehicle->bidding_status,
-                'difference' => $result1,
-                'time'       => \Carbon\Carbon::parse($vehicle->auction_date)->format('Y-m-d H:i'),
-                'action'    => $actions,
-            ];
-        }
-
-        return response()->json($response);
+    if (!$currentVehicle) {
+        return response()->json(['error' => 'Vehicle not found'], 404);
     }
+
+    // 🔹 Previous vehicles (same reg, older auctions)
+    $previousVehicles = Vehicle::query()
+        ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+        ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+        ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+        ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+        ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+        ->where('vehicles.reg', $reg)
+        ->where('vehicles.id', '!=', $vehId)
+        ->whereDate('auctions.auction_date', '<=', $currentVehicle->auction_date)
+        ->orderBy('auctions.auction_date', 'desc')
+        ->select(
+            'vehicles.*',
+            'make.name as make_name',
+            'model.name as model_name',
+            'model_variant.name as model_variant_name',
+            'auction_platform.name as platform_name',
+            'auction_center.name as center_name',
+            'auctions.auction_date'
+        )
+        ->get();
+
+    // 🔹 Difference calculation helper
+    $getDifferenceTag = function ($capClean, $lastBid) {
+        if (!$capClean || !$lastBid) {
+            return "<span style='color:gray;'>= At CAP Clean</span>";
+        }
+
+        $diff = $capClean - $lastBid;
+        $percentDiff = ($diff / $capClean) * 100;
+
+        if ($lastBid < $capClean) {
+            return "<span style='color:green;'>▲ " . number_format($percentDiff, 2) . "%</span>";
+        } elseif ($lastBid > $capClean) {
+            return "<span style='color:red;'>▼ " . number_format(abs($percentDiff), 2) . "%</span>";
+        }
+
+        return "<span style='color:gray;'>= At CAP Clean</span>";
+    };
+
+    // 🔹 Format current vehicle
+    $current = [
+        'id'         => $currentVehicle->id,
+        'name'       => strtoupper($currentVehicle->make_name) . ' - ' . $currentVehicle->model_name,
+        'variant'    => $currentVehicle->model_variant_name,
+        'reg'        => $currentVehicle->reg,
+        'platform'   => $currentVehicle->platform_name,
+        'center'     => $currentVehicle->center_name,
+        'last_bid'   => $currentVehicle->last_bid,
+        'cap_clean'  => $currentVehicle->cap_clean,
+        'mileage'    => $currentVehicle->mileage,
+        'status'     => $currentVehicle->bidding_status,
+        'difference' => $getDifferenceTag($currentVehicle->cap_clean, $currentVehicle->last_bid),
+        'time'       => Carbon::parse($currentVehicle->auction_date)->format('Y-m-d H:i'),
+    ];
+
+    // 🔹 Format previous vehicles
+    $previous = $previousVehicles->map(function ($vehicle) use ($getDifferenceTag) {
+        return [
+            'id'         => $vehicle->id,
+            'name'       => strtoupper($vehicle->make_name) . ' - ' . $vehicle->model_name,
+            'variant'    => $vehicle->model_variant_name,
+            'reg'        => $vehicle->reg,
+            'platform'   => $vehicle->platform_name,
+            'center'     => $vehicle->center_name,
+            'last_bid'   => $vehicle->last_bid,
+            'cap_clean'  => $vehicle->cap_clean,
+            'mileage'    => $vehicle->mileage,
+            'status'     => $vehicle->bidding_status,
+            'difference' => $getDifferenceTag($vehicle->cap_clean, $vehicle->last_bid),
+            'time'       => Carbon::parse($vehicle->auction_date)->format('Y-m-d H:i'),
+        ];
+    });
+
+    // 🔹 Final response
+    return response()->json([
+        'current'  => $current,
+        'previous' => $previous,
+    ]);
+}
+
 
     public function interest(Request $request)
     {

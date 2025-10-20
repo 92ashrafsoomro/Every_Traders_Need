@@ -1,22 +1,23 @@
 <div class="p-4">
     <div class="row" style="padding: 2px 18px; border-radius: 10px;  !important; margin: 20px 10px">
-      
-        <div class="trade_history_graph col-7" style=" border-radius: 10px; background-color: var(--bs-navbar-bg) !important; border: 2px solid #192534">
+
+        <div class="trade_history_graph col-7"
+            style=" border-radius: 10px; background-color: var(--bs-navbar-bg) !important; border: 2px solid #192534">
             <div class="p-3  rounded" style="background-color: var(--bs-navbar-bg)">
                 <div style="display: flex; justify-content:space-between; align-items: center">
                     <div>
                         <h2 class="text-xl font-bold">Trad history</h2>
                     </div>
                     <div class="text-sm">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <select class="form-control platform" name="platform_ids[]" multiple>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="form-control platform" name="platform_ids[]" multiple>
 
-                                        </select>
-                                    </div>
+                                    </select>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
                 <hr style="border-color: #0f1c2c;">
@@ -31,13 +32,15 @@
                     <div class="col-md-4 d-flex align-items-center " style="margin-right: -20px">
                         <div class="row align-items-center ">
                             <div class="col-auto">
-                                <h4 class="mb-0" style="font-weight: 600 ;margin-top: 20px;  margin-bottom: -13px !important;"> Autoboli Prediction</h4>
+                                <h4 class="mb-0"
+                                    style="font-weight: 600 ;margin-top: 20px;  margin-bottom: -13px !important;">
+                                    Autoboli Prediction</h4>
                             </div>
                             <div class="d-flex mt-3 align-items-center">
-                                <div class="">
+                                {{-- <div class="">
                                     <img src="{{ asset('public/themeadmin/images/logo/smalllogo.png') }}"
                                         style="height: 40px; margin-right: 12px" alt="Logo">
-                                </div>
+                                </div> --}}
                                 <div class="">
                                     <div class="bg-white rounded">
                                         <h5 style="color: black; padding: 6px 46px !important;  margin-top: 12px; ">
@@ -71,8 +74,8 @@
                                 style="width: 100%; height: 100%; object-fit: cover !important; "
                                 alt="Vehicle Main Image" data-bs-toggle="modal" data-bs-target="#imageModal">
                         @endif
-                      </div>
-                
+                    </div>
+
                     {{-- Thumbnails --}}
 
 
@@ -104,7 +107,8 @@
 
 
                     <span style="font-size: 28px; font-weight: 600; margin: 10px 0px;">{{ $vehicle->year }}
-                        {{ $vehicle->make->name ?? "" }} {{ $vehicle->model->name ?? "" }} – {{ $vehicle->variant->name ?? "" }}</span>
+                        {{ $vehicle->make->name ?? '' }} {{ $vehicle->model->name ?? '' }} –
+                        {{ $vehicle->variant->name ?? '' }}</span>
                     <div class="row mt-2  d-flex justify-content-center align-items-center"
                         style="border-radius: 10px; margin-top: 30px !important; background: #00264d !important;padding-top: 10px">
                         <div class="col-md-4">
@@ -131,8 +135,9 @@
                             <ul style="list-style: none; padding-left: 0px; font-size: 15px;">
                                 <li>
                                     <span style="color: #d4d4d4;">Inpaction</span><br>
-                                    <a target="_blank" href="{{$vehicle->inspection_report}}" style="padding: 4px 10px; background: #0d6efd;  border-radius: 4px"> 
-                                      View Report</a>
+                                    <a target="_blank" href="{{ $vehicle->inspection_report }}"
+                                        style="padding: 4px 10px; background: #0d6efd;  border-radius: 4px">
+                                        View Report</a>
                                 </li>
                             </ul>
                         </div>
@@ -221,19 +226,19 @@
         </div>
 
 
-        <?php 
+        <?php
         
-          $previousAuction =  $vehicle->previousAuction(); 
-   
+        $previousAuction = $vehicle->previousAuction();
+        
         ?>
 
         {{-- Right Column (Service History Box) --}}
-      
+
         <div class="col-md-4">
             <div class="border rounded sider p-3" style="background-color: #3f1623 !important; margin-top: 20px">
                 <h4>Reauction Track </h4>
                 <div class="row">
-                    
+
                     <!-- Column 1 -->
                     <div class="col-md-6">
                         <ul class="service-list">
@@ -241,8 +246,9 @@
                             <li class="d-flex align-items-center mb-2">
                                 <div class="s">
                                     <div class="dot"></div>
-                                </div>{{$previousAuction ? $previousAuction->start_date : ''}}
-                                <span class="disc">{{$previousAuction ? $previousAuction->service_history : ''}}</span>
+                                </div>{{ $previousAuction ? $previousAuction->start_date : '' }}
+                                <span
+                                    class="disc">{{ $previousAuction ? $previousAuction->service_history : '' }}</span>
                             </li>
                         </ul>
                         <ul class="service-list">
@@ -251,7 +257,8 @@
                                 <div class="s">
                                     <div class="dot"></div>
                                 </div>
-                                <span class="disc">{{$previousAuction ? $previousAuction->bidding_status : ''}}</span>
+                                <span
+                                    class="disc">{{ $previousAuction ? $previousAuction->bidding_status : '' }}</span>
                             </li>
                         </ul>
                     </div>
@@ -264,7 +271,8 @@
                                 <div class="s">
                                     <div class="dot"></div>
                                 </div>
-                                <span class="disc">{{$previousAuction ? $previousAuction->auction->platform->name : ''}}</span>
+                                <span
+                                    class="disc">{{ $previousAuction ? $previousAuction->auction->platform->name : '' }}</span>
                             </li>
                         </ul>
                         <ul class="service-list">
@@ -273,7 +281,7 @@
                                 <div class="s">
                                     <div class="dot"></div>
                                 </div>
-                                <span class="disc">{{$previousAuction ? $previousAuction->last_bid : ''}}</span>
+                                <span class="disc">{{ $previousAuction ? $previousAuction->last_bid : '' }}</span>
                             </li>
                         </ul>
                     </div>

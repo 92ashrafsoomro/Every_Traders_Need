@@ -103,8 +103,8 @@
             border-radius: 30%;
 
             /* box-shadow: 0px 0px 5px 12px #0a2e55;
-            -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
-            -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
+                            -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
+                            -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
         }
 
         .disc {
@@ -236,7 +236,6 @@
         }
     </style>
 @endsection
-
 @section('content')
     <div class="sider vehicle-detail-page" style="padding-left: 0px; padding-right: 14px">
         <div class="d-flex">
@@ -806,9 +805,9 @@
     </script>
 
 
-<script>
-function loadVehicleDetails(vehicleId, regNum) {
- 
+    <script>
+        function loadVehicleDetails(vehicleId, regNum) {
+
 
             $('#vehicleModal .modal-body').html(`
         <div style="text-align:center;padding:40px;color:#a0aec0;">
@@ -1056,23 +1055,23 @@ function loadVehicleDetails(vehicleId, regNum) {
                     ❌ Failed to load vehicle details.
                 </div>
             `);
-            $('#vehicleModal').modal('show');
+                    $('#vehicleModal').modal('show');
+                }
+            });
         }
-    });
-}
-$(document).on('click', '#prvactionspopup', function () {
-        const vehicleId = $(this).data('vehid');
-        const regNum = $(this).data('regnum');
-        loadVehicleDetails(vehicleId, regNum);
-});
-$(document).ready(function () {
-    const urlParams = new URLSearchParams(window.location.search);
+        $(document).on('click', '#prvactionspopup', function() {
+            const vehicleId = $(this).data('vehid');
+            const regNum = $(this).data('regnum');
+            loadVehicleDetails(vehicleId, regNum);
+        });
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
 
-    if (urlParams.has('reg')) {
-        // Automatically trigger click
-        $('#prvactionspopup').trigger('click');
-    }
-});
+            if (urlParams.has('reg')) {
+                // Automatically trigger click
+                $('#prvactionspopup').trigger('click');
+            }
+        });
 
         function getDaysDiff(prevDate, currentDate) {
             if (!prevDate || !currentDate) return 0;

@@ -21,6 +21,7 @@
 
     .accordion-button {
         color: white !important;
+        font-weight: 600 !important;
     }
 </style>
 

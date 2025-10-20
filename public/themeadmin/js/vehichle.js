@@ -12,7 +12,7 @@ const auctions = {
         page: 1,
         date: 'past_3_months',
         display_type: 'auction',
-        length: 50,
+        length: 15,
     },
 
 };
@@ -390,15 +390,18 @@ auctions.searchrecord = function () {
             }
 
 
-            for (let index = 1; index < response.last_page; index++) {
-                $(`.pagination`).append(`<li data-id="${index}" class="dt-paging-button page-item ${response.current_page == index ? 'active' : ''}">
-                                    <button class="page-link" type="button">${index}</button>
-                            </li>`);
+            for (let index = 1; index <= response.last_page; index++) {
+                $('.pagination').append(`
+                <li data-id="${index}" class="dt-paging-button page-item ${response.current_page == index ? 'active' : ''}">
+                <button class="page-link" type="button">${index}</button>
+                </li>
+                `);
             }
+
 
         },
         error: function (xhr) {
-            // alert('Something went wrong. Please try again.');
+            alert('Something went wrong. Please try again.');
         }
     });
 

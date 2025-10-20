@@ -1,7 +1,7 @@
 @extends('user.partial.app')
-@push('title')
+{{-- @push('title')
     Auction Finder
-@endpush
+@endpush --}}
 @section('css')
     <style>
         .form-label {
@@ -177,7 +177,7 @@
         }
 
         .filter_sidebar {
-            width: 25%;
+            width: 22.5%;
             overflow: hidden;
             opacity: 0;
             transition: all 0.4s ease;
@@ -205,7 +205,6 @@
 
         .deleteBtn {
             color: white;
-            background-color: red;
             padding: 4px;
             border-radius: 4px;
             display: flex;
@@ -217,14 +216,79 @@
         .deleteBtn :hover {
             text-decoration: none !important;
         }
+
+
+        /* titleCSS */
+
+        .section-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: #000f21;
+            overflow: hidden;
+        }
+
+        @media (min-width: 1024px) {
+            .section-container {
+                height: 25vh;
+            }
+        }
+
+        .background-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+            background-size: 16px 16px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+            padding-top: 3.5rem;
+            padding: 2.5rem;
+        }
+
+        .heading {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .subtext {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .tabsDiv {
+            padding: 0rem 2rem;
+        }
+
+        .dropdownDiv {
+            padding-bottom: 20px;
+            padding-right: 45px;
+        }
     </style>
 @endsection
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <div class="py-5 container-fluid filter">
-
-        <div class="d-flex flex-wrap justify-content-between mb-4">
+    <div class="section-container">
+        <div class="background-pattern"></div>
+        <div class="content">
+            <h1 class="heading">Compare Before You Bid</h1>
+            <p class="subtext">
+                Review multiple auctions side by side to spot the best deal..
+            </p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between mb-4 tabsDiv">
             <div class="auction-tabs">
                 <div
                     class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
@@ -248,37 +312,38 @@
                     </button>
                 </div>
             </div>
-            <div class="text-right ">
-                <div class="d-flex justify-content-between">
-                    <div class=" align-self-center show_entries_div">
-                        <span style="padding-right: 5px">Show Entries</span>
-                        <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;"
-                            name="length">
-                            {{-- <option value="10">10</option> --}}
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="500">500</option>
-                        </select>
-                        <span class="show_pagging" style="padding-left: 5px; margin-right: 5px;"></span>
+        </div>
+    </div>
 
-                        <span class="params"></span>
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-end">
-                        <div class="invoice_sort">
-                            <select id="sortFilter" class="form-select">
-                                <option selected value="">Sort By</option>
-                                <!-- Name -->
-                                <option value="name_asc">Name: A to Z</option>
-                                <option value="name_desc">Name: Z to A</option>
-                                <!-- Grade -->
-                                <option value="grade_asc">Grade: Low to High</option>
-                                <option value="grade_desc">Grade: High to Low</option>
-                                <!-- Date & Time -->
-                                <option value="date_asc">Date & Time: Oldest First</option>
-                                <option value="date_desc">Date & Time: Newest First</option>
-                            </select>
-                        </div>
-                    </div>
+    <div class="py-5 container-fluid filter">
+
+        <div class="d-flex justify-content-between dropdownDiv">
+            <div class=" align-self-center show_entries_div">
+                <span style="padding-right: 5px">Show Entries</span>
+                <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;" name="length">
+                    <option value="15">15</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                </select>
+                <span class="show_pagging" style="padding-left: 5px; margin-right: 5px;"></span>
+
+                <span class="params"></span>
+            </div>
+            <div class="d-flex flex-wrap justify-content-end">
+                <div class="invoice_sort">
+                    <select id="sortFilter" class="form-select">
+                        <option selected value="">Sort By</option>
+                        <!-- Name -->
+                        <option value="name_asc">Name: A to Z</option>
+                        <option value="name_desc">Name: Z to A</option>
+                        <!-- Grade -->
+                        <option value="grade_asc">Grade: Low to High</option>
+                        <option value="grade_desc">Grade: High to Low</option>
+                        <!-- Date & Time -->
+                        <option value="date_asc">Date & Time: Oldest First</option>
+                        <option value="date_desc">Date & Time: Newest First</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -292,7 +357,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <a id="clearFiltersLink" href="{{ url('/auction-finder') }}"
                                 class="text-decoration-none d-none deleteBtn">
-                                <span class="material-symbols-outlined">
+                                <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
                                     delete
                                 </span>
                                 Clear all
@@ -321,12 +386,10 @@
                         </table>
                     </div>
 
-                    <div class=" d-flex align-items-center justify-content-center gap-4 pt-4" style="overflow: scroll">
+                    <div class="d-flex align-items-center justify-content-end gap-4 pt-4" style="overflow: scroll">
                         <div class="dt-paging">
                             <nav aria-label="pagination">
-                                <ul class="pagination">
-
-                                </ul>
+                                <ul class="pagination"></ul>
                             </nav>
                         </div>
                     </div>
@@ -359,7 +422,7 @@
                 if (isMobile()) {
                     filterDiv.classList.add("open");
                 } else {
-                    filterDiv.style.width = "25%";
+                    filterDiv.style.width = "22.5%";
                     filterDiv.style.opacity = "1";
                     tableSection.style.width = "75%";
                 }

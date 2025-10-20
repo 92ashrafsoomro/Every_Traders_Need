@@ -276,6 +276,35 @@
             padding-right: 45px;
         }
     </style>
+
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 6px;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .pagination .page-item button {
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .pagination .page-item.active button {
+            background: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination .page-item button:hover {
+            background: #f1f1f1;
+        }
+</style>
+
 @endsection
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -386,13 +415,28 @@
                         </table>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-end gap-4 pt-4" style="overflow: scroll">
-                        <div class="dt-paging">
-                            <nav aria-label="pagination">
-                                <ul class="pagination"></ul>
-                            </nav>
-                        </div>
+                    <div style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        gap: 10px;
+                        overflow-x: auto;
+                        width: 100%;
+                    ">
+                        <nav aria-label="pagination" style="display: flex; justify-content: center; width: 100%;">
+                            <ul class="pagination" style="
+                                display: flex;
+                                list-style: none;
+                                gap: 6px;
+                                padding: 0;
+                                margin: 0;
+                                justify-content: center;
+                            "></ul>
+                        </nav>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -417,37 +461,40 @@
             function isMobile() {
                 return window.innerWidth <= 767;
             }
-
-            function openFilter() {
-                if (isMobile()) {
-                    filterDiv.classList.add("open");
-                } else {
-                    filterDiv.style.width = "22.5%";
-                    filterDiv.style.opacity = "1";
-                    tableSection.style.width = "75%";
-                }
-                toggleBtn.textContent = "Hide Filters";
-                clearLink.classList.remove("d-none");
-                isOpen = true;
+            let test = isMobile();
+            console.log(test );
+        function openFilter() {
+            if (isMobile()) {
+                filterDiv.classList.add("open");
+            } else {
+                filterDiv.style.width = "22.5%";
+                tableSection.style.width = "75%";
+                filterDiv.style.opacity = "1";
             }
+            toggleBtn.textContent = "Hide Filters";
+            clearLink.classList.remove("d-none");
+            isOpen = true;
+        }
 
-            function closeFilter() {
-                if (isMobile()) {
-                    filterDiv.classList.remove("open");
-                } else {
-                    filterDiv.style.width = "0";
-                    filterDiv.style.opacity = "0";
-                    tableSection.style.width = "100%";
-                }
-                toggleBtn.textContent = "Show Filters";
-                clearLink.classList.add("d-none");
-                isOpen = false;
+        function closeFilter() {
+            if (isMobile()) {
+                filterDiv.classList.remove("open");
+            } else {
+                filterDiv.style.width = "0";
+                tableSection.style.width = "90%";
+                filterDiv.style.opacity = "0";
             }
+            toggleBtn.textContent = "Show Filters";
+            clearLink.classList.add("d-none");
+            isOpen = false;
+        }
+
+
 
             // Initialize state
             if (isMobile()) {
                 filterDiv.classList.remove("open");
-                tableSection.style.width = "100%";
+                tableSection.style.width = "90%";
                 isOpen = false;
                 toggleBtn.textContent = "Show Filters";
             } else {

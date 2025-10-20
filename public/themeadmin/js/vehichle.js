@@ -390,13 +390,7 @@ auctions.searchrecord = function () {
             }
 
 
-            for (let index = 1; index <= response.last_page; index++) {
-                $('.pagination').append(`
-                <li data-id="${index}" class="dt-paging-button page-item ${response.current_page == index ? 'active' : ''}">
-                <button class="page-link" type="button">${index}</button>
-                </li>
-                `);
-            }
+           renderPagination(response);
 
 
         },
@@ -405,7 +399,86 @@ auctions.searchrecord = function () {
         }
     });
 
+    }
+
+function renderPagination(response) {
+    const paginationContainer = $('.pagination');
+    paginationContainer.empty();
+
+    const totalPages = response.last_page;
+    const currentPage = response.current_page;
+    const visiblePages = 5;
+
+    // Calculate range
+    let startPage = Math.max(currentPage - 2, 1);
+    let endPage = startPage + visiblePages - 1;
+
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(endPage - visiblePages + 1, 1);
+    }
+
+    // Add "Prev" button
+    if (currentPage > 1) {
+        paginationContainer.append(`
+            <li class="page-item prev-page" data-id="${currentPage - 1}">
+                <button class="page-link">« Prev</button>
+            </li>
+        `);
+    }
+
+    // Add page numbers
+    for (let index = startPage; index <= endPage; index++) {
+        paginationContainer.append(`
+            <li data-id="${index}" 
+                class="page-item dt-paging-button ${currentPage == index ? 'active' : ''}">
+                <button class="page-link" type="button">${index}</button>
+            </li>
+        `);
+    }
+
+    // Add "Next" button
+    if (currentPage < totalPages) {
+        paginationContainer.append(`
+            <li class="page-item next-page" data-id="${currentPage + 1}">
+                <button class="page-link">Next »</button>
+            </li>
+        `);
+    }
+
+    // ✅ Attach click handlers once
+    attachPaginationHandlers();
 }
+
+function attachPaginationHandlers() {
+    $('.pagination').off('click', 'li').on('click', 'li', function (e) {
+        e.preventDefault();
+
+        const $btn = $(this);
+        const pageId = parseInt($btn.data('id'));
+        if (!pageId || $btn.hasClass('active')) return;
+
+        // ✅ Update URL
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', pageId);
+        history.pushState({}, '', url);
+
+        // ✅ Update filter (if used)
+        if (typeof auctions.filters !== 'undefined') {
+            auctions.filters.page = pageId;
+        }
+
+        // ✅ Reload data
+        if (typeof auctions.onLoad === 'function') {
+            auctions.onLoad();
+        } else if (typeof auctions.searchrecord === 'function') {
+            auctions.searchrecord();
+        }
+    });
+}
+
+
+
 
 
 auctions.getPlatforms = function () {
@@ -1518,12 +1591,12 @@ $(document).ready(function () {
 });
 
 
-$('.pagination').on('click', 'li', function () {
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', $(this).data('id'));
-    history.pushState({}, '', url);
-    auctions.onLoad();
-});
+// $('.pagination').on('click', 'li', function () {
+//     const url = new URL(window.location.href);
+//     url.searchParams.set('page', $(this).data('id'));
+//     history.pushState({}, '', url);
+//     auctions.onLoad();
+// });
 
 
 $(document).on('change', 'input[name="type[]"]', function () {

@@ -4,17 +4,23 @@
     .tags span {
         padding: 10px;
         background-color: transparent;
-        border: 1px solid white;
+        border: 1px solid #0080ff !important;
         gap: 1px;
         margin: 4px 0px;
-        border-radius: 10px;
+        border-radius: 16px;
         cursor: pointer;
+        font-size: 12px;
+        font-weight: 400;
     }
 
     a.see-more-makes.text-primary {
         font-size: small;
         text-align: center !important;
         margin: 20px;
+    }
+
+    .accordion-button {
+        color: white !important;
     }
 </style>
 

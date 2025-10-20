@@ -1,238 +1,245 @@
-
 @extends('user.partial.app')
-@push('title') Vehicle @endpush
+@push('title')
+    Vehicle
+@endpush
 @section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .menu-button {
+            display: none;
+        }
 
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
- <style>
+        .form-label {
+            padding-top: 18px;
+            padding-bottom: 6px;
+            font-size: 15px;
+        }
 
-    .menu-button{
-        display: none;
-    }
+        .ck-editor__editable {
+            min-height: 300px !important;
 
-   .form-label{
-         padding-top: 18px;
-         padding-bottom: 6px;
-         font-size: 15px;
-   }
+        }
 
-   .ck-editor__editable {
-        min-height: 300px !important;
-    
-    }
-    .filter-sidebar{
-        
-    }
-    .sider1{
+        .filter-sidebar {}
 
-        margin: 10px;
+        .sider1 {
 
-    }
-    .vehicle-list   .show{
-        background-color: var(--bs-navbar-bg);
-    }
+            margin: 10px;
 
-    .vehicle-list .btn1{
-        background-color: var(--bs-navbar-bg);
-        border: none;
-    }
+        }
 
-    .vehicle-list .collapsed{
-      background: #0f1c2c
-    }
-    .disc{
-        color: white;
-    }
+        .vehicle-list .show {
+            background-color: var(--bs-navbar-bg);
+        }
 
-    .sider{
-        background-color: #0f1c2c !important;
-    }
+        .vehicle-list .btn1 {
+            background-color: var(--bs-navbar-bg);
+            border: none;
+        }
+
+        .vehicle-list .collapsed {
+            background: #0f1c2c
+        }
+
+        .disc {
+            color: white;
+        }
+
+        .sider {
+            background-color: #0f1c2c !important;
+        }
+
         .form-check-input {
-        border: 2px solid #0d6efd; /* Bootstrap primary blue */
-    }
+            border: 2px solid #0d6efd;
+            /* Bootstrap primary blue */
+        }
 
-    .form-check-input:checked {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-    }
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
 
-    .form-check-input:focus {
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    }
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
         .dot-box {
-        width: 28px;
-        height: 28px;
-        background-color: #0f1c2c; /* Dark blue box */
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
-    }
+            width: 28px;
+            height: 28px;
+            background-color: #0f1c2c;
+            /* Dark blue box */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
 
         .dotstats-box {
-        width: 50px;
-        height: 50px;
-        /* background-color: #0A2E55; Dark blue box */
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
-    }
+            width: 50px;
+            height: 50px;
+            /* background-color: #0A2E55; Dark blue box */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
 
-    .dot {
-        width: 14px;
-        height: 14px;
-        background-color: #0d6efd; /* Blue dot */
-        border-radius: 50%;
-        box-shadow: 0 0 6px rgba(13, 110, 253, 0.6); /* Optional glow */
-    }
-    .dotstats {
-        width: 44px;
-        height: 44px;
-        background-color: #0d6efd;
-        border-radius: 30%;
-      
-      /* box-shadow: 0px 0px 5px 12px #0a2e55;
--webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
--moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
-    }
+        .dot {
+            width: 14px;
+            height: 14px;
+            background-color: #0d6efd;
+            /* Blue dot */
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(13, 110, 253, 0.6);
+            /* Optional glow */
+        }
 
-    .disc {
-        color: #ffffff; /* Optional white text */
-    }
+        .dotstats {
+            width: 44px;
+            height: 44px;
+            background-color: #0d6efd;
+            border-radius: 30%;
 
-    .service-list {
-        list-style: none;
-        padding-left: 0;
-        margin-bottom: 1rem;
-    }
+            /* box-shadow: 0px 0px 5px 12px #0a2e55;
+            -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
+            -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
+        }
 
-    .service-title {
-        font-weight: 600;
-        color: #cccccc;
-        margin-bottom: 0.3rem;
-    }
-    .active-tab {
-        background-color: #1e3a8a !important; /* Tailwind blue-800 */
-        border: 2px solid #3b82f6;
-    }
+        .disc {
+            color: #ffffff;
+            /* Optional white text */
+        }
 
-    .vehicle-detail-page{
+        .service-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
 
-    
-    
-    }
+        .service-title {
+            font-weight: 600;
+            color: #cccccc;
+            margin-bottom: 0.3rem;
+        }
 
-    .showblade-bg-img-dot {
-    background: 
-        linear-gradient(to top, 
-            /* rgba(15, 28, 44, 1) 0%,  */
-            rgba(15, 28, 44, 1) 48%, 
-            /* rgba(15, 28, 44, 0) 20%,  */
-            rgba(15, 28, 44, 0) 100%
-        ),
-        url('{{ asset('/public/theme/assets/autoboli.png') }}');
-    background-size: contain;
-    background-position: top center; /* 👈 Image upar center ho jayegi */
-    background-repeat: no-repeat;
-    }
+        .active-tab {
+            background-color: #1e3a8a !important;
+            /* Tailwind blue-800 */
+            border: 2px solid #3b82f6;
+        }
 
+        .vehicle-detail-page {}
 
-  .nav-tabs .nav-link {
-    background-color: transparent;
-    border: none;
-    color: var(--bs-heading-color);
-    border-radius: 8px;
-    box-shadow: none;
-    margin-right: 5px;
-    transition: 0.3s ease;
-  }
-
-  /* Your custom active style */
-  .nav-tabs .nav-link.active {
-    background-color: var(--bs-primary);
-    color: var(--bs-heading-color) !important;
-    border-radius: 8px;
-    box-shadow: none;
-  }
-
-  /* Optional: Hover effect */
-  .nav-tabs .nav-link:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  /* Optional: Remove tab bottom border */
-  .nav-tabs {
-    border-bottom: none;
-  }
-
-  #chart{
-    max-width: 700px;
-    margin: 30px auto;
-  }
+        .showblade-bg-img-dot {
+            background:
+                linear-gradient(to top,
+                    /* rgba(15, 28, 44, 1) 0%,  */
+                    rgba(15, 28, 44, 1) 48%,
+                    /* rgba(15, 28, 44, 0) 20%,  */
+                    rgba(15, 28, 44, 0) 100%),
+                url('{{ asset('/public/theme/assets/autoboli.png') }}');
+            background-size: contain;
+            background-position: top center;
+            /* 👈 Image upar center ho jayegi */
+            background-repeat: no-repeat;
+        }
 
 
-.circle-checkbox {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-left: 28px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: white;
-  cursor: pointer;
-}
+        .nav-tabs .nav-link {
+            background-color: transparent;
+            border: none;
+            color: var(--bs-heading-color);
+            border-radius: 8px;
+            box-shadow: none;
+            margin-right: 5px;
+            transition: 0.3s ease;
+        }
 
-.circle-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
+        /* Your custom active style */
+        .nav-tabs .nav-link.active {
+            background-color: var(--bs-primary);
+            color: var(--bs-heading-color) !important;
+            border-radius: 8px;
+            box-shadow: none;
+        }
 
-.circle-checkbox .circle {
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  background-color: transparent;
-  border: 2px solid var(--bs-border-color) !important; /* default border */
-  border-radius: 6px; /* lightly rounded box */
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+        /* Optional: Hover effect */
+        .nav-tabs .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
 
-/* inner dot when checked */
-.circle-checkbox input:checked + .circle::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  background-color: #0d6efd;
-  border-radius: 50%;
-}
+        /* Optional: Remove tab bottom border */
+        .nav-tabs {
+            border-bottom: none;
+        }
 
-/* if checked, change outer border */
-.circle-checkbox input:checked + .circle {
-  border-color: #0d6efd;
-}
+        #chart {
+            max-width: 700px;
+            margin: 30px auto;
+        }
 
-/* disabled style */
-.circle-checkbox.disabled {
-  color: #6c757d;
-  cursor: not-allowed;
-}
 
-  
-</style>
+        .circle-checkbox {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .circle-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .circle-checkbox .circle {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: transparent;
+            border: 2px solid var(--bs-border-color) !important;
+            /* default border */
+            border-radius: 6px;
+            /* lightly rounded box */
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* inner dot when checked */
+        .circle-checkbox input:checked+.circle::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: #0d6efd;
+            border-radius: 50%;
+        }
+
+        /* if checked, change outer border */
+        .circle-checkbox input:checked+.circle {
+            border-color: #0d6efd;
+        }
+
+        /* disabled style */
+        .circle-checkbox.disabled {
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+    </style>
 @endsection
 
 @section('content')
-<div class="sider vehicle-detail-page" style="padding-left: 0px; padding-right: 14px">
-    <div class="d-flex">
+    <div class="sider vehicle-detail-page" style="padding-left: 0px; padding-right: 14px">
+        <div class="d-flex">
             @include('user.vehicle.sidebar')
             <div class=" py-5 showblade-bg-img-dot " style="width: calc(100% - 281px); ">
 
@@ -259,23 +266,26 @@
                             </button>
                         </li>
                     </ul>
-        
-                    @if(!empty($notifiction) && $notifiction)
-                    <button id="toggleNotificationBtn" data-noti-id="{{ $notifiction->id }}" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button>
+
+                    @if (!empty($notifiction) && $notifiction)
+                        <button id="toggleNotificationBtn" data-noti-id="{{ $notifiction->id }}"
+                            data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i
+                                class="fa fa-bell text-secondary"></i></button>
                     @else
-                    <button id="toggleNotificationBtn" data-noti-id="{{ $vehicle->id }}" data-vehicle-id="{{ $vehicle->id }}" data-exists="false" class="btn btn-sm btn-primary">  <i class="fa fa-bell text-primary"></i></button>
-                    
+                        <button id="toggleNotificationBtn" data-noti-id="{{ $vehicle->id }}"
+                            data-vehicle-id="{{ $vehicle->id }}" data-exists="false" class="btn btn-sm btn-primary"> <i
+                                class="fa fa-bell text-primary"></i></button>
                     @endif
 
-                    
-                       
-                 
+
+
+
                 </div>
 
-     
+
                 <div class="tab-content p-0" id="myTabContent">
 
-    
+
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div id="tabContent">
                             @include('user.vehicle.vehicle_details')
@@ -286,7 +296,7 @@
                         {{-- @include('user.vehicle.vehicle_valuation') --}}
                         @include('user.vehicle.vehicle_valuation2')
                     </div>
-                    
+
                     <div class="tab-pane fade" id="condition" role="tabpanel" aria-labelledby="condition-tab">
                         @include('user.vehicle.vehicle_valuation')
                         {{-- @include('user.vehicle.vehicle_conditions') --}}
@@ -295,12 +305,11 @@
                 </div>
 
             </div>
+        </div>
     </div>
-</div>
-@include('user.vehicle.popup')
+    @include('user.vehicle.popup')
 @endsection
 @section('js')
-
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -321,85 +330,91 @@
                     button.classList.add('active-tab');
                 })
                 .catch(error => {
-                    document.getElementById('tabContent').innerHTML = `<p class="text-danger">Failed to load: ${error.message}</p>`;
+                    document.getElementById('tabContent').innerHTML =
+                        `<p class="text-danger">Failed to load: ${error.message}</p>`;
                 });
         }
     </script>
     <script>
-         document.addEventListener('DOMContentLoaded', function () {
-                    // Initialize Swiper
-                    const swiper = new Swiper('.mySwiper', {
-                        slidesPerView: 4,
-                        spaceBetween: 10,
-                        breakpoints: {
-                            640: { slidesPerView: 5 },
-                            768: { slidesPerView: 6 },
-                        }
-                    });
-
-                    // Handle click on main image to open modal
-                    const mainImage = document.getElementById('mainImage');
-                    const modalImage = document.getElementById('modalImage');
-
-                    if (mainImage) {
-                        mainImage.addEventListener('click', function () {
-                            if (modalImage) {
-                                modalImage.src = this.src;
-                            }
-                        });
-                    }
-
-                    // Image array and index for cycling
-                    const imageUrls = @json($vehicle->getImages());
-                    let currentMainIndex = 0;
-
-                    function cycleMainImage() {
-                        currentMainIndex = (currentMainIndex + 1) % imageUrls.length;
-                        if (mainImage && modalImage) {
-                            mainImage.src = imageUrls[currentMainIndex];
-                            modalImage.src = imageUrls[currentMainIndex];
-                        }
-                    }
-
-                    // Set main image on thumbnail click
-                    window.setMainImage = function (src) {
-                        if (mainImage && modalImage) {
-                            mainImage.src = src;
-                            modalImage.src = src;
-                        }
-                    };
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Swiper
+            const swiper = new Swiper('.mySwiper', {
+                slidesPerView: 4,
+                spaceBetween: 10,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 5
+                    },
+                    768: {
+                        slidesPerView: 6
+                    },
+                }
             });
-  </script>
 
-  
-  <script>
-    $(function() {
+            // Handle click on main image to open modal
+            const mainImage = document.getElementById('mainImage');
+            const modalImage = document.getElementById('modalImage');
 
-        const filterSidebar = {
-            el:$(".filters-sidebar"),
-        };
+            if (mainImage) {
+                mainImage.addEventListener('click', function() {
+                    if (modalImage) {
+                        modalImage.src = this.src;
+                    }
+                });
+            }
 
-        filterSidebar.load = function(){
+            // Image array and index for cycling
+            const imageUrls = @json($vehicle->getImages());
+            let currentMainIndex = 0;
 
-             filterSidebar.el.find('.vehicle-list > div').html(`<p class="text-center">Loading..</p>`);
+            function cycleMainImage() {
+                currentMainIndex = (currentMainIndex + 1) % imageUrls.length;
+                if (mainImage && modalImage) {
+                    mainImage.src = imageUrls[currentMainIndex];
+                    modalImage.src = imageUrls[currentMainIndex];
+                }
+            }
+
+            // Set main image on thumbnail click
+            window.setMainImage = function(src) {
+                if (mainImage && modalImage) {
+                    mainImage.src = src;
+                    modalImage.src = src;
+                }
+            };
+        });
+    </script>
+
+
+    <script>
+        $(function() {
+
+            const filterSidebar = {
+                el: $(".filters-sidebar"),
+            };
+
+            filterSidebar.load = function() {
+
+                filterSidebar.el.find('.vehicle-list > div').html(`<p class="text-center">Loading..</p>`);
 
                 $.ajax({
                     type: "get",
-                    url: "{{url('/auction-finder/data/getRelatedVehicle/')}}"+"/"+"{{$vehicle->id}}",
+                    url: "{{ url('/auction-finder/data/getRelatedVehicle/') }}" + "/" +
+                        "{{ $vehicle->id }}",
                     data: {
-                        length:15,
-                        page:1,
+                        length: 15,
+                        page: 1,
                         platform: filterSidebar.el.find('.platform').val(),
                         date_range: filterSidebar.el.find('#date_range').val(),
                     },
                     dataType: "json",
-                    success: function (response) {
+                    success: function(response) {
 
                         filterSidebar.el.find('.total_count').text(response.total);
                         filterSidebar.el.find('.vehicle-list > div').html('');
 
                         response.data.forEach(element => {
-                
+
                             filterSidebar.el.find('.vehicle-list > div').append(`
                                 <div class="vehicle-card mb-4 border-top" style="border-radius: 2px;">
                                 <button type="button" class="btn btn1 btn-primary w-100 dropdown-toggle text-start  collapsed waves-effect waves-light" style="justify-content: space-between; font-weight: 300; border-color:#44485e; box-shadow: none;" data-bs-toggle="collapse" data-bs-target="#vehicle-${element.id}" aria-controls="vehicle-${element.id}">
@@ -435,12 +450,12 @@
                     }
                 });
 
-        }
+            }
 
             filterSidebar.el.find('.platform').change(() => {
                 filterSidebar.load();
             });
-            
+
             filterSidebar.el.find('#date_range').change(() => {
                 filterSidebar.load();
             });
@@ -448,17 +463,21 @@
 
             filterSidebar.load();
 
-    }); 
-</script>
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialize Swiper
             const swiper = new Swiper('.mySwiper', {
                 slidesPerView: 4,
                 spaceBetween: 10,
                 breakpoints: {
-                    640: { slidesPerView: 5 },
-                    768: { slidesPerView: 6 },
+                    640: {
+                        slidesPerView: 5
+                    },
+                    768: {
+                        slidesPerView: 6
+                    },
                 }
             });
 
@@ -467,7 +486,7 @@
             const modalImage = document.getElementById('modalImage');
 
             if (mainImage) {
-                mainImage.addEventListener('click', function () {
+                mainImage.addEventListener('click', function() {
                     if (modalImage) {
                         modalImage.src = this.src;
                     }
@@ -487,343 +506,347 @@
             }
 
             // Set main image on thumbnail click
-            window.setMainImage = function (src) {
+            window.setMainImage = function(src) {
                 if (mainImage && modalImage) {
                     mainImage.src = src;
                     modalImage.src = src;
                 }
             };
         });
-  </script>
- 
-  <script>
+    </script>
 
-        $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
             $('.menu-button').trigger('click');
         });
+    </script>
 
-  </script>
-
-  <script>
-
-    let currentMainIndex = 0;
-    const mainImage = document.getElementById('mainImage');
-    const imageUrls = @json($vehicle->getImages());
-
-    document.getElementById('mainImage')?.addEventListener('click', function() {
-        document.getElementById('modalImage').src = this.src;
-    });
-
-    function changeMainImage(src) {
-        document.getElementById('mainImage').src = src;
-        document.getElementById('modalImage').src = src;
-
-    }
-
-    function cycleMainImage() {
-        currentMainIndex = (currentMainIndex + 1) % imageUrls.length;
-        mainImage.src = imageUrls[currentMainIndex];
-        openModalSwiper(currentMainIndex);
-    }
-
-
-    function setMainImage(imageUrl) {
+    <script>
+        let currentMainIndex = 0;
         const mainImage = document.getElementById('mainImage');
-        mainImage.src = imageUrl;
-    }
+        const imageUrls = @json($vehicle->getImages());
 
-</script>
+        document.getElementById('mainImage')?.addEventListener('click', function() {
+            document.getElementById('modalImage').src = this.src;
+        });
+
+        function changeMainImage(src) {
+            document.getElementById('mainImage').src = src;
+            document.getElementById('modalImage').src = src;
+
+        }
+
+        function cycleMainImage() {
+            currentMainIndex = (currentMainIndex + 1) % imageUrls.length;
+            mainImage.src = imageUrls[currentMainIndex];
+            openModalSwiper(currentMainIndex);
+        }
+
+
+        function setMainImage(imageUrl) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = imageUrl;
+        }
+    </script>
 
 
 
 
-<script>
+    <script>
+        const trade_history_graph = {
+            el: $('.trade_history_graph'),
+        };
 
-     const trade_history_graph = {
-        el:$('.trade_history_graph'),
-     };
 
-
-     trade_history_graph.getTrade = function(){
+        trade_history_graph.getTrade = function() {
 
 
             $.ajax({
                 type: "GET",
-                url: "{{url('/auction-finder/getPlatformVehicle')}}",
+                url: "{{ url('/auction-finder/getPlatformVehicle') }}",
                 data: {
-                   platform_id: trade_history_graph.el.find('.platform').val() 
+                    platform_id: trade_history_graph.el.find('.platform').val()
                 },
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
 
-                    
+
                     console.log(response);
 
-                           const options = {
-                                chart: {
-                                    type: 'area',
-                                    height: 350,
-                                    background: '#0b1d2a',
-                                    toolbar: {
-                                        show: false
-                                    }
-                                },
-                                colors: response.colors,
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    curve: 'smooth',
-                                    width: 2
-                                },
-                                series: response.data,
-                                xaxis: {
-                                    categories: ['Jan', 'Feb', 'Mar'],
-                                    labels: {
-                                        style: {
-                                          colors: '#ccc'
-                                        }
-                                    }
-                                },
-                                yaxis: {
-                                    labels: {
-                                        formatter: val => `£${val.toLocaleString()}`,
-                                        style: {
-                                            colors: '#ccc'
-                                        }
-                                    }
-                                },
-                                tooltip: {
-                                theme: 'dark'
-                                },
-                                legend: {
-                                    position: 'top',
-                                    labels: {colors: '#fff'}
-                                },
-                                fill: {
-                                    type: 'gradient',
-                                    gradient: {
-                                        shade: 'dark',
-                                        opacityFrom: 0.5,
-                                        opacityTo: 0.2,
-                                    }
-                                },
-                                grid:{
-                                    borderColor: '#333'
-                                    }
-                            };
+                    const options = {
+                        chart: {
+                            type: 'area',
+                            height: 350,
+                            background: '#0b1d2a',
+                            toolbar: {
+                                show: false
+                            }
+                        },
+                        colors: response.colors,
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            width: 2
+                        },
+                        series: response.data,
+                        xaxis: {
+                            categories: ['Jan', 'Feb', 'Mar'],
+                            labels: {
+                                style: {
+                                    colors: '#ccc'
+                                }
+                            }
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: val => `£${val.toLocaleString()}`,
+                                style: {
+                                    colors: '#ccc'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            theme: 'dark'
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                colors: '#fff'
+                            }
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'dark',
+                                opacityFrom: 0.5,
+                                opacityTo: 0.2,
+                            }
+                        },
+                        grid: {
+                            borderColor: '#333'
+                        }
+                    };
 
-                            const chart = new ApexCharts(trade_history_graph.el.find("#charts")[0],options);
-                            chart.render();
+                    const chart = new ApexCharts(trade_history_graph.el.find("#charts")[0], options);
+                    chart.render();
 
                 }
             });
 
-     }
+        }
 
 
-     trade_history_graph.el.find(".platform").change(function(){
-          trade_history_graph.getTrade();
-     });
+        trade_history_graph.el.find(".platform").change(function() {
+            trade_history_graph.getTrade();
+        });
 
 
-     trade_history_graph.getTrade();
+        trade_history_graph.getTrade();
+    </script>
 
-</script>
 
-
- <script>
- 
+    <script>
         // document.addEventListener('DOMContentLoaded', function() {
-         
+
         // });
 
-  
+
         // document.querySelector('.disclaimer-link').addEventListener('click', function(e) {
-  
+
         // });
     </script>
-{{-- <button id="toggleNotificationBtn" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button> --}}
-    
+    {{-- <button id="toggleNotificationBtn" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button> --}}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        $('#toggleNotificationBtn').on("click", function () {
-    let btn = $(this);
-    let vehicleId = btn.data('vehicle-id');
-    let notiId = btn.data('noti-id');
-    let exists = btn.data('exists');
+        $('#toggleNotificationBtn').on("click", function() {
+            let btn = $(this);
+            let vehicleId = btn.data('vehicle-id');
+            let notiId = btn.data('noti-id');
+            let exists = btn.data('exists');
 
-    if (!exists) {
-        // 🔔 ADD Notification
-        $.ajax({
-            url: "{{ url('/notificationsstore') }}",
-            method: "POST",
-            data: {
-                auction_id: vehicleId,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function (response) {
-                 console.log(response.status === 'success');
-                if (response.status === 'success') {
-                    toastr.success(response.message);
+            if (!exists) {
+                // 🔔 ADD Notification
+                $.ajax({
+                    url: "{{ url('/notificationsstore') }}",
+                    method: "POST",
+                    data: {
+                        auction_id: vehicleId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response.status === 'success');
+                        if (response.status === 'success') {
+                            toastr.success(response.message);
 
-              
-                    btn.data('exists', true);
-                    btn.data('noti-id', response.id);
-                    btn.removeClass('btn-primary').addClass('btn-danger');
-                   
-                } else {
-                    toastr.warning(response.message);
-                }
-            },
-            error: function (err) {
-                console.error(err);
-                toastr.error('Something went wrong while adding notification.');
+
+                            btn.data('exists', true);
+                            btn.data('noti-id', response.id);
+                            btn.removeClass('btn-primary').addClass('btn-danger');
+
+                        } else {
+                            toastr.warning(response.message);
+                        }
+                    },
+                    error: function(err) {
+                        console.error(err);
+                        toastr.error('Something went wrong while adding notification.');
+                    }
+                });
+
+            } else {
+
+                $.ajax({
+                    url: "{{ url('/viewhistory/alerts') }}/" + notiId,
+                    type: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response.status);
+                        if (response.message === "Alert deleted successfully") {
+                            toastr.success('Notification deleted successfully');
+
+
+                            btn.data('exists', false);
+                            btn.data('noti-id', '');
+                            btn.removeClass('btn-danger').addClass('btn-primary');
+
+                        } else {
+                            toastr.warning(response.message);
+                        }
+                    },
+                    error: function(err) {
+                        console.error(err);
+                        toastr.error('Something went wrong while deleting notification.');
+                    }
+                });
             }
         });
-
-    } else {
-      
-        $.ajax({
-            url: "{{ url('/viewhistory/alerts') }}/" + notiId,
-            type: "DELETE",
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function (response) {
-                console.log(response.status );
-                if (response.message === "Alert deleted successfully") {
-                    toastr.success('Notification deleted successfully');
-
-                  
-                    btn.data('exists', false);
-                    btn.data('noti-id', '');
-                    btn.removeClass('btn-danger').addClass('btn-primary');
-                  
-                } else {
-                    toastr.warning(response.message);
-                }
-            },
-            error: function (err) {
-                console.error(err);
-                toastr.error('Something went wrong while deleting notification.');
-            }
-        });
-    }
-});
-
     </script>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('tradChart').getContext('2d');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('tradChart').getContext('2d');
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
-            datasets: [
-                {
-                    label: 'Autotrader',
-                    data: [13000, 13500, 13800, 14000, 14500, 14700],
-                    borderColor: '#0066ff',
-                    backgroundColor: 'rgba(0,102,255,0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    borderWidth: 2
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
+                    datasets: [{
+                            label: 'Autotrader',
+                            data: [13000, 13500, 13800, 14000, 14500, 14700],
+                            borderColor: '#0066ff',
+                            backgroundColor: 'rgba(0,102,255,0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'CAP Clean',
+                            data: [12800, 13200, 13400, 13600, 13900, 14200],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16,185,129,0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'CAP Avg',
+                            data: [12000, 12200, 12500, 12700, 13000, 13200],
+                            borderColor: '#60a5fa',
+                            backgroundColor: 'rgba(96,165,250,0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'CAP B',
+                            data: [11000, 11500, 11800, 12000, 12300, 12500],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245,158,11,0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        }
+                    ]
                 },
-                {
-                    label: 'CAP Clean',
-                    data: [12800, 13200, 13400, 13600, 13900, 14200],
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16,185,129,0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    borderWidth: 2
-                },
-                {
-                    label: 'CAP Avg',
-                    data: [12000, 12200, 12500, 12700, 13000, 13200],
-                    borderColor: '#60a5fa',
-                    backgroundColor: 'rgba(96,165,250,0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    borderWidth: 2
-                },
-                {
-                    label: 'CAP B',
-                    data: [11000, 11500, 11800, 12000, 12300, 12500],
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245,158,11,0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    borderWidth: 2
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#a0a9c9'
+                            },
+                            grid: {
+                                color: '#1f2547'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#a0a9c9',
+                                callback: val => '£' + val.toLocaleString()
+                            },
+                            grid: {
+                                color: '#1f2547'
+                            }
+                        }
+                    }
                 }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                x: {
-                    ticks: { color: '#a0a9c9' },
-                    grid: { color: '#1f2547' }
-                },
-                y: {
-                    ticks: { color: '#a0a9c9', callback: val => '£' + val.toLocaleString() },
-                    grid: { color: '#1f2547' }
-                }
-            }
-        }
-    });
-});
-</script>
+            });
+        });
+    </script>
 
 
-<script>
-$(document).on('click', '#prvactionspopup', function () {
-    let vehicleId = $(this).data('vehid');
-    let regNum = $(this).data('regnum');
+    <script>
+        $(document).on('click', '#prvactionspopup', function() {
+            let vehicleId = $(this).data('vehid');
+            let regNum = $(this).data('regnum');
 
-    $('#vehicleModal .modal-body').html(`
+            $('#vehicleModal .modal-body').html(`
         <div style="text-align:center;padding:40px;color:#a0aec0;">
             Loading vehicle details...
         </div>
     `);
 
-    $.ajax({
-        url: '{{ url("/auction-finder/vehicle/get-vehicle-details") }}',
-        method: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}',
-            id: vehicleId,
-            regnum: regNum
-        },
-        success: function (response) {
-            if (!response.status) {
-                $('#vehicleModal .modal-body').html(`
+            $.ajax({
+                url: '{{ url('/auction-finder/vehicle/get-vehicle-details') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: vehicleId,
+                    regnum: regNum
+                },
+                success: function(response) {
+                    if (!response.status) {
+                        $('#vehicleModal .modal-body').html(`
                     <p style="color:#dc2626;text-align:center;">${response.message}</p>
                 `);
-                $('#vehicleModal').modal('show');
-                return;
-            }
+                        $('#vehicleModal').modal('show');
+                        return;
+                    }
 
-            const v = response.vehicle;
-            const prev = response.previous_vehicle;
-            const viewsCount = response.views;
+                    const v = response.vehicle;
+                    const prev = response.previous_vehicle;
+                    const viewsCount = response.views;
 
-            const mileageDiff = v.mileage && prev?.mileage
-                ? v.mileage - prev.mileage
-                : 0;
-            const mileageDiffHtml = mileageDiff > 0
-                ? `<span style="color:#ff9500;">+${mileageDiff}</span>`
-                : `<span style="color:#10b981;">${mileageDiff}</span>`;
+                    const mileageDiff = v.mileage && prev?.mileage ?
+                        v.mileage - prev.mileage :
+                        0;
+                    const mileageDiffHtml = mileageDiff > 0 ?
+                        `<span style="color:#ff9500;">+${mileageDiff}</span>` :
+                        `<span style="color:#10b981;">${mileageDiff}</span>`;
 
-       
-            let vehicleInfo = `
+
+                    let vehicleInfo = `
                 <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;margin-bottom:24px;border-left:4px solid #0066ff;">
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
                         <div>
@@ -876,13 +899,13 @@ $(document).on('click', '#prvactionspopup', function () {
                 </div>
             `;
 
-     
-            let preAucTable = '';
-            if (prev && prev.length > 0) {
-                let rows = '';
 
-                prev.forEach(item => {
-                    rows += `
+                    let preAucTable = '';
+                    if (prev && prev.length > 0) {
+                        let rows = '';
+
+                        prev.forEach(item => {
+                            rows += `
                         <tr style="border-bottom:1px solid #2a3a52;">
                             <td style="padding:12px 16px;">${item.auction_date ?? '—'}</td>
                             <td style="padding:12px 16px;">${item.auction_name ?? '—'}</td>
@@ -892,9 +915,9 @@ $(document).on('click', '#prvactionspopup', function () {
                             <td style="padding:12px 16px;">${item.last_bid ?? '—'}</td>
                         </tr>
                     `;
-                });
+                        });
 
-                preAucTable = `
+                        preAucTable = `
                     <div style="margin-top:24px;">
                         <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:#ffffff;">Pre Auc</h3>
                         <div style="border:1px solid #2a3a52;border-radius:8px;overflow:hidden;">
@@ -916,9 +939,9 @@ $(document).on('click', '#prvactionspopup', function () {
                         </div>
                     </div>
                 `;
-            }
+                    }
 
-            const headerTop = `
+                    const headerTop = `
             <div style="display:flex;align-items:flex-start;gap:20px;">
 
                 <!-- Badge -->
@@ -977,7 +1000,7 @@ $(document).on('click', '#prvactionspopup', function () {
             ✕
         </button>
             `;
-            const riskmanagemnt = `
+                    const riskmanagemnt = `
                 <div style="background-color:rgba(220,38,38,0.15);border-left:4px solid #dc2626;padding:16px;border-radius:6px;margin-bottom:24px;">
           <h3 style="color:#dc2626;font-size:20px;font-weight:700;margin-bottom:8px;">Not Recommended</h3>
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
@@ -987,16 +1010,17 @@ $(document).on('click', '#prvactionspopup', function () {
         </div>
             
             `;
-            
-            
-            let lastPrev = prev[prev.length - 1];
 
-            // Compare current vs previous
-            let AutotraderPrv = getValueDifferenceHTML(v.autotrader_retail_value, lastPrev.autotrader_retail_value);
-            let cap_cleanPrv   = getValueDifferenceHTML(v.cap_clean, lastPrev.cap_clean);
-            let cap_averagePrv = getValueDifferenceHTML(v.cap_average, lastPrev.cap_average);
-            let cap_belowPrv   = getValueDifferenceHTML(v.cap_below, lastPrev.cap_below);
-            const pricingCards = `
+
+                    let lastPrev = prev[prev.length - 1];
+
+                    // Compare current vs previous
+                    let AutotraderPrv = getValueDifferenceHTML(v.autotrader_retail_value, lastPrev
+                        .autotrader_retail_value);
+                    let cap_cleanPrv = getValueDifferenceHTML(v.cap_clean, lastPrev.cap_clean);
+                    let cap_averagePrv = getValueDifferenceHTML(v.cap_average, lastPrev.cap_average);
+                    let cap_belowPrv = getValueDifferenceHTML(v.cap_below, lastPrev.cap_below);
+                    const pricingCards = `
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;">
                         <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;">
                             <div style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Autotrader</div>
@@ -1021,83 +1045,73 @@ $(document).on('click', '#prvactionspopup', function () {
                         </div>
             
             `;
-            $('#vehicleModal .modal-header').html(headerTop);
+                    $('#vehicleModal .modal-header').html(headerTop);
 
-            $('#vehicleModal .modal-body').html(riskmanagemnt + vehicleInfo + pricingCards + preAucTable);
-            $('#vehicleModal').modal('show');
-        },
-        error: function () {
-            $('#vehicleModal .modal-body').html(`
+                    $('#vehicleModal .modal-body').html(riskmanagemnt + vehicleInfo + pricingCards +
+                        preAucTable);
+                    $('#vehicleModal').modal('show');
+                },
+                error: function() {
+                    $('#vehicleModal .modal-body').html(`
                 <div style="text-align:center;padding:40px;color:#dc2626;">
                     ❌ Failed to load vehicle details.
                 </div>
             `);
-            $('#vehicleModal').modal('show');
+                    $('#vehicleModal').modal('show');
+                }
+            });
+        });
+
+
+        function getDaysDiff(prevDate, currentDate) {
+            if (!prevDate || !currentDate) return 0;
+            const d1 = new Date(prevDate);
+            const d2 = new Date(currentDate);
+            const diff = Math.abs(d2 - d1);
+            return Math.ceil(diff / (1000 * 60 * 60 * 24));
         }
-    });
-});
 
 
-function getDaysDiff(prevDate, currentDate) {
-    if (!prevDate || !currentDate) return 0;
-    const d1 = new Date(prevDate);
-    const d2 = new Date(currentDate);
-    const diff = Math.abs(d2 - d1);
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
+        function getValueDifferenceHTML(current, previous) {
+
+            const parseValue = (val) => {
+                if (val === null || val === undefined) return null;
+                if (typeof val === 'string') {
+                    val = val.replace(/[£,\s]/g, '');
+                }
+                const num = parseFloat(val);
+                return isNaN(num) ? null : num;
+            };
+
+            const curr = parseValue(current);
+            const prev = parseValue(previous);
 
 
-function getValueDifferenceHTML(current, previous) {
-
-  const parseValue = (val) => {
-    if (val === null || val === undefined) return null;
-    if (typeof val === 'string') {
-      val = val.replace(/[£,\s]/g, '');
-    }
-    const num = parseFloat(val);
-    return isNaN(num) ? null : num;
-  };
-
-  const curr = parseValue(current);
-  const prev = parseValue(previous);
-
-
-  if (curr === null || prev === null || prev === 0) {
-    return `<div style="font-size:14px;color:#999;font-weight:600;">
+            if (curr === null || prev === null || prev === 0) {
+                return `<div style="font-size:14px;color:#999;font-weight:600;">
       No change from previous value
     </div>`;
-  }
+            }
 
 
-  const diffPercent = ((curr - prev) / prev) * 100;
+            const diffPercent = ((curr - prev) / prev) * 100;
 
-  if (diffPercent === 0) {
-    return `<div style="font-size:14px;color:#999;font-weight:600;">
+            if (diffPercent === 0) {
+                return `<div style="font-size:14px;color:#999;font-weight:600;">
       No change from previous value
     </div>`;
-  }
+            }
 
-  const isUp = diffPercent > 0;
-  const arrow = isUp ? '⬆' : '⬇';
-  const color = isUp ? '#ff9500' : '#ff3b30';
-  const formattedDiff = Math.abs(diffPercent).toFixed(1);
+            const isUp = diffPercent > 0;
+            const arrow = isUp ? '⬆' : '⬇';
+            const color = isUp ? '#ff9500' : '#ff3b30';
+            const formattedDiff = Math.abs(diffPercent).toFixed(1);
 
-  return `
+            return `
     <div style="font-size:14px;color:${color};font-weight:600;">
       ${arrow} ${formattedDiff}% From previous value
     </div>
   `;
-}
-
-
-
-</script>
-
-
-
-
-
+        }
+    </script>
 @endsection
-
-
-

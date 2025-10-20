@@ -106,6 +106,11 @@ return [
         ),
     ],
 
+    'custom' => [
+        'price_symbol' => env('PRICE_SYMBOL', '£'),
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

@@ -411,8 +411,8 @@
 
                                             <!-- Vehicle Info -->
                                             <div class="text-left"> 
-                                                <p class="m-0" style="text-align: left; font-size: 15px;">${element.make_name}</p>
-                                                <p class="m-0" style="text-align: left; font-size: 15px;">${element.model_name} ${element.year}</p>
+                                                <p class="m-0" style="text-align: left; font-size: 15px;">${element.make_name} ${element.model_name}</p>
+                                                <p class="m-0" style="text-align: left; font-size: 15px;">${element.price_symbol} ${element.price}</p>
                                             </div>
                                         </div>
 
@@ -424,8 +424,9 @@
                                     <div class="mb-2" style="  text-decoration: none;">
                                         <button type="button" class="pickup-badge btn border my-2 " style="font-size: 15px; background-color: var();border: 1px solid var(--bs-primary) !important; color: var(--bs-heading-color)">${element.platform_name}</button>
                                         <span class="ms-2">${element.date}</span>
+                                        <span class="ms-2">${element.center_name}</span>
                                     </div>        
-                                    <img src="${element.image}" alt="Vehicle Image" class="vehicle-image mb-2" style="border-radius: 10px; max-width: 100%; height: 100%; display: block; margin-right: auto;">
+                                    
                                     </div> 
                             </div></a>
                             </div>`);
@@ -633,14 +634,14 @@
 
  <script>
  
-        document.addEventListener('DOMContentLoaded', function() {
+        // document.addEventListener('DOMContentLoaded', function() {
          
-        });
+        // });
 
   
-        document.querySelector('.disclaimer-link').addEventListener('click', function(e) {
+        // document.querySelector('.disclaimer-link').addEventListener('click', function(e) {
   
-        });
+        // });
     </script>
 {{-- <button id="toggleNotificationBtn" data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i class="fa fa-bell text-secondary"></i></button> --}}
     
@@ -812,6 +813,7 @@ $(document).on('click', '#prvactionspopup', function () {
 
             const v = response.vehicle;
             const prev = response.previous_vehicle;
+            const viewsCount = response.views;
 
             const mileageDiff = v.mileage && prev?.mileage
                 ? v.mileage - prev.mileage
@@ -876,7 +878,22 @@ $(document).on('click', '#prvactionspopup', function () {
 
      
             let preAucTable = '';
-            if (prev) {
+            if (prev && prev.length > 0) {
+                let rows = '';
+
+                prev.forEach(item => {
+                    rows += `
+                        <tr style="border-bottom:1px solid #2a3a52;">
+                            <td style="padding:12px 16px;">${item.auction_date ?? '—'}</td>
+                            <td style="padding:12px 16px;">${item.auction_name ?? '—'}</td>
+                            <td style="padding:12px 16px;">${item.cap_clean ?? '—'}</td>
+                            <td style="padding:12px 16px;">${item.cap_average ?? '—'}</td>
+                            <td style="padding:12px 16px;">${item.cap_below ?? '—'}</td>
+                            <td style="padding:12px 16px;">${item.last_bid ?? '—'}</td>
+                        </tr>
+                    `;
+                });
+
                 preAucTable = `
                     <div style="margin-top:24px;">
                         <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:#ffffff;">Pre Auc</h3>
@@ -893,20 +910,14 @@ $(document).on('click', '#prvactionspopup', function () {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="border-bottom:1px solid #2a3a52;">
-                                        <td style="padding:12px 16px;">${prev.auction_date ?? '—'}</td>
-                                        <td style="padding:12px 16px;">${prev.auction_name ?? '—'}</td>
-                                        <td style="padding:12px 16px;">${prev.cap_clean ?? '—'}</td>
-                                        <td style="padding:12px 16px;">${prev.cap_average ?? '—'}</td>
-                                        <td style="padding:12px 16px;">${prev.cap_below ?? '—'}</td>
-                                        <td style="padding:12px 16px;">${prev.last_bid ?? '—'}</td>
-                                    </tr>
+                                    ${rows}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 `;
             }
+
             const headerTop = `
             <div style="display:flex;align-items:flex-start;gap:20px;">
 
@@ -919,7 +930,7 @@ $(document).on('click', '#prvactionspopup', function () {
                             font-size:14px;
                             letter-spacing:0.5px;
                             box-shadow:0 0 10px rgba(0,102,255,0.5);">
-                    VN14 UCD
+                    ${v.reg}
                 </div>
 
                 <!-- Title and Actions -->
@@ -930,12 +941,12 @@ $(document).on('click', '#prvactionspopup', function () {
                                 color:#ffffff;
                                 text-shadow:0 1px 6px rgba(0,0,0,0.4);
                                 line-height:1.3;">
-                        Make-Model-Variant <br>
-                        <span style="font-size:16px;font-weight:500;color:#a0aec0;">CC-Year</span>
+                        ${v.make_name} ${v.model_name} ${v.variant_name}<br>
+                        <span style="font-size:16px;font-weight:500;color:#a0aec0;">${v.cc} - ${v.year}</span>
                     </h2>
 
                     <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
-                        <button style="background:linear-gradient(135deg,#0066ff,#1a7fff);
+                        <a href="${v.inspection_report}" target="_blank" style="background:linear-gradient(135deg,#0066ff,#1a7fff);
                                     color:white;
                                     border:none;
                                     padding:6px 14px;
@@ -945,8 +956,8 @@ $(document).on('click', '#prvactionspopup', function () {
                                     cursor:pointer;
                                     transition:0.3s;">
                             View Report
-                        </button>
-                        <span style="color:#a0aec0;font-size:14px;">👁️ 234 Views</span>
+                        </a>
+                        <span style="color:#a0aec0;font-size:14px;">👁️ ${viewsCount} Views</span>
                     </div>
                 </div>
             </div>
@@ -966,10 +977,53 @@ $(document).on('click', '#prvactionspopup', function () {
             ✕
         </button>
             `;
+            const riskmanagemnt = `
+                <div style="background-color:rgba(220,38,38,0.15);border-left:4px solid #dc2626;padding:16px;border-radius:6px;margin-bottom:24px;">
+          <h3 style="color:#dc2626;font-size:20px;font-weight:700;margin-bottom:8px;">Not Recommended</h3>
+          <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
+            <span style="background-color:#dc2626;color:white;padding:4px 8px;border-radius:4px;font-weight:600;">75%</span>
+            <span>Risk ratio</span>
+          </div>
+        </div>
+            
+            `;
+            
+            
+            let lastPrev = prev[prev.length - 1];
 
+            // Compare current vs previous
+            let AutotraderPrv = getValueDifferenceHTML(v.autotrader_retail_value, lastPrev.autotrader_retail_value);
+            let cap_cleanPrv   = getValueDifferenceHTML(v.cap_clean, lastPrev.cap_clean);
+            let cap_averagePrv = getValueDifferenceHTML(v.cap_average, lastPrev.cap_average);
+            let cap_belowPrv   = getValueDifferenceHTML(v.cap_below, lastPrev.cap_below);
+            const pricingCards = `
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;">
+                        <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;">
+                            <div style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Autotrader</div>
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;margin-bottom:8px;">${v.autotrader_retail_value ?? 0}</div>
+                            ${ AutotraderPrv }
+                        </div>
+                        <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;">
+                            <div style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">CAP C</div>
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;margin-bottom:8px;">${v.cap_clean}</div>
+                            ${cap_cleanPrv}
+                        </div>
+                        <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;">
+                            <div style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">CAP Average</div>
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;margin-bottom:8px;">${v.cap_average}</div>
+                            ${cap_averagePrv}
+                        </div>
+                        <div style="background-color:#1a2a42;border:1px solid #2a3a52;border-radius:8px;padding:16px;">
+                            <div style="font-size:12px;color:#a0aec0;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">CAP B</div>
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;margin-bottom:8px;">${v.cap_below}</div>
+                            ${cap_belowPrv}
+                        </div>
+                        </div>
+            
+            `;
             $('#vehicleModal .modal-header').html(headerTop);
 
-            $('#vehicleModal .modal-body').html(vehicleInfo + preAucTable);
+            $('#vehicleModal .modal-body').html(riskmanagemnt + vehicleInfo + pricingCards + preAucTable);
             $('#vehicleModal').modal('show');
         },
         error: function () {
@@ -983,7 +1037,7 @@ $(document).on('click', '#prvactionspopup', function () {
     });
 });
 
-// Utility function to calculate days difference
+
 function getDaysDiff(prevDate, currentDate) {
     if (!prevDate || !currentDate) return 0;
     const d1 = new Date(prevDate);
@@ -991,6 +1045,52 @@ function getDaysDiff(prevDate, currentDate) {
     const diff = Math.abs(d2 - d1);
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
+
+
+function getValueDifferenceHTML(current, previous) {
+
+  const parseValue = (val) => {
+    if (val === null || val === undefined) return null;
+    if (typeof val === 'string') {
+      val = val.replace(/[£,\s]/g, '');
+    }
+    const num = parseFloat(val);
+    return isNaN(num) ? null : num;
+  };
+
+  const curr = parseValue(current);
+  const prev = parseValue(previous);
+
+
+  if (curr === null || prev === null || prev === 0) {
+    return `<div style="font-size:14px;color:#999;font-weight:600;">
+      No change from previous value
+    </div>`;
+  }
+
+
+  const diffPercent = ((curr - prev) / prev) * 100;
+
+  if (diffPercent === 0) {
+    return `<div style="font-size:14px;color:#999;font-weight:600;">
+      No change from previous value
+    </div>`;
+  }
+
+  const isUp = diffPercent > 0;
+  const arrow = isUp ? '⬆' : '⬇';
+  const color = isUp ? '#ff9500' : '#ff3b30';
+  const formattedDiff = Math.abs(diffPercent).toFixed(1);
+
+  return `
+    <div style="font-size:14px;color:${color};font-weight:600;">
+      ${arrow} ${formattedDiff}% From previous value
+    </div>
+  `;
+}
+
+
+
 </script>
 
 

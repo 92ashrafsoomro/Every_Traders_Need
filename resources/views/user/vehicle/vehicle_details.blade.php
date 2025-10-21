@@ -2,10 +2,10 @@
 
 <style>
     .dotstats {
-        /* border: 8px solid #17293f !important; */
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: transparent;
     }
 
     /* Animation CSS */
@@ -58,6 +58,75 @@
     .TestingDiv div {
         white-space: nowrap !important;
     }
+
+    .dataDiv {
+        margin-top: 5px !important;
+    }
+
+    .vehicle-spec-tile {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 25px;
+    }
+
+    .vehicle-spec-label {
+        color: #9FB3C8;
+        font-size: 14px;
+        margin-bottom: 6px;
+        white-space: nowrap;
+    }
+
+    .vehicle-spec-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .vehicle-spec-icon {
+        font-size: 24px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .vehicle-spec-value {
+        color: white;
+        font-size: 15px;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    @media (max-width: 768px) {
+
+        .col-md-3,
+        .col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    .serviceHistory {
+        height: 520px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+
+    .serviceHistory .row {
+        margin-top: 80px;
+        padding: 0 20px;
+    }
+
+    .service-title {
+        font-weight: 400;
+    }
 </style>
 
 
@@ -100,14 +169,19 @@
         </div>
 
         {{-- Right Column: Info --}}
-        <div class="col-md-6">
-            <h3>{{ $vehicle->year }} {{ $vehicle->make->name ?? ' ' }} {{ $vehicle->model->name ?? ' ' }} –
+        <div class="col-md-6" style="background-color: none !important;">
+            <h3 style="font-weight: 600;">{{ $vehicle->year }} {{ $vehicle->make->name ?? ' ' }}
+                {{ $vehicle->model->name ?? ' ' }} –
                 {{ $vehicle->variant->name ?? ' ' }}</h3>
 
-            <section style="background:#061826; padding-bottom:10px;">
+            <section>
                 <div style="max-width:920px;">
                     <div
-                        style="background:#0b2131;border-radius:2px;box-shadow:0 2px 8px rgba(0,0,0,0.25);color:#e6edf3;padding:10px 15px;">
+                        style="background: #0f1c2c;
+                        border-radius: 2px;
+                        color: #e6edf3;
+                        padding: 20px;
+                        margin-bottom: 10px;">
 
                         <div class="row gx-3 gy-2 align-items-center text-center text-md-start">
 
@@ -116,7 +190,7 @@
                                 <div
                                     style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
                                     Mileage</div>
-                                <div style="font-size:18px;color:#fff;font-weight:600;">
+                                <div style="font-size:18px;color:#fff;font-weight:600;" class="dataDiv">
                                     {{ number_format($vehicle->mileage ?? 0) }}
                                 </div>
                             </div>
@@ -126,7 +200,7 @@
                                 <div
                                     style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
                                     Grade</div>
-                                <span
+                                <span class="dataDiv"
                                     style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#1ed760;color:#063a1f;font-weight:700;font-size:15px;">
                                     {{ $vehicle->grade ?? '-' }}
                                 </span>
@@ -138,22 +212,22 @@
                                     style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
                                     Inspection</div>
                                 @if (!empty($vehicle->inspection_report))
-                                    <a href="{{ $vehicle->inspection_report }}" target="_blank"
-                                        style="display:inline-block;background:#14324a;color:#9cc7ff;border:none;border-radius:6px;font-weight:600;font-size:12px;padding:4px 10px;text-decoration:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
+                                    <a class="dataDiv" href="{{ $vehicle->inspection_report }}" target="_blank"
+                                        style="display:inline-block;background:#0080ff;color:#ffff;border:none;border-radius:2px;font-weight:600;font-size:12px;padding:4px 10px;text-decoration:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
                                         Report
                                     </a>
                                 @else
-                                    <span style="font-size:13px;color:#777;">N/A</span>
+                                    <span class="dataDiv" style="font-size:13px;color:#777;">N/A</span>
                                 @endif
                             </div>
 
                             {{-- Registration --}}
                             <div class="col-6 col-md-3">
-                                <div
-                                    style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
+                                <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;"
+                                    class="dataDiv">
                                     Reg</div>
-                                <span
-                                    style="display:inline-block;background:#fff;color:#0b2131;border-radius:6px;padding:4px 8px;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,0.15);">
+                                <span class="dataDiv"
+                                    style="display:inline-block;background:#fff;color:#0b2131;border-radius:2px;padding:4px 8px;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,0.15); border-left: solid 4px #0080ff;">
                                     {{ strtoupper($vehicle->reg ?? 'N/A') }}
                                 </span>
                             </div>
@@ -163,22 +237,21 @@
                 </div>
             </section>
 
-            <div style=" background:linear-gradient(135deg,#0f1f2e 0%,#1a2f3f 100%);
-                    border-left:4px solid #0066cc;border-radius:2px;padding:20px; box-shadow:0 4px 16px rgba(0,0,0,0.3);
-                    font-family:'Segoe UI',sans-serif;"
+            <div style=" background-color:#0f1c2c;
+                    border-left:4px solid #0080ff;border-radius:2px;padding:20px;"
                 class="TestingDiv">
 
                 <!-- Top Grid -->
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:15px;align-items:center;"
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px;align-items:center;"
                     class="testingDiv">
 
                     <!-- Auction House -->
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Auction
                             House</span>
-                        <span style="font-size:14px;color:#0066cc;font-weight:600;">
+                        <span style="font-size:14px;color:#0080ff;font-weight:600;">
                             {{ $vehicle->auction->platform->name ?? 'N/A' }}
                         </span>
                     </div>
@@ -187,7 +260,7 @@
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Auction
                             Center</span>
                         <span style="font-size:14px;color:#ffffff;font-weight:500;">
                             {{ $vehicle->auction->center->name ?? 'N/A' }}
@@ -198,7 +271,7 @@
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Date
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Date
                             / Time / End</span>
                         <span style="font-size:14px;color:#ffffff;font-weight:500;">
                             {{ optional($vehicle->auction->auction_date)->format('d/m/Y H:i') ?? 'N/A' }}
@@ -212,7 +285,7 @@
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Lot</span>
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Lot</span>
                         <span style="font-size:14px;color:#ffffff;font-weight:500;">
                             {{ $vehicle->lot ?? 'N/A' }}
                         </span>
@@ -222,13 +295,13 @@
                 <!-- Bottom Grid -->
                 <div
                     style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
-                        padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);align-items:center;">
+                        padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);align-items:center;">
 
                     <!-- Auction Status -->
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Auction
                             Status</span>
                         <span style="font-size:14px;color:#ffffff;font-weight:500;">
                             {{ ucfirst($vehicle->bidding_status ?? 'Planned') }}
@@ -239,11 +312,11 @@
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Previous
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Previous
                             Auc</span>
                         <button id="prvactionspopup" data-vehid="{{ $vehicle->id }}"
                             data-regnum="{{ $vehicle->reg }}"
-                            style="background-color:#cc3333;color:white;border:none;padding:5px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">
+                            style="background-color:#0080ff;color:white;border:none;padding:5px;border-radius:2px;font-size:11px;font-weight:600;cursor:pointer; width: 80px; text-align: cenetr; display: flex; align-items: center; justify-content: center;">
                             View Details
                         </button>
 
@@ -253,7 +326,7 @@
                     <div style="display:flex;flex-direction:column;gap:4px;">
                         <span
                             style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auc
+                                letter-spacing:0.5px;font-weight:600; color:#9fb3c8;">Auc
                             Type</span>
                         <span style="font-size:14px;color:#ffffff;font-weight:500;">
                             {{ ucfirst($vehicle->auction->auction_type ?? 'N/A') }}
@@ -275,16 +348,16 @@
 
 
             <div
-                style="margin-top: 10px; background-color:#530a0a;border-left:5px solid #8b3a3a;padding:20px;border-radius:2px;width:100%;box-shadow:0 4px 6px rgba(0,0,0,0.3);">
+                style="margin-top: 10px; background-color:#0f1c2c;border-left:5px solid red;padding:20px;border-radius:2px;width:100%;box-shadow:0 4px 6px rgba(0,0,0,0.3);">
                 <h6
                     style="color: #ffffff;
-    font-weight: 600;
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
-    padding: 0px !important;
-    line-height: 1;">
+                    font-weight: 600;
+                    margin-bottom: 12px;
+                    letter-spacing: 0.5px;
+                    padding: 0px !important;
+                    line-height: 1;">
                     Disclaimer</h6>
-                <p style="color:#b0b8c1;font-size:14px;line-height:1.6;margin:0;">
+                <p style="color:#9FB3C8;font-size:14px;line-height:1.6;margin:0;">
                     AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it 'as-is' to help
                     users make informed decisions, without guaranteeing data accuracy or completeness.
                     <a href="#" data-bs-toggle="modal" data-bs-target="#disclaimerModal"
@@ -335,7 +408,7 @@
 
 {{-- Quick Stats --}}
 <div class="row text-start mb-5"
-    style="padding: 40px; background-color: #0c192a; border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color)">
+    style="margin-top: 50px; padding: 40px; background-color: #000f21; border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color)">
     @php
         $fields = [
             ['label' => 'Reg', 'value' => $vehicle->reg, 'icon' => 'directions_car'],
@@ -348,11 +421,11 @@
 
     @foreach ($fields as $field)
         <div class="col">
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 8px;">
                 <div class="dotstats-box"
                     style="background-color: #2b589430 !important; display:flex; align-items: center; justify-content: center; margin: 5px;">
-                    <div class="dotstats">
-                        <span class="material-icons" style="font-size: 20px;">
+                    <div class="dotstats" style="background-color: none !important;">
+                        <span class="material-icons" style="font-size: 20px; color: #0080ff;">
                             {{ $field['icon'] }}
                         </span>
                     </div>
@@ -361,7 +434,7 @@
                     <div style="color: white; display: flex; align-items: center;">
                         {{ $field['value'] }}
                     </div>
-                    <div style="color: #ccc; font-size: 15px;">{{ $field['label'] }}</div>
+                    <div style="color: #9FB3C8; font-size: 14px;">{{ $field['label'] }}</div>
                 </div>
             </div>
         </div>
@@ -380,9 +453,7 @@
     <div class="col-md-8 sider" style="padding: 0px !important;">
         <h4 class="pt-4" style="padding-left: 60px;">Overview</h4>
         <hr style="border-color: #44485e;">
-        <div class="row">
-
-
+        <div class="row" style="padding: 50px;">
             @php
                 $fields = [
                     [
@@ -405,15 +476,19 @@
             @endphp
 
             @foreach ($fields as $field)
-                <div class="col-md-2 col-4 mb-3">
-                    <div class="info-tile">
-                        <span class="material-icons info-icon">{{ $field['icon'] }}</span>
-                        <div class="info-label">{{ $field['label'] }}</div>
-                        <div class="info-value">{{ $field['value'] }}</div>
+                <div class="col-md-3 col vehicle-spec-tile">
+                    <div class="vehicle-spec-label" style="font-size: 14px; margin-bottom: 10px;">
+                        {{ $field['label'] }}
+                        {{-- <div style="border-bottom: solid 1px #0080ff80; width: 20%;"></div> --}}
+                    </div>
+                    <div class="vehicle-spec-content">
+                        <div class="">
+                            <span class="material-icons">{{ $field['icon'] }}</span>
+                        </div>
+                        <div class="vehicle-spec-value">{{ $field['value'] }}</div>
                     </div>
                 </div>
             @endforeach
-
         </div>
 
 
@@ -421,7 +496,7 @@
         {{-- Additional Information --}}
         <h4 class="mt-4" style="padding-left: 60px">Additional Information</h4>
         <hr style="border-color: #44485e;">
-        <div class="row">
+        <div class="row" style="padding: 50px;">
 
             @php
                 $moreFields = [
@@ -436,11 +511,16 @@
 
             <div class="row mt-4">
                 @foreach ($moreFields as $field)
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="info-tile">
-                            <span class="material-icons info-icon">{{ $field['icon'] }}</span>
-                            <div class="info-label">{{ $field['label'] }}</div>
-                            <div class="info-value">{{ $field['value'] }}</div>
+                    <div class="col-md-3 col vehicle-spec-tile">
+                        <div class="vehicle-spec-label" style="font-size: 14px; margin-bottom: 10px;">
+                            {{ $field['label'] }}
+                            {{-- <div style="border-bottom: solid 1px #0080ff80; width: 20%;"></div> --}}
+                        </div>
+                        <div class="vehicle-spec-content">
+                            <div class="">
+                                <span class="material-icons">{{ $field['icon'] }}</span>
+                            </div>
+                            <div class="vehicle-spec-value">{{ $field['value'] }}</div>
                         </div>
                     </div>
                 @endforeach
@@ -449,9 +529,8 @@
     </div>
 
 
-    <div class="col-md-4" style="padding: 0px !important;">
-        <div
-            class="border rounded sider p-3 "style="background-color: var(--bs-navbar-bg) !important; height: 450px; padding: 50px !important;">
+    <div class="col-md-4" style="padding: 0px; !important">
+        <div class="border sider p-3 serviceHistory"style="background-color: var(--bs-navbar-bg) !important;">
             <h4>Service History</h4>
             <div class="row">
                 <!-- Column 1 -->
@@ -459,7 +538,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">Service Report</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -469,7 +548,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">Last Service</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -479,7 +558,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">DVSA Mileage</div>
-                        <li class="d-flex align-items-start ixed mb-2">
+                        <li class="d-flex align-items-start ixed mb-2 mt-2">
                             {{-- <div class="dot-box ">
                                 <div class="dot p-2 m-2"></div>
                             </div> --}}
@@ -489,7 +568,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">MOT Expiry Date</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -503,7 +582,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">No of Services</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -513,7 +592,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">Last Service Mileage</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -523,7 +602,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">Service Notes</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}
@@ -533,7 +612,7 @@
 
                     <ul class="service-list">
                         <div class="service-title">MOT Due</div>
-                        <li class="d-flex align-items-center mb-2">
+                        <li class="d-flex align-items-center mb-2 mt-2">
                             {{-- <div class="dot-box">
                                 <div class="dot"></div>
                             </div> --}}

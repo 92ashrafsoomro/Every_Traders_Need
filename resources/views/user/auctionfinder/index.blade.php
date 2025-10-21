@@ -358,20 +358,31 @@
     </div>
 
     <div class="py-5 container-fluid filter">
-        <!-- Toggle Button -->
-        <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
-            Show Filters
-            <span class="material-symbols-outlined">
-                filter_alt
-            </span>
-        </button>
+
+        <div class="d-flex justify-content-between align-items-center px-1 pt-1" style="width:22.5%;">
+            <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
+                Show Filters
+                <span class="material-symbols-outlined">
+                    filter_alt
+                </span>
+            </button>
+            <div class="d-flex align-items-center gap-2">
+                <a id="clearFiltersLink" href="{{ url('/auction-finder') }}" class="text-decoration-none d-none deleteBtn">
+                    <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
+                        delete
+                    </span>
+                    Clear all
+                </a>
+            </div>
+        </div>
+
         <div class="row" style="display: flex;">
             <!-- Left: 3col Table section -->
             <div id="filterDIV" class="filter_sidebar">
                 <div class="card p-2" {{-- style="position: sticky; top: 100px; z-index: 10;" --}}>
                     <div class="d-flex justify-content-between align-items-center px-1 pt-1">
-                        <h5 class="mb-0">Filters</h5>
-                        <div class="d-flex align-items-center gap-2">
+                        {{-- <h5 class="mb-0">Filters</h5> --}}
+                        {{-- <div class="d-flex align-items-center gap-2">
                             <a id="clearFiltersLink" href="{{ url('/auction-finder') }}"
                                 class="text-decoration-none d-none deleteBtn">
                                 <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
@@ -379,10 +390,8 @@
                                 </span>
                                 Clear all
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
-
-                    <hr>
 
                     <div class="accordion" id="filterAccordion">
                         @include('user.auctionfinder.sidebar')

@@ -420,6 +420,15 @@ function renderPagination(response) {
         startPage = Math.max(endPage - visiblePages + 1, 1);
     }
 
+    // Add "First" button (<<)
+    if (currentPage > 1) {
+        paginationContainer.append(`
+            <li class="page-item first-page" data-id="1">
+                <button class="page-link">««</button>
+            </li>
+        `);
+    }
+
     // Add "Prev" button
     if (currentPage > 1) {
         paginationContainer.append(`
@@ -448,7 +457,16 @@ function renderPagination(response) {
         `);
     }
 
-    // ✅ Attach click handlers once
+    // Add "Last" button (>>)
+    if (currentPage < totalPages) {
+        paginationContainer.append(`
+            <li class="page-item last-page" data-id="${totalPages}">
+                <button class="page-link">»»</button>
+            </li>
+        `);
+    }
+
+    // Attach click handlers once
     attachPaginationHandlers();
 }
 
@@ -460,17 +478,17 @@ function attachPaginationHandlers() {
         const pageId = parseInt($btn.data('id'));
         if (!pageId || $btn.hasClass('active')) return;
 
-        // ✅ Update URL
+        // Update URL
         const url = new URL(window.location.href);
         url.searchParams.set('page', pageId);
         history.pushState({}, '', url);
 
-        // ✅ Update filter (if used)
+        // Update filter if exists
         if (typeof auctions.filters !== 'undefined') {
             auctions.filters.page = pageId;
         }
 
-        // ✅ Reload data
+        // Reload data
         if (typeof auctions.onLoad === 'function') {
             auctions.onLoad();
         } else if (typeof auctions.searchrecord === 'function') {
@@ -478,8 +496,6 @@ function attachPaginationHandlers() {
         }
     });
 }
-
-
 
 
 

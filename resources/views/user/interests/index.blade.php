@@ -33,9 +33,9 @@
             class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
         </div>
         <div class="relative z-10 container mx-auto pt-10">
-            <h1 class="text-5xl font-bold text-white mb-4 text-left">Find Your Next Car with Confidence</h1>
+            <h1 class="text-5xl font-bold text-white mb-4 text-left">Personalized for You</h1>
             <p class="text-lg text-gray-300 mx-auto text-left">
-                Explore a wide range of vehicles tailored to your preferences, needs, and lifestyle
+                Save your interests to see matching auctions, stats, and valuations in one place.
             </p>
         </div>
     </div>

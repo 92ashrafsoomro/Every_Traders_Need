@@ -27,9 +27,9 @@
        </div>
 
        <div class="relative z-10 container mx-auto pt-10">
-           <h1 class="text-5xl font-bold text-white mb-4 text-left">Reauction</h1>
+           <h1 class="text-5xl font-bold text-white mb-4 text-left"> Reauction Tracker</h1>
            <p class="text-lg text-gray-300 mx-auto text-left">
-               Manage and view platform reauctions across all centers in one place.
+               Monitor unsold lots making a comeback — compare prices, bids, and market movement.
            </p>
        </div>
 

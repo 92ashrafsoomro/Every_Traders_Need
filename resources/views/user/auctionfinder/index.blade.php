@@ -286,6 +286,7 @@
             padding: 0;
             margin: 10px 0;
         }
+
         .pagination .page-item button {
             border: 1px solid #ccc;
             background: #fff;
@@ -295,16 +296,28 @@
             cursor: pointer;
             transition: 0.2s;
         }
+
         .pagination .page-item.active button {
             background: #007bff;
             color: #fff;
             border-color: #007bff;
         }
+
         .pagination .page-item button:hover {
             background: #f1f1f1;
         }
-</style>
 
+        .toggleFiltersBtn {
+            padding: 6px;
+            border-radius: 8px;
+            font-size: small;
+            color: white;
+            border: 1px solid white;
+            width: 120px;
+            margin-bottom: 20px;
+            height: 50px;
+        }
+    </style>
 @endsection
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -312,9 +325,9 @@
     <div class="section-container">
         <div class="background-pattern"></div>
         <div class="content">
-            <h1 class="heading">Compare Before You Bid</h1>
+            <h1 class="heading">Smart Auction Search</h1>
             <p class="subtext">
-                Review multiple auctions side by side to spot the best deal..
+                Filter, compare, and uncover vehicles that match your profit goals.
             </p>
         </div>
         <div class="d-flex flex-wrap justify-content-between mb-4 tabsDiv">
@@ -332,51 +345,26 @@
                         </li>
                     </ul>
                     <!-- Toggle Button -->
-                    <button id="toggleFiltersBtn" class="btn btn-sm btn-outline-primary"
+                    {{-- <button id="toggleFiltersBtn" class="btn btn-sm btn-outline-primary"
                         style="padding: 10px; border-radius: 8px; font-size: small; color: white; border: 1px solid white;">
                         Show Filters
                         <span class="material-symbols-outlined">
                             filter_alt
                         </span>
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
     </div>
 
     <div class="py-5 container-fluid filter">
-
-        <div class="d-flex justify-content-between dropdownDiv">
-            <div class=" align-self-center show_entries_div">
-                <span style="padding-right: 5px">Show Entries</span>
-                <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;" name="length">
-                    <option value="15">15</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="500">500</option>
-                </select>
-                <span class="show_pagging" style="padding-left: 5px; margin-right: 5px;"></span>
-
-                <span class="params"></span>
-            </div>
-            <div class="d-flex flex-wrap justify-content-end">
-                <div class="invoice_sort">
-                    <select id="sortFilter" class="form-select">
-                        <option selected value="">Sort By</option>
-                        <!-- Name -->
-                        <option value="name_asc">Name: A to Z</option>
-                        <option value="name_desc">Name: Z to A</option>
-                        <!-- Grade -->
-                        <option value="grade_asc">Grade: Low to High</option>
-                        <option value="grade_desc">Grade: High to Low</option>
-                        <!-- Date & Time -->
-                        <option value="date_asc">Date & Time: Oldest First</option>
-                        <option value="date_desc">Date & Time: Newest First</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
+        <!-- Toggle Button -->
+        <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
+            Show Filters
+            <span class="material-symbols-outlined">
+                filter_alt
+            </span>
+        </button>
         <div class="row" style="display: flex;">
             <!-- Left: 3col Table section -->
             <div id="filterDIV" class="filter_sidebar">
@@ -405,6 +393,37 @@
 
             <!-- Right: 9col Table section -->
             <div id="tableSection" style="width:  75%;">
+                <div class="d-flex justify-content-between dropdownDiv">
+                    <div class=" align-self-center show_entries_div">
+                        {{-- <span style="padding-right: 5px">Show Entries</span> --}}
+                        <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;"
+                            name="length">
+                            <option value="15">15</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="500">500</option>
+                        </select>
+                        <span class="show_pagging" style="padding-left: 5px; margin-right: 5px;"></span>
+
+                        <span class="params"></span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-end">
+                        <div class="invoice_sort">
+                            <select id="sortFilter" class="form-select">
+                                <option selected value="">Sort By</option>
+                                <!-- Name -->
+                                <option value="name_asc">Name: A to Z</option>
+                                <option value="name_desc">Name: Z to A</option>
+                                <!-- Grade -->
+                                <option value="grade_asc">Grade: Low to High</option>
+                                <option value="grade_desc">Grade: High to Low</option>
+                                <!-- Date & Time -->
+                                <option value="date_asc">Date & Time: Oldest First</option>
+                                <option value="date_desc">Date & Time: Newest First</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="table-responsive text-nowrap">
                         <table class="auction-table table table-hover">
@@ -415,7 +434,8 @@
                         </table>
                     </div>
 
-                    <div style="
+                    <div
+                        style="
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -426,14 +446,16 @@
                         width: 100%;
                     ">
                         <nav aria-label="pagination" style="display: flex; justify-content: center; width: 100%;">
-                            <ul class="pagination" style="
+                            <ul class="pagination"
+                                style="
                                 display: flex;
                                 list-style: none;
                                 gap: 6px;
                                 padding: 0;
                                 margin: 0;
                                 justify-content: center;
-                            "></ul>
+                            ">
+                            </ul>
                         </nav>
                     </div>
 
@@ -462,32 +484,33 @@
                 return window.innerWidth <= 767;
             }
             let test = isMobile();
-            console.log(test );
-        function openFilter() {
-            if (isMobile()) {
-                filterDiv.classList.add("open");
-            } else {
-                filterDiv.style.width = "22.5%";
-                tableSection.style.width = "75%";
-                filterDiv.style.opacity = "1";
-            }
-            toggleBtn.textContent = "Hide Filters";
-            clearLink.classList.remove("d-none");
-            isOpen = true;
-        }
+            console.log(test);
 
-        function closeFilter() {
-            if (isMobile()) {
-                filterDiv.classList.remove("open");
-            } else {
-                filterDiv.style.width = "0";
-                tableSection.style.width = "90%";
-                filterDiv.style.opacity = "0";
+            function openFilter() {
+                if (isMobile()) {
+                    filterDiv.classList.add("open");
+                } else {
+                    filterDiv.style.width = "22.5%";
+                    tableSection.style.width = "75%";
+                    filterDiv.style.opacity = "1";
+                }
+                toggleBtn.textContent = "Hide Filters";
+                clearLink.classList.remove("d-none");
+                isOpen = true;
             }
-            toggleBtn.textContent = "Show Filters";
-            clearLink.classList.add("d-none");
-            isOpen = false;
-        }
+
+            function closeFilter() {
+                if (isMobile()) {
+                    filterDiv.classList.remove("open");
+                } else {
+                    filterDiv.style.width = "0";
+                    tableSection.style.width = "90%";
+                    filterDiv.style.opacity = "0";
+                }
+                toggleBtn.textContent = "Show Filters";
+                clearLink.classList.add("d-none");
+                isOpen = false;
+            }
 
 
 

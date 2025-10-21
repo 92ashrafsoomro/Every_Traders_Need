@@ -60,10 +60,10 @@ const global = {
                     global.intrest = response.data;
 
                     Intrest.loadIntrest();
-                    global.lookbestauction();
+                    // global.lookbestauction();
                     global.previousLots();
                     global.upComingVehicles();
-                    global.getValuation();
+                    // global.getValuation();
                     global.getTotalAuctions();
 
                 }
@@ -71,23 +71,46 @@ const global = {
             
         }
 
-        Intrest.loadIntrest = function (){
+Intrest.loadIntrest = function () {
+    $("#interest-buttons-wrapper").html('');
 
-            $("#interest-buttons-wrapper").html('');
-            $.ajax({
-                url:path+"/interest/myintrest",
-                dataType: "json",
-                success: function (response) {
-                    response.data.forEach(element => {
-                    
-                        $("#interest-buttons-wrapper").append(`<button onClick="Intrest.setIntrest(${element.id})" class="text-black btn rounded-3 fw-medium border-solid interest-button flex-shrink-0 waves-effect waves-light ${element.status == '1' ? 'active' : ''}" 
-                        style=" !important; border: 1px solid var(--bs-b-color); ">${element.title}</button>`);
+    $.ajax({
+        url: path + "/interest/myintrest",
+        dataType: "json",
+        success: function (response) {
+            const $wrapper = $("#interest-buttons-wrapper");
 
-                    });
-                }
-            });
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(element => {
+                    $wrapper.append(`
+                        <button 
+                            data-id="${element.id}" 
+                            class="text-black btn rounded-3 fw-medium border-solid interest-button flex-shrink-0 waves-effect waves-light ${element.status == '1' ? 'active' : ''}" 
+                            style="border: 1px solid var(--bs-b-color);">
+                            ${element.title}
+                        </button>
+                    `);
+                });
 
+                // ✅ Click the "active" one if exists, otherwise first one
+                setTimeout(() => {
+                    const $active = $wrapper.find(".interest-button.active");
+                    if ($active.length) {
+                        $active.trigger("click");
+                    } else {
+                        $wrapper.find(".interest-button:first").trigger("click");
+                    }
+                }, 200);
+            } else {
+                $wrapper.html(`<p class="text-muted m-2">No interests found</p>`);
+            }
+        },
+        error: function () {
+            console.error("Error loading interests");
         }
+    });
+};
+
 
 
 
@@ -284,89 +307,89 @@ const global = {
 
     // lookbestauction_________________________________________________________________________________________
 
-      let lookbestchartInstance;
-      global.lookbestauction = function () {
+    //   let lookbestchartInstance;
+    //   global.lookbestauction = function () {
       
-        $.ajax({
-        url: path + "/dashboard/lookbestauction",
-        dataType: "json",
-        data: {
-            platform_id: $('#lookbestauction .platform').val() 
-        },
-        success: function (response) {
+    //     $.ajax({
+    //     url: path + "/dashboard/lookbestauction",
+    //     dataType: "json",
+    //     data: {
+    //         platform_id: $('#lookbestauction .platform').val() 
+    //     },
+    //     success: function (response) {
 
-                    let lookbestauction = $("#lookbestauction");
-                    let chart = lookbestauction.find(".chart")[0].getContext('2d');
+    //                 let lookbestauction = $("#lookbestauction");
+    //                 let chart = lookbestauction.find(".chart")[0].getContext('2d');
 
-                    if (lookbestchartInstance) {
-                        lookbestchartInstance.destroy();
-                    }
+    //                 if (lookbestchartInstance) {
+    //                     lookbestchartInstance.destroy();
+    //                 }
 
-                    lookbestchartInstance = new Chart(chart, {
-                                type: 'bar',
-                                data: {
-                                    labels: response.labels,
-                                    datasets: [
-                                            {
-                                                label: 'Auction Progress',
-                                                data: response.total,
-                                                backgroundColor: response.colors,
-                                                borderRadius: 10,
-                                                barThickness: 18
-                                            }
-                                        ],
-                                    borderRadius: 10,
-                                    barThickness: 18
+    //                 lookbestchartInstance = new Chart(chart, {
+    //                             type: 'bar',
+    //                             data: {
+    //                                 labels: response.labels,
+    //                                 datasets: [
+    //                                         {
+    //                                             label: 'Auction Progress',
+    //                                             data: response.total,
+    //                                             backgroundColor: response.colors,
+    //                                             borderRadius: 10,
+    //                                             barThickness: 18
+    //                                         }
+    //                                     ],
+    //                                 borderRadius: 10,
+    //                                 barThickness: 18
                                 
-                            },
-                        options: {
-                                indexAxis: 'y',
-                                responsive: true,
-                                // maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        display: false
-                                    },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: context => `${context.label}: ${context.raw}%`
-                                        }
-                                    }
-                                },
-                                    scales: {
-                                        x: {
-                                            grid: { color: '#2a2a2a' },
-                                            ticks: { color: '#bbb' }
-                                        },
-                                        y: {
-                                            grid: { display: false },
-                                            ticks: { color: '#bbb' }
-                                        }
-                                    }
-                            }
-                        });
+    //                         },
+    //                     options: {
+    //                             indexAxis: 'y',
+    //                             responsive: true,
+    //                             // maintainAspectRatio: false,
+    //                             plugins: {
+    //                                 legend: {
+    //                                     display: false
+    //                                 },
+    //                                 tooltip: {
+    //                                     callbacks: {
+    //                                         label: context => `${context.label}: ${context.raw}%`
+    //                                     }
+    //                                 }
+    //                             },
+    //                                 scales: {
+    //                                     x: {
+    //                                         grid: { color: '#2a2a2a' },
+    //                                         ticks: { color: '#bbb' }
+    //                                     },
+    //                                     y: {
+    //                                         grid: { display: false },
+    //                                         ticks: { color: '#bbb' }
+    //                                     }
+    //                                 }
+    //                         }
+    //                     });
 
                         
-                       lookbestauction.find('.labels-container').html('');
-                       response.data.forEach(element => {
-                              lookbestauction.find('.labels-container').append(`
-                                 <div class = "col-6" style="display:flex;align-items:center;margin-bottom:50px; text-align:left; ">
-                                 <div style="width:12px;height:12px;background:${element.color};margin-right:8px; border-radius: 50% "></div>
-                                    <div class = "col-6" style="display:flex;flex-direction: column;">
-                                    <span style ="width: 150px !important; font-size: var(--font-p1);color: gray;">${element.label}</span>
-                                    <span class="px-2" style="font-size: var(--font-h5);" >(${element.total})</span>
-                                    <div>
-                                </div>
-                             `);
-                       }); 
+    //                    lookbestauction.find('.labels-container').html('');
+    //                    response.data.forEach(element => {
+    //                           lookbestauction.find('.labels-container').append(`
+    //                              <div class = "col-6" style="display:flex;align-items:center;margin-bottom:50px; text-align:left; ">
+    //                              <div style="width:12px;height:12px;background:${element.color};margin-right:8px; border-radius: 50% "></div>
+    //                                 <div class = "col-6" style="display:flex;flex-direction: column;">
+    //                                 <span style ="width: 150px !important; font-size: var(--font-p1);color: gray;">${element.label}</span>
+    //                                 <span class="px-2" style="font-size: var(--font-h5);" >(${element.total})</span>
+    //                                 <div>
+    //                             </div>
+    //                          `);
+    //                    }); 
                        
-             }
-        });
-    }
+    //          }
+    //     });
+    // }
 
-    $('#lookbestauction .platform').change(() => {
-        global.lookbestauction();
-    });
+    // $('#lookbestauction .platform').change(() => {
+    //     global.lookbestauction();
+    // });
 
    
     
@@ -437,133 +460,133 @@ const global = {
 
 
       // getValuation_____________________________________________________________
-    global.getValuation = function () {
+    // global.getValuation = function () {
         
-         $('.getValuation .rows').html('');
+    //      $('.getValuation .rows').html('');
         
 
-        $.ajax({
-            url: path + "/dashboard/getValuation",
-            dataType: "json",
-            data: {
-                platform_id: $('.getValuation .platform').val() 
-            },
-            success: function (response) {
+    //     $.ajax({
+    //         url: path + "/dashboard/getValuation",
+    //         dataType: "json",
+    //         data: {
+    //             platform_id: $('.getValuation .platform').val() 
+    //         },
+    //         success: function (response) {
            
-                $('.getValuation .rows').html('');
-                response.data.forEach(res => {
+    //             $('.getValuation .rows').html('');
+    //             response.data.forEach(res => {
 
-                    $('.getValuation .rows').append(`<div class="info-card">
-                            <div data-percent="${res.percent}" data-values="${res.price_month_1},${res.price_month_2},${res.price_month_3}" 
-                            data-labels="${response.labels}" data-price="${res.avg_price}"  class="auction-item">
-                                <div class="logo-text">
-                                    <img src="${path+"/public/themeadmin/autobolidp.png"}" />
-                                    <div>
-                                    <div  class="price mb-1">£${res.min_price} - £${res.max_price}</div>
-                                    <small class="text-muted" style="background-color:#008cff3a ; padding:2px 8px; border-radius: var(--btn-border-radis); font-size: var(--font-p1);color: var(--dimtext)">${res.platform_name}</small>
-                                    </div>
-                                </div>
-                                <div style="color:${res.percent > 0 ? 'var(--bs-primary) !important' :'red'}" class="change">
-                                    ${res.icon}
-                                    <button class="toggle-btn minus-icon"></button>
-                                </div>
-                            </div>
-                            <div class="chart-containers"></div>
-                    </div>`);
+    //                 $('.getValuation .rows').append(`<div class="info-card">
+    //                         <div data-percent="${res.percent}" data-values="${res.price_month_1},${res.price_month_2},${res.price_month_3}" 
+    //                         data-labels="${response.labels}" data-price="${res.avg_price}"  class="auction-item">
+    //                             <div class="logo-text">
+    //                                 <img src="${path+"/public/themeadmin/autobolidp.png"}" />
+    //                                 <div>
+    //                                 <div  class="price mb-1">£${res.min_price} - £${res.max_price}</div>
+    //                                 <small class="text-muted" style="background-color:#008cff3a ; padding:2px 8px; border-radius: var(--btn-border-radis); font-size: var(--font-p1);color: var(--dimtext)">${res.platform_name}</small>
+    //                                 </div>
+    //                             </div>
+    //                             <div style="color:${res.percent > 0 ? 'var(--bs-primary) !important' :'red'}" class="change">
+    //                                 ${res.icon}
+    //                                 <button class="toggle-btn minus-icon"></button>
+    //                             </div>
+    //                         </div>
+    //                         <div class="chart-containers"></div>
+    //                 </div>`);
 
-                });
-                    $('.getValuation .auction-item').first().click();
-            }
-        });
-    }
+    //             });
+    //                 $('.getValuation .auction-item').first().click();
+    //         }
+    //     });
+    // }
 
-    $('.getValuation .platform').change(() => {
-        global.getValuation();
-    });
+    // $('.getValuation .platform').change(() => {
+    //     global.getValuation();
+    // });
 
-    $(document).on('click', '.getValuation .auction-item', function () {
+    // $(document).on('click', '.getValuation .auction-item', function () {
       
-        $('.getValuation .chart-containers').html('');
+    //     $('.getValuation .chart-containers').html('');
 
-        let parent = $(this).parent();
-        let price = $(this).data('price');
-        let percent = $(this).data('percent');
-        let labels = $(this).data('labels').split(",")
-        let values = $(this).data('values').split(",").map((p) => parseFloat(p) || 0);
+    //     let parent = $(this).parent();
+    //     let price = $(this).data('price');
+    //     let percent = $(this).data('percent');
+    //     let labels = $(this).data('labels').split(",")
+    //     let values = $(this).data('values').split(",").map((p) => parseFloat(p) || 0);
               
-           // remove active from others
-    $('.info-card').removeClass('active');
-    // add active to current one
-    parent.addClass('active');
+    //        // remove active from others
+    // $('.info-card').removeClass('active');
+    // // add active to current one
+    // parent.addClass('active');
 
-        let icon = "";
-        if (percent > 0) {
-        icon = `<span style="color: var(--bs-primary); display: flex; align-items:center; font-size:var(--font-h5)"><i style=" font-size:var(--font-h4)" class="hgi hgi-stroke hgi-arrow-up-01"></i> ${percent.toFixed(1)}%</span>`;
-        } else if (percent < 0) {
-            icon = `<spanstyle="color: red; display: flex; align-items:center; font-size:var(--font-p2)"><i style=" font-size:var(--font-h4)" class="hgi hgi-stroke hgi-arrow-down-01"></i> ${Math.abs(percent).toFixed(1)}%</span>`;
-        } else {
-            icon = `<span style="color: gray;">0%</span>`;
-        }
+    //     let icon = "";
+    //     if (percent > 0) {
+    //     icon = `<span style="color: var(--bs-primary); display: flex; align-items:center; font-size:var(--font-h5)"><i style=" font-size:var(--font-h4)" class="hgi hgi-stroke hgi-arrow-up-01"></i> ${percent.toFixed(1)}%</span>`;
+    //     } else if (percent < 0) {
+    //         icon = `<spanstyle="color: red; display: flex; align-items:center; font-size:var(--font-p2)"><i style=" font-size:var(--font-h4)" class="hgi hgi-stroke hgi-arrow-down-01"></i> ${Math.abs(percent).toFixed(1)}%</span>`;
+    //     } else {
+    //         icon = `<span style="color: gray;">0%</span>`;
+    //     }
         
-        parent.find('.chart-containers').html(`
-            <div class="chart-section">
-                   <p>Past 3 months</p>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center; gap-3">
-                    <span  style="background: var(--tra-primary-colr) ; height: 45px; display: flex; width: 45px; justify-content: center; align-items: center;" ><i style="font-size:var(--font-h6); font-weight:800;  color:var(--bs-primary);" class="hgi hgi-stroke hgi-pound"></i></span>
-                        <div>
-                        <div style="font-size:var(--font-h6);" class="price me-2">£${price}</div>
-                        <small style="font-size:var(--font-p1); color:var(--dimtext)" class="">Average</small>
-                        </div>
-                    </div>
-                    <div class="change up">
-                        ${icon}
-                    </div>
-                    </div>
-                    <div class="chart-placeholder">
-                    <canvas  height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas>
-                    </div>
-            </div>`);
+    //     parent.find('.chart-containers').html(`
+    //         <div class="chart-section">
+    //                <p>Past 3 months</p>
+    //                 <div class="d-flex justify-content-between align-items-center mb-3">
+    //                 <div class="d-flex align-items-center; gap-3">
+    //                 <span  style="background: var(--tra-primary-colr) ; height: 45px; display: flex; width: 45px; justify-content: center; align-items: center;" ><i style="font-size:var(--font-h6); font-weight:800;  color:var(--bs-primary);" class="hgi hgi-stroke hgi-pound"></i></span>
+    //                     <div>
+    //                     <div style="font-size:var(--font-h6);" class="price me-2">£${price}</div>
+    //                     <small style="font-size:var(--font-p1); color:var(--dimtext)" class="">Average</small>
+    //                     </div>
+    //                 </div>
+    //                 <div class="change up">
+    //                     ${icon}
+    //                 </div>
+    //                 </div>
+    //                 <div class="chart-placeholder">
+    //                 <canvas  height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas>
+    //                 </div>
+    //         </div>`);
 
-                  const priceChart = new Chart(parent.find('.chart-containers canvas')[0].getContext('2d'), {
-                       type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                            label: 'Average Pr',
-                            data: values,
-                            backgroundColor: 'rgba(246, 251, 255, 0)',
-                            borderColor: '#007bff',
-                            borderWidth: 3,
-                            fill: true,
-                            lineTension: 0.1,
-                            // pointRadius: 0,
+    //               const priceChart = new Chart(parent.find('.chart-containers canvas')[0].getContext('2d'), {
+    //                    type: 'line',
+    //                     data: {
+    //                         labels: labels,
+    //                         datasets: [{
+    //                         label: 'Average Pr',
+    //                         data: values,
+    //                         backgroundColor: 'rgba(246, 251, 255, 0)',
+    //                         borderColor: '#007bff',
+    //                         borderWidth: 3,
+    //                         fill: true,
+    //                         lineTension: 0.1,
+    //                         // pointRadius: 0,
                             
-                            pointBackgroundColor: '#007bff'
-                            }],
+    //                         pointBackgroundColor: '#007bff'
+    //                         }],
                         
-                        },
-    options: {
-        responsive: true,
-        scales: {
-        y: {
-            display: false, // ✅ hide Y axis
-            grid: { display: false }
-        },
-        x: {
-            display: false, // ✅ hide X axis
-            grid: { display: false }
-        }
-        },
-        plugins: {
-        legend: { display: false } // ✅ hide legend
-        }
-    }
+    //                     },
+    // options: {
+    //     responsive: true,
+    //     scales: {
+    //     y: {
+    //         display: false, // ✅ hide Y axis
+    //         grid: { display: false }
+    //     },
+    //     x: {
+    //         display: false, // ✅ hide X axis
+    //         grid: { display: false }
+    //     }
+    //     },
+    //     plugins: {
+    //     legend: { display: false } // ✅ hide legend
+    //     }
+    // }
     
-    });
-         parent.find('.info-card').addClass('active');
-        // alert('clicked!');
-    });
+    // });
+    //      parent.find('.info-card').addClass('active');
+    //     // alert('clicked!');
+    // });
        
 
     
@@ -580,10 +603,10 @@ const global = {
             global.vehicleStates();
 
             //Dashboard Intrest
-            global.lookbestauction();
+            // global.lookbestauction();
             global.previousLots();
             global.upComingVehicles();
-            global.getValuation();
+            // global.getValuation();
             Intrest.loadIntrest();
 
   });
@@ -600,10 +623,10 @@ const global = {
             global.vehicleStates();
 
             //Dashboard Intrest
-            global.lookbestauction();
+            // global.lookbestauction();
             global.previousLots();
             global.upComingVehicles();
-            global.getValuation();
+            // global.getValuation();
 
             Intrest.loadIntrest();
             // loadIntrest();

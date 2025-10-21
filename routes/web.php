@@ -297,6 +297,10 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
 
     Route::get('/dashboard/upComingVehicles', [DashboardController::class, 'upComingVehicles']);
     Route::get('/dashboard/getValuation', [DashboardController::class, 'getValuation']);
+    Route::get('/dashboard/setIntrest', [DashboardController::class, 'getInterestSummary']);
+    Route::get('/dashboard/setIntrest', [DashboardController::class, 'getInterestSummary']);
+    Route::get('/dashboard/stockAuctionHouse', [DashboardController::class, 'stockAuctionHouse']);
+    Route::get('/dashboard/gettopheaderintrest', [DashboardController::class, 'getInterestDashboard']);
 
             
            

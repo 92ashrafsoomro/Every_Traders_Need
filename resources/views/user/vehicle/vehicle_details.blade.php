@@ -111,17 +111,22 @@
     }
 
     .serviceHistory {
-        height: 520px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
+        border-radius: 10px;
+        box-shadow: 10px;
+        box-shadow:
+            0 6px 20px rgba(0, 0, 0, 0.5),
+            inset 0 2px 6px rgba(255, 255, 255, 0.05),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.4);
     }
 
 
     .serviceHistory .row {
-        margin-top: 80px;
-        padding: 0 20px;
+        padding: 20px;
+        /* width: 427px !important; */
+    }
+
+    .serviceHistory .row h5 {
+        font-weight: 400 !important;
     }
 
     .service-title {
@@ -450,10 +455,9 @@
 
 <div class="row " style="background: #0f1c2c; margin-bottom: 12px; margin-top: 60px;">
     {{-- Left Column (Overview, Additional Info, Features) --}}
-    <div class="col-md-8 sider" style="padding: 0px !important;">
-        <h4 class="pt-4" style="padding-left: 60px;">Overview</h4>
-        <hr style="border-color: #44485e;">
+    <div class="col-md-8 sider" style="padding-left: 60px;">
         <div class="row" style="padding: 50px;">
+            <h4 class="pt-4">Overview</h4>
             @php
                 $fields = [
                     [
@@ -498,9 +502,8 @@
 
 
         {{-- Additional Information --}}
-        <h4 class="mt-4" style="padding-left: 60px">Additional Information</h4>
-        <hr style="border-color: #44485e;">
         <div class="row" style="padding: 50px;">
+            <h4 class="mt-4">Additional Information</h4>
 
             @php
                 $moreFields = [
@@ -533,10 +536,10 @@
     </div>
 
 
-    <div class="col-md-4" style="padding: 0px; !important">
-        <div class="border sider p-3 serviceHistory"style="background-color: var(--bs-navbar-bg) !important;">
-            <h4>Service History</h4>
+    <div class="col-md-3">
+        <div class="sider p-3 serviceHistory" style="background-color: var(--bs-navbar-bg) !important;">
             <div class="row">
+                <h5>Service History</h5>
                 <!-- Column 1 -->
                 <div class="col-md-6">
 
@@ -633,9 +636,8 @@
 
 <div class="row">
     {{-- Left Column (Overview, Additional Info, Features) --}}
-    <div class="col-md-5" style="padding: 0px !important;">
-        <h4 class="mt-4" style="margin-left: 60px;">Features</h4>
-        <hr style="border-color: #44485e;">
+    <div class="col-md-5" style="padding-left: 60px;">
+        <h4 class="mt-4">Features</h4>
         <div class="row">
             <div>
                 <ul class="row" style="list-style: none; padding-left: 0;">
@@ -647,9 +649,8 @@
         </div>
     </div>
     {{-- <div class="col-1"></div>row text-start mb-4 --}}
-    <div class="col-md-5" style="padding: 0px !important;">
+    <div class="col-md-5" style="padding-left: 60px;">
         <h4 class="mt-4">Equipment</h4>
-        <hr style="border-color: #44485e;">
         <div class="row">
             <div class="col-md-12">
                 <ul class="row" style="list-style: none; padding-left: 0;">

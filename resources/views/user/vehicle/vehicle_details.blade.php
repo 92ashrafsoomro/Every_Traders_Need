@@ -1,6 +1,69 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+    .dotstats {
+        /* border: 8px solid #17293f !important; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Animation CSS */
+
+    .info-tile {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+
+    .info-tile:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        /* subtle background on hover */
+    }
+
+    .info-icon {
+        font-size: 32px;
+        color: white;
+        transition: transform 0.3s;
+    }
+
+    .info-label {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s, transform 0.3s;
+        color: white;
+        font-size: 14px;
+        margin-top: 6px;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    .info-tile:hover .info-label {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .info-value {
+        font-size: 14px;
+        color: white;
+        margin-top: 4px;
+        text-align: center;
+    }
+
+    .TestingDiv div {
+        white-space: nowrap !important;
+    }
+</style>
+
+
 <div class="p-4">
     <div class="row "
-        style="padding: 28px 18px; border-radius: 10px; background-color: var(--bs-navbar-bg) !important; margin: 0px 40px">
+        style="padding: 28px 18px; border-radius: 4px; background-color: var(--bs-navbar-bg) !important; margin: 0px 40px">
         <div class="col-md-6">
 
             <!-- Main Image Swiper -->
@@ -38,343 +101,236 @@
 
         {{-- Right Column: Info --}}
         <div class="col-md-6">
-            <h3>{{ $vehicle->year }} {{ $vehicle->make->name ?? " " }} {{ $vehicle->model->name ?? " " }} –
-                {{ $vehicle->variant->name ?? " " }}</h3>
+            <h3>{{ $vehicle->year }} {{ $vehicle->make->name ?? ' ' }} {{ $vehicle->model->name ?? ' ' }} –
+                {{ $vehicle->variant->name ?? ' ' }}</h3>
 
-                <section style="background:#061826; padding-bottom:10px;">
-                    <div style="max-width:920px;">
-                        <div style="background:#0b2131;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.25);color:#e6edf3;padding:10px 15px;">
-                            
-                            <div class="row gx-3 gy-2 align-items-center text-center text-md-start">
+            <section style="background:#061826; padding-bottom:10px;">
+                <div style="max-width:920px;">
+                    <div
+                        style="background:#0b2131;border-radius:2px;box-shadow:0 2px 8px rgba(0,0,0,0.25);color:#e6edf3;padding:10px 15px;">
 
-                                {{-- Mileage --}}
-                                <div class="col-6 col-md-3">
-                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Mileage</div>
-                                    <div style="font-size:18px;color:#fff;font-weight:600;">
-                                        {{ number_format($vehicle->mileage ?? 0) }}
-                                    </div>
+                        <div class="row gx-3 gy-2 align-items-center text-center text-md-start">
+
+                            {{-- Mileage --}}
+                            <div class="col-6 col-md-3">
+                                <div
+                                    style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
+                                    Mileage</div>
+                                <div style="font-size:18px;color:#fff;font-weight:600;">
+                                    {{ number_format($vehicle->mileage ?? 0) }}
                                 </div>
-
-                                {{-- Grade --}}
-                                <div class="col-6 col-md-3">
-                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Grade</div>
-                                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#1ed760;color:#063a1f;font-weight:700;font-size:15px;">
-                                        {{ $vehicle->grade ?? '-' }}
-                                    </span>
-                                </div>
-
-                                {{-- Inspection --}}
-                                <div class="col-6 col-md-3">
-                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Inspection</div>
-                                    @if(!empty($vehicle->inspection_report))
-                                        <a href="{{$vehicle->inspection_report}}" target="_blank"
-                                        style="display:inline-block;background:#14324a;color:#9cc7ff;border:none;border-radius:6px;font-weight:600;font-size:12px;padding:4px 10px;text-decoration:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
-                                            Report
-                                        </a>
-                                    @else
-                                        <span style="font-size:13px;color:#777;">N/A</span>
-                                    @endif
-                                </div>
-
-                                {{-- Registration --}}
-                                <div class="col-6 col-md-3">
-                                    <div style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">Reg</div>
-                                    <span style="display:inline-block;background:#fff;color:#0b2131;border-radius:6px;padding:4px 8px;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,0.15);">
-                                        {{ strtoupper($vehicle->reg ?? 'N/A') }}
-                                    </span>
-                                </div>
-
                             </div>
-                        </div>
-                    </div>
-                </section>
 
-
-            {{-- <div class="row " style=" border: solid #004890; border-radius: 15px; margin-bottom: 20px;">
-                <div class="row mt-2  align-self-center " style="border-radius: 5px; margin: 0px">
-                    <div class="col-md-3">
-                        <ul style="list-style: none; padding-left: 0px; font-size: 15px;">
-                            <li>
-                                <span style="color: #d4d4d4;">Make</span><br>
-                                <span style="color: white;">{{ $vehicle->make->name ?? "" }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none; padding-left: 0px;  font-size: 15px;">
-                            <li>
-                                <span style="color: #d4d4d4;">Model</span><br>
-                                <span style="color: white;">{{ $vehicle->model->name ?? "" }}</span>
-
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none; padding-left: 0px; font-size: 15px;">
-                            <li>
-                                <span style="color: #d4d4d4;">Variant</span><br>
-                                <span style="color: white;"> {{ $vehicle->variant->name  ?? "" }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none; padding-left: 0px;  font-size: 15px;">
-                            <li>
-                                <span style="color: #d4d4d4;">Year</span><br>
-                                <span style="color: white;">{{ $vehicle->year }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row  p-2" style="background-color: #00264d;  margin: 0px; border-radius: 10px; ">
-                    <div class="col-md-3">
-                        <ul style="list-style: none; padding-left: 0px; font-size: 15px; padding-top: 6px !important;">
-                            <li>
-                                <span style="color: #d4d4d4;">Platform</span><br>
-                                <span style="color: white;">{{ $vehicle->auction->platform->name }} </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none;  padding-left: 0px; font-size: 15px; padding-top: 6px !important;">
-                            <li>
-                                <span style="color: #d4d4d4;">Auction Date</span><br>
+                            {{-- Grade --}}
+                            <div class="col-6 col-md-3">
+                                <div
+                                    style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
+                                    Grade</div>
                                 <span
-                                    style="color: white;">{{ \Carbon\Carbon::parse($vehicle->auction->auction_date)->format('Y-m-d') }}
+                                    style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#1ed760;color:#063a1f;font-weight:700;font-size:15px;">
+                                    {{ $vehicle->grade ?? '-' }}
                                 </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none;  padding-left: 0px; font-size: 15px; padding-top: 6px !important;">
-                            <li>
-                                <span style="color: #d4d4d4;">Inspection</span><br>
-                                <a target="_blank" href="{{$vehicle->inspection_report}}" class="btn btn-primary "
-                                    style="padding: 3px 10px; border-radius: 5px !important;   font-size: 14px;   font-weight: 100;"
-                                    onclick="btn">View Report</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <ul style="list-style: none;  padding-left: 0px; font-size: 15px; padding-top: 6px !important;">
-                            <li>
-                                <span style="color: #d4d4d4;">Other</span><br>
-                                <a target="_blank" href="{{$vehicle->other_report}}" class="btn btn-primary  "
-                                    style="padding: 3px 10px;  border-radius: 5px !important;  font-size: 14px;   font-weight: 100;"
-                                    onclick="btn">
-                                    View Report </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> --}}
-            {{-- Disclaimer Accordion --}}
-            {{-- <div class="accordion mt-10" id="disclaimerAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header " id="headingOne">
-                        <button class="accordion-button disc collapsed "
-                            style="background-color: rgba(92, 3, 3, 0.829);" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne">
-                            Disclaimer
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#disclaimerAccordion">
-                        <div class="accordion-body">
-                            <p style="color: white;"> The data for this vehicle is taken from</p>
+                            </div>
 
-                            AUTOBOLI LTD aggregates vehicle auction data from third-party sources providing it ‘as-is’
-                            to help users make informed decisions, without guaranteeing data accuracy or completeness.
-                            <p><a href="#"> Read More</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion mt-3" id="disclaimerAccordion">
-                    <div class="accordion-item ">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button disc collapsed " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapsetwo"
-                                style="
-                                    color:#cecece">
-                                The data for this vehicle is taken from
-                            </button>
-                        </h2>
-                        <div id="collapsetwo" class="accordion-collapse collapse"
-                            data-bs-parent="#disclaimerAccordion">
-                            <div class="accordion-body">
-                                This vehicle data source is from {{ $vehicle->data_source ?? 'Unknown' }}.
+                            {{-- Inspection --}}
+                            <div class="col-6 col-md-3">
+                                <div
+                                    style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
+                                    Inspection</div>
+                                @if (!empty($vehicle->inspection_report))
+                                    <a href="{{ $vehicle->inspection_report }}" target="_blank"
+                                        style="display:inline-block;background:#14324a;color:#9cc7ff;border:none;border-radius:6px;font-weight:600;font-size:12px;padding:4px 10px;text-decoration:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);">
+                                        Report
+                                    </a>
+                                @else
+                                    <span style="font-size:13px;color:#777;">N/A</span>
+                                @endif
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion mt-3" id="disclaimerAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button disc collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapsethree"
-                                style="
-                                    color:#cecece">
-                                Disclaimer
-                            </button>
-                        </h2>
-                        <div id="collapsethree" class="accordion-collapse collapse"
-                            data-bs-parent="#disclaimerAccordion">
-                            <div class="accordion-body">
-                                This vehicle data source is from {{ $vehicle->data_source ?? 'Unknown' }}.
+
+                            {{-- Registration --}}
+                            <div class="col-6 col-md-3">
+                                <div
+                                    style="font-size:11px;letter-spacing:.03em;color:#9fb3c8;text-transform:uppercase;">
+                                    Reg</div>
+                                <span
+                                    style="display:inline-block;background:#fff;color:#0b2131;border-radius:6px;padding:4px 8px;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 1px 0 rgba(0,0,0,0.15);">
+                                    {{ strtoupper($vehicle->reg ?? 'N/A') }}
+                                </span>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="accordion mt-3" id="disclaimerAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button disc collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse4"
-                                style="
-                                    color:#cecece">
-                                Disclaimer
-                            </button>
-                        </h2>
-                        <div id="collapse4" class="accordion-collapse collapse"
-                            data-bs-parent="#disclaimerAccordion">
-                            <div class="accordion-body">
-                                This vehicle data source is from {{ $vehicle->data_source ?? 'Unknown' }}.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+            </section>
 
             <div style=" background:linear-gradient(135deg,#0f1f2e 0%,#1a2f3f 100%);
-                    border-left:4px solid #0066cc;border-radius:8px;padding:20px;
-                    max-width:900px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,0.3);
-                    font-family:'Segoe UI',sans-serif;">
+                    border-left:4px solid #0066cc;border-radius:2px;padding:20px; box-shadow:0 4px 16px rgba(0,0,0,0.3);
+                    font-family:'Segoe UI',sans-serif;"
+                class="TestingDiv">
 
-            <!-- Top Grid -->
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:15px;align-items:center;">
+                <!-- Top Grid -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:15px;align-items:center;"
+                    class="testingDiv">
 
-                <!-- Auction House -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction House</span>
-                    <span style="font-size:14px;color:#0066cc;font-weight:600;">
-                        {{ $vehicle->auction->platform->name ?? 'N/A' }}
-                    </span>
-                </div>
+                    <!-- Auction House -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction
+                            House</span>
+                        <span style="font-size:14px;color:#0066cc;font-weight:600;">
+                            {{ $vehicle->auction->platform->name ?? 'N/A' }}
+                        </span>
+                    </div>
 
-                <!-- Auction Center -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction Center</span>
-                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
-                        {{ $vehicle->auction->center->name ?? 'N/A' }}
-                    </span>
-                </div>
+                    <!-- Auction Center -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction
+                            Center</span>
+                        <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                            {{ $vehicle->auction->center->name ?? 'N/A' }}
+                        </span>
+                    </div>
 
-                <!-- Date / Time / End -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Date / Time / End</span>
-                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
-                        {{ optional($vehicle->auction->auction_date)->format('d/m/Y H:i') ?? 'N/A' }}
-                        @if($vehicle->auction->end_date)
-                            - {{ \Carbon\Carbon::parse($vehicle->auction->end_date)->format('H:i') }}
-                        @endif
-                    </span>
-                </div>
+                    <!-- Date / Time / End -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Date
+                            / Time / End</span>
+                        <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                            {{ optional($vehicle->auction->auction_date)->format('d/m/Y H:i') ?? 'N/A' }}
+                            @if ($vehicle->auction->end_date)
+                                - {{ \Carbon\Carbon::parse($vehicle->auction->end_date)->format('H:i') }}
+                            @endif
+                        </span>
+                    </div>
 
-                <!-- Lot -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                    <!-- Lot -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
                                 letter-spacing:0.5px;font-weight:600;">Lot</span>
-                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
-                        {{ $vehicle->lot ?? 'N/A' }}
-                    </span>
+                        <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                            {{ $vehicle->lot ?? 'N/A' }}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Bottom Grid -->
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
+                <!-- Bottom Grid -->
+                <div
+                    style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
                         padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);align-items:center;">
 
-                <!-- Auction Status -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auction Status</span>
-                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
-                        {{ ucfirst($vehicle->bidding_status ?? 'Planned') }}
-                    </span>
-                </div>
+                    <!-- Auction Status -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auction
+                            Status</span>
+                        <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                            {{ ucfirst($vehicle->bidding_status ?? 'Planned') }}
+                        </span>
+                    </div>
 
-                <!-- Previous Auction -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Previous Auc</span>
-                     <button id="prvactionspopup"
-                        data-vehid="{{ $vehicle->id }}"
-                        data-regnum="{{ $vehicle->reg }}"
-                        style="background-color:#cc3333;color:white;border:none;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">
-                    View
-                </button>
+                    <!-- Previous Auction -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Previous
+                            Auc</span>
+                        <button id="prvactionspopup" data-vehid="{{ $vehicle->id }}"
+                            data-regnum="{{ $vehicle->reg }}"
+                            style="background-color:#cc3333;color:white;border:none;padding:5px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">
+                            View Details
+                        </button>
 
-                </div>
+                    </div>
 
-                <!-- Auction Type -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
-                                letter-spacing:0.5px;font-weight:600;">Auc Type</span>
-                    <span style="font-size:14px;color:#ffffff;font-weight:500;">
-                        {{ ucfirst($vehicle->auction->auction_type ?? 'N/A') }}
-                    </span>
-                </div>
+                    <!-- Auction Type -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <span
+                            style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                                letter-spacing:0.5px;font-weight:600;">Auc
+                            Type</span>
+                        <span style="font-size:14px;color:#ffffff;font-weight:500;">
+                            {{ ucfirst($vehicle->auction->auction_type ?? 'N/A') }}
+                        </span>
+                    </div>
 
-                <!-- Reserve -->
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    {{-- <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
+                    <!-- Reserve -->
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        {{-- <span style="font-size:11px;color:#a0a0a0;text-transform:uppercase;
                                 letter-spacing:0.5px;font-weight:600;">Reserve</span>
                     <span style="font-size:14px;color:#ffffff;font-weight:500;">
                         {{ $vehicle->reserve ?? 'Yes' }} --}}
-                    </span>
+                        </span>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
 
 
 
-            <div style="margin-top: 10px; background-color:#530a0a;border-left:5px solid #8b3a3a;padding:30px;border-radius:4px;width:100%;box-shadow:0 4px 6px rgba(0,0,0,0.3);">
-            <h2 style="color:#ffffff;font-size:24px;font-weight:600;margin-bottom:12px;letter-spacing:0.5px;">Disclaimer</h2>
-            <p style="color:#b0b8c1;font-size:14px;line-height:1.6;margin:0;">
-                AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it 'as-is' to help users make informed decisions, without guaranteeing data accuracy or completeness. 
-                <a href="#" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="color:#0ea5e9;text-decoration:none;cursor:pointer;font-weight:500;transition:color 0.3s ease;">learn more</a>
-            </p>
+            <div
+                style="margin-top: 10px; background-color:#530a0a;border-left:5px solid #8b3a3a;padding:20px;border-radius:2px;width:100%;box-shadow:0 4px 6px rgba(0,0,0,0.3);">
+                <h6
+                    style="color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    padding: 0px !important;
+    line-height: 1;">
+                    Disclaimer</h6>
+                <p style="color:#b0b8c1;font-size:14px;line-height:1.6;margin:0;">
+                    AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it 'as-is' to help
+                    users make informed decisions, without guaranteeing data accuracy or completeness.
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#disclaimerModal"
+                        style="color:#0ea5e9;text-decoration:none;cursor:pointer;font-weight:500;transition:color 0.3s ease;">learn
+                        more</a>
+                </p>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" style="background-color:#1a1f2e;border:1px solid #2d3748;">
-                <div class="modal-header" style="border-bottom:1px solid #2d3748;">
-                    <h5 class="modal-title" id="disclaimerModalLabel" style="color:#ffffff;font-weight:600;">Full Disclaimer</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter:brightness(0) invert(1);"></button>
+            <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color:#1a1f2e;border:1px solid #2d3748;">
+                        <div class="modal-header" style="border-bottom:1px solid #2d3748;">
+                            <h5 class="modal-title" id="disclaimerModalLabel" style="color:#ffffff;font-weight:600;">
+                                Full Disclaimer</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="filter:brightness(0) invert(1);"></button>
+                        </div>
+                        <div class="modal-body" style="color:#b0b8c1;line-height:1.6;">
+                            <p><strong>AUTOBILI LTD Disclaimer:</strong></p>
+                            <p>AUTOBILI LTD aggregates vehicle auction data from third-party sources and provides this
+                                information on an 'as-is' basis to help users make informed decisions about vehicle
+                                purchases and auctions.</p>
+                            <p><strong>Data Accuracy:</strong> While we strive to provide accurate and up-to-date
+                                information, we do not guarantee the accuracy, completeness, or reliability of any data
+                                presented on our platform. Vehicle specifications, pricing, auction dates, and other
+                                details may change without notice.</p>
+                            <p><strong>Third-Party Sources:</strong> Our data is sourced from multiple third-party
+                                providers. We are not responsible for any errors, omissions, or inaccuracies in the
+                                original data provided by these sources.</p>
+                            <p><strong>User Responsibility:</strong> Users are responsible for conducting their own due
+                                diligence and verification of any information before making purchasing decisions. We
+                                recommend independent inspection and verification of vehicles before participation in
+                                auctions.</p>
+                            <p><strong>Limitation of Liability:</strong> AUTOBILI LTD shall not be liable for any
+                                direct, indirect, incidental, special, or consequential damages arising from the use of
+                                our platform or reliance on the information provided.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body" style="color:#b0b8c1;line-height:1.6;">
-                    <p><strong>AUTOBILI LTD Disclaimer:</strong></p>
-                    <p>AUTOBILI LTD aggregates vehicle auction data from third-party sources and provides this information on an 'as-is' basis to help users make informed decisions about vehicle purchases and auctions.</p>
-                    <p><strong>Data Accuracy:</strong> While we strive to provide accurate and up-to-date information, we do not guarantee the accuracy, completeness, or reliability of any data presented on our platform. Vehicle specifications, pricing, auction dates, and other details may change without notice.</p>
-                    <p><strong>Third-Party Sources:</strong> Our data is sourced from multiple third-party providers. We are not responsible for any errors, omissions, or inaccuracies in the original data provided by these sources.</p>
-                    <p><strong>User Responsibility:</strong> Users are responsible for conducting their own due diligence and verification of any information before making purchasing decisions. We recommend independent inspection and verification of vehicles before participation in auctions.</p>
-                    <p><strong>Limitation of Liability:</strong> AUTOBILI LTD shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of our platform or reliance on the information provided.</p>
-                </div>
-                </div>
-            </div>
             </div>
 
         </div>
     </div>
 </div>
-
-
-
 
 
 {{-- Quick Stats --}}
@@ -382,30 +338,36 @@
     style="padding: 40px; background-color: #0c192a; border-top: 1px solid var(--bs-border-color); border-bottom: 1px solid var(--bs-border-color)">
     @php
         $fields = [
-            ['label' => 'Reg', 'value' => $vehicle->reg],
-            ['label' => 'DOR', 'value' => $vehicle->dor],
-            ['label' => 'Mileage', 'value' => $vehicle->mileage],
-            ['label' => 'Grade', 'value' => $vehicle->grade],
-            ['label' => 'V5', 'value' => $vehicle->v5_status ? 'Present' : 'Not Present'],
+            ['label' => 'Reg', 'value' => $vehicle->reg, 'icon' => 'directions_car'],
+            ['label' => 'DOR', 'value' => $vehicle->dor, 'icon' => 'calendar_today'],
+            ['label' => 'Mileage', 'value' => $vehicle->mileage, 'icon' => 'speed'],
+            ['label' => 'Grade', 'value' => $vehicle->grade, 'icon' => 'star'],
+            ['label' => 'V5', 'value' => $vehicle->v5_status ? 'Present' : 'Not Present', 'icon' => 'description'],
         ];
     @endphp
 
     @foreach ($fields as $field)
         <div class="col">
-
             <div style="display: flex; align-items: center;">
-                <div class="dotstats-box">
-                    <div class="dotstats" style="  border: 8px solid #17293f !important;"></div>
+                <div class="dotstats-box"
+                    style="background-color: #2b589430 !important; display:flex; align-items: center; justify-content: center; margin: 5px;">
+                    <div class="dotstats">
+                        <span class="material-icons" style="font-size: 20px;">
+                            {{ $field['icon'] }}
+                        </span>
+                    </div>
                 </div>
                 <div>
-                    <div style="color: white;">{{ $field['value'] }}</div>
+                    <div style="color: white; display: flex; align-items: center;">
+                        {{ $field['value'] }}
+                    </div>
                     <div style="color: #ccc; font-size: 15px;">{{ $field['label'] }}</div>
                 </div>
             </div>
         </div>
     @endforeach
-</div>
 
+</div>
 
 {{-- End Quick Stat --}}
 
@@ -413,177 +375,83 @@
 
 {{-- Overview --}}
 
-<div class="row " style=" padding: 0px 70px; background: #0f1c2c; margin-bottom: 12px;">
+<div class="row " style="background: #0f1c2c; margin-bottom: 12px; margin-top: 60px;">
     {{-- Left Column (Overview, Additional Info, Features) --}}
-    <div class="col-md-8 sider">
-        <h4 class="pt-4">Overview</h4>
+    <div class="col-md-8 sider" style="padding: 0px !important;">
+        <h4 class="pt-4" style="padding-left: 60px;">Overview</h4>
         <hr style="border-color: #44485e;">
         <div class="row">
 
-            <div class="col-md-2 sider1 ">
-                <span>Vehicle Type</span>
-                <br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="vehicle_type" id="vehicle_type"
-                        onclick="return false;">
-                    <label class="form-check-label disc"
-                        for="vehicle_type">{{ $vehicle->vehicle_type->name }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1  ">
-                Make<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="make" id="make"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="make">{{ $vehicle->make->name ?? "" }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1 ">
-                Model<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="model" id="model"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="model">{{ $vehicle->model->name ?? "" }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1 ">
-                Variant<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="variant" id="variant"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="variant">{{ $vehicle->variant->name ?? "" }}</label>
-                </div>
-            </div>
 
-            <div class="col-md-2 sider1 ">
-                CC<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="cc" id="cc"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="cc">{{ $vehicle->cc ?? "" }}</label>
-                </div>
-            </div>
+            @php
+                $fields = [
+                    [
+                        'label' => 'Vehicle Type',
+                        'value' => $vehicle->vehicle_type->name ?? '',
+                        'icon' => 'directions_car',
+                    ],
+                    ['label' => 'Make', 'value' => $vehicle->make->name ?? '', 'icon' => 'build'],
+                    ['label' => 'Model', 'value' => $vehicle->model->name ?? '', 'icon' => 'directions_car_filled'],
+                    ['label' => 'Variant', 'value' => $vehicle->variant->name ?? '', 'icon' => 'style'],
+                    ['label' => 'CC', 'value' => $vehicle->cc ?? '', 'icon' => 'speed'],
+                    ['label' => 'Year', 'value' => $vehicle->year ?? '', 'icon' => 'calendar_today'],
+                    ['label' => 'Color', 'value' => $vehicle->color->name ?? '', 'icon' => 'palette'],
+                    ['label' => 'Fuel Type', 'value' => $vehicle->fuel_type ?? '', 'icon' => 'local_gas_station'],
+                    ['label' => 'Transmission', 'value' => $vehicle->transmission ?? '', 'icon' => 'settings'],
+                    ['label' => 'Keys', 'value' => $vehicle->keys ?? '', 'icon' => 'vpn_key'],
+                    ['label' => 'Doors', 'value' => $vehicle->doors ?? '', 'icon' => 'door_front'],
+                    ['label' => 'Seats', 'value' => $vehicle->seats ?? '', 'icon' => 'event_seat'],
+                ];
+            @endphp
 
-            <div class="col-md-2 sider1">
-                Year<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="year" id="year"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="year">{{ $vehicle->year ?? "" }}</label>
+            @foreach ($fields as $field)
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="info-tile">
+                        <span class="material-icons info-icon">{{ $field['icon'] }}</span>
+                        <div class="info-label">{{ $field['label'] }}</div>
+                        <div class="info-value">{{ $field['value'] }}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Color<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="color"
-                        id="color"onclick="return false;">
-                    <label class="form-check-label disc" for="color">{{ $vehicle->color->name ?? " " }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Fuel Type<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="fuel_type" id="fuel_type"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="fuel_type">{{ $vehicle->fuel_type }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Transmission<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="transmission" id="transmission"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="transmission">{{ $vehicle->transmission }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Keys<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="keys" id="keys"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="keys">{{ $vehicle->keys }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Doors<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="doors" id="doors"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="doors">{{ $vehicle->doors }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Seats<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="seats" id="seats"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="seats">{{ $vehicle->seats }}</label>
-                </div>
-            </div>
+            @endforeach
+
         </div>
 
 
 
         {{-- Additional Information --}}
-        <h4 class="mt-4">Additional Information</h4>
+        <h4 class="mt-4" style="padding-left: 60px">Additional Information</h4>
         <hr style="border-color: #44485e;">
         <div class="row">
-            <div class="col-md-2 sider1">
-                Former Keepers<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="former_keepers" id="former_keepers"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="former_keepers">{{ $vehicle->former_keepers }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Vendors<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="vendor" id="vendor"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="vendor">{{ $vehicle->vendor }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Registration <br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="reg" id="reg"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="vendor">{{ $vehicle->reg }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                VAT Type <br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="vat_status" id="vat_status"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="vat_status">{{ $vehicle->vat_status }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Euro Status<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="euro_status" id="euro_status"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="euro_status">{{ $vehicle->euro_status }}</label>
-                </div>
-            </div>
-            <div class="col-md-2 sider1">
-                Engine Runs<br>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="engine_runs" id="engine_runs"
-                        onclick="return false;">
-                    <label class="form-check-label disc" for="engine_runs">{{ $vehicle->engine_runs }}</label>
-                </div>
+
+            @php
+                $moreFields = [
+                    ['label' => 'Former Keepers', 'value' => $vehicle->former_keepers ?? '', 'icon' => 'people'],
+                    ['label' => 'Vendors', 'value' => $vehicle->vendor ?? '', 'icon' => 'store'],
+                    ['label' => 'Registration', 'value' => $vehicle->reg ?? '', 'icon' => 'confirmation_number'],
+                    ['label' => 'VAT Type', 'value' => $vehicle->vat_status ?? '', 'icon' => 'receipt'],
+                    ['label' => 'Euro Status', 'value' => $vehicle->euro_status ?? '', 'icon' => 'eco'],
+                    ['label' => 'Engine Runs', 'value' => $vehicle->engine_runs ?? '', 'icon' => 'build_circle'],
+                ];
+            @endphp
+
+            <div class="row mt-4">
+                @foreach ($moreFields as $field)
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="info-tile">
+                            <span class="material-icons info-icon">{{ $field['icon'] }}</span>
+                            <div class="info-label">{{ $field['label'] }}</div>
+                            <div class="info-value">{{ $field['value'] }}</div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 
 
-    {{-- Right Column (Service History Box) --}}
-    <div class="col-md-4">
+    <div class="col-md-4" style="padding: 0px !important;">
         <div
-            class="border rounded sider p-3 "style="background-color: var(--bs-navbar-bg) !important; margin-top:20px; padding:25px 35px !important">
+            class="border rounded sider p-3 "style="background-color: var(--bs-navbar-bg) !important; height: 450px; padding: 50px !important;">
             <h4>Service History</h4>
             <div class="row">
                 <!-- Column 1 -->
@@ -592,9 +460,9 @@
                     <ul class="service-list">
                         <div class="service-title">Service Report</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->service_history }}</span>
                         </li>
                     </ul>
@@ -602,9 +470,9 @@
                     <ul class="service-list">
                         <div class="service-title">Last Service</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->last_service }}</span>
                         </li>
                     </ul>
@@ -612,9 +480,9 @@
                     <ul class="service-list">
                         <div class="service-title">DVSA Mileage</div>
                         <li class="d-flex align-items-start ixed mb-2">
-                            <div class="dot-box ">
+                            {{-- <div class="dot-box ">
                                 <div class="dot p-2 m-2"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->dvsa_mileage }}</span>
                         </li>
                     </ul>
@@ -622,9 +490,9 @@
                     <ul class="service-list">
                         <div class="service-title">MOT Expiry Date</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->mot_expiry_date }}</span>
                         </li>
                     </ul>
@@ -636,9 +504,9 @@
                     <ul class="service-list">
                         <div class="service-title">No of Services</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->no_of_services }}</span>
                         </li>
                     </ul>
@@ -646,9 +514,9 @@
                     <ul class="service-list">
                         <div class="service-title">Last Service Mileage</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->last_service_mileage }}</span>
                         </li>
                     </ul>
@@ -656,9 +524,9 @@
                     <ul class="service-list">
                         <div class="service-title">Service Notes</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->service_notes }}</span>
                         </li>
                     </ul>
@@ -666,9 +534,9 @@
                     <ul class="service-list">
                         <div class="service-title">MOT Due</div>
                         <li class="d-flex align-items-center mb-2">
-                            <div class="dot-box">
+                            {{-- <div class="dot-box">
                                 <div class="dot"></div>
-                            </div>
+                            </div> --}}
                             <span class="disc">{{ $vehicle->mot_due }}</span>
                         </li>
                     </ul>
@@ -682,33 +550,31 @@
 
 <div class="row">
     {{-- Left Column (Overview, Additional Info, Features) --}}
-    <div class="col-md-5" style=" margin: 0px 70px">
-        <h4 class="mt-4">Features</h4>
+    <div class="col-md-5" style="padding: 0px !important;">
+        <h4 class="mt-4" style="margin-left: 60px;">Features</h4>
         <hr style="border-color: #44485e;">
         <div class="row">
             <div>
                 <ul class="row" style="list-style: none; padding-left: 0;">
-                    @foreach (explode(',',$vehicle->features) as $item)
-                        <li class="col-4 mb-2">{{$item}}</li>
+                    @foreach (explode(',', $vehicle->features) as $item)
+                        <li class="col-4 mb-2">{{ $item }}</li>
                     @endforeach
                 </ul>
             </div>
         </div>
     </div>
     {{-- <div class="col-1"></div>row text-start mb-4 --}}
-    <div class="col-md-5">
+    <div class="col-md-5" style="padding: 0px !important;">
         <h4 class="mt-4">Equipment</h4>
         <hr style="border-color: #44485e;">
         <div class="row">
             <div class="col-md-12">
                 <ul class="row" style="list-style: none; padding-left: 0;">
-                    @foreach (explode(',',$vehicle->equipment) as $item)
-                        <li class="col-4 mb-2">{{$item}}</li>
+                    @foreach (explode(',', $vehicle->equipment) as $item)
+                        <li class="col-4 mb-2">{{ $item }}</li>
                     @endforeach
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-

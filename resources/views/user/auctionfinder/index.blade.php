@@ -380,19 +380,6 @@
             <!-- Left: 3col Table section -->
             <div id="filterDIV" class="filter_sidebar">
                 <div class="card p-2" {{-- style="position: sticky; top: 100px; z-index: 10;" --}}>
-                    <div class="d-flex justify-content-between align-items-center px-1 pt-1">
-                        {{-- <h5 class="mb-0">Filters</h5> --}}
-                        {{-- <div class="d-flex align-items-center gap-2">
-                            <a id="clearFiltersLink" href="{{ url('/auction-finder') }}"
-                                class="text-decoration-none d-none deleteBtn">
-                                <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
-                                    delete
-                                </span>
-                                Clear all
-                            </a>
-                        </div> --}}
-                    </div>
-
                     <div class="accordion" id="filterAccordion">
                         @include('user.auctionfinder.sidebar')
                     </div>

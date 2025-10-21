@@ -4,6 +4,7 @@
 @endpush
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" /> --}}
     <style>
         .menu-button {
             display: none;
@@ -103,8 +104,8 @@
             border-radius: 30%;
 
             /* box-shadow: 0px 0px 5px 12px #0a2e55;
-                            -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
-                            -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
+                                                                                                    -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
+                                                                                                    -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
         }
 
         .disc {
@@ -130,24 +131,9 @@
             border: 2px solid #3b82f6;
         }
 
-        .vehicle-detail-page {}
-
-        .showblade-bg-img-dot {
-            background:
-                linear-gradient(to top,
-                    /* rgba(15, 28, 44, 1) 0%,  */
-                    rgba(15, 28, 44, 1) 48%,
-                    /* rgba(15, 28, 44, 0) 20%,  */
-                    rgba(15, 28, 44, 0) 100%),
-                url('{{ asset('/public/theme/assets/autoboli.png') }}');
-            background-size: contain;
-            background-position: top center;
-            /* 👈 Image upar center ho jayegi */
-            background-repeat: no-repeat;
-        }
 
 
-        .nav-tabs .nav-link {
+        */ .nav-tabs .nav-link {
             background-color: transparent;
             border: none;
             color: var(--bs-heading-color);
@@ -234,6 +220,22 @@
             color: #6c757d;
             cursor: not-allowed;
         }
+
+
+        /* My Css */
+        #toggleNotificationBtn {
+            background-color: #000f21;
+            border: none;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px
+        }
+
+        #toggleNotificationBtn span {
+            color: #0080ff;
+        }
     </style>
 @endsection
 @section('content')
@@ -258,22 +260,27 @@
                             </button>
                         </li>
 
-                        <li class="nav-item" role="presentation">
+                        {{-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="condition-tab" data-bs-toggle="tab" data-bs-target="#condition"
                                 type="button" role="tab" aria-controls="condition" aria-selected="false">
                                 Conditions
                             </button>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     @if (!empty($notifiction) && $notifiction)
                         <button id="toggleNotificationBtn" data-noti-id="{{ $notifiction->id }}"
-                            data-vehicle-id="{{ $vehicle->id }}" data-exists="true" class="btn btn-sm btn-danger"> <i
-                                class="fa fa-bell text-secondary"></i></button>
+                            data-vehicle-id="{{ $vehicle->id }}" data-exists="true">
+                            <span class="material-symbols-outlined">
+                                notifications_active
+                            </span>
+                        </button>
                     @else
                         <button id="toggleNotificationBtn" data-noti-id="{{ $vehicle->id }}"
-                            data-vehicle-id="{{ $vehicle->id }}" data-exists="false" class="btn btn-sm btn-primary"> <i
-                                class="fa fa-bell text-primary"></i></button>
+                            data-vehicle-id="{{ $vehicle->id }}" data-exists="false"> <span
+                                class="material-symbols-outlined">
+                                notifications_active
+                            </span></button>
                     @endif
 
 

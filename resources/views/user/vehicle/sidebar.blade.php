@@ -52,23 +52,13 @@
             </div>
 
             {{-- Vehicle List --}}
-            <div class="vehicle-list mt-4 ">
+            <div class="vehicle-list mt-4" style="height: 90vh; overflow-y: scroll;">
                 <div class="form-group mt-4">
-
                 </div>
             </div>
         </div>
     </div>
     <script>
-        // document.getElementById("toggleSidebarBtn").addEventListener("click", function() {
-        //     const sidebar = document.getElementById("filtersSidebar");
-        //     if (sidebar.style.transform === "translateX(-100%)") {
-        //         sidebar.style.transform = "translateX(0)";
-        //     } else {
-        //         sidebar.style.transform = "translateX(-100%)";
-        //     }
-        // });
-
         // Optional: Start with sidebar visible
         document.getElementById("filtersSidebar").style.transform = "translateX(0)";
     </script>

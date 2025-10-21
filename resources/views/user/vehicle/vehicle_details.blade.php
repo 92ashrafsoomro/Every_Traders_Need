@@ -461,7 +461,11 @@
                         'value' => $vehicle->vehicle_type->name ?? '',
                         'icon' => 'directions_car',
                     ],
-                    ['label' => 'Make', 'value' => $vehicle->make->name ?? '', 'icon' => 'build'],
+                    [
+                        'label' => 'Make',
+                        'value' => $vehicle->make->name ?? '',
+                        'icon' => 'warehouse',
+                    ],
                     ['label' => 'Model', 'value' => $vehicle->model->name ?? '', 'icon' => 'directions_car_filled'],
                     ['label' => 'Variant', 'value' => $vehicle->variant->name ?? '', 'icon' => 'style'],
                     ['label' => 'CC', 'value' => $vehicle->cc ?? '', 'icon' => 'speed'],

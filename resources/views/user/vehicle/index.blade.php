@@ -104,8 +104,8 @@
             border-radius: 30%;
 
             /* box-shadow: 0px 0px 5px 12px #0a2e55;
-                                                                                                    -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
-                                                                                                    -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
+                                                                                                                                                                                                        -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
+                                                                                                                                                                                                        -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
         }
 
         .disc {
@@ -236,16 +236,57 @@
         #toggleNotificationBtn span {
             color: #0080ff;
         }
+
+        .sidebar {
+            width: 281px;
+            transition: width 0.3s ease;
+            height: 100vh;
+            position: fixed;
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed {
+            width: 0;
+            overflow: hidden;
+        }
+
+        .sidebar>* {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed>* {
+            opacity: 0;
+        }
+
+        #ContentDiv {
+            margin-left: 281px;
+            transition: margin-left 0.3s ease;
+            width: calc(100% - 281px);
+        }
+
+        #ContentDiv.sidebar-visible {
+            margin-left: 0;
+            width: 100%;
+        }
     </style>
 @endsection
 @section('content')
     <div class="sider vehicle-detail-page" style="padding-left: 0px; padding-right: 14px">
         <div class="d-flex">
-            @include('user.vehicle.sidebar')
-            <div class=" py-5 showblade-bg-img-dot " style="width: calc(100% - 281px); ">
-
+            <div id="sidebar" class="sidebar">
+                @include('user.vehicle.sidebar')
+            </div>
+            <div class=" py-5 showblade-bg-img-dot " id="ContentDiv" style="width: 100%; ">
                 <div class="d-flex justify-content-between align-items-center" style="padding-left: 60px;">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                        <li class="nav-item" role="presentation" style="margin-right: 10px;">
+                            <button id="toggleSidebarBtn" class="btn btn-secondary" style="background-color: #0080ff;">
+                                ☰
+                            </button>
+                        </li>
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
                                 type="button" role="tab" aria-controls="home" aria-selected="true">
@@ -290,24 +331,19 @@
 
 
                 <div class="tab-content p-0" id="myTabContent">
-
-
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div id="tabContent">
                             @include('user.vehicle.vehicle_details')
                         </div>
                     </div>
-
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         {{-- @include('user.vehicle.vehicle_valuation') --}}
                         @include('user.vehicle.vehicle_valuation2')
                     </div>
-
                     <div class="tab-pane fade" id="condition" role="tabpanel" aria-labelledby="condition-tab">
                         @include('user.vehicle.vehicle_valuation')
                         {{-- @include('user.vehicle.vehicle_conditions') --}}
                     </div>
-
                 </div>
 
             </div>
@@ -340,6 +376,17 @@
                         `<p class="text-danger">Failed to load: ${error.message}</p>`;
                 });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById('toggleSidebarBtn');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('ContentDiv');
+
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('sidebar-visible');
+            });
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

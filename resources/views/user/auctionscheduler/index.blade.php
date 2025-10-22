@@ -259,10 +259,10 @@
                         d.date = $('#selectedDate').val();
                     },
                     beforeSend: function() {
-                        showLoader(); 
+                        showLoader();
                     },
                     complete: function() {
-                        hideLoader(); 
+                        hideLoader();
                     }
                 }
             });

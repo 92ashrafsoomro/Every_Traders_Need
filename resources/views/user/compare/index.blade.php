@@ -230,19 +230,30 @@
                                 </select>
                             </div>
                             <div>
+                                <label class="form-label" for="mileage_range"
+                                    style="font-weight:600;color:#f3f4f6;">Mileage</label>
+                                <select name="mileage_range" id="mileage_range" class="form-control !bg-[#000f21] ">
+                                    <option value="">Select Mileage Range</option>
+                                    <option value="0-5000">0 - 5,000</option>
+                                    <option value="5001-10000">5,001 - 10,000</option>
+                                    <option value="10001-20000">10,001 - 20,000</option>
+                                    <option value="20001-30000">20,001 - 30,000</option>
+                                    <option value="30001-50000">30,001 - 50,000</option>
+                                    <option value="50001-75000">50,001 - 75,000</option>
+                                    <option value="75001-100000">75,001 - 100,000</option>
+                                    <option value="100001-150000">100,001 - 150,000</option>
+                                    <option value="150001-200000">150,001 - 200,000</option>
+                                    <option value="200001-300000">200,001 - 300,000</option>
+                                    <option value="300001-400000">300,001 - 400,000</option>
+                                    <option value="400001-500000">400,001 - 500,000</option>
+                                </select>
+                            </div>
+                            <div>
                                 <label class="form-label" for="platform_id" style="">Auction House</label>
                                 <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2 "
                                     multiple="multiple"
                                     style="width: 100%; padding: 0.4rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background:#1f2937; color:#f3f4f6;"
                                     required>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label" for="mileage_range"
-                                    style="font-weight:600;color:#f3f4f6;">Mileage</label>
-                                <select name="mileage_range" id="mileage_rangeMax"
-                                    class="form-control select2 !bg-[#000f21]">
-                                    <option value="">Max</option>
                                 </select>
                             </div>
                             <div class=" lg:col-span-3 flex justify-end items-end">
@@ -275,15 +286,6 @@
 
 @section('js')
     <script>
-        const mileageSelectMax = document.getElementById('mileage_rangeMax');
-        for (let i = 100000; i <= 1000000; i += 100000) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i.toLocaleString() + ' km';
-            mileageSelectMax.appendChild(option);
-        }
-
-
         const filterToggle = document.getElementById('filterToggle');
         const filterSection = document.getElementById('filterSection');
         const filterIcon = document.getElementById('filterIcon');

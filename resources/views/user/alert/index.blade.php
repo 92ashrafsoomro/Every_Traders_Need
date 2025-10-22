@@ -342,9 +342,9 @@
     <div class="container mx-auto">
         <div
             class="flex flex-col lg:flex-row items-start lg:items-center justify-normal gap-2 lg:justify-between pt-5 !w-full">
-            <div class="flex items-center ">
-                <div class="flex items-center justify-between lg:justify-normal gap-2">
-                    {{-- <span class="label-muted">Show Entries</span> --}}
+            <div class="flex items-center w-full">
+                <div class="hidden lg:flex items-center !justify-between lg:justify-normal gap-2">
+                    <span class="label-muted ">Show Entries</span>
                     <select class="form-select entries-length" style="width: 90px;">
                         <option value="50">50</option>
                         <option value="100">100</option>

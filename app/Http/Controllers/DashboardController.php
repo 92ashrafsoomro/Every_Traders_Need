@@ -201,12 +201,17 @@ class DashboardController extends Controller
           "auction_platform.name",
           
           DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
-          "auctions.auction_date",
+          "auctions.end_date",
         ])
         ->groupBy('auction_platform.id')
         ->get()
         ->map(function ($row) {
-            $row->end_date =  "<span>".date('d-m-Y',strtotime($row->auction_date))."</span><br><span>".date('h:s A',strtotime($row->auction_date))."</span>";
+        if ($row->end_date) {
+            $row->end_date = "<span>" . date('d-m-Y', strtotime($row->end_date)) . "</span><br><span>" . date('h:i A', strtotime($row->end_date)) . "</span>";
+        } else {
+            $row->end_date = "<span>N/A</span>";
+        }
+
             return $row;
         });
         
@@ -420,76 +425,7 @@ class DashboardController extends Controller
 
 
 
-      public function getValuation(Request $request)
-    {
 
-              DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
-
-              $month1 = now()->subMonths(2)->format('M Y'); // e.g. May 2025
-              $month2 = now()->subMonths(1)->format('M Y'); // e.g. Jun 2025
-              $month3 = now()->format('M Y');  
-
-              $data = AuctionPlatform::join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
-               ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id')
-               ->groupBy('auction_platform.id')  
-               ->select(
-                   'auction_platform.name AS platform_name',
-                    DB::raw("COUNT(vehicles.id) as Total"),
-                    DB::raw("MIN(vehicles.last_bid) as min_price"),
-                    DB::raw("MAX(vehicles.last_bid) as max_price"),
-                    DB::raw("AVG(vehicles.last_bid) as avg_price"),
-                    DB::raw("AVG(CASE WHEN DATE_FORMAT(auctions.auction_date, '%Y-%m') = '" . now()->subMonths(2)->format('Y-m') . "' THEN vehicles.last_bid END) AS price_month_1"),
-                    DB::raw("AVG(CASE WHEN DATE_FORMAT(auctions.auction_date, '%Y-%m') = '" . now()->subMonths(1)->format('Y-m') . "' THEN vehicles.last_bid END) AS price_month_2"),
-                    DB::raw("AVG(CASE WHEN DATE_FORMAT(auctions.auction_date, '%Y-%m') = '" . now()->format('Y-m') . "' THEN vehicles.last_bid END) AS price_month_3")
-               );
-
-
-               if($request->has('platform_id') && $request->platform_id != ''){
-                    $data = $data->whereIn('auction_platform.id',$request->platform_id);
-               }
-
-
-               $intrest = Auth::user()->intrest->where('status','1')->first();
-               if($intrest){
-                    $data = $data->where('vehicles.make_id',$intrest->make_id);
-                    $data = $data->where('vehicles.model_id',$intrest->model_id);
-                    $data = $data->where('vehicles.variant_id',$intrest->variant_id);
-               }
-             
-
-              //Editing
-               $data = $data->get()->map(function($row){
-              
-                    $month2 = $row->price_month_2 ?? 0;
-                    $month3 = $row->price_month_3 ?? 0;
-
-                    if($month2 == 0 && $month3 == 0){
-                        $percentageChange = 0;
-                    }elseif($month2 == 0){
-                        $percentageChange = 100;
-                    }else{
-                        $percentageChange = (($month2 - $month3) / $month2) * 100;
-                    }
-                    $row->percent = $percentageChange;
-
-                    if ($percentageChange > 0) {
-                        $row->icon = '<span style="color: green;">&#9650; '.number_format($percentageChange, 1).'%</span>';
-                    } elseif ($percentageChange < 0) {
-                        $row->icon = '<span style="color: red;">&#9660; '.number_format(abs($percentageChange), 1).'%</span>';
-                    } else {
-                        $row->icon = '<span style="color: gray;">0%</span>';
-                    }
-
-                    return $row;
-            });
-
-
-            return response()->json([
-                'labels' => [$month1, $month2, $month3],
-                'data' => $data,
-            ]);
-
-    }
 public function getInterestSummary(Request $request)
 {
     $userId = auth()->id();
@@ -517,17 +453,23 @@ public function getInterestSummary(Request $request)
 
 
 
+    $today = Carbon::today(); 
+
     $query = Vehicle::query()
-        ->where('make_id', $interest->make_id)
-        ->where('model_id', $interest->model_id);
+        ->join('auctions', 'vehicles.auction_id', '=', 'auctions.id') 
+        ->where('vehicles.make_id', $interest->make_id)
+        ->where('vehicles.model_id', $interest->model_id)
+         ->whereDate('auctions.auction_date', '>=', $today);
 
     if ($request->year) {
         $result = $this->year($query, $request->year);
     } elseif ($request->grade) {
         $result = $this->grade($query, $request->grade);
-    } elseif ($request->mileage) {
-        $result = $this->mileage($query, $request->mileage);
-    } else {
+    } 
+    // elseif ($request->mileage) {
+    //     $result = $this->mileage($query, $request->mileage);
+    // } 
+    else {
         $vehicles = $query->get();
         $result = [
             'success' => true,
@@ -604,135 +546,133 @@ public function grade($query, $grade)
 }
 
 
-public function mileage($query, $mileage)
-{
+// public function mileage($query, $mileage)
+// {
 
-    $baseQuery = clone $query;
+//     $baseQuery = clone $query;
 
-    if ($mileage) {
-        $query->where('mileage', $mileage);
-    }
+//     if ($mileage) {
+//         $query->where('mileage', $mileage);
+//     }
 
  
 
-    $mileages = $baseQuery->pluck('mileage')->unique()->sort()->values();
-    $years  = $query->pluck('year')->unique()->sort()->values();
-    $grades = $query->pluck('grade')->unique()->sort()->values();
+//     $mileages = $baseQuery->pluck('mileage')->unique()->sort()->values();
+//     $years  = $query->pluck('year')->unique()->sort()->values();
+//     $grades = $query->pluck('grade')->unique()->sort()->values();
 
-    return [
-        'query'    => $query,
-        'years'    => $years,
-        'mileages' => $mileages,
-        'grades'   => $grades,
-    ];
-}
+//     return [
+//         'query'    => $query,
+//         'years'    => $years,
+//         'mileages' => $mileages,
+//         'grades'   => $grades,
+//     ];
+// }
 
 
-public function stockAuctionHouse()
+public function stockAuctionHouse(Request $request)
 {
     $userId = auth()->id();
-
     $interests = Interest::where('user_id', $userId)->get();
 
     if ($interests->isEmpty()) {
-        return response()->json([
-            'labels' => [],
-            'values' => [],
-            'colors' => [],
-            'ratios' => [],
-        ]);
+        return response()->json(['labels' => [], 'values' => [], 'colors' => []]);
     }
 
-    // Calculate one month ago
-   $today = Carbon::now()->startOfDay();
+    $today = Carbon::now()->startOfDay();
 
-    $allVehicles = Vehicle::query()
+    // ✅ Base for ALL vehicles (no year/grade filters)
+    $totalVehiclesQuery = Vehicle::query()
         ->select(
             'vehicles.id',
             'vehicles.make_id',
             'vehicles.model_id',
             'auctions.platform_id',
-            'auction_platform.name as platform_name',
-            'auctions.auction_date'
+            'auction_platform.name as platform_name'
         )
         ->join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
         ->join('auction_platform', 'auctions.platform_id', '=', 'auction_platform.id')
-         ->where('auctions.auction_date', '>=', $today)
-        ->get();
+        ->where('auctions.auction_date', '>=', $today);
 
-    if ($allVehicles->isEmpty()) {
-        return response()->json([
-            'labels' => [],
-            'values' => [],
-            'colors' => [],
-            'ratios' => [],
-        ]);
+    $totalVehicles = $totalVehiclesQuery->get();
+
+    // ✅ Now filtered dataset (interest + year + grade)
+    $filteredQuery = clone $totalVehiclesQuery;
+
+    if ($request->filled('year')) {
+        $filteredQuery->where('vehicles.year', $request->year);
+    }
+    if ($request->filled('grade')) {
+        $filteredQuery->where('vehicles.grade', $request->grade);
     }
 
-    $platformData = $allVehicles->groupBy('platform_id')->map(function ($items) use ($interests) {
-        $platformName = $items->first()->platform_name;
-        $totalVehicles = $items->count();
+    $interestMakeIds = [];
+    $interestModelIds = [];
 
-        $interestCount = $items->filter(function ($vehicle) use ($interests) {
-            foreach ($interests as $interest) {
-                if ($vehicle->make_id == $interest->make_id && $vehicle->model_id == $interest->model_id) {
-                    return true;
-                }
-            }
-            return false;
-        })->count();
+    if ($request->filled('id')) {
+        $selectedInterest = Interest::find($request->id);
+        if ($selectedInterest) {
+            $interestMakeIds = [$selectedInterest->make_id];
+            $interestModelIds = [$selectedInterest->model_id];
+        }
+    } else {
+        $interestMakeIds = $interests->pluck('make_id')->toArray();
+        $interestModelIds = $interests->pluck('model_id')->toArray();
+    }
 
-        $ratio = $totalVehicles > 0
-            ? round(($interestCount / $totalVehicles) * 100, 2)
-            : 0;
+    $filteredVehicles = $filteredQuery->get();
+
+    // ✅ Combine total + interest
+    $platformData = $totalVehicles->groupBy('platform_id')->map(function ($allItems) use ($filteredVehicles, $interestMakeIds, $interestModelIds) {
+        $platformName = $allItems->first()->platform_name;
+        $platformId = $allItems->first()->platform_id;
+
+        $totalCount = $allItems->count();
+
+        // Interest count only from filtered dataset
+        $interestCount = $filteredVehicles
+            ->filter(fn($v) =>
+                $v->platform_id == $platformId &&
+                in_array($v->make_id, $interestMakeIds) &&
+                in_array($v->model_id, $interestModelIds)
+            )
+            ->count();
 
         return [
             'label' => $platformName,
-            'total' => $totalVehicles,
+            'total' => $totalCount,
             'interest' => $interestCount,
-            'ratio' => $ratio,
         ];
     })
     ->sortByDesc('interest')
-    ->values(); 
+    ->values();
 
     $labels = $platformData->pluck('label')->toArray();
     $values = $platformData->map(fn($p) => [
         'total' => $p['total'],
         'interest' => $p['interest'],
     ])->toArray();
-    $ratios = $platformData->pluck('ratio')->toArray();
-$baseBlue = '#0789e0';
-$colors = [];
-$totalLabels = count($labels);
 
-
-for ($i = 0; $i < $totalLabels; $i++) {
-
-    $ratio = 0.4 - (0.8 * ($i / max(1, $totalLabels - 1)));
-
-    $hex = str_replace('#', '', $baseBlue);
-    $r = hexdec(substr($hex, 0, 2));
-    $g = hexdec(substr($hex, 2, 2));
-    $b = hexdec(substr($hex, 4, 2));
-
-
-    $r = min(max(0, $r * (1 + $ratio)), 255);
-    $g = min(max(0, $g * (1 + $ratio)), 255);
-    $b = min(max(0, $b * (1 + $ratio)), 255);
-
-    $colors[] = sprintf("#%02x%02x%02x", round($r), round($g), round($b));
-}
-
-
+    // ✅ Color generation
+    $baseBlue = '#0789e0';
+    $colors = [];
+    foreach ($labels as $i => $label) {
+        $ratio = 0.4 - (0.8 * ($i / max(1, count($labels) - 1)));
+        [$r, $g, $b] = [7, 137, 224]; // base RGB
+        $r = min(max(0, $r * (1 + $ratio)), 255);
+        $g = min(max(0, $g * (1 + $ratio)), 255);
+        $b = min(max(0, $b * (1 + $ratio)), 255);
+        $colors[] = sprintf("#%02x%02x%02x", round($r), round($g), round($b));
+    }
 
     return response()->json([
         'labels' => $labels,
         'values' => $values,
         'colors' => $colors,
-        'ratios' => $ratios,
     ]);
 }
+
+
 
 
 public function getInterestDashboard(Request $request)
@@ -740,7 +680,7 @@ public function getInterestDashboard(Request $request)
     $userId = auth()->id();
     $interestId = $request->id;
 
-    // 1️⃣ Get the user interest
+
     $interest = Interest::where('user_id', $userId)
         ->where('id', $interestId)
         ->first();
@@ -765,46 +705,60 @@ public function getInterestDashboard(Request $request)
     if ($request->grade) {
         $vehicleBaseQuery->where('vehicles.grade', $request->grade);
     }
-    if ($request->mileage) {
-        $vehicleBaseQuery->where('vehicles.mileage', '<=', $request->mileage);
-    }
+    // if ($request->mileage) {
+    //     $vehicleBaseQuery->where('vehicles.mileage', '<=', $request->mileage);
+    // }
 
-    // 2️⃣ Total Vehicles
+
     $totalVehicles = (clone $vehicleBaseQuery)->count();
 
-    // 3️⃣ Sold Vehicles
+
     $soldVehicles = (clone $vehicleBaseQuery)
         ->where('bidding_status', 'sold')
         ->count();
 
-    // 4️⃣ Unsold Vehicles
+ 
     $unsoldVehicles = (clone $vehicleBaseQuery)
         ->where('bidding_status', 'Not sold')
         ->count();
 
-    // 5️⃣ Vehicles in Re-auction
-$vehiclesInReauction =0;
-    // 6️⃣ Total Auctions
     $totalAuctions = (clone $vehicleBaseQuery)
         ->distinct('auction_id')
         ->count('auction_id');
 
-    // 7️⃣ Online Auctions
+
     $onlineAuctions = (clone $vehicleBaseQuery)
         ->where('auction_type', 'Online Auction')
         ->distinct('auction_id')
         ->count('auction_id');
 
-    // 8️⃣ Offline Auctions
+
     $offlineAuctions = (clone $vehicleBaseQuery)
-        ->where('auction_type', 'offline')
+        ->where('auction_type', 'Time Auction')
         ->distinct('auction_id')
         ->count('auction_id');
 
-    // 9️⃣ Vehicles in progress auctions
-$totalVehiclesInProgress = (clone $vehicleBaseQuery)
-    ->where('auctions.status', 'In Progress')
-    ->count();
+    $totalVehiclesInProgress = (clone $vehicleBaseQuery)
+        ->where('auctions.status', 'In Progress')
+        ->count();
+
+
+    $vehiclesInProgress = (clone $vehicleBaseQuery)
+        ->where('auctions.status', 'In Progress')
+        ->get(['vehicles.id']);
+
+
+    $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
+    
+    $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        ->whereDate('auctions.auction_date', '<', $now)
+        ->pluck('vehicles.reg') 
+        ->toArray();
+
+ 
+    $vehiclesInReauction = (clone $vehicleBaseQuery)
+        ->whereIn('vehicles.reg', $pastVehicleRegs)
+        ->count();
 
 
     return response()->json([
@@ -814,11 +768,80 @@ $totalVehiclesInProgress = (clone $vehicleBaseQuery)
             'online_auctions' => $onlineAuctions,
             'offline_auctions' => $offlineAuctions,
             'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
+            'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
             'total_vehicles' => $totalVehicles,
             'sold_vehicles' => $soldVehicles,
             'unsold_vehicles' => $unsoldVehicles,
             'vehicles_in_reauction' => $vehiclesInReauction,
         ],
+    ]);
+}
+
+
+public function getValuation(Request $request)
+{
+    $userId = auth()->id();
+    $interestId = $request->id;
+
+    $interest = Interest::where('user_id', $userId)
+        ->where('id', $interestId)
+        ->first();
+
+    if (!$interest) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Interest not found.',
+        ], 404);
+    }
+
+    $today = now()->startOfDay();
+
+    $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        ->leftJoin('auction_platform', 'auctions.platform_id', '=', 'auction_platform.id')
+        ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
+        ->where('vehicles.make_id', $interest->make_id)
+        ->where('vehicles.model_id', $interest->model_id)
+        ->whereDate('auctions.auction_date', '>=', $today)
+        ->when($request->year, fn($q) => $q->where('vehicles.year', $request->year))
+        ->when($request->grade, fn($q) => $q->where('vehicles.grade', $request->grade))
+        ->select([
+            'auctions.id as auction_id',
+            'auctions.name as auction_name',
+            'auction_platform.name as platform_name',
+            'auction_platform.image as platform_image',
+            DB::raw('MIN(auction_center.name) as center_name'),
+            DB::raw('COUNT(vehicles.id) as total_vehicles'),
+            DB::raw('MIN(vehicles.cap_clean) as min_cap_clean'),
+            DB::raw('MAX(vehicles.cap_clean) as max_cap_clean'),
+            DB::raw('MIN(vehicles.cap_average) as min_cap_average'),
+            DB::raw('MAX(vehicles.cap_average) as max_cap_average'),
+            DB::raw('ROUND(AVG(vehicles.cap_average)) as one_week_average')
+        ])
+        ->groupBy('auctions.id', 'auctions.name', 'auction_platform.name' , 'auction_platform.image')
+        ->orderByDesc('total_vehicles') 
+        ->get();
+
+    $formatted = $data->map(function ($row) {
+          $formatMoney = function ($value) {
+        if (!$value) return '£0';
+        return '£' . number_format($value / 1000, 1) . 'k';
+    };
+        return [
+            'auction_name' => $row->auction_name,
+            'platform_name' => $row->platform_name,
+            'platform_image' => $row->platform_image,
+            'center_name' => $row->center_name,
+            'total_vehicles' => $row->total_vehicles,
+            'cap_clean_range' => $formatMoney($row->min_cap_clean) . ' - ' . $formatMoney($row->max_cap_clean),
+            'cap_average_range' => $formatMoney($row->min_cap_average) . ' - ' . $formatMoney($row->max_cap_average),
+            'one_week_average' => $formatMoney($row->one_week_average),
+        ];
+    });
+
+    return response()->json([
+        'success' => true,
+        'total_auctions' => $formatted->count(),
+        'data' => $formatted,
     ]);
 }
 

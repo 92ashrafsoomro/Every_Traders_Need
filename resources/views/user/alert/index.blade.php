@@ -3,7 +3,7 @@
     Watchlist
 @endpush
 @section('css')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         :root {
@@ -315,9 +315,9 @@
             class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
         </div>
         <div class="relative z-10 container mx-auto pt-10">
-            <h1 class="text-5xl font-bold text-white mb-4 text-left">Cars I'm Watching</h1>
+            <h1 class="text-5xl font-bold text-white mb-4 text-left">Watched & Alerted</h1>
             <p class="text-lg text-gray-300 mx-auto text-left">
-                Keep track of vehicles you're interested in..
+                Track recently watched and alerted vehicles — stay ahead of every auction opportunity
             </p>
             <div class="auction-tabs relative z-10 pt-5">
                 <div
@@ -340,10 +340,11 @@
         </div>
     </div>
     <div class="container mx-auto">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-normal gap-2 lg:justify-between pt-5">
-            <div class="flex items-center">
-                <div class="flex items-center gap-2">
-                    <span class="label-muted">Show Entries</span>
+        <div
+            class="flex flex-col lg:flex-row items-start lg:items-center justify-normal gap-2 lg:justify-between pt-5 !w-full">
+            <div class="flex items-center ">
+                <div class="flex items-center justify-between lg:justify-normal gap-2">
+                    {{-- <span class="label-muted">Show Entries</span> --}}
                     <select class="form-select entries-length" style="width: 90px;">
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -353,7 +354,7 @@
                     <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
                 </div>
                 <div>
-                    <select id="year1" class="form-select year select2-filter" style="width: 110px;">
+                    <select id="year1" class="form-select year select2-filter">
                         <option value="">All Years</option>
                         @foreach ($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
@@ -362,27 +363,37 @@
                 </div>
             </div>
 
-            <div class=" flex flex-col lg:flex-row justify-end items-center gap-2 w-full">
+            <div class=" flex justify-between lg:justify-end items-center gap-2 ">
 
 
                 <div style="position: relative;" class="w-full">
                     <input type="text" id="reg_search" class="form-control form-control-sm"
                         placeholder="Search by Reg Number"
-                        style="padding-left: 30px; border-radius: 6px; background-color: #000f21; color: #fff; border: 1px solid #2b3b4f; padding-top: 6px;padding-bottom: 6px;">
+                        style="width: 200px; padding-left: 30px!important; padding: 10px; border-radius: 6px; color: #fff; border: 1px solid #2b3b4f;">
                     <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
                         <i class="fas fa-search"></i>
                     </span>
                 </div>
 
+                <select
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none;">
+                    <option value="">Select Make</option>
+                </select>
 
-                <select id="make1" class="form-select form-select-sm select2-filter">
+                <select
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none;">
+                    <option value="">Select Model</option>
+                </select>
+
+                {{-- <select id="make1" class=""
+                    style="border: 1px solid #2b3b4f !important; padding: 10px 20px !important;">
                     <option value="">Select Make</option>
                 </select>
 
 
-                <select id="model1" class="form-select form-select-sm select2-filter" disabled>
+                <select id="model1" class="" disabled>
                     <option value="">Select Model</option>
-                </select>
+                </select> --}}
 
 
             </div>
@@ -495,11 +506,11 @@
         $('#auction-table, .alert-table').on('mouseleave', '.expandable-row', function() {
             $(this).removeClass('expanded');
         });
-     
-        $('#alerts-tab').on('click', function () {
+
+        $('#alerts-tab').on('click', function() {
             $('#auction-table').css("display", "none")
         });
-        $('#watchlist-tab').on('click',function (){
+        $('#watchlist-tab').on('click', function() {
             $('#auction-table').css("display", "block")
 
         });
@@ -581,7 +592,7 @@
 
             function loadTables() {
                 let length = $('.entries-length').val() || 50;
-                  showLoader();
+                showLoader();
                 $.ajax({
                     url: "{{ route('get.auction.data') }}",
                     type: "POST",
@@ -619,12 +630,12 @@
                         const selectedLength = $('.entries-length').val();
 
                         // $('#entryCount').text(`Showing ${count} of ${selectedLength} entries`);
-                        
+
                     },
 
                     error: function(err) {
                         console.error(err);
-                           hideLoader();
+                        hideLoader();
                     }
                 });
             }
@@ -646,9 +657,9 @@
                     'Delete Alert',
                     'Are you sure you want to delete this alert?',
                     function() {
-                
+
                         $.ajax({
-                            url: '{{ url("/viewhistory/alerts/") }}/' + alertId,
+                            url: '{{ url('/viewhistory/alerts/') }}/' + alertId,
                             type: 'DELETE',
                             data: {
                                 _token: '{{ csrf_token() }}'
@@ -657,18 +668,19 @@
                                 btn.closest('tr').fadeOut(300, function() {
                                     $(this).remove();
                                 });
-                        
-                                alertify.notify('Alert deleted successfully!', 'success', 5);
+
+                                alertify.notify('Alert deleted successfully!', 'success',
+                                    5);
                             },
                             error: function(err) {
                                 console.error(err);
-                            
+
                                 alertify.notify('Failed to delete alert!', 'error', 5);
                             }
                         });
                     },
                     function() {
-                    
+
                         alertify.notify('Deletion cancelled', 'message', 3);
                     }
                 );
@@ -680,16 +692,16 @@
 
 
             $('#make1, #model1, .year').on('change', function() {
-                  showLoader();
+                showLoader();
                 loadTables();
             });
             $('#reg_search').on('keyup', function() {
- 
+
                 loadTables();
             });
 
             $('.entries-length').on('change', function() {
-                  showLoader();
+                showLoader();
                 loadTables();
             });
 

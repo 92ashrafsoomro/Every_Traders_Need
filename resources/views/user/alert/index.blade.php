@@ -68,7 +68,7 @@
         .acsi-theme .form-control {
             color: var(--acsi-foreground);
             background: #0e1626;
-            border: 1px solid var(--acsi-border);
+            /* border: 1px solid var(--acsi-border); */
             border-radius: 8px;
             transition: all 0.3s ease;
         }
@@ -76,7 +76,7 @@
         .acsi-theme .form-select:focus,
         .acsi-theme .form-control:focus {
             border-color: var(--acsi-accent);
-            box-shadow: 0 0 0 .2rem rgba(0, 128, 255, 0.25);
+            /* box-shadow: 0 0 0 .2rem rgba(0, 128, 255, 0.25); */
         }
 
         .acsi-theme .table {
@@ -175,7 +175,7 @@
             margin-top: 10px;
             font-size: 14px;
             color: var(--acsi-foreground);
-            background: rgba(0, 128, 255, 0.05);
+            /* background: rgba(0, 128, 255, 0.05); */
             padding: 10px;
             border-radius: 8px;
         }
@@ -305,6 +305,21 @@
         .auction-tabs .active:focus {
             color: white !important;
         }
+
+        #reg_search {
+            width: 200px;
+            padding-left: 30px !important;
+            padding: 10px;
+            border-radius: 6px;
+            color: #fff;
+            border: 1px solid #2b3b4f;
+        }
+
+        @media (max-width: 425px) {
+            #reg_search {
+                width: 100px !important;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -345,7 +360,8 @@
             <div class="flex items-center w-full">
                 <div class="hidden lg:flex items-center !justify-between lg:justify-normal gap-2">
                     <span class="label-muted ">Show Entries</span>
-                    <select class="form-select entries-length" style="width: 90px;">
+                    <select class="entries-length"
+                        style="width: 70px; outline: none !important; padding: 7px; border-radius: 6px; border: 1px solid #2b3b4f;">
                         <option value="50">50</option>
                         <option value="100">100</option>
                         <option value="500">500</option>
@@ -354,7 +370,8 @@
                     <span id="entryCount" class="text-muted ms-2" style="font-size: 0.9rem;"></span>
                 </div>
                 <div>
-                    <select id="year1" class="form-select year select2-filter">
+                    <select id="year1" class="form-select year select2-filter"
+                        style="outline: none !important;  border: 1px solid #2b3b4f;">
                         <option value="">All Years</option>
                         @foreach ($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
@@ -363,27 +380,41 @@
                 </div>
             </div>
 
-            <div class=" flex justify-between lg:justify-end items-center gap-2 ">
+            <div class=" flex  justify-between lg:justify-end items-center gap-2 ">
 
 
                 <div style="position: relative;" class="w-full">
                     <input type="text" id="reg_search" class="form-control form-control-sm"
-                        placeholder="Search by Reg Number"
-                        style="width: 200px; padding-left: 30px!important; padding: 10px; border-radius: 6px; color: #fff; border: 1px solid #2b3b4f;">
+                        placeholder="Search by Reg Number">
                     <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
                         <i class="fas fa-search"></i>
                     </span>
                 </div>
 
-                <select
-                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none;">
-                    <option value="">Select Make</option>
-                </select>
+                <?php
+                $makes = ['Toyota', 'Honda', 'Nissan', 'Suzuki', 'Kia', 'Hyundai'];
+                ?>
 
                 <select
-                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none;">
-                    <option value="">Select Model</option>
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none; outline: none;color: white;">
+                    <option value="">Select Make</option>
+                    <?php foreach ($makes as $make): ?>
+                    <option value="<?= htmlspecialchars($make) ?>"><?= htmlspecialchars($make) ?></option>
+                    <?php endforeach; ?>
                 </select>
+
+                <?php
+                $models = ['Corolla', 'Civic', 'Alto', 'Sportage', 'Elantra', 'City'];
+                ?>
+
+                <select
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px;  appearance: none;  outline: none; color: white;">
+                    <option value="">Select Model</option>
+                    <?php foreach ($models as $model): ?>
+                    <option value="<?= htmlspecialchars($model) ?>"><?= htmlspecialchars($model) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
 
                 {{-- <select id="make1" class=""
                     style="border: 1px solid #2b3b4f !important; padding: 10px 20px !important;">

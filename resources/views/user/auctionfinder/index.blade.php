@@ -181,6 +181,7 @@
             overflow: hidden;
             opacity: 0;
             transition: all 0.4s ease;
+            padding-bottom: 40px;
         }
 
         @media (max-width: 767px) {
@@ -270,11 +271,6 @@
         .tabsDiv {
             padding: 0rem 2rem;
         }
-
-        .dropdownDiv {
-            padding-bottom: 20px;
-            padding-right: 45px;
-        }
     </style>
 
     <style>
@@ -309,13 +305,29 @@
 
         .toggleFiltersBtn {
             padding: 6px;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: small;
             color: white;
-            border: 1px solid white;
-            width: 120px;
-            margin-bottom: 20px;
-            height: 50px;
+            background-color: #0080ff;
+            width: 100px;
+            height: 40px;
+            /* margin-bottom: 20px; */
+            /* border: 1px solid white; */
+        }
+
+        .filterslabel {
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .filterslabel {
+                width: 100% !important;
+            }
+
+            .filterslabelrow {
+                margin-bottom: 20px !important;
+
+            }
         }
     </style>
 @endsection
@@ -344,53 +356,35 @@
                                 Valuation</a>
                         </li>
                     </ul>
-                    <!-- Toggle Button -->
-                    {{-- <button id="toggleFiltersBtn" class="btn btn-sm btn-outline-primary"
-                        style="padding: 10px; border-radius: 8px; font-size: small; color: white; border: 1px solid white;">
-                        Show Filters
-                        <span class="material-symbols-outlined">
-                            filter_alt
-                        </span>
-                    </button> --}}
                 </div>
             </div>
         </div>
     </div>
 
     <div class="py-5 container-fluid filter">
-
-        <div class="d-flex justify-content-between align-items-center px-1 pt-1" style="width:22.5%;">
-            <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
-                Show Filters
-                <span class="material-symbols-outlined">
-                    filter_alt
-                </span>
-            </button>
-            <div class="d-flex align-items-center gap-2">
-                <a id="clearFiltersLink" href="{{ url('/auction-finder') }}" class="text-decoration-none d-none deleteBtn">
-                    <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
-                        delete
-                    </span>
-                    Clear all
-                </a>
-            </div>
-        </div>
-
-        <div class="row" style="display: flex;">
-            <!-- Left: 3col Table section -->
-            <div id="filterDIV" class="filter_sidebar">
-                <div class="card p-2" {{-- style="position: sticky; top: 100px; z-index: 10;" --}}>
-                    <div class="accordion" id="filterAccordion">
-                        @include('user.auctionfinder.sidebar')
+        <div class="row filterslabelrow" style="margin-bottom: 5px;">
+            <div class="col-md-3 filterslabel" style=" width: 22.5%;">
+                <div class="d-flex justify-content-between align-items-start px-1 pt-1">
+                    <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
+                        Show Filters
+                        <span class="material-symbols-outlined">
+                            filter_alt
+                        </span>
+                    </button>
+                    <div class="d-flex align-items-center gap-2">
+                        <a id="clearFiltersLink" href="{{ url('/auction-finder') }}"
+                            class="text-decoration-none d-none deleteBtn">
+                            <span class="material-symbols-outlined" style="font-size: 16px; margin: 5px;">
+                                delete
+                            </span>
+                            Clear all
+                        </a>
                     </div>
                 </div>
             </div>
-
-
-            <!-- Right: 9col Table section -->
-            <div id="tableSection" style="width:  75%;">
+            <div class="col-md-9" style="width:full;">
                 <div class="d-flex justify-content-between dropdownDiv">
-                    <div class=" align-self-center show_entries_div">
+                    <div class="align-self-center show_entries_div">
                         {{-- <span style="padding-right: 5px">Show Entries</span> --}}
                         <select style="height: 38px;padding: 0px 10px; border-radius: 4px; border-color:#44485e;"
                             name="length">
@@ -420,6 +414,21 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row" id="tableDiv" style="display: flex;">
+            <!-- Left: 3col Table section -->
+            <div id="filterDIV" class="col-md-3 filter_sidebar">
+                <div class="card p-2" {{-- style="position: sticky; top: 100px; z-index: 10;" --}}>
+                    <div class="accordion" id="filterAccordion">
+                        @include('user.auctionfinder.sidebar')
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Right: 9col Table section -->
+            <div id="tableSection" class="col-md-9">
                 <div class="card">
                     <div class="table-responsive text-nowrap">
                         <table class="auction-table table table-hover">
@@ -458,147 +467,150 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="lightbox-overlay" style="display:none;">
-        <button class="lightbox-prev">&#10094;</button>
-        <img src="" alt="Preview">
-        <button class="lightbox-next">&#10095;</button>
-    </div>
-@endsection
-@section('js')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const toggleBtn = document.getElementById("toggleFiltersBtn");
-            const filterDiv = document.getElementById("filterDIV");
-            const clearLink = document.getElementById("clearFiltersLink");
-            const tableSection = document.getElementById("tableSection");
+        <div class="lightbox-overlay" style="display:none;">
+            <button class="lightbox-prev">&#10094;</button>
+            <img src="" alt="Preview">
+            <button class="lightbox-next">&#10095;</button>
+        </div>
+    @endsection
+    @section('js')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const toggleBtn = document.getElementById("toggleFiltersBtn");
+                const filterDiv = document.getElementById("filterDIV");
+                const clearLink = document.getElementById("clearFiltersLink");
+                const tableSection = document.getElementById("tableSection");
+                const sortFilter = document.getElementById("sortFilter");
 
-            let isOpen = true;
+                let isOpen = true;
 
-            function isMobile() {
-                return window.innerWidth <= 767;
-            }
-            let test = isMobile();
-            console.log(test);
-
-            function openFilter() {
-                if (isMobile()) {
-                    filterDiv.classList.add("open");
-                } else {
-                    filterDiv.style.width = "22.5%";
-                    tableSection.style.width = "75%";
-                    filterDiv.style.opacity = "1";
+                function isMobile() {
+                    return window.innerWidth <= 576;
                 }
-                toggleBtn.textContent = "Hide Filters";
-                clearLink.classList.remove("d-none");
-                isOpen = true;
-            }
+                let test = isMobile();
+                console.log(test);
 
-            function closeFilter() {
+                function openFilter() {
+                    if (isMobile()) {
+                        filterDiv.classList.add("open");
+                    } else {
+                        filterDiv.style.width = "22.5%";
+                        tableSection.style.width = "75%";
+                        tableSection.style.marginLeft = "0px";
+                        filterDiv.style.opacity = "1";
+                    }
+                    toggleBtn.textContent = "Hide Filters";
+                    clearLink.classList.remove("d-none");
+                    isOpen = true;
+                }
+
+                function closeFilter() {
+                    if (isMobile()) {
+                        filterDiv.classList.remove("open");
+                    } else {
+                        filterDiv.style.width = "0";
+                        tableSection.style.width = "97%";
+                        tableSection.style.marginLeft = "-18px";
+                        tableSection.style.opacity = "1";
+                        filterDiv.style.opacity = "0";
+                    }
+                    toggleBtn.textContent = "Show Filters";
+                    clearLink.classList.add("d-none");
+                    isOpen = false;
+                }
+
+
+
+                // Initialize state
                 if (isMobile()) {
                     filterDiv.classList.remove("open");
-                } else {
-                    filterDiv.style.width = "0";
                     tableSection.style.width = "90%";
-                    filterDiv.style.opacity = "0";
-                }
-                toggleBtn.textContent = "Show Filters";
-                clearLink.classList.add("d-none");
-                isOpen = false;
-            }
-
-
-
-            // Initialize state
-            if (isMobile()) {
-                filterDiv.classList.remove("open");
-                tableSection.style.width = "90%";
-                isOpen = false;
-                toggleBtn.textContent = "Show Filters";
-            } else {
-                openFilter();
-            }
-
-            toggleBtn.addEventListener("click", function() {
-                if (isOpen) {
-                    closeFilter();
+                    isOpen = false;
+                    toggleBtn.textContent = "Show Filters";
                 } else {
                     openFilter();
                 }
+
+                toggleBtn.addEventListener("click", function() {
+                    if (isOpen) {
+                        closeFilter();
+                    } else {
+                        openFilter();
+                    }
+                });
+
+                // Optional: Adjust layout on resize
+                window.addEventListener("resize", function() {
+                    if (isMobile() && isOpen) {
+                        filterDiv.classList.add("open");
+                        tableSection.style.width = "100%";
+                    } else if (!isMobile() && isOpen) {
+                        filterDiv.classList.remove("open");
+                        openFilter();
+                    } else if (!isMobile() && !isOpen) {
+                        closeFilter();
+                    }
+                });
             });
 
-            // Optional: Adjust layout on resize
-            window.addEventListener("resize", function() {
-                if (isMobile() && isOpen) {
-                    filterDiv.classList.add("open");
-                    tableSection.style.width = "100%";
-                } else if (!isMobile() && isOpen) {
-                    filterDiv.classList.remove("open");
-                    openFilter();
-                } else if (!isMobile() && !isOpen) {
-                    closeFilter();
-                }
+
+
+
+
+
+
+
+
+            $(document).on('mouseenter', '.table tbody tr', function() {
+                $(this).find('.extra').fadeIn(150);
             });
-        });
+
+            $(document).on('mouseleave', '.table tbody tr', function() {
+                $(this).find('.extra').fadeOut(150);
+            });
+
+            let images = []; // store current row images
+            let currentIndex = 0;
+
+            // Open lightbox
+            $(document).on('click', '.lightbox-img', function() {
+                let row = $(this).closest('tr');
+                images = row.find('.lightbox-img').map(function() {
+                    return $(this).attr('src');
+                }).get();
+                currentIndex = images.indexOf($(this).attr('src'));
+                $('.lightbox-overlay img').attr('src', images[currentIndex]);
+                $('.lightbox-overlay').fadeIn(200);
+            });
+
+            // Close on clicking overlay (outside image)
+            $('.lightbox-overlay').on('click', function(e) {
+                if (!$(e.target).is('img') && !$(e.target).is('button')) $(this).fadeOut(200);
+            });
+
+            // Prev button
+            $('.lightbox-prev').on('click', function(e) {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                $('.lightbox-overlay img').attr('src', images[currentIndex]);
+            });
+
+            // Next button
+            $('.lightbox-next').on('click', function(e) {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % images.length;
+                $('.lightbox-overlay img').attr('src', images[currentIndex]);
+            });
 
 
+            let url = "{{ url('/') }}";
+            const baseUrl = "{{ url('/auction-finder/vehicle') }}";
+            $(document).ready(function() {
+                $('.menu-button').trigger('click');
+                $('.menu-button').hide();
 
-
-
-
-
-
-
-        $(document).on('mouseenter', '.table tbody tr', function() {
-            $(this).find('.extra').fadeIn(150);
-        });
-
-        $(document).on('mouseleave', '.table tbody tr', function() {
-            $(this).find('.extra').fadeOut(150);
-        });
-
-        let images = []; // store current row images
-        let currentIndex = 0;
-
-        // Open lightbox
-        $(document).on('click', '.lightbox-img', function() {
-            let row = $(this).closest('tr');
-            images = row.find('.lightbox-img').map(function() {
-                return $(this).attr('src');
-            }).get();
-            currentIndex = images.indexOf($(this).attr('src'));
-            $('.lightbox-overlay img').attr('src', images[currentIndex]);
-            $('.lightbox-overlay').fadeIn(200);
-        });
-
-        // Close on clicking overlay (outside image)
-        $('.lightbox-overlay').on('click', function(e) {
-            if (!$(e.target).is('img') && !$(e.target).is('button')) $(this).fadeOut(200);
-        });
-
-        // Prev button
-        $('.lightbox-prev').on('click', function(e) {
-            e.stopPropagation();
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            $('.lightbox-overlay img').attr('src', images[currentIndex]);
-        });
-
-        // Next button
-        $('.lightbox-next').on('click', function(e) {
-            e.stopPropagation();
-            currentIndex = (currentIndex + 1) % images.length;
-            $('.lightbox-overlay img').attr('src', images[currentIndex]);
-        });
-
-
-        let url = "{{ url('/') }}";
-        const baseUrl = "{{ url('/auction-finder/vehicle') }}";
-        $(document).ready(function() {
-            $('.menu-button').trigger('click');
-            $('.menu-button').hide();
-
-        });
-    </script>
-    <script src="{{ asset('/public/themeadmin/js/vehichle.js') }}"></script>
-@endsection
+            });
+        </script>
+        <script src="{{ asset('/public/themeadmin/js/vehichle.js') }}"></script>
+    @endsection

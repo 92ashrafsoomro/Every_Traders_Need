@@ -4,6 +4,10 @@
 @endpush
 @section('css')
     <style>
+        input.select2-search__field {
+            background-color: #0f1c2c;
+        }
+
         #mileage_range_min::-webkit-slider-thumb,
         #mileage_range_max::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -248,7 +252,7 @@
                                     <option value="400001-500000">400,001 - 500,000</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="lg:col-span-3">
                                 <label class="form-label" for="platform_id" style="">Auction House</label>
                                 <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2 "
                                     multiple="multiple"
@@ -256,7 +260,7 @@
                                     required>
                                 </select>
                             </div>
-                            <div class=" lg:col-span-3 flex justify-end items-end">
+                            <div class="flex justify-end items-end">
                                 <button type="button" id="searchBtn"
                                     class="btn btn-primary d-flex align-items-center justify-content-center"
                                     style="font-size: 14px; border-radius: 6px; gap: 6px;">

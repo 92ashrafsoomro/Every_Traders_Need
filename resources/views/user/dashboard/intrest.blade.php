@@ -4,6 +4,17 @@
     font-size: 12px;  
     padding: 2px 6px;  
 }
+#yearFilter,
+#gradeFilter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="black" height="12" viewBox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    border-radius: 5px;
+    width: 70px;
+}
+
+
 </style>
 <div class=" p-4 d-flex align-items-center justify-content-start gap-3 mx-0 pl-4"
     style="background-color: #006aee; margin-top: -60px;" id="interest-buttons-container">
@@ -62,9 +73,9 @@
     </select>
 
 
-    <select id="mileageFilter" class="form-select small-select">
+    {{-- <select id="mileageFilter" class="form-select small-select">
         
-    </select>
+    </select> --}}
 </div>
 
 
@@ -136,54 +147,45 @@
 
                         <div class="card-body p-0">
                             <div class="container mt-3 p-0">
-                                <div class="valuation-header text-dark rounded-2" 
+                                <div class="valuation-header text-dark rounded-2 mx-2" 
                                     style="background-color: #006aee !important;">
                                     <div class="d-flex align-items-center justify-content-between p-3">
-                                        <div class="col-md-8">
-                                            <small class="text-light">
-                                                Our price estimates use historical auction data and market trends.
-                                                <a href="#" class="text-white text-decoration-none">Learn more</a>
-                                            </small>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <img src="{{ asset('/public/themeadmin/autobolidp.png') }}" 
+                                      
+                                    
+                                        <div class="d-flex align-items-center gap-2" style="margin-left: 50px;">
+                                            <div style="background-color: black;padding: 12px;border-radius: 9px;">
+
+                                                <img src="{{ asset('/public/themeadmin/autobolidp.png') }}" 
                                                 alt="" width="35" height="35" />
-                                            <strong class="fs-5 text-white">£0</strong>
+                                            </div>
+                                            <div class=" text-black px-4 py-2 fw-semibold fs-5 d-inline-block" 
+                                                style=" letter-spacing: 0.5px;">
+                                            £1.9k - £2k
+                                            <small class="d-block fs-6 fw-medium opacity-75 mt-1">Per Year</small>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="rows px-3 py-2">
                                    <div style=" border-radius:8px; padding:20px; overflow-x:auto;">
-                                        <table style="width:100%; margin-bottom:0; border-collapse:collapse;">
+                                       <table style="width:100%; margin-bottom:0; border-collapse:collapse;">
                                             <thead style="border-bottom:1px solid #ffffff;">
                                                 <tr>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left; letter-spacing:0.5px;">Auc House</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left; letter-spacing:0.5px;">Center</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left; letter-spacing:0.5px;">CAP C</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left; letter-spacing:0.5px;">CAP Avg</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left; letter-spacing:0.5px;">Trade</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Auc House</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Center</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP C</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP Avg</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Trade</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr style="border-bottom:1px solid #2a3142; font-size:14px; vertical-align:middle;">
-                                                    <td style="padding:16px 12px;">
-                                                        <div style="display:flex; align-items:center; gap:10px;">
-                                                            <div style="width:32px; height:32px; background-color:#e8e8e8; border-radius:4px; flex-shrink:0;"></div>
-                                                            <span style="color:#0066cc; font-weight:600; font-size:13px;">BCA</span>
-                                                        </div>
-                                                    </td>
-                                                    <td style="padding:16px 12px; color:#0066cc; font-weight:500;">Online Auc</td>
-                                                    <td style="padding:16px 12px; color:#ffffff; font-weight:500;">£2.4k-£2.6k<span style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">5.6%</span></td>
-                                                    <td style="padding:16px 12px; color:#ffffff; font-weight:500;">£2.4k-£2.6k<span style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">5.6%</span></td>
-                                                    <td style="padding:16px 12px; display:flex; align-items:center; gap:6px; color:#ff4444; font-weight:600;">
-                                                        <span style="display:inline-block; width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid #ff4444;"></span>
-                                                        5.6%
-                                                    </td>
-                                                </tr>
-
+                                            <tbody id="valuationTableBody">
+                                                <!-- Dynamic rows appear here -->
                                             </tbody>
                                         </table>
+
                                     </div>
 
                                 </div>

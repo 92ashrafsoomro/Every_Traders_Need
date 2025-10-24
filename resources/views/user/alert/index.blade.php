@@ -518,7 +518,7 @@
 
                 <div class="modal-body text-center">
                     <img id="previewImage" src="/placeholder.svg" class="img-fluid" alt="Preview"
-                        style="max-height:80vh; object-fit:contain;" />
+                        style="width: 100%; height: 100%; object-fit:cover;" />
 
                     <!-- 🔹 Prev Button -->
                     <button class="nav-btn position-absolute top-50 start-0 translate-middle-y prev-img" type="button"

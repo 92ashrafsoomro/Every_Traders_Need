@@ -99,9 +99,9 @@
                             </button>
                             <ul class="dropdown-menu w-100" aria-labelledby="interestDropdownBtn" id="interestDropdown">
                                 <li><a class="dropdown-item" data-id="">Select Interest</a></li>
-                                @forelse($interests as $interest)
+                               @forelse($interests as $interest)
                                     <li>
-                                        <a class="dropdown-menu" href="#" data-id="{{ $interest->id }}">
+                                        <a class="dropdown-item" href="#" data-id="{{ $interest->id }}">
                                             {{ $interest->title }}
                                         </a>
                                     </li>

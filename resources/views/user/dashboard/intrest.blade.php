@@ -130,11 +130,16 @@
                         style="background-color: #0f172a; min-height: 420px;">
                         <div class="card-header border-0 bg-transparent">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <h5 class="mb-0">Valuation</h5>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <select class="form-control platforms" name="platform_ids[]" multiple>
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control centersid" name="centers_id[]" multiple>
                                         <option value="">Select</option>
                                     </select>
                                 </div>
@@ -143,7 +148,7 @@
 
                         <div class="card-body p-0">
                             <div class="container mt-3 p-0">
-                                <div class="valuation-header text-dark rounded-2 mx-2" 
+                                {{-- <div class="valuation-header text-dark rounded-2 mx-2" 
                                     style="background-color: #006aee !important;">
                                     <div class="d-flex align-items-center justify-content-between p-3">
                                       
@@ -163,7 +168,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="rows px-3 py-2">
                                    <div style=" border-radius:8px; padding:20px; overflow-x:auto;">

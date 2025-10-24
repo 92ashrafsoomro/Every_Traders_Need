@@ -12,6 +12,7 @@ use App\Models\MembershipPayment;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\Interest;
+use App\Models\AuctionCenter;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -803,31 +804,37 @@ public function getValuation(Request $request)
 
 
 
-    $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-        ->leftJoin('auction_platform', 'auctions.platform_id', '=', 'auction_platform.id')
-        ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
-        ->where('vehicles.make_id', $interest->make_id)
-        ->where('vehicles.model_id', $interest->model_id)
-        ->whereDate('auctions.auction_date', '>=', $today)
-        ->when($request->year, fn($q) => $q->where('vehicles.year', $request->year))
-        ->when($request->grade, fn($q) => $q->where('vehicles.grade', $request->grade))
-        ->select([
-            'auctions.id as auction_id',
-            'auctions.name as auction_name',
-            'auction_platform.id as platform_id',
-            'auction_platform.name as platform_name',
-            'auction_platform.image as platform_image',
-            DB::raw('MIN(auction_center.name) as center_name'),
-            DB::raw('COUNT(vehicles.id) as total_vehicles'),
-            DB::raw('MIN(vehicles.cap_clean) as min_cap_clean'),
-            DB::raw('MAX(vehicles.cap_clean) as max_cap_clean'),
-            DB::raw('MIN(vehicles.cap_average) as min_cap_average'),
-            DB::raw('MAX(vehicles.cap_average) as max_cap_average'),
-            DB::raw('ROUND(AVG(vehicles.cap_average)) as one_week_average')
-        ])
-        ->groupBy('auctions.id', 'auctions.name', 'auction_platform.id', 'auction_platform.name', 'auction_platform.image')
-        ->orderByDesc('total_vehicles')
-        ->get();
+$platforms = $request->platforms ?? [];
+$centers = $request->centers ?? [];
+
+$data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+    ->leftJoin('auction_platform', 'auctions.platform_id', '=', 'auction_platform.id')
+    ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
+    ->where('vehicles.make_id', $interest->make_id)
+    ->where('vehicles.model_id', $interest->model_id)
+    ->whereDate('auctions.auction_date', '>=', $today)
+    ->when($request->year, fn($q) => $q->where('vehicles.year', $request->year))
+    ->when($request->grade, fn($q) => $q->where('vehicles.grade', $request->grade))
+    ->when(count($platforms), fn($q) => $q->whereIn('auctions.platform_id', $platforms)) 
+    ->when(count($centers), fn($q) => $q->whereIn('vehicles.center_id', $centers))     
+    ->select([
+        'auctions.id as auction_id',
+        'auctions.name as auction_name',
+        'auction_platform.id as platform_id',
+        'auction_platform.name as platform_name',
+        'auction_platform.image as platform_image',
+        DB::raw('MIN(auction_center.name) as center_name'),
+        DB::raw('COUNT(vehicles.id) as total_vehicles'),
+        DB::raw('MIN(vehicles.cap_clean) as min_cap_clean'),
+        DB::raw('MAX(vehicles.cap_clean) as max_cap_clean'),
+        DB::raw('MIN(vehicles.cap_average) as min_cap_average'),
+        DB::raw('MAX(vehicles.cap_average) as max_cap_average'),
+        DB::raw('ROUND(AVG(vehicles.cap_average)) as one_week_average')
+    ])
+    ->groupBy('auctions.id', 'auctions.name', 'auction_platform.id', 'auction_platform.name', 'auction_platform.image')
+    ->orderByDesc('total_vehicles')
+    ->get();
+
 
     $formatMoney = function ($value) {
         if (!$value) return '£0';
@@ -843,7 +850,8 @@ public function getValuation(Request $request)
 
 
     $final = $data->map(function ($row) use ($interest, $request,$oneWeekAgo,$oneMonthWeekAgo , $threeMonthsAgo, $oneMonthAgo, $today, $formatMoney) {
-
+      $center = AuctionCenter::where('name', $row->center_name)->first();
+        $centerId = $center ? $center->id : null;
         $oneweekAuctions = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
             ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
             ->where('vehicles.make_id', $interest->make_id)
@@ -919,6 +927,7 @@ public function getValuation(Request $request)
             'platform_id' => $row->platform_id,
             'platform_name' => $row->platform_name,
             'platform_image' => $row->platform_image,
+            'center_id' =>   $centerId ,
             'center_name' => $row->center_name,
             'total_vehicles' => $row->total_vehicles,
             'cap_clean_range' => $formatMoney($row->min_cap_clean) . ' - ' . $formatMoney($row->max_cap_clean),

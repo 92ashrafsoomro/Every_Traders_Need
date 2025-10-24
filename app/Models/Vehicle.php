@@ -37,6 +37,8 @@ class Vehicle extends Model
         return $this->belongsTo(Auctions::class, 'auction_id', 'id');
     }
 
+    
+
     public function autoAdvance()
 
     {

@@ -295,11 +295,14 @@ UserIntrest.Valuation = function (interestId) {
 
     const selectedYear = $('#yearFilter').val();
     const selectedGrade = $('#gradeFilter').val();
+    const selectedPlatforms = $('.platforms').val() || [];
+    const selectedCenters = $('.centersid').val() || [];
 
     $.ajax({
         url: path + "/dashboard/getValuation",
         dataType: "json",
-        data: { id: interestId, year: selectedYear, grade: selectedGrade },
+        data: { id: interestId, year: selectedYear, grade: selectedGrade , platforms: selectedPlatforms,
+                centers: selectedCenters},
         success: function (response) {
 
             // 🟩 Handle no data case
@@ -320,8 +323,8 @@ UserIntrest.Valuation = function (interestId) {
             response.data.forEach(item => {
 
                let avrage = compareWeeklyMax(item.one_week_auctions?.[0]?.max_last_bid_average , item.one_month_auctions?.[0]?.max_last_bid_average);
-                const arrowColor = avrage.trend === "up" ? "#0c4a91ff" :
-                   avrage.trend === "down" ? "#d50000" : "#8b92a9";
+                const arrowColor = avrage.trend === "up" ? "#d50000" :
+                   avrage.trend === "down" ? "#0c4a91ff" : "#8b92a9";
 
                 const arrowDirection = avrage.trend === "up"
                   ? "border-bottom:6px solid " + arrowColor + ";"
@@ -447,9 +450,11 @@ UserIntrest.Valuation = function (interestId) {
 
 
 
-        
+          // ----- Populate Platforms -----
           let uniquePlatforms = {};
-          response.data.forEach(item => uniquePlatforms[item.platform_id] = item.platform_name);
+          response.data.forEach(item => {
+              uniquePlatforms[item.platform_id] = item.platform_name;
+          });
 
           let platformOptions = '';
           for (const [id, name] of Object.entries(uniquePlatforms)) {
@@ -457,18 +462,28 @@ UserIntrest.Valuation = function (interestId) {
           }
 
           const $platformSelect = $('.platforms');
-          $platformSelect.attr('multiple', 'multiple').html(platformOptions);
+          $platformSelect.html(platformOptions); 
 
 
-          if ($platformSelect.hasClass("select2-hidden-accessible")) {
-              $platformSelect.html(platformOptions).trigger('change.select2'); 
-          } else {
-              $platformSelect.select2({
-                  placeholder: "Select one or more platforms",
-                  allowClear: true,
-                  width: "100%",
-              });
-          }
+        let uniqueCenters = {};
+        response.data.forEach(item => {
+            if (item.center_name && item.center_id) {
+                uniqueCenters[item.center_id] = item.center_name; // key = id, value = name
+            }
+        });
+
+        let centersOptions = '';
+        for (const [id, name] of Object.entries(uniqueCenters)) {
+            centersOptions += `<option value="${id}">${name}</option>`; // value = center_id
+        }
+
+        const $centersSelect = $('.centersid');
+        $centersSelect.html(centersOptions);
+
+          
+
+
+
 
         },
 
@@ -484,6 +499,13 @@ UserIntrest.Valuation = function (interestId) {
    
 
 
+$(document).ready(function() {
+    $('.platforms, .centersid').select2({
+        placeholder: "Select one or more",
+        allowClear: true,
+        width: "100%"
+    });
+});
 
 
 $(document).on('click', '#interest-buttons-wrapper .interest-button', function() {
@@ -508,6 +530,13 @@ $('#yearFilter, #gradeFilter, #mileageFilter').on('change', function () {
 
 
 
+$('.platforms, .centersid').on('change', function () {
+    const interestId = UserIntrest.activeId;
+    if (!interestId) return console.warn("No active interest selected.");
+ 
+    UserIntrest.Valuation(interestId);
+});
+
 $(document).on('click', '#profile-tab', function () {
     $.get(path + '/user/has-interest', function (response) {
         if (response.has_interest === false) {
@@ -525,7 +554,7 @@ function compareWeeklyMax(currentMax, previousMax) {
     const curr = (typeof currentMax === 'number') ? currentMax : parseFloat(currentMax);
     const prev = (typeof previousMax === 'number') ? previousMax : parseFloat(previousMax);
 
-    // Handle null / invalid cases
+  
     if (!curr && !prev) {
         return { current_week_max: "-", previous_week_max: "-", trend: "-", percentage_change: "-" };
     }
@@ -541,10 +570,10 @@ function compareWeeklyMax(currentMax, previousMax) {
 
     if (curr > prev) {
         trend = "up";
-        percentage_change = ((curr - prev) / prev * 100).toFixed(0); // ✅ rounded (no decimals)
+        percentage_change = ((curr - prev) / prev * 100).toFixed(0); 
     } else if (curr < prev) {
         trend = "down";
-        percentage_change = ((prev - curr) / prev * 100).toFixed(0); // ✅ rounded (no decimals)
+        percentage_change = ((prev - curr) / prev * 100).toFixed(0); 
     }
 
     return {

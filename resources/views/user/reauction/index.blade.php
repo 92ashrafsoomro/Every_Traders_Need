@@ -93,15 +93,15 @@
                         {{-- <label class="form-label d-block">Select Interest</label> --}}
                         <div class="dropdown w-100">
                             <button class="btn dropdown-toggle w-100 text-start"
-                                style="background-color: #0080ff !important;" type="button" id="interestDropdownBtn"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                style="background-color: #0080ff !important; color: white !important;" type="button"
+                                id="interestDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Interest
                             </button>
                             <ul class="dropdown-menu w-100" aria-labelledby="interestDropdownBtn" id="interestDropdown">
                                 <li><a class="dropdown-item" data-id="">Select Interest</a></li>
                                 @forelse($interests as $interest)
                                     <li>
-                                        <a class="" href="#" data-id="{{ $interest->id }}">
+                                        <a class="dropdown-menu" href="#" data-id="{{ $interest->id }}">
                                             {{ $interest->title }}
                                         </a>
                                     </li>

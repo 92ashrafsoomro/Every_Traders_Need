@@ -52,7 +52,7 @@
 
         .select2-container--default .select2-selection--multiple {
             background-color: #1f2937;
-            border: 1px solid #d1d5db;
+            /* border: 1px solid #d1d5db; */
             border-radius: 0.5rem;
             min-height: 40px;
             padding: 5px 10px;
@@ -165,6 +165,10 @@
             line-height: 31px;
             align-items: center;
         }
+
+        .select2-container--default .select2-results__option--selected {
+            background-color: #ddd3;
+        }
     </style>
 @endsection
 @include('user.compare.customestyle')
@@ -186,7 +190,7 @@
 
             <div class="container">
                 <div class="relative z-10">
-                    <button id="filterToggle" class="flex items-center text-white/70 hover:text-white focus:outline-none">
+                    <button id="filterToggle" class="flex items-center text-white focus:outline-none">
                         <span class="mr-2 text-lg">Filters</span>
                         <svg id="filterIcon" class="w-4 h-4 transform transition-transform duration-200" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -201,7 +205,7 @@
                             <div>
                                 <label class="form-label required" for="make_id">Make</label>
                                 <select name="make_id" id="make_id" class="form-control make select2"
-                                    style="outline: none !important; border: 1px solid #2b3b4f;" required>
+                                    style="outline: none !important; border: 1px solid #d1d5db;" required>
                                     <option value="">Select Make</option>
                                 </select>
                             </div>
@@ -223,7 +227,7 @@
                             <div>
                                 <label class="form-label" for="year">Year</label>
                                 <select name="year" id="year" class="form-control select2 !bg-[#000f21]"
-                                    style="outline: none !important; border: 1px solid #2b3b4f;">
+                                    style="outline: none !important; border: 1px solid #e5e7eb30; border-radius: 4px;">
                                     <option value="">Select Year</option>
                                     @foreach ($years as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -234,7 +238,7 @@
 
                                 <label class="form-label" for="transmission">Transmission</label>
                                 <select name="transmission" id="transmission" class="form-control select2 !bg-[#000f21]"
-                                    style="outline: none !important; border: 1px solid #2b3b4f;">
+                                    style="outline: none !important; border: 1px solid #e5e7eb30; border-radius: 4px;">
                                     <option value="">Select Transmission</option>
                                     @foreach ($transmissions as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -245,7 +249,7 @@
                             <div>
                                 <label class="form-label" for="fuel">Fuel</label>
                                 <select name="fuel" id="fuel" class="form-control select2 !bg-[#000f21]"
-                                    style="outline: none !important; border: 1px solid #2b3b4f;">
+                                    style="outline: none !important; border: 1px solid #e5e7eb30; border-radius: 4px;">
                                     <option value="">Select Fuel</option>
                                     @foreach ($fuels as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -255,7 +259,7 @@
                             <div>
                                 <label class="form-label" for="grade">Grade</label>
                                 <select name="grade" id="grade" class="form-control select2 !bg-[#000f21]"
-                                    style="outline: none !important; border: 1px solid #2b3b4f;">
+                                    style="outline: none !important; border: 1px solid #e5e7eb30; border-radius: 4px;">
                                     <option value="">Select Grade</option>
                                     @foreach ($grades as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -266,7 +270,7 @@
                                 <label class="form-label" for="mileage_range"
                                     style="font-weight:600;color:#f3f4f6;">Mileage</label>
                                 <select name="mileage_range" id="mileage_range" class="form-control !bg-[#000f21] "
-                                    style="outline: none !important; border: 1px solid #2b3b4f;">
+                                    style="outline: none !important; border: 1px solid #e5e7eb30; border-radius: 4px;">
                                     <option value="">Select Mileage Range</option>
                                     <option value="0-5000">0 - 5,000</option>
                                     <option value="5001-10000">5,001 - 10,000</option>
@@ -282,12 +286,11 @@
                                     <option value="400001-500000">400,001 - 500,000</option>
                                 </select>
                             </div>
-                            <div class="lg:col-span-3">
+                            <div class="col-span-3">
                                 <label class="form-label" for="platform_id" style="">Auction House</label>
                                 <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2 "
                                     multiple="multiple"
-                                    style="width: 100%; padding: 0.4rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background: transparent!important;
-                                     color:#f3f4f6; outline: none !important; border: 1px solid #2b3b4f;"
+                                    style="width: 100%; padding: 0.4rem; background: transparent !important; color:#f3f4f6; outline: none !important; border: 1px solid #e5e7eb30 !important; border-radius: 4px !important;"
                                     required>
                                 </select>
                             </div>
@@ -307,13 +310,12 @@
         <div class="container relative overflow-hidden">
             <div class="table-section" style="position: relative; padding: 0px !important;">
                 <div class="flex items-center justify-between py-5">
-                    <button class="btn flex items-center gap-x-2" style="background-color: #0080ff;" id="prev-btn"
-                        onclick="scrollTable(-200)">
-                        <span class="material-symbols-outlined text-sm">arrow_top_left</span>
-                        Previous</button>
-                    <button class="btn flex items-center gap-x-2" style="background-color: #0080ff;" id="next-btn"
-                        onclick="scrollTable(200)">Next<span
-                            class="material-symbols-outlined text-sm">arrow_top_right</span></button>
+                    <button class="w-8 h-8 bg-[#0080ff] rounded-full flex items-center justify-center gap-x-2"
+                        id="prev-btn" onclick="scrollTable(-200)">
+                        <span class="material-symbols-outlined text-sm -mr-1">arrow_back_ios</span></button>
+                    <button class="w-8 h-8 bg-[#0080ff] rounded-full flex items-center justify-center gap-x-2"
+                        id="next-btn" onclick="scrollTable(200)">
+                        <span class="material-symbols-outlined text-sm">arrow_forward_ios</span></button>
                 </div>
                 <div class="table-container" id="table-scroll-container">
                     <table class="comparison-table">

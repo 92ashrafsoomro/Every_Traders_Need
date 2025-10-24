@@ -329,6 +329,10 @@
 
             }
         }
+
+        .nav-item {
+            margin-right: 10px;
+        }
     </style>
 @endsection
 @section('content')

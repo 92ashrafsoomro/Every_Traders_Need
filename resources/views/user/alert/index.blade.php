@@ -309,16 +309,32 @@
         #reg_search {
             width: 200px;
             padding-left: 30px !important;
-            padding: 10px;
+            padding: 7px;
             border-radius: 6px;
             color: #fff;
             border: 1px solid #2b3b4f;
+            font-size: 15px;
         }
 
         @media (max-width: 425px) {
             #reg_search {
                 width: 100px !important;
             }
+        }
+
+        #reg_search::placeholder {
+            color: #B1BFCD;
+            opacity: 1;
+            /* for Firefox */
+        }
+
+        .auction-tabs .active {
+            background: #0080ff;
+            color: white;
+        }
+
+        .nav-item {
+            margin-right: 10px;
         }
     </style>
 @endsection
@@ -331,7 +347,7 @@
         </div>
         <div class="relative z-10 container mx-auto pt-10">
             <h1 class="text-5xl font-bold text-white mb-4 text-left">Watched & Alerted</h1>
-            <p class="text-lg text-gray-300 mx-auto text-left">
+            <p class="text-lg text-[#B1BFCD] mx-auto text-left">
                 Track recently watched and alerted vehicles — stay ahead of every auction opportunity
             </p>
             <div class="auction-tabs relative z-10 pt-5">
@@ -384,9 +400,8 @@
 
 
                 <div style="position: relative;" class="w-full">
-                    <input type="text" id="reg_search" class="form-control form-control-sm"
-                        placeholder="Search by Reg Number">
-                    <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #888;">
+                    <input type="text" id="reg_search" class="form-control form-control-sm" placeholder="Reg No">
+                    <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #B1BFCD;">
                         <i class="fas fa-search"></i>
                     </span>
                 </div>
@@ -396,7 +411,7 @@
                 ?>
 
                 <select
-                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; appearance: none; outline: none;color: white;">
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; outline: none;color: #B1BFCD;">
                     <option value="">Select Make</option>
                     <?php foreach ($makes as $make): ?>
                     <option value="<?= htmlspecialchars($make) ?>"><?= htmlspecialchars($make) ?></option>
@@ -408,7 +423,7 @@
                 ?>
 
                 <select
-                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px;  appearance: none;  outline: none; color: white;">
+                    style="border: 1px solid #2b3b4f !important; padding: 9px 20px !important; background-color: #0f1c2c; border-radius: 6px; outline: none;color: #B1BFCD;">
                     <option value="">Select Model</option>
                     <?php foreach ($models as $model): ?>
                     <option value="<?= htmlspecialchars($model) ?>"><?= htmlspecialchars($model) ?></option>

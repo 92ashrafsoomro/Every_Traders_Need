@@ -40,11 +40,11 @@
         </div>
         <div class="relative z-10 container mx-auto py-10">
             <h1 class="text-5xl font-bold text-white mb-4 text-left">Personalized for You</h1>
-            <p class="text-lg text-gray-300 mx-auto text-left">
+            <p class="text-lg text-[#B1BFCD] mx-auto text-left">
                 Save your interests to see matching auctions, stats, and valuations in one place.
             </p>
             <div class="pt-4">
-                <a href="{{ url('/interest/create') }}" class="btn btn-primary">Create Interest</a>
+                <a href="{{ url('/interest/create') }}" class="btn btn-primary" style="border-radius: 4px;">Create Interest</a>
             </div>
         </div>
     </div>

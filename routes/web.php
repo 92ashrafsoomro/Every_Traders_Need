@@ -301,6 +301,8 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::get('/dashboard/setIntrest', [DashboardController::class, 'getInterestSummary']);
     Route::get('/dashboard/stockAuctionHouse', [DashboardController::class, 'stockAuctionHouse']);
     Route::get('/dashboard/gettopheaderintrest', [DashboardController::class, 'getInterestDashboard']);
+    Route::get('/user/has-interest', [DashboardController::class, 'hasInterest']);
+
 
             
            

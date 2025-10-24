@@ -1,4 +1,3 @@
-
 const UserIntrest = {};
 let stockAuctionChartInstance;
 UserIntrest.updateInterest = function (interestId, $button = null) {
@@ -302,7 +301,9 @@ UserIntrest.Valuation = function (interestId) {
         dataType: "json",
         data: { id: interestId, year: selectedYear, grade: selectedGrade },
         success: function (response) {
-            if (!response.success || !response.data.length) {
+
+            // 🟩 Handle no data case
+            if (!response.success || !response.data || !response.data.length) {
                 $('#valuationTableBody').html(`
                     <tr>
                         <td colspan="5" style="text-align:center; color:#999; padding:20px;">
@@ -310,11 +311,25 @@ UserIntrest.Valuation = function (interestId) {
                         </td>
                     </tr>
                 `);
+                $('.platforms').html('<option value="">Select</option>').trigger('change');
                 return;
             }
 
+         
             let html = "";
             response.data.forEach(item => {
+
+               let avrage = compareWeeklyMax(item.one_week_auctions?.[0]?.max_last_bid_average , item.one_month_auctions?.[0]?.max_last_bid_average);
+                const arrowColor = avrage.trend === "up" ? "#0c4a91ff" :
+                   avrage.trend === "down" ? "#d50000" : "#8b92a9";
+
+                const arrowDirection = avrage.trend === "up"
+                  ? "border-bottom:6px solid " + arrowColor + ";"
+                  : avrage.trend === "down"
+                    ? "border-top:6px solid " + arrowColor + ";"
+                    : "border-top:4px solid " + arrowColor + ";";
+
+
                 html += `
                     <tr style="border-bottom:1px solid #2a3142; font-size:14px; vertical-align:middle;">
                         <td style="padding:16px 12px;">
@@ -322,10 +337,12 @@ UserIntrest.Valuation = function (interestId) {
                                 <div style="width:32px; height:32px; background-color:#e8e8e8; border-radius:4px; overflow:hidden; flex-shrink:0;">
                                     <img src="${path}/public/uploads/platforms/${item.platform_image}" 
                                          style="width:100%; height:100%; object-fit:contain;" 
-                                         alt="${item.platform_name}">
+                                         alt="">
                                 </div>
                                 <span style="color:#0066cc; font-weight:600; font-size:13px;">
-                                    ${item.platform_name}
+                                    ${(item.platform_name.split(' ').length > 1)
+                                    ? item.platform_name.split(' ').map(w => w[0]).join('').toUpperCase()
+                                    : item.platform_name}
                                 </span>
                             </div>
                         </td>
@@ -335,36 +352,138 @@ UserIntrest.Valuation = function (interestId) {
                         </td>
 
                         <td style="padding:16px 12px; color:#ffffff; font-weight:500;">
+                             ${item.one_week_auctions?.[0]?.last_bid_average ?? '-'}
+                          
+                        </td>
+                        <td style="padding:16px 12px; color:#ffffff; font-weight:500;">
                             ${item.cap_clean_range}
-                            <small style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">
-                                CAP C
-                            </small>
+                            <small style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">CAP C</small>
                         </td>
 
                         <td style="padding:16px 12px; color:#ffffff; font-weight:500;">
                             ${item.cap_average_range}
-                            <small style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">
-                                CAP AVG
-                            </small>
+                            <small style="display:block; font-size:12px; color:#8b92a9; margin-top:4px;">CAP AVG</small>
                         </td>
 
-                        <td style="padding:16px 12px; display:flex; align-items:center; gap:6px; color:#00ff88; font-weight:600;">
-                            <span style="display:inline-block; width:0; height:0; 
-                                         border-left:4px solid transparent; border-right:4px solid transparent; 
-                                         border-bottom:5px solid #00ff88;"></span>
-                            ${item.one_week_average}
-                        </td>
+                       <td style="padding:16px 12px; display:flex; align-items:center; gap:6px; color:#006aee; font-weight:600;">
+                          <span style="display:inline-block; width:0; height:0; 
+                                color:${arrowColor}; border-left:4px solid transparent; border-right:4px solid transparent; ${arrowDirection}">
+                            </span>
+                           ${avrage.percentage_change ? avrage.percentage_change  : '0%'} <small style="color:${arrowColor}; font-size:11px;"></small>
+                                <div 
+                                    style="
+                                        width: 50px;
+                                        height: 30px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background: rgba(0, 255, 136, 0.05);
+                                      
+                                        padding: 3px;
+                                        margin-left: 8px;
+                                        
+                                        transition: all 0.3s ease;
+                                    "
+                                    onmouseover="this.style.boxShadow='0 0 8px rgba(0, 132, 255, 0.4)';"
+                                    onmouseout="this.style.boxShadow='inset 0 0 6px rgba(23, 26, 156, 0.15)';"
+                                >
+                                    <canvas 
+                                        id="sparkline-${item.platform_id}" 
+                                        width="70" 
+                                        height="24" 
+                                        style="
+                                            display: block;
+                                        "
+                                    ></canvas>
+                                </div>
+
+
+                          </td>
                     </tr>
                 `;
             });
 
             $('#valuationTableBody').html(html);
+            $('#overAllavg').text(response.overall_cap_clean);
+              response.data.forEach(item => {
+                  const ctx = document.getElementById(`sparkline-${item.platform_id}`);
+                  if (!ctx) return;
+
+            
+                  let values = [];
+                  if (item.three_month_trend) {
+                      values = item.three_month_trend
+                          .split(',')
+                          .map(v => parseFloat(v.trim()))
+                          .filter(v => !isNaN(v));
+                  }
+
+           
+                  if (values.length === 0) {
+                      values = [0, 0, 0];
+                  }
+
+                  new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                          labels: values.map((_, i) => `M${i + 1}`), 
+                          datasets: [{
+                              data: values,
+                              borderColor: '#006aee',
+                              backgroundColor: 'rgba(0,255,136,0.15)',
+                              tension: 0.4,
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              fill: true
+                          }]
+                      },
+                      options: {
+                          plugins: { legend: { display: false } },
+                          scales: { x: { display: false }, y: { display: false } },
+                          elements: { line: { fill: true } },
+                      }
+                  });
+              });
+
+
+
+        
+          let uniquePlatforms = {};
+          response.data.forEach(item => uniquePlatforms[item.platform_id] = item.platform_name);
+
+          let platformOptions = '';
+          for (const [id, name] of Object.entries(uniquePlatforms)) {
+              platformOptions += `<option value="${id}">${name}</option>`;
+          }
+
+          const $platformSelect = $('.platforms');
+          $platformSelect.attr('multiple', 'multiple').html(platformOptions);
+
+
+          if ($platformSelect.hasClass("select2-hidden-accessible")) {
+              $platformSelect.html(platformOptions).trigger('change.select2'); 
+          } else {
+              $platformSelect.select2({
+                  placeholder: "Select one or more platforms",
+                  allowClear: true,
+                  width: "100%",
+              });
+          }
+
         },
+
         error: function (err) {
             console.error("Error updating interest:", err);
         }
     });
 };
+
+
+
+
+   
+
+
 
 
 $(document).on('click', '#interest-buttons-wrapper .interest-button', function() {
@@ -387,3 +506,51 @@ $('#yearFilter, #gradeFilter, #mileageFilter').on('change', function () {
     UserIntrest.Valuation(interestId);
 });
 
+
+
+$(document).on('click', '#profile-tab', function () {
+    $.get(path + '/user/has-interest', function (response) {
+        if (response.has_interest === false) {
+            $('#interestGuideModal')
+                .css('display', 'flex')
+                .hide()
+                .fadeIn(300);
+
+   
+        }
+    });
+});
+
+function compareWeeklyMax(currentMax, previousMax) {
+    const curr = (typeof currentMax === 'number') ? currentMax : parseFloat(currentMax);
+    const prev = (typeof previousMax === 'number') ? previousMax : parseFloat(previousMax);
+
+    // Handle null / invalid cases
+    if (!curr && !prev) {
+        return { current_week_max: "-", previous_week_max: "-", trend: "-", percentage_change: "-" };
+    }
+    if (!prev && curr) {
+        return { current_week_max: curr, previous_week_max: "-", trend: "up", percentage_change: "-" };
+    }
+    if (!curr && prev) {
+        return { current_week_max: "-", previous_week_max: prev, trend: "down", percentage_change: "-" };
+    }
+
+    let trend = "same";
+    let percentage_change = 0;
+
+    if (curr > prev) {
+        trend = "up";
+        percentage_change = ((curr - prev) / prev * 100).toFixed(0); // ✅ rounded (no decimals)
+    } else if (curr < prev) {
+        trend = "down";
+        percentage_change = ((prev - curr) / prev * 100).toFixed(0); // ✅ rounded (no decimals)
+    }
+
+    return {
+        current_week_max: curr,
+        previous_week_max: prev,
+        trend,
+        percentage_change: percentage_change === 0 ? '0%': `${percentage_change}%`
+    };
+}

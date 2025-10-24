@@ -46,11 +46,7 @@
         </svg>
         <span class="ms-1" style="border: none; color: white; ">Add</span>
     </a>
-    <span
-        class="ms-auto  fw-medium flex-shrink-0 btn rounded-3 fw-medium"
-        style="
-    border: 1px solid var(--bs-b-color); background-color: white; color: black;">
-        Customize</span>
+
 </div>
 
 <div class=" p-4 d-flex align-items-center justify-content-start gap-3 mb-5 mx-0 pl-4"
@@ -138,7 +134,7 @@
                                     <h5 class="mb-0">Valuation</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control platform" name="platform_ids[]" multiple>
+                                    <select class="form-control platforms" name="platform_ids[]" multiple>
                                         <option value="">Select</option>
                                     </select>
                                 </div>
@@ -158,10 +154,10 @@
                                                 <img src="{{ asset('/public/themeadmin/autobolidp.png') }}" 
                                                 alt="" width="35" height="35" />
                                             </div>
-                                            <div class=" text-black px-4 py-2 fw-semibold fs-5 d-inline-block" 
+                                            <div class=" text-black px-4 py-2 fw-semibold fs-5 d-inline-block" id="overAllavg"
                                                 style=" letter-spacing: 0.5px;">
-                                            £1.9k - £2k
-                                            <small class="d-block fs-6 fw-medium opacity-75 mt-1">Per Year</small>
+                                           
+                                            <small class="d-block fs-6 fw-medium opacity-75 mt-1">Over All</small>
                                             </div>
 
 
@@ -176,6 +172,7 @@
                                                 <tr>
                                                     <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Auc House</th>
                                                     <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Center</th>
+                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Previous Week</th>
                                                     <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP C</th>
                                                     <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP Avg</th>
                                                     <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Trade</th>
@@ -264,3 +261,6 @@
         </div> --}}
     </div>
 </div>
+
+@include('user.dashboard.createyourinterest')
+

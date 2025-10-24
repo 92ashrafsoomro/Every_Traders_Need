@@ -795,6 +795,13 @@ public function getValuation(Request $request)
     }
 
     $today = now()->startOfDay();
+    $oneWeekAgo = now()->subWeek()->startOfDay();
+    $oneMonthAgo = now()->subMonth()->startOfDay();
+    $oneMonthWeekAgo = now()->subMonth()->subWeek()->startOfDay();
+    $threeMonthsAgo = now()->subMonths(3)->startOfDay();
+
+
+
 
     $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
         ->leftJoin('auction_platform', 'auctions.platform_id', '=', 'auction_platform.id')
@@ -807,6 +814,7 @@ public function getValuation(Request $request)
         ->select([
             'auctions.id as auction_id',
             'auctions.name as auction_name',
+            'auction_platform.id as platform_id',
             'auction_platform.name as platform_name',
             'auction_platform.image as platform_image',
             DB::raw('MIN(auction_center.name) as center_name'),
@@ -817,17 +825,98 @@ public function getValuation(Request $request)
             DB::raw('MAX(vehicles.cap_average) as max_cap_average'),
             DB::raw('ROUND(AVG(vehicles.cap_average)) as one_week_average')
         ])
-        ->groupBy('auctions.id', 'auctions.name', 'auction_platform.name' , 'auction_platform.image')
-        ->orderByDesc('total_vehicles') 
+        ->groupBy('auctions.id', 'auctions.name', 'auction_platform.id', 'auction_platform.name', 'auction_platform.image')
+        ->orderByDesc('total_vehicles')
         ->get();
 
-    $formatted = $data->map(function ($row) {
-          $formatMoney = function ($value) {
+    $formatMoney = function ($value) {
         if (!$value) return '£0';
         return '£' . number_format($value / 1000, 1) . 'k';
     };
+
+
+    $overallMinClean = $data->min('min_cap_clean');
+    $overallMaxClean = $data->max('max_cap_clean');
+    $overallAvgClean = $data->avg(function ($row) {
+        return ($row->min_cap_clean + $row->max_cap_clean) / 2;
+    });
+
+
+    $final = $data->map(function ($row) use ($interest, $request,$oneWeekAgo,$oneMonthWeekAgo , $threeMonthsAgo, $oneMonthAgo, $today, $formatMoney) {
+
+        $oneweekAuctions = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+            ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
+            ->where('vehicles.make_id', $interest->make_id)
+            ->where('vehicles.model_id', $interest->model_id)
+            ->where('auctions.platform_id', $row->platform_id)
+            ->whereBetween('auctions.auction_date', [$oneWeekAgo, $today])
+            ->when($request->year, fn($q) => $q->where('vehicles.year', $request->year))
+            ->when($request->grade, fn($q) => $q->where('vehicles.grade', $request->grade))
+            ->select([
+                'auctions.id as auction_id',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                DB::raw('COUNT(vehicles.id) as total_vehicles'),
+                DB::raw('MIN(vehicles.last_bid) as min_last_bid_average'),
+                DB::raw('MAX(vehicles.last_bid) as max_last_bid_average'),
+            ])
+            ->groupBy('auctions.id', 'auctions.name', 'auctions.auction_date')
+            ->orderByDesc('auctions.auction_date')
+            ->get()
+            ->map(fn($a) => [
+                'auction_name' => $a->auction_name,
+                'last_bid_average' => $formatMoney($a->min_last_bid_average) . ' - ' . $formatMoney($a->max_last_bid_average),
+                'max_last_bid_average' => $a->max_last_bid_average,
+            ]);
+
+            $monthlyAuctions = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+            ->leftJoin('auction_center', 'vehicles.center_id', '=', 'auction_center.id')
+            ->where('vehicles.make_id', $interest->make_id)
+            ->where('vehicles.model_id', $interest->model_id)
+            ->where('auctions.platform_id', $row->platform_id)
+            ->whereBetween('auctions.auction_date', [$oneMonthWeekAgo, $oneMonthAgo])
+            ->when($request->year, fn($q) => $q->where('vehicles.year', $request->year))
+            ->when($request->grade, fn($q) => $q->where('vehicles.grade', $request->grade))
+            ->select([
+                'auctions.id as auction_id',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                DB::raw('COUNT(vehicles.id) as total_vehicles'),
+                DB::raw('MIN(vehicles.last_bid) as min_last_bid_average'),
+                DB::raw('MAX(vehicles.last_bid) as max_last_bid_average'),
+            ])
+            ->groupBy('auctions.id', 'auctions.name', 'auctions.auction_date')
+            ->orderByDesc('auctions.auction_date')
+            ->get()
+            ->map(fn($a) => [
+                'auction_name' => $a->auction_name,
+                'last_bid_average' => $formatMoney($a->min_last_bid_average) . ' - ' . $formatMoney($a->max_last_bid_average),
+                'max_last_bid_average' => $a->max_last_bid_average,
+            ]);
+
+
+          
+        $threeMonthData = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+            ->where('vehicles.make_id', $interest->make_id)
+            ->where('vehicles.model_id', $interest->model_id)
+            ->where('auctions.platform_id', $row->platform_id)
+            ->where('vehicles.bidding_status', 'Sold')
+            ->whereBetween('auctions.auction_date', [$threeMonthsAgo, $today])
+            ->select(
+                DB::raw('MONTH(auctions.auction_date) as month'),
+                DB::raw('ROUND(AVG(vehicles.last_bid)) as avg_last_bid')
+            )
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->pluck('avg_last_bid')
+            ->implode(',');
+
+        
+
         return [
+             'auction_id' => $row->auction_id,
             'auction_name' => $row->auction_name,
+            'platform_id' => $row->platform_id,
             'platform_name' => $row->platform_name,
             'platform_image' => $row->platform_image,
             'center_name' => $row->center_name,
@@ -835,18 +924,30 @@ public function getValuation(Request $request)
             'cap_clean_range' => $formatMoney($row->min_cap_clean) . ' - ' . $formatMoney($row->max_cap_clean),
             'cap_average_range' => $formatMoney($row->min_cap_average) . ' - ' . $formatMoney($row->max_cap_average),
             'one_week_average' => $formatMoney($row->one_week_average),
+            'one_week_auctions' => $oneweekAuctions,
+            'one_month_auctions' => $monthlyAuctions,
+            'three_month_trend' => $threeMonthData,
         ];
     });
 
     return response()->json([
         'success' => true,
-        'total_auctions' => $formatted->count(),
-        'data' => $formatted,
+        'total_auctions' => $final->count(),
+        'overall_cap_clean' => $formatMoney($overallMinClean) . ' - ' . $formatMoney($overallMaxClean),
+        'data' => $final,
     ]);
 }
 
 
+public function hasInterest()
+{
+    $userId = auth()->id();
+    $hasInterest = Interest::where('user_id', $userId)->exists();
 
+    return response()->json([
+        'has_interest' => $hasInterest,
+    ]);
+}
 
 
 

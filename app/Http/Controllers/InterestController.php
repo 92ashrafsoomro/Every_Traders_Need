@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\PriceEnum;
+use App\Jobs\SendInterestCreatedMailJob;
 class InterestController extends Controller
 {
 
@@ -227,7 +228,7 @@ class InterestController extends Controller
         'updated_at' => null,
     ]);
 
-         Mail::to(Auth::user()->personalEmail)->send(new InterestCreatedMail($interest));
+         SendInterestCreatedMailJob::dispatch($interest, Auth::user()->personalEmail);
 
          return redirect('/interest')->with('success', 'Interest created successfully.');
     }

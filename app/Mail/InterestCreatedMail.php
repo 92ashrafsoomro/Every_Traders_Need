@@ -3,11 +3,12 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Interest;
 
-class InterestCreatedMail extends Mailable
+class InterestCreatedMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -24,4 +25,3 @@ class InterestCreatedMail extends Mailable
                     ->markdown('emails.create_interest');
     }
 }
-

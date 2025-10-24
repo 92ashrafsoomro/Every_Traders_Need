@@ -144,6 +144,27 @@
         td {
             border-bottom: none !important;
         }
+
+        #table-scroll-container {
+            overflow-x: auto;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        #table-scroll-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari */
+        }
+
+        .container.relative.overflow-hidden {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 31px;
+            align-items: center;
+        }
     </style>
 @endsection
 @include('user.compare.customestyle')
@@ -157,9 +178,9 @@
                 class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
             </div>
             <div class="relative z-10 container mx-auto pt-14">
-                <h1 class="text-5xl font-bold text-white mb-4 text-left">Compare Before You Bid</h1>
+                <h1 class="text-5xl font-bold text-white mb-4 text-left">Find the Best Auction Deal</h1>
                 <p class="text-lg text-gray-300 mx-auto text-left">
-                    Review multiple auctions side by side to spot the best deal..
+                    Review and compare live auctions side by side to find the smartest deal.
                 </p>
             </div>
 
@@ -179,25 +200,30 @@
                         <div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 !items-center">
                             <div>
                                 <label class="form-label required" for="make_id">Make</label>
-                                <select name="make_id" id="make_id" class="form-control make select2" required>
+                                <select name="make_id" id="make_id" class="form-control make select2"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;" required>
                                     <option value="">Select Make</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="form-label required" for="model_id">Model</label>
-                                <select name="model_id" id="model_id" class="form-control model select2" required>
+                                <select name="model_id" id="model_id" class="form-control model select2"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;" required>
                                     <option value="">Select Model</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="form-label" for="variant_id">Variant</label>
-                                <select name="variant_id" id="variant_id" class="form-control variants select2">
+                                <select name="variant_id" id="variant_id"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;"
+                                    class="form-control variants select2">
                                     <option value="">Select Variant</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="form-label" for="year">Year</label>
-                                <select name="year" id="year" class="form-control select2 !bg-[#000f21]">
+                                <select name="year" id="year" class="form-control select2 !bg-[#000f21]"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;">
                                     <option value="">Select Year</option>
                                     @foreach ($years as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -207,7 +233,8 @@
                             <div>
 
                                 <label class="form-label" for="transmission">Transmission</label>
-                                <select name="transmission" id="transmission" class="form-control select2 !bg-[#000f21]">
+                                <select name="transmission" id="transmission" class="form-control select2 !bg-[#000f21]"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;">
                                     <option value="">Select Transmission</option>
                                     @foreach ($transmissions as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -217,7 +244,8 @@
                             </div>
                             <div>
                                 <label class="form-label" for="fuel">Fuel</label>
-                                <select name="fuel" id="fuel" class="form-control select2 !bg-[#000f21]">
+                                <select name="fuel" id="fuel" class="form-control select2 !bg-[#000f21]"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;">
                                     <option value="">Select Fuel</option>
                                     @foreach ($fuels as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -226,7 +254,8 @@
                             </div>
                             <div>
                                 <label class="form-label" for="grade">Grade</label>
-                                <select name="grade" id="grade" class="form-control select2 !bg-[#000f21]">
+                                <select name="grade" id="grade" class="form-control select2 !bg-[#000f21]"
+                                    style="outline: none !important; border: 1px solid #2b3b4f;">
                                     <option value="">Select Grade</option>
                                     @foreach ($grades as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -236,7 +265,8 @@
                             <div>
                                 <label class="form-label" for="mileage_range"
                                     style="font-weight:600;color:#f3f4f6;">Mileage</label>
-                                <select name="mileage_range" id="mileage_range" class="form-control !bg-[#000f21] ">
+                                <select name="mileage_range" id="mileage_range" class="form-control !bg-[#000f21] "
+                                    style="outline: none !important; border: 1px solid #2b3b4f;">
                                     <option value="">Select Mileage Range</option>
                                     <option value="0-5000">0 - 5,000</option>
                                     <option value="5001-10000">5,001 - 10,000</option>
@@ -256,7 +286,8 @@
                                 <label class="form-label" for="platform_id" style="">Auction House</label>
                                 <select name="platform_id[]" id="platform_id" class="form-control platformhouse select2 "
                                     multiple="multiple"
-                                    style="width: 100%; padding: 0.4rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background:#1f2937; color:#f3f4f6;"
+                                    style="width: 100%; padding: 0.4rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background: transparent!important;
+                                     color:#f3f4f6; outline: none !important; border: 1px solid #2b3b4f;"
                                     required>
                                 </select>
                             </div>
@@ -273,8 +304,17 @@
             </div>
         </div>
 
-        <div class="relative p-5">
-            <div class="table-section">
+        <div class="container relative overflow-hidden">
+            <div class="table-section" style="position: relative; padding: 0px !important;">
+                <div class="flex items-center justify-between py-5">
+                    <button class="btn flex items-center gap-x-2" style="background-color: #0080ff;" id="prev-btn"
+                        onclick="scrollTable(-200)">
+                        <span class="material-symbols-outlined text-sm">arrow_top_left</span>
+                        Previous</button>
+                    <button class="btn flex items-center gap-x-2" style="background-color: #0080ff;" id="next-btn"
+                        onclick="scrollTable(200)">Next<span
+                            class="material-symbols-outlined text-sm">arrow_top_right</span></button>
+                </div>
                 <div class="table-container" id="table-scroll-container">
                     <table class="comparison-table">
                         <thead>
@@ -302,6 +342,10 @@
             filterIcon.classList.toggle('rotate-180');
         });
 
+
+        const container = document.getElementById('table-scroll-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
 
         function scrollTable(distance) {
             const container = document.getElementById('table-scroll-container');

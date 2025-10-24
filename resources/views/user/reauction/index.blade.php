@@ -52,7 +52,7 @@
 @section('content')
     @include('user.reauction.topfilters')
 
-    <div class="container mx-auto py-10">
+    <div class="container mx-auto pt-4">
         <div>
 
             @if (session('success'))
@@ -61,67 +61,63 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row items-start gap-2 md:gap-0 md:items-center justify-between w-full py-4">
+                <div>
+                    <div id="customLengthControl" class="my-length-control flex items-center gap-x-2">
+                        <p>Show Entries</p>
+                        <select id="myLengthSelect" name="length" class="p-2 rounded border border-[#2b3b4f]">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
 
-            <div class="card shadow-sm rounded-3 border">
-
-                <div class="card-body">
-
-                    <!-- Filters -->
-                    <div
-                        class="flex flex-col md:flex-row items-start gap-2 md:gap-0 md:items-center justify-between w-full py-4">
-                        <div>
-                            <div id="customLengthControl" class="my-length-control flex items-center gap-x-2">
-                                <p>Show Entries</p>
-                                <select id="myLengthSelect" name="length" class="p-2 rounded">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row gap-3 items-start md:items-center justify-end md:gap-x-3">
-                            <div>
-                                {{-- <label for="auctionSelector" class="form-label">Auction Date</label> --}}
-                                <select id="auctionSelector" class="form-select">
-                                    <option value="">Select Auction Date</option>
-                                    <!-- Populated dynamically -->
-                                </select>
-                            </div>
-                            <!-- Search Input -->
-                            <div>
-                                {{-- <label for="search" class="form-label">Search by Reg</label> --}}
-                                <input type="text" name="search" class="form-control" placeholder="Enter registration">
-                            </div>
-
-                            <!-- Interest Dropdown -->
-                            <div>
-                                {{-- <label class="form-label d-block">Select Interest</label> --}}
-                                <div class="dropdown w-100">
-                                    <button class="btn btn-outline-primary dropdown-toggle w-100 text-start" type="button"
-                                        id="interestDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select Interest
-                                    </button>
-                                    <ul class="dropdown-menu w-100" aria-labelledby="interestDropdownBtn"
-                                        id="interestDropdown">
-                                        <li><a class="dropdown-item" data-id="">Select Interest</a></li>
-                                        @forelse($interests as $interest)
-                                            <li>
-                                                <a class="dropdown-item" href="#" data-id="{{ $interest->id }}">
-                                                    {{ $interest->title }}
-                                                </a>
-                                            </li>
-                                        @empty
-                                            <li><span class="dropdown-item text-muted">No interests found</span></li>
-                                        @endforelse
-                                    </ul>
-                                    <input type="hidden" id="selected_interest_id" value="">
-                                </div>
-                            </div>
-                        </div>
+                <div class="flex flex-col md:flex-row gap-3 items-start md:items-center justify-end md:gap-x-3">
+                    <div>
+                        {{-- <select id="auctionSelector" class="form-select">
+                            <option value="">Select Auction Date</option>
+                        </select> --}}
+                    </div>
+                    <!-- Search Input -->
+                    <div>
+                        {{-- <label for="search" class="form-label">Search by Reg</label> --}}
+                        <input type="text" name="search" class="form-control" style="border: 1px solid #2b3b4f;"
+                            placeholder="Enter registration">
                     </div>
 
+                    <!-- Interest Dropdown -->
+                    <div>
+                        {{-- <label class="form-label d-block">Select Interest</label> --}}
+                        <div class="dropdown w-100">
+                            <button class="btn dropdown-toggle w-100 text-start"
+                                style="background-color: #0080ff !important;" type="button" id="interestDropdownBtn"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Select Interest
+                            </button>
+                            <ul class="dropdown-menu w-100" aria-labelledby="interestDropdownBtn" id="interestDropdown">
+                                <li><a class="dropdown-item" data-id="">Select Interest</a></li>
+                                @forelse($interests as $interest)
+                                    <li>
+                                        <a class="" href="#" data-id="{{ $interest->id }}">
+                                            {{ $interest->title }}
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li><span class="dropdown-item text-muted">No interests found</span></li>
+                                @endforelse
+                            </ul>
+                            <input type="hidden" id="selected_interest_id" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card shadow-sm rounded-3 border">
+                <div class="card-body">
                     <!-- Table -->
                     <div class="table-responsive">
                         <table id="blogTable" class="table table-hover align-middle">
@@ -182,7 +178,7 @@
                         d.inprogress_check = $('#inprogress_check').is(':checked') ? 1 : 0;
                         d.interest_id = $('#selected_interest_id').val();
                         d.auction_date = $('#auctionSelector').val();
-                        
+
                     },
                     dataSrc: function(json) {
                         updatePlatformCenterUI(json.platforms, json.centers, json.recordsTotal);
@@ -195,7 +191,7 @@
 
             table.on('draw.dt', function() {
                 var info = table.page.info();
-                
+
                 $('.pageinfo').html(
                     `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`);
             });
@@ -208,12 +204,12 @@
 
             $("select[name='length']").on('change', function() {
                 table.page.len($(this).val()).draw();
-                  showLoader();
+                showLoader();
             }).trigger('change');
 
 
             $('#inprogress_check').on('change', function() {
-                  showLoader();
+                showLoader();
                 table.ajax.reload();
             });
 
@@ -222,13 +218,13 @@
                 e.preventDefault();
                 $('#selected_interest_id').val($(this).data('id'));
                 $('#dropdownMenuButton').text($(this).text());
-                  showLoader();
+                showLoader();
                 table.ajax.reload();
             });
 
 
             $('#auctionSelector').on('change', function() {
-                  showLoader();
+                showLoader();
                 table.ajax.reload();
             });
 
@@ -276,7 +272,7 @@
         $(document).on('click', '.PreviousBtnRec', function() {
             let reg = $(this).data('ref');
             let vehicleId = $(this).data('vehid');
-        
+
             if (!reg) return;
 
             let isUpcoming = $('#Upcoming').is(':checked') ? 1 : 0;
@@ -307,7 +303,7 @@
                     );
 
                     $('#vehicleModalTableBody').empty();
-                    if( current ){
+                    if (current) {
                         let currentRow = `
                                 <tr>
                                     <td style="padding:16px 12px;text-align:left;font-weight:600;font-size:13px;">${current.date}</td>
@@ -325,11 +321,11 @@
                                         High
                                         </span></td>
                                 </tr>`;
-                            $('#currentVehicleModalTableBody').append(currentRow);
-                            $('#regnumber_veh').text(current.reg);
-                            $('#name_veh').text(current.name);
-                            $('#DetailView').attr('href',current.inspection_report);
-                          
+                        $('#currentVehicleModalTableBody').append(currentRow);
+                        $('#regnumber_veh').text(current.reg);
+                        $('#name_veh').text(current.name);
+                        $('#DetailView').attr('href', current.inspection_report);
+
                     }
 
                     if (previous.length === 0) {

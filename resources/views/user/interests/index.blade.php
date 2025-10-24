@@ -24,6 +24,12 @@
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch !important;
         }
+
+        @media (max-width: 425px) {
+            #searchInterest {
+                margin-bottom: 10px !important;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -32,14 +38,38 @@
         <div
             class="absolute inset-0 bg-[radial-gradient(#0080ff_1.5px,transparent_1.2px)] [background-size:16px_16px] opacity-25 pointer-events-none z-0">
         </div>
-        <div class="relative z-10 container mx-auto pt-10">
+        <div class="relative z-10 container mx-auto py-10">
             <h1 class="text-5xl font-bold text-white mb-4 text-left">Personalized for You</h1>
             <p class="text-lg text-gray-300 mx-auto text-left">
                 Save your interests to see matching auctions, stats, and valuations in one place.
             </p>
+            <div class="pt-4">
+                <a href="{{ url('/interest/create') }}" class="btn btn-primary">Create Interest</a>
+            </div>
         </div>
     </div>
-    <div class="container-fluid container-p-y">
+    <div class="container pt-5 space-y-2">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="flex items-center gap-x-2">
+                    <span class="label-muted">Show Entries</span>
+                    <select name="length" class="form-select entries-length"
+                        style="width: 70px; outline: none !important; padding: 7px; border-radius: 6px; border: 1px solid #2b3b4f;">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="500">500</option>
+                    </select>
+                </div>
+                <span class="text-muted ms-2 pageinfo" style="font-size: 0.9rem;"></span>
+            </div>
+            <div class="col-md-2 text-end">
+                <input placeholder="Search.." type="text" class="d-inline form-control" name="search"
+                    style="outline: none !important; padding: 7px; border-radius: 6px; border: 1px solid #2b3b4f;"
+                    id="searchInterest" />
+            </div>
+        </div>
+    </div>
+    <div class="container container-p-y" style="padding-top: 0% !important;">
         <div class="row g-6">
             <div class="col-md-12">
 
@@ -48,36 +78,7 @@
                 @endif
 
                 <div class="card">
-                    <div class="card-header border-bottom">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="card-title ">All Interest</h5>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <a href="{{ url('/interest/create') }}" class="btn btn-primary">Create Interest</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card-body">
-
-                        <div class="row pt-5 space-y-2">
-                            <div class="col-md-8">
-                                <div class="flex items-center gap-x-2">
-                                    <span class="label-muted">Show Entries</span>
-                                    <select name="length" class="form-select entries-length" style="width: 90px;">
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                        <option value="500">500</option>
-                                    </select>
-
-                                </div>
-                                <span class="text-muted ms-2 pageinfo" style="font-size: 0.9rem;"></span>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <input placeholder="Search.." type="text" class="d-inline form-control" name="search" />
-                            </div>
-                        </div>
-
                         <div class="pt-5 table-responsive text-nowrap">
                             <table id="interestTable" class="table">
                                 <thead>
@@ -105,43 +106,42 @@
 
 @section('js')
     <script>
-$(document).ready(function() {
+        $(document).ready(function() {
 
-    if ($.fn.DataTable.isDataTable('#interestTable')) {
-        $('#interestTable').DataTable().destroy();
-    }
-
-    let table = $('#interestTable').DataTable({
-        processing: true,
-        serverSide: true,
-        ordering: false,
-        ajax: {
-            url: "{{ url('/interest') }}",
-            beforeSend: function() {
-                showLoader(); 
-            },
-            complete: function() {
-                hideLoader(); 
+            if ($.fn.DataTable.isDataTable('#interestTable')) {
+                $('#interestTable').DataTable().destroy();
             }
-        },
-    });
 
-    table.on('draw.dt', function() {
-        var info = table.page.info();
-        $('.pageinfo').html(
-           
-        );
-    });
+            let table = $('#interestTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: false,
+                ajax: {
+                    url: "{{ url('/interest') }}",
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    complete: function() {
+                        hideLoader();
+                    }
+                },
+            });
 
-    $("input[name='search']").on('keyup change', function() {
-        table.search(this.value).draw();
-    });
+            table.on('draw.dt', function() {
+                var info = table.page.info();
+                $('.pageinfo').html(
 
-    $("select[name='length']").on('change', function() {
-        const length = $(this).val();
-        table.page.len(length).draw();
-    }).trigger('change');
-});
+                );
+            });
 
+            $("input[name='search']").on('keyup change', function() {
+                table.search(this.value).draw();
+            });
+
+            $("select[name='length']").on('change', function() {
+                const length = $(this).val();
+                table.page.len(length).draw();
+            }).trigger('change');
+        });
     </script>
 @endsection

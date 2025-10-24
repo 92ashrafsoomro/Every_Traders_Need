@@ -333,6 +333,11 @@
         .nav-item {
             margin-right: 10px;
         }
+
+        .auction-table tr:hover {
+            cursor: pointer;
+            background-color: #0f1c2c !important;
+        }
     </style>
 @endsection
 @section('content')

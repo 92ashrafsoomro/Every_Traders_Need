@@ -102,124 +102,207 @@ class DashboardController extends Controller
 
     
 
-     public function getTotalAuctions(Request $request)
-    {
+    //  public function getTotalAuctions(Request $request)
+    // {
 
-        $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-        ->select([
-            DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
-             DB::raw("COUNT(DISTINCT CASE WHEN auctions.auction_type = 'Time Auction' THEN auctions.id END) as time_auctions"),
-            DB::raw("COUNT(DISTINCT CASE WHEN auctions.status = 'In Progress' THEN auctions.id END) as inprogress_auctions"),
-            DB::raw("COUNT(vehicles.id) as total_vehicles"),
-            DB::raw("COUNT(CASE WHEN auctions.status = 'In Progress' THEN vehicles.id END) as inprogress_vehicles"),
-            DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'On Sale' THEN vehicles.id END) as onsale_vehicles"),
-            DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
-            DB::raw("COUNT(*) - COUNT(DISTINCT vehicle_id) as duplicate_vehicles")
-        ]);
-
-
-        if($request->type == 'Intrest'){
-            $intrest = Auth::user()->intrest->where('status','1')->first();
-            if($intrest){
-                $data = $data->where('vehicles.make_id',$intrest->make_id);
-                $data = $data->where('vehicles.model_id',$intrest->model_id);
-                $data = $data->where('vehicles.variant_id',$intrest->variant_id);
-            }
-        }
+    //     $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+    //     ->select([
+    //         DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
+    //          DB::raw("COUNT(DISTINCT CASE WHEN auctions.auction_type = 'Time Auction' THEN auctions.id END) as time_auctions"),
+    //         DB::raw("COUNT(DISTINCT CASE WHEN auctions.status = 'In Progress' THEN auctions.id END) as inprogress_auctions"),
+    //         DB::raw("COUNT(vehicles.id) as total_vehicles"),
+    //         DB::raw("COUNT(CASE WHEN auctions.status = 'In Progress' THEN vehicles.id END) as inprogress_vehicles"),
+    //         DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'On Sale' THEN vehicles.id END) as onsale_vehicles"),
+    //         DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
+    //         DB::raw("COUNT(*) - COUNT(DISTINCT vehicle_id) as duplicate_vehicles")
+    //     ]);
 
 
-        $data = $data->first();
-        $data['sold_vehicles'] =   $data['onsale_vehicles'] +  $data['provisional_vehicles'];
-        return response()->json($data,200);
+    //     if($request->type == 'Intrest'){
+    //         $intrest = Auth::user()->intrest->where('status','1')->first();
+    //         if($intrest){
+    //             $data = $data->where('vehicles.make_id',$intrest->make_id);
+    //             $data = $data->where('vehicles.model_id',$intrest->model_id);
+    //             $data = $data->where('vehicles.variant_id',$intrest->variant_id);
+    //         }
+    //     }
 
+
+    //     $data = $data->first();
+    //     $data['sold_vehicles'] =   $data['onsale_vehicles'] +  $data['provisional_vehicles'];
+    //     return response()->json($data,200);
+
+    // }
+
+ 
+ public function getTotalAuctions(Request $request)
+{
+    $now = Carbon::today();
+
+    // 🔹 Base vehicle query for today and upcoming auctions
+    $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        ->whereDate('auctions.auction_date', '>=', $now);
+
+    // 🔹 Optional filters
+    if ($request->make_id) {
+        $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
+    }
+    if ($request->model_id) {
+        $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
+    }
+    if ($request->year) {
+        $vehicleBaseQuery->where('vehicles.year', $request->year);
+    }
+    if ($request->grade) {
+        $vehicleBaseQuery->where('vehicles.grade', $request->grade);
     }
 
-      public function vehicleStates()
-    {
+    // 🔹 Stats
+    $totalVehicles = (clone $vehicleBaseQuery)->count();
 
-        $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')->select([      
+    $soldVehicles = (clone $vehicleBaseQuery)
+        ->where('bidding_status', 'sold')
+        ->count();
+
+    $unsoldVehicles = (clone $vehicleBaseQuery)
+        ->where('bidding_status', 'Not sold')
+        ->count();
+
+    $totalAuctions = (clone $vehicleBaseQuery)
+        ->distinct('auction_id')
+        ->count('auction_id');
+
+    $onlineAuctions = (clone $vehicleBaseQuery)
+        ->where('auction_type', 'Online Auction')
+        ->distinct('auction_id')
+        ->count('auction_id');
+
+    $offlineAuctions = (clone $vehicleBaseQuery)
+        ->where('auction_type', 'Time Auction')
+        ->distinct('auction_id')
+        ->count('auction_id');
+
+    $totalVehiclesInProgress = (clone $vehicleBaseQuery)
+        ->where('auctions.status', 'In Progress')
+        ->count();
+
+    $vehiclesInProgress = (clone $vehicleBaseQuery)
+        ->where('auctions.status', 'In Progress')
+        ->get(['vehicles.id']);
+
+    $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
+
+    // 🔹 Find vehicles reappearing in future auctions
+    $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        ->whereDate('auctions.auction_date', '<', $now)
+        ->pluck('vehicles.reg')
+        ->toArray();
+
+    $vehiclesInReauction = (clone $vehicleBaseQuery)
+        ->whereIn('vehicles.reg', $pastVehicleRegs)
+        ->count();
+
+    // 🔹 Return final response
+    return response()->json([
+        'success' => true,
+        'stats' => [
+            'total_auctions' => $totalAuctions,
+            'online_auctions' => $onlineAuctions,
+            'offline_auctions' => $offlineAuctions,
+            'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
+            'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
+            'total_vehicles' => $totalVehicles,
+            'sold_vehicles' => $soldVehicles,
+            'unsold_vehicles' => $unsoldVehicles,
+            'vehicles_in_reauction' => $vehiclesInReauction,
+        ],
+    ], 200);
+}
+ 
+    public function vehicleStates()
+{
+    $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        // 🟢 Only include auctions happening today or later
+        ->whereDate('auctions.auction_date', '>=', Carbon::today())
+        ->select([
             DB::raw("COUNT(vehicles.id) as total_vehicles"),
             DB::raw("COUNT(CASE WHEN auctions.status = 'Not sold' THEN vehicles.id END) as inprogress_vehicles"),
             DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Sold' THEN vehicles.id END) as onsale_vehicles"),
             DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
-            DB::raw("COUNT(*) - COUNT(DISTINCT vehicle_id) as duplicate_vehicles")
-        ])->first();
-          
-        $data['sold_vehicles'] =   $data['onsale_vehicles'] +  $data['provisional_vehicles'];
+            DB::raw("COUNT(*) - COUNT(DISTINCT vehicles.id) as duplicate_vehicles")
+        ])
+        ->first();
 
-        return response()->json($data,200);
+    // 🧩 Calculate sold_vehicles dynamically
+    $data->sold_vehicles = $data->onsale_vehicles + $data->provisional_vehicles;
 
+    return response()->json($data, 200);
+}
+
+
+
+public function getOnlineAuctions(Request $request)
+{
+    DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+
+    $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+        ->join('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+        ->where('auctions.auction_type', 'Online Auction')
+        // 🟢 Show auctions ending today or later
+        ->whereDate('auctions.auction_date', '>=', Carbon::today());
+
+    if ($request->has('platform_id') && $request->platform_id != '') {
+        $data = $data->whereIn('auction_platform.id', $request->platform_id);
     }
 
+    $data = $data->select([
+        "auction_platform.id",
+        "auction_platform.name",
+        DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
+        DB::raw("COUNT(CASE WHEN auctions.status = 'Update' THEN auctions.id END) as complete_auctions"),
+        DB::raw("COUNT(DISTINCT vehicles.id) as vehicles_total"),
+        DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'On Sale' THEN vehicles.id END) as onsale_vehicles"),
+        DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
+    ])
+    ->groupBy('auction_platform.id')
+    ->get();
 
-      public function getOnlineAuctions(Request $request)
-    {
+    return response()->json($data, 200);
+}
 
-        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+public function getTimeAuctions(Request $request)
+{
+    DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
-        $data = Vehicle::join('auctions','auctions.id', '=', 'vehicles.auction_id')
+    $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
         ->join('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-        ->where('auctions.auction_type','Online Auction');
+        ->where('auctions.auction_type', 'Time Auction')
+        // 🟢 Show auctions ending today or later
+        ->whereDate('auctions.auction_date', '>=', Carbon::today());
 
-        if($request->has('platform_id') && $request->platform_id != ''){
-            $data = $data->whereIn('auction_platform.id',$request->platform_id);
-        }
-
-        $data = $data->select([
-          "auction_platform.id",
-          "auction_platform.name",
-          DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
-          DB::raw("COUNT(CASE WHEN auctions.status = 'Update' THEN auctions.id END) as complete_auctions"),
-          
-          DB::raw("COUNT(DISTINCT vehicles.id) as vehicles_total"),
-          DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'On Sale' THEN vehicles.id END) as onsale_vehicles"),
-          DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
-        ])
-        ->groupBy('auction_platform.id')
-        ->get();
-
-        return response()->json($data,200);
-
+    if ($request->has('platform_id') && $request->platform_id != '') {
+        $data = $data->whereIn('auction_platform.id', $request->platform_id);
     }
 
-
-          public function getTimeAuctions(Request $request)
-    {
-
-        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
-
-        $data = Vehicle::join('auctions','auctions.id', '=', 'vehicles.auction_id')
-        ->join('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-        ->where('auctions.auction_type','Time Auction');
-
-
-        if($request->has('platform_id') && $request->platform_id != ''){
-            $data = $data->whereIn('auction_platform.id',$request->platform_id);
-        }
-
-        $data = $data->select([
-          "auction_platform.id",
-          "auction_platform.name",
-          
-          DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
-          "auctions.end_date",
-        ])
-        ->groupBy('auction_platform.id')
-        ->get()
-        ->map(function ($row) {
+    $data = $data->select([
+        "auction_platform.id",
+        "auction_platform.name",
+        DB::raw("COUNT(DISTINCT auctions.id) as total_auctions"),
+        "auctions.end_date",
+    ])
+    ->groupBy('auction_platform.id')
+    ->get()
+    ->map(function ($row) {
         if ($row->end_date) {
             $row->end_date = "<span>" . date('d-m-Y', strtotime($row->end_date)) . "</span><br><span>" . date('h:i A', strtotime($row->end_date)) . "</span>";
         } else {
             $row->end_date = "<span>N/A</span>";
         }
+        return $row;
+    });
 
-            return $row;
-        });
-        
-
-        return response()->json($data,200);
-
-    }
+    return response()->json($data, 200);
+}
 
 
       public function onlineAuctions(Request $request)

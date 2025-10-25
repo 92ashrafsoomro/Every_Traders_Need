@@ -48,13 +48,17 @@
                                 <div class="mb-3">
                                     <label class="form-label" >Audience</label>
                                     <select name="audience" class="form-control">
-                                        <option>All Members</option>
-                                        <option>Membership Package 1 users</option>
-                                        <option>Membership Package 2 users</option>
-                                        <option>Membership Package 3 users</option>
-                                        <option>Membership Package 4 users</option>
-                                        <option>Business Owners</option>
+                                        <option value="all">All Members</option>
+
+                                        @foreach ($audiences as $audience)
+                                            <option value="{{ $audience->plan_name }}">
+                                                {{ $audience->plan_name }}
+                                            </option>
+                                        @endforeach
+
+                                       
                                     </select>
+
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Subject</label>
@@ -86,7 +90,33 @@
 @endsection
 @section('js')
     <script>
- 
+ $(document).ready(function() {
+    $('#alertForm').on('submit', function(e) {
+        e.preventDefault(); // stop normal form submit
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            url: "{{ route('alerts.store') }}", // route to store alert
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                    alert(response.success);
+                    $('#alertForm')[0].reset(); // clear form
+                } else if (response.error) {
+                    alert('Error: ' + response.error);
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                alert('Something went wrong. Check console for details.');
+            }
+        });
+    });
+});
     </script>
 @endsection
 

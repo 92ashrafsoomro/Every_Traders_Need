@@ -88,6 +88,10 @@ class VehicleController extends Controller
             if ($request->has('variants_id') && $request->variants_id != '') {
                 $query->where('vehicles.variant_id',  $request->variants_id);
             }
+            if ($request->filled('reg')) {
+                $query->where('vehicles.reg', 'like', '%' . $request->reg . '%');
+            }
+
                 
 
                   

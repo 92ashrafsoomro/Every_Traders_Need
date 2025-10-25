@@ -34,8 +34,8 @@ class AuctionController extends Controller
     {
 
             $search = $request->input('q');
-            $auctions = Auctions::where('name', 'like', "%$search%")
-                ->select('id', 'name as text')
+            $auctions = Auctions::where('table_id', 'like', "%$search%")
+                ->select('id', 'table_id as text')
                 ->limit(20)
                 ->get();
 

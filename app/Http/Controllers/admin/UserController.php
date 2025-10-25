@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\MembershipPlan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use DataTables;
@@ -358,4 +359,16 @@ class UserController extends Controller
 
         return redirect('/admin/members')->with('success', 'User status updated.');
     }
+
+        public function getmembers(Request $request)
+  {
+
+        $search = $request->input('q');
+        $models = MembershipPlan::where('plan_name', 'like', "%$search%")
+            ->select('id', 'plan_name as text')
+            ->limit(20)
+            ->get();
+
+        return response()->json(['results' => $models]);
+  }
 }

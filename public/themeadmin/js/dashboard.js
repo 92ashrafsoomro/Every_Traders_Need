@@ -115,32 +115,36 @@ Intrest.loadIntrest = function () {
 
 
     // getTotalAuctions____________________________________________________________________________
-    global.getTotalAuctions = function () {
+global.getTotalAuctions = function () {
+    $.ajax({
+        url: path + "/dashboard/getTotalAuctions",
+        dataType: "json",
+        data: {
+            type: $('#myTab .nav-link.active').text(),
+        },
+        beforeSend: function () {
+            $('.total_auctions, .online_auctions, .time_auctions, .inprogress_auctions, .inprogress_vehicles, .onsale_vehicles, .total_vehicles, .provisional_vehicles, .duplicate_vehicles, .sold_vehicles')
+                .text('...');
+        },
+        success: function (response) {
+            const stats = response.stats ?? {};
 
-        
-        $.ajax({
-            url:path+"/dashboard/getTotalAuctions",
-            dataType: "json",
-             data:{
-               type: $('#myTab .nav-link.active').text(),
-            },
-            success: function (response) {
-
-                $('.total_auctions').text(response.total_auctions);
-                $('.online_auctions').text(response.online_auctions);
-                $('.time_auctions').text(response.time_auctions);
-                $('.inprogress_auctions').text(response.inprogress_auctions);
-                $('.inprogress_vehicles').text(response.inprogress_vehicles);
-                $('.onsale_vehicles').text(response.onsale_vehicles);
-                $('.total_vehicles').text(response.total_vehicles);
-                $('.provisional_vehicles').text(response.provisional_vehicles);
-                $('.duplicate_vehicles').text(response.duplicate_vehicles);
-                $('.sold_vehicles').text(response.sold_vehicles);
-
-            }
-        });
-
-    }
+            $('.total_auctions').text(stats.total_auctions ?? 0);
+            $('.online_auctions').text(stats.online_auctions ?? 0);
+            $('.time_auctions').text(stats.offline_auctions ?? 0); 
+            $('.inprogress_auctions').text(stats.vehicles_in_progress_auctions ?? 0);
+            $('.inprogress_vehicles').text(stats.totalVehiclesInProgress ?? 0);
+            $('.onsale_vehicles').text(stats.sold_vehicles ?? 0);
+            $('.total_vehicles').text(stats.total_vehicles ?? 0);
+            $('.provisional_vehicles').text(stats.unsold_vehicles ?? 0);
+            $('.duplicate_vehicles').text(stats.vehicles_in_reauction ?? 0);
+            $('.sold_vehicles').text(stats.sold_vehicles ?? 0);
+        },
+        error: function (xhr) {
+            console.error("Error loading total auctions:", xhr.responseText);
+        }
+    });
+};
 
 
     // getOnlineAuctions____________________________________________________________________________________

@@ -119,6 +119,16 @@
             }
         });
 
+        $('.memberships').select2({
+            placeholder: 'Select Memberships',
+            allowClear: true,
+            ajax: {
+               url: "{{ url('/admin/members/getmembers') }}",
+                dataType: 'json',
+            }
+        });
+
+
         $(".menu-button").click(function(e) {
 
             if (!$('html').hasClass('layout-menu-collapsed')) {

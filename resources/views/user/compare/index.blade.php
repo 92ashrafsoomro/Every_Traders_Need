@@ -309,7 +309,7 @@
 
         <div class="container relative overflow-hidden">
             <div class="table-section" style="position: relative; padding: 0px !important;">
-                <div class="flex items-center justify-between py-5">
+                <div class="hidden items-center justify-between py-5" id="silderbtn">
                     <button class="w-8 h-8 bg-[#0080ff] rounded-full flex items-center justify-center gap-x-2"
                         id="prev-btn" onclick="scrollTable(-200)">
                         <span class="material-symbols-outlined text-sm -mr-1">arrow_back_ios</span></button>

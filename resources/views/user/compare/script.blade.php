@@ -35,7 +35,8 @@
 
                     let headRow = $('#comparison-head');
                     headRow.empty();
-
+                    $('#silderbtn').removeClass('hidden');
+                    $('#silderbtn').addClass('flex');
                     headRow.append(
                         `<th style="min-width: 180px; padding: 10px; text-align: left;"></th>`);
                     let vehicleIds = [];

@@ -44,7 +44,7 @@ use Illuminate\Support\Facades\URL;
 
             $totalData = clone $query;
             $data = $query->select('vehicle_type.*',)
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->offset($start)
             ->limit($length)
             ->get()
@@ -79,17 +79,21 @@ use Illuminate\Support\Facades\URL;
 
     public function create()
     {
-        return view('admin.masters.vehicletypes.create');
+        $lastVehicleType = VehicleType::latest('id')->first();
+        $nextId = $lastVehicleType ? $lastVehicleType->id + 1 : 1;
+        return view('admin.masters.vehicletypes.create',compact('nextId'));
     }
 
     public function store(Request $request)
     {
 
          $request->validate([
+            'id' => 'required|integer',
             'name' => 'required|string|max:255',
         ]);
 
         VehicleType::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

@@ -56,7 +56,7 @@ class CenterController extends Controller
             $data = $query->select([
                 'auction_center.*',
             ])
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->offset($start)
             ->limit($length)
             ->get()
@@ -92,17 +92,21 @@ class CenterController extends Controller
 
     public function create()
     {
-        return view('admin.masters.centers.create');
+         $lastAuctionCenter = AuctionCenter::latest('id')->first();
+        $nextId = $lastAuctionCenter ? $lastAuctionCenter->id + 1 : 1;
+        return view('admin.masters.centers.create',compact('nextId'));
     }
 
     public function store(Request $request)
     {
 
         $request->validate([
+             'id' => 'required|integer',
             'name' => 'required|string|max:255',
         ]);
-
+        
         AuctionCenter::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

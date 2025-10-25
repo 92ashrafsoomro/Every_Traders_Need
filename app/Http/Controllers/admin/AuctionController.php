@@ -141,27 +141,64 @@ class AuctionController extends Controller
     
 
 
+    // private function csvRowsToAssociativeArray(array $rows): array
+    // {
+    //     if (count($rows) < 2) {
+    //         return []; // No data
+    //     }
+
+    //     // Clean headers: trim, lowercase, replace spaces with underscores
+    //     $headers = array_map(function ($header) {
+    //         return strtolower(str_replace(' ', '_', trim($header)));
+    //     }, $rows[0]);
+
+    //     $result = [];
+
+    //     foreach (array_slice($rows, 1) as $row) {
+    //         if (count($row) === count($headers)) {
+    //             $result[] = array_combine($headers, $row);
+    //         }
+    //     }
+
+    //     return $result;
+    // }
+
+
     private function csvRowsToAssociativeArray(array $rows): array
-    {
-        if (count($rows) < 2) {
-            return []; // No data
-        }
+{
+    if (count($rows) < 2) {
+        return []; // No data
+    }
 
-        // Clean headers: trim, lowercase, replace spaces with underscores
-        $headers = array_map(function ($header) {
-            return strtolower(str_replace(' ', '_', trim($header)));
-        }, $rows[0]);
+ 
+    $headers = array_map(function ($header) {
+        return strtolower(str_replace(' ', '_', trim($header)));
+    }, $rows[0]);
 
-        $result = [];
+    $result = [];
 
-        foreach (array_slice($rows, 1) as $row) {
-            if (count($row) === count($headers)) {
-                $result[] = array_combine($headers, $row);
+    foreach (array_slice($rows, 1) as $row) {
+    
+        $row = array_map(fn($value) => trim($value), $row);
+
+
+        $allNull = true;
+        foreach ($row as $cell) {
+            if ($cell !== '' && $cell !== null) {
+                $allNull = false;
+                break;
             }
         }
+        if ($allNull) continue;
 
-        return $result;
+  
+        if (count($row) === count($headers)) {
+            $result[] = array_combine($headers, $row);
+        }
     }
+
+    return $result;
+}
 
 
 
@@ -219,10 +256,10 @@ class AuctionController extends Controller
                 $rows = array_map('str_getcsv', explode("\n", $csv));
                 $rows = $this->csvRowsToAssociativeArray($rows);
                 
+             
         
                 foreach ($rows as $key => $data) {
 
-                 
                         $vehicle = Vehicle::create([
 
                                 'auction_id' => $auction->id,
@@ -233,7 +270,7 @@ class AuctionController extends Controller
                                 'model_id' => $this->checkModel($data['model_id'] ?? null),
                                 'variant_id' => $this->checkVariant($data['variant_id'] ?? null),
                                 'body_id' => $this->checkBodyType($data['body_id']  ?? null),
-                                'color_id' => $this->checkColor($data['colour_id'] ?? null),
+                                'colorname' => $data['colour'] ?? null,
                                 'center_id' => $this->checkCenter($data['center'] ?? null),
 
                                 'year' => $data['year'] ?? null,

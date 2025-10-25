@@ -12,6 +12,7 @@ class AuctionCenter extends Model
     protected $table = 'auction_center';
 
     protected $fillable = [
+        'id',
         'name',
         'auction_platform_id',
     ];

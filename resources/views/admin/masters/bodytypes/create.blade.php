@@ -43,6 +43,17 @@
                     <div class="card-body">
                            <form action="{{url('/admin/masters/bodytypes')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $nextId }}">
+
+
+                               <div class="alert alert-primary mt-3 shadow-sm border-0 rounded-3 d-flex align-items-center" 
+                                    style="background: linear-gradient(135deg, #007bff, #0056d2); color: #fff;">
+                                    <i class="bi bi-hash me-2" style="font-size: 1.4rem;"></i>
+                                    <div>
+                                        <strong>Next ID:</strong> {{ $nextId }}
+                                    </div>
+                                </div>
+
 
                                 <div class="row">
                                     <div class="col-md-12">

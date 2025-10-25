@@ -54,16 +54,16 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
         Route::get('/masters/platforms/getPlatforms', [PlatformController::class,'getPlatforms']);
         Route::get('/masters/platforms/getPlatformshouse', [PlatformController::class,'getPlatformshouse']);
         Route::resource('masters/platforms',PlatformController::class);
-
+        
         Route::get('/masters/centers/getCenters', [CenterController::class,'getCenters']);
         Route::resource('masters/centers',CenterController::class);
-
+        
         Route::get('/masters/colours/getColours', [ColorController::class,'getColours']);
         Route::resource('masters/colours',ColorController::class);
-
+        
         Route::get('/masters/bodytypes/getBodyTypes', [BodyTypeController::class,'getBodyTypes']);
         Route::resource('masters/bodytypes',BodyTypeController::class);
-
+        
         Route::get('/masters/vehicletypes/getVehicleTypes', [VehicleTypeController::class, 'getVehicleTypes']);
         Route::resource('masters/vehicletypes',VehicleTypeController::class);
         
@@ -86,7 +86,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::get('/', [AuctionController::class, 'index']);
             Route::get('/viewCsv/{id}', [AuctionController::class,'viewCsv']);
             Route::get('/create', [AuctionController::class, 'create']);
-        
+            
             Route::post('/', [AuctionController::class, 'store']);
             Route::get('/{auction}/edit', [AuctionController::class, 'edit']);
             Route::put('/{auction}', [AuctionController::class, 'update']);
@@ -95,7 +95,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::get('/ajax/get', [AuctionController::class, 'getAjaxData']);
             Route::get('/ajax/platform/{id}/centers', [AuctionController::class,'getCentersByPlatform']);
         });
-
+        
 
         //Plans
         Route::prefix('plans')->group(function () {
@@ -105,13 +105,13 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::put('/update/{plan}', [PlanController::class, 'update']);
             Route::get('/sort', [PlanController::class, 'sort']);
             Route::post('/sort', [PlanController::class, 'updateOrder'])->name('admin.plans.updateOrder');
-
+            
             Route::get('/{plan}/edit', [PlanController::class, 'edit']);
-        
+            
             Route::delete('/{plan}', [PlanController::class, 'destroy']);
             Route::get('/ajax/get', [PlanController::class, 'getAjaxData']);
         });
-
+        
 
         //Tickets
         Route::prefix('tickets')->group(function () {
@@ -133,7 +133,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::post('/{id}/destroy', [MembershipController::class, 'destroy']);
         });
 
-
+        
         // Blog Categories (CRUD)
         Route::prefix('blogcategories')->group(function () {
             Route::get('/', [BlogCategoryController::class, 'index']);
@@ -144,7 +144,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::delete('/{blogcategory}', [BlogCategoryController::class, 'destroy']);
         });
 
-
+        
         // Blogs (CRUD with AJAX)
         Route::middleware('auth')->prefix('blogs')->name('blogs.')->group(function () {
             Route::get('/', [AdminBlogController::class, 'index']);
@@ -156,7 +156,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::delete('/{blog}', [AdminBlogController::class, 'destroy']);
             Route::post('/upload-image', [AdminBlogController::class, 'uploadImage']);
         });
-
+        
 
         //Vehicles
         Route::get('/vehicles', [VehicleController::class,'index']);
@@ -168,9 +168,9 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
         Route::get('/vehicles/show/{id}', [VehicleController::class, 'show']);
         // Route::get('/admin/vehicles/show/{id}/vehicle_details', [AVehicleController::class, 'vehicleDetails']);
         // Route::get('/admin/vehicles/show/{id}/vehicle_valuation', [AVehicleController::class, 'vehicleValuation']);
-            
         
-
+        
+        
         //News
         Route::prefix('news')->name('admin.news.')->group(function () {
             Route::get('/', [AdminNewscrudController::class, 'index']);
@@ -181,9 +181,9 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::put('/{news}', [AdminNewscrudController::class, 'update']);
             Route::delete('/{news}', [AdminNewscrudController::class, 'destroy']);
         });
-
+        
         //News categories
-
+        
         Route::prefix('ncategories')->group(function () {
             Route::get('/', [AdminNewsCategoryController::class, 'index']);
             Route::get('/create', [AdminNewsCategoryController::class, 'create']);
@@ -192,9 +192,9 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::put('/{newsCategory}', [AdminNewsCategoryController::class, 'update']);
             Route::delete('/{newsCategory}', [AdminNewsCategoryController::class, 'destroy']);
         });
-
-
-
+        
+        
+        
         //Alerts
         Route::prefix('alerts')->middleware('auth')->name('alerts.')->group(function () {
             Route::get('/', [AlertController::class, 'index'])->name('index');
@@ -206,7 +206,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
             Route::get('/ajax/data', [AlertController::class, 'ajaxData'])->name('ajax');
         });
 
-
+        
         Route::prefix('role')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('role.index');
             Route::get('/create', [RoleController::class, 'create'])->name('create');
@@ -221,7 +221,7 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
         Route::prefix('activity')->group(function () {
             Route::get('/', [ActivityController::class, 'index'])->name('role.index');
         });
-
+        
 
         //Members
         Route::get('members', [UserController::class, 'index']);
@@ -232,8 +232,9 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function () {
         Route::post('members/{id}/update', [UserController::class, 'update']);
         Route::get('members/{id}/delete', [UserController::class, 'destroy']);
         Route::get('members/{id}/status/{status}', [UserController::class, 'updateStatus'])->name('admin.members.status');
-
-
+        Route::get('members/getmembers', [UserController::class,'getmembers']);
+        
+        
         //Users
         Route::get('users', [AdminUserController::class, 'index'])->name('admin.users.index');
         Route::get('users-data', [AdminUserController::class, 'getData']);

@@ -115,6 +115,13 @@
                                                 </select>
                                         </div>
                                    </div>
+                                  <div class="col-md-4 py-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="reg">Regrastion Number</label>
+                                        <input type="text" name="reg" id="reg" class="form-control" placeholder="Enter Regrastion number" required>
+                                    </div>
+                                </div>
+
                                    <div class="col-md-4 pt-8" > 
                                 <button type="button" id="searchBtn" class="btn btn-primary">Search</button>
                             </div>
@@ -196,6 +203,7 @@
                             d.make_id = $('#make_id').val();
                             d.model_id = $('#model_id').val();
                             d.variants_id = $('#variants_id').val();
+                            d.reg = $('#reg').val();
                             
                         }
                     }

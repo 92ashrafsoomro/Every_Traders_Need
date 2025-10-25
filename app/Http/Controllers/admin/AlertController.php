@@ -8,7 +8,7 @@ use App\Models\Alert;
 use App\Models\AlertUserView;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-
+use App\Models\MembershipPlan;
 class AlertController extends Controller
 {
     public function index(Request $request)
@@ -77,7 +77,8 @@ class AlertController extends Controller
 
     public function create()
     {
-        return view('admin.alerts.create');
+        $audiences = MembershipPlan::all();
+        return view('admin.alerts.create' , compact('audiences'));
     }
 
     public function store(Request $request)
@@ -89,8 +90,8 @@ class AlertController extends Controller
         'file' => 'nullable|file'
     ]);
 
-    // Add the created_by field with the authenticated user's ID
-    $data['created_by'] = auth()->id(); // assuming you're using Laravel's built-in auth system
+   
+    $data['created_by'] = auth()->id();
 
     if ($request->hasFile('file')) {
         $fileName = time() . '_' . $request->file('file')->getClientOriginalName();
@@ -107,7 +108,8 @@ class AlertController extends Controller
     public function edit($id)
     {
         $alert = Alert::findOrFail($id);
-        return view('admin.alerts.edit', compact('alert'));
+        $audiences = MembershipPlan::all();
+        return view('admin.alerts.edit', compact('alert','audiences'));
     }
 
     public function update(Request $request, $id)

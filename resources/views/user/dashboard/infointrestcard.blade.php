@@ -37,7 +37,7 @@
                 <span style="color:#8b92a9;">Vehicle:</span>
                 <span style="color:#ffffff;font-weight:600;" id="totalVehicles">0</span>
             </div>
-            <a href="#" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
+            <a href="{{ url('/auctionscheduler') }}" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
                 <span style="color:#8b92a9;">NotSold:</span>
                 <span style="color:#ffffff;font-weight:600;" id="unsoldVehicles">0</span>
             </div>
-            <a href="#" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
+            <a href="{{ url('/reauction') }}" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
         </div>
     </div>
 
@@ -77,7 +77,7 @@
                 <span style="color:#8b92a9;">Vehicle:</span>
                 <span style="color:#ffffff;font-weight:600;" id="vehiclesInReauction">0</span>
             </div>
-            <a href="#" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
+            <a href="{{ url('/auction-finder') }}" style="color:#0d6efd;text-decoration:none;font-weight:600;font-size:12px;cursor:pointer;transition:color 0.2s;">View</a>
         </div>
     </div>
 </div>

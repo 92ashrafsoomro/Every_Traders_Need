@@ -50,12 +50,13 @@
                                 <div class="">
                                     <label class="form-label" >Audience</label>
                                     <select name="audience" class="form-control">
-                                        <option {{ $alert->audience == 'All Members' ? 'selected' : '' }}>All Members</option>
-                                        <option {{ $alert->audience == 'Membership Package 1 users' ? 'selected' : '' }}>Membership Package 1 users</option>
-                                        <option {{ $alert->audience == 'Membership Package 2 users' ? 'selected' : '' }}>Membership Package 2 users</option>
-                                        <option {{ $alert->audience == 'Membership Package 3 users' ? 'selected' : '' }}>Membership Package 3 users</option>
-                                        <option {{ $alert->audience == 'Membership Package 4 users' ? 'selected' : '' }}>Membership Package 4 users</option>
-                                        <option {{ $alert->audience == 'Business Owners' ? 'selected' : '' }}>Business Owners</option>
+                                        <option value="all">All Members</option>
+                                        @foreach ($audiences as $audience)
+                                            <option value="{{ $audience->plan_name }}" 
+                                                {{ $alert->audience == $audience->plan_name ? 'selected' : '' }}>
+                                                {{ $audience->plan_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
 

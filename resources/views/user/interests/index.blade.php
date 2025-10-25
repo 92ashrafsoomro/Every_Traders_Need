@@ -30,6 +30,15 @@
                 margin-bottom: 10px !important;
             }
         }
+
+        .table-border-bottom-0 tr:hover {
+            cursor: pointer;
+            background-color: #0f1c2c !important;
+        }
+
+        #blogTable tbody tr:hover {
+            background-color: #0f1c2c !important;
+        }
     </style>
 @endsection
 @section('content')

@@ -311,8 +311,6 @@
             background-color: #0080ff;
             width: 100px;
             height: 40px;
-            /* margin-bottom: 20px; */
-            /* border: 1px solid white; */
         }
 
         .filterslabel {
@@ -334,7 +332,7 @@
             margin-right: 10px;
         }
 
-        .auction-table tr:hover {
+        .auction-table-tbody tr:hover {
             cursor: pointer;
             background-color: #0f1c2c !important;
         }
@@ -371,7 +369,7 @@
     </div>
 
     <div class="py-5 container-fluid filter">
-        <div class="row filterslabelrow" style="margin-bottom: 5px;">
+        <div class="row filterslabelrow">
             <div class="col-md-3 filterslabel" style=" width: 22.5%;">
                 <div class="d-flex justify-content-between align-items-start px-1 pt-1">
                     <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
@@ -444,7 +442,7 @@
                             <thead>
 
                             </thead>
-                            <tbody></tbody>
+                            <tbody class="auction-table-tbody"></tbody>
                         </table>
                     </div>
 

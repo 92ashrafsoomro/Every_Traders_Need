@@ -4,6 +4,11 @@
 @endpush
 @section('css')
     @include('user.auctionscheduler.style')
+    <style>
+        #table-border-bottom-0 tr:hover {
+            background-color: #0f1c2c !important;
+        }
+    </style>
 @endsection
 @section('content')
     <script src="https://cdn.tailwindcss.com"></script>

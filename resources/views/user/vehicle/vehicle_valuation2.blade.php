@@ -1,218 +1,302 @@
 {{-- Vehicle Valuation --}}
-
-
 <style>
-    .main-div {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
+    .valuation-container {
+        padding: 20px 120px;
         min-height: 100vh;
-        max-width: 1600px;
-        margin: 0 auto;
-        color: #fff;
-        font-family: Arial, sans-serif;
+    }
+
+    .valuation-card {
+        background: #000F21;
+        border: 1px solid #2a3050;
+        border-radius: 12px;
+        padding: 20px;
+        height: 100%;
+    }
+
+    .autoBoli-suggestion .upperPart-suggestion {
+        background-color: #0080FF !important;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding: 20px 30px;
+    }
+
+    .autoBoli-suggestion .lowerPart-suggestion {
+        background: #011E3D;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 10px 30px;
+    }
+
+    .autoBoli-suggestion h6 {
+        color: #0e1b2b !important;
+        font-weight: 600 !important;
+    }
+
+    .vehicle-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px;
+        background: #1a1f3a;
+    }
+
+    @media (max-width: 992px) {
+        .valuation-container {
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .valuation-container .row>div {
+            margin-bottom: 20px;
+        }
+    }
+
+
+
+    /* AccuracyBar Div */
+    .accuracy-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #b9c1d2;
+    }
+
+    .progress {
+        background-color: #1a2634;
+        height: 50px;
+        /* 🔥 Increased height */
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-start;
+        border: 1px solid #343E4B;
+    }
+
+    .progress-bar {
+        background-color: #007bff;
+        width: 90%;
+        height: 100%;
+        border-radius: 10px !important;
     }
 </style>
 
+<div class="container-fluid valuation-container">
+    <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="d-flex flex-column h-100 justify-content-between">
 
-<div class="main-div">
-    <div style="display:flex;flex-direction:column;gap:20px;">
-        <div
-            style="background:linear-gradient(135deg,#0066ff 0%,#1a7fff 100%);border:none;border-radius:12px;padding:20px;">
-            <h2 style="font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:12px;">AUTOBOLI SUGGESTION</h2>
-            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;">
-                <span style="font-size:32px;font-weight:700;">£14,000</span>
-                <span
-                    style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;background:rgba(255,255,255,0.2);color:#10b981;">+5.6%</span>
-                <span style="font-size:11px;opacity:0.8;">From last month</span>
-            </div>
-            <p style="font-size:13px;line-height:1.5;color:#fff;">Our price estimates use historical auction data and
-                market trends to suggest likely values. <a href="#"
-                    style="color:#fff;text-decoration:underline;">learn more</a></p>
-        </div>
-
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <h3 style="font-size:14px;font-weight:600;margin-bottom:16px;">Vehicle Values</h3>
-
-            <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #2a3050;">
-                <h4 style="font-size:13px;margin-bottom:8px;">Trad Values</h4>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-                    <div><span style="font-size:12px;color:#a0a9c9;">Autotrader</span><br><span
-                            style="font-size:18px;font-weight:700;">£14,000</span></div>
-                    <div><span style="font-size:12px;color:#a0a9c9;">CAP</span><br><span
-                            style="font-size:18px;font-weight:700;">£14,000</span></div>
-                </div>
-            </div>
-
-            <h4 style="font-size:13px;margin-bottom:8px;">Retail Values</h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-                <div><span style="font-size:12px;color:#a0a9c9;">Autotrader</span><br><span
-                        style="font-size:18px;font-weight:700;">£14,000</span></div>
-                <div><span style="font-size:12px;color:#a0a9c9;">CAP</span><br><span
-                        style="font-size:18px;font-weight:700;">£14,000</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Center Panel -->
-    <div style="display:flex;flex-direction:column;gap:20px;">
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                <div>
-                    <h3 style="font-size:18px;font-weight:700;">{{ $vehicle->reg ?? 'N/A' }}</h3>
-                    <p style="font-size:12px;color:#a0a9c9;">
-                        {{ $vehicle->make->name ?? 'Make' }} -
-                        {{ $vehicle->model->name ?? 'Model' }} -
-                        {{ $vehicle->variant->name ?? 'Variant' }} -
-                        {{ $vehicle->engine_cc ?? 'CC' }} -
-                        {{ $vehicle->year ?? 'Year' }}
-                    </p>
-                </div>
-                <button
-                    style="background:#0066ff;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">New
-                    Report</button>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;">
-                <div><span style="font-size:11px;color:#a0a9c9;">Auction
-                        House</span><br><span>{{ $vehicle->auction->name ?? 'N/A' }}</span></div>
-                <div><span style="font-size:11px;color:#a0a9c9;">Date Time /
-                        End</span><br><span>{{ $vehicle->auction->auction_date ? \Carbon\Carbon::parse($vehicle->auction->auction_date)->format('d/m/Y H:i') : 'N/A' }}</span>
-                </div>
-                <div><span style="font-size:11px;color:#a0a9c9;">Auction
-                        Status</span><br><span>{{ $vehicle->bidding_status ?? 'Planned/Sold' }}</span></div>
-            </div>
-
-            <div
-                style="width:100%;height:250px;background:#1a1f3a;border-radius:10px;margin-top:16px;display:flex;align-items:center;justify-content:center;">
-                @php $mainImage = $vehicle->getImages()[0] ?? null; @endphp
-                @if ($mainImage)
-                    <img src="{{ $mainImage }}" style="width:100%;height:250px;object-fit:cover;border-radius:10px;">
-                @else
-                    <span>No Image Available</span>
-                @endif
-            </div>
-        </div>
-
-
-    </div>
-
-
-    <!-- Right Panel -->
-    <div style="display:flex;flex-direction:column;gap:20px;">
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <h3 style="font-size:14px;">Autoboli Predicted</h3>
-            <div style="display:flex;justify-content:space-between;margin-top:12px;">
-                <span style="font-size:12px;color:#a0a9c9;">Accuracy</span>
-                <span style="font-size:24px;font-weight:700;color:#0066ff;">90%</span>
-            </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="background:#1a1f3a;padding:12px;border-radius:6px;display:flex;justify-content:space-between;">
-                <span style="color:#a0a9c9;">CAP</span><span style="font-weight:700;">90%</span>
-            </div>
-            <div style="background:#1a1f3a;padding:12px;border-radius:6px;display:flex;justify-content:space-between;">
-                <span style="color:#a0a9c9;">AUTOTRADER</span><span style="font-weight:700;">90%</span>
-            </div>
-        </div>
-
-        <div style="background:#111633;border:1px solid #2a3050;border-radius:12px;padding:20px;">
-            <h3 style="font-size:14px;margin-bottom:10px;">Auction Results</h3>
-
-            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;">
-                    <span style="color:#a0a9c9;">Auction Status</span>
-                    <span style="font-weight:600;">{{ $vehicle->bidding_status ?? 'N/A' }}</span>
-                </div>
-
-                <div style="display:flex;justify-content:space-between;">
-                    <span style="color:#a0a9c9;">Win Bid / Last Bid</span>
-                    <span style="font-weight:600;">£{{ $vehicle->last_bid ?? 'N/A' }}</span>
-                </div>
-
-                <div style="display:flex;justify-content:space-between;">
-                    <span style="color:#a0a9c9;">No. of Bids</span>
-                    <span style="font-weight:600;">
-                        @php
-                            $bids = [];
-                            if (!empty($vehicle->bidding_history)) {
-                                $raw = $vehicle->bidding_history;
-
-                                // If it's in JSON or array-like string format, clean it up
-    $raw = trim($raw, '[]');
-    $raw = str_replace(["'", '"'], '', $raw); // remove quotes
-    $bids = array_map('trim', explode(',', $raw)); // split by comma
-                            }
-                        @endphp
-                        {{ count($bids) }}
-                    </span>
-                </div>
-
-
-                {{-- Bid History --}}
-
-
-                <div style="margin-top:10px;">
-                    <h4 style="font-size:13px;color:#a0a9c9;margin-bottom:6px;">Auc Bid History</h4>
-
-                    @if (count($bids) > 0)
-                        <p style="font-size:12px;color:#fff;line-height:1.6;">
-                            {{ implode(', ', $bids) }}
+                <!-- Autoboli Suggestion -->
+                <div class="autoBoli-suggestion mb-4">
+                    <div class="upperPart-suggestion">
+                        <h6 style="margin-top: 5px;">AUTOBOLI SUGGESTION</h6>
+                        <div class="d-flex align-items-baseline gap-2 mb-3">
+                            <span class="fs-2 fw-bold" style="color: white;">£14,000</span>
+                            <span class="badge text-success"
+                                style="color: white; background-color: #000F21;">+5.6%</span>
+                            <small class="text-dark opacity-75" style="color: #0e1b2b !important;">From last
+                                month</small>
+                        </div>
+                    </div>
+                    <div class="lowerPart-suggestion">
+                        <p class="small text-white mb-0">
+                            Our price estimates use historical auction data and market trends to suggest likely values.
+                            <a href="#" class="text-white text-decoration-underline">Learn more</a>
                         </p>
+                    </div>
+                </div>
+
+                <!-- Vehicle Values -->
+                <div class="valuation-card">
+                    <h3 class="fs-6 fw-semibold mb-3">Vehicle Values</h3>
+
+                    <div class="mb-3 border-bottom pb-3">
+                        <h4 class="fs-6 mb-2">Trad Values</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="text-secondary d-block">Autotrader</small>
+                                <span class="fw-bold fs-5">£14,000</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-secondary d-block">CAP</small>
+                                <span class="fw-bold fs-5">£14,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="fs-6 mb-2">Retail Values</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-secondary d-block">Autotrader</small>
+                            <span class="fw-bold fs-5">£14,000</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-secondary d-block">CAP</small>
+                            <span class="fw-bold fs-5">£14,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Center Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="valuation-card d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h3 class="fs-5 fw-bold mb-1">{{ $vehicle->reg ?? 'N/A' }}</h3>
+                        <p class="small text-secondary mb-0">
+                            {{ $vehicle->make->name ?? 'Make' }} -
+                            {{ $vehicle->model->name ?? 'Model' }} -
+                            {{ $vehicle->variant->name ?? 'Variant' }} -
+                            {{ $vehicle->engine_cc ?? 'CC' }} -
+                            {{ $vehicle->year ?? 'Year' }}
+                        </p>
+                    </div>
+                    <button class="btn btn-sm btn-primary fw-semibold">New Report</button>
+                </div>
+
+                <div class="row small text-secondary mb-3">
+                    <div class="col-4">
+                        <span class="d-block">Auction House</span>
+                        <span class="text-white">{{ $vehicle->auction->name ?? 'N/A' }}</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="d-block">Date/End</span>
+                        <span class="text-white">
+                            {{ $vehicle->auction->auction_date ? \Carbon\Carbon::parse($vehicle->auction->auction_date)->format('d/m/Y H:i') : 'N/A' }}
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="d-block">Status</span>
+                        <span class="text-white">{{ $vehicle->bidding_status ?? 'Planned/Sold' }}</span>
+                    </div>
+                </div>
+
+                <div class="text-center flex-grow-1 d-flex align-items-center justify-content-center">
+                    @php $mainImage = $vehicle->getImages()[0] ?? null; @endphp
+                    @if ($mainImage)
+                        <img src="{{ $mainImage }}" class="vehicle-img" alt="Vehicle">
                     @else
-                        <p style="font-size:12px;color:#a0a9c9;">No bids found</p>
+                        <span>No Image Available</span>
                     @endif
                 </div>
-
             </div>
         </div>
-    </div>
-    <div
-        style="margin-top:20px;
-            background:#111633;
-            border:1px solid #2a3050;
-            border-radius:12px;
-            padding:20px;
-            grid-column:span 2;">
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h3 style="font-size:14px;">Trad History</h3>
-            <select
-                style="background:#1a1f3a;border:1px solid #2a3050;color:#a0a9c9;padding:8px 12px;border-radius:6px;font-size:12px;">
-                <option>Select range</option>
-                <option>Last 3 months</option>
-                <option>Last 6 months</option>
-                <option>Last year</option>
-            </select>
-        </div>
+        <!-- Right Column -->
+        <div class="col-lg-4 col-md-12">
+            <div class="d-flex flex-column h-100 justify-content-between">
 
-        <div>
-            <div style="margin-bottom:16px;">
-                <span style="font-size:12px;color:#a0a9c9;">Avg Winning</span><br>
-                <span style="font-size:24px;font-weight:700;">£14,000</span>
-            </div>
-
-            <div style="height:300px;background:#1a1f3a;border-radius:8px;margin-bottom:16px;">
-                <canvas id="tradChart"></canvas>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                <div><span
-                        style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>Autotrader
+                <!-- Autoboli Predicted -->
+                <div class="valuation-card mb-4" style="padding: 0px !important;">
+                    <div
+                        style="background-color: #011E3D; padding: 20px;  border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+                        <h5>Autoboli Predicted</h5>
+                        <div class="accuracy-container">
+                            <div class="accuracy-label">
+                                <span style="font-weight: 600; color: white;">Accuracy</span>
+                                <span class="color: #0080FF; ">90%</span>
+                            </div>
+                            <div class="progress" style="padding: 0px!important;">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding: 20px;">
+                        <hr style="color: #343E4B; margin-top: 5px;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p>CAP</p>
+                            <p>90%</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p>AUTOTRADER</p>
+                            <p>90%</p>
+                        </div>
+                    </div>
                 </div>
-                <div><span
-                        style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP
-                    Clean</div>
-                <div><span
-                        style="display:inline-block;width:12px;height:12px;background:#0066ff;border-radius:2px;margin-right:6px;"></span>CAP
-                    Avg</div>
-                <div><span
-                        style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:2px;margin-right:6px;"></span>CAP
-                    B</div>
+
+                <!-- Auction Results -->
+                <div class="valuation-card">
+                    <h3 class="fs-6 mb-3">Auction Results</h3>
+                    <div class="d-flex flex-column gap-2 small">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">Auction Status</span>
+                            <span class="fw-semibold">{{ $vehicle->bidding_status ?? 'N/A' }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">Win Bid / Last Bid</span>
+                            <span class="fw-semibold">£{{ $vehicle->last_bid ?? 'N/A' }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">No. of Bids</span>
+                            <span class="fw-semibold">
+                                @php
+                                    $bids = [];
+                                    if (!empty($vehicle->bidding_history)) {
+                                        $raw = trim($vehicle->bidding_history, '[]');
+                                        $raw = str_replace(["'", '"'], '', $raw);
+                                        $bids = array_map('trim', explode(',', $raw));
+                                    }
+                                @endphp
+                                {{ count($bids) }}
+                            </span>
+                        </div>
+
+                        <div class="mt-3">
+                            <h4 class="fs-6 text-secondary mb-1">Auc Bid History</h4>
+                            @if (count($bids) > 0)
+                                <p class="small mb-0 text-white">{{ implode(', ', $bids) }}</p>
+                            @else
+                                <p class="small text-secondary mb-0">No bids found</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="col-lg-8">
+            <div class="valuation-card mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fs-6 mb-0">Trad History</h3>
+                    <select class="form-select form-select-sm bg-dark border-secondary text-light w-auto">
+                        <option>Select range</option>
+                        <option>Last 3 months</option>
+                        <option>Last 6 months</option>
+                        <option>Last year</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-secondary d-block">Avg Winning</small>
+                    <span class="fw-bold fs-4">£14,000</span>
+                </div>
+
+                <div class="bg-dark rounded mb-3" style="height:300px;">
+                    <canvas id="tradChart"></canvas>
+                </div>
+
+                <div class="row small">
+                    <div class="col-6 mb-1"><span class="d-inline-block me-2"
+                            style="width:12px;height:12px;background:#0066ff;border-radius:2px;"></span>Autotrader
+                    </div>
+                    <div class="col-6 mb-1"><span class="d-inline-block me-2"
+                            style="width:12px;height:12px;background:#10b981;border-radius:2px;"></span>CAP Clean</div>
+                    <div class="col-6"><span class="d-inline-block me-2"
+                            style="width:12px;height:12px;background:#0066ff;border-radius:2px;"></span>CAP Avg</div>
+                    <div class="col-6"><span class="d-inline-block me-2"
+                            style="width:12px;height:12px;background:#10b981;border-radius:2px;"></span>CAP B</div>
+                </div>
             </div>
         </div>
     </div>
-
-
 </div>
+
+<!-- ✅ Optional: Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -336,6 +336,10 @@
         .nav-item {
             margin-right: 10px;
         }
+
+        #auction-table tbody tr:hover {
+            background-color: #0f1c2c !important;
+        }
     </style>
 @endsection
 @section('content')

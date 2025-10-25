@@ -146,19 +146,24 @@
         <!-- Center Column -->
         <div class="col-lg-4 col-md-6">
             <div class="valuation-card d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div>
-                        <h3 class="fs-5 fw-bold mb-1">{{ $vehicle->reg ?? 'N/A' }}</h3>
-                        <h6 class="text-secondary mb-0" style="white-space: nowrap;">
-                            {{ $vehicle->make->name ?? 'Make' }} -
-                            {{ $vehicle->model->name ?? 'Model' }} -
-                            {{ $vehicle->variant->name ?? 'Variant' }} -
-                            {{ $vehicle->engine_cc ?? 'CC' }} -
-                            {{ $vehicle->year ?? 'Year' }}
-                        </h6>
-                    </div>
-                    <button class="btn btn-sm btn-primary fw-semibold" style="white-space: nowrap;">New Report</button>
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="fs-5 fw-bold mb-2"
+                        style="background-color: white !important; color: black; width: 100px; font-size: 12px !important;  border-radius: 4px; text-align: center; padding: 7px; border-left:4px solid #0080FF; margin-bottom: 5px !important;">
+                        {{ $vehicle->reg ?? 'N/A' }}</div>
+                    <a class="btn btn-sm btn-primary fw-semibold" href={{ $vehicle->inspection_report }}
+                        style="white-space: nowrap;">
+                        Inspection
+                        Report</a>
                 </div>
+
+                <h5 class="text-secondary mb-0"
+                    style="color: white !important; white-space: nowrap; font-weight: 600; margin-top: 8px !important; margin-bottom: 12px !important;">
+                    {{ $vehicle->make->name ?? 'Make' }} -
+                    {{ $vehicle->model->name ?? 'Model' }} -
+                    {{ $vehicle->variant->name ?? 'Variant' }} -
+                    {{ $vehicle->engine_cc ?? 'CC' }} -
+                    {{ $vehicle->year ?? 'Year' }}
+                </h5>
 
                 <div class="row small  text-secondary"
                     style="background-color:#0F1C2C; border-left: 4px solid #0080FF; padding: 10px; margin-left: 1px; margin-right: 5px;">

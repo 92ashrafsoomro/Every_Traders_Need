@@ -65,7 +65,7 @@ public function getPlatformshouse(Request $request)
 
             $totalData = clone $query;
             $data = $query->select('auction_platform.*',)
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->offset($start)
             ->limit($length)
             ->get()
@@ -101,18 +101,22 @@ public function getPlatformshouse(Request $request)
 
     public function create()
     {
-        return view('admin.masters.platforms.create');
+         $lastAuctionPlatform = AuctionPlatform::latest('id')->first();
+        $nextId = $lastAuctionPlatform ? $lastAuctionPlatform->id + 1 : 1;
+        return view('admin.masters.platforms.create',compact('nextId'));
     }
 
     public function store(Request $request)
     {
 
          $request->validate([
+            'id' => 'required|integer',
             'name' => 'required|string|max:255',
             'image' => 'nullable|image',
         ]);
 
         $model = AuctionPlatform::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -178,9 +182,9 @@ public function getPlatformshouse(Request $request)
             return redirect('/admin/masters/platforms')->with('warning','Cannot Delete Exist In Auctions');
         }
 
-        if(AuctionCenter::where('auction_platform_id ',$id)->first()){
-            return redirect('/admin/masters/platforms')->with('warning','Cannot Delete Exist In Centers');
-        }
+        // if(AuctionCenter::where('auction_platform_id ',$id)->first()){
+        //     return redirect('/admin/masters/platforms')->with('warning','Cannot Delete Exist In Centers');
+        // }
 
       
 

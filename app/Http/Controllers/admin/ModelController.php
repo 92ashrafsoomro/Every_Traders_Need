@@ -56,7 +56,7 @@ class ModelController extends Controller
                 'model.*',
                 'make.name AS make_name'
             ])
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->offset($start)
             ->limit($length)
             ->get()
@@ -93,18 +93,24 @@ class ModelController extends Controller
 
     public function create()
     {
-        return view('admin.masters.models.create');
+        $lastModel = VehicleModel::latest('id')->first();
+        $nextId = $lastModel ? $lastModel->id + 1 : 1;
+
+        return view('admin.masters.models.create', compact('nextId'));
     }
+
 
     public function store(Request $request)
     {
 
         $request->validate([
+            'id' => 'required|integer',
             'name' => 'required|string|max:255',
             'make_id' => 'required|integer|exists:make,id',
         ]);
 
         VehicleModel::create([
+            'id' => $request->id,
             'name' => $request->name,
             'make_id' => $request->make_id,
             'created_at' => Carbon::now(),
@@ -155,7 +161,7 @@ class ModelController extends Controller
 
         $model->delete();
 
-        return redirect('/admin/masters/makes')->with('success', 'Deleted successfully.');
+        return redirect('/admin/masters/models')->with('success', 'Deleted successfully.');
 
     }
 

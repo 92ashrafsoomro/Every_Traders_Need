@@ -44,7 +44,7 @@ class BodyTypeController extends Controller
 
                 $totalData = clone $query;
                 $data = $query->select('body_types.*',)
-                ->orderBy('created_at','desc')
+                ->orderBy('id','desc')
                 ->offset($start)
                 ->limit($length)
                 ->get()
@@ -79,17 +79,23 @@ class BodyTypeController extends Controller
 
     public function create()
     {
-        return view('admin.masters.bodytypes.create');
+        $lastBodyType = BodyType::latest('id')->first();
+        $nextId = $lastBodyType ? $lastBodyType->id + 1 : 1;
+
+        return view('admin.masters.bodytypes.create', compact('nextId'));
     }
+
 
     public function store(Request $request)
     {
 
          $request->validate([
+            'id' => 'required|integer',
             'name' => 'required|string|max:255',
         ]);
 
         BodyType::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

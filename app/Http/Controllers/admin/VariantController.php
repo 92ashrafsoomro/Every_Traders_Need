@@ -63,7 +63,7 @@ class VariantController extends Controller
                 'model.name AS model_name',
                 'make.name AS make_name'
             ])
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->offset($start)
             ->limit($length)
             ->get()
@@ -101,18 +101,22 @@ class VariantController extends Controller
 
     public function create()
     {
-        return view('admin.masters.variants.create');
+        $lastModel = ModelVariant::latest('id')->first();
+        $nextId = $lastModel ? $lastModel->id + 1 : 1;
+        return view('admin.masters.variants.create',compact('nextId'));
     }
 
     public function store(Request $request)
     {
 
         $request->validate([
+            'id' => 'required|integer',
             'name' => 'required|string|max:255',
             'model_id' => 'required|integer|exists:model,id',
         ]);
 
         ModelVariant::create([
+            'id' => $request->id,
             'name' => $request->name,
             'model_id' => $request->model_id,
             'created_at' => Carbon::now(),

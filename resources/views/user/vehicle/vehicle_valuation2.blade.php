@@ -1,8 +1,8 @@
 {{-- Vehicle Valuation --}}
 <style>
     .valuation-container {
-        padding: 20px 120px;
         min-height: 100vh;
+        padding: 20px;
     }
 
     .valuation-card {
@@ -83,7 +83,7 @@
     }
 </style>
 
-<div class="container-fluid valuation-container">
+<div class="container valuation-container" style="margin-top: 10px;">
     <div class="row g-4">
         <!-- Left Column -->
         <div class="col-lg-4 col-md-6">
@@ -149,35 +149,36 @@
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <div>
                         <h3 class="fs-5 fw-bold mb-1">{{ $vehicle->reg ?? 'N/A' }}</h3>
-                        <p class="small text-secondary mb-0">
+                        <h6 class="text-secondary mb-0" style="white-space: nowrap;">
                             {{ $vehicle->make->name ?? 'Make' }} -
                             {{ $vehicle->model->name ?? 'Model' }} -
                             {{ $vehicle->variant->name ?? 'Variant' }} -
                             {{ $vehicle->engine_cc ?? 'CC' }} -
                             {{ $vehicle->year ?? 'Year' }}
-                        </p>
+                        </h6>
                     </div>
-                    <button class="btn btn-sm btn-primary fw-semibold">New Report</button>
+                    <button class="btn btn-sm btn-primary fw-semibold" style="white-space: nowrap;">New Report</button>
                 </div>
 
-                <div class="row small text-secondary mb-3">
+                <div class="row small  text-secondary"
+                    style="background-color:#0F1C2C; border-left: 4px solid #0080FF; padding: 10px; margin-left: 1px; margin-right: 5px;">
                     <div class="col-4">
-                        <span class="d-block">Auction House</span>
+                        <span class="d-block" style="margin-bottom: 10px !important;">Auction House</span>
                         <span class="text-white">{{ $vehicle->auction->name ?? 'N/A' }}</span>
                     </div>
                     <div class="col-4">
-                        <span class="d-block">Date/End</span>
+                        <span class="d-block" style="margin-bottom: 10px !important;">Date/End</span>
                         <span class="text-white">
                             {{ $vehicle->auction->auction_date ? \Carbon\Carbon::parse($vehicle->auction->auction_date)->format('d/m/Y H:i') : 'N/A' }}
                         </span>
                     </div>
                     <div class="col-4">
-                        <span class="d-block">Status</span>
+                        <span class="d-block" style="margin-bottom: 10px !important;">Status</span>
                         <span class="text-white">{{ $vehicle->bidding_status ?? 'Planned/Sold' }}</span>
                     </div>
                 </div>
 
-                <div class="text-center flex-grow-1 d-flex align-items-center justify-content-center">
+                <div class="text-center d-flex align-items-center justify-content-end mt-4">
                     @php $mainImage = $vehicle->getImages()[0] ?? null; @endphp
                     @if ($mainImage)
                         <img src="{{ $mainImage }}" class="vehicle-img" alt="Vehicle">
@@ -222,18 +223,22 @@
 
                 <!-- Auction Results -->
                 <div class="valuation-card">
-                    <h3 class="fs-6 mb-3">Auction Results</h3>
+                    <span class="fs-6 mb-3"
+                        style="font-weight: 500; font-size: 20px !important; color: #B1BFCD;">Auction Results</span>
+                    <hr>
                     <div class="d-flex flex-column gap-2 small">
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">Auction Status</span>
+                            <span class="text-secondary" style="font-size: 15px;">Auction
+                                Status</span>
                             <span class="fw-semibold">{{ $vehicle->bidding_status ?? 'N/A' }}</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">Win Bid / Last Bid</span>
+                            <span class="text-secondary" style="font-size: 15px;">Win Bid /
+                                Last Bid</span>
                             <span class="fw-semibold">£{{ $vehicle->last_bid ?? 'N/A' }}</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">No. of Bids</span>
+                            <span class="text-secondary" style="font-size: 15px;">No. ofBids</span>
                             <span class="fw-semibold">
                                 @php
                                     $bids = [];
@@ -247,13 +252,30 @@
                             </span>
                         </div>
 
-                        <div class="mt-3">
-                            <h4 class="fs-6 text-secondary mb-1">Auc Bid History</h4>
+                        <hr>
+
+                        <div>
+                            <h4 class="fs-6 mb-1" style="#B1BFCD">Auc Bid History</h4>
                             @if (count($bids) > 0)
-                                <p class="small mb-0 text-white">{{ implode(', ', $bids) }}</p>
+                                <p class="small mb-0" style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                    @foreach ($bids as $bid)
+                                        <span
+                                            style="
+                color: #B1BFCD;
+                background-color: #0F1C2C;
+                border-radius: 4px;
+                padding: 5px 8px;
+                display: inline-block;
+            ">
+                                            {{ trim($bid) }}
+                                        </span>
+                                    @endforeach
+                                </p>
                             @else
                                 <p class="small text-secondary mb-0">No bids found</p>
                             @endif
+
+
                         </div>
                     </div>
                 </div>
@@ -261,11 +283,12 @@
         </div>
 
         <!-- Bottom Section -->
-        <div class="col-lg-8">
+        <div class="col-lg-8" style="margin-top: -1px;">
             <div class="valuation-card mt-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="fs-6 mb-0">Trad History</h3>
-                    <select class="form-select form-select-sm bg-dark border-secondary text-light w-auto">
+                    <p class="fs-6 mb-3" style="font-weight: 500; font-size: 20px !important; color: #B1BFCD;">Trade
+                        History</p>
+                    <select class="form-select form-select-sm border-secondary text-light w-auto">
                         <option>Select range</option>
                         <option>Last 3 months</option>
                         <option>Last 6 months</option>
@@ -273,25 +296,54 @@
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <small class="text-secondary d-block">Avg Winning</small>
-                    <span class="fw-bold fs-4">£14,000</span>
-                </div>
+                <hr>
 
-                <div class="bg-dark rounded mb-3" style="height:300px;">
-                    <canvas id="tradChart"></canvas>
-                </div>
-
-                <div class="row small">
-                    <div class="col-6 mb-1"><span class="d-inline-block me-2"
-                            style="width:12px;height:12px;background:#0066ff;border-radius:2px;"></span>Autotrader
+                <div>
+                    <div class="rounded mb-3" style="height:300px;">
+                        <canvas id="tradChart"></canvas>
                     </div>
-                    <div class="col-6 mb-1"><span class="d-inline-block me-2"
-                            style="width:12px;height:12px;background:#10b981;border-radius:2px;"></span>CAP Clean</div>
-                    <div class="col-6"><span class="d-inline-block me-2"
-                            style="width:12px;height:12px;background:#0066ff;border-radius:2px;"></span>CAP Avg</div>
-                    <div class="col-6"><span class="d-inline-block me-2"
-                            style="width:12px;height:12px;background:#10b981;border-radius:2px;"></span>CAP B</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+            <!-- Auction Results -->
+            <div class="valuation-card">
+                <span class="fs-6 mb-3" style="font-weight: 500; font-size: 20px !important; color: #B1BFCD;">Pre
+                    Vehicals</span>
+                <hr>
+                <div class="col-lg-8">
+                    <p style="font-size: 14px; ">Today</p>
+                    <div class="d-flex align-items-center gap-3 mb-5">
+
+                        <div style="width: 35px; height: 25px; border-radius: 4px; background-color: white;">
+                        </div>
+                        <div>ABC123</div>
+                        <div style="background-color: #011E3D; color: white; border-radius: 4px; padding: 5px;">
+                            Sold
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mb-5">
+
+                        <div style="width: 35px; height: 25px; border-radius: 4px; background-color: white;">
+                        </div>
+                        <div>ABC123</div>
+                        <div style="background-color: #011E3D; color: white; border-radius: 4px; padding: 5px;">
+                            Sold
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mb-5">
+
+                        <div style="width: 35px; height: 25px; border-radius: 4px; background-color: white;">
+                        </div>
+                        <div>ABC123</div>
+                        <div style="background-color: #011E3D; color: white; border-radius: 4px; padding: 5px;">
+                            Sold
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+
                 </div>
             </div>
         </div>

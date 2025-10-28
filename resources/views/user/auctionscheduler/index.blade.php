@@ -150,14 +150,17 @@
     <div class="modal fade" id="vehicleModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body position-relative">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
                     <div class="text-center mb-4">
                         <h4 class="mb-2">Vehicle Auction History</h4>
                         <h5 class="vehicleName"></h5>
                     </div>
+
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover text-center">
+                        <table class="table table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Interest Name</th>
@@ -169,13 +172,11 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="vehicleModalTableBody">
-
-                            </tbody>
+                            <tbody id="vehicleModalTableBody"></tbody>
                         </table>
-
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

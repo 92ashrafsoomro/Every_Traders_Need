@@ -33,10 +33,9 @@
     }
 
     .vehicle-img {
-        width: 100%;
-        height: 250px;
+        overflow: auto;
         object-fit: cover;
-        border-radius: 10px;
+        border-radius: 4px;
         background: #1a1f3a;
     }
 
@@ -142,6 +141,58 @@
     .auctionHousespan {
         background-color: #0C3056;
         padding: 4px
+    }
+
+
+
+    .trade-body .price {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .trade-body .avg-text {
+        font-size: 13px;
+        color: #bbb;
+        margin-bottom: 10px;
+    }
+
+    .compare-title {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 6px;
+    }
+
+    .compare-list label {
+        display: block;
+        font-size: 13px;
+        color: #aaa;
+        margin-bottom: 4px;
+    }
+
+    .compare-list input[type="checkbox"] {
+        margin-right: 6px;
+        accent-color: #1d4ed8;
+    }
+
+    .dropdown-select {
+        background-color: #0e1b32;
+        color: #fff;
+        border: 1px solid #2e3b55;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+
+    .chart-area {
+        background: linear-gradient(to bottom right, #112240, #0e1b32);
+        border-radius: 8px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3b82f6;
+        font-size: 14px;
     }
 </style>
 
@@ -286,11 +337,11 @@
                         {{ $vehicle->reg ?? 'N/A' }}</div>
                     <a class="btn btn-sm btn-primary fw-semibold" href={{ $vehicle->inspection_report }}
                         style="white-space: nowrap;">
-                        Inspection
-                        Report</a>
+                        Inspection Report</a>
                 </div>
 
-                <h5 class="text-secondary mb-0"
+                {{-- Desktop Screen Heading Display --}}
+                <h5 class="vehicleHeadingh5 text-secondary mb-0 d-none d-lg-block"
                     style="color: white !important; white-space: nowrap; font-weight: 600; margin-top: 8px !important; margin-bottom: 12px !important;">
                     {{ $vehicle->make->name ?? 'Make' }} -
                     {{ $vehicle->model->name ?? 'Model' }} -
@@ -298,6 +349,17 @@
                     {{ $vehicle->engine_cc ?? 'CC' }} -
                     {{ $vehicle->year ?? 'Year' }}
                 </h5>
+
+                {{-- Mobile Screen Heading Display --}}
+                <h6 class="vehicleHeadingh6 text-secondary mb-0 d-block d-lg-none"
+                    style="color: white !important; white-space: nowrap; font-weight: 600; margin-top: 8px !important; margin-bottom: 12px !important;">
+                    {{ $vehicle->make->name ?? 'Make' }} -
+                    {{ $vehicle->model->name ?? 'Model' }} -
+                    {{ $vehicle->variant->name ?? 'Variant' }} -
+                    {{ $vehicle->engine_cc ?? 'CC' }} -
+                    {{ $vehicle->year ?? 'Year' }}
+                </h6>
+
 
                 <div class="row small  text-secondary"
                     style="background-color:#0F1C2C; border-left: 4px solid #0080FF; padding: 10px; margin-left: 1px; margin-right: 5px;">
@@ -437,9 +499,24 @@
 
                 <hr>
 
-                <div>
-                    <div class="rounded mb-3" style="height:300px;">
-                        <canvas id="tradChart"></canvas>
+                <div class="row trade-body">
+                    <div class="col-md-4">
+                        <p class="price">£14,000</p>
+                        <p class="avg-text">Avg winning</p>
+
+                        <p class="compare-title">Compare with wing bids</p>
+                        <div class="compare-list">
+                            <label><input type="checkbox"> Autotrader</label>
+                            <label><input type="checkbox"> CAP Clean</label>
+                            <label><input type="checkbox" checked> <span style="color:#3b82f6;">CAP Avg</span></label>
+                            <label><input type="checkbox"> CAP B</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="chart-area">
+                            Chart Preview
+                        </div>
                     </div>
                 </div>
             </div>
@@ -491,3 +568,81 @@
 
 <!-- ✅ Optional: Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('tradChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
+                datasets: [{
+                        label: 'Autotrader',
+                        data: [13000, 13500, 13800, 14000, 14500, 14700],
+                        borderColor: '#0066ff',
+                        backgroundColor: 'rgba(0,102,255,0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'CAP Clean',
+                        data: [12800, 13200, 13400, 13600, 13900, 14200],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16,185,129,0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'CAP Avg',
+                        data: [12000, 12200, 12500, 12700, 13000, 13200],
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96,165,250,0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'CAP B',
+                        data: [11000, 11500, 11800, 12000, 12300, 12500],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245,158,11,0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#a0a9c9'
+                        },
+                        grid: {
+                            color: '#1f2547'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#a0a9c9',
+                            callback: val => '£' + val.toLocaleString()
+                        },
+                        grid: {
+                            color: '#1f2547'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script> --}}

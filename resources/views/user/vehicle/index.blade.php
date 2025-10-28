@@ -104,8 +104,8 @@
             border-radius: 30%;
 
             /* box-shadow: 0px 0px 5px 12px #0a2e55;
-                                                                                                                                                                                                        -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
-                                                                                                                                                                                                        -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
+                                                                                                                                                                                                                -webkit-box-shadow: 0px 0px 5px 12px #0a2e55;
+                                                                                                                                                                                                                -moz-box-shadow: 0px 0px 5px 12px #0a2e55; */
         }
 
         .disc {
@@ -781,82 +781,7 @@
     </script>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('tradChart').getContext('2d');
 
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Example months
-                    datasets: [{
-                            label: 'Autotrader',
-                            data: [13000, 13500, 13800, 14000, 14500, 14700],
-                            borderColor: '#0066ff',
-                            backgroundColor: 'rgba(0,102,255,0.1)',
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'CAP Clean',
-                            data: [12800, 13200, 13400, 13600, 13900, 14200],
-                            borderColor: '#10b981',
-                            backgroundColor: 'rgba(16,185,129,0.1)',
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'CAP Avg',
-                            data: [12000, 12200, 12500, 12700, 13000, 13200],
-                            borderColor: '#60a5fa',
-                            backgroundColor: 'rgba(96,165,250,0.1)',
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'CAP B',
-                            data: [11000, 11500, 11800, 12000, 12300, 12500],
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(245,158,11,0.1)',
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: '#a0a9c9'
-                            },
-                            grid: {
-                                color: '#1f2547'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: '#a0a9c9',
-                                callback: val => '£' + val.toLocaleString()
-                            },
-                            grid: {
-                                color: '#1f2547'
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 
 
     <script>

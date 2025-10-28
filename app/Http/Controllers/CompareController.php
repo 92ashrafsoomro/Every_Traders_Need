@@ -66,143 +66,134 @@ class CompareController extends Controller
     }
 
 
-    public function fetchHead(Request $request)
-    {
-        // 🧾 Validate input
-        $validator = \Validator::make($request->all(), [
-            'make_id' => 'required|integer',
-            'model_id' => 'required|integer',
-        ]);
+   public function fetchHead(Request $request)
+{
+   
+    $validator = \Validator::make($request->all(), [
+        'make_id' => 'required|integer',
+        'model_id' => 'required|integer',
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validator->errors()->first(),
-            ], 422);
-        }
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $validator->errors()->first(),
+        ], 422);
+    }
 
-        // 🧠 Base query
-        $query = \DB::table('vehicles')
-            ->join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-            ->select(
-                'vehicles.id',
-                'vehicles.images',
-                'vehicles.inspection_report',
-                'vehicles.year',
-                'vehicles.make_id',
-                'vehicles.model_id',
-                'vehicles.variant_id',
-                'vehicles.mileage',
-                'vehicles.transmission',
-                'vehicles.grade',
-                'make.name as make_name',
-                'model.name as model_name',
-                'model_variant.name as variant_name',
-                'auctions.id as auction_id',
-                'auctions.name as auction_name',
-                'auctions.auction_date',
-                'auction_platform.name as platform_name',
-                'auction_platform.image as platform_image'
-            );
-
-
-        if ($request->filled('make_id')) {
-            $query->where('vehicles.make_id', $request->make_id);
-        }
-        if ($request->filled('model_id')) {
-            $query->where('vehicles.model_id', $request->model_id);
-        }
-        if ($request->filled('variant_id')) {
-            $query->where('vehicles.variant_id', $request->variant_id);
-        }
-        if ($request->filled('year')) {
-            $query->where('vehicles.year', $request->year);
-        }
-        if ($request->filled('platform_id')) {
-            $query->whereIn('auctions.platform_id', (array) $request->platform_id);
-        }
-        if ($request->filled('mileage_from') && $request->filled('mileage_to')) {
-            $query->whereBetween('vehicles.mileage', [$request->mileage_from, $request->mileage_to]);
-        } elseif ($request->filled('mileage_from')) {
-            $query->where('vehicles.mileage', '>=', $request->mileage_from);
-        } elseif ($request->filled('mileage_to')) {
-            $query->where('vehicles.mileage', '<=', $request->mileage_to);
-        }
-        if ($request->filled('transmission')) {
-            $query->where('vehicles.transmission', $request->transmission);
-        }
-        if ($request->filled('fuel')) {
-            $query->where('vehicles.fuel_type', $request->fuel);
-        }
-        if ($request->filled('grade')) {
-            $query->where('vehicles.grade', $request->grade);
-        }
-
-        $vehicles = $query
-            ->orderBy('auctions.auction_date', 'desc')
-            ->orderBy('vehicles.id', 'desc')
-            ->get();
+    $query = \DB::table('vehicles')
+        ->join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+        ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+        ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+        ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+        ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+        ->whereIn('auctions.id', function($q) {
+            $q->selectRaw('MAX(id)')
+              ->from('auctions')
+              ->groupBy('platform_id');
+        })
+        ->select(
+            'vehicles.id',
+            'vehicles.images',
+            'vehicles.inspection_report',
+            'vehicles.year',
+            'vehicles.make_id',
+            'vehicles.model_id',
+            'vehicles.variant_id',
+            'vehicles.mileage',
+            'vehicles.transmission',
+            'vehicles.grade',
+            'make.name as make_name',
+            'model.name as model_name',
+            'model_variant.name as variant_name',
+            'auctions.id as auction_id',
+            'auctions.name as auction_name',
+            'auctions.auction_date',
+            'auction_platform.name as platform_name',
+            'auction_platform.image as platform_image'
+        );
 
 
-        $vehicles = $vehicles
-            ->groupBy('auction_id')
-            ->map(function ($group) use ($request) {
+    if ($request->filled('make_id')) {
+        $query->where('vehicles.make_id', $request->make_id);
+    }
+    if ($request->filled('model_id')) {
+        $query->where('vehicles.model_id', $request->model_id);
+    }
+    if ($request->filled('variant_id')) {
+        $query->where('vehicles.variant_id', $request->variant_id);
+    }
+    if ($request->filled('year')) {
+        $query->where('vehicles.year', $request->year);
+    }
+    if ($request->filled('platform_id')) {
+        $query->whereIn('auctions.platform_id', (array) $request->platform_id);
+    }
+    if ($request->filled('mileage_from') && $request->filled('mileage_to')) {
+        $query->whereBetween('vehicles.mileage', [$request->mileage_from, $request->mileage_to]);
+    } elseif ($request->filled('mileage_from')) {
+        $query->where('vehicles.mileage', '>=', $request->mileage_from);
+    } elseif ($request->filled('mileage_to')) {
+        $query->where('vehicles.mileage', '<=', $request->mileage_to);
+    }
+    if ($request->filled('transmission')) {
+        $query->where('vehicles.transmission', $request->transmission);
+    }
+    if ($request->filled('fuel')) {
+        $query->where('vehicles.fuel_type', $request->fuel);
+    }
+    if ($request->filled('grade')) {
+        $query->where('vehicles.grade', $request->grade);
+    }
+
+    $vehicles = $query
+        ->orderBy('auctions.auction_date', 'desc')
+        ->orderBy('vehicles.id', 'desc')
+        ->get();
 
 
-                if ($request->filled('auction_id') && $request->filled('vehicle_id')) {
-                    $latestVehicle = $group->firstWhere('id', $request->vehicle_id);
-
-                    if (!$latestVehicle) {
-                        $latestVehicle = $group->sortByDesc('id')->first();
-                    }
-                } else {
-
+    $vehicles = $vehicles
+        ->groupBy('auction_id')
+        ->map(function ($group) use ($request) {
+            if ($request->filled('auction_id') && $request->filled('vehicle_id')) {
+                $latestVehicle = $group->firstWhere('id', $request->vehicle_id);
+                if (!$latestVehicle) {
                     $latestVehicle = $group->sortByDesc('id')->first();
                 }
+            } else {
+                $latestVehicle = $group->sortByDesc('id')->first();
+            }
 
-                $otherCars = $group->filter(function ($v) use ($latestVehicle) {
-                    if ($v->id == $latestVehicle->id) {
+            $otherCars = $group->filter(function ($v) use ($latestVehicle) {
+                if ($v->id == $latestVehicle->id) return false;
+
+                if ($v->make_id != $latestVehicle->make_id || $v->model_id != $latestVehicle->model_id) {
+                    return false;
+                }
+
+                $optionalFields = ['variant_id', 'auction_id'];
+                foreach ($optionalFields as $field) {
+                    $latestValue = $latestVehicle->$field ?? null;
+                    $value = $v->$field ?? null;
+                    if (!is_null($latestValue) && $latestValue != $value) {
                         return false;
                     }
+                }
 
+                return true;
+            })->values();
 
-                    if ($v->make_id != $latestVehicle->make_id || $v->model_id != $latestVehicle->model_id) {
-                        return false;
-                    }
+            $latestVehicle->other_vehicles = $otherCars;
+            return $latestVehicle;
+        })
+        ->values();
 
+    return response()->json([
+        'status' => 'success',
+        'data' => $vehicles,
+    ]);
+}
 
-                    $optionalFields = [
-                        'variant_id',
-                        'auction_id',
-                    ];
-
-                    foreach ($optionalFields as $field) {
-                        $latestValue = $latestVehicle->$field ?? null;
-                        $value = $v->$field ?? null;
-
-                        if (!is_null($latestValue) && $latestValue != $value) {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                })->values();
-
-                $latestVehicle->other_vehicles = $otherCars;
-
-                return $latestVehicle;
-            })
-            ->values();
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $vehicles,
-        ]);
-    }
 
 
 

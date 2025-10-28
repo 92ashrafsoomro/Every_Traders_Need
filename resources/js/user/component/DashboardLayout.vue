@@ -1,7 +1,6 @@
 <template>
   <div class="layout">
-    <header class="p-3 bg-dark text-white">
-       <h1>Header..</h1>
+    <header >
     </header>
 
     <div class="d-flex">
@@ -39,7 +38,14 @@
 
 
 <style scoped>
-    h1 {
-        color: #42b983;
-    }
+
+  header{
+    padding: 0%;
+    padding: 0%;
+  }
+
+   .headerMain{
+    height: 80px;
+    border-bottom: 1px solid #353f4c;
+   }
 </style>

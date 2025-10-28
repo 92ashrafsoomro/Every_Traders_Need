@@ -5,6 +5,7 @@ import Contact from './pages/contact.vue';
 
 import NotFound from './pages/404.vue';
 import DashboardLayout from './component/DashboardLayout.vue'
+import Login from './pages/login.vue'
 
 const routes = [
     {
@@ -16,6 +17,10 @@ const routes = [
             { path: 'about', component: About },
             { path: 'contact', component: Contact },
         ],
+    },
+    {
+        path: '/login',
+        component: Login,
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ];

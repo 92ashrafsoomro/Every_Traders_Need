@@ -81,6 +81,68 @@
         height: 100%;
         border-radius: 10px !important;
     }
+
+    .percentDiv {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .percentDiv p {
+        font-size: 13px;
+        margin: 0;
+        color: #CED4DD;
+    }
+
+    .percent-box {
+        background-color: #740711;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        width: 65px;
+        font-size: 12px;
+        padding: 4px 6px;
+        white-space: nowrap;
+    }
+
+    .percent-box span {
+        font-size: 14px;
+        color: red;
+        padding-right: 3px;
+    }
+
+    .tradeValues>.col-6 {
+        margin-bottom: 45px;
+    }
+
+    .headingVehicleValues {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        /* space between line and text */
+        margin-bottom: 1rem;
+    }
+
+    .headingVehicleValues .line {
+        width: 5px;
+        height: 20px;
+        background-color: #740711;
+        /* red theme color */
+        border-radius: 2px;
+    }
+
+    .headingVehicleValues h3 {
+        font-weight: 600;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .auctionHousespan {
+        background-color: #0C3056;
+        padding: 4px
+    }
 </style>
 
 <div class="container valuation-container" style="margin-top: 10px;">
@@ -114,28 +176,100 @@
                     <h3 class="fs-6 fw-semibold mb-3">Vehicle Values</h3>
 
                     <div class="mb-3 border-bottom pb-3">
-                        <h4 class="fs-6 mb-2">Trad Values</h4>
-                        <div class="row">
+                        <div class="headingVehicleValues">
+                            <div class="line"></div>
+                            <h3>Trade Values</h3>
+                        </div>
+                        <div class="row tradeValues">
                             <div class="col-6">
-                                <small class="text-secondary d-block">Autotrader</small>
-                                <span class="fw-bold fs-5">£14,000</span>
+                                <div>
+                                    <small class="text-secondary d-block">Autotrader</small>
+                                    <span class="fw-bold fs-5" s>£14,000</span>
+                                </div>
+
+                                <div class="percentDiv">
+                                    <div class="percent-box">
+                                        <span class="material-symbols-outlined">keyboard_control_key</span>
+                                        5.6 %
+                                    </div>
+                                    <p>From Last Month</p>
+                                </div>
                             </div>
                             <div class="col-6">
-                                <small class="text-secondary d-block">CAP</small>
-                                <span class="fw-bold fs-5">£14,000</span>
+                                <div>
+                                    <small class="text-secondary d-block">CAP</small>
+                                    <span class="fw-bold fs-5">£14,000</span>
+                                </div>
+
+                                <div class="percentDiv">
+                                    <div class="percent-box">
+                                        <span class="material-symbols-outlined">keyboard_control_key</span>
+                                        5.6 %
+                                    </div>
+                                    <p>From Last Month</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <small class="text-secondary d-block">Autotrader</small>
+                                    <span class="fw-bold fs-5" s>£14,000</span>
+                                </div>
+
+                                <div class="percentDiv">
+                                    <div class="percent-box">
+                                        <span class="material-symbols-outlined">keyboard_control_key</span>
+                                        5.6 %
+                                    </div>
+                                    <p>From Last Month</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <small class="text-secondary d-block">CAP</small>
+                                    <span class="fw-bold fs-5">£14,000</span>
+                                </div>
+
+                                <div class="percentDiv">
+                                    <div class="percent-box">
+                                        <span class="material-symbols-outlined">keyboard_control_key</span>
+                                        5.6 %
+                                    </div>
+                                    <p>From Last Month</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <h4 class="fs-6 mb-2">Retail Values</h4>
+                    <div class="headingVehicleValues">
+                        <div class="line"></div>
+                        <h3>Retail Values</h3>
+                    </div>
                     <div class="row">
                         <div class="col-6">
-                            <small class="text-secondary d-block">Autotrader</small>
-                            <span class="fw-bold fs-5">£14,000</span>
+                            <div>
+                                <small class="text-secondary d-block">Autotrader</small>
+                                <span class="fw-bold fs-5">£14,000</span>
+                            </div>
+                            <div class="percentDiv">
+                                <div class="percent-box">
+                                    <span class="material-symbols-outlined">keyboard_control_key</span>
+                                    5.6 %
+                                </div>
+                                <p>From Last Month</p>
+                            </div>
                         </div>
                         <div class="col-6">
-                            <small class="text-secondary d-block">CAP</small>
-                            <span class="fw-bold fs-5">£14,000</span>
+                            <div>
+                                <small class="text-secondary d-block">CAP</small>
+                                <span class="fw-bold fs-5">£14,000</span>
+                            </div>
+                            <div class="percentDiv">
+                                <div class="percent-box">
+                                    <span class="material-symbols-outlined">keyboard_control_key</span>
+                                    5.6 %
+                                </div>
+                                <p>From Last Month</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,7 +303,7 @@
                     style="background-color:#0F1C2C; border-left: 4px solid #0080FF; padding: 10px; margin-left: 1px; margin-right: 5px;">
                     <div class="col-4">
                         <span class="d-block" style="margin-bottom: 10px !important;">Auction House</span>
-                        <span class="text-white">{{ $vehicle->auction->name ?? 'N/A' }}</span>
+                        <span class="text-white auctionHousespan">{{ $vehicle->auction->name ?? 'N/A' }}</span>
                     </div>
                     <div class="col-4">
                         <span class="d-block" style="margin-bottom: 10px !important;">Date/End</span>

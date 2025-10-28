@@ -149,6 +149,7 @@
         font-size: 32px;
         font-weight: bold;
         margin: 0;
+        color: white;
     }
 
     .trade-body .avg-text {

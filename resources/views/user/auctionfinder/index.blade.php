@@ -372,7 +372,7 @@
         <div class="row filterslabelrow">
             <div class="col-md-3 filterslabel" style=" width: 22.5%;">
                 <div class="d-flex justify-content-between align-items-start px-1 pt-1">
-                    <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-outline-primary">
+                    <button id="toggleFiltersBtn" class="toggleFiltersBtn btn btn-sm btn-primary">
                         Show Filters
                         <span class="material-symbols-outlined">
                             filter_alt

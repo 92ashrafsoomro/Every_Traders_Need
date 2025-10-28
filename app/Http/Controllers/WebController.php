@@ -67,6 +67,13 @@ class WebController extends Controller
         return view('web.disclaimer');
     }
 
+    public function about()
+    {
+
+
+        return view('web.about');
+    }
+
 
 
 

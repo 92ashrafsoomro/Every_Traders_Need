@@ -59,7 +59,7 @@ Route::get('/disclaimer', [WebController::class, 'disclaimer']);
 Route::get('/faq', [WebController::class, 'faq']);
 Route::get('/terms', [WebController::class, 'terms']);
 Route::get('/cookiepolicy', [WebController::class, 'cookiepolicy']);
-Route::get('/disclaimer', [WebController::class, 'disclaimer']);
+Route::get('/about', [WebController::class, 'about']);
 
 Route::get('/privacy', [WebController::class, 'privacy']);
 
@@ -304,93 +304,93 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::get('/user/has-interest', [DashboardController::class, 'hasInterest']);
 
 
-            
-           
-            Route::get('/auction-finder/vehicle/{id}', [AuctionFinderController::class, 'vehicle']);
-            Route::get('/auction-finder',[AuctionFinderController::class,'index'])->name('auctionfinder');
-            Route::get('/auctionscheduler', [AuctionFinderController::class,'auctionScheduler']);
-            Route::post('/alert-platefrom/store', [AuctionFinderController::class, 'storeAlert']);
-            Route::post('/auction/intrest', [AuctionFinderController::class, 'getIntrest']);
-            Route::post('/auction-finder/vehicle/get-vehicle-details', [AuctionFinderDataController::class, 'getVehicleDetails']);
 
-            //Data
-            Route::get('/auction-finder/data/getRelatedVehicle/{id}',[AuctionFinderDataController::class,'getRelatedVehicle']);
-            Route::get('/auction-finder/data/auctionList', [AuctionFinderDataController::class,'auctionList']);
-            Route::get('/auction-finder/data/getPlatformVehicle',[AuctionFinderDataController::class,'getPlatformVehicle']);
 
-            Route::get('/auction-finder/data/getVehicleTypes', [AuctionFinderDataController::class,'getVehicleTypes']);
-            Route::get('/auction-finder/data/getMakes', [AuctionFinderDataController::class,'getMakes']);
-            Route::get('/auction-finder/data/getModels', [AuctionFinderDataController::class,'getModels']);
-            Route::get('/auction-finder/data/getVariants', [AuctionFinderDataController::class,'getVariants']);
-            Route::get('/auction-finder/data/getYears', [AuctionFinderDataController::class,'getYears']);
-            Route::get('/auction-finder/data/getTransmissions', [AuctionFinderDataController::class,'getTransmissions']);
-            Route::get('/auction-finder/data/getFuelType', [AuctionFinderDataController::class,'getFuelType']);
-            Route::get('/auction-finder/data/getBodyType', [AuctionFinderDataController::class,'getBodyType']);
-            Route::get('/auction-finder/data/getColors', [AuctionFinderDataController::class,'getColors']);
-            Route::get('/auction-finder/data/getdoors', [AuctionFinderDataController::class,'getDoors']);
-            Route::get('/auction-finder/data/getSeats', [AuctionFinderDataController::class,'getSeats']);
-            Route::get('/auction-finder/data/getGrade', [AuctionFinderDataController::class,'getGrade']);
-            Route::get('/auction-finder/data/getV5', [AuctionFinderDataController::class,'getV5']);
-            Route::get('/auction-finder/data/getEngineSize', [AuctionFinderDataController::class,'getEngineSize']);
-            Route::get('/auction-finder/data/getFormerKeepers', [AuctionFinderDataController::class,'getFormerKeepers']);
-            Route::get('/auction-finder/data/getNoOfservices', [AuctionFinderDataController::class,'getNoOfservices']);
-            Route::get('/auction-finder/data/getAuctionHouse', [AuctionFinderDataController::class, 'getAuctionHouse']);
-            Route::get('/auction-finder/data/getAuctionCenter', [AuctionFinderDataController::class, 'getAuctionCenter']);
-            Route::get('/auction-finder/data/getDates', [AuctionFinderDataController::class, 'getDates']);
+    Route::get('/auction-finder/vehicle/{id}', [AuctionFinderController::class, 'vehicle']);
+    Route::get('/auction-finder', [AuctionFinderController::class, 'index'])->name('auctionfinder');
+    Route::get('/auctionscheduler', [AuctionFinderController::class, 'auctionScheduler']);
+    Route::post('/alert-platefrom/store', [AuctionFinderController::class, 'storeAlert']);
+    Route::post('/auction/intrest', [AuctionFinderController::class, 'getIntrest']);
+    Route::post('/auction-finder/vehicle/get-vehicle-details', [AuctionFinderDataController::class, 'getVehicleDetails']);
 
-            
-        
-            Route::view('/upcoming', 'user/upcoming')->name('upcoming');
-            Route::view('/auctioncalender', 'user/auctioncalender')->name('auctioncalender');
-            Route::view('/auctiondetail', 'user/auctiondetail')->name('auctiondetail');
-            Route::view('/futureauction', 'user/futureauction')->name('futureauction');
-            Route::view('/timeauction', 'user/timeauction')->name('timeauction');
-            
-            // Reauction
-            Route::get('/reauction', [ReauctionController::class,'index'])->name('reauction');
-            Route::get('/get-reauction-stats', [ReauctionController::class, 'getReauctionStats']);
+    //Data
+    Route::get('/auction-finder/data/getRelatedVehicle/{id}', [AuctionFinderDataController::class, 'getRelatedVehicle']);
+    Route::get('/auction-finder/data/auctionList', [AuctionFinderDataController::class, 'auctionList']);
+    Route::get('/auction-finder/data/getPlatformVehicle', [AuctionFinderDataController::class, 'getPlatformVehicle']);
 
-            Route::get('/reauction/interest', [ReauctionController::class,'interest'])->name('reauction-interest');
-            Route::post('/reauction/info', [ReauctionController::class,'information'])->name('reauctioninfo');
-            Route::get('/autionshadule', [WebController::class, 'AutionShadule'])->name('autionshadule');
-            Route::post('/notificationsstore', [ReauctionController::class, 'notification'])->name('notifications.store');
-            
-            // compare
-            Route::get('/compare', [CompareController::class,'index'])->name('compare');
-            Route::get('/compare/head', [CompareController::class, 'fetchHead'])->name('compare.head');
-            Route::post('/compare/body', [CompareController::class, 'fetchBody']);
-            Route::get('/get-models-variants/{make_id}', [CompareController::class, 'getModelsAndVariants']);
-            
-            
-            Route::view('/vinsearch', 'user/vinsearch')->name('vinsearch');
-            // Route::view('/interest', 'user/interest')->name('interest');
-            
-            Route::get('/interest/myintrest', [InterestController::class,'myintrest']);
-            Route::get('/interest/setintrest/{id}', [InterestController::class,'setintrest']);
-            Route::resource('/interest',InterestController::class);
-            
-            Route::view('/gellery', 'user/gellery')->name('gellery');
-            Route::view('/comparevehicles', 'user/comparevehicles')->name('comparevehicles');
-            Route::view('/reauctiontracker', 'user/reauctiontracker')->name('reauctiontracker');
-            // Route::view('/pricing', 'user/pricing')->name('pricing');
-            Route::view('/platformwise', 'user/platformwise')->name('platformwise');
-            Route::view('/search', 'user/search')->name('search');
+    Route::get('/auction-finder/data/getVehicleTypes', [AuctionFinderDataController::class, 'getVehicleTypes']);
+    Route::get('/auction-finder/data/getMakes', [AuctionFinderDataController::class, 'getMakes']);
+    Route::get('/auction-finder/data/getModels', [AuctionFinderDataController::class, 'getModels']);
+    Route::get('/auction-finder/data/getVariants', [AuctionFinderDataController::class, 'getVariants']);
+    Route::get('/auction-finder/data/getYears', [AuctionFinderDataController::class, 'getYears']);
+    Route::get('/auction-finder/data/getTransmissions', [AuctionFinderDataController::class, 'getTransmissions']);
+    Route::get('/auction-finder/data/getFuelType', [AuctionFinderDataController::class, 'getFuelType']);
+    Route::get('/auction-finder/data/getBodyType', [AuctionFinderDataController::class, 'getBodyType']);
+    Route::get('/auction-finder/data/getColors', [AuctionFinderDataController::class, 'getColors']);
+    Route::get('/auction-finder/data/getdoors', [AuctionFinderDataController::class, 'getDoors']);
+    Route::get('/auction-finder/data/getSeats', [AuctionFinderDataController::class, 'getSeats']);
+    Route::get('/auction-finder/data/getGrade', [AuctionFinderDataController::class, 'getGrade']);
+    Route::get('/auction-finder/data/getV5', [AuctionFinderDataController::class, 'getV5']);
+    Route::get('/auction-finder/data/getEngineSize', [AuctionFinderDataController::class, 'getEngineSize']);
+    Route::get('/auction-finder/data/getFormerKeepers', [AuctionFinderDataController::class, 'getFormerKeepers']);
+    Route::get('/auction-finder/data/getNoOfservices', [AuctionFinderDataController::class, 'getNoOfservices']);
+    Route::get('/auction-finder/data/getAuctionHouse', [AuctionFinderDataController::class, 'getAuctionHouse']);
+    Route::get('/auction-finder/data/getAuctionCenter', [AuctionFinderDataController::class, 'getAuctionCenter']);
+    Route::get('/auction-finder/data/getDates', [AuctionFinderDataController::class, 'getDates']);
 
-            // Ticket Management
-            Route::get('/createticket', [TicketController::class, 'create'])->name('ticket.create');
-            Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
-            Route::get('/tickethistory', [TicketController::class, 'history'])->name('ticket.history');
-            Route::get('/ticket/{id}', [TicketController::class, 'view'])->name('ticket.view');
-            Route::post('/ticket/{id}/reply', [TicketController::class, 'reply'])->name('ticket.reply');
-            Route::get('/ticket-history/data', [TicketController::class, 'historyData'])->name('ticket.history.data');
-            Route::post('/ticket/{id}/feedback', [TicketController::class, 'submitFeedback'])->name('ticket.feedback');
 
-            
-            // myalert
-            Route::get('/viewhistory', [UserAlertController::class,'index']);
-            Route::get('/viewhistory/get-filters', [UserAlertController::class, 'getVehicleFilters'])->name('get.filters');
-            Route::post('/viewhistory/auction-data', [UserAlertController::class, 'getAuctionData'])->name('get.auction.data');
-            Route::delete('/viewhistory/alerts/{id}', [UserAlertController::class, 'destroy']);
+
+    Route::view('/upcoming', 'user/upcoming')->name('upcoming');
+    Route::view('/auctioncalender', 'user/auctioncalender')->name('auctioncalender');
+    Route::view('/auctiondetail', 'user/auctiondetail')->name('auctiondetail');
+    Route::view('/futureauction', 'user/futureauction')->name('futureauction');
+    Route::view('/timeauction', 'user/timeauction')->name('timeauction');
+
+    // Reauction
+    Route::get('/reauction', [ReauctionController::class, 'index'])->name('reauction');
+    Route::get('/get-reauction-stats', [ReauctionController::class, 'getReauctionStats']);
+
+    Route::get('/reauction/interest', [ReauctionController::class, 'interest'])->name('reauction-interest');
+    Route::post('/reauction/info', [ReauctionController::class, 'information'])->name('reauctioninfo');
+    Route::get('/autionshadule', [WebController::class, 'AutionShadule'])->name('autionshadule');
+    Route::post('/notificationsstore', [ReauctionController::class, 'notification'])->name('notifications.store');
+
+    // compare
+    Route::get('/compare', [CompareController::class, 'index'])->name('compare');
+    Route::get('/compare/head', [CompareController::class, 'fetchHead'])->name('compare.head');
+    Route::post('/compare/body', [CompareController::class, 'fetchBody']);
+    Route::get('/get-models-variants/{make_id}', [CompareController::class, 'getModelsAndVariants']);
+
+
+    Route::view('/vinsearch', 'user/vinsearch')->name('vinsearch');
+    // Route::view('/interest', 'user/interest')->name('interest');
+
+    Route::get('/interest/myintrest', [InterestController::class, 'myintrest']);
+    Route::get('/interest/setintrest/{id}', [InterestController::class, 'setintrest']);
+    Route::resource('/interest', InterestController::class);
+
+    Route::view('/gellery', 'user/gellery')->name('gellery');
+    Route::view('/comparevehicles', 'user/comparevehicles')->name('comparevehicles');
+    Route::view('/reauctiontracker', 'user/reauctiontracker')->name('reauctiontracker');
+    // Route::view('/pricing', 'user/pricing')->name('pricing');
+    Route::view('/platformwise', 'user/platformwise')->name('platformwise');
+    Route::view('/search', 'user/search')->name('search');
+
+    // Ticket Management
+    Route::get('/createticket', [TicketController::class, 'create'])->name('ticket.create');
+    Route::post('/ticket/store', [TicketController::class, 'store'])->name('ticket.store');
+    Route::get('/tickethistory', [TicketController::class, 'history'])->name('ticket.history');
+    Route::get('/ticket/{id}', [TicketController::class, 'view'])->name('ticket.view');
+    Route::post('/ticket/{id}/reply', [TicketController::class, 'reply'])->name('ticket.reply');
+    Route::get('/ticket-history/data', [TicketController::class, 'historyData'])->name('ticket.history.data');
+    Route::post('/ticket/{id}/feedback', [TicketController::class, 'submitFeedback'])->name('ticket.feedback');
+
+
+    // myalert
+    Route::get('/viewhistory', [UserAlertController::class, 'index']);
+    Route::get('/viewhistory/get-filters', [UserAlertController::class, 'getVehicleFilters'])->name('get.filters');
+    Route::post('/viewhistory/auction-data', [UserAlertController::class, 'getAuctionData'])->name('get.auction.data');
+    Route::delete('/viewhistory/alerts/{id}', [UserAlertController::class, 'destroy']);
 
 
 
@@ -499,6 +499,3 @@ Route::get('/send-daily-summary', [NotifyIntrestController::class, 'sendDailySum
 
 Route::get('/invoice/{id}', [InvoiceController::class, 'view'])->name('invoice.view');
 Route::get('/invoice/{id}/download', [InvoiceController::class, 'downloadPDF'])->name('invoice.pdf');
-
-
-

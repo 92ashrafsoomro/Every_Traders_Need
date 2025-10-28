@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('public/theme/assets/web/css/loader.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/theme/assets/web/css/home.css') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <!-- Tailwind Dark Mode Configuration -->
     <script>
@@ -88,7 +88,7 @@
                     <div>
                         <h3 class="text-white font-semibold mb-2">AutoBoli</h3>
                         <ul class="space-y-1">
-                            <li><a href="#" class="hover:text-white transition">about us</a></li>
+                            <li><a href="{{ url('/about') }}" class="hover:text-white transition">about us</a></li>
                             <li><a href="#" class="hover:text-white transition">customer</a></li>
                             <li><a href="#" class="hover:text-white transition">community</a></li>
                             <li><a href="#" class="hover:text-white transition">Affiliate & Referrals</a></li>

@@ -1,26 +1,51 @@
 <style>
-.small-select {
-    height: 30px;    
-    font-size: 12px;  
-    padding: 2px 6px;  
-}
-#yearFilter,
-#gradeFilter {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: url('data:image/svg+xml;utf8,<svg fill="black" height="12" viewBox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
-    border-radius: 5px;
-    width: 70px;
-}
+    .small-select {
+        height: 30px;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
 
+    #yearFilter,
+    #gradeFilter {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url('data:image/svg+xml;utf8,<svg fill="black" height="12" viewBox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+        border-radius: 5px;
+        width: 70px;
+    }
 
+    @media (max-width: 425px) {
+        .infointerestmaindiv {
+            padding: 1rem 1rem !important;
+        }
+
+        .mainofStockinAuctionHouse div {
+            width: 100% !important;
+        }
+    }
+
+    /* Responsive behavior */
+    @media (max-width: 768px) {
+        .auction-container {
+            flex-direction: column;
+        }
+
+        .auction-left,
+        .auction-right {
+            width: 100% !important;
+        }
+    }
+
+    table tr {
+        white-space: nowrap;
+    }
 </style>
 <div class=" p-4 d-flex align-items-center justify-content-start gap-3 mx-0 pl-4"
     style="background-color: #006aee; margin-top: -60px;" id="interest-buttons-container">
 
-<div class=" "style=" color: black; margin-left: 40px;">
-    Select all Intrest
+    <div class=" "style=" color: black; margin-left: 40px;">
+        Select all Intrest
     </div>
 
 
@@ -32,12 +57,9 @@
     </div>
 
 
-    <a href="{{ url('/interest/create') }}"
-        class="btn  fw-medium  d-flex align-items-center interest-button "
-        style= "border-left: 1px solid var(--bs-b-color); border-radius:0%"
-        
-        id="add-interest-button">
-        <svg  class="text-secondary text-white" style="width: 16px; height: 16px;" fill="none" stroke="currentColor"
+    <a href="{{ url('/interest/create') }}" class="btn  fw-medium  d-flex align-items-center interest-button "
+        style= "border-left: 1px solid var(--bs-b-color); border-radius:0%" id="add-interest-button">
+        <svg class="text-secondary text-white" style="width: 16px; height: 16px;" fill="none" stroke="currentColor"
             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4
             
@@ -50,61 +72,55 @@
 </div>
 
 <div class=" p-4 d-flex align-items-center justify-content-start gap-3 mb-5 mx-0 pl-4"
-    style="background-color: #000f21; color: white;" >
+    style="background-color: #000f21; color: white;">
 
-<div class="d-flex " style="color:rgba(255, 255, 255, 0.829); margin-left: 40px;">
-   Vehicle : 
-   <div id="veh_name" class=" " style="margin-left:8px; margin-right:8px;">
-    
-   </div>
-<div class="filters d-flex gap-2">
+    <div class="d-flex " style="color:rgba(255, 255, 255, 0.829); margin-left: 40px;">
+        Vehicle :
+        <div id="veh_name" class=" " style="margin-left:8px; margin-right:8px;">
 
-    <select id="yearFilter" class="form-select small-select">
-        
-    </select>
+        </div>
+        <div class="filters d-flex gap-2">
 
+            <select id="yearFilter" class="form-select small-select">
 
-    <select id="gradeFilter" class="form-select small-select">
-     
-    </select>
+            </select>
 
 
-    {{-- <select id="mileageFilter" class="form-select small-select">
-        
-    </select> --}}
-</div>
+            <select id="gradeFilter" class="form-select small-select">
+            </select>
+        </div>
 
 
 
 
 
-</div>
+    </div>
 
 
-   
+
 
 
 
 </div>
 
 
-<div class=" " style="padding: 0rem 4rem;">
+<div class="infointerestmaindiv" style="padding: 0rem 4rem;">
     <div class="col-md-12">
 
         @include('user.dashboard.infointrestcard')
 
         <br><br>
-        <div class="d-flex gap-4 mt-n4 h-auto" style="align-items: stretch;">
+        <div class="d-flex flex-column flex-md-row gap-4 mt-n4 h-auto" style="align-items: stretch;">
 
             <!-- Left: Auction Chart -->
-            <div class="flex" style="width: 40%">
-                <div id="stockAuctionHouse" class="card text-white rounded-4 shadow-sm h-100" 
-                    style="padding: 25px; background-color: #0f172a; min-height: 420px;">
-                    
+            <div class="flex auction-left" style="width: 40%">
+                <div id="stockAuctionHouse" class="card text-white shadow-sm h-100"
+                    style="padding: 25px; background-color: #0f172a; min-height: 420px; border-radius: 4px;">
+
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
                             <h5 class="fw-semibold mb-0">Stock in Auction House</h5>
-                       
+
                         </div>
                     </div>
 
@@ -116,39 +132,39 @@
                         </div>
                         <div class=" d-flex align-items-center">
                             <div style="width:100%; height:auto;" id="chats_color">
-                                
+
                             </div>
                         </div>
-                    
+
                     </div>
                 </div>
             </div>
 
-                <!-- Right: Valuation -->
-                <div style="flex: 1; width: 60%">
-                    <div class="getValuation card text-white rounded-4 shadow-sm h-100 valuesation" 
-                        style="background-color: #0f172a; min-height: 420px;">
-                        <div class="card-header border-0 bg-transparent">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h5 class="mb-0">Valuation</h5>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-control platforms" name="platform_ids[]" multiple>
-                                        <option value="">Select</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-control centersid" name="centers_id[]" multiple>
-                                        <option value="">Select</option>
-                                    </select>
-                                </div>
+            <!-- Right: Valuation -->
+            <div class="auction-right" style="flex: 1; width: 60%">
+                <div class="getValuation card text-white shadow-sm h-100 valuesation"
+                    style="background-color: #0f172a; min-height: 420px; border-radius: 4px;">
+                    <div class="card-header border-0 bg-transparent">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5 class="mb-0">Valuation</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control platforms" name="platform_ids[]" multiple>
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control centersid" name="centers_id[]" multiple>
+                                    <option value="">Select</option>
+                                </select>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card-body p-0">
-                            <div class="container mt-3 p-0">
-                                {{-- <div class="valuation-header text-dark rounded-2 mx-2" 
+                    <div class="card-body p-0">
+                        <div class="container mt-3 p-0">
+                            {{-- <div class="valuation-header text-dark rounded-2 mx-2" 
                                     style="background-color: #006aee !important;">
                                     <div class="d-flex align-items-center justify-content-between p-3">
                                       
@@ -170,31 +186,43 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="rows px-3 py-2">
-                                   <div style=" border-radius:8px; padding:20px; overflow-x:auto;">
-                                       <table style="width:100%; margin-bottom:0; border-collapse:collapse;">
-                                            <thead style="border-bottom:1px solid #ffffff;">
-                                                <tr>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Auc House</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Center</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Previous Week</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP C</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">CAP Avg</th>
-                                                    <th style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">Trade</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="valuationTableBody">
-                                                <!-- Dynamic rows appear here -->
-                                            </tbody>
-                                        </table>
-
-                                    </div>
+                            <div class="rows px-3 py-2">
+                                <div style=" border-radius:8px; padding:20px; overflow-x:auto;">
+                                    <table style="width:100%; margin-bottom:0; border-collapse:collapse;">
+                                        <thead style="border-bottom:1px solid #ffffff;">
+                                            <tr>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    Auc House</th>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    Center</th>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    Previous Week</th>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    CAP C</th>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    CAP Avg</th>
+                                                <th
+                                                    style="font-weight:600; font-size:13px; padding:16px 12px; text-align:left;">
+                                                    Trade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="valuationTableBody">
+                                            <!-- Dynamic rows appear here -->
+                                        </tbody>
+                                    </table>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
 
         <!-- Left Side: Stats -->
@@ -268,4 +296,3 @@
 </div>
 
 @include('user.dashboard.createyourinterest')
-

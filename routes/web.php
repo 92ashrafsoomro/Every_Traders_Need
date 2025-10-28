@@ -51,6 +51,14 @@ Broadcast::routes(['middleware' => ['auth']]);
 
 
 
+Route::get('/adminn/{any?}', function () {
+    return view('adminn.test');
+})->where('any', '.*');
+
+Route::get('/userr/{any?}', function () {
+    return view('userr.test');
+})->where('any', '.*');
+
 
 
 Route::get('/', [WebController::class, 'index']);

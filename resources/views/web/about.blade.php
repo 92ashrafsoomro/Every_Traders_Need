@@ -57,6 +57,11 @@
                 </div>
             </div>
         </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <main>
+
+
     </main>
 @endsection
 

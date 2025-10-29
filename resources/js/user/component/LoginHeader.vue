@@ -1,5 +1,5 @@
 <template>
-    <div :class="'my-header thememode-'+themeMode">
+    <div :class="'my-header thememode-'+themeStore.themeMode">
         <!-- Minimal header for auth pages -->
         <header class="absolute inset-x-0 top-0 z-20">
             <div class="mx-auto  px-4 py-4 d-flex items-center justify-content-between">
@@ -8,9 +8,9 @@
                     <img src="https://localhost/autoboli/public/theme/assets/web/images/nave-icon.png" alt="AutoBoli" class="h-8 w-auto block">
                 </a>
                 <div class="flex align-items-center gap-3">
-                    <button @click="setThemeMode()" class="theme-mode-button"
+                    <button @click="themeStore.toggleThemeMode()" class="theme-mode-button"
                         aria-label="Toggle theme">
-                        <i  v-if="themeMode == 'dark'" class="fas fa-sun text-yellow-400"></i>
+                        <i  v-if="themeStore.themeMode == 'dark'" class="fas fa-sun text-yellow-400"></i>
                         <i v-else class="fas fa-moon text-gray-900"></i>
                     </button>
                     <a href="https://localhost/autoboli"
@@ -24,21 +24,14 @@
 </template>
 
 <script>
+  import { useThemeStore } from '../stores/theme'
+
 
    export default {
     name: 'Login',
-         props: {
-            themeMode: {
-                type: String,
-                default: 'dark',
-             },
-            setThemeMode: {
-                type: Function,
-            },
-        },
         data() {
             return {
-              
+                themeStore: useThemeStore(),
             }
         },
         computed: {

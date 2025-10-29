@@ -19,6 +19,8 @@
         "@fortawesome/fontawesome-free": "^7.1.0",
         "@vitejs/plugin-vue": "^6.0.1",
         "bootstrap": "^5.3.8",
+        "pinia": "^3.0.3",
+        "pinia-plugin-persistedstate": "^4.5.0",
         "vue": "^3.5.22",
         "vue-router": "^4.6.3"
     }

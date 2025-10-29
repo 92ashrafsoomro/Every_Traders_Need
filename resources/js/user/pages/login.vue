@@ -1,33 +1,8 @@
 <template>
 
-    <div :class="'main'+' thememode-'+themeMode">
-
-        <LoginHeader :themeMode="themeMode" :setThemeMode="setThemeMode" />
-      
-        <!-- Minimal header for auth pages -->
-        <!-- <header class="absolute inset-x-0 top-0 z-20">
-            <div class="mx-auto  px-4 py-4 d-flex items-center justify-content-between">
-              
-                <a href="https://localhost/autoboli" class="flex items-center gap-2">
-                    <img src="https://localhost/autoboli/public/theme/assets/web/images/nave-icon.png" alt="AutoBoli" class="h-8 w-auto block">
-                </a>
-                <div class="flex align-items-center gap-3">
-                    <button @click="setThemeMode()" class="theme-mode-button"
-                        aria-label="Toggle theme">
-                        <i  v-if="themeMode == 'dark'" class="fas fa-sun text-yellow-400"></i>
-                        <i v-else class="fas fa-moon text-gray-900"></i>
-                    </button>
-                    <a href="https://localhost/autoboli"
-                        class="btn btn-primary">
-                        Back to Home
-                    </a>
-                </div>
-            </div>
-        </header> -->
-
-    <!-- Login Page -->
-    <div
-        class="relative min-h-screen flex items-center justify-center bg-[#000f21] dark:bg-gray-100 overflow-hidden pt-20 transition-colors">
+    <div :class="'main'+' thememode-'+themeStore.themeMode">
+        <LoginHeader />
+    <div class="relative min-h-screen flex items-center justify-center bg-[#000f21] dark:bg-gray-100 overflow-hidden pt-20 transition-colors">
 
 
         <!-- decorative bottom background -->
@@ -142,8 +117,9 @@
 </template>
 
 <script>
+     import { useThemeStore } from '../stores/theme'
+     import LoginHeader from '../component/LoginHeader.vue'
 
-   import LoginHeader from '../component/LoginHeader.vue'
    
    export default {
         name: 'Login',
@@ -152,20 +128,15 @@
         },
         data() {
             return {
-                themeMode: 'dark', 
+                themeStore: useThemeStore(),
             }
         },
         computed: {
         
         },
         methods: {
-            setThemeMode() {
-                if (this.themeMode == 'dark') {
-                    this.themeMode = 'light';
-                } else {
-                    this.themeMode = 'dark';
-                }
-            }
+          
+            
         },
     }
 

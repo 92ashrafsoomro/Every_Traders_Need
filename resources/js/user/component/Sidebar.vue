@@ -1,119 +1,99 @@
 <template>
-    <aside
-            class="sideBar"
-            :style="{ width: isSidebarOpen ? '258px' : '68px' }"
-        >
-            <div class="logoDiv p-4">
-                <img
-                    src="http://localhost/autoboli/public/themeadmin/images/logo/logo.png"
-                    alt=""
-                />
-            </div>
+    <aside class="sideBar" :style="{ width: isSidebarOpen ? '258px' : '68px' }">
+        <div class="logoDiv p-4">
+            <img
+                src="http://localhost/autoboli/public/themeadmin/images/logo/logo.png"
+                alt=""
+            />
+        </div>
 
-            <div class="pt-3 p-3">
-                <p
-                    style="
-                        color: #d3d3d3;
-                        letter-spacing: 0px;
-                        font-weight: 400;
-                        font-size: 14px;
-                    "
+        <div class="pt-3 p-3">
+            <p
+                style="
+                    color: #d3d3d3;
+                    letter-spacing: 0px;
+                    font-weight: 400;
+                    font-size: 14px;
+                "
+            >
+                Menu
+            </p>
+            <hr style="color: #d3d3d3; margin-top: -8px; margin-bottom: 6px" />
+            <div>
+                <router-link
+                    v-for="(item, index) in menuItems"
+                    :key="index"
+                    :to="item.path"
+                    class="text-decoration-none"
                 >
-                    Menu
-                </p>
-                <hr
-                    style="color: #d3d3d3; margin-top: -8px; margin-bottom: 6px"
-                />
-                <div>
-                    <router-link
-                        v-for="(item, index) in menuItems"
-                        :key="index"
-                        :to="item.path"
-                        class="text-decoration-none"
+                    <div
+                        class="router-element"
+                        :class="{ active: $route.path === item.path }"
                     >
-                        <div
-                            class="router-element"
-                            :class="{ active: $route.path === item.path }"
-                        >
-                            <span class="material-symbols-outlined">{{
-                                item.icon
-                            }}</span>
-                            <p v-if="isSidebarOpen" class="m-0">
-                                {{ item.label }}
-                            </p>
-                        </div>
-                    </router-link>
-                </div>
-            </div>
-            <div class="pt-3 p-3">
-                <p
-                    style="
-                        color: #d3d3d3;
-                        letter-spacing: 0px;
-                        font-weight: 400;
-                        font-size: 14px;
-                    "
-                >
-                    Profile
-                </p>
-                <hr
-                    style="color: #d3d3d3; margin-top: -8px; margin-bottom: 6px"
-                />
-                <div>
-
-                    <div v-for="(item, index) in profileItems"
-                              :key="index"
-                              :to="item.path">
-
-
-                            <router-link v-if="item.path" class="text-decoration-none">
-                                <div :class="'router-element ' + $route.path === item.path ? 'active' : '' ">
-                                    <span class="material-symbols-outlined">{{
-                                        item.icon
-                                    }}</span>
-                                    <p v-if="isSidebarOpen" class="m-0">
-                                        {{ item.label }}
-                                    </p>
-                                </div>
-                           </router-link>
-
-                           <a v-else >
-                              <div :class="'router-element ' + $route.path === item.path ? 'active' : '' ">
-                                    <span class="material-symbols-outlined">{{
-                                        item.icon
-                                    }}</span>
-                                    <p v-if="isSidebarOpen" class="m-0">
-                                        {{ item.label }}
-                                    </p>
-                                </div>
-                           </a>
+                        <span class="material-symbols-outlined">{{
+                            item.icon
+                        }}</span>
+                        <p v-if="isSidebarOpen" class="m-0">
+                            {{ item.label }}
+                        </p>
                     </div>
-                
-                </div>
+                </router-link>
             </div>
-        </aside>
+        </div>
+        <div class="pt-3 p-3">
+            <p
+                style="
+                    color: #d3d3d3;
+                    letter-spacing: 0px;
+                    font-weight: 400;
+                    font-size: 14px;
+                "
+            >
+                Profile
+            </p>
+            <hr style="color: #d3d3d3; margin-top: -8px; margin-bottom: 6px" />
+            <div>
+                <router-link
+                    v-for="(item, index) in profileItems"
+                    :key="index"
+                    :to="item.path"
+                    class="text-decoration-none"
+                >
+                    <div
+                        class="router-element"
+                        :class="{ active: $route.path === item.path }"
+                    >
+                        <span class="material-symbols-outlined">{{
+                            item.icon
+                        }}</span>
+                        <p v-if="isSidebarOpen" class="m-0">
+                            {{ item.label }}
+                        </p>
+                    </div>
+                </router-link>
+            </div>
+        </div>
+    </aside>
 </template>
 
 <script>
-  export default {
-    props:{
-      isSidebarOpen:{
-            type:Boolean,
-            default:true
-       },
+export default {
+    props: {
+        isSidebarOpen: {
+            type: Boolean,
+            default: true,
+        },
     },
-    data(){
-
-      return {
-
-          menuItems: [
+    data() {
+        return {
+            menuItems: [
                 { icon: "dashboard", label: "Dashboard", path: "/" },
                 {
                     icon: "gavel",
                     label: "Auction Finder",
                     path: "/auction-finder",
                 },
-                { icon: "thumb_up", label: "My Interest"},
+                { icon: "thumb_up", label: "My Interest" },
                 { icon: "history", label: "Watchlist", path: "/viewhsitory" },
                 {
                     icon: "edit_calendar",
@@ -137,17 +117,12 @@
                 { icon: "account_circle", label: "Profile", path: "/interest" },
                 { icon: "settings", label: "Settings", path: "/viewhsitory" },
             ],
-      }
-
-    }
-
-
-
-  }
+        };
+    },
+};
 </script>
 
 <style scoped>
-
 .sideBar {
     height: 100vh;
     position: fixed;
@@ -190,8 +165,4 @@
     margin-left: 8px !important;
     font-weight: 500;
 }
-
-
-
-  
 </style>

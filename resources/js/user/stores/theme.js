@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useThemeStore = defineStore('theme', {
     state: () => ({
-        menuType: 'collapsed',
+        menuType: 'expanded',
         themeMode: 'dark',
         loading: false,
     }),

@@ -1,26 +1,18 @@
 <template>
-    <div class="layout">
-        <Sidebar :isSidebarOpen="isSidebarOpen"></Sidebar>
-        <div
-            class="contentDiv"
-            :style="{
-                marginLeft: isSidebarOpen ? '258px' : '0',
-                width: isSidebarOpen ? 'calc(100vw - 258px)' : '100vw',
-            }"
-        >
-            <Header :toggleSidebar="toggleSidebar" :isSidebarOpen="isSidebarOpen" ></Header>
-            <div
-                class="viewPage"
-                :style="{
-                    marginLeft: isSidebarOpen ? '0px' : '68px',
-                }"
-            >
+    <div :class="'layout ' + 'layout-' + themeStore.menuType">
+        <Sidebar />
+        <div class="contentDiv">
+            <Header></Header>
+            <div class="viewPage">
                 <main class="p-4" style="background-color: yellow">
                     <h1>Content</h1>
                     <router-view />
                 </main>
                 <footer>
-                    <p> © 2025 Design & Develop By <span>DaPrimeProductions</span> </p>
+                    <p>
+                        © 2025 Design & Develop By
+                        <span>DaPrimeProductions</span>
+                    </p>
                 </footer>
             </div>
         </div>
@@ -30,6 +22,7 @@
 <script>
 import Sidebar from "./Sidebar.vue";
 import Header from "./Header.vue";
+import { useThemeStore } from "../stores/theme";
 
 export default {
     components: {
@@ -38,7 +31,7 @@ export default {
     },
     data() {
         return {
-            isSidebarOpen: true,
+            themeStore: useThemeStore(),
             headerIcons: [
                 { name: "pageless", title: "Page View", action: null },
                 {
@@ -50,17 +43,11 @@ export default {
             ],
         };
     },
-    methods: {
-        toggleSidebar() {
-            this.isSidebarOpen = !this.isSidebarOpen;
-        },
-    },
+    methods: {},
 };
 </script>
 
 <style scoped>
-
-
 .layout {
     display: flex;
     padding: 0px;
@@ -71,6 +58,20 @@ export default {
     width: 100%;
 }
 
+.layout-expanded .contentDiv {
+    margin-left: 258px;
+    width: calc(100vw - 258px);
+}
+
+.layout-collapsed .contentDiv {
+    width: 100%;
+    margin-left: 58px;
+}
+
+.viewPage {
+    margin-top: 88px;
+}
+
 footer p {
     font-size: 15px;
     font-weight: 400;
@@ -79,5 +80,17 @@ footer p {
 
 footer span {
     color: #0080ff;
+}
+
+@media (max-width: 768px) {
+    .layout-expanded .contentDiv {
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .layout-collapsed .contentDiv {
+        margin-left: 0px;
+        width: 100%;
+    }
 }
 </style>

@@ -19,9 +19,9 @@
 
             <!-- Notification Items -->
             <div
-                v-for="(item, index) in 4"
-                :key="index"
                 class="notification-item"
+                v-for="(note, i) in userStore.notification"
+                :key="i"
             >
                 <div class="icon-notify">
                     <div class="icon-notify-container">
@@ -30,11 +30,13 @@
                         </span>
                     </div>
                 </div>
+
                 <div class="notification-content-centralized">
-                    <div class="titleheading">Space For Title</div>
-                    <div class="desc">This is space for description</div>
-                    <p>2 weeks ago</p>
+                    <div class="titleheading">{{ note.title }}</div>
+                    <div class="desc">{{ note.description }}</div>
+                    <p>{{ note.time }}</p>
                 </div>
+
                 <div class="notification-last-item">
                     <div class="blue-dot"></div>
                     <span class="material-symbols-outlined"> close_small </span>
@@ -49,7 +51,14 @@
 </template>
 
 <script>
+import { useUserStore } from "../stores/user";
+
 export default {
+    setup() {
+        const userStore = useUserStore();
+        return { userStore };
+    },
+
     data() {
         return {
             isOpen: false,
@@ -61,7 +70,6 @@ export default {
         },
     },
     mounted() {
-        // Close dropdown when clicking outside
         document.addEventListener("click", this.closeDropdown);
     },
     beforeUnmount() {

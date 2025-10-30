@@ -1,8 +1,8 @@
 <template>
     <main>
         <TitleBar
-            title="Reauction Tracker"
-            subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement."
+            title="Watched & Alerted"
+            subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity"
         ></TitleBar>
     </main>
 </template>

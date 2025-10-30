@@ -13,16 +13,14 @@
         </div>
 
         <div class="pt-3 p-3">
-            <div
+            <router-link
                 v-for="(item, index) in menus"
                 :key="index"
                 :to="item.path"
                 class="text-decoration-none"
             >
                 <div class="sidebarMenu-heading" v-if="item.type == 'group'">
-                    <p>
-                        {{ item.label }}
-                    </p>
+                    <p>{{ item.label }}</p>
                     <hr />
                 </div>
 
@@ -38,7 +36,7 @@
                         {{ item.label }}
                     </p>
                 </div>
-            </div>
+            </router-link>
         </div>
     </aside>
 </template>
@@ -101,6 +99,7 @@ export default {
     justify-content: start;
     align-items: center;
     border-bottom: 1px solid #353f4c;
+    height: 88px;
 }
 
 .router-element {

@@ -2,22 +2,21 @@
     <div class="relative inline-block">
         <div class="profile-avatar" @click="toggleDropdown">
             <img
-                src="http://localhost/autoboli/public/uploads/avatar/1758622849__ff__1754473262__ff__profile.jpg"
-                alt="User Avatar"
+                :src="userStore.user?.avatar"
+                alt="Image"
             />
         </div>
 
         <div v-if="isOpen" class="dropdown" @click.stop>
             <div class="dropdown-header-profile">
                 <div class="dropdown-profile-circle">
-                    <img
-                        src="http://localhost/autoboli/public/uploads/avatar/1758622849__ff__1754473262__ff__profile.jpg"
-                        alt="User Avatar"
+                    <img :src="userStore.user?.avatar"
+                        alt="Image"
                     />
                 </div>
                 <div class="userName-and-position">
-                    <h6>{{ userStore.user.username }}</h6>
-                    <p>{{ userStore.user.type }}</p>
+                    <h6>{{ userStore.user?.name }}</h6>
+                    <p>{{ userStore.user?.user_type }}</p>
                 </div>
             </div>
 

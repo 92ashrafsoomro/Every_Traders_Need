@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Form -->
-                    <form action="https://localhost/autoboli/login_submit" method="POST" class="">
+                    <form class="">
                         <div class="form-group">
                             <label>Work Email</label>
                             <input v-model="form.email" type="email" class="form-control" placeholder="Enter your work email" />
@@ -60,13 +60,13 @@
 </template>
 
 <script>
-    import { useThemeStore } from '../stores/theme'
-    import LoginHeader from '../component/LoginHeader.vue'
-    import api from '../plugins/axios';
-     
 
-   
-   export default {
+import { useThemeStore } from '../stores/theme'
+import LoginHeader from '../component/LoginHeader.vue'
+import api from '../plugins/axios';
+import { useUserStore } from '../stores/user';
+    
+export default {
         name: 'Login',
         components: {
           LoginHeader, 
@@ -74,12 +74,12 @@
         data() {
             return {
                 themeStore: useThemeStore(),
-                errors: {  
-                },
+                userStore: useUserStore(),
+                errors:{},
                 loading:false,
                 form: {
-                    email: '',
-                    password:'',
+                    email: 'man411210@gmail.com',
+                    password:'12345678',
                 }
             }
         },
@@ -87,39 +87,54 @@
         
         },
         methods: {
-            login() {
+           async login() {
 
                 this.loading = true;
                 const form = new FormData();
                 form.append("email", this.form.email);
                 form.append("password", this.form.password);
 
-                api.post('/api/auth/login', form)
-                    .then((res) => {
+                try {
 
-                        if (res.data.token) {
-                            localStorage.setItem("auth_token", res.data.token);
-                            api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-                            this.$router.push("/");
-                        } else {
-                            alert('Something Went Wrong');
-                        }
-
-                    }).catch((error) => {
-
-                        this.loading = false;
-
-                        if (error?.response?.data?.errors) {
-                            this.errors = error.response.data.errors;
-                        } else if (error?.response?.data?.message) {
-                            alert(error.response.data.message);
-                        }else{
-                            alert('Something Went Wrong');
-                        }
+                    const res = await api.post("/api/auth/login", form);
+                    if (!res.data.token) {
+                        throw new Error("Token Not Found");
+                    }
+                    
+                    await this.getProfile(res.data);
                         
-                    });
+                } catch (error) {
 
+                    this.loading = false;
+                    if (error?.response?.data?.errors) {
+                        this.errors = error.response.data.errors;
+                    } else if (error?.response?.data?.message) {
+                        alert(error.response.data.message);
+                    } else {
+                        alert(error.message || "Something went wrong, contact admin.");
+                    }
+                }
+            },
+            async getProfile(data) { 
+
+              try {
+                     api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+                     let res = await api.get('/api/auth/profile');
+                     console.log(res.data);
+                     this.loading = false
+                     
+                } catch (error) {
+                    this.loading = false;
+                    if (error?.response?.data?.message) {
+                        alert(error.response.data.message);
+                    }else {
+                        alert(error.message || "Something went wrong, contact admin.");
+                    }
+                }
+                
             }
+
+
             
         },
     }

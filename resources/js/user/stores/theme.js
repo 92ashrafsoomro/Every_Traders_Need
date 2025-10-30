@@ -21,5 +21,14 @@ export const useThemeStore = defineStore('theme', {
         setMenuType(type) {
             this.menuType = this.menuType === type;
         },
+        startLoading() {
+            this.loading = true;
+            console.log('Theme Store Loading',this.loading);
+            
+        },
+        endLoading() {
+            this.loading = false;
+             console.log('Theme Store Loading',this.loading);
+        },
     },
 })

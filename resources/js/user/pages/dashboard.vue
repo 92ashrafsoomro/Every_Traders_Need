@@ -27,15 +27,15 @@ export default {
 
         
          
-        this.userStore.$subscribe((mutation, state) => {
+        // this.userStore.$subscribe((mutation, state) => {
 
            
-            console.log('New state:', state.user)
+        //     console.log('New state:', state.user)
 
 
-        });
+        // });
 
-        this.userStore.syncUser();
+        // this.userStore.syncUser();
 
        
 

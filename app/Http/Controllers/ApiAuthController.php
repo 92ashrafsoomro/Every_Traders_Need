@@ -33,19 +33,20 @@ use Illuminate\Support\Facades\Hash;
 class ApiAuthController extends Controller
 {
 
-    
+
      public function profile(Request $request)
     {
 
             $user = $request->user();
 
             return response()->json([
+                'message' => 'Login Success',
                 'account' => [
                     'name' => $user->title,
                     'email' => $user->personalEmail,
                     'phone' => $user->phone,
-                    'user_type' =>  $user->user_type,
-                    'avatar' => $user->avatar,
+                    'user_type' =>  $user->user_type == 0 ? 'Admin' : 'User',
+                    'avatar' => ENV('APP_URL').'public/uploads/avatar/'.$user->avatar,
                     'status' => $user->status,
                     'email_verification_token_status' => $user->email_verification_token_status,
                 ],
@@ -98,6 +99,7 @@ class ApiAuthController extends Controller
                 //  $deviceController->storeDeviceInfo($request);
 
                 return response()->json([
+                    'message' => 'Login Success',
                     'user' => $user,
                     'token' => $token,
                 ]);

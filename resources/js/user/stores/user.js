@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import api from "../plugins/axios";
+import {useThemeStore} from './theme';
+
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -23,33 +25,60 @@ export const useUserStore = defineStore("user", {
             },
         ],
         loading: false,
+        token: localStorage.getItem('auth_token'),
     }),
 
     getters: {},
 
     actions: {
         async syncUser() {
-            
+
+            const themeStore = useThemeStore();
+
             this.loading = true;
+            themeStore.startLoading();
+
+            if(!this.token) {
+                this.clearAuth();
+                this.loading = false;
+                themeStore.endLoading();
+                return false;  
+            }
             
             api.get('/api/auth/profile')
             .then((res) => {
                         
                 this.user = res.data.account;
+                console.log(res);
                 this.loading = false;
-
+                themeStore.endLoading();
+                
             }).catch((error) => {
 
                 if (error?.response?.data?.message) {
                     alert(error.response.data.message);
-                }else{
-                    // alert('Something Went Wrong');
                 }
+
+                this.clearAuth();
                 this.loading = false;
+                themeStore.endLoading();
                     
             });
 
-            
         },
+        clearAuth() {
+            localStorage.removeItem('auth_token');
+            this.user = {};
+            this.is_logged_in = false;
+        },
+        userLogin(data) {
+
+            this.user = data.account;
+            this.is_logged_in = true;
+        },
+
+      
+
     },
+
 });

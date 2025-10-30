@@ -33,11 +33,116 @@
                 </div>
 
                 <!-- Notifications Dropdown -->
-                <div v-if="activeDropdown === 'notifications'" class="dropdown">
-                    <div class="dropdown-header">Notifications</div>
-                    <ul>
-                        <li>No new notifications</li>
-                    </ul>
+                <div
+                    v-if="activeDropdown === 'notifications'"
+                    class="dropdown-notification"
+                >
+                    <div class="dropdown-notification-header">
+                        <div class="title">Notifications</div>
+                        <div class="title-right-side">
+                            <div class="notifyDiv">8 New</div>
+                            <span class="material-symbols-outlined">
+                                drafts
+                            </span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="icon-notify">
+                            <div class="icon-notify-container">
+                                <span class="material-symbols-outlined">
+                                    notifications
+                                </span>
+                            </div>
+                        </div>
+                        <div class="notification-content-centralized">
+                            <div class="titleheading">Space For Title</div>
+                            <div class="desc">
+                                This is space for description
+                            </div>
+
+                            <p>2 weeks ago</p>
+                        </div>
+                        <div class="notification-last-item">
+                            <div class="blue-dot"></div>
+                            <span class="material-symbols-outlined">
+                                close_small
+                            </span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="icon-notify">
+                            <div class="icon-notify-container">
+                                <span class="material-symbols-outlined">
+                                    notifications
+                                </span>
+                            </div>
+                        </div>
+                        <div class="notification-content-centralized">
+                            <div class="titleheading">Space For Title</div>
+                            <div class="desc">
+                                This is space for description
+                            </div>
+
+                            <p>2 weeks ago</p>
+                        </div>
+                        <div class="notification-last-item">
+                            <div class="blue-dot"></div>
+                            <span class="material-symbols-outlined">
+                                close_small
+                            </span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="icon-notify">
+                            <div class="icon-notify-container">
+                                <span class="material-symbols-outlined">
+                                    notifications
+                                </span>
+                            </div>
+                        </div>
+                        <div class="notification-content-centralized">
+                            <div class="titleheading">Space For Title</div>
+                            <div class="desc">
+                                This is space for description
+                            </div>
+
+                            <p>2 weeks ago</p>
+                        </div>
+                        <div class="notification-last-item">
+                            <div class="blue-dot"></div>
+                            <span class="material-symbols-outlined">
+                                close_small
+                            </span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="icon-notify">
+                            <div class="icon-notify-container">
+                                <span class="material-symbols-outlined">
+                                    notifications
+                                </span>
+                            </div>
+                        </div>
+                        <div class="notification-content-centralized">
+                            <div class="titleheading">Space For Title</div>
+                            <div class="desc">
+                                This is space for description
+                            </div>
+
+                            <p>2 weeks ago</p>
+                        </div>
+                        <div class="notification-last-item">
+                            <div class="blue-dot"></div>
+                            <span class="material-symbols-outlined">
+                                close_small
+                            </span>
+                        </div>
+                    </div>
+                    <div class="notification-btn-container">
+                        <button class="notification-btn">
+                            View All Notification
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Profile Dropdown -->
@@ -241,26 +346,153 @@ export default {
     display: none;
 }
 
-@media (max-width: 768px) {
-    .titleHeading {
-        display: none;
-    }
-
-    .mobileIcon_container {
-        display: block;
-        color: white;
-    }
-
-    .headerDiv-expanded {
-        margin-left: 0px;
-        width: 100%;
-    }
-
-    .headerDiv-collapsed {
-        margin-left: 0px;
-        width: 100%;
-    }
+.dropdown-notification {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: #000f21;
+    color: white;
+    border: 1px solid #1c2a38;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    animation: fadeIn 0.2s ease;
+    height: 527px;
+    width: 352px;
 }
+
+.dropdown-notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1c2a38;
+}
+
+.dropdown-notification-header .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+}
+
+.title-right-side {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-right-side .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.notifyDiv {
+    background-color: #002145;
+    color: #0080ff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: start;
+    border-bottom: 1px solid #1c2a38;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #0f1c2c;
+}
+
+.icon-notify {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.icon-notify-container {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background-color: #002145;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-notify-container span {
+    color: #0080ff;
+}
+
+.notification-content-centralized {
+    padding: 10px;
+    width: 70%;
+}
+
+.notification-content-centralized .titleheading {
+    font-size: 13px;
+    font-weight: 400;
+    color: #d3d3d3;
+}
+
+.notification-content-centralized .desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: white;
+}
+
+.notification-content-centralized p {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #76778e;
+}
+
+.notification-last-item {
+    height: 100%;
+}
+
+.notification-last-item .blue-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #0080ff;
+    border-radius: 100%;
+    margin-top: 20px;
+}
+
+.notification-last-item span {
+    display: none;
+}
+
+.notification-item:hover span {
+    display: block;
+}
+
+.notification-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+}
+
+.notification-btn {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffff;
+    background-color: #0080ff;
+    width: 90%;
+    padding: 8px 5px;
+    border: 0px;
+    border-radius: 4px;
+}
+
+.notification-btn:hover {
+    color: #0080ff;
+    background-color: white;
+}
+
 .dropdown {
     position: absolute;
     top: 60px;
@@ -383,6 +615,26 @@ export default {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+@media (max-width: 768px) {
+    .titleHeading {
+        display: none;
+    }
+
+    .mobileIcon_container {
+        display: block;
+        color: white;
+    }
+
+    .headerDiv-expanded {
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .headerDiv-collapsed {
+        margin-left: 0px;
+        width: 100%;
     }
 }
 </style>

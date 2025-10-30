@@ -19,24 +19,11 @@
                 :to="item.path"
                 class="text-decoration-none"
             >
-                <div v-if="item.type == 'group'">
-                    <p
-                        style="
-                            color: #d3d3d3;
-                            letter-spacing: 0px;
-                            font-weight: 400;
-                            font-size: 14px;
-                        "
-                    >
+                <div class="sidebarMenu-heading" v-if="item.type == 'group'">
+                    <p>
                         {{ item.label }}
                     </p>
-                    <hr
-                        style="
-                            color: #d3d3d3;
-                            margin-top: -8px;
-                            margin-bottom: 6px;
-                        "
-                    />
+                    <hr />
                 </div>
 
                 <div
@@ -74,6 +61,19 @@ export default {
 </script>
 
 <style scoped>
+.sidebarMenu-heading p {
+    color: #d3d3d3;
+    letter-spacing: 0px;
+    font-weight: 400;
+    font-size: 14px;
+}
+.sidebarMenu-heading hr {
+    color: #d3d3d3;
+    letter-spacing: 0px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
 .sideBar-expanded {
     width: 258px;
     height: 100vh;
@@ -113,6 +113,7 @@ export default {
     margin-bottom: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
 }
 
 .router-element:hover {

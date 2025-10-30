@@ -4,8 +4,7 @@
         <div class="contentDiv">
             <Header></Header>
             <div class="viewPage">
-                <main class="p-4" style="background-color: yellow">
-                    <h1>Content</h1>
+                <main>
                     <router-view />
                 </main>
                 <footer>

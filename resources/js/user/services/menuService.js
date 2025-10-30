@@ -12,7 +12,7 @@
                     { 
                         icon: "dashboard", 
                         label: "Dashboard",
-                        path: "/",
+                        path: "/dashboard",
                         children: [
                             {
                                 icon: "gavel",

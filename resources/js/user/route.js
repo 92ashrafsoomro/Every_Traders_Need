@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from './pages/home.vue';
+import Dashboard from './pages/dashboard.vue';
 import About from './pages/about.vue';
 import Contact from './pages/contact.vue';
 import AuctionFinder from './pages/auction-finder.vue'
@@ -13,6 +14,7 @@ const routes = [
         component: DashboardLayout,
         children: [
             { path: '', component: Home },
+            { path: 'dashboard', component: Dashboard },
             { path: 'auction-finder', component: AuctionFinder },
             { path: 'home', component: Home },
             { path: 'about', component: About },

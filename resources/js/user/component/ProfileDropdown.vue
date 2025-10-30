@@ -16,8 +16,8 @@
                     />
                 </div>
                 <div class="userName-and-position">
-                    <h6>User Name</h6>
-                    <p>user_type</p>
+                    <h6>{{ userStore.user.username }}</h6>
+                    <p>{{ userStore.user.type }}</p>
                 </div>
             </div>
 
@@ -51,7 +51,15 @@
 </template>
 
 <script>
+import { useUserStore } from "../stores/user";
+
 export default {
+    setup() {
+        return {
+            userStore: useUserStore(),
+        };
+    },
+
     data() {
         return {
             isOpen: false,

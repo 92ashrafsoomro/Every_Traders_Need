@@ -121,7 +121,6 @@ export default {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 3;
     animation: fadeIn 0.2s ease;
-    height: 527px;
     width: 352px;
 }
 
@@ -174,6 +173,7 @@ export default {
     align-items: start;
     border-bottom: 1px solid #1c2a38;
     cursor: pointer;
+    overflow: auto;
 }
 
 .notification-item:hover {

@@ -2,7 +2,10 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
-        user: {},
+        user: {
+            username: "Babar Azam",
+            type: "user",
+        },
         notification: [
             {
                 title: "New Message",

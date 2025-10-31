@@ -35,34 +35,24 @@ export const useUserStore = defineStore("user", {
 
             const themeStore = useThemeStore();
 
-            this.loading = true;
             themeStore.startLoading();
-
+            
             if(!this.token) {
                 this.clearAuth();
-                this.loading = false;
                 themeStore.endLoading();
                 return false;  
             }
             
             api.get('/api/auth/profile')
             .then((res) => {
-                        
                 this.user = res.data.account;
-                console.log(res);
-                this.loading = false;
                 themeStore.endLoading();
-                
             }).catch((error) => {
-
-                if (error?.response?.data?.message) {
+                if(error?.response?.data?.message){
                     alert(error.response.data.message);
                 }
-
                 this.clearAuth();
-                this.loading = false;
                 themeStore.endLoading();
-                    
             });
 
         },

@@ -40,7 +40,7 @@ class ApiAuthController extends Controller
             $user = $request->user();
 
             return response()->json([
-                'message' => 'Login Success',
+                'message' => 'Get Profile Details',
                 'account' => [
                     'name' => $user->title,
                     'email' => $user->personalEmail,
@@ -70,8 +70,8 @@ class ApiAuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Request Failed',
-                'errors' => $validator->errors()
+                'message' => 'Validation Failed',
+                'errors' => $validator->errors(),
             ], 422);
         }
 

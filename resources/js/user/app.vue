@@ -33,16 +33,21 @@ export default {
     },
     async mounted() {     
 
-      this.themeStore.startLoading();
-      // console.log('Theme Store ', this.themeStore.loading);
+        this.themeStore.startLoading();
+        // console.log('Theme Store ', this.themeStore.loading);
 
-      await Promise.all([
-        this.userStore.syncUser(),
-      ]);
+        await Promise.all([
+          this.userStore.syncUser(),
+        ]);
 
-    
-      // this.themeStore.endLoading();
+  
+      this.themeStore.endLoading();
       // console.log('Theme Store ',this.themeStore.loading);
+
+         this.userStore.$subscribe((mutation, state) => {
+          // console.log("Mutation:", mutation);
+          console.log("New state:", state);
+        });
 
               
     },

@@ -7,6 +7,7 @@ import AuctionFinder from './pages/auction-finder.vue'
 import NotFound from './pages/404.vue';
 import DashboardLayout from './component/DashboardLayout.vue'
 import Login from './pages/login.vue'
+import { useUserStore } from './stores/user';
 
 const routes = [
     {
@@ -14,7 +15,7 @@ const routes = [
         component: DashboardLayout,
         children: [
             { path: '', component: Home },
-            { path: 'dashboard', component: Dashboard },
+            { path: 'dashboard', component: Dashboard ,meta: { auth: true }},
             { path: 'auction-finder', component: AuctionFinder },
             { path: 'home', component: Home },
             { path: 'about', component: About },
@@ -31,6 +32,23 @@ const routes = [
 const router = createRouter({
     history: createWebHistory('/autoboli/userr'),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+
+        const userStore = useUserStore();
+
+        if (to.meta.auth) {
+            
+            if (!userStore.is_logged_in) {
+                next({ path: '/login' });
+            }
+
+              next();
+        } else {
+            next();
+        }
+
 });
 
 export default router;

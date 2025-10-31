@@ -65,6 +65,7 @@ import { useThemeStore } from '../stores/theme'
 import LoginHeader from '../component/LoginHeader.vue'
 import api from '../plugins/axios';
 import { useUserStore } from '../stores/user';
+import AuthService from '../services/authService';
     
 export default {
         name: 'Login',
@@ -90,52 +91,25 @@ export default {
            async login() {
 
                 this.loading = true;
-                const form = new FormData();
-                form.append("email", this.form.email);
-                form.append("password", this.form.password);
+                this.errors = {};
 
                 try {
 
-                    const res = await api.post("/api/auth/login", form);
-                    if (!res.data.token) {
-                        throw new Error("Token Not Found");
-                    }
-                    
-                    await this.getProfile(res.data);
-                        
+                    let loginResponse = await AuthService.Login(this.form);
+                    let profileRequest = await AuthService.getProfile(loginResponse.token);
+                    profileRequest.token = loginResponse.token;
+                    this.userStore.userLogin(profileRequest);
+                    this.loading = false
+                    this.$router.replace('/dashboard');                    
+
                 } catch (error) {
 
-                    this.loading = false;
-                    if (error?.response?.data?.errors) {
-                        this.errors = error.response.data.errors;
-                    } else if (error?.response?.data?.message) {
-                        alert(error.response.data.message);
-                    } else {
-                        alert(error.message || "Something went wrong, contact admin.");
-                    }
+                    this.loading = false
+                    this.errors = error.validation || {}; 
+                    alert(error.message);
                 }
-            },
-            async getProfile(data) { 
 
-              try {
-                     api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-                     let res = await api.get('/api/auth/profile');
-                     console.log(res.data);
-                     this.loading = false
-                     
-                } catch (error) {
-                    this.loading = false;
-                    if (error?.response?.data?.message) {
-                        alert(error.response.data.message);
-                    }else {
-                        alert(error.message || "Something went wrong, contact admin.");
-                    }
-                }
-                
-            }
-
-
-            
+            },            
         },
     }
 

@@ -66,13 +66,13 @@ export const useUserStore = defineStore("user", {
             });
 
         },
-        clearAuth() {
+        clearAuth(){
             localStorage.removeItem('auth_token');
             this.user = {};
             this.is_logged_in = false;
         },
-        userLogin(data) {
-
+        userLogin(data){  
+            localStorage.setItem('auth_token',data.token);
             this.user = data.account;
             this.is_logged_in = true;
         },

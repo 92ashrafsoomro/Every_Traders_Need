@@ -34,7 +34,6 @@ export const useUserStore = defineStore("user", {
         async syncUser() {
 
             const themeStore = useThemeStore();
-
             themeStore.startLoading();
             
             if(!this.token) {

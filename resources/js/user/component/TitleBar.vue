@@ -35,7 +35,6 @@ export default {
     width: 100%;
     height: auto;
     background-color: #000f21;
-    overflow: hidden;
     padding: 40px 0;
     padding-bottom: 0px;
 }
@@ -57,6 +56,9 @@ export default {
     padding: 20px 60px;
     color: white;
     text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1590px;
 }
 
 .content h1 {
@@ -82,5 +84,11 @@ export default {
 
 .btn-primary:hover {
     background-color: #0066cc;
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 20px 15px;
+    }
 }
 </style>

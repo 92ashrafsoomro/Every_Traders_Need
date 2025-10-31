@@ -1,26 +1,41 @@
 <template>
-    <div class="select-container">
-        <select class="main-select" name="" id="">
-            <option value="manheim">Manheim</option>
-            <option value="aston barclay">Aston Barclay</option>
-            <option value="BCA">BCA</option>
-        </select>
-
-        <div>icon</div>
-    </div>
+    <VueSelect
+        v-model="selected"
+        :options="options"
+        :placeholder="placeholder"
+    />
 </template>
-<script></script>
-<style>
-.select-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.main-select {
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: none;
-    appearance: none;
+<script>
+import VueSelect from "vue3-select-component";
+import "vue3-select-component/styles";
+
+export default {
+    name: "CustomSelect",
+    components: { VueSelect },
+    props: {
+        placeholder: {
+            type: String,
+            default: "Select an option",
+        },
+        options: {
+            type: Array,
+            default: () => [
+                { label: "Option #1", value: "option_1" },
+                { label: "Option #2", value: "option_2" },
+                { label: "Option #3", value: "option_3" },
+            ],
+        },
+    },
+    data() {
+        return {
+            selected: "",
+        };
+    },
+};
+</script>
+<style scoped>
+.value-container {
+    background-color: #1a2533 !important;
 }
 </style>

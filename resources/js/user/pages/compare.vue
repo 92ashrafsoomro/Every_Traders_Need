@@ -3,7 +3,9 @@
         <TitleBar
             title="Find the Best Auction Deal"
             subtitle="Review and compare live auctions side by side to find the smartest deal."
-        ></TitleBar>
+        >
+            Filter <span></span>
+        </TitleBar>
     </main>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
     <v-app>
-       
         <Sidebar />
 
         <v-app-bar app color="secondary" class="topBar" dark>
@@ -8,7 +7,7 @@
                 @click="themeStore.toggleMenuType()"
                 class=""
             ></v-app-bar-nav-icon>
-            <v-toolbar-title>Simple Dashboard</v-toolbar-title>
+            <v-toolbar-title>Dashboard</v-toolbar-title>
 
             <!-- Notification Menu -->
             <v-menu location="bottom" transition="fade-transition">
@@ -68,21 +67,16 @@
 </template>
 
 <script>
-import { getMenu } from '../../core/services/menuService';
-import { useThemeStore } from '../../stores/theme';
-import Sidebar from "./Sidebar.vue"
-
+import { getMenu } from "../../core/services/menuService";
+import { useThemeStore } from "../../stores/theme";
+import Sidebar from "./Sidebar.vue";
 
 export default {
     name: "App",
     components: {
-         Sidebar
+        Sidebar,
     },
-    computed: {
-        menucheck() {
-           return this.themeStore.menuType == 'expanded' ? true : false
-        }
-    },
+    computed: {},
     data() {
         return {
             drawer: true,

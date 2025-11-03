@@ -1,21 +1,21 @@
 <template>
     <main>
         <TitleBar
-            title="Smart Auction Search"
-            subtitle="Filter, compare, and uncover vehicles that match your profit goals."
+            title="Watched & Alerted"
+            subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity"
         >
             <div class="tabsContainer">
-                <button
-                    :class="{ active: activeTab === 'auction' }"
-                    @click="activeTab = 'auction'"
-                >
-                    Auction Finder
-                </button>
                 <button
                     :class="{ active: activeTab === 'valuation' }"
                     @click="activeTab = 'valuation'"
                 >
-                    Vehicle Valuation
+                    WatchList
+                </button>
+                <button
+                    :class="{ active: activeTab === 'auction' }"
+                    @click="activeTab = 'auction'"
+                >
+                    Your Alerts
                 </button>
             </div>
         </TitleBar>
@@ -27,14 +27,14 @@
 
 <script>
 import TitleBar from "./../../component/TitleBar.vue";
-import AuctionFinder from "./auctionFinder.vue";
-import VehicleValuation from "./vehicleValuation.vue";
+import Alerts from "./alerts.vue";
+import Watchlist from "./watchlist.vue";
 
 export default {
     components: {
         TitleBar,
-        AuctionFinder,
-        VehicleValuation,
+        Alerts,
+        Watchlist,
     },
     data() {
         return {
@@ -43,9 +43,7 @@ export default {
     },
     computed: {
         currentComponent() {
-            return this.activeTab === "auction"
-                ? "AuctionFinder"
-                : "VehicleValuation";
+            return this.activeTab === "auction" ? "Alerts" : "Watchlist";
         },
     },
 };

@@ -7,7 +7,7 @@ import AuctionFinder from "./pages/auction-finder/index.vue";
 import AuctionScheduler from "./pages/auctionscheduler.vue";
 import Interest from "./pages/interest.vue";
 import Reauction from "./pages/reauction.vue";
-import Watchlist from "./pages/watchlist.vue";
+import Watchlist from "./pages/watchlist/index.vue";
 import Compare from "./pages/compare.vue";
 import NotFound from "./pages/404.vue";
 import DashboardLayout from "./component/DashboardLayout.vue";
@@ -24,7 +24,7 @@ const routes = [
             { path: "auctionscheduler", component: AuctionScheduler },
             { path: "interest", component: Interest },
             { path: "reauction", component: Reauction },
-            { path: "watchlist", component: Watchlist },
+            { path: "/watchlist", component: Watchlist },
             { path: "compare", component: Compare },
             { path: "home", component: Home },
             { path: "about", component: About },

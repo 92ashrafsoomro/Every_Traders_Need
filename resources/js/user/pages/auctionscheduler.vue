@@ -301,6 +301,15 @@ export default {
     font-size: 10px;
 }
 
+@media (max-width: 1024px) {
+    .selectContainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .scheduleContainer {
         margin-left: auto;

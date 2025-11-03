@@ -1,8 +1,15 @@
 <template>
             <v-list>
                 <v-list-item>
-                    <img src="http://localhost/autoboli/public/themeadmin/images/logo/logo.png" class="logoImg" />
-                    <button class="logoType"></button>
+                    <img src="/public/theme/assets/logo_autoboli.png" class="logoImg" />
+                    <button
+                        class="logoType d-xl-block"
+                        @click="drawer = !drawer"
+                    >
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+                    </button>
                 </v-list-item>
 
                 <v-divider></v-divider>
@@ -19,7 +26,6 @@
 </template>
 
 <script>
-import Image1  from '../../images/logo/logo.png'
 import { useThemeStore } from "../../stores/theme";
 import { getMenu } from "../../core/services/menuService";
 

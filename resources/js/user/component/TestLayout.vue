@@ -3,31 +3,22 @@
         <Sidebar />
 
         <v-app-bar app color="secondary" class="topBar" dark>
-            <v-app-bar-nav-icon @click="themeStore.toggleMenu()" class="d-xl-none"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+                @click="themeStore.toggleMenu()"
+                class="d-xl-none"
+            ></v-app-bar-nav-icon>
             <v-toolbar-title>Dashboard</v-toolbar-title>
 
-            <!-- Notification Menu -->
-            <v-menu location="bottom" transition="fade-transition">
-                <template #activator="{ props }">
-                    <v-btn icon v-bind="props">
-                        <v-icon>mdi-bell</v-icon>
-                    </v-btn>
-                </template>
 
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title>My Profile</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                        <v-list-item-title>Settings</v-list-item-title>
-                    </v-list-item>
-                    <v-divider></v-divider>
-                    <v-list-item>
-                        <v-list-item-title>Logout</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-            <CustomProfileMenu />
+            <div class="rightIcons">
+                <div class="icon_wrapper">
+                    <NotificationDropdown />
+                </div>
+                <div class="icon_wrapper">
+                    <ProfileDropdown />
+                </div>
+            </div>
+
         </v-app-bar>
 
         <v-main>
@@ -43,13 +34,13 @@
 import { getMenu } from "../../core/services/menuService";
 import { useThemeStore } from "../../stores/theme";
 import Sidebar from "./Sidebar.vue";
-import CustomProfileMenu from './../component/CustomProfileMenu.vue'
+import ProfileDropdown from "./ProfileDropdown.vue";
 
 export default {
     name: "App",
     components: {
         Sidebar,
-        CustomProfileMenu
+        ProfileDropdown,
     },
     computed: {},
     data() {
@@ -63,9 +54,24 @@ export default {
 };
 </script>
 <style>
+.rightIcons {
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
 
-
-
+.icon_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    width: 40px;
+    background-color: #353f4c;
+    border-radius: 8px;
+    padding: 1px;
+}
 
 .listItem {
     display: flex;

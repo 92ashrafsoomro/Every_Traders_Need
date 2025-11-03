@@ -70,7 +70,13 @@
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">
-                    <v-btn prepend-icon="$" variant="outlined"> Button </v-btn>
+                    <button
+                        class="btn btn-danger d-inline-flex align-self-center gap-2"
+                        @click="logout"
+                    >
+                        Logout
+                        <span class="material-symbols-outlined"> logout </span>
+                    </button>
                 </v-list-item-title>
             </v-list-item>
         </v-list>

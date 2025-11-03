@@ -1,48 +1,7 @@
 <template>
     <v-app>
         <v-navigation-drawer app v-model="drawer" color="secondary" dark>
-            <v-list>
-                <v-list-item>
-                    <img
-                        src="http://localhost/backup_autoboli/public/themeadmin/images/logo/logo.png"
-                        alt=""
-                        class="logoImg"
-                    />
-
-                    <button class="logoType"></button>
-                </v-list-item>
-
-                <v-divider></v-divider>
-
-                <v-list-item link>
-                    <div class="listItem">
-                        <v-list-item-icon>
-                            <v-icon
-                                >mdi-view-dashboard</v-icon
-                            ></v-list-item-icon
-                        >
-                        <v-list-item-title>Dashboard</v-list-item-title>
-                    </div>
-                </v-list-item>
-
-                <v-list-item link>
-                    <div class="listItem">
-                        <v-list-item-icon
-                            ><v-icon>mdi-account</v-icon></v-list-item-icon
-                        >
-                        <v-list-item-title>Users</v-list-item-title>
-                    </div>
-                </v-list-item>
-
-                <v-list-item link>
-                    <div class="listItem">
-                        <v-list-item-icon
-                            ><v-icon>mdi-cog</v-icon></v-list-item-icon
-                        >
-                        <v-list-item-title>Settings</v-list-item-title>
-                    </div>
-                </v-list-item>
-            </v-list>
+            <Sidebar />
         </v-navigation-drawer>
 
         <v-app-bar app color="secondary" class="topBar" dark>
@@ -107,16 +66,19 @@
 </template>
 
 <script>
-// import Dashboard from './components/Dashboard.vue'
+import { getMenu } from '../../core/services/menuService';
+import Sidebar from "./Sidebar.vue"
+
 
 export default {
     name: "App",
     components: {
-        // Dashboard
+         Sidebar
     },
     data() {
         return {
             drawer: true,
+             menus: getMenu(),
         };
     },
     methods: {},

@@ -1,11 +1,5 @@
 <template>
-    <v-navigation-drawer
-        :width="menuWidth"
-        app
-        v-model="menuCheck"
-        color="secondary"
-        dark
-    >
+    <v-navigation-drawer app color="secondary" dark :width="menuWidth" v-model="themeStore.menuOpen"  @update:model-value="handleDrawer"   >
         <v-list>
             <v-list-item>
                 <img
@@ -38,36 +32,43 @@
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
+
+     
 </template>
 
 <script>
+import { useDisplay } from 'vuetify'
 import { useThemeStore } from "../../stores/theme";
 import { getMenu } from "../../core/services/menuService";
+
 
 export default {
     data() {
         return {
+            drawer:true,
             menus: getMenu(),
             themeStore: useThemeStore(),
+            display: useDisplay(),
         };
     },
     computed: {
-        menuCheck() {
-            return this.themeStore.menuType == "expanded" ? true : true;
-        },
         menuWidth() {
-            console.log("Changed");
-
-            if (this.$vuetify.display.mdAndDown) {
-                return this.themeStore.menuType == "expanded" ? "258" : "20";
+            if (this.display.mdAndDown) {
+                return this.themeStore.menuType == "expanded" ? "258" : "30";
             } else {
                 return this.themeStore.menuType == "expanded" ? "65" : "258";
             }
-
-            // return this.themeStore.menuType == "expanded" ? "65" : "258";
         },
     },
-    mounted() {},
+    methods: {
+        handleDrawer(e) {
+            
+        }
+    },
+    mounted() {
+
+       
+    },
 };
 </script>
 

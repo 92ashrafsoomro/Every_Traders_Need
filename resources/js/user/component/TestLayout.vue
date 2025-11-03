@@ -4,8 +4,8 @@
 
         <v-app-bar app color="secondary" class="topBar" dark>
             <v-app-bar-nav-icon
-                @click="themeStore.toggleMenuType()"
-                class=""
+                @click="themeStore.toggleMenu()"
+                class="d-xl-none"
             ></v-app-bar-nav-icon>
             <v-toolbar-title>Dashboard</v-toolbar-title>
 

@@ -3,16 +3,13 @@
         <Sidebar />
 
         <v-app-bar app color="secondary" class="topBar" dark>
-            <v-app-bar-nav-icon
-                @click="themeStore.toggleMenu()"
-                class="d-xl-none"
-            ></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="themeStore.toggleMenu()" class="d-xl-none"></v-app-bar-nav-icon>
             <v-toolbar-title>Dashboard</v-toolbar-title>
 
             <!-- Notification Menu -->
             <v-menu location="bottom" transition="fade-transition">
                 <template #activator="{ props }">
-                    <v-btn icon v-bind="props" color="white">
+                    <v-btn icon v-bind="props">
                         <v-icon>mdi-bell</v-icon>
                     </v-btn>
                 </template>
@@ -31,31 +28,7 @@
                 </v-list>
             </v-menu>
 
-            <v-menu location="bottom" transition="fade-transition">
-                <template #activator="{ props }">
-                    <v-btn icon v-bind="props">
-                        <v-avatar size="32">
-                            <img
-                                src="https://randomuser.me/api/portraits/men/32.jpg"
-                                alt="User"
-                            />
-                        </v-avatar>
-                    </v-btn>
-                </template>
-
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title>My Profile</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                        <v-list-item-title>Settings</v-list-item-title>
-                    </v-list-item>
-                    <v-divider></v-divider>
-                    <v-list-item>
-                        <v-list-item-title>Logout</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+            <CustomProfileMenu />
         </v-app-bar>
 
         <v-main>
@@ -70,11 +43,13 @@
 import { getMenu } from "../../core/services/menuService";
 import { useThemeStore } from "../../stores/theme";
 import Sidebar from "./Sidebar.vue";
+import CustomProfileMenu from './../component/CustomProfileMenu.vue'
 
 export default {
     name: "App",
     components: {
         Sidebar,
+        CustomProfileMenu
     },
     computed: {},
     data() {
@@ -88,6 +63,10 @@ export default {
 };
 </script>
 <style>
+
+
+
+
 .listItem {
     display: flex;
     justify-content: flex-start;

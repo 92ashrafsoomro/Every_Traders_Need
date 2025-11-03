@@ -1,13 +1,11 @@
+import "./style.css";
 import { createApp } from "vue";
 import router from "./route";
 import pinia from "./stores";
 import App from "./app.vue";
 import { useUserStore } from "./stores/user";
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
-
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";

@@ -10,7 +10,7 @@ import About from './user/pages/about.vue';
 import Contact from './user/pages/contact.vue';
 import AuctionFinder from './user/pages/auction-finder/index.vue'
 import NotFound from './user/pages/404.vue';
-import Login from './user/pages/login.vue'
+import Login from './user/pages/login/login.vue'
 import AuctionScheduler from "./user/pages/auctionscheduler.vue";
 import Interest from "./user/pages/interest.vue";
 import Reauction from "./user/pages/reauction.vue";

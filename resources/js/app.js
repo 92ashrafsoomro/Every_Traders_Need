@@ -30,19 +30,45 @@ const vuetify = createVuetify({
                     error: "#FF5252",
                     info: "#2196F3",
                 },
-            },
-            theme2: {
-                dark: true,
-                colors: {
-                    background: "#121212",
-                    surface: "#1E1E1E",
-                    primary: "#90CAF9",
-                    secondary: "#B0BEC5",
-                    success: "#81C784",
-                    warning: "#FFB74D",
-                    error: "#E57373",
-                    info: "#64B5F6",
-                },
+                  typography: {
+                        fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
+                        h1: {
+                            // fontSize: '2.25rem',
+                            // lineHeight: '2.75rem',
+                            // fontWeight: '700'
+                        },
+                        h2: {
+                            // fontSize: '1.75rem',
+                            // lineHeight: '2.25rem',
+                            // fontWeight: '600'
+                        },
+                        h3: {
+                            // fontSize: '1.5rem',
+                            // lineHeight: '2rem',
+                            // fontWeight: '600'
+                        },
+                        subtitle1: {
+                            // fontSize: '1.125rem',
+                            // lineHeight: '1.75rem'
+                        },
+                        body1: {
+                            // fontSize: '1rem',
+                            // lineHeight: '1.5rem'
+                        },
+                        body2: {
+                            // fontSize: '0.875rem',
+                            // lineHeight: '1.25rem'
+                        },
+                        caption: {
+                            // fontSize: '0.75rem',
+                            // lineHeight: '1rem'
+                        },
+                        button: {
+                            // fontSize: '0.875rem',
+                            // fontWeight: '600',
+                            // letterSpacing: '0.02em'
+                        },
+                 },
             },
         },
     },

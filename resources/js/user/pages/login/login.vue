@@ -60,10 +60,10 @@
 </template>
 
 <script>
-import { useThemeStore } from '../../stores/theme'
-import { useUserStore } from '../../stores/user';
-import LoginHeader from '../component/LoginHeader.vue'
-import AuthService from '../../core/services/authService';
+import { useThemeStore } from '../../../stores/theme'
+import { useUserStore } from '../../../stores/user';
+import LoginHeader from './LoginHeader.vue'
+import AuthService from '../../../core/services/authService';
     
 export default {
         name: 'Login',

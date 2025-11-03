@@ -2,17 +2,22 @@
     <v-app>
         <v-navigation-drawer app v-model="drawer" color="secondary" dark>
             <v-list>
-                <v-list-item>
+                <v-list-item class="logoDiv">
                     <img
-                        src="http://localhost/backup_autoboli/public/themeadmin/images/logo/logo.png"
+                        src="/public/theme/assets/logo_autoboli.png"
                         alt=""
                         class="logoImg"
                     />
 
-                    <button class="logoType"></button>
+                    <button
+                        class="logoType d-xl-block"
+                        @click="drawer = !drawer"
+                    >
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+                    </button>
                 </v-list-item>
-
-                <v-divider></v-divider>
 
                 <v-list-item link>
                     <div class="listItem">
@@ -46,7 +51,10 @@
         </v-navigation-drawer>
 
         <v-app-bar app color="secondary" class="topBar" dark>
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+                @click="drawer = !drawer"
+                class="d-xl-none"
+            ></v-app-bar-nav-icon>
             <v-toolbar-title>Simple Dashboard</v-toolbar-title>
 
             <!-- Notification Menu -->
@@ -130,10 +138,25 @@ export default {
     column-gap: 20px;
 }
 .topBar {
-    height: 74px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.logoDiv {
+    position: relative;
+}
+
+.logoType {
+    height: 20px;
+    width: 20px;
+    background-color: #0080ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 20px;
 }
 
 .logoImg {

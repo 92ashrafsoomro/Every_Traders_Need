@@ -222,7 +222,7 @@
                                 placeholder="Company Address 1" value="{{ old('companyAddress1', 'Company Address 1') }}">
 
 
-                            <div x-data="{ open: false, selected: 'Motor Dealer' }" class="relative "
+                            <div x-data="{ open: false, selected: 'Motor Dealer' }" class="relative"
                                 :class="{ 'dark': window.matchMedia('(prefers-color-scheme: light)').matches }">
 
                                 <!-- Hidden input for form submission -->

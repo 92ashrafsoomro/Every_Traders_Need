@@ -4,3 +4,7 @@
 body{
     font-family: "Inter", sans-serif !important;
 }
+
+aside {
+    z-index: 999 !important;
+}

@@ -96,7 +96,7 @@ export default {
     height: 88px;
     border-bottom: 1px solid #353f4c;
     background-color: #000f21;
-    z-index: 1;
+    z-index: 99;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -113,7 +113,7 @@ export default {
     height: 88px;
     border-bottom: 1px solid #353f4c;
     background-color: #000f21;
-    z-index: 1;
+    z-index: 99;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -165,11 +165,13 @@ export default {
     .headerDiv-expanded {
         margin-left: 0px;
         width: 100%;
+        z-index: 99;
     }
 
     .headerDiv-collapsed {
         margin-left: 0px;
         width: 100%;
+        z-index: 99;
     }
 }
 </style>

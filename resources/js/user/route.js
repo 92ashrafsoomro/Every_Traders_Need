@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from './pages/home.vue';
 import Dashboard from './pages/dashboard.vue';
@@ -8,10 +9,19 @@ import NotFound from './pages/404.vue';
 import DashboardLayout from './component/DashboardLayout.vue'
 import Login from './pages/login.vue'
 import { useUserStore } from './stores/user';
+import AuctionScheduler from "./pages/auctionscheduler.vue";
+import Interest from "./pages/interest.vue";
+import Reauction from "./pages/reauction.vue";
+import Watchlist from "./pages/watchlist/index.vue";
+import Compare from "./pages/compare.vue";
+
+
+
+
 
 const routes = [
     {
-        path: '/',
+        path: "/",
         component: DashboardLayout,
         children: [
             { path: '', component: Home },
@@ -20,17 +30,26 @@ const routes = [
             { path: 'home', component: Home },
             { path: 'about', component: About },
             { path: 'contact', component: Contact },
+            { path: "/auction-finder", component: AuctionFinder },
+            { path: "auctionscheduler", component: AuctionScheduler },
+            { path: "interest", component: Interest },
+            { path: "reauction", component: Reauction },
+            { path: "/watchlist", component: Watchlist },
+            { path: "compare", component: Compare },
+            { path: "home", component: Home },
+            { path: "about", component: About },
+            { path: "contact", component: Contact },
         ],
     },
     {
-        path: '/login',
+        path: "/login",
         component: Login,
     },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
 const router = createRouter({
-    history: createWebHistory('/autoboli/userr'),
+    history: createWebHistory("/autoboli/userr"),
     routes,
 });
 

@@ -7,12 +7,12 @@
                 <main>
                     <router-view />
                 </main>
-                <footer>
+                <!-- <footer class="px-4">
                     <p>
                         © 2025 Design & Develop By
                         <span>DaPrimeProductions</span>
                     </p>
-                </footer>
+                </footer> -->
             </div>
         </div>
     </div>
@@ -69,6 +69,10 @@ export default {
 
 .viewPage {
     margin-top: 88px;
+}
+
+footer {
+    background-color: #0f1c2c;
 }
 
 footer p {

@@ -1,13 +1,9 @@
 <template>
     <div class="hero-section">
         <div class="pattern-bg"></div>
-
         <div class="content">
             <h1>{{ title }}</h1>
-            <p>
-                {{ subtitle }}
-            </p>
-
+            <p>{{ subtitle }}</p>
             <slot> </slot>
         </div>
     </div>

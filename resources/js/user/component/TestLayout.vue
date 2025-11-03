@@ -1,13 +1,12 @@
 <template>
     <v-app>
-        <v-navigation-drawer app v-model="drawer" color="secondary" dark>
-          <Sidebar />
-        </v-navigation-drawer>
+       
+        <Sidebar />
 
         <v-app-bar app color="secondary" class="topBar" dark>
             <v-app-bar-nav-icon
-                @click="drawer = !drawer"
-                class="d-xl-none"
+                @click="themeStore.toggleMenuType()"
+                class=""
             ></v-app-bar-nav-icon>
             <v-toolbar-title>Simple Dashboard</v-toolbar-title>
 
@@ -70,6 +69,7 @@
 
 <script>
 import { getMenu } from '../../core/services/menuService';
+import { useThemeStore } from '../../stores/theme';
 import Sidebar from "./Sidebar.vue"
 
 
@@ -78,10 +78,16 @@ export default {
     components: {
          Sidebar
     },
+    computed: {
+        menucheck() {
+           return this.themeStore.menuType == 'expanded' ? true : false
+        }
+    },
     data() {
         return {
             drawer: true,
-             menus: getMenu(),
+            menus: getMenu(),
+            themeStore: useThemeStore(),
         };
     },
     methods: {},

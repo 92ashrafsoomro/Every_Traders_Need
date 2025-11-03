@@ -60,12 +60,10 @@
 </template>
 
 <script>
-
-import { useThemeStore } from '../stores/theme'
+import { useThemeStore } from '../../stores/theme'
+import { useUserStore } from '../../stores/user';
 import LoginHeader from '../component/LoginHeader.vue'
-import api from '../plugins/axios';
-import { useUserStore } from '../stores/user';
-import AuthService from '../services/authService';
+import AuthService from '../../core/services/authService';
     
 export default {
         name: 'Login',
@@ -94,7 +92,7 @@ export default {
                 this.errors = {};
 
                 try {
-
+                    
                     let loginResponse = await AuthService.Login(this.form);
                     let profileRequest = await AuthService.getProfile(loginResponse.token);
                     profileRequest.token = loginResponse.token;

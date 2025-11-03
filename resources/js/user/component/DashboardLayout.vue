@@ -21,7 +21,7 @@
 <script>
 import Sidebar from "./Sidebar.vue";
 import Header from "./Header.vue";
-import { useThemeStore } from "../stores/theme";
+import { useThemeStore } from "../../stores/theme";
 
 export default {
     components: {

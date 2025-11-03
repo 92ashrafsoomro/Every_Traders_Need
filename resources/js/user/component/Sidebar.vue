@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import { useThemeStore } from "../stores/theme";
-import { getMenu } from "../services/menuService";
+import { useThemeStore } from "../../stores/theme";
+import { getMenu } from "../../core/services/menuService";
 
 export default {
     data() {
@@ -53,7 +53,7 @@ export default {
         };
     },
     mounted() {
-        console.log(this.menus);
+   
     },
 };
 </script>

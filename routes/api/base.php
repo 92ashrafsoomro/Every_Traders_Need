@@ -1,32 +1,12 @@
 <?php
 
+use App\Http\Controllers\ApiAuthController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::prefix('auth')->group(function () {
 
-Route::prefix('admin')->group(function () {
+    Route::get('/profile',[ApiAuthController::class,'profile'])->middleware(['auth:sanctum']);
+    Route::post('/login',[ApiAuthController::class,'login']);
 
-    Route::get('/', function () {
-
-        dd('test');
-    });
-});
-
-
-
-Route::prefix('user')->group(function () {
-
-    Route::get('/', function () {
-
-        dd('test');
-    });
-});
-
-
-Route::prefix('web')->group(function () {
-
-    Route::get('/', function () {
-
-        dd('test');
-    });
 });

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { useThemeStore } from "../stores/theme";
+import { useThemeStore } from "../../stores/theme";
 import Notification from "./NotificationDropdown.vue";
 import Profile from "./ProfileDropdown.vue";
 

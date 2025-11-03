@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
 
@@ -15,11 +16,11 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/js/user.js',
-                'resources/js/admin.js'
+                'resources/js/app.js',
             ],
             refresh: true,
         }),
         vue(),
+        vuetify({ autoImport: true }),
     ],
 });

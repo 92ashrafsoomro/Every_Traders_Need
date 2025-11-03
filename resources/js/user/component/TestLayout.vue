@@ -27,12 +27,12 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-
             <CustomProfileMenu />
         </v-app-bar>
 
         <v-main>
             <v-container class="mt-6">
+               <router-view></router-view>
                 <!-- <Dashboard /> -->
             </v-container>
         </v-main>

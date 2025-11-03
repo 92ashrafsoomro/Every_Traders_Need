@@ -29,11 +29,11 @@
             >
                 <div class="listItem" v-if="item.type !== 'group'">
                     <v-list-item-icon><span class="material-symbols-outlined">{{item.icon}}</span></v-list-item-icon>
-                    <v-list-item-title>{{ item.label }}</v-list-item-title>
+                    <v-list-item-title class="text-subtitle-1">{{ item.label }}</v-list-item-title>
                 </div>
 
                 <!-- When item.type === 'group' -->
-                <div v-else class="groupItem"><v-list-item-title class="groupLabel text-caption">{{item.label}}</v-list-item-title><hr class="groupDivider" /></div>
+                <div v-else class="groupItem"><v-list-item-title class="groupLabel text-subtitle-2">{{item.label}}</v-list-item-title><hr class="groupDivider" /></div>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
@@ -60,7 +60,7 @@ export default {
             if (this.$vuetify.display.mdAndDown) {
                 return this.themeStore.menuType == "expanded" ? "258" : "20";
             } else {
-                return this.themeStore.menuType == "expanded" ? "68" : "258";
+                return this.themeStore.menuType == "expanded" ? "74" : "258";
             }
 
             // return this.themeStore.menuType == "expanded" ? "65" : "258";

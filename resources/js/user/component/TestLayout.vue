@@ -5,14 +5,14 @@
         <v-app-bar app color="secondary" class="topBar" dark>
             <v-app-bar-nav-icon
                 @click="themeStore.toggleMenuType()"
-                class=""
+                class="d-xl-none"
             ></v-app-bar-nav-icon>
             <v-toolbar-title>Dashboard</v-toolbar-title>
 
             <!-- Notification Menu -->
             <v-menu location="bottom" transition="fade-transition">
                 <template #activator="{ props }">
-                    <v-btn icon v-bind="props" color="white">
+                    <v-btn icon v-bind="props">
                         <v-icon>mdi-bell</v-icon>
                     </v-btn>
                 </template>
@@ -88,6 +88,10 @@ export default {
 };
 </script>
 <style>
+
+
+
+
 .listItem {
     display: flex;
     justify-content: flex-start;

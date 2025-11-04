@@ -6,19 +6,21 @@
         >
             <div class="tabsContainer">
                 <button
-                    :class="{ active: activeTab === 'valuation' }"
-                    @click="activeTab = 'valuation'"
+                    :class="{ active: activeTab === 'watchlist' }"
+                    @click="activeTab = 'watchlist'"
                 >
                     WatchList
                 </button>
+
                 <button
-                    :class="{ active: activeTab === 'auction' }"
-                    @click="activeTab = 'auction'"
+                    :class="{ active: activeTab === 'alerts' }"
+                    @click="activeTab = 'alerts'"
                 >
                     Your Alerts
                 </button>
             </div>
         </TitleBar>
+
         <div class="tab-content">
             <component :is="currentComponent" />
         </div>
@@ -38,12 +40,12 @@ export default {
     },
     data() {
         return {
-            activeTab: "auction",
+            activeTab: "watchlist",
         };
     },
     computed: {
         currentComponent() {
-            return this.activeTab === "auction" ? "Alerts" : "Watchlist";
+            return this.activeTab === "watchlist" ? "Watchlist" : "Alerts";
         },
     },
 };

@@ -1,16 +1,15 @@
-import "./style.css";
 import { createApp } from "vue";
 import router from "./route";
 import pinia from "./stores";
 import App from "./app.vue";
 import { useUserStore } from "./stores/user";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "@mdi/font/css/materialdesignicons.css";
+import "./style.css";
 
 const vuetify = createVuetify({
     components,

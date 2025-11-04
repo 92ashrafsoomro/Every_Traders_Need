@@ -154,23 +154,35 @@
                 </div>
             </div>
         </TitleBar>
+        <div class="mainContent">
+            <DataTable />
+        </div>
     </main>
 </template>
 
 <script>
 import TitleBar from "./../component/TitleBar.vue";
 import CustomSelect from "./../component/Select.vue";
+import DataTable from "./../component/dataTable.vue";
 
 export default {
     props: {},
     components: {
         TitleBar,
         CustomSelect,
+        DataTable,
     },
 };
 </script>
 
 <style scoped>
+.mainContent {
+    max-width: 1536px;
+    padding: 0 24px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .customSelect {
     --vs-background-color: #1a2533;
     --vs-text-color: white;

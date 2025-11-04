@@ -16,7 +16,7 @@
             style="min-width: 224px; background-color: #000f21; color: #b2c0ce"
         >
             <v-list-item>
-                <v-list-item-title>
+                <v-list-item-title class="cursor-pointer">
                     <div class="profileTitle">
                         <div class="profileImage">
                             <img
@@ -38,7 +38,7 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item>
-                <v-list-item-title>
+                <v-list-item-title class="cursor-pointer">
                     <div class="nestItem">
                         <span class="material-symbols-outlined">
                             contact_page
@@ -48,7 +48,7 @@
                 </v-list-item-title>
             </v-list-item>
             <v-list-item>
-                <v-list-item-title>
+                <v-list-item-title class="cursor-pointer">
                     <div class="nestItem">
                         <span class="material-symbols-outlined">
                             settings
@@ -58,7 +58,7 @@
                 </v-list-item-title>
             </v-list-item>
             <v-list-item>
-                <v-list-item-title>
+                <v-list-item-title class="cursor-pointer">
                     <div class="nestItem">
                         <span class="material-symbols-outlined">
                             request_quote
@@ -70,13 +70,35 @@
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">
-                    <v-btn prepend-icon="$" variant="outlined"> Button </v-btn>
+                    <v-btn variant="outlined" class="logouBtn">
+                        <span class="text-overline">Logout</span>
+                        <svg-icon
+                            class="logoutIcon"
+                            type="mdi"
+                            :path="path"
+                        ></svg-icon>
+                    </v-btn>
                 </v-list-item-title>
             </v-list-item>
         </v-list>
     </v-menu>
 </template>
-<script></script>
+<script>
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiLogout } from "@mdi/js";
+
+export default {
+    name: "my-component",
+    components: {
+        SvgIcon,
+    },
+    data() {
+        return {
+            path: mdiLogout,
+        };
+    },
+};
+</script>
 <style>
 .profileTitle {
     display: flex;
@@ -104,5 +126,17 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
+}
+.logouBtn {
+    column-gap: 10px !important;
+    letter-spacing: 0px !important;
+    background-color: #ff4c51 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.logoutIcon {
+    margin-left: 10px;
+    color: white;
 }
 </style>

@@ -2,8 +2,8 @@
     <div class="hero-section">
         <div class="pattern-bg"></div>
         <div class="content">
-            <h1>{{ title }}</h1>
-            <p>{{ subtitle }}</p>
+            <h1 class="text-h3">{{ title }}</h1>
+            <p class="text-subtitle-1">{{ subtitle }}</p>
             <slot> </slot>
         </div>
     </div>
@@ -40,6 +40,7 @@ export default {
     inset: 0;
     background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
     background-size: 16px 16px;
+    background-repeat: repeat;
     opacity: 0.25;
     pointer-events: none;
     z-index: 0;

@@ -1,14 +1,13 @@
 <template>
-    <div class="relative inline-block">
-        <!-- 🔔 Notification Bell Icon -->
-        <div class="notification-icon" @click="toggleDropdown">
-            <span class="material-symbols-outlined">
-                notifications_unread
-            </span>
-        </div>
+    <v-menu class="menuLabel" location="bottom" transition="fade-transition">
+        <template #activator="{ props }">
+            <v-btn icon v-bind="props" class="notificationBtn">
+                <svg-icon type="mdi" :path="path"></svg-icon>
+            </v-btn>
+        </template>
 
-        <!-- ⬇ Notification Dropdown -->
-        <div v-if="isOpen" class="dropdown-notification" @click.stop>
+        <!-- Custom Notification Dropdown UI -->
+        <div class="dropdown-notification" @click.stop>
             <div class="dropdown-notification-header">
                 <div class="title">Notifications</div>
                 <div class="title-right-side">
@@ -17,10 +16,9 @@
                 </div>
             </div>
 
-            <!-- Notification Items -->
             <div
                 class="notification-item"
-                v-for="(note, i) in userStore.notification"
+                v-for="(note, i) in notifications"
                 :key="i"
             >
                 <div class="icon-notify">
@@ -47,77 +45,47 @@
                 <button class="notification-btn">View All Notifications</button>
             </div>
         </div>
-    </div>
+    </v-menu>
 </template>
 
 <script>
-import { useUserStore } from "../../stores/user";
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiBellBadgeOutline } from "@mdi/js";
 
 export default {
-    setup() {
-        const userStore = useUserStore();
-        return { userStore };
-    },
-
+    name: "NotificationMenu",
+    components: { SvgIcon },
     data() {
         return {
-            isOpen: false,
+            path: mdiBellBadgeOutline,
+            notifications: [
+                {
+                    title: "New Message",
+                    description: "You have received a new message.",
+                    time: "2m ago",
+                },
+                {
+                    title: "Server Alert",
+                    description: "Server CPU usage is high.",
+                    time: "10m ago",
+                },
+                {
+                    title: "Payment Received",
+                    description: "Payment of $100 has been completed.",
+                    time: "1h ago",
+                },
+            ],
         };
-    },
-    methods: {
-        toggleDropdown() {
-            this.isOpen = !this.isOpen;
-        },
-    },
-    mounted() {
-        document.addEventListener("click", this.closeDropdown);
-    },
-    beforeUnmount() {
-        document.removeEventListener("click", this.closeDropdown);
-    },
-    methods: {
-        toggleDropdown() {
-            this.isOpen = !this.isOpen;
-        },
-        closeDropdown(e) {
-            if (!e.target.closest(".relative")) {
-                this.isOpen = false;
-            }
-        },
     },
 };
 </script>
 
 <style scoped>
-.notification-icon {
-    position: relative;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #353f4c;
-    padding: 5px;
-    border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.notification-icon:hover {
-    background-color: #002145;
-}
-
-.notification-icon .material-symbols-outlined {
-    font-weight: lighter;
-    color: white;
-}
-
 .dropdown-notification {
-    position: absolute;
-    top: 72px;
-    right: 15px;
     background: #000f21;
     color: white;
     border: 1px solid #1c2a38;
-    border-radius: 4px;
+    border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 3;
     animation: fadeIn 0.2s ease;

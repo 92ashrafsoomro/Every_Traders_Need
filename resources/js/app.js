@@ -41,9 +41,10 @@ const vuetify = createVuetify({
                     info: "#2196F3",
                     background: "#0E1B2B",
                     surface: "#000E20",
-                    
+                    danger: "#ff4d52",
+                    lighthover: "#002145",
                 },
-                  typography: {
+                typography: {
                         fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
                         h1: {
                             // fontSize: '2.25rem',

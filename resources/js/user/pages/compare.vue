@@ -28,42 +28,67 @@
             <div id="filterSection" v-show="showFilters" class="filter-section">
                 <div class="grid-container">
                     <div class="grid-item">
-                        <label for="make">Make</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Make -->
+                        <ComoboxInput
+                            label="Select Make"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Model</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Model -->
+                        <ComoboxInput
+                            label="Model"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Variant</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Variant -->
+                        <ComoboxInput
+                            label="Select Variant"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Year</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Year -->
+                        <ComoboxInput
+                            label="Select Year"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Transmission</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Transmission -->
+                        <ComoboxInput
+                            label="Transmission"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Fuel</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Fuel -->
+                        <ComoboxInput
+                            label="Select Fuel"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Grade</label>
-                        <Select class="customSelect"></Select>
+                        <!-- Grade -->
+                        <ComoboxInput
+                            label="Select Grade"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item">
-                        <label for="make">Mileage</label>
-                        <Select class="customSelect"></Select>
+                        <!-- MileAge -->
+                        <ComoboxInput
+                            label="Select Mileage Range"
+                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
+                        />
                     </div>
                     <div class="grid-item auctionHouse">
-                        <label for="make">Auction House</label>
-                        <MultipleSelect
-                            class="customSelect-multiple"
-                        ></MultipleSelect>
+                        <!-- Auction Hpuse -->
+                        <NewSelect
+                            label="Select Auction House"
+                            :items="['BCA', 'CCA', 'Manheim', 'Aucta']"
+                        />
                     </div>
                     <div class="grid-item">
                         <button class="btn btn-primary searchBtn">
@@ -83,6 +108,8 @@
 import TitleBar from "./../component/TitleBar.vue";
 import Select from "./../component/Select.vue";
 import MultipleSelect from "../component/MultipleSelect.vue";
+import NewSelect from "../component/newSelect.vue";
+import ComoboxInput from "../component/ComoboxInput.vue";
 
 export default {
     props: {},
@@ -90,6 +117,8 @@ export default {
         TitleBar,
         Select,
         MultipleSelect,
+        NewSelect,
+        ComoboxInput,
     },
 
     name: "FilterToggle",
@@ -176,7 +205,7 @@ export default {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     background-color: #000f21;
-    padding: 15px;
+    padding: 30px 30px;
     border: 1px solid #44485e;
     border-radius: 4px;
 }

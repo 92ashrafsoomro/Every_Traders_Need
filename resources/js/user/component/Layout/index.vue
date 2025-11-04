@@ -2,7 +2,12 @@
     <v-app>
         <Sidebar />
 
-        <v-app-bar app color="secondary" class="topBar" dark>
+        <v-app-bar
+            app
+            color="secondary"
+            class="d-flex align-center justify-space-between"
+            dark
+        >
             <v-app-bar-nav-icon
                 @click="themeStore.toggleMenu()"
                 class="d-lg-none"
@@ -11,8 +16,10 @@
                 <p class="d-none d-sm-inline">Dashboard</p>
             </v-toolbar-title>
 
-            <div class="rightIcons">
-                <div class="icon_wrapper">
+            <div class="pr-2 ga-5 d-flex align-center justify-center">
+                <div
+                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
+                >
                     <svg-icon
                         @click="toggleFullScreen"
                         type="mdi"
@@ -20,13 +27,19 @@
                         class="cursor-pointer"
                     ></svg-icon>
                 </div>
-                <div class="icon_wrapper">
+                <div
+                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
+                >
                     <ThemeDropdown />
                 </div>
-                <div class="icon_wrapper">
+                <div
+                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
+                >
                     <Notificationdropdown />
                 </div>
-                <div class="icon_wrapper">
+                <div
+                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
+                >
                     <ProfileDropdown />
                 </div>
             </div>
@@ -102,35 +115,10 @@ export default {
     background-color: #0f1c2b;
 }
 
-.rightIcons {
-    padding-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 20px;
-}
-
 .icon_wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    width: 40px;
     background-color: #353f4c;
-    border-radius: 8px;
-    padding: 1px;
-}
-
-.listItem {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 20px;
-}
-.topBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 30px;
+    width: 30px;
 }
 
 .logoDiv {

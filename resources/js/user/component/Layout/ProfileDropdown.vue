@@ -2,27 +2,30 @@
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
             <v-btn icon v-bind="props" class="profileBtn">
-                <div class="profileImage">
+                <div class="profileImage d-flex justify-center align-center">
                     <img
                         src="/public/theme/assets/test_profileImage.jpg"
                         alt=""
-                        class="profile-img"
+                        class="h-75 w-75 rounded-circle"
                     />
                 </div>
             </v-btn>
         </template>
 
         <v-list
-            style="min-width: 224px; background-color: #000f21; color: #b2c0ce"
+            class="bg-secondary text-grey-lighten-2"
+            style="min-width: 224px"
         >
             <v-list-item>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="profileTitle">
-                        <div class="profileImage">
+                    <div class="d-flex justify-start align-center ps-2 ga-2">
+                        <div
+                            class="profileImage d-flex justify-center align-center"
+                        >
                             <img
                                 src="/public/theme/assets/test_profileImage.jpg"
                                 alt=""
-                                class="profile-img"
+                                class="h-100 w-100 rounded-circle position-static"
                             />
                         </div>
                         <div class="profileTitle-title">
@@ -37,9 +40,9 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
+            <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
+                    <div class="d-flex align-center ga-2">
                         <span class="material-symbols-outlined">
                             contact_page
                         </span>
@@ -47,9 +50,9 @@
                     </div>
                 </v-list-item-title>
             </v-list-item>
-            <v-list-item>
+            <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
+                    <div class="d-flex align-center ga-2">
                         <span class="material-symbols-outlined">
                             settings
                         </span>
@@ -57,9 +60,9 @@
                     </div>
                 </v-list-item-title>
             </v-list-item>
-            <v-list-item>
+            <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
+                    <div class="d-flex align-center ga-2">
                         <span class="material-symbols-outlined">
                             request_quote
                         </span>
@@ -70,12 +73,13 @@
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">
-                    <v-btn variant="outlined" class="logouBtn">
-                        <span class="text-overline">Logout</span>
+                    <v-btn size="small" color="danger" class="text-white">
+                        <p class="text-caption mr-2">Logout</p>
                         <svg-icon
-                            class="logoutIcon"
                             type="mdi"
                             :path="path"
+                            width="14"
+                            height="14"
                         ></svg-icon>
                     </v-btn>
                 </v-list-item-title>
@@ -100,43 +104,8 @@ export default {
 };
 </script>
 <style>
-.profileTitle {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    column-gap: 10px;
-    padding: 0px 10px;
-}
 .profileImage {
-    height: 50px;
-    width: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.profileImage .profile-img {
-    height: 100%;
-    width: 100%;
-    background-position: 100%;
-    border-radius: 50px;
-}
-.nestItem {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-.logouBtn {
-    column-gap: 10px !important;
-    letter-spacing: 0px !important;
-    background-color: #ff4c51 !important;
-    color: white !important;
-    border: none !important;
-}
-
-.logoutIcon {
-    margin-left: 10px;
-    color: white;
+    height: 45px;
+    width: 45px;
 }
 </style>

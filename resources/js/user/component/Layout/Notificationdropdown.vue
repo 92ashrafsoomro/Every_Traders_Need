@@ -6,45 +6,88 @@
             </v-btn>
         </template>
 
-        <!-- Custom Notification Dropdown UI -->
-        <div class="dropdown-notification" @click.stop>
-            <div class="dropdown-notification-header">
-                <div class="title">Notifications</div>
-                <div class="title-right-side">
-                    <div class="notifyDiv">8 New</div>
-                    <span class="material-symbols-outlined"> drafts </span>
-                </div>
-            </div>
-
-            <div
-                class="notification-item"
-                v-for="(note, i) in notifications"
-                :key="i"
-            >
-                <div class="icon-notify">
-                    <div class="icon-notify-container">
-                        <span class="material-symbols-outlined">
-                            notifications
+        <v-list
+            class="bg-secondary text-white rounded-lg border border-[#1c2a38] elevation-3 z-3 animate-fade-in w-[352px]"
+            @click.stop
+        >
+            <v-list-item>
+                <v-list-item-title
+                    class="d-flex justify-space-between align-center ps-4 p-3 w-100"
+                >
+                    <div class="text-h6 text-white">Notifications</div>
+                    <div class="d-flex align-center ga-2">
+                        <div
+                            class="bg-lighthover text-primary text-sm-caption font-weight-light ps-1 text-lowercase"
+                        >
+                            8 new
+                        </div>
+                        <span class="material-symbols-outlined text-h6">
+                            drafts
                         </span>
                     </div>
-                </div>
+                </v-list-item-title>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-list class="bg-secondary">
+                <v-list-item
+                    v-for="(note, i) in notifications"
+                    :key="i"
+                    link
+                    class="bg-secondary transition-all duration-200"
+                >
+                    <v-list-item-title>
+                        <div class="d-flex align-start cursor-pointer overflow">
+                            <div
+                                class="d-flex align-center justify-center pt-2 ps-2"
+                            >
+                                <div
+                                    class="icon-notify-container rounded-circle d-flex align-center justify-center"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-primary"
+                                    >
+                                        notifications
+                                    </span>
+                                </div>
+                            </div>
 
-                <div class="notification-content-centralized">
-                    <div class="titleheading">{{ note.title }}</div>
-                    <div class="desc">{{ note.description }}</div>
-                    <p>{{ note.time }}</p>
-                </div>
+                            <div class="pt-2 ps-4 w-75">
+                                <div class="text-caption text-white">
+                                    {{ note.title }}
+                                </div>
+                                <div class="text-caption text-white">
+                                    {{ note.description }}
+                                </div>
+                                <p class="mt-2 text-caption text-[#76778e]">
+                                    {{ note.time }}
+                                </p>
+                            </div>
+                            <div>
+                                <div
+                                    class="blue-dot bg-primary rounded-circle mt-5"
+                                ></div>
+                            </div>
+                        </div>
+                    </v-list-item-title>
+                </v-list-item>
+            </v-list>
 
-                <div class="notification-last-item">
-                    <div class="blue-dot"></div>
-                    <span class="material-symbols-outlined"> close_small </span>
-                </div>
-            </div>
+            <v-divider></v-divider>
 
-            <div class="notification-btn-container">
-                <button class="notification-btn">View All Notifications</button>
-            </div>
-        </div>
+            <v-list-item>
+                <v-list-item-title>
+                    <div
+                        class="d-flex justify-center align-center p-2 ps-3 mt-2"
+                    >
+                        <button
+                            class="notificationbtn text-caption text-white bg-primary pt-2 pb-2 ps-2 border-0 rounded-lg"
+                        >
+                            View All Notifications
+                        </button>
+                    </div>
+                </v-list-item-title>
+            </v-list-item>
+        </v-list>
     </v-menu>
 </template>
 
@@ -81,17 +124,6 @@ export default {
 </script>
 
 <style scoped>
-.dropdown-notification {
-    background: #000f21;
-    color: white;
-    border: 1px solid #1c2a38;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    z-index: 3;
-    animation: fadeIn 0.2s ease;
-    width: 352px;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -103,136 +135,18 @@ export default {
     }
 }
 
-.dropdown-notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #1c2a38;
-}
-
-.dropdown-notification-header .title {
-    font-size: 20px;
-    font-weight: 500;
-    color: white;
-}
-
-.title-right-side {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.title-right-side .material-symbols-outlined {
-    font-size: 20px;
-}
-
-.notifyDiv {
-    background-color: #002145;
-    color: #0080ff;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 6px;
-    border-radius: 4px;
-}
-
-.notification-item {
-    display: flex;
-    align-items: start;
-    border-bottom: 1px solid #1c2a38;
-    cursor: pointer;
-    overflow: auto;
-}
-
-.notification-item:hover {
-    background-color: #0f1c2c;
-}
-
-.icon-notify {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
 .icon-notify-container {
     height: 40px;
     width: 40px;
-    border-radius: 100%;
     background-color: #002145;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.icon-notify-container span {
-    color: #0080ff;
-}
-
-.notification-content-centralized {
-    padding: 10px;
-    width: 70%;
-}
-
-.notification-content-centralized .titleheading {
-    font-size: 13px;
-    font-weight: 400;
-    color: #d3d3d3;
-}
-
-.notification-content-centralized .desc {
-    font-size: 13px;
-    font-weight: 400;
-    color: white;
-}
-
-.notification-content-centralized p {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 400;
-    color: #76778e;
-}
-
-.notification-last-item {
-    height: 100%;
-}
-
-.notification-last-item .blue-dot {
+.blue-dot {
     height: 8px;
     width: 8px;
-    background-color: #0080ff;
-    border-radius: 100%;
-    margin-top: 20px;
 }
 
-.notification-last-item span {
-    display: none;
-}
-
-.notification-item:hover span {
-    display: block;
-}
-
-.notification-btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 10px;
-}
-
-.notification-btn {
-    font-size: 13px;
-    font-weight: 700;
-    color: #ffff;
-    background-color: #0080ff;
+.notificationbtn {
     width: 90%;
-    padding: 8px 5px;
-    border: 0px;
-    border-radius: 4px;
-}
-
-.notification-btn:hover {
-    color: #0080ff;
-    background-color: white;
 }
 </style>

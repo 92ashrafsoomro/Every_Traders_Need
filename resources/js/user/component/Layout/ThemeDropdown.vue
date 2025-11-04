@@ -1,7 +1,7 @@
 <template>
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
-            <v-btn icon v-bind="props" class="notificationBtn">
+            <v-btn icon v-bind="props">
                 <svg-icon type="mdi" :path="mdiCeilingLight"></svg-icon>
             </v-btn>
         </template>
@@ -13,9 +13,9 @@
                 margin-left: -100px;
             "
         >
-            <v-list-item>
+            <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
+                    <div class="d-flex align-center ga-2 text-white">
                         <svg-icon
                             type="mdi"
                             :path="mdiGlobeLightOutline"
@@ -24,19 +24,11 @@
                     </div>
                 </v-list-item-title>
             </v-list-item>
-            <v-list-item>
+            <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
+                    <div class="d-flex align-center ga-2 text-white">
                         <svg-icon type="mdi" :path="mdiGlobeLight"></svg-icon>
                         <div>Dark Theme</div>
-                    </div>
-                </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-                <v-list-item-title class="cursor-pointer">
-                    <div class="nestItem">
-                        <svg-icon type="mdi" :path="mdiLaptop"></svg-icon>
-                        <div>System Theme</div>
                     </div>
                 </v-list-item-title>
             </v-list-item>
@@ -67,11 +59,4 @@ export default {
     },
 };
 </script>
-<style>
-.nestItem {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    color: white;
-}
-</style>
+<style></style>

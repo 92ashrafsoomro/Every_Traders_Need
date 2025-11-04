@@ -40,7 +40,7 @@
                     <v-list-item-title class="groupLabel text-subtitle-2">{{
                         item.label
                     }}</v-list-item-title>
-                    <hr class="groupDivider" />
+                    <v-divider class="mt-2"></v-divider>
                 </div>
             </v-list-item>
         </v-list>

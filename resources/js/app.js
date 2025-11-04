@@ -22,14 +22,16 @@ const vuetify = createVuetify({
                 colors: {
                     background: "#FFFFFF",
                     surface: "#FFFFFF",
-                    primary: "#1976D2",
+                    primary: "#0080ff",
                     secondary: "#000f21",
                     success: "#4CAF50",
                     warning: "#FB8C00",
                     error: "#FF5252",
                     info: "#2196F3",
+                    danger: "#ff4d52",
+                    lighthover: "#002145",
                 },
-                  typography: {
+                typography: {
                         fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
                         h1: {
                             // fontSize: '2.25rem',

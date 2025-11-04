@@ -5,7 +5,7 @@
         <v-app-bar app color="secondary" class="topBar" dark>
             <v-app-bar-nav-icon
                 @click="themeStore.toggleMenu()"
-                class="d-xl-none"
+                class="d-lg-none"
             ></v-app-bar-nav-icon>
             <v-toolbar-title>
                 <p class="d-none d-sm-inline">Dashboard</p>
@@ -44,8 +44,8 @@ import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiFullscreen } from "@mdi/js";
-import { getMenu } from "../../core/services/menuService";
-import { useThemeStore } from "../../stores/theme";
+import { getMenu } from "../../../core/services/menuService";
+import { useThemeStore } from "../../../stores/theme";
 import ThemeDropdown from "./ThemeDropdown.vue";
 
 export default {

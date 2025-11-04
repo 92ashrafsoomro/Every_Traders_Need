@@ -1,8 +1,8 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
-import { useUserStore } from './stores/user';
+// import { useUserStore } from './stores/user';
 
-import DashboardLayout from './user/component/TestLayout.vue'
+import DashboardLayout from './user/component/Layout/index.vue'
 
 import Home from './user/pages/home.vue';
 import Dashboard from './user/pages/dashboard.vue';

@@ -4,7 +4,12 @@
             title="Find the Best Auction Deal"
             subtitle="Review and compare live auctions side by side to find the smartest deal."
         >
-            <button id="filterToggle" class="filter-btn" @click="toggleFilters">
+            <v-btn
+                id="filterToggle"
+                variant="flat"
+                class="d-flex align-center text-white cursor-pointer bg-transparent border-0 text-capitalize font-weight-light"
+                @click="toggleFilters"
+            >
                 <span class="mr-2">Filters</span>
                 <svg
                     id="filterIcon"
@@ -22,83 +27,155 @@
                         d="M19 9l-7 7-7-7"
                     ></path>
                 </svg>
-            </button>
+            </v-btn>
 
             <!-- Filter Section -->
-            <div id="filterSection" v-show="showFilters" class="filter-section">
-                <div class="grid-container">
-                    <div class="grid-item">
+            <div class="flex justify-start align-start" v-show="showFilters">
+                <v-container
+                    fluid
+                    class="pa-6 bg-secondary rounded border border-[#44485e] w-[90%] mt-2"
+                    style="margin-left: -1px"
+                >
+                    <v-row dense>
                         <!-- Make -->
-                        <ComoboxInput
-                            label="Select Make"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Make"
+                                :items="['Toyota', 'Honda', 'Nissan', 'Suzuki']"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Model -->
-                        <ComoboxInput
-                            label="Model"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Model"
+                                :items="[
+                                    'Corolla',
+                                    'Civic',
+                                    'Skyline',
+                                    'Swift',
+                                ]"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Variant -->
-                        <ComoboxInput
-                            label="Select Variant"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Variant"
+                                :items="['Base', 'GLI', 'XLI', 'RS']"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Year -->
-                        <ComoboxInput
-                            label="Select Year"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Year"
+                                :items="[
+                                    '2018',
+                                    '2019',
+                                    '2020',
+                                    '2021',
+                                    '2022',
+                                ]"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Transmission -->
-                        <ComoboxInput
-                            label="Transmission"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Transmission"
+                                :items="['Automatic', 'Manual']"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Fuel -->
-                        <ComoboxInput
-                            label="Select Fuel"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Fuel"
+                                :items="[
+                                    'Petrol',
+                                    'Diesel',
+                                    'Hybrid',
+                                    'Electric',
+                                ]"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
                         <!-- Grade -->
-                        <ComoboxInput
-                            label="Select Grade"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item">
-                        <!-- MileAge -->
-                        <ComoboxInput
-                            label="Select Mileage Range"
-                            :items="['Tkinter', 'Redux', 'Pinea', 'Context']"
-                        />
-                    </div>
-                    <div class="grid-item auctionHouse">
-                        <!-- Auction Hpuse -->
-                        <NewSelect
-                            label="Select Auction House"
-                            :items="['BCA', 'CCA', 'Manheim', 'Aucta']"
-                        />
-                    </div>
-                    <div class="grid-item">
-                        <button class="btn btn-primary searchBtn">
-                            <span class="material-symbols-outlined">
-                                search
-                            </span>
-                            <span class="btn-text">Search</span>
-                        </button>
-                    </div>
-                </div>
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Grade"
+                                :items="['A', 'B', 'C', 'S']"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
+                        <!-- Mileage -->
+                        <v-col cols="12" sm="6" md="3">
+                            <v-combobox
+                                label="Select Mileage Range"
+                                :items="[
+                                    '0-10k',
+                                    '10k-50k',
+                                    '50k-100k',
+                                    '100k+',
+                                ]"
+                                variant="outlined"
+                                density="comfortable"
+                                clearable
+                                color="primary"
+                            />
+                        </v-col>
+
+                        <!-- Auction House -->
+                        <v-col cols="12" sm="6" md="3">
+                            <NewSelect />
+                        </v-col>
+
+                        <!-- Search Button -->
+                        <v-col
+                            cols="12"
+                            sm="6"
+                            md="3"
+                            class="d-flex align-center mb-6"
+                        >
+                            <v-btn
+                                prepend-icon="mdi-magnify"
+                                variant="tonal"
+                                color="primary"
+                            >
+                                Search
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </div>
         </TitleBar>
     </main>
@@ -136,61 +213,6 @@ export default {
 </script>
 
 <style>
-.customSelect-multiple {
-    margin-left: -11px !important;
-    --vs-background-color: #000f21;
-    --vs-text-color: white;
-    --vs-placeholder-color: white;
-    --vs-border: 1px solid #2b3b4f;
-    --vs-menu-background-color: #000f21;
-    --vs-indicator-icon-color: white;
-    --vs-option-text-color: white;
-    --vs-option-hover-background-color: #5796fa;
-}
-
-.customSelect {
-    --vs-background-color: #000f21;
-    --vs-text-color: white;
-    --vs-placeholder-color: white;
-    --vs-border: 1px solid #2b3b4f;
-    --vs-menu-background-color: #000f21;
-    --vs-indicator-icon-color: white;
-    --vs-option-text-color: white;
-    --vs-option-hover-background-color: #5796fa;
-}
-
-.multi-value {
-    background-color: #5796fa !important;
-    border: 1px solid #aaa !important;
-}
-
-.multi-value-label {
-    color: white !important;
-}
-
-.multi-value button {
-    background-color: #5796fa !important;
-    color: white !important;
-}
-
-.multi-value-remove svg {
-    color: white !important;
-}
-
-.filter-btn {
-    display: flex;
-    align-items: center;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: transparent;
-    border: none;
-}
-
-.filter-btn span {
-    margin-right: 8px;
-    font-size: 1.125rem;
-}
 .icon {
     width: 16px;
     height: 16px;
@@ -198,74 +220,5 @@ export default {
 }
 .icon.rotated {
     transform: rotate(180deg);
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    background-color: #000f21;
-    padding: 30px 30px;
-    border: 1px solid #44485e;
-    border-radius: 4px;
-}
-
-.grid-item {
-    display: flex;
-    flex-direction: column;
-    column-gap: 5px;
-    position: relative;
-}
-.auctionHouse {
-    grid-column: span 2;
-}
-.searchBtn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: self-end !important;
-    column-gap: 5px;
-    width: 108px;
-    height: 36px;
-    position: absolute;
-    bottom: 3px;
-}
-.btn-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: white;
-}
-
-@media (max-width: 1024px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .auctionHouse {
-        grid-column: span 1;
-    }
-
-    .searchBtn {
-        position: relative;
-    }
-}
-
-@media (max-width: 767px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .auctionHouse {
-        grid-column: span 1;
-    }
-}
-
-@media (max-width: 425px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-    }
-    .auctionHouse {
-        grid-column: span 1;
-    }
 }
 </style>

@@ -1,9 +1,14 @@
 <template>
-    <div class="hero-section">
+    <div class="position-relative w-100 h-auto bg-secondary pt-10 pb-8">
         <div class="pattern-bg"></div>
-        <div class="content">
-            <h1 class="text-h3">{{ title }}</h1>
-            <p class="text-subtitle-1">{{ subtitle }}</p>
+        <div
+            class="position-relative ma-auto pt-5 ps-15 text-white text-left"
+            style="max-width: 1590px; z-index: 10"
+        >
+            <h1 class="text-h3 mb-2 font-weight-bold">{{ title }}</h1>
+            <p class="text-subtitle-1 mb-2 font-weight-medium">
+                {{ subtitle }}
+            </p>
             <slot> </slot>
         </div>
     </div>
@@ -26,15 +31,6 @@ export default {
 </script>
 
 <style>
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: auto;
-    background-color: #000f21;
-    padding: 40px 0;
-    padding-bottom: 0px;
-}
-
 .pattern-bg {
     position: absolute;
     inset: 0;
@@ -44,48 +40,5 @@ export default {
     opacity: 0.25;
     pointer-events: none;
     z-index: 0;
-}
-
-.content {
-    position: relative;
-    z-index: 10;
-    margin: 0 auto;
-    padding: 20px 60px;
-    color: white;
-    text-align: left;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 1590px;
-}
-
-.content h1 {
-    font-size: 48px;
-    font-weight: 700;
-}
-
-.content p {
-    font-size: 18px;
-    font-weight: 400;
-    color: #b1bfcd;
-}
-
-.btn-primary {
-    display: inline-block;
-    background-color: #0080ff;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.btn-primary:hover {
-    background-color: #0066cc;
-}
-
-@media (max-width: 768px) {
-    .content {
-        padding: 20px 15px;
-    }
 }
 </style>

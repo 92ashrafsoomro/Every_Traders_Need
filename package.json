@@ -19,7 +19,9 @@
     "dependencies": {
         "@fontsource/inter": "^5.2.8",
         "@fortawesome/fontawesome-free": "^7.1.0",
+        "@jamescoyle/vue-icon": "^0.1.2",
         "@mdi/font": "^7.4.47",
+        "@mdi/js": "^7.4.47",
         "@vitejs/plugin-vue": "^6.0.1",
         "bootstrap": "^5.3.8",
         "pinia": "^3.0.3",

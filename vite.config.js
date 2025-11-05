@@ -15,6 +15,7 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, 'resources/js/core/utils'),
             '@plugins': path.resolve(__dirname, 'resources/js/core/plugins'),
             '@components': path.resolve(__dirname, 'resources/js/core/plugins'),
+            '@images': path.resolve(__dirname, 'resources/js/images'),
         },
     },
     plugins: [

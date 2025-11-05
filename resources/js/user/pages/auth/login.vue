@@ -2,12 +2,14 @@
     <v-app class="bg-surface">
         <v-app-bar class="px-5" flat>
             <template v-slot:prepend>
-                <v-img width="130" :src="logo"></v-img>
+                <v-btn to="/">
+                    <v-img width="130" :src="logo" to="/"></v-img>
+                </v-btn>
             </template>
             <template v-slot:append>
                 <v-btn @click="toggleTheme()" v-if="vuetify.global.name == 'adminDark'" icon="md:light_mode"></v-btn>
                 <v-btn @click="toggleTheme()" v-if="vuetify.global.name == 'adminLight'" icon="md:dark_mode"></v-btn>
-                <v-btn color="primary" variant="flat">Back To Home</v-btn>
+                <v-btn color="primary" variant="flat" to="/">Back To Home</v-btn>
             </template>
         </v-app-bar>
         <v-main>
@@ -111,21 +113,21 @@ export default {
             this.errors = {};
 
             try {
-                    
+
                 let loginResponse = await this.userStore.loginUser(this.form);
                 let token = loginResponse.token;
                 let profileRequest = await this.userStore.getProfile(token);
                 this.userStore.setToken(token);
 
-               
+
                 this.loading = false;
-                this.alertStore.add('Logged In Succeess','success');
-                this.$router.replace("/dashboard");
+                this.alertStore.add('Logged In Succeess', 'success');
+                this.$router.replace("/user/dashboard");
 
             } catch (error) {
                 this.loading = false;
                 this.errors = error.validation || {};
-                this.alertStore.add(error.message,'error');
+                this.alertStore.add(error.message, 'error');
             }
         },
     },

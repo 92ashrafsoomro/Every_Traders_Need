@@ -27,31 +27,16 @@
                         </div>
                         <div class="mt-4">
                             <v-row>
-<<<<<<< HEAD
-                                <v-col cols="12" >
-                                     <v-text-field clearable v-model="form.email" type="email"
-=======
+
                                 <v-col cols="12">
                                     <v-text-field clearable :model-value="form.email" type="email"
->>>>>>> c994fda27f34542248827432c1985a0dd6a98adb
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
                                         :error="errors.email ? true : false" :error-messages="errors?.email" />
                                 </v-col>
-<<<<<<< HEAD
-                                <v-col cols="12" >
-                                    <v-text-field v-model="form.password" 
-                                         :error="errors.password?true:false"
-                                         :error-messages="errors?.password"
-                                         type="password" clearable
-                                         prepend-inner-icon="mdi-lock" 
-                                         variant="outlined" 
-                                         label="Password" />
-=======
                                 <v-col cols="12">
-                                    <v-text-field :model-value="form.password" :error="errors.password ? true : false"
+                                    <v-text-field v-model="form.password" :error="errors.password ? true : false"
                                         :error-messages="errors?.password" type="password" clearable
                                         prepend-inner-icon="mdi-lock" variant="outlined" label="Password" />
->>>>>>> c994fda27f34542248827432c1985a0dd6a98adb
                                 </v-col>
                                 <v-col cols="12">
                                     <div class="d-flex justify-space-between">
@@ -94,7 +79,7 @@ import authService from "../../../core/services/authService";
 export default {
     name: "Login",
     components: {
-        
+
     },
     data() {
         return {
@@ -132,7 +117,7 @@ export default {
                 authService.setToken(token);
 
                 this.userStore.syncUser();
-                
+
                 this.loading = false;
                 // this.$router.replace("/dashboard");
 
@@ -145,11 +130,4 @@ export default {
     },
 };
 </script>
-
-<<<<<<< HEAD
-<style scoped>
-
-</style>
-=======
 <style scoped></style>
->>>>>>> c994fda27f34542248827432c1985a0dd6a98adb

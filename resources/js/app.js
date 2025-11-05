@@ -43,46 +43,47 @@ const vuetify = createVuetify({
                     surface: "#000E20",
                     danger: "#ff4d52",
                     lighthover: "#002145",
+                    backgound2: "#0f1c2b",
                 },
                 typography: {
-                        fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
-                        h1: {
-                            // fontSize: '2.25rem',
-                            // lineHeight: '2.75rem',
-                            // fontWeight: '700'
-                        },
-                        h2: {
-                            // fontSize: '1.75rem',
-                            // lineHeight: '2.25rem',
-                            // fontWeight: '600'
-                        },
-                        h3: {
-                            // fontSize: '1.5rem',
-                            // lineHeight: '2rem',
-                            // fontWeight: '600'
-                        },
-                        subtitle1: {
-                            // fontSize: '1.125rem',
-                            // lineHeight: '1.75rem'
-                        },
-                        body1: {
-                            // fontSize: '1rem',
-                            // lineHeight: '1.5rem'
-                        },
-                        body2: {
-                            // fontSize: '0.875rem',
-                            // lineHeight: '1.25rem'
-                        },
-                        caption: {
-                            // fontSize: '0.75rem',
-                            // lineHeight: '1rem'
-                        },
-                        button: {
-                            // fontSize: '0.875rem',
-                            // fontWeight: '600',
-                            // letterSpacing: '0.02em'
-                        },
-                 },
+                    fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
+                    h1: {
+                        // fontSize: '2.25rem',
+                        // lineHeight: '2.75rem',
+                        // fontWeight: '700'
+                    },
+                    h2: {
+                        // fontSize: '1.75rem',
+                        // lineHeight: '2.25rem',
+                        // fontWeight: '600'
+                    },
+                    h3: {
+                        // fontSize: '1.5rem',
+                        // lineHeight: '2rem',
+                        // fontWeight: '600'
+                    },
+                    subtitle1: {
+                        // fontSize: '1.125rem',
+                        // lineHeight: '1.75rem'
+                    },
+                    body1: {
+                        // fontSize: '1rem',
+                        // lineHeight: '1.5rem'
+                    },
+                    body2: {
+                        // fontSize: '0.875rem',
+                        // lineHeight: '1.25rem'
+                    },
+                    caption: {
+                        // fontSize: '0.75rem',
+                        // lineHeight: '1rem'
+                    },
+                    button: {
+                        // fontSize: '0.875rem',
+                        // fontWeight: '600',
+                        // letterSpacing: '0.02em'
+                    },
+                },
             },
             adminLight: {
                 dark: false,
@@ -101,10 +102,10 @@ const vuetify = createVuetify({
     },
 
     icons: {
-    defaultSet: 'mdi', // default icon set
-    aliases,
-    sets: {mdi,fa,md,},
-  },
+        defaultSet: 'mdi', // default icon set
+        aliases,
+        sets: { mdi, fa, md, },
+    },
 });
 
 const render = createApp(App);

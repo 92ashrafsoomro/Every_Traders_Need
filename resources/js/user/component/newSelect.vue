@@ -6,12 +6,17 @@
         :items="items"
         multiple
         variant="outlined"
+        :density="density"
     />
 </template>
 <script>
 export default {
     name: "CustomSelect",
     props: {
+        density:{
+            type: String,
+            default: 'default',
+        },
         label: {
             type: String,
             default: "Select Option",

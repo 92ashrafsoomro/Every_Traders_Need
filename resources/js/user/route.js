@@ -14,7 +14,7 @@ export default [
         path: "/",
         component: DashboardLayout,
         children: [
-            { path: '', component: Dashboard },
+            // { path: '', component: Dashboard },
             { path: 'dashboard', component: Dashboard},
             { path: 'auction-finder', component: AuctionFinder },    
             { path: "auctionscheduler", component: Auctionscheduler },

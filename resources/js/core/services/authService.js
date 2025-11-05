@@ -34,6 +34,32 @@ import { errorHandler } from "./responseHandleService";
             } catch (error) {
               throw await errorHandler(error);
             }
+    }   
+
+    
+    export const setToken = async (token) => {
+
+            try {
+                api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                localStorage.setItem("auth_token", token);
+                return token;
+            } catch (error) {
+              throw await errorHandler(error);
+            }
+        
+  }
+    
+    export const removeToken = async (token) => {
+
+            try {
+                
+                api.defaults.headers.common["Authorization"] = '';
+                localStorage.removeItem("auth_token", token);
+                return token;
+                    
+            } catch (error) {
+              throw await errorHandler(error);
+            }
         
     }
     
@@ -41,4 +67,6 @@ import { errorHandler } from "./responseHandleService";
 export default {
     Login,
     getProfile,
+    setToken,
+    removeToken,
 }

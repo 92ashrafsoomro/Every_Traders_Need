@@ -52,10 +52,24 @@ Broadcast::routes(['middleware' => ['auth']]);
 
 
 
+Route::get('/features', [WebController::class, 'features']);
+Route::get('/disclaimer', [WebController::class, 'disclaimer']);
+Route::get('/faq', [WebController::class, 'faq']);
+Route::get('/terms', [WebController::class, 'terms']);
+Route::get('/cookiepolicy', [WebController::class, 'cookiepolicy']);
+Route::get('/about', [WebController::class, 'about']);
 
-Route::get('/user/{any?}', function () {
-    return view('user.test');
-})->where('any', '.*');
+Route::get('/privacy', [WebController::class, 'privacy']);
+
+Route::get('/pricing', [WebController::class, 'pricing']);
+
+Route::get('/autionshadule', [WebController::class, 'AutionShadule']);
+
+Route::get('/exploreevery', [WebController::class, 'ExploreEvery']);
+Route::get('/compair', [WebController::class, 'compairaution']);
+Route::get('/privecy', [WebController::class, 'privecy']);
+Route::get('/faqs', [WebController::class, 'faqs']);
+Route::get('/explore/newss', [WebController::class, 'newss']);
 
 
 
@@ -96,6 +110,10 @@ Route::get('/stripe/success', [PaymentController::class, 'stripeSuccess'])->name
 Route::get('/stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
 Route::post('/stripe/webhook', [WebhookController::class, 'handleStripeWebhook']); // Add this route for webhooks
 
+
+Route::get('/{any?}', function () {
+    return view('user.test');
+})->where('any', '.*');
 
 
 // // User Authenticated Routes

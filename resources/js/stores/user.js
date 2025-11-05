@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import api from "../core/plugins/axios";
 import {useThemeStore} from './theme';
-
+import authService from "@services/authService";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -35,33 +35,35 @@ export const useUserStore = defineStore("user", {
 
             const themeStore = useThemeStore();
             themeStore.startLoading();
-            
-            if(!this.token) {
-                this.clearAuth();
-                themeStore.endLoading();
-                return false;  
-            }
-            
-            api.get('/api/auth/profile')
-            .then((res) => {
-                this.user = res.data.account;
-                themeStore.endLoading();
-            }).catch((error) => {
-                if(error?.response?.data?.message){
-                    alert(error.response.data.message);
-                }
-                this.clearAuth();
-                themeStore.endLoading();
-            });
+                
+            //If no token, clear auth and return
+            if (this.token) {
+                
+                    authService.getProfile(this.token).then((res) => {
+                        
+                        console.log(res);
+                        
+                        // this.user = res.data.account;
+                        // themeStore.endLoading();
 
+                    }).catch((error) => {
+
+                        
+                        console.log(error);
+                        
+                        // this.user = {};
+                        // this.is_logged_in = false;
+                        // themeStore.endLoading();
+                    });
+
+            } else { 
+                this.user = {};
+                this.is_logged_in = false;
+                themeStore.endLoading();
+            }
+                
         },
-        clearAuth(){
-            localStorage.removeItem('auth_token');
-            this.user = {};
-            this.is_logged_in = false;
-        },
-        userLogin(data){  
-            localStorage.setItem('auth_token',data.token);
+        userLogin(data) {  
             this.user = data.account;
             this.is_logged_in = true;
         },

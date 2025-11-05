@@ -10,7 +10,6 @@
                 <v-btn color="primary" variant="flat">Back To Home</v-btn>
             </template>
         </v-app-bar>
-
         <v-main>
             <v-card color="background" class="mx-auto my-8 py-6" elevation="16" max-width="500" rounded="sm">
                 <v-card-item>
@@ -25,19 +24,17 @@
                                 Continue with Google
                             </v-btn>
                         </div>
-
                         <div class="mt-4">
-
                             <v-row>
                                 <v-col cols="12" >
-                                     <v-text-field clearable :model-value="form.email" type="email"
+                                     <v-text-field clearable v-model="form.email" type="email"
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
                                         :error="errors.email?true:false"
                                         :error-messages="errors?.email"
                                         />
                                 </v-col>
                                 <v-col cols="12" >
-                                    <v-text-field :model-value="form.password" 
+                                    <v-text-field v-model="form.password" 
                                          :error="errors.password?true:false"
                                          :error-messages="errors?.password"
                                          type="password" clearable
@@ -78,15 +75,15 @@
 <script>
 import { useThemeStore } from "../../../stores/theme";
 import { useUserStore } from "../../../stores/user";
-import LoginHeader from "./LoginHeader.vue";
 import AuthService from "../../../core/services/authService";
 import { useTheme } from "vuetify";
 import Logo from "../../../images/logo/logo.png";
+import authService from "../../../core/services/authService";
 
 export default {
     name: "Login",
     components: {
-        LoginHeader,
+        
     },
     data() {
         return {
@@ -112,18 +109,22 @@ export default {
             }
         },
         async login() {
+
             this.loading = true;
             this.errors = {};
 
             try {
+
                 let loginResponse = await AuthService.Login(this.form);
-                let profileRequest = await AuthService.getProfile(
-                    loginResponse.token
-                );
-                profileRequest.token = loginResponse.token;
-                this.userStore.userLogin(profileRequest);
+                let token = loginResponse.token;
+                let profileRequest = await AuthService.getProfile(token);
+                authService.setToken(token);
+
+                this.userStore.syncUser();
+                
                 this.loading = false;
-                this.$router.replace("/dashboard");
+                // this.$router.replace("/dashboard");
+
             } catch (error) {
                 this.loading = false;
                 this.errors = error.validation || {};
@@ -135,103 +136,5 @@ export default {
 </script>
 
 <style scoped>
-/* .theme-mode-dark{
-        background-color: #000F21;
-    }
 
-    .theme-mode-light{
-        background-color: #f3f4f6;
-    }
-
-    .card{
-        padding: 18px 40px;
-        padding-top: 30px;
-        max-width:512px;
-        margin: auto;
-        border-radius: 0.25rem;
-        background:#0f1c2c;
-    }
-
-    .card h1{
-        font-size: 1.875rem;
-        line-height: 2.25rem;
-        color: white;
-        margin-bottom: 10px;
-    }
-
-    .google-icon{
-        width: 100%;
-        text-align: center;
-        border: 1px solid white;
-        border-radius: 8px;
-        padding: 10px;
-    }
-
-    .google-icon a{
-        text-decoration: none;
-    
-    }
-
-    .google-icon a span{
-        text-decoration: none;
-        color: white;
-        font-weight: 500;
-    }
-
-    .google-icon img{
-        width: 31px;
-        padding-right: 11px;
-    }
-
-    .divider{
-        color: white;
-        display: flex;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
-    .divider span{
-        border-bottom: 1px solid #686d79;
-        display: block;
-        width: 100%;
-        
-    }
-
-    .divider p{
-        margin: 0px;
-        font-size: 12px;
-        padding: 0px 10px;
-        font-weight: 700;
-    }
-
- 
-    /* Form */
-/* label{
-        color: white;
-        padding-bottom: 10px;
-        font-weight: 700;
-        font-size: 12px;
-
-    }
-
-    form a{
-        text-decoration: none;
-    }
-
-    .form-group{
-      margin-bottom: 10px;     
-    }
-
-    input{
-        background: #000F21;
-    }
-
-    input:focus {
-        background: #000F21!important;
-    }
-
-    input::placeholder {
-        color: #999; 
-        opacity: 1;  
-    }  */
 </style>

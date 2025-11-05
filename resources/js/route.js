@@ -19,7 +19,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory("/autoboli/user"),
+    history: createWebHistory("/autoboli"),
     routes,
 });
 

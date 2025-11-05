@@ -73,7 +73,7 @@
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">
-                    <v-btn size="small" color="danger" class="text-white">
+                    <v-btn @click="logOut()" size="small" color="danger" class="text-white">
                         <p class="text-caption mr-2">Logout</p>
                         <svg-icon
                             type="mdi"
@@ -88,8 +88,10 @@
     </v-menu>
 </template>
 <script>
+import { useAlertStore } from "@/stores/alertStore";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiLogout } from "@mdi/js";
+import {useUserStore} from '@stores/userStore'
 
 export default {
     name: "my-component",
@@ -99,8 +101,18 @@ export default {
     data() {
         return {
             path: mdiLogout,
+            userStore: useUserStore(),
+            alertStore: useAlertStore(),
         };
     },
+    methods: {
+        logOut() {
+            localStorage.removeItem("auth_token");
+            this.alertStore.add("Logged Out Successfully","success");
+            this.$router.push("/login");
+
+        }
+    }
 };
 </script>
 <style>

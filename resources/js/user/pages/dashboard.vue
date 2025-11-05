@@ -11,7 +11,7 @@
 <script>
 
 import { useThemeStore } from "../../stores/theme";
-import { useUserStore } from "../../stores/user";
+import { useUserStore } from "../../stores/userStore";
 import TitleBar from "./../component/TitleBar.vue";
 
 
@@ -30,17 +30,10 @@ export default {
       
     },
     mounted() {     
-
         
-         
         // this.userStore.$subscribe((mutation, state) => {
-
-           
         //     console.log('New state:', state.user)
-
-
         // });
-
         // this.userStore.syncUser();
 
        

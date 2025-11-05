@@ -29,7 +29,7 @@
                             <v-row>
 
                                 <v-col cols="12">
-                                    <v-text-field clearable :model-value="form.email" type="email"
+                                    <v-text-field clearable v-model="form.email" type="email"
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
                                         :error="errors.email ? true : false" :error-messages="errors?.email" />
                                 </v-col>
@@ -70,11 +70,11 @@
 
 <script>
 import { useThemeStore } from "../../../stores/theme";
-import { useUserStore } from "../../../stores/user";
-import AuthService from "../../../core/services/authService";
+import { useUserStore } from "@stores/userStore";
+import { useAlertStore } from "@stores/alertStore";
 import { useTheme } from "vuetify";
 import Logo from "../../../images/logo/logo.png";
-import authService from "../../../core/services/authService";
+
 
 export default {
     name: "Login",
@@ -87,6 +87,7 @@ export default {
             themeStore: useThemeStore(),
             userStore: useUserStore(),
             vuetify: useTheme(),
+            alertStore: useAlertStore(),
             errors: {},
             loading: false,
             form: {
@@ -110,21 +111,21 @@ export default {
             this.errors = {};
 
             try {
-
-                let loginResponse = await AuthService.Login(this.form);
+                    
+                let loginResponse = await this.userStore.loginUser(this.form);
                 let token = loginResponse.token;
-                let profileRequest = await AuthService.getProfile(token);
-                authService.setToken(token);
+                let profileRequest = await this.userStore.getProfile(token);
+                this.userStore.setToken(token);
 
-                this.userStore.syncUser();
-
+               
                 this.loading = false;
-                // this.$router.replace("/dashboard");
+                this.alertStore.add('Logged In Succeess','success');
+                this.$router.replace("/dashboard");
 
             } catch (error) {
                 this.loading = false;
                 this.errors = error.validation || {};
-                alert(error.message);
+                this.alertStore.add(error.message,'error');
             }
         },
     },

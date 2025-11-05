@@ -15,7 +15,7 @@ export default [
         component: DashboardLayout,
         children: [
             // { path: '', component: Dashboard },
-            { path: 'dashboard', component: Dashboard},
+            { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true }},
             { path: 'auction-finder', component: AuctionFinder },    
             { path: "auctionscheduler", component: Auctionscheduler },
             { path: "interest", component: Interest },

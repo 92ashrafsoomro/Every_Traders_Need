@@ -5,7 +5,7 @@
       "@/*": [
         "resources/js/*"
       ],
-      "@store/*": [
+      "@stores/*": [
         "resources/js/stores/*"
       ],
       "@services/*": [
@@ -13,6 +13,9 @@
       ],
       "@utils/*": [
         "resources/js/core/utils/*"
+      ],
+      "@components/*": [
+        "resources/js/core/components/*"
       ],
       "@plugins/*": [
         "resources/js/core/plugins/*"

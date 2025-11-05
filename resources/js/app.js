@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import router from "./route";
 import pinia from "./stores";
 import App from "./app.vue";
-import { useUserStore } from "./stores/user";
+// import { useUserStore } from "./stores/userStore";
 
 
 // Styles
@@ -112,19 +112,19 @@ const render = createApp(App);
 render.use(pinia);
 render.use(router);
 render.use(vuetify);
-const userStore = useUserStore();
+// const userStore = useUserStore();
 
-(async () => {
-    if (userStore.token) {
-        try {
-            await userStore.syncUser();
-        } catch (e) {
-            console.warn("Auth sync failed:", e.message);
-            // userStore.clearAuth();
-        }
-    }
+// (async () => {
+//     if (userStore.token) {
+//         try {
+//             await userStore.syncUser();
+//         } catch (e) {
+//             console.warn("Auth sync failed:", e.message);
+//             // userStore.clearAuth();
+//         }
+//     }
 
     render.mount("#userApp");
-})();
+// })();
 
 // render.mount('#userApp');

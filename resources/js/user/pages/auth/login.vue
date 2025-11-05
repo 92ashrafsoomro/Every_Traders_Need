@@ -15,75 +15,61 @@
             <v-card color="background" class="mx-auto my-8 py-6" elevation="16" max-width="500" rounded="sm">
                 <v-card-item>
                     <v-card-title class="text-center text-h4">
-                      Welcome back!
+                        Welcome back!
                     </v-card-title>
                 </v-card-item>
                 <v-card-text>
-                            <div class="google-icon text-center">
-                                <v-btn color="background" >
-                                        <v-img width="30" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"></v-img>
-                                    <span class="pl-4" >Continue with Google</span>
-                                </v-btn>
-                            </div>
+                    <v-container>
+                        <div class="google-icon text-center mb-7">
+                            <v-btn class="text-capitalize" rounded="lg" block prepend-icon="mdi-google"  variant="outlined" >
+                                Continue with Google
+                            </v-btn>
+                        </div>
 
-                             <v-text-field clearable prepend-icon="mdi-email" variant="outlined" v-model="firstName" label="Work Email"></v-text-field>
-                             <v-text-field clearable prepend-icon="mdi-email" variant="outlined" v-model="lastName" label="Password"></v-text-field>
-                             <div class="d-flex justify-space-between">
-                                <div>
-                                    <v-checkbox
-                                    v-model="checkbox"
-                                    :rules="[v => !!v || 'You must agree to continue!']"
-                                    label="Do you agree?"
-                                    required
-                                ></v-checkbox>
-                                </div>
-                                <div>
-                                    <v-btn to="http://localhost/autoboli/forgot-password" variant="text" class="text-body-1" >Forgot Password?</v-btn>
-                                </div>
-                             </div>
+                        <div class="mt-4">
 
-                                    <div class="form-group">
-                                        <label>Work Email</label>
-                                        <input v-model="form.email" type="email" class="form-control"
-                                            placeholder="Enter your work email" />
-                                        <p v-if="errors.email" class="text-danger">
-                                            {{ errors.email[0] }}
-                                        </p>
+                            <v-row>
+                                <v-col cols="12" >
+                                     <v-text-field clearable :model-value="form.email" type="email"
+                                        prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
+                                        :error="errors.email?true:false"
+                                        :error-messages="errors?.email"
+                                        />
+                                </v-col>
+                                <v-col cols="12" >
+                                    <v-text-field :model-value="form.password" 
+                                         :error="errors.password?true:false"
+                                         :error-messages="errors?.password"
+                                         type="password" clearable
+                                         prepend-inner-icon="mdi-lock" 
+                                         variant="outlined" 
+                                         label="Password" />
+                                </v-col>
+                                <v-col cols="12" >
+                                    <div class="d-flex justify-space-between">
+                                        <div>
+                                            <v-checkbox color="primary" label="Do you agree?" class="text-body-2" />
+                                        </div>
+                                        <div>
+                                            <v-btn color="primary" to="http://localhost/autoboli/forgot-password" variant="text"
+                                                class="text-body-2">Forgot Password?</v-btn>
+                                        </div>
                                     </div>
+                                </v-col>
 
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" v-model="form.password" name="password"
-                                            class="form-control" placeholder="Enter password" />
-                                        <p v-if="errors.password" class="text-danger">
-                                            {{ errors.password[0] }}
-                                        </p>
-                                    </div>
+                                <v-col cols="12" >
+                                     <v-btn @click="login()" color="primary" variant="flat" block>
+                                        {{ loading ?"Loading.." : "Log In" }}</v-btn>
+                                </v-col>
 
-                                    <div class="my-2 d-flex align-items-center justify-content-between text-sm">
-                                        <label class="inline align-items-center gap-2">
-                                            <input type="checkbox" id="rememberMe" class="rounded" />
-                                            <span class="text-white dark:text-gray-700">Remember me</span>
-                                        </label>
-                                        
-                                    </div>
-
-                                    <div class="d-flex align-items-end" >
-                                        <a href="http://localhost/autoboli/forgot-password" class="text-body-1">Forgot
-                                            Password?</a>
-                                    </div>
-
-                                        <div class="text-center">
-                                    <v-btn @click="login()" color="primary" variant="flat" >{{ loading ? "Loading.." : "Log In" }}</v-btn>
-                                </div>
-                                
-                                <p class="mt-3 text-body-2 text-center ">
-                                    Don’t have an account?
-                                    <a href="#" class="font-semibold">Sign up</a>
-                                </p>
-
+                                 <v-col cols="12" class="text-center" >
+                                        <span>Don’t have an account?</span>
+                                        <v-btn variant="plain" class="px-0 text-body-2" color="primary">Sign up</v-btn>
+                                 </v-col>
+                            </v-row>
+                        </div>
+                    </v-container>
                 </v-card-text>
-               
             </v-card>
         </v-main>
     </v-app>

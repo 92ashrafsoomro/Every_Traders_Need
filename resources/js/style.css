@@ -8,3 +8,12 @@ body{
 aside {
     z-index: 999 !important;
 }
+
+
+.v-input__details {
+     min-height: auto!important;
+}
+
+.v-input__details .v-messages{
+     min-height: auto!important;
+}

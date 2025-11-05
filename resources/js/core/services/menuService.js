@@ -7,7 +7,7 @@ export const getMenu = () => {
         {
             icon: "mdi-view-dashboard-outline",
             label: "Dashboard",
-            path: "/dashboard",
+            path: "/user/dashboard",
             // children: [
             //     {
             //         icon: "gavel",
@@ -29,32 +29,32 @@ export const getMenu = () => {
         {
             icon: "mdi-hammer",
             label: "Auction Finder",
-            path: "/auction-finder",
+            path: "/user/auction-finder",
         },
         {
             icon: "mdi-thumb-up",
             label: "My Interest",
-            path: "/interest",
+            path: "/user/interest",
         },
         {
             icon: "mdi-history",
             label: "Watchlist",
-            path: "/watchlist",
+            path: "/user/watchlist",
         },
         {
             icon: "mdi-calendar-badge",
             label: "Reauction",
-            path: "/reauction",
+            path: "/user/reauction",
         },
         {
             icon: "mdi-compare-horizontal",
             label: "Compare",
-            path: "/compare",
+            path: "/user/compare",
         },
         {
             icon: "mdi-calendar-check-outline",
             label: "Auction Scheduler",
-            path: "/auctionscheduler",
+            path: "/user/auctionscheduler",
         },
         {
             label: "Profile",

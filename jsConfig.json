@@ -2,14 +2,29 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["resources/js/*"],
-      "@store/*": ["resources/js/stores/*"],
-      "@services/*": ["resources/js/core/services/*"],
-      "@utils/*": ["resources/js/core/utils/*"],
-      "@plugins/*": ["resources/js/core/plugins/*"],
-      "@components/*": ["resources/js/core/plugins/*"]
+      "@/*": [
+        "resources/js/*"
+      ],
+      "@store/*": [
+        "resources/js/stores/*"
+      ],
+      "@services/*": [
+        "resources/js/core/services/*"
+      ],
+      "@utils/*": [
+        "resources/js/core/utils/*"
+      ],
+      "@plugins/*": [
+        "resources/js/core/plugins/*"
+      ],
+      "@images/*": [
+        "resources/js/images/*"
+      ],
     },
     "ignoreDeprecations": "6.0"
   },
-  "exclude": ["node_modules", "public"]
+  "exclude": [
+    "node_modules",
+    "public"
+  ]
 }

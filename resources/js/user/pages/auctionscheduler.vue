@@ -2,181 +2,41 @@
     <main>
         <TitleBar title="Auction Scheduler"
             subtitle="Manage and view platform auctions across all centers in one place.">
-            <div class="d-flex ga-2 w-100 w-md-75 w-lg-50 align-start align-sm-center">
-                <ComoboxInput color="primary" density="compact" />
-
-                <ComoboxInput color="primary" density="compact" />
+            <!-- @cascade: help with this parent div style I want to makew it flex in desktop and in mobile view I want to make it flex-direction: column and justify-content: center -->
+            <div
+                class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
+                <ComoboxInput color="primary" density="compact" class="w-100 w-sm-auto" />
+                <ComoboxInput color="primary" density="compact" class="w-100 w-sm-auto" />
                 <v-switch v-model="isToggleEnabled" color="primary" density="compact" size="small" hide-details
                     @change="handleToggleChange" class="ml-3" />
-
             </div>
-            <div class="scheduleContainer pt-4 d-flex align-center ga-4
+            <div class=" pt-4 d-flex align-center ga-4
             flex-wrap ml-auto mr-auto
             ">
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
+                <div v-for="(item, index) in scheduleItems" :key="index"
+                    class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5 d-flex flex-column mb-3">
+                    <div class="text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pb-2 pt-2 text-wrap"
+                        style="white-space: wrap !important;">
+                        {{ item.title }}
+                    </div>
                     <div class="lowerSection text-[#cccccc] mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
+                        <div class="flex align-center text-[#00bad1] text-overline">
                             <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
+                            <span class="text-caption text-[#cccccc]">{{ item.auctions }}</span>
                         </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
+                        <div class="flex align-center text-[#00bad1] text-overline">
+                            <small><i class="fa-solid fa-car"></i></small>
+                            <span class="text-caption text-[#cccccc]">{{ item.cars }}</span>
                         </div>
-                        <div>
+                        <div class="flex align-center text-[#ff4c51] text-overline">
                             <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5
-                d-flex flex-column mb-3
-                ">
-                    <div
-                        class="upperSection text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pa-3">
-                        Today</div>
-                    <div class="lowerSection mt-2 d-flex justify-space-between">
-                        <div class="flex align-center 
-                        text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
-                            <span class="text-caption 
-                            text-[#cccccc]">0</span>
-                        </div>
-                        <div>
-                            <small> <i class="fa-solid fa-car"></i></small>
-                            <span>0</span>
-                        </div>
-                        <div>
-                            <small><i class="fa-solid fa-heart"></i></small>
-                            <span>0</span>
+                            <span class="text-caption text-[#cccccc]">{{ item.favorites }}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </TitleBar>
-        <div class="mainContent">
+        <div class="mainContent ps-2 ps-sm-6 mr-auto ml-auto">
             <DataTable />
         </div>
     </main>
@@ -199,6 +59,15 @@ export default {
     data() {
         return {
             isToggleEnabled: false,
+            scheduleItems: [
+                { title: 'Today', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'Tomorrow', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'This Week', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'Next Week', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'This Month', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'Next Month', auctions: 0, cars: 0, favorites: 0 },
+                { title: 'This Year', auctions: 0, cars: 0, favorites: 0 }
+            ]
         };
     },
     methods: {
@@ -221,36 +90,11 @@ export default {
 </script>
 
 <style scoped>
-.mainContent {
-    max-width: 1536px;
-    padding: 0 24px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
 .scheduleDiv {
     height: 95px;
     width: 195px;
 }
 
-.upperSection {
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid #2b3b4f;
-    padding: 10px;
-}
-
-.lowerSection div span {
-    font-size: 11px;
-    font-weight: 600;
-    color: #cccccc;
-    margin-left: 4px;
-}
 
 .lowerSection div:nth-child(1) {
     display: flex;
@@ -277,23 +121,28 @@ export default {
         height: auto;
         width: 183px;
     }
-
-    .upperSection {
-        padding: 6px;
-    }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 425px) {
     .scheduleDiv {
         height: auto;
         width: 160px;
     }
 }
 
+
+
+@media (max-width: 375px) {
+    .scheduleDiv {
+        height: auto;
+        width: 140px;
+    }
+}
+
 @media (max-width: 320px) {
     .scheduleDiv {
         height: auto;
-        width: 130px;
+        width: 120px;
     }
 }
 </style>

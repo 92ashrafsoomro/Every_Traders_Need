@@ -1,20 +1,12 @@
 <template>
     <main>
-        <TitleBar
-            title="Smart Auction Search"
-            subtitle="Filter, compare, and uncover vehicles that match your profit goals."
-        >
+        <TitleBar title="Smart Auction Search"
+            subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
             <div class="tabsContainer">
-                <button
-                    :class="{ active: activeTab === 'auction' }"
-                    @click="activeTab = 'auction'"
-                >
+                <button :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'">
                     Auction Finder
                 </button>
-                <button
-                    :class="{ active: activeTab === 'valuation' }"
-                    @click="activeTab = 'valuation'"
-                >
+                <button :class="{ active: activeTab === 'valuation' }" @click="activeTab = 'valuation'">
                     Vehicle Valuation
                 </button>
             </div>

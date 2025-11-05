@@ -10,8 +10,6 @@ import NotFound from "./user/pages/404.vue"
 import UserRoutes from "./user/route.js"
 
 
-
-
 const routes = [
     ...UserRoutes,
     {

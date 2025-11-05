@@ -5,7 +5,7 @@ export const getMenu = () => {
             type: "group",
         },
         {
-            icon: "dashboard",
+            icon: "mdi-view-dashboard-outline",
             label: "Dashboard",
             path: "/dashboard",
             // children: [
@@ -27,32 +27,32 @@ export const getMenu = () => {
             // ]
         },
         {
-            icon: "gavel",
+            icon: "mdi-hammer",
             label: "Auction Finder",
             path: "/auction-finder",
         },
         {
-            icon: "thumb_up",
+            icon: "mdi-thumb-up",
             label: "My Interest",
             path: "/interest",
         },
         {
-            icon: "history",
+            icon: "mdi-history",
             label: "Watchlist",
             path: "/watchlist",
         },
         {
-            icon: "edit_calendar",
+            icon: "mdi-calendar-badge",
             label: "Reauction",
             path: "/reauction",
         },
         {
-            icon: "compare_arrows",
+            icon: "mdi-compare-horizontal",
             label: "Compare",
             path: "/compare",
         },
         {
-            icon: "calendar_check",
+            icon: "mdi-calendar-check-outline",
             label: "Auction Scheduler",
             path: "/auctionscheduler",
         },
@@ -61,22 +61,22 @@ export const getMenu = () => {
             type: "group",
         },
         {
-            icon: "support_agent",
+            icon: "mdi-face-agent",
             label: "Support",
             path: "/support",
         },
         {
-            icon: "newspaper",
+            icon: "mdi-newspaper",
             label: "News",
             path: "/news",
         },
         {
-            icon: "account_circle",
+            icon: "mdi-account-tie",
             label: "Profile",
             path: "/profile",
         },
         {
-            icon: "settings",
+            icon: "mdi-cog",
             label: "Settings",
             path: "/viewhsitory",
         },

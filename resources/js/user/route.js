@@ -1,5 +1,5 @@
 import DashboardLayout from "./component/Layout/index.vue"
-import AuctionFinder from "./pages/auction-finder/auctionFinder.vue"
+import AuctionFinder from "./pages/auction-finder/index.vue"
 import Auctionscheduler from "./pages/auctionscheduler.vue"
 import Compare from "./pages/compare.vue"
 import Dashboard from "./pages/dashboard.vue"
@@ -15,8 +15,8 @@ export default [
         component: DashboardLayout,
         children: [
             // { path: '', component: Dashboard },
-            { path: 'dashboard', component: Dashboard},
-            { path: 'auction-finder', component: AuctionFinder },    
+            { path: 'dashboard', component: Dashboard },
+            { path: 'auction-finder', component: AuctionFinder },
             { path: "auctionscheduler", component: Auctionscheduler },
             { path: "interest", component: Interest },
             { path: "reauction", component: Reauction },

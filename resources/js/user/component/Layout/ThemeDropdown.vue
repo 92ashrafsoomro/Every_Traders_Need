@@ -6,20 +6,15 @@
             </v-btn>
         </template>
 
-        <v-list
-            style="
+        <v-list style="
                 background-color: #000f21;
                 color: #b2c0ce;
                 margin-left: -100px;
-            "
-        >
+            ">
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex align-center ga-2 text-white">
-                        <svg-icon
-                            type="mdi"
-                            :path="mdiGlobeLightOutline"
-                        ></svg-icon>
+                        <svg-icon type="mdi" :path="mdiGlobeLightOutline"></svg-icon>
                         <div>Light Theme</div>
                     </div>
                 </v-list-item-title>

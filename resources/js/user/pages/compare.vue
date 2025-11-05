@@ -39,124 +39,47 @@
                     <v-row dense>
                         <!-- Make -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Make"
-                                :items="['Toyota', 'Honda', 'Nissan', 'Suzuki']"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                             <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Model -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Model"
-                                :items="[
-                                    'Corolla',
-                                    'Civic',
-                                    'Skyline',
-                                    'Swift',
-                                ]"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                            <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Variant -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Variant"
-                                :items="['Base', 'GLI', 'XLI', 'RS']"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                            <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Year -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Year"
-                                :items="[
-                                    '2018',
-                                    '2019',
-                                    '2020',
-                                    '2021',
-                                    '2022',
-                                ]"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                           <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Transmission -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Transmission"
-                                :items="['Automatic', 'Manual']"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                           <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Fuel -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Fuel"
-                                :items="[
-                                    'Petrol',
-                                    'Diesel',
-                                    'Hybrid',
-                                    'Electric',
-                                ]"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                            <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Grade -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Grade"
-                                :items="['A', 'B', 'C', 'S']"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                            <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Mileage -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-combobox
-                                label="Select Mileage Range"
-                                :items="[
-                                    '0-10k',
-                                    '10k-50k',
-                                    '50k-100k',
-                                    '100k+',
-                                ]"
-                                variant="outlined"
-                                density="comfortable"
-                                clearable
-                                color="primary"
-                            />
+                           <ComoboxInput color="primary" density="compact" />
                         </v-col>
 
                         <!-- Auction House -->
                         <v-col cols="12" sm="6" md="3">
-                            <NewSelect />
+                            <NewSelect density="compact" />
                         </v-col>
 
                         <!-- Search Button -->

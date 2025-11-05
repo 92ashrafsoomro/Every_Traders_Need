@@ -2,44 +2,23 @@
     <v-app>
         <Sidebar />
 
-        <v-app-bar
-            app
-            color="secondary"
-            class="d-flex align-center justify-space-between"
-            dark
-        >
-            <v-app-bar-nav-icon
-                @click="themeStore.toggleMenu()"
-                class="d-lg-none"
-            ></v-app-bar-nav-icon>
+        <v-app-bar app color="secondary" class="d-flex align-center justify-space-between" dark>
+            <v-app-bar-nav-icon @click="themeStore.toggleMenu()" class="d-lg-none"></v-app-bar-nav-icon>
             <v-toolbar-title>
                 <p class="d-none d-sm-inline">Dashboard</p>
             </v-toolbar-title>
 
             <div class="pr-2 ga-5 d-flex align-center justify-center">
-                <div
-                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
-                >
-                    <svg-icon
-                        @click="toggleFullScreen"
-                        type="mdi"
-                        :path="path"
-                        class="cursor-pointer"
-                    ></svg-icon>
+                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
+                    <svg-icon @click="toggleFullScreen" type="mdi" :path="path" class="cursor-pointer"></svg-icon>
                 </div>
-                <div
-                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
-                >
+                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
                     <ThemeDropdown />
                 </div>
-                <div
-                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
-                >
+                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
                     <Notificationdropdown />
                 </div>
-                <div
-                    class="icon_wrapper d-flex align-center justify-center rounded-lg"
-                >
+                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
                     <ProfileDropdown />
                 </div>
             </div>

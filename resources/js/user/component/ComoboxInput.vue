@@ -4,6 +4,7 @@
         :label="label"
         :items="items"
         variant="outlined"
+        :density="density"
     ></v-combobox>
 </template>
 
@@ -11,6 +12,10 @@
 export default {
     name: "ComoboxSelect",
     props: {
+        density:{
+            type: String,
+            default: "default",
+        },
         label: {
             type: String,
             default: "Select Options",

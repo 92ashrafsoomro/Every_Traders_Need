@@ -1,37 +1,18 @@
 <template>
-    <v-navigation-drawer
-        app
-        dark
-        color="secondary"
-        :width="menuWidth"
-        v-model="themeStore.menuOpen"
-    >
+    <v-navigation-drawer app dark color="secondary" :width="menuWidth" v-model="themeStore.menuOpen">
         <v-list>
             <v-list-item>
-                <img
-                    src="/public/theme/assets/logo_autoboli.png"
-                    class="logoImg"
-                />
-                <button
-                    class="logoType d-none d-lg-block"
-                    @click="themeStore.toggleMenuType()"
-                >
+                <img :src="logo" class="logoImg" />
+                <button class="logoType d-none d-lg-block" @click="themeStore.toggleMenuType()">
                     <span class="material-symbols-outlined">chevron_right</span>
                 </button>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item
-                v-for="(item, index) in menus"
-                :key="index"
-                :to="item.path"
-                link
-            >
+            <v-list-item v-for="(item, index) in menus" :key="index" :to="item.path" link>
                 <div class="listItem" v-if="item.type !== 'group'">
-                    <v-list-item-icon
-                        ><span class="material-symbols-outlined">{{
-                            item.icon
-                        }}</span></v-list-item-icon
-                    >
+                    <v-list-item-icon><span class="material-symbols-outlined">{{
+                        item.icon
+                            }}</span></v-list-item-icon>
                     <v-list-item-title class="text-subtitle-1">{{
                         item.label
                     }}</v-list-item-title>
@@ -51,6 +32,7 @@
 import { useDisplay } from "vuetify";
 import { useThemeStore } from "../../../stores/theme";
 import { getMenu } from "../../../core/services/menuService";
+import logo from "@/images/logo/logo.png"
 
 export default {
     data() {
@@ -58,6 +40,7 @@ export default {
             menus: getMenu(),
             themeStore: useThemeStore(),
             display: useDisplay(),
+            logo: logo,
         };
     },
     computed: {
@@ -72,7 +55,7 @@ export default {
         },
     },
     methods: {},
-    mounted() {},
+    mounted() { },
 };
 </script>
 

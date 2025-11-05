@@ -20,19 +20,24 @@
                 <v-card-text>
                     <v-container>
                         <div class="google-icon text-center mb-7">
-                            <v-btn class="text-capitalize" rounded="lg" block prepend-icon="mdi-google"  variant="outlined" >
+                            <v-btn class="text-capitalize" rounded="lg" block prepend-icon="mdi-google"
+                                variant="outlined">
                                 Continue with Google
                             </v-btn>
                         </div>
                         <div class="mt-4">
                             <v-row>
+<<<<<<< HEAD
                                 <v-col cols="12" >
                                      <v-text-field clearable v-model="form.email" type="email"
+=======
+                                <v-col cols="12">
+                                    <v-text-field clearable :model-value="form.email" type="email"
+>>>>>>> c994fda27f34542248827432c1985a0dd6a98adb
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
-                                        :error="errors.email?true:false"
-                                        :error-messages="errors?.email"
-                                        />
+                                        :error="errors.email ? true : false" :error-messages="errors?.email" />
                                 </v-col>
+<<<<<<< HEAD
                                 <v-col cols="12" >
                                     <v-text-field v-model="form.password" 
                                          :error="errors.password?true:false"
@@ -41,28 +46,34 @@
                                          prepend-inner-icon="mdi-lock" 
                                          variant="outlined" 
                                          label="Password" />
+=======
+                                <v-col cols="12">
+                                    <v-text-field :model-value="form.password" :error="errors.password ? true : false"
+                                        :error-messages="errors?.password" type="password" clearable
+                                        prepend-inner-icon="mdi-lock" variant="outlined" label="Password" />
+>>>>>>> c994fda27f34542248827432c1985a0dd6a98adb
                                 </v-col>
-                                <v-col cols="12" >
+                                <v-col cols="12">
                                     <div class="d-flex justify-space-between">
                                         <div>
                                             <v-checkbox color="primary" label="Do you agree?" class="text-body-2" />
                                         </div>
                                         <div>
-                                            <v-btn color="primary" to="http://localhost/autoboli/forgot-password" variant="text"
-                                                class="text-body-2">Forgot Password?</v-btn>
+                                            <v-btn color="primary" to="http://localhost/autoboli/forgot-password"
+                                                variant="text" class="text-body-2">Forgot Password?</v-btn>
                                         </div>
                                     </div>
                                 </v-col>
 
-                                <v-col cols="12" >
-                                     <v-btn @click="login()" color="primary" variant="flat" block>
-                                        {{ loading ?"Loading.." : "Log In" }}</v-btn>
+                                <v-col cols="12">
+                                    <v-btn @click="login()" color="primary" variant="flat" block>
+                                        {{ loading ? "Loading.." : "Log In" }}</v-btn>
                                 </v-col>
 
-                                 <v-col cols="12" class="text-center" >
-                                        <span>Don’t have an account?</span>
-                                        <v-btn variant="plain" class="px-0 text-body-2" color="primary">Sign up</v-btn>
-                                 </v-col>
+                                <v-col cols="12" class="text-center">
+                                    <span>Don’t have an account?</span>
+                                    <v-btn variant="plain" class="px-0 text-body-2" color="primary">Sign up</v-btn>
+                                </v-col>
                             </v-row>
                         </div>
                     </v-container>
@@ -135,6 +146,10 @@ export default {
 };
 </script>
 
+<<<<<<< HEAD
 <style scoped>
 
 </style>
+=======
+<style scoped></style>
+>>>>>>> c994fda27f34542248827432c1985a0dd6a98adb

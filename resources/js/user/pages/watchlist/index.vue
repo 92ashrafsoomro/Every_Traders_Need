@@ -1,27 +1,19 @@
 <template>
     <main>
-        <TitleBar
-            title="Watched & Alerted"
-            subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity"
-        >
+        <TitleBar title="Watched & Alerted"
+            subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity">
             <div class="tabsContainer">
-                <button
-                    :class="{ active: activeTab === 'watchlist' }"
-                    @click="activeTab = 'watchlist'"
-                >
+                <button :class="{ active: activeTab === 'watchlist' }" @click="activeTab = 'watchlist'">
                     WatchList
                 </button>
 
-                <button
-                    :class="{ active: activeTab === 'alerts' }"
-                    @click="activeTab = 'alerts'"
-                >
+                <button :class="{ active: activeTab === 'alerts' }" @click="activeTab = 'alerts'">
                     Your Alerts
                 </button>
             </div>
         </TitleBar>
 
-        <div class="tab-content">
+        <div class="pa-4 pt-6">
             <component :is="currentComponent" />
         </div>
     </main>

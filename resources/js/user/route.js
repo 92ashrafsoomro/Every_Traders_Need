@@ -3,9 +3,9 @@ import AuctionFinder from "./pages/auction-finder/index.vue"
 import Auctionscheduler from "./pages/auctionscheduler.vue"
 import Compare from "./pages/compare.vue"
 import Dashboard from "./pages/dashboard.vue"
-import Interest from "./pages/interest.vue"
+import Interest from "./pages/interest/index.vue"
 import Reauction from "./pages/reauction.vue"
-import Watchlist from "./pages/watchlist/watchlist.vue"
+import Watchlist from "./pages/watchlist/index.vue"
 // import HomeView from "./pages/index.vue"
 
 

@@ -2,29 +2,51 @@
     <v-app>
         <Sidebar />
 
-        <v-app-bar app color="secondary" class="d-flex align-center justify-space-between" dark>
-            <v-app-bar-nav-icon @click="themeStore.toggleMenu()" class="d-lg-none"></v-app-bar-nav-icon>
-            <v-toolbar-title>
-                <p class="d-none d-sm-inline">Dashboard</p>
+        <!-- Top App Bar -->
+        <v-app-bar app color="" class="d-flex align-center justify-space-between" dark>
+            <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
+
+            <v-toolbar-title class="d-none d-sm-inline">
+                <v-text class="text-h6">Dashboard</v-text>
             </v-toolbar-title>
 
-            <div class="pr-2 ga-5 d-flex align-center justify-center">
-                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
-                    <svg-icon @click="toggleFullScreen" type="mdi" :path="path" class="cursor-pointer"></svg-icon>
-                </div>
-                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
-                    <ThemeDropdown />
-                </div>
-                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
-                    <Notificationdropdown />
-                </div>
-                <div class="icon_wrapper d-flex align-center justify-center rounded-lg">
-                    <ProfileDropdown />
-                </div>
-            </div>
+            <v-spacer></v-spacer>
+
+            <!-- Icon Group -->
+            <v-row class="pr-2 ga-5" align="center" justify="end" no-gutters>
+                <!-- Fullscreen -->
+                <v-col cols="auto">
+                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1 pa-2">
+                        <svg-icon @click="toggleFullScreen" type="mdi" :path="path" class="cursor-pointer" />
+                    </v-sheet>
+                </v-col>
+
+                <!-- Theme Dropdown -->
+                <v-col cols="auto">
+                    <v-sheet color="transparent"
+                        class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1 ">
+                        <ThemeDropdown />
+                    </v-sheet>
+                </v-col>
+
+                <!-- Notification Dropdown -->
+                <v-col cols="auto">
+                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1">
+                        <Notificationdropdown />
+                    </v-sheet>
+                </v-col>
+
+                <!-- Profile Dropdown -->
+                <v-col cols="auto">
+                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1">
+                        <ProfileDropdown />
+                    </v-sheet>
+                </v-col>
+            </v-row>
         </v-app-bar>
 
-        <v-main class="routerMain">
+        <!-- Main Content -->
+        <v-main class="bg-background ">
             <router-view></router-view>
         </v-main>
     </v-app>
@@ -89,37 +111,4 @@ export default {
     },
 };
 </script>
-<style>
-.routerMain {
-    background-color: #0f1c2b;
-}
-
-.icon_wrapper {
-    background-color: #353f4c;
-    height: 30px;
-    width: 30px;
-}
-
-.logoDiv {
-    position: relative;
-}
-
-.logoType {
-    height: 20px;
-    width: 20px;
-    background-color: #0080ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 0;
-    top: 20px;
-}
-
-.logoImg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    object-fit: cover;
-}
-</style>
+<style></style>

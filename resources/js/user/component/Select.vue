@@ -1,11 +1,11 @@
 <template>
-    <VueSelect
+    <!-- <VueSelect
         v-model="selected"
         :options="options"
         :placeholder="placeholder"
-    />
+    /> -->
 </template>
-
+<!-- 
 <script>
 import VueSelect from "vue3-select-component";
 import "vue3-select-component/styles";
@@ -38,4 +38,4 @@ export default {
 .value-container {
     background-color: #1a2533 !important;
 }
-</style>
+</style> -->

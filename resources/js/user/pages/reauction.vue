@@ -1,88 +1,37 @@
 <template>
     <main>
-        <TitleBar
-            title="Reauction Tracker"
-            subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement."
-        >
-            <div class="contentArea">
-                <div class="redBox">
-                    <div class="redBox-figure">0</div>
-                    <div class="redBox-date">Today</div>
+        <TitleBar title="Reauction Tracker"
+            subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
+            <div class="contentArea d-flex align-center justify-start
+            pb-0 ga-6 mb-n6	mb-sm-n5">
+                <div class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger rounded-t-lg mb-n3">
+                    <div class="redBox-figure text-h2 text-white">0</div>
+                    <div class="redBox-date text-body-2 text-white">Today</div>
                 </div>
-                <div class="redBox-right">
-                    <div class="auction-house">
-                        <p>Auction House</p>
+                <div class="redBox-right d-flex align-center justify-center flex-column ga-1">
+                    <div class="auction-house d-flex align-baseline justify-space-around ga-3">
+                        <p class="text-white">Auction House</p>
                         <div class="wrapper">No Platforms</div>
                     </div>
-                    <div class="auction-center">
-                        <p>Auction Center</p>
+                    <div class="auction-center d-flex align-baseline justify-space-around ga-5">
+                        <p class="text-white">Auction Center</p>
                         <div class="wrapper">No Centers</div>
                     </div>
                 </div>
             </div>
         </TitleBar>
-        <div class="p-4 mainDiv">
-            <div class="mainContent">
-                <div class="topLabel">
-                    <div class="leftElements">
-                        <div class="leftElement-Entries">
-                            <div>Show Entries</div>
-                            <select
-                                class="entriesSelect"
-                                name="entries"
-                                id="entries"
-                            >
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                            </select>
-                        </div>
-                        <div class="leftElement-Years">
-                            <select class="yearsSelect" name="years" id="years">
-                                <option value="All Years">All Years</option>
-                                <option value="2025">2025</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                                <option value="2022">2022</option>
-                                <option value="2021">2021</option>
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                            </select>
-                        </div>
+        <div class="pa-4 pt-6">
+            <div class="mainContent mr-auto ml-auto">
+                <div
+                    class="d-flex flex-wrap align-start align-sm-center justify-space-between flex-column flex-sm-row ga-5">
+                    <div class="leftElements d-flex align-center ga-3">
+                        <v-select label="Year" :items="['2025', '2024', '2023', '2022', '2021', '2020']"
+                            variant="outlined" color="primary" width="140" density="compact" clearable></v-select>
                     </div>
-                    <div class="rightElements">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search..." />
-                            <svg
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"
-                                />
-                            </svg>
-                        </div>
-                        <div class="customSelect-container">
-                            <div>
-                                <Select
-                                    class="customSelect"
-                                    placeholder="Select Interest"
-                                    :options="[
-                                        { label: 'BMW', value: 'bmw' },
-                                        { label: 'Audi', value: 'audi' },
-                                        {
-                                            label: 'Mercedes',
-                                            value: 'mercedes',
-                                        },
-                                    ]"
-                                />
-                            </div>
-                        </div>
+                    <div class="rightElements d-flex flex-wrap align-center ga-3">
+                        <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
+                            variant="outlined" color="primary" clearable></v-text-field>
+                        <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
                     </div>
                 </div>
                 <DataTable />
@@ -95,6 +44,7 @@
 import TitleBar from "./../component/TitleBar.vue";
 import Select from "./../component/Select.vue";
 import DataTable from "./../component/dataTable.vue";
+import NewSelect from "../component/newSelect.vue";
 
 export default {
     props: {},
@@ -102,63 +52,15 @@ export default {
         TitleBar,
         Select,
         DataTable,
+        NewSelect,
     },
 };
 </script>
 
 <style>
-.contentArea {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    padding-bottom: 0px;
-    column-gap: 25px;
-    margin-bottom: -20px;
-}
-
 .redBox {
     height: 116px;
     width: 75px;
-    background-color: #b91c1c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    column-gap: 8px;
-}
-
-.redBox-figure {
-    font-size: 48px;
-    font-weight: 700;
-    color: white;
-}
-
-.redBox-date {
-    font-size: 15px;
-    font-weight: 400;
-    color: #b2c0ce;
-}
-
-.redBox-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    column-gap: 4px;
-}
-
-.auction-house {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-around;
-    column-gap: 10px;
-}
-
-.auction-center {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-around;
-    column-gap: 20px;
 }
 
 .auction-house .wrapper {
@@ -181,204 +83,7 @@ export default {
     flex-wrap: wrap;
 }
 
-.auction-house p {
-    font-size: 15px;
-    font-weight: 400;
-    color: white;
-}
-
-.auction-center p {
-    font-size: 15px;
-    font-weight: 400;
-    color: white;
-}
-
-@media (max-width: 320px) {
-    .contentArea {
-        margin-bottom: -28px;
-    }
-}
-
-.dataTable {
-    background-color: #000f21;
-    color: white;
-    border: 1px solid #e5e7eb30;
-    border-radius: 4px;
-    margin-top: 20px;
-}
-
 thead {
     white-space: nowrap;
-}
-
-.customSelect {
-    --vs-background-color: #0f1c2b !important;
-    --vs-text-color: #d3d3d3;
-    --vs-placeholder-color: #d3d3d3;
-    --vs-border: 1px solid #2b3b4f;
-    --vs-menu-background-color: #0f1c2b !important;
-    --vs-indicator-icon-color: white;
-    --vs-option-text-color: white;
-    --vs-menu-border: 1px solid #2b3b4f;
-}
-
-.mainDiv {
-    background-color: #0f1c2b;
-    color: #d3d3d3;
-}
-
-.mainContent {
-    max-width: 1536px;
-    padding: 0 24px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.topLabel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.leftElements {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-
-.leftElement-Years {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    font-size: 15px;
-    font-weight: 400;
-    color: #d3d3d3;
-}
-
-.leftElement-Entries {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    font-size: 15px;
-    font-weight: 400;
-    color: #d3d3d3;
-}
-
-.entriesSelect {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #44485e;
-    background-color: #1d2632;
-    color: #d3d3d3;
-    cursor: pointer;
-}
-
-.entriesSelect:focus {
-    border: 2px solid #0080ff;
-    outline: none;
-}
-
-.yearsSelect {
-    padding: 5px 12px;
-    border-radius: 5px;
-    border: 1px solid #44485e;
-    background-color: #1d2632;
-    color: #d3d3d3;
-    cursor: pointer;
-}
-
-.yearsSelect:focus {
-    border: 2px solid #0080ff;
-    outline: none;
-}
-
-.rightElements {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-
-.search-container {
-    position: relative;
-    width: 200px;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 6px 38px;
-    border: 1px solid #44485e;
-    border-radius: 6px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.2s ease;
-    background-color: #0f1c2b;
-    color: #d3d3d3;
-}
-
-.search-container input:focus {
-    border: 2px solid #0080ff;
-}
-
-.search-container svg {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    stroke: #aab8c5;
-    pointer-events: none;
-    transition: stroke 0.2s ease;
-}
-
-.customSelect-container {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-
-@media (max-width: 950px) {
-    .topLabel {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        row-gap: 20px;
-        width: 100%;
-    }
-    .leftElements {
-        display: flex;
-        align-items: center;
-        justify-content: baseline;
-        column-gap: 10px;
-    }
-}
-
-@media (max-width: 666px) {
-    .mainContent {
-        padding: 0 5px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .topLabel {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        row-gap: 20px;
-        width: 100%;
-    }
-
-    .rightElements {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        row-gap: 20px;
-        width: inherit;
-    }
-
-    .search-container {
-        position: relative;
-        width: 100%;
-    }
 }
 </style>

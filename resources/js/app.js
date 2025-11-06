@@ -7,6 +7,7 @@ import App from "./app.vue";
 
 // Styles
 import "vuetify/styles";
+import '@fontsource/inter';
 
 // Icons
 import '@mdi/font/css/materialdesignicons.css';
@@ -34,14 +35,17 @@ const vuetify = createVuetify({
                 dark: true,
                 colors: {
                     primary: "#0080ff",
-                    secondary: "#000f21",
+                    // secondary: "#000f21",
+                    background: "#000f21",
+                    surface: "#0f1c2b",
+                    "on-surface-variant": "#ffff",
                     success: "#4CAF50",
                     warning: "#FB8C00",
                     error: "#FF5252",
                     info: "#2196F3",
                     background: "#0E1B2B",
                     surface: "#000E20",
-                    danger: "#ff4d52",
+                    danger: "#b91c1c",
                     lighthover: "#002145",
                     backgound2: "#0f1c2b",
                 },
@@ -88,15 +92,24 @@ const vuetify = createVuetify({
             adminLight: {
                 dark: false,
                 colors: {
-                    background: "#FFFFFF",
-                    surface: "#FFFFFF",
-                    primary: "#1976D2",
-                    secondary: "#000f21",
+                    primary: "#7367f0",
+                    // secondary: "#FFFFFF",
+                    background: "#f0eff5",
+                    surface: "#F8F8FF",
+                    "on-surface-variant": "#000000",
                     success: "#4CAF50",
                     warning: "#FB8C00",
                     error: "#FF5252",
                     info: "#2196F3",
                 },
+            },
+        },
+    },
+
+    defaults: {
+        global: {
+            style: {
+                fontFamily: 'Inter, sans-serif',
             },
         },
     },
@@ -124,7 +137,7 @@ render.use(vuetify);
 //         }
 //     }
 
-    render.mount("#userApp");
+render.mount("#userApp");
 // })();
 
 // render.mount('#userApp');

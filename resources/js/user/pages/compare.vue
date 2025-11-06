@@ -19,47 +19,47 @@
                     <v-row dense>
                         <!-- Make -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Make" />
                         </v-col>
 
                         <!-- Model -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Model" />
                         </v-col>
 
                         <!-- Variant -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Variant" />
                         </v-col>
 
                         <!-- Year -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Year" />
                         </v-col>
 
                         <!-- Transmission -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Transmission" />
                         </v-col>
 
                         <!-- Fuel -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Fuel" />
                         </v-col>
 
                         <!-- Grade -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Grade" />
                         </v-col>
 
                         <!-- Mileage -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" />
+                            <ComoboxInput color="primary" density="compact" label="Mileage" />
                         </v-col>
 
                         <!-- Auction House -->
                         <v-col cols="12" sm="6" md="3">
-                            <NewSelect density="compact" />
+                            <NewSelect density="compact" color="primary" label="Auction House" />
                         </v-col>
 
                         <!-- Search Button -->
@@ -72,7 +72,6 @@
                 </v-container>
             </div>
         </TitleBar>
-        <Testing />
     </main>
 </template>
 

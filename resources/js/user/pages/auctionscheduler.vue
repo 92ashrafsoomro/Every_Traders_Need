@@ -2,7 +2,6 @@
     <main>
         <TitleBar title="Auction Scheduler"
             subtitle="Manage and view platform auctions across all centers in one place.">
-            <!-- @cascade: help with this parent div style I want to makew it flex in desktop and in mobile view I want to make it flex-direction: column and justify-content: center -->
             <div
                 class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
                 <ComoboxInput color="primary" density="compact" class="w-100 w-sm-auto" />
@@ -21,15 +20,15 @@
                     </div>
                     <div class="lowerSection text-[#cccccc] mt-2 d-flex justify-space-between">
                         <div class="flex align-center text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-gavel"></i></small>
+                            <small><v-icon icon="mdi-hammer" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.auctions }}</span>
                         </div>
                         <div class="flex align-center text-[#00bad1] text-overline">
-                            <small><i class="fa-solid fa-car"></i></small>
+                            <small><v-icon icon="mdi-car" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.cars }}</span>
                         </div>
                         <div class="flex align-center text-[#ff4c51] text-overline">
-                            <small><i class="fa-solid fa-heart"></i></small>
+                            <small><v-icon icon="mdi-charity" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.favorites }}</span>
                         </div>
                     </div>

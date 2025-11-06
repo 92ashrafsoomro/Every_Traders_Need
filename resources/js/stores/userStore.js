@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import api from "../core/plugins/axios";
-import {useThemeStore} from './theme';
+import {useThemeStore} from './themeStore';
 import { errorHandler } from "@services/responseHandleService";
 
 export const useUserStore = defineStore("user", {

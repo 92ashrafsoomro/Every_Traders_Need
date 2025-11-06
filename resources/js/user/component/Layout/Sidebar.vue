@@ -31,7 +31,7 @@
 
 <script>
 import { useDisplay } from "vuetify";
-import { useThemeStore } from "../../../stores/theme";
+import { useThemeStore } from "../../../stores/themeStore";
 import { getMenu } from "../../../core/services/menuService";
 import logo from "@/images/logo/logo.png"
 

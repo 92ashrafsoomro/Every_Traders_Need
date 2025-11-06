@@ -39,15 +39,12 @@ router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth) {
 
         try {
-
             const res = await auth.getProfile();
             auth.user = res.account;
             auth.is_logged_in = true;
             //  alertStore.add('User Logged In','success')
             next();
-
         } catch (error) {
-
             auth.user = {};
             auth.is_logged_in = false;
             alertStore.add('Session Expired. Please Login Again.', 'warning')

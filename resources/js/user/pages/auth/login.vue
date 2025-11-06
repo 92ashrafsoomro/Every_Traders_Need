@@ -7,8 +7,8 @@
                 </v-btn>
             </template>
             <template v-slot:append>
-                <v-btn @click="toggleTheme()" v-if="vuetify.global.name == 'adminDark'" icon="md:light_mode"></v-btn>
-                <v-btn @click="toggleTheme()" v-if="vuetify.global.name == 'adminLight'" icon="md:dark_mode"></v-btn>
+                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminDark'" icon="md:light_mode"></v-btn>
+                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminLight'" icon="md:dark_mode"></v-btn>
                 <v-btn color="primary" variant="flat" to="/">Back To Home</v-btn>
             </template>
         </v-app-bar>
@@ -29,7 +29,6 @@
                         </div>
                         <div class="mt-4">
                             <v-row>
-
                                 <v-col cols="12">
                                     <v-text-field clearable v-model="form.email" type="email"
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
@@ -71,7 +70,7 @@
 </template>
 
 <script>
-import { useThemeStore } from "../../../stores/theme";
+import { useThemeStore } from "../../../stores/themeStore";
 import { useUserStore } from "@stores/userStore";
 import { useAlertStore } from "@stores/alertStore";
 import { useTheme } from "vuetify";
@@ -98,15 +97,10 @@ export default {
             },
         };
     },
-    computed: {},
+    computed: {
+        
+    },
     methods: {
-        toggleTheme() {
-            if (this.vuetify.global.name == "adminDark") {
-                this.vuetify.change("adminLight");
-            } else {
-                this.vuetify.change("adminDark");
-            }
-        },
         async login() {
 
             this.loading = true;

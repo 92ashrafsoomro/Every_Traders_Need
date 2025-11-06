@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useTheme } from 'vuetify';
 
 export const useThemeStore = defineStore('theme', {
     state: () => ({
@@ -13,8 +14,12 @@ export const useThemeStore = defineStore('theme', {
     },
 
     actions: {
-        toggleThemeMode() {
-            this.themeMode = this.themeMode === 'dark' ? 'light' : 'dark'
+        toggleThemeMode(theme) {
+             if (theme.global.name == "adminDark") {
+                theme.change("adminLight");
+            } else {
+                theme.change("adminDark");
+            }
         },
         toggleMenuType() {
             this.menuType = this.menuType === 'collapsed' ? 'expanded' : 'collapsed'
@@ -32,6 +37,13 @@ export const useThemeStore = defineStore('theme', {
         endLoading() {
             this.loading = false;
              console.log('Theme Store Loading',this.loading);
+        },
+        toggleTheme() {
+            if (this.vuetify.global.name == "adminDark") {
+                this.vuetify.change("adminLight");
+            } else {
+                this.vuetify.change("adminDark");
+            }
         },
     },
 })

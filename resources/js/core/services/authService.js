@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/theme";
+import { useThemeStore } from "@/stores/themeStore";
 import api from "../plugins/axios";
 import { errorHandler } from "./responseHandleService";
 import { useAuthStore } from '@stores/authStore'

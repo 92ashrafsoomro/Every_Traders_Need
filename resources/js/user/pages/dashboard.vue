@@ -10,7 +10,7 @@
 
 <script>
 
-import { useThemeStore } from "../../stores/theme";
+import { useThemeStore } from "../../stores/themeStore";
 import { useUserStore } from "../../stores/userStore";
 import TitleBar from "./../component/TitleBar.vue";
 

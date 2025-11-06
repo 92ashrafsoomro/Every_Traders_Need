@@ -2,7 +2,10 @@ import { createApp } from "vue";
 import router from "./route";
 import pinia from "./stores";
 import App from "./app.vue";
+
 // import { useUserStore } from "./stores/userStore";
+
+
 
 
 // Styles
@@ -13,7 +16,6 @@ import '@fontsource/inter';
 import '@mdi/font/css/materialdesignicons.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-
 
 
 import { createVuetify } from "vuetify";
@@ -39,7 +41,6 @@ const vuetify = createVuetify({
         defaultTheme: "adminDark",
         themes: {
             adminDark: {
-                loading: false,
                 dark: true,
                 colors: {
                     primary: "#0080ff",
@@ -102,7 +103,6 @@ const vuetify = createVuetify({
             },
             adminLight: {
                 dark: false,
-                loading: false,
                 colors: {
                     primary: "#7367f0",
                     'primary-lighten-1': '#8579F2',
@@ -152,3 +152,5 @@ render.mount("#userApp");
 // })();
 
 // render.mount('#userApp');
+
+

@@ -58,7 +58,7 @@ import Notificationdropdown from "./Notificationdropdown.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiFullscreen } from "@mdi/js";
 import { getMenu } from "../../../core/services/menuService";
-import { useThemeStore } from "../../../stores/theme";
+import { useThemeStore } from "../../../stores/themeStore";
 import ThemeDropdown from "./ThemeDropdown.vue";
 
 export default {

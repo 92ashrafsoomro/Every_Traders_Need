@@ -63,22 +63,22 @@ export const getMenu = () => {
         {
             icon: "mdi-face-agent",
             label: "Support",
-            path: "/support",
+            path: "/user/support",
         },
         {
             icon: "mdi-newspaper",
             label: "News",
-            path: "/news",
+            path: "/user/news",
         },
         {
             icon: "mdi-account-tie",
             label: "Profile",
-            path: "/profile",
+            path: "/user/profile",
         },
         {
             icon: "mdi-cog",
             label: "Settings",
-            path: "/viewhsitory",
+            path: "/user/settings",
         },
     ];
 };

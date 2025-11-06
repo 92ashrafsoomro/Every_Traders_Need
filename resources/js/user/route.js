@@ -6,6 +6,10 @@ import Dashboard from "./pages/dashboard.vue"
 import Interest from "./pages/interest/index.vue"
 import Reauction from "./pages/reauction.vue"
 import Watchlist from "./pages/watchlist/index.vue"
+import Profile from "./pages/profile.vue"
+import Settings from "./pages/settings.vue"
+import News from "./pages/news.vue"
+import Support from "./pages/support.vue"
 // import HomeView from "./pages/index.vue"
 
 
@@ -23,6 +27,10 @@ export default [
             { path: "reauction", component: Reauction },
             { path: "watchlist", component: Watchlist },
             { path: "compare", component: Compare },
+            { path: "profile", component: Profile },
+            { path: "settings", component: Settings },
+            { path: "news", component: News },
+            { path: "support", component: Support },
         ],
     },
 ]

@@ -1,17 +1,20 @@
 <template>
     <v-app class="bg-surface">
-        <v-app-bar class="px-5" flat>
+        <v-app-bar class="px-3 px-sm-5" flat>
             <template v-slot:prepend>
                 <v-btn to="/">
                     <v-img width="130" :src="logo" to="/"></v-img>
                 </v-btn>
             </template>
             <template v-slot:append>
-                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminDark'" icon="md:light_mode"></v-btn>
-                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminLight'" icon="md:dark_mode"></v-btn>
+                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminDark'"
+                    icon="md:light_mode"></v-btn>
+                <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminLight'"
+                    icon="md:dark_mode"></v-btn>
                 <v-btn color="primary" variant="flat" to="/">Back To Home</v-btn>
             </template>
         </v-app-bar>
+
         <v-main>
             <v-card color="background" class="mx-auto my-8 py-6" elevation="16" max-width="500" rounded="sm">
                 <v-card-item>
@@ -21,44 +24,62 @@
                 </v-card-item>
                 <v-card-text>
                     <v-container>
+
                         <div class="google-icon text-center mb-7">
                             <v-btn class="text-capitalize" rounded="lg" block prepend-icon="mdi-google"
                                 variant="outlined">
                                 Continue with Google
                             </v-btn>
                         </div>
+
+                        <!-- Divider -->
+                        <div class="d-flex align-center mb-3">
+                            <v-divider></v-divider>
+                            <span class="px-4 text-medium-emphasis text-body-2">OR</span>
+                            <v-divider></v-divider>
+                        </div>
+
+                        <!-- Login Form -->
                         <div class="mt-4">
                             <v-row>
                                 <v-col cols="12">
                                     <v-text-field clearable v-model="form.email" type="email"
                                         prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
-                                        :error="errors.email ? true : false" :error-messages="errors?.email" />
+                                        :error="errors.email ? true : false" :error-messages="errors?.email"
+                                        density="comfortable" />
                                 </v-col>
+
                                 <v-col cols="12">
                                     <v-text-field v-model="form.password" :error="errors.password ? true : false"
                                         :error-messages="errors?.password" type="password" clearable
-                                        prepend-inner-icon="mdi-lock" variant="outlined" label="Password" />
+                                        prepend-inner-icon="mdi-lock" variant="outlined" label="Password"
+                                        density="comfortable" />
                                 </v-col>
-                                <v-col cols="12">
-                                    <div class="d-flex justify-space-between">
-                                        <div>
-                                            <v-checkbox color="primary" label="Do you agree?" class="text-body-2" />
-                                        </div>
-                                        <div>
-                                            <v-btn color="primary" to="http://localhost/autoboli/forgot-password"
-                                                variant="text" class="text-body-2">Forgot Password?</v-btn>
-                                        </div>
+
+                                <v-col cols="12" class="mt-n5">
+                                    <div
+                                        class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center">
+                                        <v-checkbox color="primary" label="Remember me" class="text-body-2"
+                                            hide-details />
+                                        <v-btn color="primary" to="http://localhost/autoboli/forgot-password"
+                                            variant="text" class="text-body-2 pa-0 mt-n2 mt-sm-0" size="small">
+                                            Forgot Password?
+                                        </v-btn>
                                     </div>
                                 </v-col>
 
-                                <v-col cols="12">
-                                    <v-btn @click="login()" color="primary" variant="flat" block>
-                                        {{ loading ? "Loading.." : "Log In" }}</v-btn>
+                                <v-col cols="12" class="pt-4">
+                                    <v-btn @click="login()" color="primary" variant="flat" block size="large"
+                                        :loading="loading">
+                                        {{ loading ? "Loading..." : "Log In" }}
+                                    </v-btn>
                                 </v-col>
 
-                                <v-col cols="12" class="text-center">
-                                    <span>Don’t have an account?</span>
-                                    <v-btn variant="plain" class="px-0 text-body-2" color="primary">Sign up</v-btn>
+                                <v-col cols="12" class="text-center pt-2">
+                                    <span class="text-body-2">Don't have an account?</span>
+                                    <v-btn variant="plain" class="px-1 text-body-2" color="primary" size="small">
+                                        Sign up
+                                    </v-btn>
                                 </v-col>
                             </v-row>
                         </div>
@@ -98,7 +119,7 @@ export default {
         };
     },
     computed: {
-        
+
     },
     methods: {
         async login() {

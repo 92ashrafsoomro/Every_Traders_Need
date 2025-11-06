@@ -28,10 +28,18 @@ import "./style.css";
 const vuetify = createVuetify({
     components,
     directives,
+    defaults: {
+        global: {
+            style: {
+                fontFamily: 'Inter, sans-serif',
+            },
+        },
+    },
     theme: {
         defaultTheme: "adminDark",
         themes: {
             adminDark: {
+                loading: false,
                 dark: true,
                 colors: {
                     primary: "#0080ff",
@@ -91,6 +99,7 @@ const vuetify = createVuetify({
             },
             adminLight: {
                 dark: false,
+                loading: false,
                 colors: {
                     primary: "#7367f0",
                     // secondary: "#FFFFFF",
@@ -106,13 +115,7 @@ const vuetify = createVuetify({
         },
     },
 
-    defaults: {
-        global: {
-            style: {
-                fontFamily: 'Inter, sans-serif',
-            },
-        },
-    },
+   
 
     icons: {
         defaultSet: 'mdi', // default icon set
@@ -124,7 +127,7 @@ const vuetify = createVuetify({
 const render = createApp(App);
 render.use(pinia);
 render.use(router);
-render.use(vuetify);
+render.use(vuetify); 
 // const userStore = useUserStore();
 
 // (async () => {

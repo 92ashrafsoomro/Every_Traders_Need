@@ -1,18 +1,33 @@
 <template>
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
-            <v-btn :icon="this.vuetify.global.name == 'adminDark' ? 'md:dark_mode' :'md:light_mode'" v-bind="props"></v-btn>
+            <v-btn size="small" color="primary" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'"
+                v-bind="props" />
         </template>
-        <v-list style="
-                background-color: #000f21;
-                color: #b2c0ce;
-                margin-left: -100px;
-            ">
-            <v-list-item color="primary" :variant="this.vuetify.global.name == 'adminLight' ? 'tonal' :'plain'" prepend-icon="md:light_mode" @click="toggleTheme()" link>
-                <v-list-item-title class="cursor-pointer">Light Theme </v-list-item-title>
+
+        <v-list class="pa-0" style=" margin-left: -100px;">
+            <!-- Light Theme -->
+            <v-list-item @click="toggleTheme" link>
+                <template #prepend>
+                    <v-icon :color="isLight ? 'primary' : 'grey-lighten-1'">
+                        mdi-lightbulb-on
+                    </v-icon>
+                </template>
+                <v-list-item-title class="cursor-pointer">
+                    Light Theme
+                </v-list-item-title>
             </v-list-item>
-            <v-list-item color="primary" :variant="this.vuetify.global.name == 'adminDark' ? 'tonal':'plain'" prepend-icon="md:dark_mode" @click="toggleTheme()" link>
-                <v-list-item-title class="cursor-pointer">Dark Theme </v-list-item-title>
+
+            <!-- Dark Theme -->
+            <v-list-item @click="toggleTheme" link>
+                <template #prepend>
+                    <v-icon :color="isDark ? 'primary' : 'grey-lighten-1'">
+                        mdi-lightbulb-off
+                    </v-icon>
+                </template>
+                <v-list-item-title class="cursor-pointer">
+                    Dark Theme
+                </v-list-item-title>
             </v-list-item>
         </v-list>
     </v-menu>
@@ -22,23 +37,23 @@ import { useTheme } from "vuetify";
 
 export default {
     name: "IconMenu",
-    components: {
-
-    },
     data() {
         return {
             vuetify: useTheme(),
         };
     },
+    computed: {
+        isDark() {
+            return this.vuetify.global.name === "adminDark";
+        },
+        isLight() {
+            return this.vuetify.global.name === "adminLight";
+        },
+    },
     methods: {
         toggleTheme() {
-            if (this.vuetify.global.name == "adminDark") {
-                this.vuetify.change("adminLight");
-            } else {
-                this.vuetify.change("adminDark");
-            }
+            this.vuetify.change(this.isDark ? "adminLight" : "adminDark");
         },
-    }
+    },
 };
 </script>
-<style></style>

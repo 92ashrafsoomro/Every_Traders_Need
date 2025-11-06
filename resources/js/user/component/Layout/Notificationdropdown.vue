@@ -6,14 +6,12 @@
             </v-btn>
         </template>
 
-        <v-list
-            class="bg-secondary text-white rounded-lg border border-[#1c2a38] elevation-3 z-3 animate-fade-in w-[352px]"
-            @click.stop>
+        <v-list class="rounded-lg border border-[#1c2a38] elevation-3 z-3 animate-fade-in w-[352px]" @click.stop>
             <v-list-item>
                 <v-list-item-title class="d-flex justify-space-between align-center ps-4 p-3 w-100">
-                    <div class="text-h6 text-white">Notifications</div>
+                    <div class="text-h6">Notifications</div>
                     <div class="d-flex align-center ga-2">
-                        <div class="bg-lighthover text-primary text-sm-caption font-weight-light ps-1 text-lowercase">
+                        <div class="bg-primary rounded-sm text-sm-caption font-weight-light ps-2 pe-2 text-lowercase">
                             8 new
                         </div>
                         <span class="material-symbols-outlined text-h6">
@@ -23,22 +21,22 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list class="bg-secondary">
-                <v-list-item v-for="(note, i) in notifications" :key="i" link
-                    class="bg-secondary transition-all duration-200">
+            <v-list>
+                <v-list-item v-for="(note, i) in notifications" :key="i" link class="transition-all duration-200">
                     <v-list-item-title>
                         <div class="d-flex align-start cursor-pointer overflow">
                             <div class="d-flex align-center justify-center pt-2 ps-2">
-                                <div class="icon-notify-container rounded-circle d-flex align-center justify-center">
+                                <div
+                                    class="icon-notify-container bg-shadow rounded-circle d-flex align-center justify-center">
                                     <v-icon icon="mdi-bell-ring" color="primary" size="small"></v-icon>
                                 </div>
                             </div>
 
                             <div class="pt-2 ps-4 w-75">
-                                <div class="text-caption text-white">
+                                <div class="text-caption">
                                     {{ note.title }}
                                 </div>
-                                <div class="text-caption text-white">
+                                <div class="text-caption">
                                     {{ note.description }}
                                 </div>
                                 <p class="mt-2 text-caption text-[#76778e]">

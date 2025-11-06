@@ -15,7 +15,7 @@
             <template v-for="(item, index) in menus" :key="index">
                 <!-- Regular Menu Items -->
                 <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon"
-                    class="text-subtitle-1" active-class="bg-primary text-white">
+                    class="text-subtitle-1" active-class="bg-primary-lighten-1 text-white">
                     <template #title>
                         <span class="text-body-1">{{ item.label }}</span>
                     </template>

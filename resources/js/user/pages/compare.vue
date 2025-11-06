@@ -2,8 +2,8 @@
     <main>
         <TitleBar title="Find the Best Auction Deal"
             subtitle="Review and compare live auctions side by side to find the smartest deal.">
-            <v-btn id="filterToggle" variant="flat"
-                class="d-flex align-center text-white cursor-pointer bg-transparent border-0 text-capitalize font-weight-light"
+            <v-btn color="transparent" id="filterToggle" variant="flat"
+                class="d-flex align-center cursor-pointer border-0 text-capitalize font-weight-light"
                 @click="toggleFilters">
                 <span class="mr-2">Filters</span>
                 <svg id="filterIcon" class="icon" :class="{ rotated: showFilters }" fill="none" stroke="currentColor"
@@ -14,7 +14,7 @@
 
             <!-- Filter Section -->
             <div class="flex justify-start align-start" v-show="showFilters">
-                <v-container fluid class="pa-6 bg-secondary rounded border border-[#44485e] w-[90%] mt-2"
+                <v-container fluid class="pa-6 bg-background rounded border border-[#44485e] w-[90%] mt-2"
                     style="margin-left: -1px">
                     <v-row dense>
                         <!-- Make -->

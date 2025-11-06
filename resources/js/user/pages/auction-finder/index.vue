@@ -2,16 +2,20 @@
     <main>
         <TitleBar title="Smart Auction Search"
             subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
-            <div class="tabsContainer">
-                <button class="bg-primary" :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'">
+            <div class="d-flex align-center ga-3">
+                <v-btn variant="tonal" class="text-none px-5 py-2"
+                    :class="{ 'bg-primary text-white': activeTab === 'auction' }" @click="activeTab = 'auction'">
                     Auction Finder
-                </button>
-                <button class="" :class="{ active: activeTab === 'valuation' }" @click="activeTab = 'valuation'">
+                </v-btn>
+
+                <v-btn variant="tonal" class="text-none px-5 py-2"
+                    :class="{ 'bg-primary text-white': activeTab === 'valuation' }" @click="activeTab = 'valuation'">
                     Vehicle Valuation
-                </button>
+                </v-btn>
             </div>
         </TitleBar>
-        <div class="tab-content">
+
+        <div>
             <component :is="currentComponent" />
         </div>
     </main>
@@ -43,27 +47,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.tabsContainer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tabsContainer button {
-    padding: 10px 20px;
-    border: 1px solid #353f4c;
-    background-color: transparent;
-    /* color: white; */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-/* .tabsContainer button.active {
-    background-color: #0080ff;
-    color: white;
-    border-color: #0080ff;
-} */
-</style>
+<style scoped></style>

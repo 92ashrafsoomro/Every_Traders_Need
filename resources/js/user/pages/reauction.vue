@@ -1,43 +1,58 @@
 <template>
-    <main>
-        <TitleBar title="Reauction Tracker"
-            subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
-            <div class="contentArea d-flex align-center justify-start
-            pb-0 ga-6 mb-n6	mb-sm-n5">
-                <div class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger rounded-t-lg mb-n3">
-                    <div class="redBox-figure text-h2 text-white">0</div>
-                    <div class="redBox-date text-body-2 text-white">Today</div>
-                </div>
-                <div class="redBox-right d-flex align-center justify-center flex-column ga-1">
-                    <div class="auction-house d-flex align-baseline justify-space-around ga-3">
-                        <p class="text-white">Auction House</p>
-                        <div class="wrapper">No Platforms</div>
-                    </div>
-                    <div class="auction-center d-flex align-baseline justify-space-around ga-5">
-                        <p class="text-white">Auction Center</p>
-                        <div class="wrapper">No Centers</div>
-                    </div>
-                </div>
-            </div>
-        </TitleBar>
-        <div class="pa-4 pt-6">
-            <div class="mainContent mr-auto ml-auto">
-                <div
-                    class="d-flex flex-wrap align-start align-sm-center justify-space-between flex-column flex-sm-row ga-5">
-                    <div class="leftElements d-flex align-center ga-3">
-                        <v-select label="Year" :items="['2025', '2024', '2023', '2022', '2021', '2020']"
-                            variant="outlined" color="primary" width="140" density="compact" clearable></v-select>
-                    </div>
-                    <div class="rightElements d-flex flex-wrap align-center ga-3">
-                        <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
-                            variant="outlined" color="primary" clearable></v-text-field>
-                        <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
-                    </div>
-                </div>
-                <DataTable />
-            </div>
-        </div>
-    </main>
+    <TitleBar title="Reauction Tracker"
+        subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
+        <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 mb-n6 mb-sm-n5" fluid>
+            <v-card class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger rounded-t-lg mb-n3"
+                elevation="0">
+                <v-card-title class="redBox-figure text-h2 text-white">0</v-card-title>
+                <v-card-subtitle class="redBox-date text-body-2 text-white">Today</v-card-subtitle>
+            </v-card>
+
+            <v-card color="transparent" class="d-flex align-center justify-center flex-column ga-1" elevation="0">
+                <v-row class="auction-house d-flex align-baseline justify-space-around ga-1 ga-sm-3" align="baseline">
+                    <v-col cols="auto">
+                        <p>Auction House</p>
+                    </v-col>
+                    <v-col cols="auto">
+                        <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Platforms</div>
+                    </v-col>
+                </v-row>
+
+                <v-row class="auction-center d-flex align-baseline justify-space-around ga-5" align="baseline">
+                    <v-col cols="auto">
+                        <p>Auction Center</p>
+                    </v-col>
+                    <v-col cols="auto">
+                        <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Centers</div>
+                    </v-col>
+                </v-row>
+            </v-card>
+        </v-container>
+    </TitleBar>
+
+
+    <v-container class="pa-4 pt-6" fluid>
+        <v-container class="mainContent mr-auto ml-auto" fluid>
+            <v-row
+                class="d-flex flex-wrap align-start align-sm-center justify-space-between flex-column flex-sm-row ga-5">
+                <!-- LEFT ELEMENTS -->
+                <v-col class="leftElements d-flex align-center ga-3" cols="12" sm="auto">
+                    <v-select label="Year" :items="['2025', '2024', '2023', '2022', '2021', '2020']" variant="outlined"
+                        color="primary" width="140" density="compact" clearable />
+                </v-col>
+
+                <!-- RIGHT ELEMENTS -->
+                <v-col class="rightElements d-flex flex-wrap align-center ga-3" cols="12" sm="auto">
+                    <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
+                        variant="outlined" color="primary" clearable />
+                    <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
+                </v-col>
+            </v-row>
+
+            <DataTable />
+        </v-container>
+    </v-container>
+
 </template>
 
 <script>
@@ -58,31 +73,6 @@ export default {
 </script>
 
 <style>
-.redBox {
-    height: 116px;
-    width: 75px;
-}
-
-.auction-house .wrapper {
-    background-color: #0080ff40;
-    color: #808080;
-    font-size: 15px;
-    font-weight: 400;
-    padding: 5px;
-    border-radius: 4px;
-    flex-wrap: wrap;
-}
-
-.auction-center .wrapper {
-    background-color: #0f1c2c;
-    color: #808080;
-    font-size: 15px;
-    font-weight: 400;
-    padding: 5px;
-    border-radius: 4px;
-    flex-wrap: wrap;
-}
-
 thead {
     white-space: nowrap;
 }

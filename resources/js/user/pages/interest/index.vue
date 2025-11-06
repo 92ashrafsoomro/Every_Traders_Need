@@ -2,7 +2,7 @@
     <main>
         <TitleBar title="Personalized for You"
             subtitle="Save your interests to see matching auctions, stats, and valuations in one place.">
-            <v-btn append-icon="mdi-plus" variant="tonal" to="/create">
+            <v-btn append-icon="mdi-plus" color="primary" variant="flat" to="/create">
                 Create Interest
             </v-btn>
         </TitleBar>

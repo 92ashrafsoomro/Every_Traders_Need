@@ -3,7 +3,7 @@
         <Sidebar />
 
         <!-- Top App Bar -->
-        <v-app-bar app color="" class="d-flex align-center justify-space-between" dark>
+        <v-app-bar app color="" class="d-flex align-center justify-space-between elevation-3" dark>
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
 
             <v-toolbar-title class="d-none d-sm-inline">
@@ -16,29 +16,28 @@
             <v-row class="pr-2 ga-5" align="center" justify="end" no-gutters>
                 <!-- Fullscreen -->
                 <v-col cols="auto">
-                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1 pa-2">
+                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg pa-2 bg-shadow">
                         <svg-icon @click="toggleFullScreen" type="mdi" :path="path" class="cursor-pointer" />
                     </v-sheet>
                 </v-col>
 
                 <!-- Theme Dropdown -->
                 <v-col cols="auto">
-                    <v-sheet color="transparent"
-                        class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1 ">
+                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
                         <ThemeDropdown />
                     </v-sheet>
                 </v-col>
 
                 <!-- Notification Dropdown -->
                 <v-col cols="auto">
-                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1">
+                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
                         <Notificationdropdown />
                     </v-sheet>
                 </v-col>
 
                 <!-- Profile Dropdown -->
                 <v-col cols="auto">
-                    <v-sheet class="rounded-lg d-flex align-center justify-center rounded-lg bg-grey-darken-1">
+                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
                         <ProfileDropdown />
                     </v-sheet>
                 </v-col>

@@ -13,21 +13,22 @@
             flex-wrap ml-auto mr-auto
             ">
                 <div v-for="(item, index) in scheduleItems" :key="index"
-                    class="scheduleDiv border border-[#2b3b4f] rounded-md bg-backgound2 pa-3 ps-5 d-flex flex-column mb-3">
-                    <div class="text-white text-caption d-flex align-center justify-center border-b border-[#2b3b4f] pb-2 pt-2 text-wrap"
+                    class="scheduleDiv border border-border rounded-md bg-surface-variant-1 pa-3 ps-5 d-flex flex-column mb-3"
+                    style=" height: 95px; width: 195px;">
+                    <div class="text-caption d-flex align-center justify-center border-b border-border pb-2 pt-2 text-wrap"
                         style="white-space: wrap !important;">
                         {{ item.title }}
                     </div>
-                    <div class="lowerSection text-[#cccccc] mt-2 d-flex justify-space-between">
-                        <div class="flex align-center text-[#00bad1] text-overline">
+                    <div class="lowerSection d-flex justify-space-between mt-2">
+                        <div class="d-flex align-center text-primary">
                             <small><v-icon icon="mdi-hammer" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.auctions }}</span>
                         </div>
-                        <div class="flex align-center text-[#00bad1] text-overline">
+                        <div class="d-flex align-center" style=" font-size: 10px; color: #00bad1;">
                             <small><v-icon icon="mdi-car" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.cars }}</span>
                         </div>
-                        <div class="flex align-center text-[#ff4c51] text-overline">
+                        <div class="d-flex align-center text-danger" style="font-size: 10px;">
                             <small><v-icon icon="mdi-charity" size="small"></v-icon></small>
                             <span class="text-caption text-[#cccccc]">{{ item.favorites }}</span>
                         </div>
@@ -88,60 +89,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.scheduleDiv {
-    height: 95px;
-    width: 195px;
-}
-
-
-.lowerSection div:nth-child(1) {
-    display: flex;
-    align-items: center;
-    color: #0080ff;
-}
-
-.lowerSection div:nth-child(2) {
-    display: flex;
-    align-items: center;
-    color: #00bad1;
-    font-size: 10px;
-}
-
-.lowerSection div:nth-child(3) {
-    display: flex;
-    align-items: center;
-    color: #ff4c51;
-    font-size: 10px;
-}
-
-@media (max-width: 768px) {
-    .scheduleDiv {
-        height: auto;
-        width: 183px;
-    }
-}
-
-@media (max-width: 425px) {
-    .scheduleDiv {
-        height: auto;
-        width: 160px;
-    }
-}
-
-
-
-@media (max-width: 375px) {
-    .scheduleDiv {
-        height: auto;
-        width: 140px;
-    }
-}
-
-@media (max-width: 320px) {
-    .scheduleDiv {
-        height: auto;
-        width: 120px;
-    }
-}
-</style>
+<style scoped></style>

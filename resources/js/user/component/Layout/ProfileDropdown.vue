@@ -3,33 +3,21 @@
         <template #activator="{ props }">
             <v-btn icon v-bind="props" class="profileBtn">
                 <div class="profileImage d-flex justify-center align-center">
-                    <img
-                        src="/public/theme/assets/test_profileImage.jpg"
-                        alt=""
-                        class="h-75 w-75 rounded-circle"
-                    />
+                    <img src="/public/theme/assets/test_profileImage.jpg" alt="" class="h-75 w-75 rounded-circle" />
                 </div>
             </v-btn>
         </template>
 
-        <v-list
-            class="bg-secondary text-grey-lighten-2"
-            style="min-width: 224px"
-        >
+        <v-list class="" style="min-width: 224px">
             <v-list-item>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex justify-start align-center ps-2 ga-2">
-                        <div
-                            class="profileImage d-flex justify-center align-center"
-                        >
-                            <img
-                                src="/public/theme/assets/test_profileImage.jpg"
-                                alt=""
-                                class="h-100 w-100 rounded-circle position-static"
-                            />
+                        <div class="profileImage d-flex justify-center align-center">
+                            <img src="/public/theme/assets/test_profileImage.jpg" alt=""
+                                class="h-100 w-100 rounded-circle position-static" />
                         </div>
-                        <div class="profileTitle-title">
-                            <div class="profile-name text-h6 text-white">
+                        <div>
+                            <div class="profile-name text-h6">
                                 Babar Azam
                             </div>
                             <div class="profile-type text-caption">
@@ -43,9 +31,7 @@
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex align-center ga-2">
-                        <span class="material-symbols-outlined">
-                            contact_page
-                        </span>
+                        <v-icon icon="mdi-account"></v-icon>
                         <div>My Profile</div>
                     </div>
                 </v-list-item-title>
@@ -53,9 +39,7 @@
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex align-center ga-2">
-                        <span class="material-symbols-outlined">
-                            settings
-                        </span>
+                        <v-icon icon="mdi-cog"></v-icon>
                         <div>Settings</div>
                     </div>
                 </v-list-item-title>
@@ -63,9 +47,7 @@
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex align-center ga-2">
-                        <span class="material-symbols-outlined">
-                            request_quote
-                        </span>
+                        <v-icon icon="mdi-currency-usd"></v-icon>
                         <div>Billings</div>
                     </div>
                 </v-list-item-title>
@@ -75,12 +57,7 @@
                 <v-list-item-title class="">
                     <v-btn @click="logOut()" size="small" color="danger" class="text-white">
                         <p class="text-caption mr-2">Logout</p>
-                        <svg-icon
-                            type="mdi"
-                            :path="path"
-                            width="14"
-                            height="14"
-                        ></svg-icon>
+                        <svg-icon type="mdi" :path="path" width="14" height="14"></svg-icon>
                     </v-btn>
                 </v-list-item-title>
             </v-list-item>

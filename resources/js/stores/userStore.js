@@ -43,15 +43,12 @@ export const useUserStore = defineStore("user", {
             if (token) {
                 
                     this.getProfile(token).then((res) => {
-                        
-                        // console.log(res);
-
                         this.is_logged_in = true;
                         this.user = res.data.account;
                         themeStore.endLoading();
+                        
                         console.log('User Logged In');
                         
-
                     }).catch((error) => {
 
                         // console.log(error);
@@ -65,7 +62,6 @@ export const useUserStore = defineStore("user", {
 
                     });
                 
-
             } else { 
                 this.user = {};
                 this.is_logged_in = false;
@@ -86,7 +82,6 @@ export const useUserStore = defineStore("user", {
             } catch (error) {
                 throw await errorHandler(error);
             }
-
         },
         async getProfile(token = null)
         {   

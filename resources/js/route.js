@@ -1,14 +1,16 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
-// import { useUserStore } from './stores/user';
+
 import { useUserStore } from '@stores/userStore';
 import { useAlertStore } from '@stores/alertStore';
 
 import HomeView from "./web/pages/index.vue"
-import Login from "./user/pages/auth/login.vue"
 import NotFound from "./user/pages/404.vue"
 import UserRoutes from "./user/route.js"
 
+
+import Login from "./user/pages/auth/login.vue"
+import Register from './user/pages/auth/register.vue';
 
 const routes = [
     {
@@ -18,6 +20,10 @@ const routes = [
     {
         path: "/login",
         component: Login,
+    },
+    {
+        path: "/register",
+        component: Register,
     },
     ...UserRoutes,
     { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },

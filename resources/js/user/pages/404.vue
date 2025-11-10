@@ -67,9 +67,9 @@
 
                     <!-- Action Buttons -->
                     <v-card-actions class="justify-center mt-6">
-                        <v-btn color="primary" size="large" prepend-icon="mdi-home" variant="elevated" to="/"
+                        <v-btn color="primary" size="large" prepend-icon="mdi-undo-variant" variant="elevated" to="/"
                             class="px-8">
-                            Back to Home
+                            Go Back
                         </v-btn>
                     </v-card-actions>
 

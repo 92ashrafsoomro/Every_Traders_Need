@@ -19,7 +19,7 @@
                             variant="outlined" color="primary" clearable></v-text-field>
                     </div>
                 </div>
-                <DataTable />
+                <DataTable class="rounded-lg mt-5" />
             </div>
         </div>
     </main>

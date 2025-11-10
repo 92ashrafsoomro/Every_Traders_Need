@@ -77,11 +77,11 @@ class DashboardController extends Controller
             ->pluck('vehicle');
 
             $alertVehicles = Notification::with(['vehicle.make', 'vehicle.model', 'vehicle.variant'])
-                ->where('user_id', $id)
-                ->latest()
-                ->get()
-                ->pluck('vehicle')
-                ->unique('id'); // sirf unique vehicles
+            ->where('user_id', $id)
+            ->latest()
+            ->get()
+            ->pluck('vehicle')
+            ->unique('id'); // sirf unique vehicles
 
 
             $data = [

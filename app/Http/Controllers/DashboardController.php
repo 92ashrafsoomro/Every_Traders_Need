@@ -984,9 +984,7 @@ $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 'last_bid_average' => $formatMoney($a->min_last_bid_average) . ' - ' . $formatMoney($a->max_last_bid_average),
                 'max_last_bid_average' => $a->max_last_bid_average,
             ]);
-
-
-          
+            
         $threeMonthData = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
             ->where('vehicles.make_id', $interest->make_id)
             ->where('vehicles.model_id', $interest->model_id)
@@ -1002,10 +1000,8 @@ $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
             ->pluck('avg_last_bid')
             ->implode(',');
 
-        
-
         return [
-             'auction_id' => $row->auction_id,
+            'auction_id' => $row->auction_id,
             'auction_name' => $row->auction_name,
             'platform_id' => $row->platform_id,
             'platform_name' => $row->platform_name,
@@ -1020,6 +1016,7 @@ $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
             'one_month_auctions' => $monthlyAuctions,
             'three_month_trend' => $threeMonthData,
         ];
+
     });
 
     return response()->json([
@@ -1028,6 +1025,8 @@ $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
         'overall_cap_clean' => $formatMoney($overallMinClean) . ' - ' . $formatMoney($overallMaxClean),
         'data' => $final,
     ]);
+
+
 }
 
 

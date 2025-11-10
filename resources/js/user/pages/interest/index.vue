@@ -1,11 +1,10 @@
 <template>
     <main>
-        <TitleBar title="Personalized for You"
+
+        <user-title-bar title="Personalized for You"
             subtitle="Save your interests to see matching auctions, stats, and valuations in one place.">
-            <v-btn append-icon="mdi-plus" color="primary" variant="flat" to="/create">
-                Create Interest
-            </v-btn>
-        </TitleBar>
+            <v-btn append-icon="mdi-plus" color="primary" variant="flat" to="/create"> Create Interest</v-btn>
+        </user-title-bar>
         <div class="pa-1 pa-sm-3 pt-6">
             <div class="mainContent mr-auto ml-auto">
                 <div
@@ -19,6 +18,11 @@
                             variant="outlined" color="primary" clearable></v-text-field>
                     </div>
                 </div>
+
+                 <!-- <v-data-table-server class="dataTable" v-model:items-per-page="itemsPerPage" :headers="headers" :items="serverItems"
+                :items-length="totalItems" :loading="loading" :search="search" item-value="name"
+                @update:options="loadItems"></v-data-table-server> -->
+
                 <DataTable class="rounded-lg mt-5" />
             </div>
         </div>
@@ -26,15 +30,29 @@
 </template>
 
 <script>
-import TitleBar from "./../../component/TitleBar.vue";
+
 import DataTable from "./../../component/dataTable.vue";
+
+
 
 export default {
     props: {},
     components: {
-        TitleBar,
         DataTable,
     },
+    data() {
+
+
+        return [
+            headers:[
+                { title: 'Car Model', key: 'name', align: 'start' },
+                { title: 'Horsepower', key: 'horsepower', align: 'end' },
+                { title: 'Fuel Type', key: 'fuel', align: 'start' },
+                { title: 'Origin', key: 'origin', align: 'start' },
+                { title: 'Price ($)', key: 'price', align: 'end' },
+            ]
+        ]
+    }
 };
 </script>
 

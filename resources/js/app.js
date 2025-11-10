@@ -133,20 +133,22 @@ const vuetify = createVuetify({
 });
 
 const render = createApp(App);
+
+
+
+
 render.use(pinia);
 render.use(router);
 render.use(vuetify); 
-// const userStore = useUserStore();
 
-// (async () => {
-//     if (userStore.token) {
-//         try {
-//             await userStore.syncUser();
-//         } catch (e) {
-//             console.warn("Auth sync failed:", e.message);
-//             // userStore.clearAuth();
-//         }
-//     }
+
+// Auto-register all components in ./components
+const tags = import.meta.glob('./core/tags/**/*.vue', { eager: true })
+for (const path in tags) {
+  const component = tags[path].default
+  render.component(component.name || path.split('/').pop().replace('.vue', ''), component)
+}
+
 
 render.mount("#userApp");
 // })();

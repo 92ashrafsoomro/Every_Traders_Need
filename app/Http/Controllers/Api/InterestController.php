@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Enums\FuelType;
 use App\Enums\Year;
@@ -18,22 +18,97 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\PriceEnum;
+use App\Http\Controllers\Controller;
 use App\Jobs\SendInterestCreatedMailJob;
+
 class InterestController extends Controller
 {
 
-    public function myintrest(Request $request)
+        public function myInterest(Request $request)
     {
 
-        $data = Interest::where("user_id", Auth::user()->id)
-        ->get()
-        ->map(function ($row) {
-            return $row;
-        });
+            $user = $request->user();
+  
 
-        return response()->json([
-         'data' => $data,
-        ],200);
+            $query = Interest::query()
+            ->where("user_id", $user->id)
+            ->Leftjoin('make','make.id','=','interest.make_id')
+            ->Leftjoin('model','model.id','=','interest.model_id')
+            ->Leftjoin('model_variant','model_variant.id','=','interest.variant_id');
+            
+
+            $search = $request->input('search','');
+            if (!empty($search)) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('interest.id', 'like', "%{$search}%")
+                    ->orWhere('interest.title', 'like', "%{$search}%")
+                    ->orWhere('model.name', 'like', "%{$search}%")
+                    ->orWhere('model_variant.name', 'like', "%{$search}%")
+                    ->orWhere('make.name', 'like', "%{$search}%");
+                    // ->orWhere('users.companyName', 'like', "%{$search}%");
+                });
+            }
+
+            // Filters
+            // if ($filters = $request->input('filters',[])) {
+            //     foreach ($filters as $field => $value) {
+            //         if(!empty($value)){
+
+            //             switch ($field) {
+            //                 case 'value':
+            //                          $query->where($field, $value);
+            //                     break;
+                            
+            //                 default:
+            //                     # code...
+            //                     break;
+            //             }
+            //         }
+            //     }
+            // }
+
+            $totalData = clone $query;
+            $data = $query->select(
+                    'interest.*',
+                    'make.name as make_name',
+                    'model.name as model_name',
+                    'model_variant.name as variant_name',
+            )
+            ->orderBy('created_at','desc')
+            ->offset($request->input('start',0))
+            ->limit($request->input('length',10))
+            ->get()
+            ->map(function ($row) {
+
+
+                    $html = '
+                    <a href="' . url('/interest/'.$row->id). '/edit" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="' . url('/interest/'.$row->id).'" method="POST" style="display:inline-block;">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">Delete</button>
+                    </form>';
+                 
+                  return [
+                       "id" => $row->id,
+                       "name" =>  $row->title,
+                       "make_title" => $row->make_name,
+                       "model_title" => $row->model_name,
+                       "variant_title" => $row->variant_name,
+                       "year" => $row->year_from.' - '.$row->year_to, 
+                       "mileage" => $row->mileage_from.' - '.$row->mileage_to, 
+                       "cc" => $row->cc_from.' - '.$row->cc_to, 
+                       "action" => $html,
+                  ];
+
+              });
+
+  
+            return response()->json([
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => $totalData->count(),
+                "recordsFiltered" => $totalData->count(),
+                "data" => $data
+            ],200);
 
     }
 
@@ -90,16 +165,17 @@ class InterestController extends Controller
 
             $totalData = clone $query;
             $data = $query->select(
-                'interest.*',
-                'make.name as make_name',
-                'model.name as model_name',
-                'model_variant.name as variant_name',
+                    'interest.*',
+                    'make.name as make_name',
+                    'model.name as model_name',
+                    'model_variant.name as variant_name',
             )
             ->orderBy('created_at','desc')
             ->offset($start)
             ->limit($length)
             ->get()
             ->map(function ($row) {
+
 
                       $html = '
                         <a href="' . url('/interest/'.$row->id). '/edit" class="btn btn-sm btn-warning">Edit</a>
@@ -340,10 +416,7 @@ class InterestController extends Controller
         return response()->json($variants);
     }
 
-    public function show(Interest $interest)
-    {
-        return view('user.interests.show', compact('interest'));
-    }
+
 
     public function destroy(Interest $interest)
     {

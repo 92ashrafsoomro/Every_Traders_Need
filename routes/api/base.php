@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
+use App\Http\Controllers\Api\InterestController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,8 +23,10 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/compareList',[AuctionFinderController::class,'compareList']);
 
     
-
     
+    Route::prefix('interest')->group(function () {
+         Route::get('/myInterest',[InterestController::class,'myInterest']);
+    });
 
     
 

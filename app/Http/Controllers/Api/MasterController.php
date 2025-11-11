@@ -79,6 +79,9 @@ class MasterController extends Controller
         $query = DB::table('make')
             ->join('vehicles', 'vehicles.make_id', '=', 'make.id')
             ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->when($request->id, function ($query, $value){
+                $query->where('make.id',$value);
+            })
             ->select([
                 'make.id',
                 'make.name as label',
@@ -109,41 +112,21 @@ class MasterController extends Controller
                 DB::raw('COUNT(model.id) as count')
             ])
             ->when($request->make_id, function ($query, $value) {
-
+                $query->whereIn('model.make_id', explode(',', $value));
             })
-            ->whereIn('model.make_id', explode(',', $request->make_id))
+            ->when($request->id, function ($query, $value) {
+                $query->where('model.id',$value);
+            })
             ->groupBy('model.id')
             ->orderBy('count', 'desc')
             ->get();
 
         return response()->json([
-            "data" => $data->groupBy('make')->toArray()
+            "data" => $data,
         ], 200);
 
     }
 
-    public function getModels2(Request $request)
-    {
-        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
-
-        $data = DB::table('model')
-            ->join('make', 'make.id', '=', 'model.make_id')
-            ->join('vehicles', 'vehicles.model_id', '=', 'model.id')
-            ->select([
-                'model.id',
-                'model.name as text', // ✅ renamed to text for Select2
-                'make.name as make',
-                DB::raw('COUNT(model.id) as count')
-            ])
-            ->whereIn('model.make_id', explode(',', $request->make_id))
-            ->groupBy('model.id')
-            ->orderBy('count', 'desc')
-            ->get();
-
-        return response()->json([
-            "results" => $data // ✅ flattened for Select2
-        ]);
-    }
 
     public function getVariants(Request $request)
     {
@@ -158,14 +141,19 @@ class MasterController extends Controller
                 'model.name as model',
                 DB::raw('COUNT(vehicles.id) as count')
             ])
-            ->whereIn('model_variant.model_id', explode(',', $request->model_id))
+            ->when($request->model_id, function ($query, $value) {
+                $query->whereIn('model_variant.model_id', explode(',', $value));
+            })
+            ->when($request->id, function ($query, $value) {
+                $query->where('model_variant.id',$value);
+            })
             ->groupBy('model_variant.id')
             ->orderBy('count', 'desc')
             ->get();
 
-        return response()->json([
-            "data" => $data->groupBy('model')->toArray()
-        ], 200);
+            return response()->json([
+                "data" => $data
+            ], 200);
     }
 
 
@@ -186,6 +174,7 @@ class MasterController extends Controller
         return response()->json([
             "data" => $data
         ], 200);
+
     }
 
 
@@ -195,17 +184,14 @@ class MasterController extends Controller
         $query = Vehicle::query()
             ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->whereNotNull('vehicles.grade')
-            ->where('vehicles.grade', '!=', '');
-
-
-
-        $data = $query->select('vehicles.grade as label', DB::raw('COUNT(vehicles.id) as count'))
+            ->where('vehicles.grade', '!=', '')
+            ->select('vehicles.grade as label', DB::raw('COUNT(vehicles.id) as count'))
             ->groupBy('vehicles.grade')
             ->orderByDesc('count')
             ->get();
 
         return response()->json([
-            'data' => $data,
+            'data' => $query,
         ], 200);
     }
 
@@ -215,16 +201,16 @@ class MasterController extends Controller
         $query = Vehicle::query()
             ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->whereNotNull('vehicles.v5')
-            ->where('vehicles.v5', '!=', '');
-
-        $data = $query->select('vehicles.v5 as label', DB::raw('COUNT(vehicles.id) as count'))
+            ->where('vehicles.v5', '!=', '')
+            ->select('vehicles.v5 as label', DB::raw('COUNT(vehicles.id) as count'))
             ->groupBy('vehicles.v5')
             ->orderByDesc('count')
             ->get();
 
         return response()->json([
-            'data' => $data,
+            'data' => $query,
         ], 200);
+
     }
 
 
@@ -233,15 +219,14 @@ class MasterController extends Controller
         $query = Vehicle::query()
             ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->whereNotNull('vehicles.cc')
-            ->where('vehicles.cc', '!=', '');
-
-        $data = $query->select('vehicles.cc as label', DB::raw('COUNT(vehicles.id) as count'))
+            ->where('vehicles.cc', '!=', '')
+            ->select('vehicles.cc as label', DB::raw('COUNT(vehicles.id) as count'))
             ->groupBy('vehicles.cc')
             ->orderByDesc('count')
             ->get();
 
         return response()->json([
-            'data' => $data
+            'data' => $query
         ], 200);
     }
 

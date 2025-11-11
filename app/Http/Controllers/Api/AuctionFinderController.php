@@ -38,6 +38,7 @@ class AuctionFinderController extends Controller
         ->join('model', 'model.id', '=', 'vehicles.model_id')
         ->join('model_variant', 'model_variant.id', '=', 'vehicles.variant_id');
 
+        
         // ==== FILTERS ====
         if ($request->has('platform') && $request->platform != '') {
             $query->where('auctions.platform_id', $request->platform);
@@ -172,47 +173,49 @@ class AuctionFinderController extends Controller
             }
         });
 
-        $allowedSortColumns = [
-            'make_name' => 'make.name',
-            'model_name' => 'model.name',
-            'variant_name' => 'model_variant.name',
-            'year' => 'vehicles.year',
-            'mileage' => 'vehicles.mileage',
-            'grade' => 'vehicles.grade',
-            'auction_date' => 'auctions.auction_date',
-            'auction_name' => 'auction_platform.name',
-            'cap_clean' => 'vehicles.cap_clean',
-            'autotrader_trade_value' => 'vehicles.autotrader_trade_value',
-            'autotrader_retail_value' => 'vehicles.autotrader_retail_value',
-        ];
+        // $allowedSortColumns = [
+        //     'make_name' => 'make.name',
+        //     'model_name' => 'model.name',
+        //     'variant_name' => 'model_variant.name',
+        //     'year' => 'vehicles.year',
+        //     'mileage' => 'vehicles.mileage',
+        //     'grade' => 'vehicles.grade',
+        //     'auction_date' => 'auctions.auction_date',
+        //     'auction_name' => 'auction_platform.name',
+        //     'cap_clean' => 'vehicles.cap_clean',
+        //     'autotrader_trade_value' => 'vehicles.autotrader_trade_value',
+        //     'autotrader_retail_value' => 'vehicles.autotrader_retail_value',
+        // ];
 
-        $sortBy = $request->input('sort_by', 'auction_date');
-        $sortOrder = $request->input('sort_order', 'desc');
+        // $sortBy = $request->input('sort_by', 'auction_date');
+        // $sortOrder = $request->input('sort_order', 'desc');
 
-        switch ($sortBy) {
-            case 'name':
-                // Sort by make + model
-                $query->orderBy('make.name', $sortOrder)->orderBy('model.name', $sortOrder);
-                break;
+        // switch ($sortBy) {
+        //     case 'name':
+        //         // Sort by make + model
+        //         $query->orderBy('make.name', $sortOrder)->orderBy('model.name', $sortOrder);
+        //         break;
 
-            case 'grade':
-                $query->orderBy('vehicles.grade', $sortOrder);
-                break;
+        //     case 'grade':
+        //         $query->orderBy('vehicles.grade', $sortOrder);
+        //         break;
 
-            case 'date':
-                $query->orderBy('auctions.auction_date', $sortOrder);
-                break;
+        //     case 'date':
+        //         $query->orderBy('auctions.auction_date', $sortOrder);
+        //         break;
 
-            default:
-                $query->orderBy('auctions.auction_date', 'desc');
-                break;
-        }
+        //     default:
+        //         $query->orderBy('auctions.auction_date', 'desc');
+        //         break;
+        // }
 
-        if (array_key_exists($sortBy, $allowedSortColumns)) {
-            $query->orderBy($allowedSortColumns[$sortBy], $sortOrder);
-        } else {
-            $query->orderBy('auctions.auction_date', 'desc');
-        }
+        // if (array_key_exists($sortBy, $allowedSortColumns)) {
+        //     $query->orderBy($allowedSortColumns[$sortBy], $sortOrder);
+        // } else {
+        //     $query->orderBy('auctions.auction_date', 'desc');
+        // }
+
+
 
         // ==== PAGINATION ====
         $total = $query->count();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuctionPlatform;
+use App\Models\Auctions;
 use App\Models\Interest;
 use App\Models\Notification;
 use App\Models\RecentView;
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 use App\Services\AuctionService;
+use Carbon\Carbon;
 
 class AuctionFinderController extends Controller
 {
@@ -759,7 +762,6 @@ class AuctionFinderController extends Controller
     }
 
 
-
-
+    
 
 }

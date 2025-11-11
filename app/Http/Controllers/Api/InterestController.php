@@ -28,7 +28,6 @@ class InterestController extends Controller
     {
 
             $user = $request->user();
-  
 
             $query = Interest::query()
             ->where("user_id", $user->id)
@@ -36,7 +35,6 @@ class InterestController extends Controller
             ->Leftjoin('model','model.id','=','interest.model_id')
             ->Leftjoin('model_variant','model_variant.id','=','interest.variant_id');
             
-
             $search = $request->input('search','');
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
@@ -48,25 +46,7 @@ class InterestController extends Controller
                     // ->orWhere('users.companyName', 'like', "%{$search}%");
                 });
             }
-
-            // Filters
-            // if ($filters = $request->input('filters',[])) {
-            //     foreach ($filters as $field => $value) {
-            //         if(!empty($value)){
-
-            //             switch ($field) {
-            //                 case 'value':
-            //                          $query->where($field, $value);
-            //                     break;
-                            
-            //                 default:
-            //                     # code...
-            //                     break;
-            //             }
-            //         }
-            //     }
-            // }
-
+            
             $totalData = clone $query;
             $data = $query->select(
                     'interest.*',

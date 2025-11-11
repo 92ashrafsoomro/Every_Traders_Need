@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\InterestController;
+use App\Http\Controllers\Api\MasterController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,6 +11,18 @@ Route::prefix('auth')->group(function () {
 
     Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
     Route::post('/login',[AuthController::class,'login']);
+
+});
+
+
+Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
+
+    
+    Route::get('/getMakes',[MasterController::class,'getMakes']);
+    Route::get('/getModels',[MasterController::class,'getModels']);
+
+    
+
 
 });
 

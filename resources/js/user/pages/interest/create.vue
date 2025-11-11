@@ -7,7 +7,11 @@
             </template>
             <v-card prepend-icon="mdi-thumb-up" title="Create Intrest">
                 <v-card-text>
+                
                     <v-row dense>
+                        <v-col cols="12" >
+                            <h4>Primary</h4>
+                        </v-col>
                         <v-col cols="12" md="4" sm="6">
                             <v-text-field 
                               label="Title"
@@ -77,32 +81,91 @@
                         <v-col cols="12" md="4" sm="6">
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <v-autocomplete variant="outlined" :items="items" label="Year From" persistent-placeholder />
+                                    <v-autocomplete variant="outlined" :items="items" label="Mileage From" persistent-placeholder />
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-autocomplete variant="outlined" :items="items" label="Year To" persistent-placeholder />
+                                    <v-autocomplete variant="outlined" :items="items" label="Mileage To" persistent-placeholder />
                                 </v-col>
                             </v-row>
                         </v-col>
                     </v-row>
                     <v-row dense>
-                        <v-col cols="12" md="4" sm="6">
-                            <v-text-field variant="outlined" label="Email*" required />
+                        <v-col cols="12" >
+                            <h4 class="" >Secondary</h4>
                         </v-col>
                         <v-col cols="12" md="4" sm="6">
-                            <v-text-field variant="outlined" label="Password*" type="password" required />
+                                <v-autocomplete 
+                                label="Fuel Type"
+                                variant="outlined"
+                                v-model="form.make" 
+                                chips 
+                                placeholder="Select Fuel Type"
+                                prepend-inner-icon="mdi-email"
+                                auto-select-first
+                                :items="items"
+                                persistent-placeholder
+                                multiple />
                         </v-col>
                         <v-col cols="12" md="4" sm="6">
-                            <v-text-field variant="outlined" label="Confirm Password*" type="password" required />
+                                <v-autocomplete 
+                                label="CC"
+                                variant="outlined"
+                                v-model="form.make" 
+                                chips 
+                                placeholder="Select CC"
+                                prepend-inner-icon="mdi-email"
+                                auto-select-first
+                                :items="items"
+                                persistent-placeholder
+                                multiple />
                         </v-col>
-                        <v-col cols="12" sm="6">
-                            <v-select variant="outlined" :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required />
+                        <v-col cols="12" md="4" sm="6">
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-autocomplete 
+                                      variant="outlined" 
+                                      v-model="form.year_from"
+                                      :items="items" 
+                                      label="Price (CAP Clean) From" 
+                                      persistent-placeholder />
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-autocomplete 
+                                       v-model="form.year_to"
+                                       variant="outlined" 
+                                       :items="items" 
+                                       label="Price (CAP Clean) To" 
+                                       persistent-placeholder />
+                                </v-col>
+                            </v-row>
                         </v-col>
-                        <v-col cols="12" sm="6">
-                            <v-autocomplete variant="outlined"
-                                :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                                label="Interests" auto-select-first multiple></v-autocomplete>
+                        <v-col cols="12" md="4" sm="6">
+                                <v-autocomplete 
+                                    label="Transmission"
+                                    variant="outlined"
+                                    v-model="form.make" 
+                                    chips 
+                                    placeholder="Select Transmission"
+                                    prepend-inner-icon="mdi-email"
+                                    auto-select-first
+                                    :items="items"
+                                    persistent-placeholder
+                                    multiple />
                         </v-col>
+                        <v-col cols="12" md="4" sm="6">
+                                <v-autocomplete 
+                                    label="Grade"
+                                    variant="outlined"
+                                    v-model="form.make" 
+                                    chips 
+                                    placeholder="Select Grade"
+                                    prepend-inner-icon="mdi-email"
+                                    auto-select-first
+                                    :items="items"
+                                    persistent-placeholder
+                                    multiple />
+                        </v-col>
+                     
                     </v-row>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -128,21 +191,21 @@ export default {
 
     },
     components: {
-        // DataTable,
+    
     },
     data() {
         return {
             form: {
-                title: '',
-                make: '',
-                model: '',
-                variant: '',
-                year_from: '',
-                year_to:'',
+                title:'',
+                make: null,
+                model: null,
+                variant: null,
+                year_from: null,
+                year_to:null,
             },
             interestStore: useInterestStore(),
             alertStore: useAlertStore(),
-            dialog: false,
+            dialog: true,
             items: [
                 'Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump'
             ]

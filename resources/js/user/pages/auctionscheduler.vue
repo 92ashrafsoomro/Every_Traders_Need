@@ -44,7 +44,6 @@
 
 <script>
 import TitleBar from "./../component/TitleBar.vue";
-import CustomSelect from "./../component/Select.vue";
 import DataTable from "./../component/dataTable.vue";
 import ComoboxInput from "./../component/ComoboxInput.vue";
 
@@ -52,7 +51,6 @@ export default {
     props: {},
     components: {
         TitleBar,
-        CustomSelect,
         DataTable,
         ComoboxInput,
     },

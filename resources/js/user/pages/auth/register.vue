@@ -10,7 +10,7 @@
                 <v-row justify="center">
                     <v-col cols="12" sm="10" md="8" lg="6" xl="5">
                         <v-stepper class="pa-4" v-model="step"
-                            :items="['Company Info', 'User Info', 'Proof', 'Security']">
+                            :items="['Company Info', 'User Info', 'Proof', 'Security']" color="primary">
 
                             <!-- Step 1 -->
                             <template v-slot:item.1>
@@ -22,9 +22,59 @@
                                     </v-card-subtitle>
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
-                                            <v-col v-for="n in 13" :key="n" cols="12" sm="6" md="4">
+                                            <v-col cols="12" sm="6" md="4">
                                                 <v-text-field variant="outlined" density="comfortable"
-                                                    label="Select Option" color="primary" clearable />
+                                                    label="Company / Business Name" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Company Address" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Company Address 2" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <Comobox density="comfortable" variant="outlined" label="Motor Dealer?"
+                                                    :items="['Motor Dealer', 'Motor Trader', 'Independent Dealer', 'Other']"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Company Reg. Number" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Town / City" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Website (Optional)" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable" label="Country"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Business Email (optional)" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Postal Code / Zip Code" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <Comobox density="comfortable" variant="outlined"
+                                                    label="Motor Trade Insurance" :items="['Yes', 'No', 'Pending']"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable" label="Cell"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="VAT Number (optional)" color="primary" clearable />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -40,9 +90,36 @@
                                     </v-card-subtitle>
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
-                                            <v-col v-for="n in 5" :key="n" cols="12" sm="6" md="4">
+                                            <v-col cols="12" sm="6" md="4">
                                                 <v-text-field variant="outlined" density="comfortable"
-                                                    label="Select Option" color="primary" clearable />
+                                                    label="First Name" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable" label="Surname"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <Comobox density="comfortable" variant="outlined"
+                                                    label="Referral Source?"
+                                                    :items="['Google Search', 'Social Media', 'Online Advertisement', 'Friend / Colleague', 'Dealership Partner', 'Trade Event or Expo', 'Vehicle Trader Forum', 'Other']"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable"
+                                                    label="Phone Number" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field variant="outlined" density="comfortable" label="Position"
+                                                    color="primary" clearable />
+                                            </v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-card-subtitle class="ml-n3 mb-2 text-medium-emphasis">Profile
+                                                    Image</v-card-subtitle>
+                                                <v-file-input clearable label="File input" density="comfortable"
+                                                    variant="outlined" accept="image/*" color="primary"
+                                                    prepend-icon="mdi-image"></v-file-input>
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -60,17 +137,15 @@
                                         <v-col cols="12" sm="6">
                                             <div class="text-medium-emphasis text-caption mb-2">Proof of motor trade
                                             </div>
-                                            <v-file-input color="primary" v-model="proofMotorTrade"
-                                                label="Upload Documents" multiple show-size variant="outlined"
-                                                density="comfortable" accept=".pdf,.docx,.xlsx"
-                                                prepend-icon="mdi-file-upload" />
+                                            <v-file-input clearable label="File input" density="comfortable"
+                                                variant="outlined" accept="image/*" color="primary"
+                                                prepend-icon="mdi-image"></v-file-input>
                                         </v-col>
                                         <v-col cols="12" sm="6">
                                             <div class="text-medium-emphasis text-caption mb-2">Proof of address</div>
-                                            <v-file-input color="primary" v-model="proofAddress"
-                                                label="Upload Documents" multiple show-size variant="outlined"
-                                                density="comfortable" accept=".pdf,.docx,.xlsx"
-                                                prepend-icon="mdi-file-upload" />
+                                            <v-file-input clearable label="File input" density="comfortable"
+                                                variant="outlined" accept="image/*" color="primary"
+                                                prepend-icon="mdi-image"></v-file-input>
                                         </v-col>
                                     </v-row>
                                 </v-card>
@@ -85,9 +160,13 @@
                                     </v-card-subtitle>
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
-                                            <v-col v-for="n in 2" :key="n" cols="12" sm="6">
+                                            <v-col cols="12" sm="6">
                                                 <v-text-field variant="outlined" density="comfortable"
-                                                    label="Select Option" color="primary" clearable />
+                                                    label="Personal / Login Email" color="primary" clearable />
+                                            </v-col>
+                                            <v-col cols="12" sm="6">
+                                                <v-text-field variant="outlined" density="comfortable" label="Password"
+                                                    color="primary" clearable />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -139,10 +218,10 @@
 </template>
 <script>
 import AuthHeader from './AuthHeader.vue';
-
+import Comobox from './../../component/ComoboxInput.vue'
 export default {
     name: "StepperForm",
-    components: { AuthHeader },
+    components: { AuthHeader, Comobox },
     data() {
         return {
             step: 1,

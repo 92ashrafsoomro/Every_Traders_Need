@@ -57,7 +57,6 @@
 
 <script>
 import TitleBar from "./../component/TitleBar.vue";
-import Select from "./../component/Select.vue";
 import DataTable from "./../component/dataTable.vue";
 import NewSelect from "../component/newSelect.vue";
 
@@ -65,7 +64,6 @@ export default {
     props: {},
     components: {
         TitleBar,
-        Select,
         DataTable,
         NewSelect,
     },

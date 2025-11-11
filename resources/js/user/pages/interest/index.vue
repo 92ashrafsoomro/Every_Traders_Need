@@ -61,10 +61,10 @@ import createFrom from "./create.vue"
 export default {
     props: {},
     components: {
-        // DataTable,
         createFrom
     },
     data() {
+
         return {
             interestStore: useInterestStore(),
             alertStore:useAlertStore(),
@@ -133,7 +133,6 @@ export default {
                 
             }
                   
-
                 // loading.value = true;
                 // FakeAPI.fetch({ page, itemsPerPage, sortBy }).then(({ items, total }) => {
                 //     serverItems.value = items;
@@ -142,6 +141,7 @@ export default {
                 // });
         }
     }
+
 };
 </script>
 

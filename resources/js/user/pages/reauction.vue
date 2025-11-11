@@ -49,7 +49,15 @@
                 </v-col>
             </v-row>
 
-            <DataTable />
+            <!-- <DataTable /> -->
+            <div class="mt-4">
+                <v-data-table-server class="dataTable" :headers="headers" :items="items" :items-length="totalItems"
+                    :loading="loading" item-value="id" @update:options="loadItems">
+                    <template #item.action="{ item }">
+                        <v-btn color="primary" to="/vehicle-detail" @click="viewItem(item)">View</v-btn>
+                    </template>
+                </v-data-table-server>
+            </div>
         </v-container>
     </v-container>
 
@@ -59,6 +67,7 @@
 import TitleBar from "./../component/TitleBar.vue";
 import DataTable from "./../component/dataTable.vue";
 import NewSelect from "../component/newSelect.vue";
+import { useVehicleStore } from "@/stores/vehicleStore";
 
 export default {
     props: {},
@@ -67,11 +76,72 @@ export default {
         DataTable,
         NewSelect,
     },
+    data() {
+        return {
+            vehicleStore: useVehicleStore(),
+            items: [],
+            totalItems: 0,
+            loading: false,
+            search: "",
+            headers: [
+                { title: "Name", value: "title" },
+                { title: "Make", value: "make_name" },
+                { title: "Vehicle", value: "model_name" },
+                { title: "Reg", value: "reg" },
+                { title: "Previous", value: "last_bid" },
+                { title: "Platform", value: "platform_name" },
+                { title: "Center", value: "center_name" },
+                { title: "Cap Clean", value: "cap_clean" },
+                { title: "Cap Average", value: "cap_average" },
+                { title: "Mileage", value: "mileage" },
+                { title: "Status", value: "bidding_status" },
+                { title: "Time", value: "auction_date" },
+                { title: "Action", value: "action", sortable: false },
+            ],
+        }
+    },
+    mounted() {
+        this.loadItems({ page: 1, itemsPerPage: 10 });
+    },
+    methods: {
+        async loadItems(options) {
+            this.loading = true;
+            try {
+                // Extract page and itemsPerPage from options
+                const page = options.page || 1;
+                const itemsPerPage = options.itemsPerPage || 10;
+
+                // Call your store API
+                const response = await this.vehicleStore.getreAuctionList({
+                    length: itemsPerPage,
+                    search: this.search,
+                    page: page, // optional if API supports page
+                });
+
+                // Populate table
+                this.items = response.data; // array of vehicles
+                this.totalItems = response.recordsTotal || response.data.length;
+            } catch (error) {
+                console.error("Error loading reAuctionList:", error);
+                this.vehicleStore.add(error, "error");
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        viewItem(item) {
+            alert(`View vehicle: ${item.title}`);
+        },
+    },
 };
 </script>
 
 <style>
 thead {
+    white-space: nowrap;
+}
+
+tr {
     white-space: nowrap;
 }
 </style>

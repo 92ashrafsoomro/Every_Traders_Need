@@ -13,21 +13,16 @@
                     <th class="text-left">Autoboli</th>
                 </tr>
             </thead>
-
             <tbody>
-                <tr v-for="i in 5" :key="i">
-                    <td>Vehicle {{ i }}</td>
-                    <td>Grade {{ i }}</td>
-                    <td>£{{ (10000 + i * 100).toLocaleString() }}</td>
-                    <td>£{{ (9500 + i * 100).toLocaleString() }}</td>
-                    <td>£{{ (9000 + i * 100).toLocaleString() }}</td>
-                    <td>£{{ (11000 + i * 100).toLocaleString() }}</td>
-                    <td>{{ `2024-11-${10 + i}` }}</td>
-                    <td>
-                        <v-chip :color="i % 2 === 0 ? 'success' : 'warning'" size="small" variant="flat">
-                            {{ i % 2 === 0 ? 'Active' : 'Pending' }}
-                        </v-chip>
-                    </td>
+              <tr v-if="vehicleStore.data" v-for="item in vehicleStore.data" :key="item.id">
+                    <td>{{ item.make_name }} {{ item.model_name }} {{ item.variant_name }} </td>
+                    <td>{{ item.grade}}</td>
+                    <td>{{ item.cap_clean }}</td>
+                    <td>{{ item.cap_average }}</td>
+                    <td>{{ item.cap_below }}</td>
+                    <td>{{ item.autotrader_retail_value }}</td>
+                    <td>{{ item.auction_date }} {{ item.auction_time }}</td>
+                    <td>0</td>
                 </tr>
             </tbody>
         </v-table>
@@ -35,4 +30,27 @@
 
 </template>
 
-<script></script>
+<script>
+
+import { useVehicleStore } from "@/stores/vehicleStore";
+
+
+export default {
+    components: {
+    },
+    data() {
+        return {
+            vehicleStore:useVehicleStore(),
+         
+        }
+    },
+    methods: {
+       
+    },
+    computed: {
+      
+    },
+};
+
+</script>
+

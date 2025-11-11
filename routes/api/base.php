@@ -25,7 +25,6 @@ Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/getModels',[MasterController::class,'getModels']);
     Route::get('/getVariants',[MasterController::class,'getVariants']);
     
-
     Route::get('/getColors',[MasterController::class,'getColors']);
     Route::get('/getV5',[MasterController::class,'getV5']);
     Route::get('/getGrade',[MasterController::class,'getGrade']);
@@ -46,7 +45,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
 
-    
+
     Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
     Route::get('/userWatchList',[AuctionFinderController::class,'userWatchList']);
     Route::get('/userAlertList',[AuctionFinderController::class,'userAlertList']);

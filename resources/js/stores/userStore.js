@@ -122,7 +122,22 @@ export const useUserStore = defineStore("user", {
             } catch (error) {
                 throw await errorHandler(error);
             }
-        }
+        },
+        async registerUser(data){
+            try {
+
+                // const form = new FormData();
+                // form.append("email", data.email);
+                // form.append("password", data.password);
+                const res = await api.post("/api/auth/register",data);
+                
+                console.log(res);
+                
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
 
     },
 

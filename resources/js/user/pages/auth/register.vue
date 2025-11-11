@@ -23,58 +23,148 @@
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Company / Business Name" color="primary" clearable />
+                                                <v-text-field
+                                                   persistent-placeholder 
+                                                   v-model="form.companyName" 
+                                                   variant="outlined" 
+                                                   density="comfortable" 
+                                                   label="Company / Business Name"
+                                                   placeholder="Company / Business Name" 
+                                                   color="primary" 
+                                                   clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Company Address" color="primary" clearable />
+                                                <v-text-field
+                                                    persistent-placeholder
+                                                    v-model="form.companyAddress1" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Company Address"
+                                                    placeholder="Company Address" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Company Address 2" color="primary" clearable />
+                                                <v-text-field
+                                                    persistent-placeholder
+                                                    v-model="form.companyAddress2" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Company Address 2" 
+                                                    placeholder="Company Address 2"
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <Comobox density="comfortable" variant="outlined" label="Motor Dealer?"
+                                                <v-select
+                                                    persistent-placeholder
+                                                    v-model="form.businessType" 
+                                                    density="comfortable" 
+                                                    variant="outlined" 
+                                                    label="Business Type"
+                                                    placeholder="Business Type"
                                                     :items="['Motor Dealer', 'Motor Trader', 'Independent Dealer', 'Other']"
-                                                    color="primary" clearable />
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Company Reg. Number" color="primary" clearable />
+                                                <v-text-field
+                                                    persistent-placeholder 
+                                                    v-model="form.companyReg"
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Company Reg. Number"
+                                                    placeholder="Company Reg. Number" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Town / City" color="primary" clearable />
+                                                <v-text-field
+                                                    persistent-placeholder
+                                                    v-model="form.townCity" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Town / City"
+                                                    placeholder="Town / City" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Website (Optional)" color="primary" clearable />
+                                                <v-text-field 
+                                                    persistent-placeholder
+                                                    v-model="form.website" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Website (Optional)"
+                                                    placeholder="Website (Optional)" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable" label="Country"
-                                                    color="primary" clearable />
+                                                <v-text-field
+                                                    v-model="form.country" 
+                                                    variant="outlined" 
+                                                    density="comfortable" 
+                                                    label="Country"
+                                                    color="primary"
+                                                    placeholder="Country" 
+                                                    persistent-placeholder
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Business Email (optional)" color="primary" clearable />
+                                                <v-text-field 
+                                                    v-model="form.businessEmail"
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Business Email (optional)"
+                                                    placeholder="Business Email (optional)" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Postal Code / Zip Code" color="primary" clearable />
+                                                <v-text-field
+                                                    persistent-placeholder
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Postal Code / Zip Code"
+                                                    placeholder="Postal Code / Zip Code" 
+                                                    v-model="form.postcode"
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <Comobox density="comfortable" variant="outlined"
-                                                    label="Motor Trade Insurance" :items="['Yes', 'No', 'Pending']"
-                                                    color="primary" clearable />
+                                                <v-select
+                                                    persistent-placeholder 
+                                                    density="comfortable" 
+                                                    variant="outlined"
+                                                    v-model="form.motorTradeInsurance"
+                                                    label="Motor Trade Insurance"
+                                                    placeholder="Motor Trade Insurance" 
+                                                    :items="['Yes', 'No', 'Pending']"
+                                                    color="primary" 
+                                                    clearable="" />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable" label="Cell"
-                                                    color="primary" clearable />
+                                                <v-text-field
+                                                    label="Cell"
+                                                    placeholder="Cell"
+                                                    persistent-placeholder 
+                                                    variant="outlined" 
+                                                    v-model="form.telephone"
+                                                    density="comfortable" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="VAT Number (optional)" color="primary" clearable />
+                                                <v-text-field 
+                                                    variant="outlined"
+                                                    placeholder="VAT Number (optional)"
+                                                    persistent-placeholder 
+                                                    v-model="form.vatNumber"
+                                                    density="comfortable"
+                                                    label="VAT Number (optional)" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -91,35 +181,62 @@
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="First Name" color="primary" clearable />
+                                                <v-text-field
+                                                    v-model="form.firstName" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="First Name" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable" label="Surname"
-                                                    color="primary" clearable />
+                                                <v-text-field
+                                                    v-model="form.surname" 
+                                                    variant="outlined" 
+                                                    density="comfortable" 
+                                                    label="Surname"
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <Comobox density="comfortable" variant="outlined"
+                                                <v-select
+                                                    v-model="form.source"
+                                                    density="comfortable" 
+                                                    variant="outlined"
                                                     label="Referral Source?"
-                                                    :items="['Google Search', 'Social Media', 'Online Advertisement', 'Friend / Colleague', 'Dealership Partner', 'Trade Event or Expo', 'Vehicle Trader Forum', 'Other']"
-                                                    color="primary" clearable />
+                                                    :items="source"
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Phone Number" color="primary" clearable />
+                                                <v-text-field 
+                                                    variant="outlined"
+                                                    v-model="form.phone"
+                                                    density="comfortable"
+                                                    label="Phone Number" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field variant="outlined" density="comfortable" label="Position"
-                                                    color="primary" clearable />
+                                                <v-text-field 
+                                                    variant="outlined" 
+                                                    density="comfortable" 
+                                                    label="Position"
+                                                    color="primary" 
+                                                    v-model="form.jobTitle"
+                                                    clearable />
                                             </v-col>
                                         </v-row>
                                         <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-card-subtitle class="ml-n3 mb-2 text-medium-emphasis">Profile
-                                                    Image</v-card-subtitle>
-                                                <v-file-input clearable label="File input" density="comfortable"
-                                                    variant="outlined" accept="image/*" color="primary"
-                                                    prepend-icon="mdi-image"></v-file-input>
+                                                <v-card-subtitle class="ml-n3 mb-2 text-medium-emphasis">Profile Image</v-card-subtitle>
+                                                <v-file-input clearable 
+                                                    label="File input" 
+                                                    density="comfortable"
+                                                    variant="outlined" 
+                                                    accept="image/*" 
+                                                    color="primary"
+                                                    prepend-icon="mdi-image" />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -161,12 +278,22 @@
                                     <v-container fluid class="py-6">
                                         <v-row class="gap-4" justify="start">
                                             <v-col cols="12" sm="6">
-                                                <v-text-field variant="outlined" density="comfortable"
-                                                    label="Personal / Login Email" color="primary" clearable />
+                                                <v-text-field
+                                                    v-model="form.personalEmail" 
+                                                    variant="outlined" 
+                                                    density="comfortable"
+                                                    label="Personal / Login Email" 
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                             <v-col cols="12" sm="6">
-                                                <v-text-field variant="outlined" density="comfortable" label="Password"
-                                                    color="primary" clearable />
+                                                <v-text-field 
+                                                    v-model="form.password"
+                                                    variant="outlined" 
+                                                    density="comfortable" 
+                                                    label="Password"
+                                                    color="primary" 
+                                                    clearable />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -217,13 +344,59 @@
     </v-app>
 </template>
 <script>
+import { useThemeStore } from '@/stores/themeStore';
 import AuthHeader from './AuthHeader.vue';
-import Comobox from './../../component/ComoboxInput.vue'
+import { useUserStore } from '@/stores/userStore';
+import { useAlertStore } from '@/stores/alertStore';
+
 export default {
     name: "StepperForm",
-    components: { AuthHeader, Comobox },
+    components: { AuthHeader },
     data() {
         return {
+            themeStore: useThemeStore(),
+            userStore: useUserStore(),
+            alertStore: useAlertStore(),
+            form: {
+                companyName: 'Business 1',
+                companyAddress1: 'Address 1',
+                companyAddress2: 'Address 2',
+                businessType:'Other',
+                companyReg:'1234',
+                townCity:'Karachi',
+                website:'https://localhost/autoboli/register',
+                country:'Pakistan',
+                businessEmail:'business1@gmail.com',
+                postcode: '1234',
+                motorTradeInsurance:'yes',
+                telephone: '03112239342',
+                vatNumber: '12345',
+
+                firstName: 'Owais',
+                surname: 'Azam',
+                source: 'Other',
+                phone: '03112239342',
+                jobTitle: 'Test Title',
+                avatar:'',
+            
+                motorTradeProof: '',
+                addressProof: '',
+
+                personalEmail:'iamowaisazam@gmail.com',
+                password:'owais123',
+                
+            },
+            errors:{},
+            source: [
+                'Google Search',
+                'Social Media',
+                'Online Advertisement',
+                'Friend / Colleague',
+                'Dealership Partner',
+                'Trade Event or Expo',
+                'Vehicle Trader Forum',
+                'Other'
+            ],
             step: 1,
             proofMotorTrade: [],
             proofAddress: [],
@@ -233,12 +406,41 @@ export default {
     methods: {
         handleNext(next) {
             if (this.step === 4) {
-                console.log("Form submitted!");
-                this.showMessage = true;
+
+            
+                this.onSubmit();
+
             } else {
                 next();
             }
         },
+        checkValidation() {
+            
+        },
+        async onSubmit() {
+
+            this.themeStore.startLoading()
+            this.errors = {};
+
+            try {
+                    
+                let response = await this.userStore.registerUser(this.form);
+                this.userStore.setToken(response.token);
+                this.userStore.initializeUserSession({ account: response.data});
+                this.themeStore.endLoading();
+                this.alertStore.add('Account Created Successfully','success');
+                    
+            } catch (error) {
+
+                this.themeStore.endLoading();
+                this.errors = error.validation || {};
+                this.alertStore.add(error.message, 'error');
+
+            }
+
+
+        }
+
     },
 };
 </script>

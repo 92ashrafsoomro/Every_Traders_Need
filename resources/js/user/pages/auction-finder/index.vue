@@ -74,7 +74,7 @@ import AuctionFinder from "./auctionFinder.vue";
 import VehicleValuation from "./vehicleValuation.vue";
 import auctionSidebar from "./auctionSidebar.vue";
 import { useVehicleStore } from "@/stores/vehicleStore";
-
+import { useThemeStore } from "@/stores/themeStore";
 
 export default {
     components: {
@@ -85,10 +85,12 @@ export default {
     data() {
         return {
             vehicleStore:useVehicleStore(),
+            themeStore: useThemeStore(),
         };
     },
     mounted() {
         this.vehicleStore.getAuctionList();  
+        this.themeStore.menuType = "collapsed";
     },
     methods: {
        

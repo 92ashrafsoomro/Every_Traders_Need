@@ -13,7 +13,7 @@
                     <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
                 </div>
             </div>
-            <DataTable />
+            <DataTable class="rounded-lg mt-5" />
         </div>
     </div>
 </template>

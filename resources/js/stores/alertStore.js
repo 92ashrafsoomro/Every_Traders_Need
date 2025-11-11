@@ -11,10 +11,10 @@ export const useAlertStore = defineStore('alert', {
     // Add new alert
     add(message, type = 'info', timeout = 3000) {
       const colors = {
-        success: 'green',
-        error: 'red',
-        warning: 'orange',
-        info: 'blue',
+        success: '#28A745',
+        error: '#DC3545',
+        warning: '#FFC107',
+        info: '#007BFF'
       }
 
       const color = colors[type] || 'gray'

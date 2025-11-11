@@ -37,7 +37,7 @@
             </div>
         </TitleBar>
         <div class="mainContent ps-2 ps-sm-6 mr-auto ml-auto">
-            <DataTable />
+            <DataTable class="rounded-lg mt-5" />
         </div>
     </main>
 </template>

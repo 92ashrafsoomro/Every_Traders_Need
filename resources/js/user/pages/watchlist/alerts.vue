@@ -13,7 +13,7 @@
                     <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
                 </div>
             </div>
-            <DataTable />
+            <DataTable class="rounded-lg mt-5" />
         </div>
     </div>
 </template>
@@ -31,14 +31,6 @@ export default {
 </script>
 
 <style>
-.dataTable {
-    background-color: #000f21;
-    color: white;
-    border: 1px solid #e5e7eb30;
-    border-radius: 4px;
-    margin-top: 20px;
-}
-
 .mainContent {
     max-width: 1536px;
     padding: 0 24px;

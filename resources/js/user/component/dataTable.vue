@@ -1,15 +1,7 @@
 <template>
-    <v-data-table-server
-        class="dataTable"
-        v-model:items-per-page="itemsPerPage"
-        :headers="headers"
-        :items="serverItems"
-        :items-length="totalItems"
-        :loading="loading"
-        :search="search"
-        item-value="name"
-        @update:options="loadItems"
-    ></v-data-table-server>
+    <v-data-table-server class="dataTable" v-model:items-per-page="itemsPerPage" :headers="headers" :items="serverItems"
+        :items-length="totalItems" :loading="loading" :search="search" item-value="name"
+        @update:options="loadItems"></v-data-table-server>
 </template>
 <script setup>
 import { ref } from "vue";

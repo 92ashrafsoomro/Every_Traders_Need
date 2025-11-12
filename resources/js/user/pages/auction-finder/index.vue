@@ -179,6 +179,7 @@
 import TitleBar from "./../../component/TitleBar.vue";
 import AuctionFinder from "./auctionFinder.vue";
 import VehicleValuation from "./vehicleValuation.vue";
+import { useThemeStore } from "@/stores/themeStore";
 
 export default {
     components: {
@@ -190,6 +191,7 @@ export default {
         return {
             activeTab: "auction",
             showFilterArea: true,
+            themeStore: useThemeStore(),
         };
     },
     methods: {
@@ -203,6 +205,9 @@ export default {
                 ? "AuctionFinder"
                 : "VehicleValuation";
         },
+    },
+    mounted() {
+        this.themeStore.menuType = "collapsed"
     },
 };
 </script>

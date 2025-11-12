@@ -10,6 +10,7 @@ import Profile from "./pages/profile.vue"
 import Settings from "./pages/settings.vue"
 import News from "./pages/news.vue"
 import Support from "./pages/support.vue"
+import VehicleDetail from "./pages/vehicle-detail/index.vue"
 // import HomeView from "./pages/index.vue"
 
 
@@ -31,6 +32,7 @@ export default [
             { path: "settings", component: Settings },
             { path: "news", component: News },
             { path: "support", component: Support },
+            { path: "vehicle-detail", component: VehicleDetail },
         ],
     },
 ]

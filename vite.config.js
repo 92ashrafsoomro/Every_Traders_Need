@@ -5,7 +5,7 @@ import path from 'path';
 import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
-
+    base: "https://localhost/autoboli/public/build",
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',

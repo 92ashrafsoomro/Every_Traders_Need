@@ -18,8 +18,10 @@
                             <v-card-text>
                                 <v-container>
                                     <div class="google-icon text-center mb-5">
-                                        <v-btn size="large" class="text-capitalize" rounded="lg" block
-                                            prepend-icon="mdi-google" variant="outlined">
+                                        <v-btn size="large" class="text-capitalize d-flex justify-space-around"
+                                            rounded="lg" block variant="outlined">
+                                            <img src="https://imgs.search.brave.com/bdmCEEDU5vFEHnyuP6ebEB5TZx6UAjhIkxkswf1Jerg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yODc1LzI4NzU0/MDQucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs"
+                                                width="20" height="20" class="me-2" alt="">
                                             Continue with Google
                                         </v-btn>
                                     </div>

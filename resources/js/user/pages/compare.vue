@@ -2,16 +2,12 @@
     <main>
         <TitleBar title="Find the Best Auction Deal"
             subtitle="Review and compare live auctions side by side to find the smartest deal.">
-            <v-btn color="transparent" id="filterToggle" variant="flat"
+            <v-btn append-icon="mdi-arrow-down" color="transparent" id="filterToggle" variant="flat"
                 class="d-flex align-center cursor-pointer border-0 text-capitalize font-weight-light"
                 @click="toggleFilters">
                 <span class="mr-2">Filters</span>
-                <svg id="filterIcon" class="icon" :class="{ rotated: showFilters }" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </v-btn>
 
+            </v-btn>
             <!-- Filter Section -->
             <div class="flex justify-start align-start" v-show="showFilters">
                 <v-container fluid class="pa-6 bg-background rounded border border-[#44485e] w-[90%] mt-2"
@@ -64,7 +60,7 @@
 
                         <!-- Search Button -->
                         <v-col cols="12" sm="6" md="3" class="d-flex align-center mb-6">
-                            <v-btn prepend-icon="mdi-magnify" variant="tonal" color="primary">
+                            <v-btn prepend-icon="mdi-magnify" variant="flat" color="primary" @click="toggleSearch">
                                 Search
                             </v-btn>
                         </v-col>
@@ -72,48 +68,87 @@
                 </v-container>
             </div>
         </TitleBar>
+
+        <div v-show="showSearch" class="pa-5 ps-2 ps-sm-6 mr-auto ml-auto" style="max-width: 1500px;">
+            <TestVIEW />
+        </div>
     </main>
 </template>
 
 <script>
 import TitleBar from "./../component/TitleBar.vue";
-import Select from "./../component/Select.vue";
-import MultipleSelect from "../component/MultipleSelect.vue";
 import NewSelect from "../component/newSelect.vue";
 import ComoboxInput from "../component/ComoboxInput.vue";
+import TestVIEW from "./../component/test.vue"
 
 export default {
     props: {},
     components: {
         TitleBar,
-        Select,
-        MultipleSelect,
         NewSelect,
         ComoboxInput,
+        TestVIEW,
     },
 
     name: "FilterToggle",
     data() {
         return {
-            showFilters: false,
+            headers: Array.from({ length: 8 }, (_, i) => ({
+                title: `Vehicle ${i + 1}`,
+                key: `vehicle_${i}`,
+            })),
+            items: [
+                { field: "Auction House" },
+                { field: "Auction Date" },
+                { field: "Lot Number" },
+                { field: "Sale Status" },
+                { field: "Final Price" },
+                { field: "Make" },
+                { field: "Model" },
+                { field: "Variant" },
+            ],
+            loading: false,
+
+
+
+
+            showFilters: true,
+            showSearch: false,
         };
+
     },
     methods: {
+        randomData() {
+            const data = ["BMW", "Audi", "Sold", "Not Sold", "£4500"];
+            return data[Math.floor(Math.random() * data.length)];
+        },
+        getScrollEl() {
+            // find the real Vuetify scrollable wrapper
+            const wrapper = this.$refs.scrollContainer?.querySelector('.v-table__wrapper');
+            return wrapper || this.$refs.scrollContainer;
+        },
+        scrollBy(px) {
+            const el = this.getScrollEl();
+            if (!el) return console.warn('scroll container not found');
+            el.scrollBy({ left: px, behavior: 'smooth' });
+        },
+        scrollLeft() {
+            this.scrollBy(-100);
+        },
+        scrollRight() {
+            this.scrollBy(100);
+        },
+
+
+
+
         toggleFilters() {
             this.showFilters = !this.showFilters;
+        },
+        toggleSearch() {
+            this.showSearch = !this.showSearch;
         },
     },
 };
 </script>
 
-<style>
-.icon {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
-
-.icon.rotated {
-    transform: rotate(180deg);
-}
-</style>

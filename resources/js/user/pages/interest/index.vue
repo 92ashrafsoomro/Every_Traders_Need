@@ -41,18 +41,8 @@ export default {
         DataTable,
     },
     data() {
-
-
-        return [
-            headers:[
-                { title: 'Car Model', key: 'name', align: 'start' },
-                { title: 'Horsepower', key: 'horsepower', align: 'end' },
-                { title: 'Fuel Type', key: 'fuel', align: 'start' },
-                { title: 'Origin', key: 'origin', align: 'start' },
-                { title: 'Price ($)', key: 'price', align: 'end' },
-            ]
-        ]
-    }
+        return []
+    },
 };
 </script>
 

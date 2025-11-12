@@ -31,11 +31,11 @@ export const getMenu = () => {
             label: "Auction Finder",
             path: "/user/auction-finder",
         },
-        {
-            icon: "mdi-thumb-up",
-            label: "My Interest",
-            path: "/user/interest",
-        },
+        // {
+        //     icon: "mdi-thumb-up",
+        //     label: "My Interest",
+        //     path: "/user/interest",
+        // },
         {
             icon: "mdi-history",
             label: "Watchlist",
@@ -46,11 +46,11 @@ export const getMenu = () => {
             label: "Reauction",
             path: "/user/reauction",
         },
-        {
-            icon: "mdi-compare-horizontal",
-            label: "Compare",
-            path: "/user/compare",
-        },
+        // {
+        //     icon: "mdi-compare-horizontal",
+        //     label: "Compare",
+        //     path: "/user/compare",
+        // },
         {
             icon: "mdi-calendar-check-outline",
             label: "Auction Scheduler",
@@ -60,16 +60,16 @@ export const getMenu = () => {
             label: "Profile",
             type: "group",
         },
-        {
-            icon: "mdi-face-agent",
-            label: "Support",
-            path: "/user/support",
-        },
-        {
-            icon: "mdi-newspaper",
-            label: "News",
-            path: "/user/news",
-        },
+        // {
+        //     icon: "mdi-face-agent",
+        //     label: "Support",
+        //     path: "/user/support",
+        // },
+        // {
+        //     icon: "mdi-newspaper",
+        //     label: "News",
+        //     path: "/user/news",
+        // },
         {
             icon: "mdi-account-tie",
             label: "Profile",

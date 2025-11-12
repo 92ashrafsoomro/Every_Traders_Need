@@ -20,7 +20,32 @@ export const useVehicleStore = defineStore("vehicle", {
     },
 
     actions: {
-        
+        async getreAuctionList(options) {
+            try {
+                let res = await api.get('/api/user/reAuctionList', {
+                    params: {
+                        length: options.length,
+                        search: options.search
+                    },
+                })
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
+        async getWatchList(options) {
+            try {
+                let res = await api.get('/api/user/userWatchList', {
+                    params: {
+                        length: options.length,
+                        search: options.search
+                    },
+                })
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        }
 
     },
 

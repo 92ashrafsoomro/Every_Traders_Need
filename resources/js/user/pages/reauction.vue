@@ -45,7 +45,7 @@
                 <v-col class="rightElements d-flex flex-wrap align-center ga-3" cols="12" sm="auto">
                     <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
                         variant="outlined" color="primary" clearable />
-                    <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
+                    <!-- <NewSelect label="Select Interest" density="compact" width="200" color="primary" /> -->
                 </v-col>
             </v-row>
 

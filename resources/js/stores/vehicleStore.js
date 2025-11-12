@@ -45,6 +45,19 @@ export const useVehicleStore = defineStore("vehicle", {
             } catch (error) {
                 throw await errorHandler(error);
             }
+        },
+        async getAlertList(options) {
+            try {
+                let res = await api.get('/api/user/userAlertList', {
+                    params: {
+                        length: options.length,
+                        search: options.search
+                    },
+                })
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
         }
 
     },

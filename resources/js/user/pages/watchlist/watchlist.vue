@@ -10,7 +10,7 @@
                 <div class="rightElements d-flex flex-wrap align-center ga-3">
                     <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
                         variant="outlined" color="primary" clearable></v-text-field>
-                    <NewSelect label="Select Interest" density="compact" width="200" color="primary" />
+                    <!-- <NewSelect label="Select Interest" density="compact" width="200" color="primary" /> -->
                 </div>
             </div>
             <!-- <DataTable class="rounded-lg mt-5" /> -->
@@ -19,7 +19,7 @@
                     :items-length="totalItems" :loading="loading" item-value="id" @update:options="loadItems">
                     <!-- Image column -->
                     <template #item.image="{ item }">
-                        <v-img :src="getFirstImage(item.image)" max-width="100" height="60" class="rounded" cover />
+                        <v-img :src="item.image.split(',')[0]" width="100" height="60" cover class="rounded" />
                     </template>
 
                     <!-- Action column -->
@@ -56,15 +56,16 @@ export default {
             headers: [
                 { title: "Image", value: "image", sortable: false },
                 { title: "Vehicle", value: "vehicle" },
-                { title: "Year", value: "year" },
-                { title: "CC", value: "cc" },
                 { title: "Reg", value: "reg" },
-                { title: "Mileage", value: "mileage" },
-                { title: "Transmission", value: "transmission" },
-                { title: "Last Bid (£)", value: "last_bid" },
-                { title: "Cap Clean (£)", value: "cap_clean" },
-                { title: "Cap Avg (£)", value: "cap_average" },
-                { title: "Cap Below (£)", value: "cap_below" },
+                { title: "Clean", value: "cap_clean" },
+                { title: "Average", value: "cap_average" },
+                { title: "Below", value: "cap_below" },
+                { title: "Autotrader", value: "autotrader_retail_value" },
+                { title: "Last Bid", value: "last_bid" },
+                // { title: "Year", value: "year" },
+                // { title: "CC", value: "cc" },
+                // { title: "Mileage", value: "mileage" },
+                // { title: "Transmission", value: "transmission" },
                 { title: "Action", value: "action", sortable: false },
             ],
         }
@@ -78,7 +79,7 @@ export default {
             try {
                 const page = options.page || 1;
                 const itemsPerPage = options.itemsPerPage || 10;
-                const res = await this.vehicleStore.getUserWatchList({
+                const res = await this.vehicleStore.getWatchList({
                     length: itemsPerPage,
                     search: "",
                     page: page,
@@ -88,7 +89,6 @@ export default {
                 this.totalItems = res.recordsTotal || this.items.length;
             } catch (error) {
                 console.error("Error fetching userWatchList:", error);
-                this.vehicleStore.add(error, "error");
             } finally {
                 this.loading = false;
             }

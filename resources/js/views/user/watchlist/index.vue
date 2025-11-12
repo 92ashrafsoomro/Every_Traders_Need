@@ -1,6 +1,6 @@
 <template>
     <main>
-        <TitleBar title="Watched & Alerted"
+        <user-title-bar title="Watched & Alerted"
             subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity">
             <div class="d-flex align-center ga-3">
                 <v-btn variant="tonal" class="text-none px-5 py-2"
@@ -13,7 +13,7 @@
                     Your Alerts
                 </v-btn>
             </div>
-        </TitleBar>
+        </user-title-bar>
 
         <div class="pa-4 pt-6">
             <component :is="currentComponent" />
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import TitleBar from "./../../component/TitleBar.vue";
+
 import Alerts from "./alerts.vue";
 import Watchlist from "./watchlist.vue";
 
 export default {
     components: {
-        TitleBar,
+     
         Alerts,
         Watchlist,
     },

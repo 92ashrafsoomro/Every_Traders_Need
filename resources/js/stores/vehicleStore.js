@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import api from "../core/plugins/axios";
+import api from "../plugins/axios";
 
-import { errorHandler } from "@services/responseHandleService";
+import { errorHandler } from "@/services/responseHandleService";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({

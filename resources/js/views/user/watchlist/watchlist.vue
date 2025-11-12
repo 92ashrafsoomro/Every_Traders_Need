@@ -10,7 +10,7 @@
                 <div class="rightElements d-flex flex-wrap align-center ga-3">
                     <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
                         variant="outlined" color="primary" clearable></v-text-field>
-                    <!-- <NewSelect label="Select Interest" density="compact" width="200" color="primary" /> -->
+               
                 </div>
             </div>
             <!-- <DataTable class="rounded-lg mt-5" /> -->
@@ -35,8 +35,7 @@
 </template>
 
 <script>
-import NewSelect from "./../../component/newSelect.vue";
-import DataTable from "../../component/dataTable.vue";
+
 import { useVehicleStore } from "@/stores/vehicleStore";
 
 
@@ -44,8 +43,7 @@ import { useVehicleStore } from "@/stores/vehicleStore";
 export default {
     name: "Watchlist",
     components: {
-        NewSelect,
-        DataTable,
+     
     },
     data() {
         return {

@@ -3,33 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserProfileResource;
 use Illuminate\Http\Request;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
 
      public function profile(Request $request)
     {
-            $user = $request->user();
-            return response()->json([
-                'message' => 'Get Profile Details',
-                'account' => [
-                    'name' => $user->title,
-                    'email' => $user->personalEmail,
-                    'phone' => $user->phone,
-                    'user_type' =>  $user->user_type == 0 ? 'Admin' : 'User',
-                    'avatar' => ENV('APP_URL').'public/uploads/avatar/'.$user->avatar,
-                    'status' => $user->status,
-                    'email_verification_token_status' => $user->email_verification_token_status,
-                ],
-                'business' => [],
-                'permissions' => [],
-                'membership' => '',
-                'notification' => 0,
-            ]);
+
+        $user = $request->user();
+        return response()->json([
+            'message' => 'Get Profile Details',
+            'data' => [
+                'user' => new UserProfileResource($user),
+            ],
+        ]);
 
     }
 
@@ -70,8 +64,10 @@ class AuthController extends Controller
                 $token = $user->createToken('autoboli_token')->plainTextToken;
                 return response()->json([
                     'message' => 'Login Success',
-                    'user' => $user,
-                    'token' => $token,
+                    'data' =>[
+                        'user' => new UserProfileResource($user),
+                        'token' => $token
+                    ],
                 ]);
         }
 
@@ -85,12 +81,7 @@ class AuthController extends Controller
 
      public function register(Request $request)
     {   
-
-       
-        
-        $validator = Validator::make(
-            $request->all(),
-            [
+        $validator = Validator::make($request->all(),[
                 'companyName' => 'required|string|max:255',
                 'companyAddress1' => 'required|string|max:255',
                 'companyAddress2' => 'required|string|max:255',
@@ -110,7 +101,7 @@ class AuthController extends Controller
                 'jobTitle' => 'required|string|max:255',
                 'source' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
-                'avatar' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
+                'avatar' => 'required|file|mimes:jpg,png,pdf|max:4096',
 
                 'motorTradeProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
                 'addressProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
@@ -152,6 +143,8 @@ class AuthController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+
+        // dd($request->all());
 
 
         //Profile Company
@@ -227,17 +220,10 @@ class AuthController extends Controller
         $token = $user->createToken('autoboli_token')->plainTextToken;   
         return response()->json([
             'message' => "User Created Successfuly",
-            'data' => [
-                'name' => $user->title,
-                'email' => $user->personalEmail,
-                'phone' => $user->phone,
-                'user_type' =>  $user->user_type == 0 ? 'Admin' : 'User',
-                'avatar' => ENV('APP_URL').'public/uploads/avatar/'.$user->avatar,
-                'status' => $user->status,
-                'email_verification_token_status' => $user->email_verification_token_status,
-                     
-            ],
-            'token' => $token,
+            'data' =>[
+                'user' => new UserProfileResource($user),
+                'token' => $token
+            ],  
         ],200);
 
 

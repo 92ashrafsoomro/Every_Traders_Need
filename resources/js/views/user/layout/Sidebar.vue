@@ -31,9 +31,9 @@
 
 <script>
 import { useDisplay } from "vuetify";
-import { useThemeStore } from "../../../stores/themeStore";
-import { getMenu } from "../../../core/services/menuService";
-import logo from "@/images/logo/logo.png"
+import { useThemeStore } from "@stores/themeStore";
+import { getMenu } from "@services/menuService";
+import logo from "@assets/images/logo/logo.png"
 
 export default {
     data() {

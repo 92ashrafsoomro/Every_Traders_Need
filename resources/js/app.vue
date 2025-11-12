@@ -1,11 +1,11 @@
 <template>
-    <div>
-         <router-view></router-view>
-         <v-overlay :model-value="this.themeStore.loading" :persistent="true" class="align-center justify-center">
-          <v-progress-circular color="primary" size="64" indeterminate></v-progress-circular>
-        </v-overlay>
-        <Alert />
-    </div>
+      <div>
+          <router-view></router-view>
+          <v-overlay :model-value="this.themeStore.loading" :persistent="true" class="align-center justify-center">
+            <v-progress-circular color="primary" size="64" indeterminate></v-progress-circular>
+          </v-overlay>
+          <Alert />
+      </div>
 </template>
 
 <script>
@@ -16,7 +16,6 @@ import Alert from '@components/alert.vue'
 import Overlay from '@components/overlay.vue'
 import { toRaw } from 'vue'
 import { useTheme } from 'vuetify';
-
 
 
 

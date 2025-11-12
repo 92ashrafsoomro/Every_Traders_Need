@@ -1,6 +1,6 @@
 <template>
     <main>
-        <TitleBar title="Find the Best Auction Deal"
+        <user-title-bar title="Find the Best Auction Deal"
             subtitle="Review and compare live auctions side by side to find the smartest deal.">
             <v-btn append-icon="mdi-arrow-down" color="transparent" id="filterToggle" variant="flat"
                 class="d-flex align-center cursor-pointer border-0 text-capitalize font-weight-light"
@@ -15,47 +15,47 @@
                     <v-row dense>
                         <!-- Make -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Make" />
+                            <v-select color="primary" density="compact" label="Make" />
                         </v-col>
 
                         <!-- Model -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Model" />
+                            <v-select color="primary" density="compact" label="Model" />
                         </v-col>
 
                         <!-- Variant -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Variant" />
+                            <v-select color="primary" density="compact" label="Variant" />
                         </v-col>
 
                         <!-- Year -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Year" />
+                            <v-select color="primary" density="compact" label="Year" />
                         </v-col>
 
                         <!-- Transmission -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Transmission" />
+                            <v-select color="primary" density="compact" label="Transmission" />
                         </v-col>
 
                         <!-- Fuel -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Fuel" />
+                            <v-select color="primary" density="compact" label="Fuel" />
                         </v-col>
 
                         <!-- Grade -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Grade" />
+                            <v-select color="primary" density="compact" label="Grade" />
                         </v-col>
 
                         <!-- Mileage -->
                         <v-col cols="12" sm="6" md="3">
-                            <ComoboxInput color="primary" density="compact" label="Mileage" />
+                            <v-select color="primary" density="compact" label="Mileage" />
                         </v-col>
 
                         <!-- Auction House -->
                         <v-col cols="12" sm="6" md="3">
-                            <NewSelect density="compact" color="primary" label="Auction House" />
+                            <v-select density="compact" color="primary" label="Auction House" />
                         </v-col>
 
                         <!-- Search Button -->
@@ -67,27 +67,21 @@
                     </v-row>
                 </v-container>
             </div>
-        </TitleBar>
+        </user-title-bar>
 
         <div v-show="showSearch" class="pa-5 ps-2 ps-sm-6 mr-auto ml-auto" style="max-width: 1500px;">
-            <TestVIEW />
+     
         </div>
     </main>
 </template>
 
 <script>
-import TitleBar from "./../component/TitleBar.vue";
-import NewSelect from "../component/newSelect.vue";
-import ComoboxInput from "../component/ComoboxInput.vue";
-import TestVIEW from "./../component/test.vue"
+
 
 export default {
     props: {},
     components: {
-        TitleBar,
-        NewSelect,
-        ComoboxInput,
-        TestVIEW,
+       
     },
 
     name: "FilterToggle",

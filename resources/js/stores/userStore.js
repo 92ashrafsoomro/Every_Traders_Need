@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import api from "../core/plugins/axios";
-import {useThemeStore} from './themeStore';
-import { errorHandler } from "@services/responseHandleService";
+import api from "../plugins/axios";
+import { errorHandler } from "@/services/responseHandleService";
+import { toRaw } from "vue";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -33,56 +33,43 @@ export const useUserStore = defineStore("user", {
     },
 
     actions: {
-        async syncUser() {
-
-            const themeStore = useThemeStore();
-            themeStore.startLoading();
-            let token = await localStorage.getItem('auth_token');
-                
-            //If no token, clear auth and return
-            if (token) {
-                
-                    this.getProfile(token).then((res) => {
-                        this.is_logged_in = true;
-                        this.user = res.data.account;
-                        themeStore.endLoading();
-                        
-                        console.log('User Logged In');
-                        
-                    }).catch((error) => {
-
-                        // console.log(error);
-                        console.log('User Logged Out');
-                        this.user = {};
-                        this.is_logged_in = false;
-                        token = null;
-                        localStorage.removeItem('auth_token');
-                        api.defaults.headers.common["Authorization"] = '';
-                        themeStore.endLoading();
-
-                    });
-                
-            } else { 
-                this.user = {};
-                this.is_logged_in = false;
-                themeStore.endLoading();
-            }
-                
-        },
-        async loginUser(data){
+        // ==============================
+        // LOGIN
+        // ==============================
+        async loginRequest(data){
             try {
                 const form = new FormData();
                 form.append("email", data.email);
                 form.append("password", data.password);
                 const res = await api.post("/api/auth/login", form);
-                if (!res.data.token) {
+                if (!res.data.data.token) {
                     throw new Error("Token Not Found");
                 }
-                return res.data;
+                return res.data.data;
             } catch (error) {
                 throw await errorHandler(error);
             }
         },
+        // ==============================
+        // REGISTER
+        // ==============================
+        async registerRequest(data){
+            try {
+                const form = new FormData();
+                for (const key in data) {
+                    if (!Object.hasOwn(data, key)) continue;
+                    form.append(key,data[key]);
+                }
+                const res = await api.post("/api/auth/register",form);
+                return res.data.data;
+
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
+        // ==============================
+        // GET PROFILE
+        // ==============================
         async getProfile(token = null)
         {   
             if (!token) {
@@ -96,25 +83,35 @@ export const useUserStore = defineStore("user", {
             try {
                 api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 let res = await api.get('/api/auth/profile');
-                return res.data;
+                return res.data.data;
             } catch (error) {
                 throw await errorHandler(error);
             }
         },
-        initializeUserSession(data) {  
-            this.user = data.account;
-            this.is_logged_in = true;
-        },
-        async setToken(token){
-            try {
+         // ==============================
+        // INITIALIZE SESSION
+        // ==============================
+       async initializeUserSession(token, data) {  
+           
+           try {
+                
+                if(!token) {
+                    throw new Error("Token Not Found");
+                }
+               
                 api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 localStorage.setItem("auth_token", token);
-                return token;
+                this.user = data;
+                this.is_logged_in = true;
+                
             } catch (error) {
                 throw await errorHandler(error);
-            }
+           } 
         },
-        async removeToken(token){
+        // ==============================
+        // LOGOUT
+        // ==============================
+        async logOut(token){
             try {
                 api.defaults.headers.common["Authorization"] = '';
                 localStorage.removeItem("auth_token", token);
@@ -123,21 +120,7 @@ export const useUserStore = defineStore("user", {
                 throw await errorHandler(error);
             }
         },
-        async registerUser(data){
-            try {
-
-                // const form = new FormData();
-                // form.append("email", data.email);
-                // form.append("password", data.password);
-                const res = await api.post("/api/auth/register",data);
-                
-                console.log(res);
-                
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
+       
 
     },
 

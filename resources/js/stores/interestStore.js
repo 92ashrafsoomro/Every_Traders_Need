@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import api from "../core/plugins/axios";
+import api from "../plugins/axios";
 import {useThemeStore} from './themeStore';
-import { errorHandler } from "@services/responseHandleService";
+import { errorHandler } from "@/services/responseHandleService";
 
 
 export const useInterestStore = defineStore("interest", {

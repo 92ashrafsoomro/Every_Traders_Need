@@ -19,7 +19,7 @@
 
 import { useThemeStore } from "@stores/themeStore";
 import { useTheme } from "vuetify";
-import Logo from "@images/logo/logo.png";
+import Logo from "@assets/images/logo/logo.png";
 
 
 export default {

@@ -1,6 +1,6 @@
 <template>
     <main>
-        <TitleBar title="Auction Scheduler"
+        <user-title-bar title="Auction Scheduler"
             subtitle="Manage and view platform auctions across all centers in one place.">
             <div
                 class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
@@ -35,24 +35,22 @@
                     </div>
                 </div>
             </div>
-        </TitleBar>
+        </user-title-bar>
         <div class="mainContent ps-2 ps-sm-6 mr-auto ml-auto">
-            <DataTable class="rounded-lg mt-5" />
+            <!-- <DataTable class="rounded-lg mt-5" /> -->
         </div>
     </main>
 </template>
 
 <script>
-import TitleBar from "./../component/TitleBar.vue";
-import DataTable from "./../component/dataTable.vue";
-import ComoboxInput from "./../component/ComoboxInput.vue";
+
+// import DataTable from "../component/dataTable.vue";
+
 
 export default {
     props: {},
     components: {
-        TitleBar,
-        DataTable,
-        ComoboxInput,
+ 
     },
     data() {
         return {

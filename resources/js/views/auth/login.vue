@@ -36,7 +36,7 @@
                                                 <v-text-field clearable v-model="form.email" type="email"
                                                     prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
                                                     :error="errors.email ? true : false" :error-messages="errors?.email"
-                                                    density="outlined" color="primary" />
+                                                    density="comfortable" color="primary" />
                                             </v-col>
 
                                             <v-col cols="12">
@@ -44,7 +44,7 @@
                                                     :error="errors.password ? true : false"
                                                     :error-messages="errors?.password" type="password" clearable
                                                     prepend-inner-icon="mdi-lock" variant="outlined" label="Password"
-                                                    density="outlined" color="primary" />
+                                                    density="comfortable" color="primary" />
                                             </v-col>
 
                                             <v-col cols="12" class="mt-n5">
@@ -87,11 +87,11 @@
 </template>
 
 <script>
-import { useThemeStore } from "../../../stores/themeStore";
+import { useThemeStore } from "@stores/themeStore";
 import { useUserStore } from "@stores/userStore";
 import { useAlertStore } from "@stores/alertStore";
 import { useTheme } from "vuetify";
-import Logo from "../../../images/logo/logo.png";
+import Logo from "@assets/images/logo/logo.png";
 import AuthHeader from "./AuthHeader.vue";
 
 
@@ -127,11 +127,9 @@ export default {
             this.errors = {};
 
             try {
-                let loginResponse = await this.userStore.loginUser(this.form);
-                let token = loginResponse.token;
-                let profileRequest = await this.userStore.getProfile(token);
-                this.userStore.setToken(token);
 
+                let response = await this.userStore.loginRequest(this.form);
+                this.userStore.initializeUserSession(response.token,response.user);
                 themeStore.endLoading();
                 this.alertStore.add('Logged In Success', 'success');
                 this.$router.replace("/user/dashboard");

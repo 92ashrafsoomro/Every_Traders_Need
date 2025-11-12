@@ -1,9 +1,9 @@
 <template>
     <main>
-        <TitleBar
+        <user-title-bar
             title="Dashboard Overview"
             subtitle="Monitor your stats and activities here"
-        ></TitleBar>
+        ></user-title-bar>
     </main>
 </template>
 
@@ -12,13 +12,13 @@
 
 import { useThemeStore } from "../../stores/themeStore";
 import { useUserStore } from "../../stores/userStore";
-import TitleBar from "./../component/TitleBar.vue";
+
 
 
 export default {
     props: {},
     components: {
-      TitleBar,
+   
     },
     data() {
         return {
@@ -31,16 +31,10 @@ export default {
     },
     mounted() {     
         
-        // this.userStore.$subscribe((mutation, state) => {
-        //     console.log('New state:', state.user)
-        // });
-        // this.userStore.syncUser();
+        this.userStore.$subscribe((mutation, state) => {
+            console.log('New state:', state.user)
+        });
 
-       
-
-      
-        
-     
     },
 };
 

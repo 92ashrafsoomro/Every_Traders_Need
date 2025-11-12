@@ -7,7 +7,7 @@
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
 
             <v-toolbar-title class="d-none d-sm-inline">
-                <v-text class="text-h6">Dashboard</v-text>
+                <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
@@ -55,10 +55,10 @@
 import Sidebar from "./Sidebar.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
-import SvgIcon from "@jamescoyle/vue-icon";
+
 import { mdiFullscreen } from "@mdi/js";
-import { getMenu } from "../../../core/services/menuService";
-import { useThemeStore } from "../../../stores/themeStore";
+import { getMenu } from "@services/menuService";
+import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "./ThemeDropdown.vue";
 
 export default {
@@ -68,7 +68,6 @@ export default {
         ProfileDropdown,
         Notificationdropdown,
         ThemeDropdown,
-        SvgIcon,
     },
     computed: {},
     data() {
@@ -110,4 +109,5 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <TitleBar title="Reauction Tracker"
+    <user-title-bar title="Reauction Tracker"
         subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
         <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 mb-n6 mb-sm-n5" fluid>
             <v-card class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger rounded-t-lg mb-n3"
@@ -28,7 +28,7 @@
                 </v-row>
             </v-card>
         </v-container>
-    </TitleBar>
+    </user-title-bar>
 
 
     <v-container class="pa-4 pt-6" fluid>
@@ -45,7 +45,7 @@
                 <v-col class="rightElements d-flex flex-wrap align-center ga-3" cols="12" sm="auto">
                     <v-text-field label="Search..." prepend-inner-icon="mdi-magnify" density="compact" width="200"
                         variant="outlined" color="primary" clearable />
-                    <!-- <NewSelect label="Select Interest" density="compact" width="200" color="primary" /> -->
+           
                 </v-col>
             </v-row>
 
@@ -64,17 +64,13 @@
 </template>
 
 <script>
-import TitleBar from "./../component/TitleBar.vue";
-import DataTable from "./../component/dataTable.vue";
-import NewSelect from "../component/newSelect.vue";
+
 import { useVehicleStore } from "@/stores/vehicleStore";
 
 export default {
     props: {},
     components: {
-        TitleBar,
-        DataTable,
-        NewSelect,
+     
     },
     data() {
         return {

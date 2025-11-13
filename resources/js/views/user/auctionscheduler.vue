@@ -4,8 +4,12 @@
             subtitle="Manage and view platform auctions across all centers in one place.">
             <div
                 class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
-                <ComoboxInput color="primary" density="compact" class="w-100 w-sm-auto" />
-                <ComoboxInput color="primary" density="compact" class="w-100 w-sm-auto" />
+                <v-combobox label="Select Platform"
+                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']" variant="outlined"
+                    color="primary" density="compact" class="w-100 w-sm-auto"></v-combobox>
+                <v-combobox label="Select Center"
+                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']" variant="outlined"
+                    color="primary" density="compact" class="w-100 w-sm-auto"></v-combobox>
                 <v-switch v-model="isToggleEnabled" color="primary" density="compact" size="small" hide-details
                     @change="handleToggleChange" class="ml-3" />
             </div>
@@ -36,34 +40,35 @@
                 </div>
             </div>
         </user-title-bar>
-        <div class="mainContent ps-2 ps-sm-6 mr-auto ml-auto">
-            <!-- <DataTable class="rounded-lg mt-5" /> -->
+        <div class="mainContent ps-2 ps-sm-6 mr-auto ml-auto mt-8 rounded-lg">
+            <v-data-table :headers="[
+                { title: 'Name', key: 'name' },
+                { title: 'Calories', key: 'calories' },
+                { title: 'Fat (g)', key: 'fat' },
+                { title: 'Carbs (g)', key: 'carbs' },
+                { title: 'Protein (g)', key: 'protein' }
+            ]" :items="[
+                { name: 'Frozen Yogurt', calories: 159, fat: 6.0, carbs: 24, protein: 4.0 },
+                { name: 'Ice Cream Sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3 },
+                { name: 'Eclair', calories: 262, fat: 16.0, carbs: 24, protein: 6.0 },
+                { name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 4.3 },
+                { name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.9 }
+            ]" class="elevation-1"></v-data-table>
+
         </div>
     </main>
 </template>
 
 <script>
 
-// import DataTable from "../component/dataTable.vue";
-
 
 export default {
     props: {},
     components: {
- 
     },
     data() {
         return {
             isToggleEnabled: false,
-            scheduleItems: [
-                { title: 'Today', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'Tomorrow', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'This Week', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'Next Week', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'This Month', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'Next Month', auctions: 0, cars: 0, favorites: 0 },
-                { title: 'This Year', auctions: 0, cars: 0, favorites: 0 }
-            ]
         };
     },
     methods: {
@@ -74,12 +79,6 @@ export default {
             } else {
                 this.disableFeature();
             }
-        },
-        enableFeature() {
-            console.log('Feature enabled');
-        },
-        disableFeature() {
-            console.log('Feature disabled');
         },
     },
 };

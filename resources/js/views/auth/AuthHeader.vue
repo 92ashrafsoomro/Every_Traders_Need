@@ -29,7 +29,7 @@ export default {
     },
     data() {
         return {
-            logo: Logo,
+            logo:  new URL('@assets/images/logo/logo.png', import.meta.url).href,
             themeStore: useThemeStore(),
             vuetify: useTheme(),
         };

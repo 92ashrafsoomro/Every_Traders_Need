@@ -17,15 +17,14 @@
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex justify-start align-center ps-2 ga-2">
                         <div class="profileImage d-flex justify-center align-center">
-                            <img src="/public/theme/assets/test_profileImage.jpg" alt=""
-                                class="h-100 w-100 rounded position-static" />
+                            <img :src="userStore.user.avatar" class="h-100 w-100 rounded-circle position-static" />
                         </div>
                         <div>
                             <p class="profile-name text-subtitle-1">
-                                Babar Azam
+                                {{ userStore.user.name }}
                             </p>
                             <p class="profile-type text-caption text-light_text_on">
-                                User Type
+                                {{ userStore.user.user_type }}
                             </p>
                         </div>
                     </div>
@@ -73,21 +72,19 @@
     </v-menu>
 </template>
 <script>
-import { useAlertStore } from "@/stores/alertStore";
-import {useUserStore} from '@stores/userStore'
+import { useUserStore } from '@stores/userStore'
 
 export default {
     name: "my-component",
     data() {
         return {
             userStore: useUserStore(),
-            alertStore: useAlertStore(),
         };
     },
     methods: {
         logOut() {
             localStorage.removeItem("auth_token");
-            this.alertStore.add("Logged Out Successfully","success");
+            this.$alertStore.add("Logged Out Successfully", "success");
             this.$router.push("/login");
 
         }

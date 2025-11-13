@@ -93,6 +93,7 @@ import { useAlertStore } from "@stores/alertStore";
 import { useTheme } from "vuetify";
 import Logo from "@assets/images/logo/logo.png";
 import AuthHeader from "./AuthHeader.vue";
+import { toRaw } from "vue";
 
 
 
@@ -118,6 +119,17 @@ export default {
     },
     computed: {
 
+    },
+    mounted() {
+
+        // console.log(toRaw(this.userStore.$state));
+        this.$themeStore.startLoading()
+        this.userStore.getProfile().then(() => {
+            this.$themeStore.endLoading()
+            this.$router.replace("/user/dashboard");
+        }).catch(() => this.$themeStore.endLoading())
+            
+       
     },
     methods: {
         async login() {

@@ -11,6 +11,18 @@ export const useVehicleStore = defineStore("vehicle", {
         sort_by: 'name-asc',
         data:[],
         fuel_type: [],
+        v: false,
+        relatedVehicle: {
+            total: 18,
+            per_page: 10,
+            current_page: 1,
+            last_page: 2,
+            data:[],
+        },
+        vehichleDetail: {
+            sidebar:true,
+            tab:'details'
+        },
     }),
     getters: {
 
@@ -32,6 +44,29 @@ export const useVehicleStore = defineStore("vehicle", {
                     },
                 })
                 this.data = res.data.data;
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
+        async getVehicleDetail(options) {
+            try {
+                let res = await api.get('/api/user/auctionList/'+options.id, {
+                    params: {
+                    },
+                })
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
+        async getRelatedVehicle(options) {
+            try {
+                let res = await api.get('/api/user/getRelatedVehicle/'+options.id, {
+                    params: {
+
+                    },
+                })
                 return res.data;
             } catch (error) {
                 throw await errorHandler(error);
@@ -75,7 +110,8 @@ export const useVehicleStore = defineStore("vehicle", {
             } catch (error) {
                 throw await errorHandler(error);
             }
-        }
+        },
+        
 
     },
 

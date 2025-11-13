@@ -444,6 +444,12 @@ export default {
     },
     mounted() {
 
+        this.$themeStore.startLoading()
+        this.userStore.getProfile().then(() => {
+            this.$themeStore.endLoading()
+            this.$router.replace("/user/dashboard");
+        }).catch(() => this.$themeStore.endLoading())
+        
     },
     methods: {
         handleNext(next) {

@@ -1443,4 +1443,6 @@ class AuctionFinderDataController extends Controller
             'priceSymbol' => $priceSymbol,
         ]);
     }
+
+    
 }

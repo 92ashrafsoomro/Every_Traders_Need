@@ -42,17 +42,17 @@ export default {
     
     const router = this.$router;
 
-      router.beforeEach((to, from, next) => {
-            this.themeStore.loading = true;
-          next()
-      })
+      // router.beforeEach((to, from, next) => {
+      //       this.themeStore.loading = true;
+      //     next()
+      // })
 
-        // Hide loader after navigation completes
-      router.afterEach(() => {
-          setTimeout(() => {
-            this.themeStore.loading = false;
-          }, 200)
-      })
+     
+      // router.afterEach(() => {
+      //     setTimeout(() => {
+      //       this.themeStore.loading = false;
+      //     }, 200)
+      // })
 
       this.userStore.$subscribe((mutation, state) => {
          // console.log("Mutation:", mutation);

@@ -24,7 +24,7 @@
 
                     <!-- Action column -->
                     <template #item.action="{ item }">
-                        <v-btn color="primary" size="small" @click="viewItem(item)">
+                        <v-btn color="primary" size="small" :to="'/user/vehicle-detail/'+item.id">
                             View
                         </v-btn>
                     </template>
@@ -37,8 +37,6 @@
 <script>
 
 import { useVehicleStore } from "@/stores/vehicleStore";
-
-
 
 export default {
     name: "Watchlist",

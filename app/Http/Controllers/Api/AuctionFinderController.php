@@ -18,12 +18,79 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-
 use App\Services\AuctionService;
 use Carbon\Carbon;
 
 class AuctionFinderController extends Controller
 {
+
+
+      public function getVehicleDetails(Request $request,$id)
+    {
+
+
+        $vehicle = Vehicle::query()
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->where('vehicles.id',$id)
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auctions.status as auction_status',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
+            ->first();
+
+        if (!$vehicle) {
+            return response()->json(['message' => 'Vehicle not found'],400);
+        }
+
+        $previousVehicle = DB::table('vehicles')
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->where('vehicles.reg', $vehicle->reg)
+            ->where('vehicles.id', '!=', $request->id)
+            ->whereDate('auctions.auction_date', '<=', $vehicle->auction_date)
+            ->orderBy('auctions.auction_date', 'desc')
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auction_platform.name as platform_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
+            ->get();
+
+        $viewCount = DB::table('recent_views')
+            ->where('vehicle_id', $vehicle->id)
+            ->count();
+
+        $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
+
+        return response()->json([
+            'status' => true,
+            'data' => [
+                 'vehicle' => $vehicle,
+                 'previous_vehicle' => $previousVehicle,
+                 'views' => $viewCount,
+                 'priceSymbol' => $priceSymbol,
+            ],
+        ],200);
+    }
 
     public function auctionList(Request $request)
     {
@@ -269,8 +336,128 @@ class AuctionFinderController extends Controller
         }
 
         $previousRecord = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')->where('vehicles.reg', $reg)->wherenot('vehicles.id', $vehicleId)->orderByDesc('vehicles.id')->select('auctions.auction_date')->first();
-
         return $previousRecord ? date('Y-m-d', strtotime($previousRecord->auction_date)) : null;
+
+    }
+
+    public function getRelatedVehicle(Request $request, $id)
+    {
+
+        $vehicle = Vehicle::where('id', $id)->first();
+        if (!$vehicle) {
+            return response()->json([
+                "message" => "Vehicle Not Found",
+            ], 401);
+        }
+
+        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+
+        $perPage = (int) $request->input('length', 10);
+        $page = (int) $request->input('page', 1);
+        $offset = ($page - 1) * $perPage;
+
+
+        //Base Query
+        $query = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->join('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->join('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->join('make', 'make.id', '=', 'vehicles.make_id')
+            ->join('model', 'model.id', '=', 'vehicles.model_id')
+            ->join('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->where('vehicles.make_id', $vehicle->make_id)
+            ->where('vehicles.model_id', $vehicle->model_id)
+            ->where('vehicles.variant_id', $vehicle->variant_id);
+
+
+        if ($request->has('platform') && $request->platform != '') {
+            $query->where('auctions.platform_id', $request->platform);
+        }
+
+        // $dateRange = $request->date_range ? $request->date_range : 'past_3_months';
+        // if($request->has('date_range') && $request->date_range != '') {
+
+        //     $now = \Carbon\Carbon::now();
+        //     $fromDate = match ($dateRange) {
+        //         'today' => $now->copy()->startOfDay(),
+        //         'yesterday' => $now->copy()->subDay()->startOfDay(),
+        //         'last_week' => $now->copy()->subWeek(),
+        //         'last_month' => $now->copy()->subMonth(),
+        //         'past_3_months' => $now->copy()->subMonths(3),
+        //         default => $now->copy()->subMonths(3),
+        //     };
+
+
+        //     $toDate = $now->copy()->endOfDay();
+        //     $query->whereBetween('vehicles.start_date', [$fromDate->toDateString(), $toDate->toDateString()]);
+        // }
+        $dateRange = $request->date_range ?? '';
+
+        if ($dateRange !== '') {
+            $now = \Carbon\Carbon::now();
+            $fromDate = $now->copy()->subMonths(3)->startOfDay();
+            $toDate = $now->copy()->endOfDay();
+
+            if ($dateRange === 'future') {
+                $query->whereHas('auction', function ($q) use ($now) {
+                    $q->whereDate('auction_date', '>=', $now);
+                });
+            } elseif ($dateRange === 'previous') {
+                $query->whereHas('auction', function ($q) use ($now) {
+                    $q->whereDate('auction_date', '<', $now);
+                });
+            } else {
+                $query->whereBetween('vehicles.start_date', [$fromDate, $toDate]);
+            }
+        }
+
+
+        // Count total BEFORE limit/offset
+        $total = $query->count();
+
+        //Results
+        $results = (clone $query)
+            ->offset($offset)
+            ->limit($perPage)
+            ->select([
+                'vehicles.*',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'auctions.auction_date as auction_date',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name',
+            ])
+            ->groupBy('vehicles.reg')
+            ->get()
+            ->map(function ($item) {
+
+                $image = explode(',', $item->images);
+                $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
+                return [
+                    'id' => $item->id,
+                    'platform_name' => $item->platform_name,
+                    'center_name' => $item->center_name,
+                    'year' => $item->year,
+                    'price' => $item->last_bid,
+                    'make_name' => $item->make_name,
+                    'model_name' => $item->model_name,
+                    'variant_name' =>  $item->variant_name,
+                    'date' =>  $item->start_date,
+                    'image' =>  $image ? $image[0] : '',
+                    'price_symbol' => $priceSymbol,
+                ];
+            });
+
+        return response()->json([
+            // 'toDate' =>  $toDate,
+            // 'fromDate' =>  $fromDate,
+            'offset' => $offset,
+            'data'         => $results,
+            'total'        => $total,
+            'per_page'     => $perPage,
+            'current_page' => $page,
+            'last_page'    => ceil($total / $perPage),
+        ]);
     }
 
     public function getIntrest(Request $request)

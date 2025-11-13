@@ -25,6 +25,74 @@ use Carbon\Carbon;
 class AuctionFinderController extends Controller
 {
 
+
+      public function getVehicleDetails(Request $request,$id)
+    {
+
+
+        $vehicle = Vehicle::query()
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->where('vehicles.id',$id)
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auctions.status as auction_status',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
+            ->first();
+
+        if (!$vehicle) {
+            return response()->json(['message' => 'Vehicle not found'],400);
+        }
+
+        $previousVehicle = DB::table('vehicles')
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->where('vehicles.reg', $vehicle->reg)
+            ->where('vehicles.id', '!=', $request->id)
+            ->whereDate('auctions.auction_date', '<=', $vehicle->auction_date)
+            ->orderBy('auctions.auction_date', 'desc')
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auction_platform.name as platform_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
+            ->get();
+
+        $viewCount = DB::table('recent_views')
+            ->where('vehicle_id', $vehicle->id)
+            ->count();
+
+        $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
+
+        return response()->json([
+            'status' => true,
+            'data' => [
+                 'vehicle' => $vehicle,
+                 'previous_vehicle' => $previousVehicle,
+                 'views' => $viewCount,
+                 'priceSymbol' => $priceSymbol,
+            ],
+        ],200);
+    }
+
     public function auctionList(Request $request)
     {
         $perPage = (int) $request->input('length', 10);

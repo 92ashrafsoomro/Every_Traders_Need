@@ -32,7 +32,7 @@ export default [
             { path: "settings", component: Settings, meta: { requiresAuth: true } },
             { path: "news", component: News, meta: { requiresAuth: true } },
             { path: "support", component: Support, meta: { requiresAuth: true } },
-            { path: "vehicle-detail", component: VehicleDetail, meta: { requiresAuth: true } },
+            { path: "vehicle-detail/:id", component: VehicleDetail, meta: { requiresAuth: true } },
         ],
     },
 ]

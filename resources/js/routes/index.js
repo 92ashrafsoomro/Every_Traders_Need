@@ -11,7 +11,7 @@ import userRoutes from "./userRoutes"
 import authRoutes from "./authRoutes"
 import webRoutes from './webRoutes';
 
-
+const suburl = import.meta.env.VITE_SUB_URL;
 
 const routes = [
     ...webRoutes,
@@ -25,7 +25,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory("/autoboli"),
+    history: createWebHistory(suburl),
     routes,
 });
 
@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
 
         try {
             const res = await auth.getProfile();
-            auth.user = res.account;
+            auth.user = res.user;
             auth.is_logged_in = true;
             //  alertStore.add('User Logged In','success')
             next();

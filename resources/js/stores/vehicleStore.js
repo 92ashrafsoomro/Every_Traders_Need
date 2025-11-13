@@ -11,6 +11,7 @@ export const useVehicleStore = defineStore("vehicle", {
         sort_by: 'name-asc',
         data:[],
         fuel_type: [],
+        vehicle_detail:{},
     }),
     getters: {
 

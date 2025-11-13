@@ -14,6 +14,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="text-caption pa-3" style="background-color: #011e3d;">
                         Our price estimates use historical auction data and market trends to suggest
                         likely values. Learn more

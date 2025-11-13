@@ -69,6 +69,15 @@ export default {
     data() {
         return {
             isToggleEnabled: false,
+            scheduleItems: [
+                { title: 'Mon', auctions: 3, cars: 5, favorites: 2 },
+                { title: 'Tue', auctions: 2, cars: 8, favorites: 1 },
+                { title: 'Wed', auctions: 5, cars: 4, favorites: 3 },
+                { title: 'Thu', auctions: 1, cars: 7, favorites: 2 },
+                { title: 'Fri', auctions: 4, cars: 6, favorites: 4 },
+                { title: 'Sat', auctions: 3, cars: 2, favorites: 1 },
+                { title: 'Sun', auctions: 2, cars: 3, favorites: 0 },
+            ]
         };
     },
     methods: {

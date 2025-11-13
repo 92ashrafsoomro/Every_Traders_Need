@@ -93,7 +93,7 @@ const vuetify = createVuetify({
             adminLight: {
                 dark: false,
                 colors: {
-                    primary: "#7367f0",
+                    primary: "#0080ff",
                     'primary-lighten-1': '#8579F2',
                     // secondary: "#FFFFFF",
                     background: "#f0eff5",

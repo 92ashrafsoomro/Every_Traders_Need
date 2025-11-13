@@ -27,7 +27,7 @@ export const getMenu = () => {
             // ]
         },
         {
-            icon: "mdi-hammer",
+            icon: "mdi-car-search-outline",
             label: "Auction Finder",
             path: "/user/auction-finder",
         },
@@ -42,7 +42,7 @@ export const getMenu = () => {
             path: "/user/watchlist",
         },
         {
-            icon: "mdi-calendar-badge",
+            icon: "mdi-calendar-sync-outline",
             label: "Reauction",
             path: "/user/reauction",
         },
@@ -71,12 +71,12 @@ export const getMenu = () => {
         //     path: "/user/news",
         // },
         {
-            icon: "mdi-account-tie",
+            icon: "mdi-account-outline",
             label: "Profile",
             path: "/user/profile",
         },
         {
-            icon: "mdi-cog",
+            icon: "mdi-cog-outline",
             label: "Settings",
             path: "/user/settings",
         },

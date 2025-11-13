@@ -9,7 +9,7 @@ export default [
         path: "/",
         children: [
             { path: 'login', component: Login},
-            { path: 'regsiter', component: Register},
+            { path: 'register', component: Register },
         ],
     },
 ]

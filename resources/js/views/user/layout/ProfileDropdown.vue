@@ -18,15 +18,15 @@
                     <div class="d-flex justify-start align-center ps-2 ga-2">
                         <div class="profileImage d-flex justify-center align-center">
                             <img src="/public/theme/assets/test_profileImage.jpg" alt=""
-                                class="h-100 w-100 rounded-circle position-static" />
+                                class="h-100 w-100 rounded position-static" />
                         </div>
                         <div>
-                            <div class="profile-name text-h6">
+                            <p class="profile-name text-subtitle-1">
                                 Babar Azam
-                            </div>
-                            <div class="profile-type text-caption">
+                            </p>
+                            <p class="profile-type text-caption text-light_text_on">
                                 User Type
-                            </div>
+                            </p>
                         </div>
                     </div>
                 </v-list-item-title>

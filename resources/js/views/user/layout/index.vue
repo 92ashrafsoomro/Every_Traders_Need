@@ -51,9 +51,8 @@
                     <div class="d-flex align-center ga-2 rounded pa-0" :class="{ 'bg-background': hoverProfile }"
                         @mouseenter="hoverProfile = true" @mouseleave="hoverProfile = false">
                         <ProfileDropdown>
-                            <div class="d-flex flex-column ga-2 ps-2 pe-5 pb-2">
-                                <p class="text-overline font-weight-bold text-primary">User</p>
-                                <p class="text-caption mt-n4 font-weight-light">user_role</p>
+                            <div class="d-flex flex-column align-start justify-center ga-2 ps-2 pe-5 pb-2">
+                                <p class="font-weight-bold text-primary text-subtitle-1">User</p>
                             </div>
                         </ProfileDropdown>
                     </div>

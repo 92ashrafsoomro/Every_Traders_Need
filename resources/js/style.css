@@ -18,3 +18,12 @@ aside {
 .v-input__details .v-messages {
     min-height: auto !important;
 }
+:root {
+    --primary-color: #0080ff;
+    --danger-color: #b91c1c;
+}
+
+[data-theme="dark"] {
+    --primary-color: #0080ff;
+    --danger-color: #b91c1c;
+}

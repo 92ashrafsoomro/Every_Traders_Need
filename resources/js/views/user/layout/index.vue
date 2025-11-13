@@ -1,51 +1,63 @@
 <template>
     <v-app>
         <Sidebar />
-
-        <!-- Top App Bar -->
-        <v-app-bar app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
+        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
             style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
-            <div class="logoType  d-none d-lg-flex align-center justify-center rounded-circle border"
-                style="width: 30px; height: 30px;">
-                <v-icon class="d-lg-inline-flex justify-center align-center position-absolute d-none " size="default"
-                    icon="mdi-menu-right" @click="themeStore.toggleMenuType()"></v-icon>
+            <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border"
+                style="width: 30px; height: 30px;" :class="{ 'bg-primary': isHovered }" @mouseenter="isHovered = true"
+                @mouseleave="isHovered = false">
+                <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="default"
+                    :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" @click="toggleMenu"></v-icon>
             </div>
-
             <v-toolbar-title class="d-none d-sm-inline pl-1">
                 <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
-
             <v-spacer></v-spacer>
-
-            <!-- Icon Group -->
             <v-row class="pr-2 ga-5" align="center" justify="end" no-gutters>
-                <!-- Fullscreen -->
-                <v-col cols="auto">
-                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg pa-2 bg-shadow">
-                        <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
-                    </v-sheet>
-                </v-col>
+                <div class="d-flex align-center justify-space-around mr-3">
+                    <!-- Fullscreen -->
+                    <v-col cols="auto">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border"
+                            :class="{ 'bg-background': hoverFullscreen }" @mouseenter="isHover = true"
+                            @mouseleave="hoverFullscreen = false">
+                            <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
+                        </v-sheet>
+                    </v-col>
 
-                <!-- Theme Dropdown -->
-                <v-col cols="auto">
-                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
-                        <ThemeDropdown />
-                    </v-sheet>
-                </v-col>
+                    <!-- Theme Dropdown -->
+                    <v-col cols="auto" class="ml-n3">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded border"
+                            :class="{ 'bg-background': hoverTheme }" @mouseenter="hoverTheme = true"
+                            @mouseleave="hoverTheme = false">
+                            <ThemeDropdown />
+                        </v-sheet>
+                    </v-col>
 
-                <!-- Notification Dropdown -->
-                <v-col cols="auto">
-                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
-                        <Notificationdropdown />
-                    </v-sheet>
-                </v-col>
+                    <!-- Notification Dropdown -->
+                    <v-col cols="auto" class="ml-n3">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded border"
+                            :class="{ 'bg-background': hoverNotification }" @mouseenter="hoverNotification = true"
+                            @mouseleave="hoverNotification = false">
+                            <Notificationdropdown class="test" />
+                        </v-sheet>
+                    </v-col>
+                </div>
+
+
 
                 <!-- Profile Dropdown -->
-                <v-col cols="auto">
-                    <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg bg-shadow">
-                        <ProfileDropdown />
-                    </v-sheet>
+                <v-col cols="auto" class="ml-n3  mr-10 border-s-md ps-7 pt-0 pb-0 ">
+                    <div class="d-flex align-center ga-2 rounded pa-0" :class="{ 'bg-background': hoverProfile }"
+                        @mouseenter="hoverProfile = true" @mouseleave="hoverProfile = false">
+                        <ProfileDropdown>
+                            <div class="d-flex flex-column ga-2 ps-2 pe-5 pb-2">
+                                <p class="text-overline font-weight-bold text-primary">User</p>
+                                <p class="text-caption mt-n4 font-weight-light">user_role</p>
+                            </div>
+                        </ProfileDropdown>
+                    </div>
+
                 </v-col>
             </v-row>
         </v-app-bar>
@@ -82,6 +94,13 @@ export default {
             menus: getMenu(),
             themeStore: useThemeStore(),
             path: mdiFullscreen,
+            hoverFullscreen: false,
+            hoverTheme: false,
+            hoverNotification: false,
+            hoverProfile: false,
+            logoMenu: false,
+            isHovered: false,
+            isMenuOpen: false,
         };
     },
     methods: {
@@ -111,19 +130,13 @@ export default {
 
             this.isFullScreen = !this.isFullScreen;
             this.path = this.isFullScreen ? mdiFullscreenExit : mdiFullscreen;
+
+        },
+        toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;
+            this.themeStore.toggleMenuType();
         },
     },
 };
 </script>
-<style>
-.logoType {
-    height: 20px;
-    width: 20px;
-    right: -10px;
-    top: 20px;
-}
-
-.logoType:hover {
-    background-color: #0080ff;
-}
-</style>
+<style></style>

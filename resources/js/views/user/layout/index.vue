@@ -3,10 +3,16 @@
         <Sidebar />
 
         <!-- Top App Bar -->
-        <v-app-bar app color="" class="d-flex align-center justify-space-between elevation-3" dark>
+        <v-app-bar app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
+            style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
+            <div class="logoType  d-none d-lg-flex align-center justify-center rounded-circle border"
+                style="width: 30px; height: 30px;">
+                <v-icon class="d-lg-inline-flex justify-center align-center position-absolute d-none " size="default"
+                    icon="mdi-menu-right" @click="themeStore.toggleMenuType()"></v-icon>
+            </div>
 
-            <v-toolbar-title class="d-none d-sm-inline">
+            <v-toolbar-title class="d-none d-sm-inline pl-1">
                 <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
 
@@ -110,4 +116,14 @@ export default {
 };
 </script>
 <style>
+.logoType {
+    height: 20px;
+    width: 20px;
+    right: -10px;
+    top: 20px;
+}
+
+.logoType:hover {
+    background-color: #0080ff;
+}
 </style>

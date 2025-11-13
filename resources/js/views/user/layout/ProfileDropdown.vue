@@ -12,18 +12,18 @@
             </v-btn>
         </template>
 
-        <v-list class="" style="min-width: 224px">
-            <v-list-item>
+        <v-list elevation="0" class="border" style="min-width: 224px">
+            <v-list-item class="pa-3">
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex justify-start align-center ps-2 ga-2">
                         <div class="profileImage d-flex justify-center align-center">
-                            <img :src="userStore.user.avatar" class="h-100 w-100 rounded-circle position-static" />
+                            <img :src="userStore.user.avatar" class="h-100 w-100 rounded position-static" />
                         </div>
                         <div>
                             <p class="profile-name text-subtitle-1">
                                 {{ userStore.user.name }}
                             </p>
-                            <p class="profile-type text-caption text-light_text_on">
+                            <p class="profile-type text-caption text-light_text_on mt-n2">
                                 {{ userStore.user.user_type }}
                             </p>
                         </div>

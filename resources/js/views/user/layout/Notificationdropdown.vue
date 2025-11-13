@@ -2,11 +2,11 @@
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
             <v-btn icon size="small" v-bind="props" class="notificationBtn">
-                <v-icon icon="mdi-bell-badge"></v-icon>
+                <v-icon icon="mdi-bell-outline"></v-icon>
             </v-btn>
         </template>
 
-        <v-list class="rounded-lg border border-[#1c2a38] elevation-3 z-3 animate-fade-in w-[352px]" @click.stop>
+        <v-list elevation="0" class="rounded-lg border z-3 animate-fade-in w-[352px]" @click.stop>
             <v-list-item>
                 <v-list-item-title class="d-flex justify-space-between align-center ps-4 p-3 w-100">
                     <div class="text-h6">Notifications</div>
@@ -26,8 +26,7 @@
                     <v-list-item-title>
                         <div class="d-flex align-start cursor-pointer overflow">
                             <div class="d-flex align-center justify-center pt-2 ps-2">
-                                <div
-                                    class="icon-notify-container bg-shadow rounded-circle d-flex align-center justify-center">
+                                <div class="icon-notify-container  rounded-circle d-flex align-center justify-center">
                                     <v-icon icon="mdi-bell-ring" color="primary" size="small"></v-icon>
                                 </div>
                             </div>
@@ -56,8 +55,7 @@
             <v-list-item>
                 <v-list-item-title>
                     <div class="d-flex justify-center align-center p-2 ps-3 mt-2">
-                        <button
-                            class="notificationbtn text-caption text-white bg-primary pt-2 pb-2 ps-2 border-0 rounded-lg">
+                        <button class="notificationbtn bg-primary pt-2 pb-2 ps-2 border-0 rounded">
                             View All Notifications
                         </button>
                     </div>
@@ -111,7 +109,6 @@ export default {
 .icon-notify-container {
     height: 40px;
     width: 40px;
-    background-color: #002145;
 }
 
 .blue-dot {
@@ -122,4 +119,5 @@ export default {
 .notificationbtn {
     width: 90%;
 }
+
 </style>

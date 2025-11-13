@@ -4,13 +4,11 @@
             <v-btn size="small" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'" v-bind="props" />
         </template>
 
-        <v-list class="pa-0" style=" margin-left: -100px;">
+        <v-list elevation="0" class="border" style=" margin-left: -100px;">
             <!-- Light Theme -->
             <v-list-item @click="toggleTheme" link>
                 <template #prepend>
-                    <v-icon :color="isLight ? 'primary' : 'grey-lighten-1'">
-                        mdi-lightbulb-on
-                    </v-icon>
+                    <v-icon :color="isLight ? 'primary' : 'grey-lighten-1'">mdi-lightbulb-on</v-icon>
                 </template>
                 <v-list-item-title class="cursor-pointer">
                     Light Theme

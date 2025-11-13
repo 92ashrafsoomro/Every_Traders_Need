@@ -43,17 +43,14 @@
                         </v-sheet>
                     </v-col>
                 </div>
-
+                <div class="border-s-md pt-4 pb-4"></div>
 
 
                 <!-- Profile Dropdown -->
-                <v-col cols="auto" class="ml-n3  mr-10 border-s-md ps-7 pt-0 pb-0 ">
-                    <div class="d-flex align-center ga-2 rounded pa-0" :class="{ 'bg-background': hoverProfile }"
-                        @mouseenter="hoverProfile = true" @mouseleave="hoverProfile = false">
+                <v-col cols="auto" class="ml-n3  mr-10  pt-0 pb-0 pr-10">
+                    <div class="d-flex align-center ga-2 rounded pa-0 ps-12">
                         <ProfileDropdown>
-                            <div class="d-flex flex-column align-start justify-center ga-2 ps-2 pe-5 pb-2">
-                                <p class="font-weight-bold text-primary text-subtitle-1">User</p>
-                            </div>
+                            <p class="text-subtitle-1 text-left">User</p>
                         </ProfileDropdown>
                     </div>
 
@@ -138,4 +135,8 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+.v-overlay__content {
+    top: 75px !important;
+}
+</style>

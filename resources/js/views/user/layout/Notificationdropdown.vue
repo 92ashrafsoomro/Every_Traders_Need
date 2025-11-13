@@ -68,15 +68,11 @@
 </template>
 
 <script>
-import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiBellBadgeOutline } from "@mdi/js";
 
 export default {
     name: "NotificationMenu",
-    components: { SvgIcon },
     data() {
         return {
-            path: mdiBellBadgeOutline,
             notifications: [
                 {
                     title: "New Message",

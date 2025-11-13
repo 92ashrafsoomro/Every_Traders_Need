@@ -17,7 +17,7 @@
                 <!-- Fullscreen -->
                 <v-col cols="auto">
                     <v-sheet color="" class="rounded-lg d-flex align-center justify-center rounded-lg pa-2 bg-shadow">
-                        <svg-icon @click="toggleFullScreen" type="mdi" :path="path" class="cursor-pointer" />
+                        <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
                     </v-sheet>
                 </v-col>
 

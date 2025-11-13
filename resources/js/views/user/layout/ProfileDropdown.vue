@@ -66,18 +66,12 @@
 </template>
 <script>
 import { useAlertStore } from "@/stores/alertStore";
-import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiLogout } from "@mdi/js";
 import {useUserStore} from '@stores/userStore'
 
 export default {
     name: "my-component",
-    components: {
-        SvgIcon,
-    },
     data() {
         return {
-            path: mdiLogout,
             userStore: useUserStore(),
             alertStore: useAlertStore(),
         };

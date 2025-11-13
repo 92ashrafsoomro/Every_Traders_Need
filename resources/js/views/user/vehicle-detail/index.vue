@@ -59,10 +59,6 @@
                 <v-row dense>
                     <v-col cols="12"
                         class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal ga-5">
-                        <!-- <v-btn-toggle class="w-100" color="primary" mandatory>
-                            <v-btn>Vehicle Details</v-btn>
-                            <v-btn>Vehicle Valuation</v-btn>
-                        </v-btn-toggle> -->
                         <v-btn-toggle v-model="activeTab" class="w-100" color="primary" mandatory>
                             <v-btn value="details">Vehicle Details</v-btn>
                             <v-btn value="valuation">Vehicle Valuation</v-btn>
@@ -573,7 +569,7 @@
                     <v-col class="mr-auto ml-auto" cols="10">
                         <v-row>
                             <v-col cols="12" md="4">
-                                <v-card flat color="primary" class="rounded-lg d-flex flex-column ga-4  pb-0">
+                                <v-card flat color="primary" class="rounded-lg d-flex flex-column ga-4 pb-0">
                                     <v-card-title class="text-h6 font-weight-medium ps-3 pe-3">AUTOBOLI
                                         SUGGESTION</v-card-title>
                                     <div class="d-flex align-center mt-n8 pa-5">
@@ -591,9 +587,93 @@
                                         likely values. Learn more
                                     </div>
                                 </v-card>
-                                <v-card flat color="surface" class="border rounded-lg d-flex flex-column ga-4 pb-0">
+                                <v-card flat color="surface"
+                                    class="border rounded-lg d-flex flex-column ga-4 pa-4 pb-5 mt-4">
                                     <v-card-title class="text-subtitle-1 font-weight-medium ps-3 pe-3">Vehicle
-                                        Values</v-card-title>
+                                        Values
+                                    </v-card-title>
+                                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
+                                        style="border-left: 3px solid red;">Trade Values</div>
+                                    <v-row class="mt-5">
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">Autotrader</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">CAP</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">Autotrader</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">CAP</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+                                <v-divider></v-divider>
+                                <v-card flat color="surface"
+                                    class="border rounded-lg d-flex flex-column ga-4 pb-0 pa-4 mt-4">
+                                    <v-card-title class="text-subtitle-1 font-weight-medium ps-3 pe-3">Vehicle
+                                        Values
+                                    </v-card-title>
+                                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
+                                        style="border-left: 3px solid red;">Trade Values</div>
+                                    <v-row class="mt-5">
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">Autotrader</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" sm="6">
+                                            <v-card flat color="transparent">
+                                                <p class="text-overline">CAP</p>
+                                                <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
+                                                <div class="d-flex align-center ga-2">
+                                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
+                                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                                    <p class="text-caption font-weight-light">From last month</p>
+                                                </div>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+
                                 </v-card>
                             </v-col>
                             <v-col cols="12" md="4">

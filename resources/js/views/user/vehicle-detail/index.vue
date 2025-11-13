@@ -594,7 +594,7 @@
                                     </v-card-title>
                                     <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
                                         style="border-left: 3px solid red;">Trade Values</div>
-                                    <v-row class="mt-5">
+                                    <v-row class="mt-5 mb-5">
                                         <v-col cols="12" sm="6">
                                             <v-card flat color="transparent">
                                                 <p class="text-overline">Autotrader</p>
@@ -640,16 +640,10 @@
                                             </v-card>
                                         </v-col>
                                     </v-row>
-                                </v-card>
-                                <v-divider></v-divider>
-                                <v-card flat color="surface"
-                                    class="border rounded-lg d-flex flex-column ga-4 pb-0 pa-4 mt-4">
-                                    <v-card-title class="text-subtitle-1 font-weight-medium ps-3 pe-3">Vehicle
-                                        Values
-                                    </v-card-title>
+                                    <v-divider></v-divider>
                                     <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
-                                        style="border-left: 3px solid red;">Trade Values</div>
-                                    <v-row class="mt-5">
+                                        style="border-left: 3px solid red;">Retail Values</div>
+                                    <v-row class="mt-5 pb-4">
                                         <v-col cols="12" sm="6">
                                             <v-card flat color="transparent">
                                                 <p class="text-overline">Autotrader</p>
@@ -673,11 +667,50 @@
                                             </v-card>
                                         </v-col>
                                     </v-row>
-
                                 </v-card>
                             </v-col>
                             <v-col cols="12" md="4">
-                                THis div
+                                <v-card flat color="surface" class="rounded-lg border ps-5 pe-5 pt-5 pb-5">
+                                    <div class="d-flex justify-space-between align-center">
+                                        <v-btn density="compact"
+                                            class="bg-white ml-4 text-caption font-weight-medium pt-2 pb-6"
+                                            style="border-left: 4px solid #0080ff;">DF22
+                                            HVR</v-btn>
+                                        <v-btn density="compact" color="primary"
+                                            class="ml-4 text-caption pt-2 pb-6">Inspection
+                                            Report</v-btn>
+                                    </div>
+                                    <v-card-title class="text-h6">BMW - 3 Series - 330e - CC - 2022</v-card-title>
+                                    <div class="ps-3 pe-3 bg-shadow" style="border-left: 4px solid #0080ff;">
+                                        <v-row class="mt-5 bg-background"
+                                            style="border-left: 4px solid var(--primary-color);">
+                                            <v-col cols="6" sm="4">
+                                                <v-card flat color="transparent">
+                                                    <v-card-title class="text-caption">Auction House</v-card-title>
+                                                    <v-card-subtitle
+                                                        class="text-medium-emphasis mt-n2 font-weight-medium text-primary text-wrap text-caption">Wolverhampton</v-card-subtitle>
+                                                </v-card>
+                                            </v-col>
+                                            <v-col cols="6" sm="4">
+                                                <v-card flat color="transparent">
+                                                    <v-card-title class="text-caption">Date/End</v-card-title>
+                                                    <v-card-subtitle class="text-medium-emphasis mt-n2">28/10/2025
+                                                        06:30</v-card-subtitle>
+                                                </v-card>
+                                            </v-col>
+                                            <v-col cols="6" sm="4">
+                                                <v-card flat color="transparent">
+                                                    <v-card-title class="text-caption">Status</v-card-title>
+                                                    <v-card-subtitle
+                                                        class="text-medium-emphasis mt-n2">Sold</v-card-subtitle>
+                                                </v-card>
+                                            </v-col>
+                                        </v-row>
+                                    </div>
+                                    <v-img
+                                        src="https://bcamediaprod.blob.core.windows.net/public/images/vehicle/GB/DF22HVR/612584678/600"
+                                        alt="" class="mt-6" />
+                                </v-card>
                             </v-col>
                             <v-col cols="12" md="4">
                                 THis div

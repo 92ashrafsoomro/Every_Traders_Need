@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
-        <v-list density="compact" nav>
-            <v-list-item class="d-flex ps-0 pe-0" style="height: 57px;">
+        <v-list density="compact" class="" nav>
+            <v-list-item class="d-flex ps-5 pe-5" style="height: 57px;">
                 <img :src="logo" class="d-flex justify-center align-center" />
             </v-list-item>
 

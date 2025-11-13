@@ -2,7 +2,7 @@
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
             <v-btn icon size="small" v-bind="props" class="notificationBtn">
-                <v-icon icon="mdi-bell-badge" color="primary"></v-icon>
+                <v-icon icon="mdi-bell-badge"></v-icon>
             </v-btn>
         </template>
 

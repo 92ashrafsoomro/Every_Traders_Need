@@ -1,8 +1,7 @@
 <template>
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
-            <v-btn size="small" color="primary" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'"
-                v-bind="props" />
+            <v-btn size="small" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'" v-bind="props" />
         </template>
 
         <v-list class="pa-0" style=" margin-left: -100px;">

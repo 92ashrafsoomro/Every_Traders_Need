@@ -2,8 +2,12 @@
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
             <v-btn icon v-bind="props" class="profileBtn">
-                <div class="profileImage d-flex justify-center align-center">
-                    <img src="/public/theme/assets/test_profileImage.jpg" alt="" class="h-75 w-75 rounded-circle" />
+                <div class="d-flex align-center ga-2">
+                    <div class="profileImage d-flex justify-center align-center">
+                        <img src="/public/theme/assets/test_profileImage.jpg" alt="" class="rounded"
+                            style="height: 80%; width: 80%;" />
+                    </div>
+                    <slot></slot>
                 </div>
             </v-btn>
         </template>
@@ -29,35 +33,39 @@
             <v-divider></v-divider>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="d-flex align-center ga-2">
-                        <v-icon icon="mdi-account"></v-icon>
-                        <div>My Profile</div>
+                    <div class="d-flex align-center ga-2 wrapper">
+                        <v-icon icon="mdi-account-outline text-light_text_on"></v-icon>
+                        <p class="text-light_text_on">My Profile</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex align-center ga-2">
-                        <v-icon icon="mdi-cog"></v-icon>
-                        <div>Settings</div>
+                        <v-icon icon="mdi-cog-outline text-light_text_on"></v-icon>
+                        <p class="text-light_text_on">Settings</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="d-flex align-center ga-2">
-                        <v-icon icon="mdi-currency-usd"></v-icon>
-                        <div>Billings</div>
+                    <div class="d-flex align-center ga-2 ">
+                        <v-icon icon="mdi-credit-card-outline text-light_text_on"></v-icon>
+                        <p class="text-light_text_on">Billings</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">
-                    <v-btn @click="logOut()" size="small" color="danger" class="text-white">
-                        <p class="text-caption mr-2">Logout</p>
-                        <svg-icon type="mdi" :path="path" width="14" height="14"></svg-icon>
-                    </v-btn>
+                    <!-- <v-btn @click="logOut()" size="large" class="ml-n3" prepend-icon="mdi-logout"
+                        style="font-size: smaller;">
+                        <p class="">Logout</p>
+                    </v-btn> -->
+                    <div @click="logOut()" class="d-flex align-center ga-2 cursor-pointer">
+                        <v-icon icon="mdi-logout text-light_text_on"></v-icon>
+                        <p class="text-light_text_on">Logout</p>
+                    </div>
                 </v-list-item-title>
             </v-list-item>
         </v-list>

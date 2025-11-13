@@ -20,12 +20,12 @@
                             <img :src="userStore.user.avatar" class="h-100 w-100 rounded-circle position-static" />
                         </div>
                         <div>
-                            <div class="profile-name text-h6">
-                                {{userStore.user.name}}
-                            </div>
-                            <div class="profile-type text-caption">
-                                 {{userStore.user.user_type}}
-                            </div>
+                            <p class="profile-name text-subtitle-1">
+                                {{ userStore.user.name }}
+                            </p>
+                            <p class="profile-type text-caption text-light_text_on">
+                                {{ userStore.user.user_type }}
+                            </p>
                         </div>
                     </div>
                 </v-list-item-title>
@@ -72,7 +72,7 @@
     </v-menu>
 </template>
 <script>
-import {useUserStore} from '@stores/userStore'
+import { useUserStore } from '@stores/userStore'
 
 export default {
     name: "my-component",
@@ -84,7 +84,7 @@ export default {
     methods: {
         logOut() {
             localStorage.removeItem("auth_token");
-            this.$alertStore.add("Logged Out Successfully","success");
+            this.$alertStore.add("Logged Out Successfully", "success");
             this.$router.push("/login");
 
         }

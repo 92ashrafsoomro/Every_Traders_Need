@@ -29,7 +29,6 @@
                             </div>
                         </div>
                     </v-expansion-panel-title>
-
                     <v-expansion-panel-text>
                         <v-btn density="comfortable" variant="outlined" color="primary">
                             Auction House

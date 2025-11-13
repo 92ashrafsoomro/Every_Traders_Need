@@ -40,24 +40,7 @@ export default {
   async mounted() {
 
     
-    const router = this.$router;
-
-      // router.beforeEach((to, from, next) => {
-      //       this.themeStore.loading = true;
-      //     next()
-      // })
-
-     
-      // router.afterEach(() => {
-      //     setTimeout(() => {
-      //       this.themeStore.loading = false;
-      //     }, 200)
-      // })
-
-      this.userStore.$subscribe((mutation, state) => {
-         // console.log("Mutation:", mutation);
-         console.log("New state:", toRaw(state));
-      });
+  
 
 
   },

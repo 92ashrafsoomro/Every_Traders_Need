@@ -5,6 +5,7 @@ import { errorHandler } from "@/services/responseHandleService";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
+        platforms:[],
         showFilterArea: true,
         auctionTab: true,
         length:10,
@@ -63,9 +64,7 @@ export const useVehicleStore = defineStore("vehicle", {
         async getRelatedVehicle(options) {
             try {
                 let res = await api.get('/api/user/getRelatedVehicle/'+options.id, {
-                    params: {
-
-                    },
+                    params:options,
                 })
                 return res.data;
             } catch (error) {
@@ -107,6 +106,21 @@ export const useVehicleStore = defineStore("vehicle", {
                     },
                 })
                 return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+        },
+
+        async getPlatforms(options) {
+            try {
+                let res = await api.get('/api/master/getAuctionHouse',{
+                    params: {
+                    },
+                })
+
+                this.platforms = res.data.data;
+            
+
             } catch (error) {
                 throw await errorHandler(error);
             }

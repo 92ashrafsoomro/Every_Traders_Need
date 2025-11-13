@@ -11,7 +11,7 @@
                 </div>
             </v-btn>
         </template>
-
+        
         <v-list class="" style="min-width: 224px">
             <v-list-item>
                 <v-list-item-title class="cursor-pointer">
@@ -20,12 +20,8 @@
                             <img :src="userStore.user.avatar" class="h-100 w-100 rounded-circle position-static" />
                         </div>
                         <div>
-                            <p class="profile-name text-subtitle-1">
-                                {{ userStore.user.name }}
-                            </p>
-                            <p class="profile-type text-caption text-light_text_on">
-                                {{ userStore.user.user_type }}
-                            </p>
+                          <p class="profile-name text-subtitle-1">{{ userStore.user.name }}</p>
+                          <p class="profile-type text-caption text-light_text_on">{{ userStore.user.user_type }}</p>
                         </div>
                     </div>
                 </v-list-item-title>

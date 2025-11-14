@@ -4,7 +4,7 @@
             <v-btn icon v-bind="props" class="profileBtn">
                 <div class="d-flex align-center ga-2">
                     <div class="profileImage d-flex justify-center align-center">
-                        <img src="/public/theme/assets/test_profileImage.jpg" alt="" class="rounded"
+                        <img :src="userStore.user.avatar" alt="" class="rounded"
                             style="height: 80%; width: 80%;" />
                     </div>
                     <slot></slot>

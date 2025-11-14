@@ -41,13 +41,15 @@ export default {
     },
     computed: {
         menuWidth() {
-            if (this.display.lgAndDown) {
-                console.log("Mobile");
-                return this.themeStore.menuType == "expanded" ? "258" : "68";
+            
+            // md, sm, xs
+            if (this.display.mdAndDown) {
+                return  "258";
             } else {
-                console.log("desktop");
+                //for: lg, xl
                 return this.themeStore.menuType == "expanded" ? "258" : "68";
             }
+
         },
     },
     methods: {},

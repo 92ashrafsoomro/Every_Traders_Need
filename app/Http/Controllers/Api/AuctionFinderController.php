@@ -111,20 +111,20 @@ class AuctionFinderController extends Controller
             $query->where('auctions.platform_id', $request->platform);
         }
 
-        if ($request->has('type') && $request->type != '') {
-            $query->whereIn('vehicles.vehicle_id', explode(',', $request->type));
+        if ($request->has('vehicleType') && $request->vehicleType != '') {
+            $query->whereIn('vehicles.vehicle_id',$request->vehicleType);
         }
 
         if ($request->has('make') && $request->make != '') {
-            $query->whereIn('vehicles.make_id', explode(',', $request->make));
+            $query->whereIn('vehicles.make_id',$request->make);
         }
 
         if ($request->has('model') && $request->model != '') {
-            $query->whereIn('vehicles.model_id', explode(',', $request->model));
+            $query->whereIn('vehicles.model_id',$request->model);
         }
 
         if ($request->has('variant') && $request->variant != '') {
-            $query->whereIn('vehicles.variant_id', explode(',', $request->variant));
+            $query->whereIn('vehicles.variant_id',$request->variant);
         }
 
         if ($request->has('year') && $request->year != '') {

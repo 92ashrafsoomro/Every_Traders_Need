@@ -111,8 +111,8 @@ class MasterController extends Controller
                 'make.name as make',
                 DB::raw('COUNT(model.id) as count')
             ])
-            ->when($request->make_id, function ($query, $value) {
-                $query->whereIn('model.make_id', explode(',', $value));
+            ->when($request->makes, function ($query, $value) {
+                $query->whereIn('model.make_id',$value);
             })
             ->when($request->id, function ($query, $value) {
                 $query->where('model.id',$value);
@@ -140,10 +140,11 @@ class MasterController extends Controller
                 'model_variant.name as label',
                 'model.name as model',
                 DB::raw('COUNT(vehicles.id) as count')
-            ])
-            ->when($request->model_id, function ($query, $value) {
-                $query->whereIn('model_variant.model_id', explode(',', $value));
-            })
+            ])->whereIn('model_variant.model_id',$request->model)
+            
+            // ->when($request->model, function ($query, $value) {
+                
+            // })
             ->when($request->id, function ($query, $value) {
                 $query->where('model_variant.id',$value);
             })
@@ -327,7 +328,7 @@ class MasterController extends Controller
 
 
 
-    public function getBodyType(Request $request)
+    public function getBodyTypes(Request $request)
     {
         $query = DB::table('body_types')
             ->join('vehicles', 'vehicles.body_id', '=', 'body_types.id')

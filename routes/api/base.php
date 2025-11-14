@@ -19,7 +19,7 @@ Route::prefix('auth')->group(function () {
 Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/getVehicleTypes',[MasterController::class,'getVehicleTypes']);
-    Route::get('/getBodyType',[MasterController::class,'getBodyType']);
+    Route::get('/getBodyTypes',[MasterController::class,'getBodyTypes']);
     Route::get('/getAuctionHouse',[MasterController::class,'getAuctionHouse']);
     Route::get('/getAuctionCenter',[MasterController::class,'getAuctionCenter']);
     Route::get('/getMakes',[MasterController::class,'getMakes']);

@@ -14,7 +14,10 @@
                 </tr>
             </thead>
             <tbody>
-              <tr v-if="vehicleStore.data" v-for="item in vehicleStore.data" :key="item.id">
+                <tr v-if="auctionStore.loading">
+                    <td colspan="8" class="text-center" >Loading..</td>
+                </tr>
+                <tr v-if="auctionStore.data" v-for="item in auctionStore.data" :key="item.id">
                     <td>{{ item.make_name }} {{ item.model_name }} {{ item.variant_name }} </td>
                     <td>{{ item.grade}}</td>
                     <td>{{ item.cap_clean }}</td>
@@ -32,7 +35,7 @@
 
 <script>
 
-import { useVehicleStore } from "@/stores/vehicleStore";
+import { useAuctionStore } from "@/stores/auctionStore";
 
 
 export default {
@@ -40,7 +43,7 @@ export default {
     },
     data() {
         return {
-            vehicleStore:useVehicleStore(),
+            auctionStore:useAuctionStore(),
          
         }
     },

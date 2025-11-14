@@ -1,41 +1,38 @@
 <template>
         <div>
             <v-expansion-panels>
+
                 <v-expansion-panel title="Vehicle Type">
                     <v-expansion-panel-text>
-                        <v-checkbox label="Car"></v-checkbox>
-                        <v-checkbox label="Light Commercial Vehicle (LCV)"></v-checkbox>
+                        <VehicleTypeField/>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
-                <v-expansion-panel title="Make">
+                
+                <v-expansion-panel :disabled="auctionStore.makes.length ? false : true" title="Make">
                     <v-expansion-panel-text>
-                        <v-checkbox label="Ford"></v-checkbox>
-                        <v-checkbox label="BMW"></v-checkbox>
-                        <v-checkbox label="Volkswagen"></v-checkbox>
-                        <v-checkbox label="Audi"></v-checkbox>
-                        <v-checkbox label="Vauxhall"></v-checkbox>
-                        <v-checkbox label="Nissan"></v-checkbox>
-
+                        <MakeField/>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
-                <v-expansion-panel title="Model">
+                
+                <v-expansion-panel :disabled="auctionStore.models.length ? false : true" title="Model">
                     <v-expansion-panel-text>
-                        <v-checkbox label="Car"></v-checkbox>
-                        <v-checkbox label="Light Commercial Vehicle (LCV)"></v-checkbox>
+                        <ModelField/>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
-                <v-expansion-panel title="Model Variant">
+                
+                <v-expansion-panel :disabled="auctionStore.variants.length ? false : true" title="Model Variant">
                     <v-expansion-panel-text>
-                        <v-checkbox label="Car"></v-checkbox>
-                        <v-checkbox label="Light Commercial Vehicle (LCV)"></v-checkbox>
+                        <VariantField/>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
+                
                 <v-expansion-panel title="Auction Date">
                     <v-expansion-panel-text>
                         <v-checkbox label="Car"></v-checkbox>
                         <v-checkbox label="Light Commercial Vehicle (LCV)"></v-checkbox>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
+                
                 <v-expansion-panel title="Auction House">
                     <v-expansion-panel-text>
                         <v-checkbox label="Car"></v-checkbox>
@@ -119,21 +116,36 @@
 </template>
 
 <script>
-    export default {
-        components: {
-        
-        },
-        data() {
-            return {
-        
-            };
-        },
-        methods: {
-        
-        },
-        computed: {
-        },
-    };
+
+import { useAuctionStore } from "@/stores/auctionStore";
+
+
+import VehicleTypeField from "./fields/VehicleTypeField.vue";
+import PlatformField from "./fields/PlatformField.vue";
+import MakeField from "./fields/MakeField.vue";
+import ModelField from "./fields/ModelField.vue";
+import VariantField from "./fields/VariantField.vue";
+
+export default {
+    components: {
+        PlatformField,
+        VehicleTypeField,
+        MakeField,
+        ModelField,
+        VariantField,
+    },
+    data() {
+        return {
+            auctionStore:useAuctionStore(),
+        };
+    },
+    computed: {
+
+    },
+    methods: {
+    
+    },
+};
 </script>
 
 <style scoped>

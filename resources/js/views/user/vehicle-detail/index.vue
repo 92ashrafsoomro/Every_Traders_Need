@@ -15,9 +15,7 @@
         <v-row v-else dense>
 
         <v-col cols="12" class="pt-10" >
-
                 <div class="d-flex">
-
                     <div class="sidebar" >
                           <RelativeVehicle />
                     </div>
@@ -45,7 +43,6 @@
                                 </v-col>
                             </v-row>
                     </div>
-
                 </div>
             </v-col>
         </v-row>

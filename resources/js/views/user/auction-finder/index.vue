@@ -15,9 +15,6 @@
                         <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
                             Toggle Filters
                         </v-btn>
-                        <v-btn color="danger" variant="tonal" prepend-icon="mdi-delete">
-                            Clear all
-                        </v-btn>
                     </v-row>
                 </v-col>
                 <v-col cols="12" sm="9">
@@ -83,7 +80,7 @@ export default {
     },
     mounted() {
       
-        this.$themeStore.menuType = "collapsed";
+ 
         this.auctionStore.getAuctionList();  
         this.auctionStore.getVehicleTypes();
         this.auctionStore.getMakes();

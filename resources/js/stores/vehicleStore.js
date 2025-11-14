@@ -5,12 +5,12 @@ import { errorHandler } from "@/services/responseHandleService";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
-        platforms:[],
+        platforms: [],
         showFilterArea: true,
         auctionTab: true,
-        length:10,
+        length: 10,
         sort_by: 'name-asc',
-        data:[],
+        data: [],
         fuel_type: [],
         v: false,
         relatedVehicle: {
@@ -18,11 +18,12 @@ export const useVehicleStore = defineStore("vehicle", {
             per_page: 10,
             current_page: 1,
             last_page: 2,
-            data:[],
+            data: [],
         },
         vehichleDetail: {
-            sidebar:true,
-            tab:'details'
+            sidebar: true,
+            isMobile: false,
+            tab: 'details'
         },
     }),
     getters: {
@@ -30,7 +31,7 @@ export const useVehicleStore = defineStore("vehicle", {
     },
     actions: {
         toggleFilter() {
-            this.showFilterArea = !this.showFilterArea
+            this.vehichleDetail.sidebar = !this.vehichleDetail.sidebar
         },
         toggleAuctionTab() {
             this.auctionTab = !this.auctionTab
@@ -52,7 +53,7 @@ export const useVehicleStore = defineStore("vehicle", {
         },
         async getVehicleDetail(options) {
             try {
-                let res = await api.get('/api/user/auctionList/'+options.id, {
+                let res = await api.get('/api/user/auctionList/' + options.id, {
                     params: {
                     },
                 })
@@ -63,8 +64,8 @@ export const useVehicleStore = defineStore("vehicle", {
         },
         async getRelatedVehicle(options) {
             try {
-                let res = await api.get('/api/user/getRelatedVehicle/'+options.id, {
-                    params:options,
+                let res = await api.get('/api/user/getRelatedVehicle/' + options.id, {
+                    params: options,
                 })
                 return res.data;
             } catch (error) {
@@ -113,19 +114,19 @@ export const useVehicleStore = defineStore("vehicle", {
 
         async getPlatforms(options) {
             try {
-                let res = await api.get('/api/master/getAuctionHouse',{
+                let res = await api.get('/api/master/getAuctionHouse', {
                     params: {
                     },
                 })
 
                 this.platforms = res.data.data;
-            
+
 
             } catch (error) {
                 throw await errorHandler(error);
             }
         },
-        
+
 
     },
 

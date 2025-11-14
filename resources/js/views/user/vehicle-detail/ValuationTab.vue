@@ -1,5 +1,5 @@
 <template>
-    <v-row align="stretch">
+    <v-row class="ps-10 pe-10 pt-5">
         <v-col cols="12" md="4" class="d-flex flex-column">
             <v-card flat color="transparent" class="flex-grow-1">
                 <v-card flat color="primary" class="rounded-lg d-flex flex-column ga-4 pb-0">
@@ -8,33 +8,31 @@
                         <div class="d-flex align-center justify-start ga-2">
                             <p class="text-h4 font-weight-medium">£14.000</p>
                             <div class="d-flex align-center ga-2">
-                                <v-btn size="small" color="success" variant="flat"
-                                    class="ps-1 pe-1">+5.6%</v-btn>
+                                <v-btn size="small" color="success" variant="flat" class="ps-1 pe-1">+5.6%</v-btn>
                                 <p class="text-caption font-weight-light">From last month</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="text-caption pa-3" style="background-color: #011e3d;">
                         Our price estimates use historical auction data and market trends to suggest
                         likely values. Learn more
                     </div>
                 </v-card>
-                <v-card flat color="surface"
-                    class="border rounded-lg d-flex flex-column ga-4 pa-4 pb-5 mt-7">
+                <v-card flat color="surface" class="border rounded-lg d-flex flex-column ga-4 pa-4 pb-5 mt-7">
                     <v-card-title class="text-subtitle-1 font-weight-medium ps-3 pe-3">Vehicle
                         Values
                     </v-card-title>
-                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
-                        style="border-left: 3px solid red;">Trade Values</div>
+                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3" style="border-left: 3px solid red;">
+                        Trade Values</div>
                     <v-row class="mt-5 mb-5">
                         <v-col cols="12" sm="6">
                             <v-card flat color="transparent">
                                 <p class="text-overline">Autotrader</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
@@ -44,8 +42,8 @@
                                 <p class="text-overline">CAP</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
@@ -55,8 +53,8 @@
                                 <p class="text-overline">Autotrader</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
@@ -66,24 +64,24 @@
                                 <p class="text-overline">CAP</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
                         </v-col>
                     </v-row>
                     <v-divider></v-divider>
-                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3"
-                        style="border-left: 3px solid red;">Retail Values</div>
+                    <div class="text-subtitle-1 font-weight-medium ps-3 pe-3 mt-3" style="border-left: 3px solid red;">
+                        Retail Values</div>
                     <v-row class="mt-5 pb-4">
                         <v-col cols="12" sm="6">
                             <v-card flat color="transparent">
                                 <p class="text-overline">Autotrader</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
@@ -93,8 +91,8 @@
                                 <p class="text-overline">CAP</p>
                                 <p class="text-h6 font-weight-bold mb-2 mt-n1">£14,000</p>
                                 <div class="d-flex align-center ga-2">
-                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger"
-                                        variant="flat" class="ps-2 pe-2">5.6%</v-btn>
+                                    <v-btn prepend-icon="mdi-arrow-up" size="small" color="danger" variant="flat"
+                                        class="ps-2 pe-2">5.6%</v-btn>
                                     <p class="text-caption font-weight-light">From last month</p>
                                 </div>
                             </v-card>
@@ -104,22 +102,17 @@
             </v-card>
         </v-col>
         <v-col cols="12" md="4" class="d-flex flex-column">
-            <v-card flat color="surface"
-                class="flex-grow-1 rounded-lg border ps-2 pe-2 ps-md-5 pe-md-5 pt-5 pb-5">
-                <div
-                    class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center ga-2">
-                    <v-btn density="compact"
-                        class="bg-white ml-4 text-caption font-weight-medium pt-2 pb-6"
+            <v-card flat color="surface" class="flex-grow-1 rounded-lg border ps-2 pe-2 ps-md-5 pe-md-5 pt-5 pb-5">
+                <div class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center ga-2">
+                    <v-btn density="compact" class="bg-white ml-4 text-caption font-weight-medium pt-2 pb-6"
                         style="border-left: 4px solid #0080ff;">DF22
                         HVR</v-btn>
-                    <v-btn density="compact" color="primary"
-                        class="ml-4 text-caption pt-2 pb-6">Inspection
+                    <v-btn density="compact" color="primary" class="ml-4 text-caption pt-2 pb-6">Inspection
                         Report</v-btn>
                 </div>
                 <v-card-title class="text-h6 text-wrap">BMW - 3 Series - 330e - CC -
                     2022</v-card-title>
-                <div class="ps-3 pe-3 bg-shadow"
-                    style="border-left: 4px solid var(--primary-color);">
+                <div class="ps-3 pe-3 bg-shadow" style="border-left: 4px solid var(--primary-color);">
                     <v-row class="mt-5 bg-background">
                         <v-col cols="12" lg="4" sm="12" class="ps-0 pe-0">
                             <v-card flat color="transparent">
@@ -132,22 +125,19 @@
                         <v-col cols="12" lg="4" sm="12" class="ps-0 pe-0">
                             <v-card flat color="transparent">
                                 <v-card-title class="text-caption text-wrap">Date/End</v-card-title>
-                                <v-card-subtitle
-                                    class="text-medium-emphasis mt-n2 text-wrap">28/10/2025
+                                <v-card-subtitle class="text-medium-emphasis mt-n2 text-wrap">28/10/2025
                                     06:30</v-card-subtitle>
                             </v-card>
                         </v-col>
                         <v-col cols="12" lg="4" sm="12" class="ps-0 pe-0">
                             <v-card flat color="transparent">
                                 <v-card-title class="text-caption text-wrap">Status</v-card-title>
-                                <v-card-subtitle
-                                    class="text-medium-emphasis mt-n2 text-wrap">2Sold</v-card-subtitle>
+                                <v-card-subtitle class="text-medium-emphasis mt-n2 text-wrap">2Sold</v-card-subtitle>
                             </v-card>
                         </v-col>
                     </v-row>
                 </div>
-                <v-img
-                    src="https://bcamediaprod.blob.core.windows.net/public/images/vehicle/GB/DF22HVR/612584678/600"
+                <v-img src="https://bcamediaprod.blob.core.windows.net/public/images/vehicle/GB/DF22HVR/612584678/600"
                     alt="" class="mt-6" />
             </v-card>
         </v-col>
@@ -201,59 +191,49 @@
                     <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1"> £15000</div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                        £15000</div>
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
-                    <div
-                        class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
+                    <div class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                         £15000
                     </div>
                 </v-col>
             </v-card>
         </v-col>
     </v-row>
-    <v-row>
+    <v-row class="ps-10 pe-10">
         <v-col cols="12" lg="8">
             <v-card class="pa-5 flex-grow-1">
-                <v-row
-                    class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center">
+                <v-row class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center">
                     <v-col cols="12" lg="8">
                         <v-card-title class="text-h6 font-weight-medium">Trade
                             History</v-card-title>
                     </v-col>
                     <v-col cols="12" lg="4">
-                        <v-select color="primary" variant="outlined" density="compact"
-                            label="Select Range"
+                        <v-select color="primary" variant="outlined" density="compact" label="Select Range"
                             :items="['Last Month', 'Last Three Months', 'Last Six Months', 'Last Year']" />
                     </v-col>
                 </v-row>
@@ -273,14 +253,13 @@
                                             class="text-caption mb-n4"></v-checkbox>
                                         <v-checkbox label="CAP Avg" density="compact"
                                             class="text-caption mb-n4"></v-checkbox>
-                                        <v-checkbox label="CAP B" density="compact"
-                                            class="text-caption"></v-checkbox>
+                                        <v-checkbox label="CAP B" density="compact" class="text-caption"></v-checkbox>
                                     </div>
                                 </div>
                             </v-col>
                             <v-col cols="12" lg="8" class="d-flex flex-column justify-end">
-                                <v-sparkline fill :model-value="[5, 10, 8, 12, 7, 14, 10, 15]"
-                                    :line-width="2" :padding="8" smooth color="primary" />
+                                <v-sparkline fill :model-value="[5, 10, 8, 12, 7, 14, 10, 15]" :line-width="2"
+                                    :padding="8" smooth color="primary" />
                             </v-col>
                         </v-row>
                     </v-col>
@@ -296,24 +275,21 @@
                     <p>Today</p>
                     <v-col cols="12" lg="7">
                         <v-row justify="space-around" class="ga-2 mt-3 mb-3">
-                            <v-btn color="primary" density="compact"
-                                class="pa-4 rounded-lg"></v-btn>
+                            <v-btn color="primary" density="compact" class="pa-4 rounded-lg"></v-btn>
                             <p class="text-overline">ABC123</p>
                             <div
                                 class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                                 Sold</div>
                         </v-row>
                         <v-row justify="space-around" class="ga-2 mt-3 mb-3">
-                            <v-btn color="primary" density="compact"
-                                class="pa-4 rounded-lg"></v-btn>
+                            <v-btn color="primary" density="compact" class="pa-4 rounded-lg"></v-btn>
                             <p class="text-overline">ABC123</p>
                             <div
                                 class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
                                 Sold</div>
                         </v-row>
                         <v-row justify="space-around" class="ga-2 mt-3 mb-3">
-                            <v-btn color="primary" density="compact"
-                                class="pa-4 rounded-lg"></v-btn>
+                            <v-btn color="primary" density="compact" class="pa-4 rounded-lg"></v-btn>
                             <p class="text-overline">ABC123</p>
                             <div
                                 class="w-10 h-10 bg-shadow text-caption rounded d-flex justify-center align-center ps-1 pe-1">
@@ -324,7 +300,7 @@
             </v-card>
         </v-col>
     </v-row>
-        
+
 </template>
 
 <script>
@@ -334,31 +310,31 @@ import { useVehicleStore } from '@/stores/vehicleStore';
 export default {
     data() {
         return {
-            vehicleStore:useVehicleStore(),
-            loading:false,
+            vehicleStore: useVehicleStore(),
+            loading: false,
         };
     },
     mounted() {
 
-    
+
     },
     beforeUnmount() {
-       
+
     },
     methods: {
-     
-    
+
+
     },
 };
 </script>
 
 <style scoped>
-    /* Vuetify’s internal wrapper override */
-    ::-webkit-scrollbar {
-        display: none;
-    }
+/* Vuetify’s internal wrapper override */
+::-webkit-scrollbar {
+    display: none;
+}
 
-    .mobile-panel {
-        max-width: 280px;
-    }
+.mobile-panel {
+    max-width: 280px;
+}
 </style>

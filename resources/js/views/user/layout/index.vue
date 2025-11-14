@@ -14,8 +14,8 @@
                 <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-row class="pr-2 ga-5" align="center" justify="end" no-gutters>
-                <div class="d-flex align-center justify-space-around mr-3">
+            <v-row class="pr-2 ga-5 d-flex align-center justify-end" no-gutters>
+                <div class="d-flex align-center justify-space-around mr-0 mr-lg-3">
                     <!-- Fullscreen -->
                     <v-col cols="auto">
                         <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border"
@@ -45,16 +45,11 @@
                 </div>
                 <div class="border-s-md pt-4 pb-4"></div>
 
-
-                <!-- Profile Dropdown -->
-                <v-col cols="auto" class="ml-n3  mr-10  pt-0 pb-0 pr-10">
-                    <div class="d-flex align-center ga-2 rounded pa-0 ps-12">
-                        <ProfileDropdown>
-                            <p class="text-subtitle-1 text-left">User</p>
-                        </ProfileDropdown>
-                    </div>
-
-                </v-col>
+                <div class="d-flex align-center ga-2 rounded pa-0 ps-4 ps-md-12 ">
+                    <ProfileDropdown>
+                        <p class="text-subtitle-1 text-left d-none d-lg-block">User</p>
+                    </ProfileDropdown>
+                </div>
             </v-row>
         </v-app-bar>
 

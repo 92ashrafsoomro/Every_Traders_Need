@@ -34,7 +34,6 @@ const vuetify = createVuetify({
                 colors: {
                     primary: "#0080ff",
                     'primary-lighten-1': '#3399ff',
-                    // secondary: "#000f21",
                     background: "#000f21",
                     surface: "#0f1c2b",
                     'surface-variant-1': "#0f1c2b",
@@ -47,8 +46,9 @@ const vuetify = createVuetify({
                     info: "#2196F3",
                     background: "#0E1B2B",
                     surface: "#000E20",
-                    // lighthover: "#002145",
                     shadow: "#353f4c",
+                    // lighthover: "#002145",
+                    // secondary: "#000f21",
                 },
                 typography: {
                     fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
@@ -95,7 +95,6 @@ const vuetify = createVuetify({
                 colors: {
                     primary: "#0080ff",
                     'primary-lighten-1': '#8579F2',
-                    // secondary: "#FFFFFF",
                     background: "#f0eff5",
                     surface: "#F8F8FF",
                     'surface-variant-1': "#e9eff6",
@@ -107,6 +106,7 @@ const vuetify = createVuetify({
                     error: "#FF5252",
                     info: "#2196F3",
                     shadow: "#E1EBEE",
+                    // secondary: "#FFFFFF",
                 },
             },
         },

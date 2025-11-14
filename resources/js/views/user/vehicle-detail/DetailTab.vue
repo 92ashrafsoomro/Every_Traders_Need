@@ -1,6 +1,6 @@
 <template>
     <v-row dense>
-        <v-col cols="12" class="mt-4">
+        <v-col cols="12" class="mt-4 ps-10 pe-10">
             <v-card class="pa-5">
                 <v-row>
                     <v-col cols="12" lg="6" md="6" sm="12" class="d-flex flex-column justify-start">
@@ -35,7 +35,7 @@
                                     <v-card-title class="text-caption">Reg</v-card-title>
                                     <v-btn density="compact"
                                         class="bg-white ml-4 text-caption border-s-xl font-weight-medium border-primary">{{
-                                        vehicleStore.v.vehicle.reg }}
+                                            vehicleStore.v.vehicle.reg }}
                                     </v-btn>
                                 </v-card>
                             </v-col>
@@ -67,7 +67,7 @@
                                 <v-card flat color="transparent">
                                     <v-card-title class="text-caption">Lot</v-card-title>
                                     <v-card-subtitle class="text-medium-emphasis mt-n2">{{
-                                        vehicleStore.v.vehicle.lot}}</v-card-subtitle>
+                                        vehicleStore.v.vehicle.lot }}</v-card-subtitle>
                                 </v-card>
                             </v-col>
                             <v-divider class="ms-5 me-5 mb-n1"></v-divider>
@@ -75,7 +75,7 @@
                                 <v-card flat color="transparent">
                                     <v-card-title class="text-caption">Auction Status</v-card-title>
                                     <v-card-subtitle class="text-medium-emphasis mt-n2">{{
-                                        vehicleStore.v.vehicle.bidding_status}}</v-card-subtitle>
+                                        vehicleStore.v.vehicle.bidding_status }}</v-card-subtitle>
                                 </v-card>
                             </v-col>
                             <v-col cols="6" sm="3">
@@ -113,7 +113,7 @@
         </v-col>
     </v-row>
 
-    <v-row class="d-flex align-center justify-center ga-1 bg-surface border-t border-b pt-8 pb-8">
+    <v-row class="d-flex align-center justify-center ga-1 bg-surface border-t border-b pt-8 pb-8 mt-16">
         <v-col cols="6" lg="2" md="2" sm="3" class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-card class="bg-shadow pa-1 pa-lg-3 rounded-lg">
                 <v-icon color="primary">mdi-car</v-icon>
@@ -162,7 +162,7 @@
     </v-row>
 
 
-    <v-row class="mt-8">
+    <v-row class="mt-8 ps-10 pe-10">
         <v-col cols="12" md="8">
             <v-card flat color="transparent" class="pa-1 pa-lg-5">
                 <v-container>
@@ -330,7 +330,7 @@
         </v-col>
     </v-row>
 
-    <v-row>
+    <v-row class="ps-10 pe-10">
         <v-col cols="12" md="8">
             <v-card flat color="transparent" class="pa-5">
                 <v-container>
@@ -403,9 +403,9 @@
     </v-row>
 
 
-    <v-row>
+    <v-row class="ps-10 pe-10 pb-10">
         <v-col cols="12" md="6">
-            <v-card flat color="transparent">
+            <v-card flat color="transparent" class="pa-5">
                 <v-card-title class="text-h4 font-weight-medium">Features</v-card-title>
             </v-card>
         </v-col>

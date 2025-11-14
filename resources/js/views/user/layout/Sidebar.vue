@@ -30,7 +30,6 @@ import { useDisplay } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
 import { getMenu } from "@services/menuService";
 import logo from "@assets/images/logo/logo.png"
-
 export default {
     data() {
         return {
@@ -44,10 +43,10 @@ export default {
         menuWidth() {
             if (this.display.lgAndDown) {
                 console.log("Mobile");
-                return this.themeStore.menuType == "expanded" ? "258" : "60";
+                return this.themeStore.menuType == "expanded" ? "258" : "68";
             } else {
                 console.log("desktop");
-                return this.themeStore.menuType == "expanded" ? "258" : "60";
+                return this.themeStore.menuType == "expanded" ? "258" : "68";
             }
         },
     },
@@ -55,5 +54,4 @@ export default {
     mounted() { },
 };
 </script>
-
 <style scoped></style>

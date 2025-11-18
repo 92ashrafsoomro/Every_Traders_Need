@@ -108,7 +108,11 @@ class AuctionFinderController extends Controller
         
         // ==== FILTERS ====
         if ($request->has('platform') && $request->platform != '') {
-            $query->where('auctions.platform_id', $request->platform);
+            $query->whereIn('auctions.platform_id', $request->platform);
+        }
+
+        if ($request->has('center') && $request->center != '') {
+            $query->whereIn('vehicles.center_id',$request->center);
         }
 
         if ($request->has('vehicleType') && $request->vehicleType != '') {
@@ -175,13 +179,6 @@ class AuctionFinderController extends Controller
             $query->whereIn('vehicles.no_of_services', explode(',', $request->no_of_service));
         }
 
-        if ($request->has('auction_house') && $request->auction_house != '') {
-            $query->whereIn('auctions.platform_id', explode(',', $request->auction_house));
-        }
-
-        if ($request->has('auction_center') && $request->auction_center != '') {
-            $query->whereIn('vehicles.center_id', explode(',', $request->auction_center));
-        }
 
         if ($request->has('mileage_from') && $request->mileage_from != '') {
             $query->where('vehicles.mileage', '>=', $request->mileage_from);

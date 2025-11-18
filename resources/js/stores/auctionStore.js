@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import api from "../plugins/axios";
 
 import { errorHandler } from "@/services/responseHandleService";
+import { useMasterStore } from "./masterStore";
 
 export const useAuctionStore = defineStore("auction", {
     state: () => ({
@@ -13,22 +14,33 @@ export const useAuctionStore = defineStore("auction", {
             make: [],
             model: [],
             variant: [],
-            length:10,
+
+            mileageFrom:'',
+            mileageTo:'',
+
+            year: [],
+            transmission: [],
+            fuelType: [],
+            door: [],
+            seat: [],
+            grade: [],
+            v5: [],
+            cc: [],
+            formerKeeper: [],
+            noOfService: [],
+            mileage:[],
+            
             search:'',
-            sort_by:'name-asc',
+            length:10,
+            sort_by: 'name-asc',
+            page:1,
         },
         auctionTab: true,
-        sidebar:true,
+        sidebar: true,
         data: [],
-        fuel_type: [],
-
-        platforms: [],
-        vehicleTypes: [], 
-        bodyTypes: [],
-        centers: [],
-        makes: [],
-        models: [],
-        variants: [],
+        total: 0,
+        last_page: 10,
+        offset:0,
         loading:false,
     }),
     getters:{
@@ -41,14 +53,56 @@ export const useAuctionStore = defineStore("auction", {
         toggleAuctionTab() {
             this.auctionTab = !this.auctionTab;
         },
+        ClearFilter() {
+
+            this.filter.platform = [];
+            this.filter.vehicleType = []; 
+            this.filter.bodyType = [];
+            this.filter.center = [];
+            this.filter.make = [];
+            this.filter.model = [];
+            this.filter.variant = [];
+            this.filter.search = '';
+            this.filter.length = 10;
+            this.filter.sort_by = 'name-asc';
+            this.page = 1;
+            this.getAuctionList();
+
+        },
+        async loadSiderBarFilters() { 
+           
+            const masterStore = useMasterStore();
+            masterStore.getVehicleTypes();
+            masterStore.getMakes();
+            masterStore.getPlatforms();
+            masterStore.getAuctionCenter();
+            masterStore.getYears();
+            masterStore.getTransmissions();
+            masterStore.getFuelType();
+            masterStore.getDoors();
+            masterStore.getSeats();
+            masterStore.getDates();
+            masterStore.getGrades();
+            masterStore.getEngineSize();
+            masterStore.getV5();
+            masterStore.getFormerKeepers();
+            masterStore.getNoOfServices()
+
+            
+                
+        },
         async getAuctionList() {
             this.loading = true;
             try {
+
                 let res = await api.get('/api/user/auctionList', {
                     params:this.filter
                 })
 
                 this.data = res.data.data;
+                this.total = res.data.total;
+                this.last_page = res.data.last_page;
+                this.offset = res.data.offset;
                 this.loading = false;
                 return res.data;
             } catch (error) {
@@ -69,82 +123,6 @@ export const useAuctionStore = defineStore("auction", {
                 throw await errorHandler(error);
             }
         },
-
-        async getPlatforms(options = {}) {
-            try {
-                let res = await api.get('/api/master/getAuctionHouse',{
-                    params:options,
-                })
-                this.platforms = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getVehicleTypes(options = {}) {
-            try {
-                let res = await api.get('/api/master/getVehicleTypes',{
-                    params:options,
-                })
-                this.vehicleTypes = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getBodyTypes(options = {}) {
-            try {
-                let res = await api.get('/api/master/getBodyTypes',{
-                    params:options,
-                })
-                this.bodyTypes = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getAuctionCenter(options = {}) {
-            try {
-                let res = await api.get('/api/master/getAuctionCenter',{
-                    params:options,
-                })
-                this.centers = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getMakes(options = {}) {
-            try {
-                let res = await api.get('/api/master/getMakes',{
-                    params:options,
-                })
-                this.makes = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getModels(options = {}) {
-            try {
-                let res = await api.get('/api/master/getModels',{
-                    params: {
-                        makes:this.filter.make
-                    },
-                })
-                this.models = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getVariants(options = {}) {
-            try {
-                let res = await api.get('/api/master/getVariants',{
-                    params: {
-                        model:this.filter.model
-                    },
-                })
-                this.variants = res.data.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        
 
     },
 

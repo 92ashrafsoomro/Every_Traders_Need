@@ -1,24 +1,18 @@
 <template>
     <div class="bg-surface rounded border pa-4">
-          <v-data-table-server class="dataTable rounded" 
+         <v-data-table-server class="dataTable rounded" 
             :headers="headers" 
             :items="auctionStore.data"
             :items-length="auctionStore.total" 
             :loading="auctionStore.loading"
             item-value="id"   
             @update:options="auctionStore.getAuctionList">
-                <template #item.vehicle="{ item }">
+                <template #item.make_name="{ item }">
                     {{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}
                 </template>
-
                 <template #item.date="{ item }">
                     {{ item.auction_date }} {{ item.auction_time }}
                 </template>
-
-                 <template #item.autoboli="{ item }">
-                    
-                </template>
-
                 <template v-slot:bottom>
                     <custom-pagination
                       :loading="auctionStore.loading"
@@ -29,13 +23,11 @@
                 </template>
         </v-data-table-server>
     </div>
-
 </template>
 
 <script>
 
 import { useAuctionStore } from "@/stores/auctionStore";
-
 
 export default {
     components: {
@@ -46,48 +38,52 @@ export default {
             headers: [
                 {
                     title: "Vehicle",
-                    key: "vehicle",
+                    key: "make_name",
                     sortable: false
+                },
+                {
+                    title: "Year / CC",
+                    key: "cc"
+                },
+                {
+                    title: "Mileage",
+                    key: "mileage"
+                },
+                {
+                    title: "Transmission",
+                    key: "transmission"
                 },
                 {
                     title: "Grade",
                     key: "grade"
                 },
                 {
-                    title: "Cap Clean",
-                    key: "cap_clean"
-                },
-                {
-                    title: "Cap Average",
-                    key: "cap_average"
-                },
-                {
-                    title: "Cap Below",
-                    key: "cap_below"
-                },
-                {
-                    title: "Autotrader Retail",
-                    key: "autotrader_retail_value"
-                },
-                {
                     title: "Date Time",
                     key: "date"
                 },
                 {
-                    title: "Autoboli",
-                    key: "autoboli"
+                    title: "Auction House",
+                    key: "auction_name"
                 },
             ],
          
         }
     },
-    methods: {
+    computed: {
+      
        
     },
-    computed: {
+    methods: {
       
     },
 };
 
 </script>
 
+
+<style>
+
+
+
+
+</style>

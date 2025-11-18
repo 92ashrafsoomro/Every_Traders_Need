@@ -1,9 +1,9 @@
 <template>
-    <div v-for="item in auctionStore.models" :key="item.id">
-           <v-checkbox 
-             v-model="auctionStore.filter.model" 
-             :label="item.label"
+    <div v-for="item in masterStore.cc.data" :key="item.id">
+           <v-checkbox
              @change="handleChange" 
+             v-model="auctionStore.filter.cc" 
+             :label="item.label" 
              :value="item.id" />
     </div>
 </template>
@@ -11,21 +11,20 @@
 <script>
 
 import { useAuctionStore } from "@/stores/auctionStore";
+import { useMasterStore } from "@/stores/masterStore";
 
 export default {
     components: {
     },
     data() {
         return {
-            auctionStore:useAuctionStore(),
+            auctionStore: useAuctionStore(),
+            masterStore:useMasterStore(),
         }
     },
     methods: {
-        handleChange(e) {
-
+         handleChange(e) {
             this.auctionStore.getAuctionList();
-            this.auctionStore.getVariants();
-             
         }
     },
     computed: {

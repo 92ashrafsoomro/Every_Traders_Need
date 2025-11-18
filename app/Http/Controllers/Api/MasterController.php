@@ -70,10 +70,7 @@ class MasterController extends Controller
             "data" => $res,
         ], 200);
     }
-
-
-
-
+    
     public function getMakes(Request $request)
     {
         $query = DB::table('make')

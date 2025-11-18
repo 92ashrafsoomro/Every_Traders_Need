@@ -9,43 +9,58 @@
             </div>
         </user-title-bar>
         <div class="mr-auto ml-auto pa-1 pa-sm-7">
-            <v-row class="d-flex align-center">
-                <v-col>
-                    <v-row class="d-flex align-center justify-space-between h-100 ps-2 pr-2">
-                        <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
-                            Toggle Filters
-                        </v-btn>
-                    </v-row>
-                </v-col>
-                <v-col cols="12" sm="9">
-                    <v-row class="d-flex align-center justify-space-between h-100 ps-2 pr-2">
-                        <v-col cols="12" sm="2">
-                            <v-select 
-                                persistent-placeholder 
-                                v-model="auctionStore.filter.length"
-                                @update:model-value="handleInput()" 
-                                color="primary" 
-                                variant="outlined" 
-                                density="compact" 
-                                label="Length"
-                                :items="['10','50', '100', '200','500']" />
-                        </v-col>
-                        <v-col cols="12" sm="3">
-                            <v-select 
-                               persistent-placeholder 
-                               v-model="auctionStore.filter.sort_by"
-                               @update:model-value="handleInput()"  
-                               color="primary" 
-                               variant="outlined" 
-                               density="compact" 
-                               item-title="name"
-                               item-value="id"     
-                               label="Sort by"
-                               :items="sortingOptions" />
-                        </v-col>
-                    </v-row>
-                </v-col>
-            </v-row>
+            <div class="pb-3 d-flex align-center justify-space-between">
+                <div class="d-flex w-100" >
+                    <div class="px-3"  >
+                        <v-btn 
+                        color="primary" 
+                        variant="outlined" 
+                        prepend-icon="mdi-filter" 
+                        @click="auctionStore.toggleFilter()"></v-btn>
+                    </div>
+                    <div class="w-100 px-3"  style="max-width: 300px;" >
+                        <v-select 
+                        persistent-placeholder 
+                        v-model="auctionStore.filter.length"
+                        @update:model-value="handleInput()" 
+                        color="primary" 
+                        variant="outlined" 
+                        density="compact" 
+                        label="Length"
+                        :items="[10,50,100,200,500]" />
+                    </div>
+                    <div class="w-100 px-3"  style="max-width: 300px;" >
+                        <v-select 
+                            persistent-placeholder 
+                            v-model="auctionStore.filter.sort_by"
+                            @update:model-value="handleInput()"  
+                            color="primary" 
+                            variant="outlined" 
+                            density="compact" 
+                            item-title="name"
+                            item-value="id"     
+                            label="Sort by"
+                            :items="sortingOptions" />
+                    </div>
+                    <div class="px-3">
+                        <v-btn 
+                        color="danger"
+                        class="mx-2" 
+                        variant="outlined" 
+                        prepend-icon="mdi-delete" 
+                        @click="this.auctionStore.ClearFilter()" />
+
+                        <v-btn 
+                        color="primary" 
+                        variant="outlined" 
+                        prepend-icon="mdi-magnify" 
+                        @click="auctionStore.getAuctionList()" />
+                    </div>
+                    <div class="px-3">
+                        {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
+                    </div>
+                </div>
+            </div>
             <v-row class="d-flex align-start">
                 <v-col v-if="auctionStore.sidebar" cols="12" :sm="auctionStore.sidebar ? 3 : 0" key="filter"
                     class="transition-col">
@@ -62,9 +77,9 @@
 </template>
 
 <script>
-import AuctionFinder from "./auctionFinder.vue";
+import AuctionFinder from "./auctionDetail.vue";
 import VehicleValuation from "./vehicleValuation.vue";
-import auctionSidebar from "./auctionSidebar.vue";
+import auctionSidebar from "./sidebar/index.vue";
 import { useAuctionStore } from "@/stores/auctionStore";
 
 export default {
@@ -80,10 +95,9 @@ export default {
     },
     mounted() {
       
- 
-        this.auctionStore.getAuctionList();  
-        this.auctionStore.getVehicleTypes();
-        this.auctionStore.getMakes();
+        this.auctionStore.loadSiderBarFilters(); 
+        // this.auctionStore.getAuctionList();  
+        this.$themeStore.menuType = 'collapsed';
 
     },
      computed: {
@@ -104,7 +118,8 @@ export default {
     methods: {
         handleInput() {
             this.auctionStore.getAuctionList()
-        }
+        },
+    
     },
    
     

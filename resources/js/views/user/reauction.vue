@@ -75,19 +75,32 @@
                      :loading="loading" 
                      item-value="id" 
                      @update:options="loadItems">
-                     <template #item.action="{ item }">
-                        <v-btn color="primary" to="/vehicle-detail" @click="viewItem(item)">View</v-btn>
-                    </template>
-                  </v-data-table-server>
+                     
+                        <template #item.action="{ item }">
+                            <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                        </template>
+                    
+                        <template v-slot:bottom>
+                            <div class="pt-2" >
+                                <custom-pagination
+                                :loading="loading"
+                                v-model:page="filter.page" 
+                                :lastPage="last_page"
+                                @page-changed="loadItems"
+                                />
+                            </div>
+                        </template>
+
+                    </v-data-table-server>
+
+
 
             </v-col>
         </v-row>
        
  
     </v-container>
-
 </template>
-
 <script>
 
 import { useMasterStore } from "@/stores/masterStore";
@@ -131,36 +144,34 @@ export default {
         }
     },
     mounted() {
-        this.loadItems({ page: 1, itemsPerPage: 10 });
+
+        this.loadItems();
     },
     methods: {
         async loadItems(options) {
+
             this.loading = true;
             try {
-                // Extract page and itemsPerPage from options
-                const page = options.page || 1;
-                const itemsPerPage = options.itemsPerPage || 10;
+            
+                const response = await this.vehicleStore.getreAuctionList(options);
+                this.items = response.data || [];
+                this.totalItems = response.recordsTotal;
+                this.filter.offset = response.offset;
+                this.filter.page = response.page;
+                this.last_page = response.last_page;
 
-                // Call your store API
-                const response = await this.vehicleStore.getreAuctionList({
-                    length: itemsPerPage,
-                    search: this.search,
-                    page: page, // optional if API supports page
-                });
-
-                // Populate table
-                this.items = response.data; // array of vehicles
-                this.totalItems = response.recordsTotal || response.data.length;
             } catch (error) {
-                console.error("Error loading reAuctionList:", error);
-                this.vehicleStore.add(error, "error");
+
+                console.error("Error fetching userWatchList:", error);
+                this.totalItems = 0;
+                this.items = [];
+
             } finally {
                 this.loading = false;
             }
         },
-
-        viewItem(item) {
-            alert(`View vehicle: ${item.title}`);
+        handleInput(e) {
+            this.loadItems();
         },
     },
 };

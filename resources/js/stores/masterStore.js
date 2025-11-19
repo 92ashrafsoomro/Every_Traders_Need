@@ -216,6 +216,7 @@ export const useMasterStore = defineStore("master", {
                 let res = await api.get('/api/master/getSeats',{
                     params: options,
                 })
+                
                 this.seats.data = res.data.data;
             } catch (error) {
                 throw await errorHandler(error);

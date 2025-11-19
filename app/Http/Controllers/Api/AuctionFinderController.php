@@ -132,110 +132,109 @@ class AuctionFinderController extends Controller
         }
 
         if ($request->has('year') && $request->year != '') {
-            $query->whereIn('vehicles.year', explode(',', $request->year));
+            $query->whereIn('vehicles.year',$request->year);
         }
 
         if ($request->has('transmission') && $request->transmission != '') {
-            $query->whereIn('vehicles.transmission', explode(',', $request->transmission));
+            $query->whereIn('vehicles.transmission',$request->transmission);
         }
 
-        if ($request->has('fuel_type') && $request->fuel_type != '') {
-            $query->whereIn('vehicles.fuel_type', explode(',', $request->fuel_type));
+        if ($request->has('fuelType') && $request->fuelType != '') {
+            $query->whereIn('vehicles.fuel_type',$request->fuelType);
         }
 
-        if ($request->has('body') && $request->body != '') {
-            $query->whereIn('vehicles.body_id', explode(',', $request->body));
+        if ($request->has('bodyType') && $request->bodyType != '') {
+            $query->whereIn('vehicles.body_id',$request->bodyType);
         }
 
         if ($request->has('color') && $request->color != '') {
             $query->whereIn('vehicles.color_id', explode(',', $request->color));
         }
 
-        if ($request->has('doors') && $request->doors != '') {
-            $query->whereIn('vehicles.doors', explode(',', $request->doors));
+        if ($request->has('door') && $request->door != '') {
+            $query->whereIn('vehicles.doors',$request->door);
         }
 
         if ($request->has('seat') && $request->seat != '') {
-            $query->whereIn('vehicles.seats', explode(',', $request->seat));
+            $query->whereIn('vehicles.seats',$request->seat);
         }
 
         if ($request->has('grade') && $request->grade != '') {
-            $query->whereIn('vehicles.grade', explode(',', $request->grade));
+            $query->whereIn('vehicles.grade',$request->grade);
         }
 
         if ($request->has('v5') && $request->v5 != '') {
-            $query->whereIn('vehicles.v5', explode(',', $request->v5));
+            $query->whereIn('vehicles.v5',$request->v5);
         }
 
         if ($request->has('cc') && $request->cc != '') {
-            $query->whereIn('vehicles.cc', explode(',', $request->cc));
+            $query->whereIn('vehicles.cc',$request->cc);
         }
 
         if ($request->has('former_keeper') && $request->former_keeper != '') {
             $query->whereIn('vehicles.former_keepers', explode(',', $request->former_keeper));
         }
 
-        if ($request->has('no_of_service') && $request->no_of_service != '') {
-            $query->whereIn('vehicles.no_of_services', explode(',', $request->no_of_service));
+        if ($request->has('noOfService') && $request->noOfService != '') {
+            $query->whereIn('vehicles.no_of_services',$request->noOfService);
         }
 
-
-        if ($request->has('mileage_from') && $request->mileage_from != '') {
-            $query->where('vehicles.mileage', '>=', $request->mileage_from);
+        if ($request->has('mileageFrom') && $request->mileageFrom != '') {
+            $query->where('vehicles.mileage', '>=', $request->mileageFrom);
         }
 
-        if ($request->has('mileage_to') && $request->mileage_to != '') {
-            $query->where('vehicles.mileage', '<=', $request->mileage_to);
+        if ($request->has('mileageTo') && $request->mileageTo != '') {
+            $query->where('vehicles.mileage', '<=', $request->mileageTo);
         }
 
         $now = \Carbon\Carbon::now();
         $column = 'auctions.auction_date';
-        $datesInput = $request->input('date', '');
+        $datesInput = $request->input('date','');
         $dates = is_array($datesInput) ? $datesInput : explode(',', $datesInput);
 
         $fromDate = $now->copy()->subDays(30)->startOfDay();
         $toDate = $now->copy()->addDays(4)->endOfDay();
 
-        $query->where(function ($q) use ($dates, $now, $column, &$fromDate, &$toDate) {
-            $hasValid = false;
+        // $query->where(function ($q) use ($dates, $now, $column, &$fromDate, &$toDate) {
+        //     $hasValid = false;
 
-            foreach ($dates as $d) {
-                $d = trim($d);
-                if (empty($d)) {
-                    continue;
-                }
+        //     foreach ($dates as $d) {
+        //         $d = trim($d);
+        //         if (empty($d)) {
+        //             continue;
+        //         }
 
-                $hasValid = true;
+        //         $hasValid = true;
 
-                if ($d === 'previous') {
-                    $fromDate = $now->copy()->subMonths(3)->startOfDay();
-                    $toDate = $now->copy()->endOfDay();
-                } elseif ($d === 'today') {
-                    $fromDate = $now->copy()->startOfDay();
-                    $toDate = $now->copy()->endOfDay();
-                } elseif ($d === 'upcoming') {
-                    $fromDate = $now->copy()->startOfDay();
-                    $toDate = $now->copy()->addWeek()->endOfDay();
-                } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) {
-                    try {
-                        $fromDate = \Carbon\Carbon::parse($d)->startOfDay();
-                        $toDate = \Carbon\Carbon::parse($d)->endOfDay();
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                } else {
-                    continue;
-                }
+        //         if ($d === 'previous') {
+        //             $fromDate = $now->copy()->subMonths(3)->startOfDay();
+        //             $toDate = $now->copy()->endOfDay();
+        //         } elseif ($d === 'today') {
+        //             $fromDate = $now->copy()->startOfDay();
+        //             $toDate = $now->copy()->endOfDay();
+        //         } elseif ($d === 'upcoming') {
+        //             $fromDate = $now->copy()->startOfDay();
+        //             $toDate = $now->copy()->addWeek()->endOfDay();
+        //         } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) {
+        //             try {
+        //                 $fromDate = \Carbon\Carbon::parse($d)->startOfDay();
+        //                 $toDate = \Carbon\Carbon::parse($d)->endOfDay();
+        //             } catch (\Exception $e) {
+        //                 continue;
+        //             }
+        //         } else {
+        //             continue;
+        //         }
 
-                $q->orWhereBetween($column, [$fromDate, $toDate]);
-            }
+        //         $q->orWhereBetween($column, [$fromDate, $toDate]);
+        //     }
 
-            if (!$hasValid) {
-                $fromDate = $now->copy()->subDays(30)->startOfDay();
-                $toDate = $now->copy()->addDays(4)->endOfDay();
-                $q->whereBetween($column, [$fromDate, $toDate]);
-            }
-        });
+        //     if (!$hasValid) {
+        //         $fromDate = $now->copy()->subDays(30)->startOfDay();
+        //         $toDate = $now->copy()->addDays(4)->endOfDay();
+        //         $q->whereBetween($column, [$fromDate, $toDate]);
+        //     }
+        // });
 
 
         $sortBy = $request->input('sort_by', 'auction_date');
@@ -678,6 +677,7 @@ class AuctionFinderController extends Controller
 
         $baseQuery = RecentView::join('vehicles','vehicles.id','=','recent_views.vehicle_id')
             ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
+            ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')
             ->where('recent_views.user_id', $userId);
 
             // Apply filters
@@ -714,7 +714,10 @@ class AuctionFinderController extends Controller
                         'vehicles.cap_clean',
                         'vehicles.cap_below',
                         'vehicles.cap_average',
-                        'vehicles.autotrader_retail_value'
+                        'vehicles.autotrader_retail_value',
+                        'auction_platform.name as platform_title'
+
+                        
                 ])
                 ->orderByDesc('recent_views.id')
                 ->skip($offset)
@@ -724,6 +727,10 @@ class AuctionFinderController extends Controller
             return response()->json([
                 'recordsTotal' => $countQuery,
                 'recordsFiltered' => $countQuery,
+                
+                'page' => $page,
+                'offset' => $offset,
+                'last_page' => ceil($countQuery / $length),
                 'data' => $data,
             ]);
 

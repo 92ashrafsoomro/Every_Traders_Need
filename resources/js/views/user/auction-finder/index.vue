@@ -3,22 +3,38 @@
         <user-title-bar title="Smart Auction Search"
             subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
             <div class="d-flex align-center ga-3">
+
                 <v-btn variant="tonal" class="text-none px-5 py-2"
-                    :class="{ 'bg-primary text-white': auctionStore.auctionTab === true}" @click="auctionStore.toggleAuctionTab()"> Auction Finder </v-btn>
-                <v-btn variant="tonal" class="text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" @click="auctionStore.toggleAuctionTab()"> Vehicle Valuation</v-btn>
+                    :class="{ 'bg-primary text-white': auctionStore.auctionTab === true}" 
+                    @click="auctionStore.toggleAuctionTab()"> Auction Finder </v-btn>
+
+                <v-btn variant="tonal" class="text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" 
+                @click="auctionStore.toggleAuctionTab()"> Vehicle Valuation</v-btn>
+
+                
             </div>
         </user-title-bar>
+
         <div class="mr-auto ml-auto pa-1 pa-sm-7">
             <div class="pb-3 d-flex align-center justify-space-between">
-                <div class="d-flex w-100" >
+                <div class="d-flex w-100 flex-wrap" >
                     <div class="px-3"  >
                         <v-btn 
+                        v-if="auctionStore.sidebar"
                         color="primary" 
                         variant="outlined" 
                         prepend-icon="mdi-filter" 
                         @click="auctionStore.toggleFilter()"></v-btn>
+
+                         <v-btn v-else
+                        color="primary" 
+                        variant="outlined" 
+                        prepend-icon="mdi-filter-off" 
+                        @click="auctionStore.toggleFilter()"></v-btn>
+
+                        
                     </div>
-                    <div class="w-100 px-3"  style="max-width: 300px;" >
+                    <div class="px-3"  style="width: 130px;" >
                         <v-select 
                         persistent-placeholder 
                         v-model="auctionStore.filter.length"
@@ -29,7 +45,7 @@
                         label="Length"
                         :items="[10,50,100,200,500]" />
                     </div>
-                    <div class="w-100 px-3"  style="max-width: 300px;" >
+                    <div class="px-3"  style="width: 300px;" >
                         <v-select 
                             persistent-placeholder 
                             v-model="auctionStore.filter.sort_by"
@@ -54,25 +70,29 @@
                         color="primary" 
                         variant="outlined" 
                         prepend-icon="mdi-magnify" 
-                        @click="auctionStore.getAuctionList()" />
+                        @click="handleSearch" />
                     </div>
-                    <div class="px-3">
+                    <div class="px-3 ">
                         {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
                     </div>
                 </div>
             </div>
-            <v-row class="d-flex align-start">
-                <v-col v-if="auctionStore.sidebar" cols="12" :sm="auctionStore.sidebar ? 3 : 0" key="filter"
-                    class="transition-col">
-                    <v-col class="w-100 bg-surface rounded border pa-4">
+
+               <div :class="{'sidebarOpen': auctionStore.sidebar }" class="main-div d-flex align-start justify-space-between flex-wrap">
+                    <div class="sidebar" >
+                        <div class=" bg-surface rounded border pa-4">
                         <auctionSidebar/>
-                    </v-col>
-                </v-col>
-                <v-col cols="12" :sm="auctionStore.sidebar ? 9 : 12" class="transition-col">
-                    <component :is="currentComponent" />
-                </v-col>
-            </v-row>
+                        </div>   
+                    </div> 
+                    <div class="transition-col">
+                        <component :is="currentComponent" />
+                    </div>
+                </div>
+
         </div>
+        
+     
+
     </main>
 </template>
 
@@ -119,11 +139,55 @@ export default {
         handleInput() {
             this.auctionStore.getAuctionList()
         },
-    
+        handleSearch() {
+            this.auctionStore.getAuctionList();
+        }
     },
    
     
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.main-div{
+    position: relative;
+}
+
+.sidebar{
+    width: 300px;
+    display: none;
+    /* overflow: scroll; */
+    /* max-height: 700px; */
+
+}
+
+.transition-col{
+    width: 100%;
+}
+
+.sidebarOpen .sidebar{
+    width: 330px!important;
+    display: block;
+}
+
+.sidebarOpen .transition-col{
+     width: calc( 100% - 350px)!important;
+}
+
+@media (max-width: 786px) {
+    
+    .sidebarOpen .transition-col{
+     width: 100%!important;
+    }
+
+    .sidebar{
+        position: absolute;
+        left: 0;
+    }
+
+}
+
+
+
+</style>

@@ -3,7 +3,7 @@
            <v-checkbox
              @change="handleChange" 
              v-model="auctionStore.filter.formerKeeper" 
-             :label="item.label" 
+             :label="String(item.label)" 
              :value="item.id" />
     </div>
 </template>

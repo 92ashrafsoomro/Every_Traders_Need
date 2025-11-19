@@ -28,7 +28,6 @@ export const useAuctionStore = defineStore("auction", {
             cc: [],
             formerKeeper: [],
             noOfService: [],
-            mileage:[],
             
             search:'',
             length:10,
@@ -62,10 +61,26 @@ export const useAuctionStore = defineStore("auction", {
             this.filter.make = [];
             this.filter.model = [];
             this.filter.variant = [];
+           
+            this.filter.year = [],
+            this.filter.transmission = [];
+            this.filter.fuelType = [];
+            this.filter.door = [];
+            this.filter.seat = [];
+            this.filter.grade = [];
+            this.filter.cc = [];
+            this.filter.formerKeeper  = [];
+            this.filter.noOfService = [];
+            this.filter.v5 = [];
+
             this.filter.search = '';
             this.filter.length = 10;
             this.filter.sort_by = 'name-asc';
             this.page = 1;
+
+            this.filter.mileageFrom = '';
+            this.filter.mileageTo = '';
+
             this.getAuctionList();
 
         },
@@ -76,6 +91,7 @@ export const useAuctionStore = defineStore("auction", {
             masterStore.getMakes();
             masterStore.getPlatforms();
             masterStore.getAuctionCenter();
+            
             masterStore.getYears();
             masterStore.getTransmissions();
             masterStore.getFuelType();
@@ -84,12 +100,11 @@ export const useAuctionStore = defineStore("auction", {
             masterStore.getDates();
             masterStore.getGrades();
             masterStore.getEngineSize();
+            
             masterStore.getV5();
             masterStore.getFormerKeepers();
             masterStore.getNoOfServices()
 
-            
-                
         },
         async getAuctionList() {
             this.loading = true;
@@ -121,6 +136,49 @@ export const useAuctionStore = defineStore("auction", {
                 return res.data;
             } catch (error) {
                 throw await errorHandler(error);
+            }
+        },
+        removeValue(key, value) {
+            if (this.loading) {
+                return false; 
+            }
+              const masterStore = useMasterStore();
+            
+            switch (key) {
+
+                case 'make':
+
+                    this.filter[key] = this.filter[key].filter(item => item !== value);
+                    
+                    this.filter.variant = []; 
+                    masterStore.variants.data = [];
+
+                    this.filter.model = []; 
+                    masterStore.models.data = [];
+                    
+                    if (this.filter.make.length > 0) {
+                          masterStore.getModels({make:this.filter.make});
+                    } 
+                  
+                    this.getAuctionList();
+                case 'model':
+
+                  
+                    this.filter[key] = this.filter[key].filter(item => item !== value);
+                    
+                    this.filter.variant = []; 
+                    masterStore.variants.data = [];
+                    
+                    if (this.filter.model.length > 0) {
+                          masterStore.getVariants({model:this.filter.model});
+                    } 
+                  
+                    this.getAuctionList();
+                    break;
+                default:
+                    this.filter[key] = this.filter[key].filter(item => item !== value);
+                    this.getAuctionList();
+                break;
             }
         },
 

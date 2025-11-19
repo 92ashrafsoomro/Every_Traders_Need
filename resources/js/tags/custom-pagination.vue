@@ -3,6 +3,8 @@
 
         <v-btn
             icon
+            
+          
             :disabled="page === 1 || loading"
             @click="changePage(1)"
             >
@@ -17,7 +19,7 @@
             <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
 
-        <v-btn
+        <v-btn icon
             v-for="(n,i) in displayedPages"
                 :key="n"
                 :disabled="loading"

@@ -8,7 +8,8 @@
             item-value="id"   
             @update:options="auctionStore.getAuctionList">
                 <template #item.make_name="{ item }">
-                    {{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}
+                    <v-btn variant="plain" :to="'/user/vehicle-detail/'+item.id" >{{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}</v-btn>
+                    
                 </template>
                 <template #item.date="{ item }">
                     {{ item.auction_date }} {{ item.auction_time }}

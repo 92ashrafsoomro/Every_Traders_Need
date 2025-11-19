@@ -1,34 +1,26 @@
 <template>
-    <div>
-        <div class="" >
-            <div class=""  >
-                <v-select
-                    v-model="auctionStore.filter.mileageFrom"
-                     :menu-props="{
-                        location: 'bottom',
-                        offset: 4,
-                        activator: 'parent',
-                        closeOnContentClick: false,
-                        autoPosition: true,
-                        absolute: true
-                    }"
-                    item-title="label"
-                    item-value="id"
-                    :items="mileageFrom"
-                     />
+        <div class="d-flex justify-space-between align-items-center w-100 "  >
+            <div class="w-100 pr-2" >
+                    <p class="pb-2" >From</p>
+                    <custom-select 
+                    class="w-100 d-block bg-background text-white px-5 py-2 rounded "
+                    placeholder="From"
+                    :data="mileageFrom"
+                    defaultValue=""
+                    @change="hanldeMileageFrom" 
+                    />
             </div>
-            <div class="w-100">
-                 <v-select
-                 
-                    v-model="auctionStore.filter.mileageTo"
-                   :menu-props="{ attach: 'body', eager: true }"
-                    item-title="label"
-                    item-value="id"
-                    :items="mileageTo"
-                     />
+            <div class="w-100 px-2" > 
+            <p class="pb-2" >To</p>
+                <custom-select 
+                    class="d-block bg-background text-white px-5 py-2 rounded w-100"
+                    placeholder="To"
+                    :data="mileageTo"
+                    defaultValue=""
+                    @change="hanldeMileageTo" 
+                    />
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -44,7 +36,7 @@ export default {
             auctionStore: useAuctionStore(),
             masterStore: useMasterStore(),
             mileageFrom: [
-                { label: '10,000', id: 10000 },
+                { label: '0', id:0},
                 { label: '20,000', id: 20000 },
                 { label: '30,000', id: 30000 },
                 { label: '40,000', id: 40000 },
@@ -60,7 +52,12 @@ export default {
         }
     },
     methods: {
-         handleChange(e) {
+         hanldeMileageFrom(e) {
+            this.auctionStore.filter.mileageFrom = e.target.value;
+            this.auctionStore.getAuctionList();
+        },
+         hanldeMileageTo(e) {
+            this.auctionStore.filter.mileageTo = e.target.value;
             this.auctionStore.getAuctionList();
         }
     },
@@ -68,3 +65,11 @@ export default {
 };
 
 </script>
+
+
+<style>
+
+
+
+
+</style>

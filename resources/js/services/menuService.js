@@ -78,7 +78,7 @@ export const getMenu = () => {
         {
             icon: "mdi-cog-outline",
             label: "Settings",
-            path: "/user/settings",
+            path: "/user/settings/profile",
         },
     ];
 };

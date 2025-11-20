@@ -535,6 +535,10 @@ class AuctionFinderController extends Controller
             $auctionIds = AuctionService::getAuctionIdbyDate($auctionFilter);
             $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
             $centers = AuctionService::getCenterNamesByPlateformName($platforms);
+
+            $length = (int) $request->input('length', 10);
+            $page = (int) $request->input('page', 1);
+            $offset = ($page - 1) * $length;
             
             $query = DB::table('vehicles')
                 ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
@@ -543,23 +547,6 @@ class AuctionFinderController extends Controller
                 ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
                 ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
                 ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-
-                // ->whereIn('vehicles.auction_id', $auctionIds)
-                // ->whereExists(function ($subQuery) use ($auctionFilter) {
-                //     $subQuery->select(DB::raw(1))
-                //         ->from('vehicles as v2')
-                //         ->join('auctions as a2', 'a2.id', '=', 'v2.auction_id')
-                //         ->whereColumn('v2.reg', 'vehicles.reg')
-                //         ->whereDate('a2.auction_date', '<', $auctionFilter)
-                //         ->whereColumn('a2.platform_id', '!=', 'auctions.platform_id');
-                // })
-                // ->whereIn('vehicles.id', function ($sub) use ($auctionFilter) {
-                //     $sub->select(DB::raw('MAX(v3.id)'))
-                //         ->from('vehicles as v3')
-                //         ->join('auctions as a3', 'a3.id', '=', 'v3.auction_id')
-                //         ->whereDate('a3.auction_date', '=', $auctionFilter)
-                //         ->groupBy('v3.reg');
-                // })
                 ->select([
                     'vehicles.*',
                     'auctions.auction_date',
@@ -599,8 +586,8 @@ class AuctionFinderController extends Controller
                 }
 
                 $totalRecords = (clone $query)->count();
-                $vehicles     = $query->skip($request->input('start', 0))
-                                ->take($request->input('length', 10))
+                $data     = $query->skip($offset)
+                                ->take($length)
                                 ->get()
                                 ->map(function($vehicle) use ($today) {
 
@@ -656,11 +643,15 @@ class AuctionFinderController extends Controller
 
             // 🔹 Final response
             return response()->json([
-                    'recordsTotal' => $totalRecords,
-                    'recordsFiltered' => $totalRecords,
-                    'data' => $vehicles,
-                    'platforms' => $platforms,
-                    'centers' => $centers,
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords,
+                'data' => $data,
+                'platforms' => $platforms,
+                'centers' => $centers,
+                'length' =>  $length,
+                'page' => $page,
+                'offset' => $offset,
+                'last_page' => ceil($totalRecords / $length),
             ]);
         
     }
@@ -715,9 +706,7 @@ class AuctionFinderController extends Controller
                         'vehicles.cap_below',
                         'vehicles.cap_average',
                         'vehicles.autotrader_retail_value',
-                        'auction_platform.name as platform_title'
-
-                        
+                        'auction_platform.name as platform_title'                        
                 ])
                 ->orderByDesc('recent_views.id')
                 ->skip($offset)

@@ -47,9 +47,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
     Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
     Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
-
     
-
     Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
     Route::get('/userWatchList',[AuctionFinderController::class,'userWatchList']);
     Route::get('/userAlertList',[AuctionFinderController::class,'userAlertList']);

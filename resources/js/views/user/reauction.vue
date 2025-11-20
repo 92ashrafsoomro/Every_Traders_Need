@@ -40,8 +40,8 @@
                             <div class="px-2" >
                                 <v-select 
                                     label="Length"
-                                    v-model="filter.length"
-                                    :items="[10,20,30]" 
+                                    v-model="pageStore.reauction.length"
+                                    :items="[10,20,50,100,200,500]" 
                                     @update:model-value="handleInput"
                                     variant="outlined"
                                     color="primary" 
@@ -49,13 +49,17 @@
                                     density="compact" 
                                     />
                             </div>
+                            <div class="align-self-center pl-2" >
+                                  {{pageStore.reauction.offset}} - {{(pageStore.reauction.offset + pageStore.reauction.length)}} of {{ pageStore.reauction.total }} Vehicles
+                            </div>
+                           
                     </div>
                     <div class="d-flex flex-wrap">
                         <div class="px-2" >
                             <v-text-field 
                                 prepend-inner-icon="mdi-magnify"
                                 label="Reg No" 
-                                v-model="filter.reg"
+                                v-model="pageStore.reauction.reg"
                                 @update:model-value="handleInput"
                                 variant="outlined"
                                 color="primary" 
@@ -68,43 +72,40 @@
             </v-col>
 
             <v-col cols="12">
-                   <v-data-table-server 
-                     :headers="headers" 
-                     :items="items" 
-                     :items-length="totalItems"
-                     :loading="loading" 
-                     item-value="id" 
-                     @update:options="loadItems">
-                     
-                        <template #item.action="{ item }">
-                            <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
-                        </template>
-                    
-                        <template v-slot:bottom>
-                            <div class="pt-2" >
-                                <custom-pagination
-                                :loading="loading"
-                                v-model:page="filter.page" 
-                                :lastPage="last_page"
-                                @page-changed="loadItems"
-                                />
-                            </div>
-                        </template>
+                <div class="py-5 bg-surface" >
+                        <v-data-table-server 
+                        :headers="headers" 
+                        :items="pageStore.reauction.data" 
+                        :items-length="pageStore.reauction.total"
+                        :loading="pageStore.reauction.loading" 
+                        item-value="id" 
+                        @update:options="pageStore.getreAuctionList">
+                        
+                            <template #item.action="{ item }">
+                                <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                            </template>
+                        
+                            <template v-slot:bottom>
+                                <div class="pt-2" >
+                                    <custom-pagination
+                                    :loading="pageStore.reauction.loading"
+                                    v-model:page="pageStore.reauction.page" 
+                                    :lastPage="pageStore.reauction.last_page"
+                                    @page-changed="pageStore.getreAuctionList"
+                                    />
+                                </div>
+                            </template>
 
-                    </v-data-table-server>
-
-
-
+                        </v-data-table-server>
+                </div>
             </v-col>
         </v-row>
-       
- 
     </v-container>
 </template>
 <script>
 
-import { useMasterStore } from "@/stores/masterStore";
-import { useVehicleStore } from "@/stores/vehicleStore";
+
+import { usePageStore } from "@/stores/pageStore";
 
 export default {
     props: {},
@@ -112,20 +113,9 @@ export default {
      
     },
     data() {
+
         return {
-            filter: {
-                reg: '',
-                year: null,
-                length: 10,
-                page: 1,
-                offset:0,
-            },
-            last_page:1,
-            vehicleStore: useVehicleStore(),
-            masterStore: useMasterStore(),
-            items: [],
-            totalItems: 0,
-            loading: false,
+            pageStore:usePageStore(),
             headers: [
                 { title: "Name", value: "title" },
                 { title: "Make", value: "make_name" },
@@ -143,36 +133,13 @@ export default {
             ],
         }
     },
-    mounted() {
-    
+    async mounted() {
 
-        this.loadItems();
+      
     },
     methods: {
-        async loadItems(options) {
-
-            this.loading = true;
-            try {
-            
-                const response = await this.vehicleStore.getreAuctionList(options);
-                this.items = response.data || [];
-                this.totalItems = response.recordsTotal;
-                this.filter.offset = response.offset;
-                this.filter.page = response.page;
-                this.last_page = response.last_page;
-
-            } catch (error) {
-
-                console.error("Error fetching userWatchList:", error);
-                this.totalItems = 0;
-                this.items = [];
-
-            } finally {
-                this.loading = false;
-            }
-        },
         handleInput(e) {
-            this.loadItems();
+             this.pageStore.getreAuctionList();
         },
     },
 };

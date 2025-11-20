@@ -11,8 +11,7 @@
                 </div>
             </v-btn>
         </template>
-
-
+        
         <v-list elevation="0" class="border" style="min-width: 224px">
             <v-list-item class="pa-3">
                 <v-list-item-title class="cursor-pointer">
@@ -21,14 +20,12 @@
                             <img :src="userStore.user.avatar" class="h-100 w-100 rounded position-static" />
                         </div>
                         <div>
-
                             <p class="profile-name text-subtitle-1">
-                                {{ userStore.user.name }}
+                                {{ userStore.user.title }}
                             </p>
                             <p class="profile-type text-caption text-light_text_on mt-n2">
-                                {{ userStore.user.user_type }}
+                                {{ userStore.user.role }}
                             </p>
-
                         </div>
                     </div>
                 </v-list-item-title>

@@ -32,9 +32,8 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <div class="border bg-surface pa-4 pt-6">
                     <component :is="currentComponent" />
-                </div>
+                
             </v-col>
         </v-row>
     </v-container>

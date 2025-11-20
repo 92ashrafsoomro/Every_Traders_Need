@@ -1,6 +1,7 @@
 <template>
 
-    <v-container>
+    <v-card class="border" >
+        <v-container>
         <v-row>
             <v-col cols="12" >
                 <h3 class="text-h5 font-medium" >Personal Information</h3>
@@ -164,11 +165,13 @@
             </v-col>
         </v-row>
     </v-container>
+    </v-card>
+    
 </template>
 
 <script>
 import { useUserStore } from '@/stores/userStore';
-import { toRaw } from 'vue';
+
 
 
 export default {

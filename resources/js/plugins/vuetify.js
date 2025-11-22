@@ -47,6 +47,7 @@ const vuetify = createVuetify({
                     background: "#0E1B2B",
                     surface: "#000E20",
                     shadow: "#353f4c",
+                    light:"#b2c0ce"
                     // lighthover: "#002145",
                     // secondary: "#000f21",
                 },

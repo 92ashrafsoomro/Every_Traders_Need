@@ -109,20 +109,5 @@ export default {
 </script>
 
 <style scoped>
-.v-application {
-    /* background: #0f0f1e !important; */
-}
 
-.v-card {
-    /* background: #1e1e2e !important; */
-}
-
-.text-red-accent-2 {
-    /* color: #FF5252 !important; */
-}
-
-/* Optional: add subtle hover effect */
-.v-card .v-row>.v-col>div:hover {
-    /* opacity: 0.9; */
-}
 </style>

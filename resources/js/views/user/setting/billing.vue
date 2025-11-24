@@ -1,17 +1,15 @@
 <template>
+    <v-col cols="12" >
+        <CurrentPlan/>
+    </v-col>
 
-    <CurrentPlan/>
-    <div class="mt-3" ></div>
-    <pricePlan/>
+    <v-col cols="12" >
+        <PaymentForm/>
+    </v-col>
 
-     <div class="mt-3" ></div>
-
-    <PaymentForm/>
-    <div class="mt-3" ></div>
-    <BillingHistory/>
-
-
-
+      <v-col cols="12" >
+        <BillingHistory/>
+    </v-col>
 </template>
 
 <script>

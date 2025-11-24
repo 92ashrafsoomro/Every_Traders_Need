@@ -92,6 +92,9 @@ const vuetify = createVuetify({
                         // letterSpacing: '0.02em'
                     },
                 },
+                variables: {
+                    'space': '10px'
+                }
             },
             adminLight: {
                 dark: false,

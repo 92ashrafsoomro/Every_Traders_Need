@@ -1,60 +1,65 @@
 <template>
-    <custom-card title="Notifications" subtitle="Change to notification settings, the user will get the update" >
-        <v-container fluid class="">
-        
-            <!-- Notifications Table -->
-            <v-table class="bg-surface notification-table " density="comfortable">
-            <thead>
-                <tr class="bg-surface">
-                <th class="text-left text-white text-caption font-weight-bold pa-4">TYPE</th>
-                <th class="text-center text-white text-caption font-weight-bold">EMAIL</th>
-                <th class="text-center text-white text-caption font-weight-bold">BROWSER</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, i) in notifications" :key="i" class="border-b border-grey-darken-3">
-                <td class="text-white pa-6 text-subtitle-1 font-weight-medium">
-                    {{ item.type }}
-                </td>
-                <td class="text-center">
-                    <v-switch
-                    v-model="item.email"
-                    color="primary"
-                    hide-details
-                    inset
-                    class="d-inline-flex"
-                    ></v-switch>
-                    <div class="text-primary text-caption mt-1 cursor-pointer" @click="selectAllEmail">
-                    Select All (Email)
-                    </div>
-                </td>
-                <td class="text-center">
-                    <v-switch
-                    v-model="item.browser"
-                    color="green-accent-2"
-                    hide-details
-                    inset
-                    class="d-inline-flex"
-                    ></v-switch>
-                    <div class="text-green-accent-2 text-caption mt-1 cursor-pointer" @click="selectAllBrowser">
-                    Select All (Browser)
-                    </div>
-                </td>
-                </tr>
-            </tbody>
-            </v-table>
 
-            <!-- Action Buttons -->
-            <div class="mt-10">
-            <v-btn color="primary" variant="flat" class="mx-2" >
-                Save changes
-            </v-btn>
-            <v-btn variant="tonal" class="mx-2 bg-background">
-                Cancel
-            </v-btn>
-            </div>
-        </v-container>
-    </custom-card>
+    <v-col> 
+      <custom-card title="Notifications" subtitle="Change to notification settings, the user will get the update" >
+          <v-container fluid>
+          
+              <!-- Notifications Table -->
+              <v-table class="bg-surface notification-table " density="comfortable">
+              <thead>
+                  <tr class="bg-surface">
+                  <th class="text-left text-white text-caption font-weight-bold pa-4">TYPE</th>
+                  <th class="text-center text-white text-caption font-weight-bold">EMAIL</th>
+                  <th class="text-center text-white text-caption font-weight-bold">BROWSER</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(item, i) in notifications" :key="i" class="border-b border-grey-darken-3">
+                  <td class="text-white pa-6 text-subtitle-1 font-weight-medium">
+                      {{ item.type }}
+                  </td>
+                  <td class="text-center">
+                      <v-switch
+                      v-model="item.email"
+                      color="primary"
+                      hide-details
+                      inset
+                      class="d-inline-flex"
+                      ></v-switch>
+                      <div class="text-primary text-caption mt-1 cursor-pointer" @click="selectAllEmail">
+                      Select All (Email)
+                      </div>
+                  </td>
+                  <td class="text-center">
+                      <v-switch
+                      v-model="item.browser"
+                      color="green-accent-2"
+                      hide-details
+                      inset
+                      class="d-inline-flex"
+                      ></v-switch>
+                      <div class="text-green-accent-2 text-caption mt-1 cursor-pointer" @click="selectAllBrowser">
+                      Select All (Browser)
+                      </div>
+                  </td>
+                  </tr>
+              </tbody>
+              </v-table>
+
+              <!-- Action Buttons -->
+              <div class="mt-10">
+              <v-btn color="primary" variant="flat" class="mx-2" >
+                  Save changes
+              </v-btn>
+              <v-btn variant="tonal" class="mx-2 bg-background">
+                  Cancel
+              </v-btn>
+              </div>
+          </v-container>
+      </custom-card>
+  </v-col>
+
+    
   
 </template>
 

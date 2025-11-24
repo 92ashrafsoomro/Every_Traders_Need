@@ -53,7 +53,7 @@ export const getMenu = () => {
         // },
         {
             icon: "mdi-calendar-check-outline",
-            label: "Auction Scheduler",
+            label: "Auction Schedule",
             path: "/user/auctionscheduler",
         },
         {

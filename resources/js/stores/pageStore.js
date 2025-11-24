@@ -49,6 +49,67 @@ export const usePageStore = defineStore("page", {
                 { title: "Recent Activities", key: "recent_activities" },
             ],
         },
+
+        // AuctionShedule
+        auctionShedule: {
+            platform: null,
+            center: null,
+            enableCurrent:false,
+            months: {
+                mon: {
+                    auction:0,
+                    car:10,
+                },
+                tue: {
+                    auction:6,
+                    car:10,
+                },
+                wed: {
+                    auction:0,
+                    car:10,
+                },
+                thu: {
+                    auction:9,
+                    car:10,
+                },
+                fri: {
+                    auction:0,
+                    car:10,
+                },
+                sat: {
+                    auction:10,
+                    car:10,
+                },
+                sun: {
+                    auction:0,
+                    car:10,
+                }
+            },
+            length: 10,
+            page: 1,
+            offset: 0,
+            data: [
+                {
+                 platform:'Platform 1',
+                 center:'Center 1',
+                 vehicles:'100',
+                 time: '10:00 AM',
+                 status:'Done',
+                },
+            ],
+            total: 0,
+            offset:0,
+            last_page:1,
+            loading:false,
+            headers: [
+                { title: "Platform", key: "platform" ,sortable:false},
+                { title: "Center", value: "center" },
+                { title: "Total Vehicles", value: "vehicles" },
+                { title: "Time", value: "time" },
+                { title: "Status", value: "status" },
+                { title: "Action", key: "action",sortable:false },
+            ],
+        },
         billingHistory: {
             length: 10,
             page: 1,

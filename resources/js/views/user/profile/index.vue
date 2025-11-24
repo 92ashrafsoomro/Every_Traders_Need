@@ -1,9 +1,7 @@
 <template>
-    
-
-    <v-container>
-        <v-row>
-             <v-col cols="12">
+    <v-container fluid>
+        <v-row class="">
+            <v-col cols="12" >
                  <custom-card>
                     <div class="py-5 d-flex align-end  flex-wrap">
                         <div class="px-5">
@@ -20,17 +18,15 @@
                                     <div class="px-2" > <v-icon icon="mdi-eye"/> <span>Joined 10 Apr 2025</span></div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                  </custom-card> 
             </v-col>
-            <v-col cols="12" sm="4" >
-                 <Sidebar/>
+            <v-col cols="12" sm="4" >    
+                <Sidebar/>
             </v-col>
-            <v-col cols="4" sm="8" >
-                <RecentDevices/>
-                        
+            <v-col cols="4" sm="8">
+                <RecentDevices/>    
             </v-col>
         </v-row>
     </v-container>
@@ -58,3 +54,11 @@ export default {
     },
 };
 </script>
+
+
+
+<style>
+
+
+
+</style>

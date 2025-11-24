@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-row>
             <v-col cols="12">
                 <div class="pt-4 d-flex flex-wrap">
@@ -31,10 +31,7 @@
 
     <v-container>
         <v-row>
-            <v-col cols="12">
-                    <component :is="currentComponent" />
-                
-            </v-col>
+             <component :is="currentComponent" />
         </v-row>
     </v-container>
 </template>

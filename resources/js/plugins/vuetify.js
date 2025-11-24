@@ -32,8 +32,10 @@ const vuetify = createVuetify({
             adminDark: {
                 dark: true,
                 colors: {
-                    primary: "#0080ff",
+                    
                     'primary-lighten-1': '#3399ff',
+                    primary: "#0080FF",
+                    'on-primary': '#ffffff',
                     background: "#000f21",
                     surface: "#0f1c2b",
                     'surface-variant-1': "#0f1c2b",

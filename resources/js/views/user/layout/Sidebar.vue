@@ -10,10 +10,17 @@
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in menus" :key="index">
                 <!-- Regular Menu Items -->
-                <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon"
-                    class="text-subtitle-1" active-class="bg-primary rounded">
+                <v-list-item 
+                    v-if="item.type !== 'group'" 
+                    :to="item.path" 
+                     link 
+                    :prepend-icon="item.icon" 
+                    :ripple="false"
+                    :hide-overlay="false"
+                    class="text-subtitle-1"
+                    active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                     <template #title>
-                        <span class="text-body-1">{{ item.label }}</span>
+                        <span :ripple="false" class="text-body-1">{{ item.label }}</span>
                     </template>
                 </v-list-item>
 
@@ -56,4 +63,17 @@ export default {
     mounted() { },
 };
 </script>
-<style scoped></style>
+<style >
+
+
+
+
+
+
+/* Alternative (more future-proof) – target the actual overlay class */
+.my-active-menu  .v-list-item__overlay {
+  display: none !important;
+}
+
+
+</style>

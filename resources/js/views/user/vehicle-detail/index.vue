@@ -1,64 +1,68 @@
 <template>
-    <v-container fluid class="pa-0">
-        <v-row v-if="loading" dense>
+    <v-container fluid>
+
+        <v-row v-if="loading" >
             <v-col cols="12">
                 <p class="text-center">Loading..</p>
             </v-col>
         </v-row>
-        <v-row v-else-if="!vehicleStore.v" dense>
+        <v-row v-else-if="!vehicleStore.isVehicle" >
             <v-col cols="12">
                 <p class="text-center">No Data</p>
             </v-col>
         </v-row>
-        <v-row v-else dense>
+        <v-row v-else >
+            <v-col cols="12">
+                    <div class="d-flex">
+                        <div class="sidebar" :class="{
+                            'sidebar--open': vehicleStore.sidebar,
+                            'sidebar--mobile': vehicleStore.isMobile
+                        }">
+                            <template v-if="vehicleStore.sidebar"> 
+                                <VehicleSidebar />
+                            </template>
+                        </div>
 
-        <v-col cols="12">
-                <div class="d-flex">
-                    <div class="sidebar" :class="{
-                        'sidebar--open': vehicleStore.vehichleDetail.sidebar,
-                        'sidebar--mobile': vehicleStore.vehichleDetail.isMobile
-                    }">
-                        <template v-if="vehicleStore.vehichleDetail.sidebar">
-                            <VehicleSidebar />
-                        </template>
+                        <div class="content " :class="{ 'content--collapsed': !vehicleStore.sidebar }">
+
+                            <div class="main-layout">   
+                                    <v-row no-gutters>
+                                        <v-col cols="12"
+                                            class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal">
+                                            <v-btn-toggle>
+                                                <v-btn size="small" color="primary"
+                                                    @click="vehicleStore.sidebar = !vehicleStore.sidebar">
+                                                    <v-icon size="large">mdi-menu</v-icon>
+                                                </v-btn>
+                                            </v-btn-toggle>
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100" color="primary"
+                                                mandatory>
+                                                <v-btn value="details">Vehicle Details</v-btn>
+                                                <v-btn value="valuation">Vehicle Valuation</v-btn>
+                                            </v-btn-toggle>
+                                        </v-col>
+                                        <v-col cols="12">
+                                               <component :is="currentComponent" />
+
+                                        </v-col>
+                                </v-row>
+
+                            </div>
+                            
+
+                        </div>
                     </div>
-                    <div class="content pt-10" :class="{ 'content--collapsed': !vehicleStore.vehichleDetail.sidebar }">
-                        <v-row dense>
-                            <v-col cols="12"
-                                class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal ga-5 ps-10 pe-10">
-                                <v-btn-toggle>
-                                    <v-btn size="small" color="primary"
-                                        @click="vehicleStore.vehichleDetail.sidebar = !vehicleStore.vehichleDetail.sidebar">
-                                        <v-icon size="large">mdi-menu</v-icon>
-                                    </v-btn>
-                                </v-btn-toggle>
-                                <v-btn-toggle v-model="vehicleStore.vehichleDetail.tab" class="w-100" color="primary"
-                                    mandatory>
-                                    <v-btn value="details">Vehicle Details</v-btn>
-                                    <v-btn value="valuation">Vehicle Valuation</v-btn>
-                                </v-btn-toggle>
-                            </v-col>
-                            <v-col cols="12">
-                                <template v-if="vehicleStore.vehichleDetail.tab === 'details'">
-                                    <DetailTab />
-                                </template>
-                                <template v-if="vehicleStore.vehichleDetail.tab === 'valuation'">
-                                    <ValuationTab />
-                                </template>
-                            </v-col>
-                        </v-row>
-                    </div>
-                </div>
-            </v-col>
+                </v-col>
         </v-row>
-        <template #actions></template>
     </v-container>
 </template>
 <script>
+
 import { useVehicleStore } from '@/stores/vehicleStore';
 import { toRaw } from 'vue';
-import DetailTab from './DetailTab.vue';
-import ValuationTab from './ValuationTab.vue';
+
+import DetailTab from './CarDetailTab/index.vue';
+import ValuationTab from './ValuationTab/index.vue';
 import VehicleSidebar from './VehicleSidebar.vue';
 
 
@@ -75,8 +79,8 @@ export default {
         };
     },
     mounted() {
-        // const width = window.innerWidth;
 
+        // const width = window.innerWidth;
         // if (width <= 1440) {
         //     this.vehicleStore.vehichleDetail.sidebar = false;
         // } else {
@@ -85,15 +89,22 @@ export default {
 
         this.checkDeviceMode();
         window.addEventListener("resize", this.checkDeviceMode);
-
-
-
-
         this.loadVehicle();
         this.$themeStore.menuType = "collapsed";
     },
     beforeUnmount() {
         window.removeEventListener("resize", this.checkDeviceMode);
+    },
+    computed: {
+        currentComponent() {
+            switch (this.vehicleStore.tab) {
+
+                case "details":
+                    return DetailTab
+                default:
+                    return ValuationTab
+            }
+        },
     },
 
     methods: {
@@ -153,10 +164,6 @@ export default {
     transform: translateX(0);
 }
 
-
-
-
-
 .content {
     margin-left: 300px;
     transition: margin-left 0.25s ease-in-out;
@@ -168,8 +175,6 @@ export default {
     width: 100%;
 }
 
-
-
 ::-webkit-scrollbar {
     display: none;
 }
@@ -178,6 +183,11 @@ export default {
     max-width: 280px;
     height: 100vh;
     z-index: 11;
+}
+
+.main-layout{
+    max-width: 1300px;
+    margin: auto;
 }
 
 
@@ -191,10 +201,7 @@ export default {
         width: 100%;
     }
 
-
 }
-
-
 
 @media (max-width: 1440px) {
     .sidebar--mobile {
@@ -208,4 +215,6 @@ export default {
         transition: transform .3s ease;
     }
 }
+
+
 </style>

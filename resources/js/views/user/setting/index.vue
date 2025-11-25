@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-row>
             <v-col cols="12">
-                <div class="pt-4 d-flex flex-wrap">
+                <div class="d-flex flex-wrap">
                     <div class="px-2 py-2">
                         <v-btn to="/user/settings/profile" class=""
                             :class="{ 'bg-primary': this.$route.params.id == 'profile' }" variant="flat"
@@ -29,7 +29,7 @@
         </v-row>
     </v-container>
 
-    <v-container>
+    <v-container fluid>
         <v-row>
              <component :is="currentComponent" />
         </v-row>

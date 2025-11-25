@@ -5,9 +5,15 @@ import { errorHandler } from "@/services/responseHandleService";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
-        platforms: [],
-        showFilterArea: true,
+        sidebar: true,
+        isMobile: false,
+        isVehicle: true,
+        tab: 'details',
+
+
+        
         auctionTab: true,
+        platforms: [],
         length: 10,
         sort_by: 'name-asc',
         data: [],
@@ -25,6 +31,54 @@ export const useVehicleStore = defineStore("vehicle", {
             isMobile: false,
             tab: 'details'
         },
+        overView: {
+            title:'ABARTH 595 1.4 T-JET 165 TURISMO Hatchback',
+            images: [
+                "https://bcamediaprod.blob.core.windows.net/public/images/vehicle/GB/OV21FFE/610237700/600",
+                "https://www1.bcaimage.com/Document?DocType=VehicleImage&width=600&docId=610237703",
+                "https://www1.bcaimage.com/Document?DocType=VehicleImage&width=600&docId=610232526",
+                "https://www1.bcaimage.com/Document?DocType=VehicleImage&width=600&docId=610237708",
+            ],
+            vehicleType: 'Car',
+            make: 'BMW',
+            model: '3 Series',
+            variant: '330e',
+            cc: '2.0',
+            year: '2022',
+            color: 'red',
+            fuelType: 'Hybrid',
+            transmission: 'Automatic',
+            keys: '2',
+            doors: '4',
+            seats: '4',
+            reg: 'RO70 VDP',
+            dor: '2020 (70 reg)',
+            mileage: '300',
+            grade: '5',
+            v5: 'Not Present',
+            inspection: '',
+            biddingStatus: 'Sold',
+            
+            lot: 'MC103',
+            previousAuction: '',
+            auctionType:'Online Auction',
+            dateTime:'2025-10-18 14:34:04',
+            auction: {
+                title:'Central Car Auctions'
+            },
+            center: {
+              title:'Bedford',  
+            },
+            disclaimer: 'AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it as-is to help users make informed decisions, without guaranteeing data accuracy or completeness. learn more',
+            
+            // Additional Info
+            formerKeepers:1,
+            vendors:2,
+            vatType:'No',
+            euroStatus:'No',
+            engineRuns: 'No'
+            
+        }
     }),
     getters: {
 

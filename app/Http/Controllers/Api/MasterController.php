@@ -73,24 +73,41 @@ class MasterController extends Controller
     
     public function getMakes(Request $request)
     {
+
+        $length = (int) $request->input('length', 10);
+        $page = (int) $request->input('page', 1);
+        $offset = ($page - 1) * $length;
+
         $query = DB::table('make')
             ->join('vehicles', 'vehicles.make_id', '=', 'make.id')
             ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->when($request->id, function ($query, $value){
                 $query->where('make.id',$value);
-            })
-            ->select([
-                'make.id',
-                'make.name as label',
-                DB::raw('COUNT(vehicles.id) as count'),
-            ])
-            ->groupBy('make.id', 'make.name')
-            ->orderByDesc('count')
-            ->get();
+            });
+       
+         $totalRecords = (clone $query)->count();
+         $data         = $query->skip($offset)
+                        ->take($length)
+                        ->select([
+                            'make.id',
+                            'make.name as label',
+                            DB::raw('COUNT(vehicles.id) as count'),
+                        ])
+                        ->groupBy('make.id', 'make.name')
+                        ->orderByDesc('count')
+                        ->get();
+
 
         return response()->json([
-            'data' => $query,
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+            'length' =>  $length,
+            'page' => $page,
+            'offset' => $offset,
+            'last_page' => ceil($totalRecords / $length),
         ], 200);
+
     }
 
 
@@ -99,31 +116,43 @@ class MasterController extends Controller
 
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
-        $data = DB::table('model')
+        $length = (int) $request->input('length', 10);
+        $page = (int) $request->input('page', 1);
+        $offset = ($page - 1) * $length;
+
+        $query = DB::table('model')
             ->join('make', 'make.id', '=', 'model.make_id')
             ->join('vehicles', 'vehicles.model_id', '=', 'model.id')
-            ->select([
-                'model.id',
-                'model.name as label',
-                'make.name as make',
-                DB::raw('COUNT(model.id) as count')
-            ])
             ->when($request->makes, function ($query, $value) {
                 $query->whereIn('model.make_id',$value);
             })
             ->when($request->id, function ($query, $value) {
                 $query->where('model.id',$value);
-            })
-            ->groupBy('model.id')
-            ->orderBy('count', 'desc')
-            ->get();
+            });
 
-        return response()->json([
-            "data" => $data,
-        ], 200);
+            $totalRecords = (clone $query)->groupBy('model.id')->count();
+            $data         = $query->skip($offset)->take($length)
+                            ->select([
+                                'model.id',
+                                'model.name as label',
+                                'make.name as make',
+                                DB::raw('COUNT(model.id) as count')
+                            ])
+                            ->groupBy('model.id')
+                            ->orderBy('count', 'desc')
+                            ->get();
+
+            return response()->json([
+                'recordsTotal'    => $totalRecords,
+                'recordsFiltered' => $totalRecords,
+                'data'            => $data,
+                'length'          => $length,
+                'page'            => $page,
+                'offset'          => $offset,
+                'last_page'       => ceil($totalRecords / $length),
+            ], 200);
 
     }
-
 
     public function getVariants(Request $request)
     {

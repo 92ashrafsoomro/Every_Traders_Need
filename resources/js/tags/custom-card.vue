@@ -1,5 +1,5 @@
 <template>
-     <v-card class="bg-surface border card">
+     <v-card :class="['bg-surface', 'border', 'card', this.class ]">
         <div v-if="title || $slots.toolbar" class="card-header d-flex justify-space-between" >
             <div v-if="title" >
                    <h3 v-if="title" class="card-title text-h5">{{ title }}</h3>

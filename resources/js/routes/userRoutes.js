@@ -11,7 +11,7 @@ import Profile from "@/views/user/profile/index.vue"
 import Settings from "@views/user/settings.vue"
 import News from "@views/user/news.vue"
 import Support from "@views/user/support.vue"
-import VehicleDetail from "@views/user/vehicle-detail/index.vue"
+import VehicleDetail from "@/views/user/vehicle-detail/index.vue"
 
 import Setting from "@views/user/setting/index.vue"
 

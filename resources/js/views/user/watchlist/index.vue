@@ -13,13 +13,10 @@
         </div>
     </user-title-bar>
 
-    <v-container>
+    <v-container fluid>
         <v-row>
-            <v-col cols="12" >
-                <div class="pa-4 pt-6">
-                    <component :is="currentComponent" />
-                </div>
-            </v-col>
+            <component :is="currentComponent" />
+         
         </v-row>
     </v-container>
 </template>

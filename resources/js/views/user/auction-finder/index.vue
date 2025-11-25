@@ -1,99 +1,101 @@
 <template>
-    <main>
-        <user-title-bar title="Smart Auction Search"
-            subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
-            <div class="d-flex align-center ga-3">
+    <user-title-bar title="Smart Auction Search"
+        subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
+        <div class="d-flex align-center ga-3">
 
-                <v-btn variant="tonal" class="text-none px-5 py-2"
-                    :class="{ 'bg-primary text-white': auctionStore.auctionTab === true}" 
-                    @click="auctionStore.toggleAuctionTab()"> Auction Finder </v-btn>
+            <v-btn variant="tonal" class="text-none px-5 py-2"
+                :class="{ 'bg-primary text-white': auctionStore.auctionTab === true}" 
+                @click="auctionStore.toggleAuctionTab()"> Auction Finder </v-btn>
 
-                <v-btn variant="tonal" class="text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" 
-                @click="auctionStore.toggleAuctionTab()"> Vehicle Valuation</v-btn>
-
-                
-            </div>
-        </user-title-bar>
-
-        <div class="mr-auto ml-auto pa-1 pa-sm-7">
-            <div class="pb-3 d-flex align-center justify-space-between">
-                <div class="d-flex w-100 flex-wrap" >
-                    <div class="px-3"  >
-                        <v-btn 
-                        v-if="auctionStore.sidebar"
-                        color="primary" 
-                        variant="outlined" 
-                        prepend-icon="mdi-filter" 
-                        @click="auctionStore.toggleFilter()"></v-btn>
-
-                         <v-btn v-else
-                        color="primary" 
-                        variant="outlined" 
-                        prepend-icon="mdi-filter-off" 
-                        @click="auctionStore.toggleFilter()"></v-btn>
-
-                        
-                    </div>
-                    <div class="px-3"  style="width: 130px;" >
-                        <v-select 
-                        persistent-placeholder 
-                        v-model="auctionStore.filter.length"
-                        @update:model-value="handleInput()" 
-                        color="primary" 
-                        variant="outlined" 
-                        density="compact" 
-                        label="Length"
-                        :items="[10,50,100,200,500]" />
-                    </div>
-                    <div class="px-3"  style="width: 300px;" >
-                        <v-select 
-                            persistent-placeholder 
-                            v-model="auctionStore.filter.sort_by"
-                            @update:model-value="handleInput()"  
-                            color="primary" 
-                            variant="outlined" 
-                            density="compact" 
-                            item-title="name"
-                            item-value="id"     
-                            label="Sort by"
-                            :items="sortingOptions" />
-                    </div>
-                    <div class="px-3">
-                        <v-btn 
-                        color="danger"
-                        class="mx-2" 
-                        variant="outlined" 
-                        prepend-icon="mdi-delete" 
-                        @click="this.auctionStore.ClearFilter()" />
-
-                        <v-btn 
-                        color="primary" 
-                        variant="outlined" 
-                        prepend-icon="mdi-magnify" 
-                        @click="handleSearch" />
-                    </div>
-                    <div class="px-3 ">
-                        {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
-                    </div>
-                </div>
-            </div>
-
-               <div :class="{'sidebarOpen': auctionStore.sidebar }" class="main-div d-flex align-start justify-space-between flex-wrap">
-                    <div class="sidebar" >
-                        <div class=" bg-surface rounded border pa-4">
-                        <auctionSidebar/>
-                        </div>   
-                    </div> 
-                    <div class="transition-col">
-                        <component :is="currentComponent" />
-                    </div>
-                </div>
+            <v-btn variant="tonal" class="text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" 
+            @click="auctionStore.toggleAuctionTab()"> Vehicle Valuation</v-btn>
 
         </div>
-        
-     
+    </user-title-bar>
+    <v-container fluid>
+        <v-row>
+            <v-col cols="12" >
 
-    </main>
+                <div class="mr-auto ml-auto ">
+                    <div class="pb-3 d-flex align-center justify-space-between">
+                        <div class="d-flex w-100 flex-wrap" >
+                            <div class="px-3"  >
+                                <v-btn 
+                                v-if="auctionStore.sidebar"
+                                color="primary" 
+                                variant="outlined" 
+                                prepend-icon="mdi-filter" 
+                                @click="auctionStore.toggleFilter()"></v-btn>
+
+                                <v-btn v-else
+                                color="primary" 
+                                variant="outlined" 
+                                prepend-icon="mdi-filter-off" 
+                                @click="auctionStore.toggleFilter()"></v-btn>
+
+                                
+                            </div>
+                            <div class="px-3"  style="width: 130px;" >
+                                <v-select 
+                                persistent-placeholder 
+                                v-model="auctionStore.filter.length"
+                                @update:model-value="handleInput()" 
+                                color="primary" 
+                                variant="outlined" 
+                                density="compact" 
+                                label="Length"
+                                :items="[10,50,100,200,500]" />
+                            </div>
+                            <div class="px-3"  style="width: 300px;" >
+                                <v-select 
+                                    persistent-placeholder 
+                                    v-model="auctionStore.filter.sort_by"
+                                    @update:model-value="handleInput()"  
+                                    color="primary" 
+                                    variant="outlined" 
+                                    density="compact" 
+                                    item-title="name"
+                                    item-value="id"     
+                                    label="Sort by"
+                                    :items="sortingOptions" />
+                            </div>
+                            <div class="px-3">
+                                <v-btn 
+                                color="danger"
+                                class="mx-2" 
+                                variant="outlined" 
+                                prepend-icon="mdi-delete" 
+                                @click="this.auctionStore.ClearFilter()" />
+
+                                <v-btn 
+                                color="primary" 
+                                variant="outlined" 
+                                prepend-icon="mdi-magnify" 
+                                @click="handleSearch" />
+                            </div>
+                            <div class="px-3 ">
+                                {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
+                            </div>
+                        </div>
+                    </div>
+
+                    <div :class="{'sidebarOpen': auctionStore.sidebar }" class="main-div d-flex align-start justify-space-between flex-wrap">
+                            <div class="sidebar" >
+                                <div class=" bg-surface rounded border pa-4">
+                                    <auctionSidebar/>
+                                </div>   
+                            </div> 
+                            <div class="transition-col">
+                                <component :is="currentComponent" />
+                            </div>
+                        </div>
+
+                </div>
+
+
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>

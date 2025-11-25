@@ -50,12 +50,21 @@ export const usePageStore = defineStore("page", {
             ],
         },
 
-        // AuctionShedule
+        //
+        //  AuctionShedule__________________
+        //
         auctionShedule: {
             platform: null,
             center: null,
-            enableCurrent:false,
+            make: null,
+            model:null,
+            enableCurrent: false,
+            month:'today',
             months: {
+                today: {
+                    auction:0,
+                    car:10,
+                },
                 mon: {
                     auction:0,
                     car:10,
@@ -80,10 +89,6 @@ export const usePageStore = defineStore("page", {
                     auction:10,
                     car:10,
                 },
-                sun: {
-                    auction:0,
-                    car:10,
-                }
             },
             length: 10,
             page: 1,

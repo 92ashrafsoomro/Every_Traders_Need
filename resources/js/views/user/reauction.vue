@@ -32,10 +32,10 @@
             </v-card>
         </v-container> -->
     </user-title-bar>
-    <v-container class="pa-4 pt-6" fluid>
+    <v-container fluid>
         <v-row>
-            <v-col cols="12" >
-                <div class="d-flex justify-md-space-between flex-wrap ">            
+            <v-col cols="12">
+                <div class="pt-5 d-flex justify-md-space-between flex-wrap ">            
                     <div class="d-flex flex-wrap">
                             <div class="px-2" >
                                 <v-select 
@@ -72,32 +72,34 @@
             </v-col>
 
             <v-col cols="12">
-                <div class="py-5 bg-surface" >
-                        <v-data-table-server 
-                        :headers="headers" 
-                        :items="pageStore.reauction.data" 
-                        :items-length="pageStore.reauction.total"
-                        :loading="pageStore.reauction.loading" 
-                        item-value="id" 
-                        @update:options="pageStore.getreAuctionList">
-                        
-                            <template #item.action="{ item }">
-                                <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
-                            </template>
-                        
-                            <template v-slot:bottom>
-                                <div class="pt-2" >
-                                    <custom-pagination
-                                    :loading="pageStore.reauction.loading"
-                                    v-model:page="pageStore.reauction.page" 
-                                    :lastPage="pageStore.reauction.last_page"
-                                    @page-changed="pageStore.getreAuctionList"
-                                    />
-                                </div>
-                            </template>
+                <custom-card>
+                       <div class="bg-surface" >
+                            <v-data-table-server 
+                            :headers="headers" 
+                            :items="pageStore.reauction.data" 
+                            :items-length="pageStore.reauction.total"
+                            :loading="pageStore.reauction.loading" 
+                            item-value="id" 
+                            @update:options="pageStore.getreAuctionList">
+                            
+                                <template #item.action="{ item }">
+                                    <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                                </template>
+                            
+                                <template v-slot:bottom>
+                                    <div class="pt-2" >
+                                        <custom-pagination
+                                        :loading="pageStore.reauction.loading"
+                                        v-model:page="pageStore.reauction.page" 
+                                        :lastPage="pageStore.reauction.last_page"
+                                        @page-changed="pageStore.getreAuctionList"
+                                        />
+                                    </div>
+                                </template>
 
-                        </v-data-table-server>
-                </div>
+                            </v-data-table-server>
+                    </div>
+                </custom-card>
             </v-col>
         </v-row>
     </v-container>

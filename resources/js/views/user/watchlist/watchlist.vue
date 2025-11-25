@@ -1,116 +1,123 @@
 <template>
-    <v-row>
-        <v-col cols="12" >
-            <div class="d-flex justify-md-space-between flex-wrap ">            
-                <div class="d-flex flex-wrap">
-                        <div class="px-2" >
-                            <v-select 
-                                label="Length"
-                                v-model="filter.length"
-                                :items="[10,20,30]" 
-                                @update:model-value="handleInput"
-                                variant="outlined"
-                                color="primary" 
-                                width="120" 
-                                density="compact" 
-                                 />
-                        </div>
-                        <div class="px-2" >
-                            <v-select 
-                                label="All Years"
-                                v-model="filter.year"
-                                :items="masterStore.years.data" 
-                                @update:model-value="handleInput"
-                                item-title="label"
-                                item-value="id" 
-                                variant="outlined"
-                                color="primary" 
-                                width="150" 
-                                density="compact" 
-                                clearable />
-                        </div>
-                </div>
-                <div class="d-flex flex-wrap">
 
-                      <div class="px-2" >
-                        <v-text-field 
-                            prepend-inner-icon="mdi-magnify"
-                            label="Reg No" 
-                            v-model="filter.reg"
-                            @update:model-value="handleInput"
-                            variant="outlined"
-                            color="primary" 
-                            width="200" 
-                            density="compact" 
-                            clearable />
+    <v-col cols="12" >
+
+           <v-row class="pt-3" >
+                <v-col cols="12" >
+                    <div class="d-flex justify-md-space-between flex-wrap ">            
+                        <div class="d-flex flex-wrap">
+                                <div class="px-2" >
+                                    <v-select 
+                                        label="Length"
+                                        v-model="filter.length"
+                                        :items="[10,20,30]" 
+                                        @update:model-value="handleInput"
+                                        variant="outlined"
+                                        color="primary" 
+                                        width="120" 
+                                        density="compact" 
+                                        />
+                                </div>
+                                <div class="px-2" >
+                                    <v-select 
+                                        label="All Years"
+                                        v-model="filter.year"
+                                        :items="masterStore.years.data" 
+                                        @update:model-value="handleInput"
+                                        item-title="label"
+                                        item-value="id" 
+                                        variant="outlined"
+                                        color="primary" 
+                                        width="150" 
+                                        density="compact" 
+                                        clearable />
+                                </div>
+                        </div>
+                        <div class="d-flex flex-wrap">
+
+                            <div class="px-2" >
+                                <v-text-field 
+                                    prepend-inner-icon="mdi-magnify"
+                                    label="Reg No" 
+                                    v-model="filter.reg"
+                                    @update:model-value="handleInput"
+                                    variant="outlined"
+                                    color="primary" 
+                                    width="200" 
+                                    density="compact" 
+                                    clearable />
+                            </div>
+
+                            <div class="px-2" >
+                                <v-select 
+                                    label="Select Make" 
+                                    v-model="filter.make"
+                                    @update:model-value="handleMake"
+                                    :items="masterStore.makes.data"
+                                    item-title="label"
+                                    item-value="id" 
+                                    variant="outlined"
+                                    color="primary" 
+                                    width="200" 
+                                    density="compact" 
+                                    clearable />
+                            </div>
+                            
+                            <div class="px-2" >
+                                <v-select 
+                                    label="Select Model"
+                                    v-model="filter.model"
+                                    @update:model-value="handleInput"
+                                    :items="masterStore.models.data" 
+                                    item-title="label"
+                                    item-value="id" 
+                                    variant="outlined"
+                                    color="primary" 
+                                    width="240" 
+                                    density="compact" 
+                                    clearable />
+                            </div>
+                        
+                        </div>
                     </div>
+                </v-col>
 
-                    <div class="px-2" >
-                        <v-select 
-                            label="Select Make" 
-                            v-model="filter.make"
-                            @update:model-value="handleMake"
-                            :items="masterStore.makes.data"
-                            item-title="label"
+                <v-col cols="12" class="" >
+                    <div class="bg-surface rounded border pa-4">
+                        <v-data-table-server class="" 
+                            :headers="headers" 
+                            :items="items"
+                            :items-length="totalItems" 
+                            :loading="loading" 
                             item-value="id" 
-                            variant="outlined"
-                            color="primary" 
-                            width="200" 
-                            density="compact" 
-                            clearable />
+                            @update:options="loadItems">
+                        
+                            <template #item.view="{ item }">
+                                <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                            </template>
+
+                            <template #item.autoboli="{ item }">
+                                -
+                            </template>
+
+                            <template v-slot:bottom>
+                                <div class="pt-2" >
+                                    <custom-pagination
+                                    :loading="loading"
+                                    v-model:page="filter.page" 
+                                    :lastPage="last_page"
+                                    @page-changed="loadItems"
+                                    />
+                                </div>
+                            </template>
+                        </v-data-table-server>
                     </div>
-                    
-                    <div class="px-2" >
-                           <v-select 
-                            label="Select Model"
-                            v-model="filter.model"
-                            @update:model-value="handleInput"
-                            :items="masterStore.models.data" 
-                            item-title="label"
-                            item-value="id" 
-                            variant="outlined"
-                            color="primary" 
-                            width="240" 
-                            density="compact" 
-                            clearable />
-                    </div>
-                 
-                </div>
-            </div>
-        </v-col>
+                </v-col>
+            </v-row>
+           
 
-        <v-col cols="12" class="" >
-            <div class="bg-surface rounded border pa-4">
-                <v-data-table-server class="" 
-                    :headers="headers" 
-                    :items="items"
-                    :items-length="totalItems" 
-                    :loading="loading" 
-                    item-value="id" 
-                    @update:options="loadItems">
-                
-                    <template #item.view="{ item }">
-                        <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
-                    </template>
-
-                    <template #item.autoboli="{ item }">
-                        -
-                    </template>
-
-                    <template v-slot:bottom>
-                        <div class="pt-2" >
-                            <custom-pagination
-                            :loading="loading"
-                            v-model:page="filter.page" 
-                            :lastPage="last_page"
-                            @page-changed="loadItems"
-                            />
-                        </div>
-                    </template>
-                </v-data-table-server>
-            </div>
-        </v-col>
-    </v-row>
+    </v-col>
+ 
   
 </template>
 

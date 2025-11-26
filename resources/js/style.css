@@ -27,3 +27,7 @@ aside {
     --primary-color: #0080ff;
     --danger-color: #b91c1c;
 }
+
+.no-overlay .v-btn__overlay{
+    display: none;
+}

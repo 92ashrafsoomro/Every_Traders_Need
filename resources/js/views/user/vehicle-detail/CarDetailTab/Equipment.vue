@@ -1,45 +1,15 @@
 <template>
-    <v-card flat color="transparent">
-        <v-card-title class="text-h4 font-weight-medium">Equipment</v-card-title>
-        <v-row dense>
-            <v-col cols="6" sm="4" class="text-caption">
-                Charge Cable - 3 Pin
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Charge Cable - Type 2
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Hi-Fi Speaker System - 10
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Navigation HDD
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Parking Assistance Pack
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Climate Control
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Parking Sensor(s)
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Cloth Trim - Anthracite
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Tyre Repair Kit
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                17" Alloy Wheels
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                LED Headlights - Adaptive
-            </v-col>
-            <v-col cols="6" sm="4" class="text-caption">
-                Metallic Paint - Sunset Orange
-            </v-col>
-        </v-row>
-    </v-card>
+    <custom-card title="Equipments">
+        <v-container>
+            <v-row dense>
+                <v-col v-for="value in vehicleStore.overView.equipments" :key="value" cols="6" sm="4" class="text-caption">
+
+                    <v-chip variant="text" prepend-icon="mdi-circle-small" >{{ value }}</v-chip>
+
+                </v-col>
+            </v-row>
+        </v-container>
+    </custom-card>
 </template>
 
 <script>
@@ -56,18 +26,14 @@ export default {
         };
     },
     mounted() {
-
-
+        
     },
-
     beforeUnmount() {
 
     },
     methods: {
 
-
     },
-
 };
 
 </script>

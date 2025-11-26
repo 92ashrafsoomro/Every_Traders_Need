@@ -25,6 +25,13 @@ const vuetify = createVuetify({
                 fontFamily: 'Inter, sans-serif',
             },
         },
+        VBtn: {
+            ripple: false,
+            style: {
+                '--v-btn-overlay-opacity': 0
+            },
+            class: 'no-overlay',
+        },
     },
     theme: {
         defaultTheme: "adminDark",

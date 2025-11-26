@@ -1,121 +1,23 @@
 <template>
-  <v-card flat color="transparent" class="pa-1 pa-lg-5">
-        <v-container>
-            <v-row>
+    <custom-card title="Overview" >
+        <v-container fluid>
+            <!-- <v-row>
                 <v-card-title class="text-h4 font-weight-medium">Overview</v-card-title>
-            </v-row>
+            </v-row> -->
             <v-row>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Vehicle Type</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-car</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.vehicleType }}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Make</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-steering</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.make}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Model</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-car-cog</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.model}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Variant</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-cards</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.variant}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">CC</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-speedometer-medium</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.cc}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Year</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-calendar</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.year}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Color</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-palette</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.color}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Fuel Type</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-gas-station</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.fuelType}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Transmission</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-cogs</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.transmission}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Keys</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-key</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.keys}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Doors</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-door</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.doors}}</p>
-                        </div>
-                    </v-card>
-                </v-col>
-                <v-col cols="6" sm="3">
-                    <v-card flat color="transparent">
-                        <v-card-title class="text-overline">Seats</v-card-title>
-                        <div class="d-flex align-center ga-2">
-                            <v-icon>mdi-seat-passenger</v-icon>
-                            <p class="text-caption">{{ vehicleStore.overView.seats}}</p>
-                        </div>
-                    </v-card>
+                <v-col v-for="item in items" cols="6" sm="4" lg="3" >
+                    <p class="ml-2 text-body-1 text-light text-overline text-capitalize">{{ item.title }}</p>
+                    <v-chip  variant="text" size="large" :prepend-icon="item.icon">
+                            <template #prepend>
+                            <v-icon color="primary">{{ item.icon }}</v-icon>
+                        </template>
+                        {{ item.value }}</v-chip>
+                            
                 </v-col>
             </v-row>
         </v-container>
-    </v-card>
+    </custom-card>
+    
 </template>
 
 <script>
@@ -130,6 +32,100 @@ export default {
         return {
             vehicleStore: useVehicleStore(),
         };
+    },
+    computed:{
+        items() {
+
+            return [
+                {
+                    title: 'Vehicle Type',
+                    value: this.vehicleStore.overView.vehicleType,
+                    icon: 'mdi-car',
+                    color:'red',
+                },
+                {
+                    title: 'Make',
+                    value: this.vehicleStore.overView.make,
+                    icon: 'mdi-steering',
+                    color:'primary',
+                },
+                {
+                    title: 'Model',
+                    value: this.vehicleStore.overView.model,
+                    icon:'mdi-car-cog',
+                },
+                {
+                    title: 'Variant',
+                    value: this.vehicleStore.overView.variant, 
+                    icon:'mdi-cards',
+                },
+                {
+                    title: 'CC',
+                    value: this.vehicleStore.overView.cc,
+                    icon:'mdi-speedometer-medium',
+                },
+                {
+                    title: 'Year',
+                    value: this.vehicleStore.overView.year,
+                    icon:'mdi-calendar',
+                },
+                {
+                    title: 'Color',
+                    value: this.vehicleStore.overView.color,
+                    icon:'mdi-palette',
+                },
+                {
+                    title: 'Fuel Type',
+                    value: this.vehicleStore.overView.fuelType,
+                    icon:'mdi-gas-station',
+                },
+                {
+                    title: 'Transmission',
+                    value: this.vehicleStore.overView.transmission,
+                    icon:'mdi-cogs',
+                },
+                {
+                    title: 'Keys',
+                    value: this.vehicleStore.overView.keys,
+                    icon:'mdi-key',
+                },
+                {
+                    title: 'Doors',
+                    value: this.vehicleStore.overView.doors,
+                    icon:'mdi-door',
+                },
+                {
+                    title: 'Seats',
+                    value: this.vehicleStore.overView.seats,
+                    icon:'mdi-seat-passenger',
+                },
+                {
+                    title: 'Former Keepers',
+                    value: this.vehicleStore.overView.seats,
+                    icon:'mdi-account-group',
+                },
+                {
+                    title: 'Vendors',
+                    value: this.vehicleStore.overView.seats,
+                    icon:'mdi-file-account-outline',
+                },
+                {
+                    title: 'VAT Type',
+                    value: this.vehicleStore.overView.vatType,
+                    icon:'mdi-ticket-percent',
+                },
+                {
+                    title: 'Euro Status',
+                    value: this.vehicleStore.overView.euroStatus,
+                    icon:'mdi-leaf',
+                },
+                {
+                    title: 'Engine Runs',
+                    value: this.vehicleStore.overView.engineRuns,
+                    icon:'mdi-car-wrench',
+                }
+            ]
+        }
     },
     mounted() {
 

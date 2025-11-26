@@ -11,21 +11,21 @@
                 <p class="text-center">No Data</p>
             </v-col>
         </v-row>
-        <v-row v-else >
+        <v-row v-else no-gutters>
             <v-col cols="12">
-                    <div class="d-flex">
-                        <div class="sidebar" :class="{
-                            'sidebar--open': vehicleStore.sidebar,
-                            'sidebar--mobile': vehicleStore.isMobile
-                        }">
-                            <template v-if="vehicleStore.sidebar"> 
-                                <VehicleSidebar />
-                            </template>
-                        </div>
 
-                        <div class="content " :class="{ 'content--collapsed': !vehicleStore.sidebar }">
+                    <v-row class="d-flex" style="position: relative;" >
 
-                            <div class="main-layout">   
+                        <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle">
+                            <div style="position: sticky;top:0;" class=""  >
+                                   <VehicleSidebar  />
+                            </div>
+                            <!-- <template v-if="vehicleStore.sidebar">  -->
+                             
+                            <!-- </template> -->
+                        </v-col>
+                        <v-col :style="contentStyle">
+                            <div class="">   
                                     <v-row no-gutters>
                                         <v-col cols="12"
                                             class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal">
@@ -48,11 +48,12 @@
                                 </v-row>
 
                             </div>
-                            
+        
+                        </v-col>
+                    </v-row>
 
-                        </div>
-                    </div>
-                </v-col>
+
+            </v-col>
         </v-row>
     </v-container>
 </template>
@@ -80,31 +81,51 @@ export default {
     },
     mounted() {
 
-        // const width = window.innerWidth;
-        // if (width <= 1440) {
-        //     this.vehicleStore.vehichleDetail.sidebar = false;
-        // } else {
-        //     this.vehicleStore.vehichleDetail.sidebar = true;
-        // }
-
-        this.checkDeviceMode();
-        window.addEventListener("resize", this.checkDeviceMode);
         this.loadVehicle();
         this.$themeStore.menuType = "collapsed";
     },
     beforeUnmount() {
-        window.removeEventListener("resize", this.checkDeviceMode);
+       
     },
     computed: {
         currentComponent() {
             switch (this.vehicleStore.tab) {
-
                 case "details":
                     return DetailTab
                 default:
                     return ValuationTab
             }
         },
+        sidebarStyle() {
+
+            return {
+                flexBasis: this.vehicleStore.sidebar ? '300px' : '0px',
+                display: this.vehicleStore.sidebar ? 'block' : 'none',
+                flexGrow: '0',
+                height:'100%'
+                // flexShrin: '0',
+            }
+        },
+        sidebarResponsiveStyle() {
+            return {
+                width: '0px',
+                display: 'none',
+              
+                // display: 'none',
+                // flexGrow: '0',
+                // flexShrin: '0',
+            }
+        },
+        contentStyle() {
+            return {
+                maxWidth: '1300px',
+
+                // width: this.vehicleStore.sidebar ? "calc(100% - 300px)" : "100%" ,
+                // height: '100vh',
+            }
+        },
+
+        
     },
 
     methods: {
@@ -123,31 +144,13 @@ export default {
                 });
         },
 
-
-        checkDeviceMode() {
-            const width = window.innerWidth;
-
-            if (width > 1440) {
-                this.vehicleStore.vehichleDetail.isMobile = false;
-                this.vehicleStore.vehichleDetail.sidebar = true;
-            }
-            else {
-                this.vehicleStore.vehichleDetail.isMobile = true;
-                this.vehicleStore.vehichleDetail.sidebar = false;
-            }
-        },
-
     },
 
 };
 </script>
 
 <style scoped>
-.sidebar {
-    max-width: 300px;
-    height: 100vh;
-    position: fixed;
-}
+
 
 .sidebar--mobile {
     position: fixed;
@@ -170,50 +173,22 @@ export default {
     width: calc(100% - 300px);
 }
 
-.content--collapsed {
-    margin-left: 0px;
-    width: 100%;
-}
+
 
 ::-webkit-scrollbar {
     display: none;
 }
 
-.mobile-panel {
-    max-width: 280px;
-    height: 100vh;
-    z-index: 11;
-}
 
-.main-layout{
-    max-width: 1300px;
-    margin: auto;
-}
 
 
 @media (max-width: 1440px) {
-    .content {
-        margin-left: 0;
-    }
-
-    .content--collapsed {
-        margin-left: 0px;
-        width: 100%;
-    }
+ 
 
 }
 
 @media (max-width: 1440px) {
-    .sidebar--mobile {
-        position: fixed;
-        height: 100%;
-        top: 10;
-        left: 0;
-        z-index: 999;
-        transform: translateX(-100%);
-        width: 280px;
-        transition: transform .3s ease;
-    }
+  
 }
 
 

@@ -1,6 +1,6 @@
 <template>
     <v-row no-gutters >
-        <v-col cols="12" class="mt-4 ">
+        <v-col cols="12" class="mt-3 ">
             <custom-card>
                 <div class="pa-5" >
                     <v-row>
@@ -12,31 +12,48 @@
                         </v-col>
                     </v-row>
                 </div>
+                <div>
+                      <Counter/>
+                </div>
             </custom-card>
+              
         </v-col>
     </v-row>
-
-    <Counter/>
-
-    <v-row no-gutters class="mt-8 ps-10 pe-10">
+    
+    <v-row class="mt-3 ">
         <v-col cols="12" md="8">
              <CarOverview/>
         </v-col>
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="4">
             <Service/>
         </v-col>
     </v-row>
-    <v-row no-gutters class="ps-10 pe-10">
+
+    <!-- <v-row  class="">
         <v-col cols="12" md="8">
             <AdditionalInfo/>
         </v-col>
+         <v-col cols="12" md="4">
+             
+        </v-col>
+    </v-row> -->
+
+     <v-row class="mt-3">
+        <v-col cols="12" md="8">
+           <Equipment/>
+        </v-col>
+         <v-col cols="12" md="4">
+              
+        </v-col>
     </v-row>
-    <v-row no-gutters class="ps-10 pe-10 pb-10">
-        <v-col cols="12" md="6">
+
+
+    <v-row class="mt-2">
+        <v-col cols="12" md="8">
             <Features/>
         </v-col>
-        <v-col cols="12" md="5">
-            <Equipment/>
+        <v-col cols="12" md="4">
+            
         </v-col>
     </v-row>
 </template>

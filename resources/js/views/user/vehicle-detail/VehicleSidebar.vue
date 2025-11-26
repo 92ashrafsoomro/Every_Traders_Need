@@ -1,6 +1,6 @@
 <template>
 
-    <custom-card title="Auctions" class="h-100 overflow-y-auto" >
+    <custom-card title="Auctions" class="h-100 " >
         <div class="card-content ">
             <div class="py-2 px-2">
                     <v-select 

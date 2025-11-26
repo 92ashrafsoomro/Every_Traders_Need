@@ -11,7 +11,7 @@ export const useVehicleStore = defineStore("vehicle", {
         tab: 'details',
 
 
-        
+
         auctionTab: true,
         platforms: [],
         length: 10,
@@ -32,7 +32,7 @@ export const useVehicleStore = defineStore("vehicle", {
             tab: 'details'
         },
         overView: {
-            title:'ABARTH 595 1.4 T-JET 165 TURISMO Hatchback',
+            title: 'ABARTH 595 1.4 T-JET 165 TURISMO Hatchback',
             images: [
                 "https://bcamediaprod.blob.core.windows.net/public/images/vehicle/GB/OV21FFE/610237700/600",
                 "https://www1.bcaimage.com/Document?DocType=VehicleImage&width=600&docId=610237703",
@@ -58,26 +58,48 @@ export const useVehicleStore = defineStore("vehicle", {
             v5: 'Not Present',
             inspection: '',
             biddingStatus: 'Sold',
-            
+
             lot: 'MC103',
             previousAuction: '',
-            auctionType:'Online Auction',
-            dateTime:'2025-10-18 14:34:04',
+            auctionType: 'Online Auction',
+            dateTime: '2025-10-18 14:34:04',
             auction: {
-                title:'Central Car Auctions'
+                title: 'Central Car Auctions'
             },
             center: {
-              title:'Bedford',  
+                title: 'Bedford',
             },
             disclaimer: 'AUTOBILI LTD aggregates vehicle auction data from third-party sources providing it as-is to help users make informed decisions, without guaranteeing data accuracy or completeness. learn more',
-            
+
             // Additional Info
-            formerKeepers:1,
-            vendors:2,
-            vatType:'No',
-            euroStatus:'No',
-            engineRuns: 'No'
-            
+            formerKeepers: 1,
+            vendors: 2,
+            vatType: 'No',
+            euroStatus: 'No',
+            engineRuns: 'No',
+
+            // Service
+            serviceReport: "ecuHeldServiceHistory",
+            noOfServices: 2,
+            lastService: "2025-04-15",
+            lastServiceMileage: 44812,
+            serviceNotes: "123",
+            dvsaMileage: "na",
+            motExpiryDate: "2025-07-28",
+            motDue: "MOT DUE",
+
+            //
+            equipments: [
+                'Charge Cable - 3 Pin',
+                'Charge Cable - Type 2',
+                'Navigation HDD',
+                'Parking Assistance Pack',
+                'Hi-Fi Speaker System - 10',
+                'Navigation HDD',
+                'Parking Assistance Pack',
+                'Climate Control', 'Cloth Trim - Anthracite', 'Tyre Repair Kit'
+            ]
+
         }
     }),
     getters: {

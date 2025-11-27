@@ -1,74 +1,60 @@
 <template>
 
-    <custom-card title="Account Detail">
-        <v-container class="pa-6" >
+    <v-card title="Account Detail" class="border" >
+        <div class="border-b" ></div>
 
-               <h2 class="text-body-1 text-light  mb-3 ">User Information</h2>
-               <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
-               <v-row>
-                <v-col cols="12" class="" >
+        <v-card-text>
 
+        <v-container class="pa-2">
+
+            <h2 class="text-body-1 text-light  mb-3 ">User Information</h2>
+            <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
+            <v-row>
+                <v-col cols="12" class="">
                     <div v-for="(item, i) in personalItems" :key="i" class=" d-flex align-center mb-6">
                         <v-icon color="grey-lighten-1" class="mr-4 ">{{ item.icon }}</v-icon>
-                        <div class="d-flex align-center" >
+                        <div class="d-flex align-center flex-wrap">
                             <div class="text-body-2  pr-2">{{ item.label }} :</div>
-
-                            <div style="color:rgb(var(--v-theme-light))" 
-                               v-if="!item.download" 
-                               class="text-body-2">
+                            <div style="color:rgb(var(--v-theme-light))" v-if="!item.download" class="text-body-2">
                                 {{ item.value }}
                             </div>
 
-                             <div v-if="item.download" class="text-body-2">
-                                <v-btn v-if="item.download" 
-                                    variant="text"
-                                    size="small" 
-                                    color="primary"
-                                    class="text-capitalize text-body-2 text-decoration-underline " 
-                                    @click="downloadFile(item.label)">
-                                    Download
-                                </v-btn>
-                            </div>
-
                         </div>
                     </div>
                 </v-col>
             </v-row>
 
-             
 
-            <v-divider class="border-opacity-30 mb-4" color="grey" />
+
+            <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
 
             <!-- Personal Information -->
-            <h2 class="text-body-1 text-light mb-3">Company Information</h2>
+            <h2 class="text-body-1 text-light my-3 mb-3">Company Information</h2>
 
-               <v-row>
-                <v-col cols="12" >
+            <v-row>
+                <v-col cols="12">
                     <div v-for="(item, i) in companyItems" :key="i" class="d-flex align-center mb-6">
-                        <v-icon color="grey-lighten-1" class="mr-4 mt-1">{{ item.icon }}</v-icon>
-                        <div class="d-flex align-center" >
+                        <v-icon color="grey-lighten-1" class="mr-4 ">{{ item.icon }}</v-icon>
+                        <div class="d-flex align-center flex-wrap">
                             <div class="text-body-1  ">{{ item.label }} :</div>
-                            <div style="color:rgb(var(--v-theme-light))" class="pl-3 text-body-2 font-weight-medium"> {{ item.value }}</div>
+                            <div style="color:rgb(var(--v-theme-light))" class=" text-body-2 font-weight-medium"> {{
+                                item.value }}</div>
                         </div>
                     </div>
                 </v-col>
             </v-row>
 
-             <h2 class="text-body-1 text-light  mb-3 ">Business Proof</h2>
-              <v-row>
-                <v-col cols="12" class="" >
+            <h2 class="text-body-1 text-light mt-3  mb-3 ">Business Proof</h2>
+            <v-row>
+                <v-col cols="12" class="">
 
                     <div class=" d-flex align-center mb-6">
                         <v-icon color="grey-lighten-1" class="mr-4 ">mdi-card-account-details</v-icon>
-                        <div class="d-flex align-center" >
+                        <div class="d-flex align-center">
                             <div class="text-body-2 pr-2">Upload ID :</div>
-                             <div  class="text-body-2">
-                                <v-btn  
-                                    variant="text"
-                                    size="small" 
-                                    color="primary"
-                                    class="text-capitalize text-body-2 text-decoration-underline " 
-                                    >
+                            <div class="text-body-2">
+                                <v-btn variant="text" size="small" color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline ">
                                     Download
                                 </v-btn>
                             </div>
@@ -78,15 +64,11 @@
 
                     <div class=" d-flex align-center mb-6">
                         <v-icon color="grey-lighten-1" class="mr-4 ">mdi-file-account</v-icon>
-                        <div class="d-flex align-center" >
+                        <div class="d-flex align-center">
                             <div class="text-body-2 pr-2">Motor Trade :</div>
-                             <div  class="text-body-2">
-                                <v-btn  
-                                    variant="text"
-                                    size="small" 
-                                    color="primary"
-                                    class="text-capitalize text-body-2 text-decoration-underline " 
-                                    >
+                            <div class="text-body-2">
+                                <v-btn variant="text" size="small" color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline ">
                                     Download
                                 </v-btn>
                             </div>
@@ -96,15 +78,11 @@
 
                     <div class=" d-flex align-center mb-6">
                         <v-icon color="grey-lighten-1" class="mr-4 ">mdi-file-document</v-icon>
-                        <div class="d-flex align-center" >
+                        <div class="d-flex align-center">
                             <div class="text-body-2 pr-2">Address :</div>
-                             <div  class="text-body-2">
-                                <v-btn  
-                                    variant="text"
-                                    size="small" 
-                                    color="primary"
-                                    class="text-capitalize text-body-2 text-decoration-underline " 
-                                    >
+                            <div class="text-body-2">
+                                <v-btn variant="text" size="small" color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline ">
                                     Download
                                 </v-btn>
                             </div>
@@ -117,7 +95,8 @@
             </v-row>
 
         </v-container>
-    </custom-card>
+          </v-card-text>
+    </v-card>
 </template>
 
 <script>
@@ -131,16 +110,16 @@ export default {
             userStore: useUserStore(),
         }
     },
-    computed:{
+    computed: {
         companyItems() {
 
             return [
-                { icon: 'mdi-office-building', label: 'Business Name', value: this.userStore.user.companyName},
-                { icon: 'mdi-web', label: 'Business Type', value: this.userStore.user.businessType},
+                { icon: 'mdi-office-building', label: 'Business Name', value: this.userStore.user.companyName },
+                { icon: 'mdi-web', label: 'Business Type', value: this.userStore.user.businessType },
                 { icon: 'mdi-earth', label: 'Website', value: this.userStore.user.website },
                 { icon: 'mdi-email-outline', label: 'Business Email', value: this.userStore.user.businessEmail },
                 { icon: 'mdi-shield-check', label: 'Motor Trade Insurance', value: this.userStore.user.motorTradeInsurance },
-                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: this.userStore.user.vatNumber},
+                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: this.userStore.user.vatNumber },
                 { icon: 'mdi-home-city', label: 'Company Address 1', value: this.userStore.user.companyAddress1 },
                 { icon: 'mdi-home-city-outline', label: 'Company Address 2', value: this.userStore.user.companyAddress2 },
                 { icon: 'mdi-map-marker', label: 'Town/City', value: this.userStore.user.townCity },
@@ -152,12 +131,12 @@ export default {
         personalItems() {
 
             return [
-                { icon: 'mdi-account', label: 'Full Name', value: this.userStore.user.firstName +' '+this.userStore.user.surname },
+                { icon: 'mdi-account', label: 'Full Name', value: this.userStore.user.firstName + ' ' + this.userStore.user.surname },
                 { icon: 'mdi-phone', label: 'Job Title', value: this.userStore.user.jobTitle },
                 { icon: 'mdi-cellphone', label: 'Phone Number', value: this.userStore.user.phone },
                 { icon: 'mdi-email', label: 'Email', value: this.userStore.user.personalEmail },
             ];
-            
+
         }
 
     },
@@ -172,6 +151,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

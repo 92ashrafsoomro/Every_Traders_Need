@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container max-width="1300px" fluid>
         <v-row>
             <v-col cols="12">
                 <div class="d-flex flex-wrap">
@@ -29,7 +29,7 @@
         </v-row>
     </v-container>
 
-    <v-container fluid>
+    <v-container max-width="1300px" fluid>
         <v-row>
              <component :is="currentComponent" />
         </v-row>

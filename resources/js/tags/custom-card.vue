@@ -29,10 +29,6 @@ export default {
         subtitle: {
           type:String,
           default: "",
-        },
-        headerBorder: {
-            type:String,
-            default:false
         }
     },
     data() {

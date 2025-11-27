@@ -26,6 +26,7 @@ class UserProfileResource extends JsonResource
             'jobTitle'          => $this->jobTitle,
             'phone'             => $this->phone,
             'personalEmail'     => $this->personalEmail,
+            'joined' => 'Joined 10 Apr 2025',
 
             // Company details
             'companyName'       => $this->companyName,

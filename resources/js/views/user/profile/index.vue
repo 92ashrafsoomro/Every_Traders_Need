@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container max-width="1300px" fluid>
         <v-row class="">
             <v-col cols="12" >
                  <custom-card>
@@ -11,21 +11,22 @@
                         </div>
                         <div class="" >
                             <div class="pl-3" >
-                                <h6 class="pb-3 text-h4 font-weight-bold">Shan Khan</h6>
+                                <h6 class="pb-3 text-h4 font-weight-bold">{{ userStore.user.firstName }}</h6>
                                 <div class="d-flex" >
-                                    <div class="px-2" > <v-icon icon="mdi-eye"/> <span>Full Stack Developer</span></div>
-                                    <div class="px-2" > <v-icon icon="mdi-eye"/> <span>United Kingdom Karachi</span></div>
-                                    <div class="px-2" > <v-icon icon="mdi-eye"/> <span>Joined 10 Apr 2025</span></div>
+                                    
+                                    <div class="px-2" > <v-icon icon="mdi-equalizer"/> <span>{{ userStore.user.companyName }}</span></div>
+                                    <div class="px-2" > <v-icon icon="mdi-briefcase-outline"/> <span>{{ userStore.user.jobTitle }}</span></div>
+                                    <div class="px-2" > <v-icon icon="mdi-lightning-bolt"/> <span>Active Plan</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                  </custom-card> 
             </v-col>
-            <v-col cols="12" sm="4" >    
+            <v-col cols="12" sm="5" >    
                 <Sidebar/>
             </v-col>
-            <v-col cols="4" sm="8">
+            <v-col cols="4" sm="7">
                 <RecentDevices/>    
             </v-col>
         </v-row>

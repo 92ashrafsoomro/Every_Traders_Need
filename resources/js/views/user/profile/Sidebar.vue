@@ -1,30 +1,18 @@
 <template>
 
-    <custom-card title="Company Details">
-        <v-container>
-            <v-row>
-                <v-col cols="12" >
-                    <div v-for="(item, i) in companyItems" :key="i" class="d-flex align-start mb-6">
-                        <v-icon color="grey-lighten-1" class="mr-4 mt-1">{{ item.icon }}</v-icon>
-                        <div>
-                            <div class="text-body-1 font-weight-bold ">{{ item.label }}</div>
-                            <div style="color:rgb(var(--v-theme-light))" class="text-body-2 font-weight-medium">{{ item.value }}</div>
-                        </div>
-                    </div>
-                </v-col>
-            </v-row>
+    <custom-card title="Account Detail">
+        <v-container class="pa-6" >
 
-            <v-divider class="border-opacity-30 mb-4" color="grey" />
+               <h2 class="text-body-1 text-light  mb-3 ">User Information</h2>
+               <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
+               <v-row>
+                <v-col cols="12" class="" >
 
-            <!-- Personal Information -->
-            <h2 class="text-h6 font-weight-bold mb-6 ">Personal Information</h2>
+                    <div v-for="(item, i) in personalItems" :key="i" class=" d-flex align-center mb-6">
+                        <v-icon color="grey-lighten-1" class="mr-4 ">{{ item.icon }}</v-icon>
+                        <div class="d-flex align-center" >
+                            <div class="text-body-2  pr-2">{{ item.label }} :</div>
 
-            <v-row>
-                <v-col cols="12">
-                    <div v-for="(item, i) in personalItems" :key="i" class="d-flex align-start mb-6">
-                        <v-icon color="grey-lighten-1" class="mr-4 mt-1">{{ item.icon }}</v-icon>
-                        <div>
-                            <div class="text-body-1 font-weight-bold">{{ item.label }}</div>
                             <div style="color:rgb(var(--v-theme-light))" 
                                v-if="!item.download" 
                                class="text-body-2">
@@ -33,10 +21,10 @@
 
                              <div v-if="item.download" class="text-body-2">
                                 <v-btn v-if="item.download" 
-                                    variant="outlined"
+                                    variant="text"
                                     size="small" 
                                     color="primary"
-                                    class="mt-3" 
+                                    class="text-capitalize text-body-2 text-decoration-underline " 
                                     @click="downloadFile(item.label)">
                                     Download
                                 </v-btn>
@@ -46,56 +34,132 @@
                     </div>
                 </v-col>
             </v-row>
+
+             
+
+            <v-divider class="border-opacity-30 mb-4" color="grey" />
+
+            <!-- Personal Information -->
+            <h2 class="text-body-1 text-light mb-3">Company Information</h2>
+
+               <v-row>
+                <v-col cols="12" >
+                    <div v-for="(item, i) in companyItems" :key="i" class="d-flex align-center mb-6">
+                        <v-icon color="grey-lighten-1" class="mr-4 mt-1">{{ item.icon }}</v-icon>
+                        <div class="d-flex align-center" >
+                            <div class="text-body-1  ">{{ item.label }} :</div>
+                            <div style="color:rgb(var(--v-theme-light))" class="pl-3 text-body-2 font-weight-medium"> {{ item.value }}</div>
+                        </div>
+                    </div>
+                </v-col>
+            </v-row>
+
+             <h2 class="text-body-1 text-light  mb-3 ">Business Proof</h2>
+              <v-row>
+                <v-col cols="12" class="" >
+
+                    <div class=" d-flex align-center mb-6">
+                        <v-icon color="grey-lighten-1" class="mr-4 ">mdi-card-account-details</v-icon>
+                        <div class="d-flex align-center" >
+                            <div class="text-body-2 pr-2">Upload ID :</div>
+                             <div  class="text-body-2">
+                                <v-btn  
+                                    variant="text"
+                                    size="small" 
+                                    color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline " 
+                                    >
+                                    Download
+                                </v-btn>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class=" d-flex align-center mb-6">
+                        <v-icon color="grey-lighten-1" class="mr-4 ">mdi-file-account</v-icon>
+                        <div class="d-flex align-center" >
+                            <div class="text-body-2 pr-2">Motor Trade :</div>
+                             <div  class="text-body-2">
+                                <v-btn  
+                                    variant="text"
+                                    size="small" 
+                                    color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline " 
+                                    >
+                                    Download
+                                </v-btn>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class=" d-flex align-center mb-6">
+                        <v-icon color="grey-lighten-1" class="mr-4 ">mdi-file-document</v-icon>
+                        <div class="d-flex align-center" >
+                            <div class="text-body-2 pr-2">Address :</div>
+                             <div  class="text-body-2">
+                                <v-btn  
+                                    variant="text"
+                                    size="small" 
+                                    color="primary"
+                                    class="text-capitalize text-body-2 text-decoration-underline " 
+                                    >
+                                    Download
+                                </v-btn>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </v-col>
+            </v-row>
+
         </v-container>
     </custom-card>
 </template>
 
 <script>
+import { useUserStore } from '@/stores/userStore';
+
 export default {
     name: 'CompanyProfile',
 
     data() {
         return {
-            companyItems: [
-                { icon: 'mdi-office-building', label: 'Business Name', value: 'VeeSoft Technologies' },
-                { icon: 'mdi-web', label: 'Business Type', value: 'Motor Trader' },
-                { icon: 'mdi-earth', label: 'Website', value: 'https://softauto.co.uk' },
-                { icon: 'mdi-email-outline', label: 'Business Email', value: 'admin@veesoft.com' },
-                { icon: 'mdi-shield-check', label: 'Motor Trade Insurance', value: 'yes' },
-                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: '2324' },
-                { icon: 'mdi-home-city', label: 'Company Address 1', value: 'Phase 2' },
-                { icon: 'mdi-home-city-outline', label: 'Company Address 2', value: 'DHA' },
-                { icon: 'mdi-map-marker', label: 'Town/City', value: 'Karachi' },
-                { icon: 'mdi-flag', label: 'Country', value: 'United Kingdom' },
-                { icon: 'mdi-mailbox', label: 'Postcode / Zip code', value: '74600' },
-                { icon: 'mdi-phone', label: 'Telephone', value: '02197279723' }
-            ],
-            personalItems: [
-                { icon: 'mdi-account', label: 'Full Name', value: 'Shah Khan' },
-                { icon: 'mdi-briefcase', label: 'Title', value: 'Developer' },
-                { icon: 'mdi-phone', label: 'Job Title', value: 'Full Stack Developer' },
-                { icon: 'mdi-cellphone', label: 'Number', value: '+923361234567' },
-                { icon: 'mdi-email', label: 'Personal Email', value: 'shahkhan4120@gmail.com' },
-                { 
-                    icon: 'mdi-card-account-details', 
-                    label: 'Upload ID', 
-                    value: 'Download', 
-                    download: true 
-                },
-                {
-                     icon: 'mdi-file-account', 
-                     label: 'Motor Trade Proof', 
-                     value: 'Download', 
-                     download: true 
-                },
-                { 
-                    icon: 'mdi-file-document', 
-                    label: 'Address Proof', 
-                    value: 'Download', 
-                    download: true 
-                }
-            ]
+            userStore: useUserStore(),
         }
+    },
+    computed:{
+        companyItems() {
+
+            return [
+                { icon: 'mdi-office-building', label: 'Business Name', value: this.userStore.user.companyName},
+                { icon: 'mdi-web', label: 'Business Type', value: this.userStore.user.businessType},
+                { icon: 'mdi-earth', label: 'Website', value: this.userStore.user.website },
+                { icon: 'mdi-email-outline', label: 'Business Email', value: this.userStore.user.businessEmail },
+                { icon: 'mdi-shield-check', label: 'Motor Trade Insurance', value: this.userStore.user.motorTradeInsurance },
+                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: this.userStore.user.vatNumber},
+                { icon: 'mdi-home-city', label: 'Company Address 1', value: this.userStore.user.companyAddress1 },
+                { icon: 'mdi-home-city-outline', label: 'Company Address 2', value: this.userStore.user.companyAddress2 },
+                { icon: 'mdi-map-marker', label: 'Town/City', value: this.userStore.user.townCity },
+                { icon: 'mdi-flag', label: 'Country', value: this.userStore.user.country },
+                { icon: 'mdi-mailbox', label: 'Postcode / Zip code', value: this.userStore.user.postcode },
+                { icon: 'mdi-phone', label: 'Telephone', value: this.userStore.user.telephone }
+            ];
+        },
+        personalItems() {
+
+            return [
+                { icon: 'mdi-account', label: 'Full Name', value: this.userStore.user.firstName +' '+this.userStore.user.surname },
+                { icon: 'mdi-phone', label: 'Job Title', value: this.userStore.user.jobTitle },
+                { icon: 'mdi-cellphone', label: 'Phone Number', value: this.userStore.user.phone },
+                { icon: 'mdi-email', label: 'Email', value: this.userStore.user.personalEmail },
+            ];
+            
+        }
+
     },
 
     methods: {

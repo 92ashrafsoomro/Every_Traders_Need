@@ -12,10 +12,10 @@
 
         </div>
     </user-title-bar>
-    <v-container fluid>
-        <v-row>
-            <v-col cols="12" >
 
+    <v-container fluid>
+        <v-row class="mt-3" >
+            <v-col cols="12 " >
                 <div class="mr-auto ml-auto ">
                     <div class="pb-3 d-flex align-center justify-space-between">
                         <div class="d-flex w-100 flex-wrap" >

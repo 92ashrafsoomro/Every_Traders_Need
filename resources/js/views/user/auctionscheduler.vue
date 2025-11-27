@@ -65,7 +65,7 @@
     </user-title-bar>
 
     <v-container fluid>
-        <v-row>
+        <v-row class="mt-3" >
             <v-col cols="12" >
                     <custom-card>
                         <v-data-table-server 

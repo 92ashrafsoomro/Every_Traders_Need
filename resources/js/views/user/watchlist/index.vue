@@ -14,7 +14,7 @@
     </user-title-bar>
 
     <v-container fluid>
-        <v-row>
+        <v-row >
             <component :is="currentComponent" />
          
         </v-row>

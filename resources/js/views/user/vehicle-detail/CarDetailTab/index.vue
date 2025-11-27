@@ -1,31 +1,31 @@
 <template>
-    <v-row no-gutters >
+    <v-row no-gutters>
         <v-col cols="12" class="mt-3 ">
             <custom-card>
-                <div class="pa-5" >
+                <div class="pa-5">
                     <v-row>
                         <v-col cols="12" lg="6" md="6" sm="12" class="d-flex flex-column justify-start">
                             <CarSlider />
                         </v-col>
                         <v-col cols="12" lg="6" md="6" sm="12" class="ps-5 pr-5">
-                            <BasicInfo/>
+                            <BasicInfo />
                         </v-col>
                     </v-row>
                 </div>
                 <div>
-                      <Counter/>
+                    <Counter />
                 </div>
             </custom-card>
-              
+
         </v-col>
     </v-row>
-    
+
     <v-row class="mt-3 ">
         <v-col cols="12" md="8">
-             <CarOverview/>
+            <CarOverview />
         </v-col>
         <v-col cols="12" md="4">
-            <Service/>
+            <Service />
         </v-col>
     </v-row>
 
@@ -38,22 +38,22 @@
         </v-col>
     </v-row> -->
 
-     <v-row class="mt-3">
+    <v-row class="mt-3">
         <v-col cols="12" md="8">
-           <Equipment/>
+            <Equipment />
         </v-col>
-         <v-col cols="12" md="4">
-              
+        <v-col cols="12" md="4">
+
         </v-col>
     </v-row>
 
 
     <v-row class="mt-2">
         <v-col cols="12" md="8">
-            <Features/>
+            <Features />
         </v-col>
         <v-col cols="12" md="4">
-            
+
         </v-col>
     </v-row>
 </template>

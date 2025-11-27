@@ -1,8 +1,7 @@
 <template>
 
     <v-col cols="12" >
-
-           <v-row class="pt-3" >
+           <v-row  class="mt-3">
                 <v-col cols="12" >
                     <div class="d-flex justify-md-space-between flex-wrap ">            
                         <div class="d-flex flex-wrap">
@@ -83,7 +82,7 @@
                 </v-col>
 
                 <v-col cols="12" class="" >
-                    <div class="bg-surface rounded border pa-4">
+                    <div class="  border ">
                         <v-data-table-server class="" 
                             :headers="headers" 
                             :items="items"
@@ -101,7 +100,7 @@
                             </template>
 
                             <template v-slot:bottom>
-                                <div class="pt-2" >
+                                <div class="py-2" >
                                     <custom-pagination
                                     :loading="loading"
                                     v-model:page="filter.page" 

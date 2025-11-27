@@ -1,20 +1,16 @@
 <template>
-     <v-card :class="['bg-surface', 'border', 'card', this.class ]">
-        <div v-if="title || $slots.toolbar" class="card-header d-flex justify-space-between" >
-            <div v-if="title" >
-                   <h3 v-if="title" class="card-title text-h5">{{ title }}</h3>
-                    <p v-if="subtitle" class="text-body-1 subtitle">{{ subtitle }}</p>
-            </div> 
-         
-             <slot name="toolbar"/>
+    <v-card :class="['bg-surface', 'border', 'card', this.class ]">
+        
+        <div v-if="title || subtitle" class="card-header border-bottom" >
+            <h3 v-if="title" class="card-title text-h5">{{ title }}</h3>
+            <p v-if="subtitle" class="text-body-1 subtitle">{{ subtitle }}</p>
         </div>
+
         <div class="card-body">
             <slot></slot>
         </div>
-
-        <div v-if="$slots.footer" class="card-footer">
-            <slot name="footer"/>
-        </div>
+        
+ 
      </v-card>
 </template>
 
@@ -34,6 +30,10 @@ export default {
           type:String,
           default: "",
         },
+        headerBorder: {
+            type:String,
+            default:false
+        }
     },
     data() {
         return {
@@ -52,18 +52,12 @@ export default {
 
 <style scoped >
 
-.card-header{
-    padding: 24px 24px;
+.border-bottom{
     border-bottom: 1px solid rgb(var(--v-theme-border));
 }
 
-.card-footer{
- padding: 24px 24px;
-    border-top: 1px solid rgb(var(--v-theme-border));
-}
-
-.card-title{
-
+.card-header{
+    padding: 24px 24px;
 }
 
 .subtitle{

@@ -31,17 +31,20 @@ export async function getProfile(options: {
 /**
  * Update Profile.
  */
-export async function updateProfile(data: unknown[]) {
+export async function updateProfile(data: Record<string, string | Blob | File>) {
       
-        try {
+    try {
+            
             const form = new FormData();
             for (const key in data) {
-                if (!Object.hasOwn(data, key)) continue;
-                form.append(key,data[key]);
+                if (Object.prototype.hasOwnProperty.call(data, key)) {
+                    form.append(key, data[key]);
+                }
             }
-            const res = await api.post("/api/auth/register",form);
-            return res.data.data;
-
+        
+            const res = await api.post("/api/auth/profile",form);
+            return res.data;
+        
         } catch (error) {
             throw await errorHandler(error);
         }
@@ -57,5 +60,6 @@ export async function updateProfile(data: unknown[]) {
 
 export default {
     getProfile,
+    updateProfile
 
 }

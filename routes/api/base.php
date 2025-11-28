@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
 
     Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
+    Route::post('/profile',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
+
     Route::post('/login',[AuthController::class,'login']);
     Route::post('/register',[AuthController::class,'register']);
 

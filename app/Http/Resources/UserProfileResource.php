@@ -18,6 +18,10 @@ class UserProfileResource extends JsonResource
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
 
+         $membership = Membership::where('user_id',$this->id)
+        ->orderBy('created_at','desc')
+        ->get();
+
         return [
 
             // Basic user info
@@ -71,7 +75,8 @@ class UserProfileResource extends JsonResource
             'source' => $this->source,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'plans' => $current,            
+            'plans' => $current,
+            'billingHistory' => $membership,             
 
       
         ];

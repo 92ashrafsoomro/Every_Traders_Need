@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Membership;
+use App\Models\UserDevice;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,15 +13,23 @@ class UserProfileResource extends JsonResource
     public function toArray($request)
     {
 
+      
+
         $current = Membership::where('user_id',$this->id)
+        ->with(['plan'])
         ->where('membership_status', 'Active')
         ->whereDate('membership_start_date', '<=', now())
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
 
-         $membership = Membership::where('user_id',$this->id)
+         $membership = Membership::with(['plan'])->where('user_id',$this->id)
         ->orderBy('created_at','desc')
         ->get();
+
+        $userDevices = UserDevice::where('user_id', $this->id)
+                    ->orderByDesc('logged_in_at')
+                    ->limit(10)
+                    ->get();
 
         return [
 
@@ -76,7 +85,8 @@ class UserProfileResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'plans' => $current,
-            'billingHistory' => $membership,             
+            'billingHistory' => $membership,    
+            'userDevices' => $userDevices,         
 
       
         ];

@@ -1,7 +1,8 @@
 <template>
     <v-col cols="12">
 
-        <custom-card title="Change Password" class="bg-surface">
+        <v-card title="Change Password" class="bg-surface">
+             <div class="border" ></div>
             <v-container fluid>
 
                 <v-row>
@@ -48,15 +49,19 @@
                     </v-col>
                 </v-row>
             </v-container>
-        </custom-card>
+        </v-card>
     </v-col>
 
     <v-col cols="12">
-
-        <custom-card title="Recent Devices" class="">
-            <v-data-table-server class="pb-3" :headers="pageStore.recentDevices.headers"
-                :items="pageStore.recentDevices.data" :items-length="pageStore.recentDevices.total"
-                :loading="pageStore.recentDevices.loading" item-value="id">
+        <v-card title="Recent Devices" class="">
+            <div class="border" ></div>
+            
+            <v-data-table-server 
+                class="pb-3" 
+                :headers="headers"
+                :items="data" 
+                :items-length="data.length"
+                item-value="id">
                 <template #item.platform="{ item }">
                     <p>
                         <v-icon class="text-primary" icon="mdi-microsoft-windows-classic" />
@@ -77,17 +82,13 @@
                     </div> -->
                 </template>
             </v-data-table-server>
-        </custom-card>
+        </v-card>
 
     </v-col>
 </template>
 <script>
-import {
-    useUserStore
-} from '@/stores/userStore';
-import {
-    usePageStore
-} from '@/stores/pageStore';
+import {useUserStore} from '@/stores/userStore';
+import {usePageStore} from '@/stores/pageStore';
 import { changPassword } from '@/services/authService';
 
 export default {
@@ -106,7 +107,30 @@ export default {
                 current_password:'',
                 new_password: '',
                 confirm_password:'',
-            }
+            },
+            data: [
+                {
+                 platform:'Windows',
+                 browser:'Chrome',
+                 device:'Desktop',
+                 location:'Not found',
+                 recent_activities:'21, November 2025 11:35'   
+                },
+                {
+                 platform:'Windows',
+                 browser:'Chrome',
+                 device:'Desktop',
+                 location:'Not found',
+                 recent_activities:'21, November 2025 11:35'   
+                }
+            ],
+            headers: [
+                { title: "Platform", key: "platform",sortable:false },
+                { title: "Browser", value: "browser" },
+                { title: "Device", value: "device" },
+                { title: "Location", value: "location" },
+                { title: "Date", key: "created_at",sortable:false },
+            ],
         };
     },
     computed: {
@@ -114,6 +138,7 @@ export default {
     },
     mounted() {
 
+        this.data = this.userStore.user.userDevices;
 
     },
     methods: {

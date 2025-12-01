@@ -1,7 +1,8 @@
 <template>
 
     <v-col> 
-      <custom-card title="Notifications" subtitle="Change to notification settings, the user will get the update" >
+      <v-card title="Notifications" subtitle="Change to notification settings, the user will get the update" >
+        <div class="border" ></div>
           <v-container fluid>
           
               <!-- Notifications Table -->
@@ -56,7 +57,7 @@
               </v-btn>
               </div>
           </v-container>
-      </custom-card>
+      </v-card>
   </v-col>
 
     

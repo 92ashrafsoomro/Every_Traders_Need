@@ -19,11 +19,11 @@
                         prepend-icon="mdi-card-text">Billing
                             & Plans</v-btn>
                     </div>
-                    <div class="px-2 py-2">
+                    <!-- <div class="px-2 py-2">
                         <v-btn to="/user/settings/notification" class="text-capitalize" variant="flat"
                         :class="{ 'bg-primary': this.$route.params.id == 'notification' }"
                             prepend-icon="mdi-bell">Notifications</v-btn>
-                    </div>
+                    </div> -->
                 </div>
             </v-col>
         </v-row>

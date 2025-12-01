@@ -1,10 +1,7 @@
 <template>
    
-    <custom-card>
-        <template #toolbar>
-            <h6 class="text-h3 font-weight-bold w-100 text-center" >Pricing Plans</h6>
-            
-        </template>
+    <v-card title="Pricing Plans" >
+        <div class="border" ></div>
         <v-container fluid class="pa-8 pa-md-16" max-height="700px">
             <v-row justify="center" class="gap-6">
                 <v-col v-for="item in price" cols="12" sm="6" md="3">
@@ -12,7 +9,7 @@
                 </v-col>   
             </v-row>
         </v-container>
-  </custom-card>
+  </v-card>
 </template>
 
 <script>

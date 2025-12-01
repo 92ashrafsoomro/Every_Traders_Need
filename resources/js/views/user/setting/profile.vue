@@ -95,7 +95,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-btn @click="onSubmit" class="bg-primary mr-2" variant="flat">Save Changes</v-btn>
-                            <v-btn class="bg-background" variant="flat">Cancel</v-btn>
+                            <v-btn @click="loadDataFromProfile" class="bg-background" variant="flat">Cancel</v-btn>
                         </v-col>
                     </v-row>
                 </v-container>

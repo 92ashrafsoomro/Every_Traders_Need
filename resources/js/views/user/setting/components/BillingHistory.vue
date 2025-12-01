@@ -9,17 +9,17 @@
             >
                 <template #item.status="{ item }">
                     
-                    <v-btn v-if="item.status == 'Active'" color="success" variant="flat">{{ item.status }}</v-btn>
+                    <v-btn v-if="item.status == 'Active'"   class="text-capitalize">{{ item.status }}</v-btn>
                     
-                    <v-btn v-else-if="item.status == 'Expired'" color="danger" variant="flat">{{ item.status }}</v-btn>
+                    <v-btn v-else-if="item.status == 'Expired'"  class="text-capitalize">{{ item.status }}</v-btn>
 
-                    <v-btn v-else color="warning" variant="flat">{{ item.status }}</v-btn>
+                    <v-btn v-else  class="text-capitalize">{{ item.status }}</v-btn>
                 </template>
 
                 <template #item.invoice="{ item }">
 
-                    <v-btn icon="mdi-eye" color="primary" variant="tonal"></v-btn>
-                    <v-btn icon="mdi-download" color="success" variant="tonal"></v-btn>
+                    <v-btn icon="mdi-eye" ></v-btn>
+                    <v-btn icon="mdi-download"></v-btn>
 
                 
                 </template>

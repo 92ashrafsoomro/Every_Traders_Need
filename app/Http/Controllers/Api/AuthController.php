@@ -166,7 +166,6 @@ class AuthController extends Controller
             $request->file('addressProof')->move($filePath, $fileName);
             $user->addressProof = $fileName;
         }
-       
 
         //Account
         $user->personalEmail = $request->personalEmail;

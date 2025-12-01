@@ -42,7 +42,7 @@
                         </ul>
 
                         <div class="my-3">
-                            <v-btn class="bg-primary mr-2" variant="flat">Save Changes</v-btn>
+                            <v-btn @click="formSubmit" class="bg-primary mr-2" variant="flat">Save Changes</v-btn>
                         </div>
 
                     </v-col>
@@ -88,6 +88,7 @@ import {
 import {
     usePageStore
 } from '@/stores/pageStore';
+import { changPassword } from '@/services/authService';
 
 export default {
     components: {
@@ -100,34 +101,12 @@ export default {
             toggle_password: true,
             toggle_new_password: true,
             toggle_confirm_Password: true,
-
             loading: false,
             form: {
-                current_password: '',
+                current_password:'',
                 new_password: '',
-                confirm_password: '',
-
-                firstName: '',
-                surname: '',
-                title: '',
-                jobTitle: '',
-                avatar: '',
-                phone: '',
-
-                companyName: '',
-                companyAddress1: '',
-                companyAddress2: '',
-                businessType: '',
-                motorTradeInsurance: '',
-                businessEmail: '',
-
-                telephone: '',
-                townCity: '',
-                country: '',
-                website: '',
-                postcode: '',
+                confirm_password:'',
             }
-
         };
     },
     computed: {
@@ -135,19 +114,27 @@ export default {
     },
     mounted() {
 
-        this.loadDataFromProfile();
+
     },
     methods: {
-        loadDataFromProfile() {
-            for (const key in this.form) {
-                if (!Object.hasOwn(this.form, key)) continue;
-                const value = this.form[key];
+   
+        async formSubmit() {
+            try {
+                let res = await changPassword({
+                    current_password: this.form.current_password,
+                    new_password: this.form.new_password,
+                    new_password_confirmation: this.form.confirm_password
+                });
+                
+                this.$alertStore.add("Password Changed", 'success');
+                this.form.current_password = '';
+                this.form.new_password = '';
+                this.form.confirm_password = '';
 
-                if (Object.hasOwn(this.userStore.user, key)) {
-                    this.form[key] = this.userStore.user[key];
-                } else {
-                    this.form[key] = ''
-                }
+
+            } catch (error) {
+                this.$alertStore.add(error.message, 'error');
+          
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Membership;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -10,6 +11,12 @@ class UserProfileResource extends JsonResource
 
     public function toArray($request)
     {
+
+        $current = Membership::where('user_id',$this->id)
+        ->where('membership_status', 'Active')
+        ->whereDate('membership_start_date', '<=', now())
+        ->whereDate('membership_expiry_date', '>=', now())
+        ->first();
 
         return [
 
@@ -53,9 +60,9 @@ class UserProfileResource extends JsonResource
             'last_resend_at'                => $this->last_resend_at,
 
             // Uploaded files
-            'uploadID'          => $this->uploadID,
-            'motorTradeProof'   => $this->motorTradeProof,
-            'addressProof'      => $this->addressProof,
+            'uploadID'          => $this->uploadID ?  env('APP_URL').'public/uploads/uploadID/'.$this->uploadID : null,
+            'motorTradeProof'   => $this->motorTradeProof ? env('APP_URL').'public/uploads/motorTradeProof/'.$this->motorTradeProof : null,
+            'addressProof'      => $this->addressProof ? env('APP_URL').'public/uploads/addressProof/'.$this->addressProof : null,
 
             // Avatar with full URL
             'avatar' => $this->avatar ? env('APP_URL') . 'public/uploads/avatar/' . $this->avatar: null,
@@ -64,6 +71,7 @@ class UserProfileResource extends JsonResource
             'source' => $this->source,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'plans' => $current,            
 
       
         ];

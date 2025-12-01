@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -27,10 +27,10 @@ class AuthController extends Controller
 
     }
 
-    
       public function profileUpdate(Request $request)
     {   
 
+        $user = $request->user();
         $validator = Validator::make($request->all(),[
                 'companyName' => 'required|string|max:255',
                 'companyAddress1' => 'required|string|max:255',
@@ -42,23 +42,22 @@ class AuthController extends Controller
                 'website' => 'required|url',
                 'postcode' => 'required|string|max:255',
                 'telephone' => 'required|string|max:255',
-                'businessEmail' => 'required|string|email|max:255|unique:users',
+                'businessEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
                 'motorTradeInsurance' => 'required|string|max:255',
                 'vatNumber' => 'required|string|max:255',
 
                 'firstName' => 'required|string|max:255',
                 'surname' => 'required|string|max:255',
                 'jobTitle' => 'required|string|max:255',
-                'source' => 'required|string|max:255',
+                'source' => 'nullable|string|max:255',
                 'phone' => 'required|string|max:255',
                 
                 // 'avatar' => 'required|file|mimes:jpg,png,pdf|max:4096',
-
                 // 'motorTradeProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
                 // 'addressProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
 
-                'personalEmail' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string',
+                'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
+                'password' => 'string|min:6',
             ],
             [],
             [
@@ -99,7 +98,6 @@ class AuthController extends Controller
 
 
         //Profile Company
-        $user = new User();
         $user->companyName = $request->companyName;
         $user->companyAddress1 = $request->companyAddress1;
         $user->companyAddress2 = $request->companyAddress2;
@@ -123,7 +121,19 @@ class AuthController extends Controller
         $user->source = $request->source;
         $user->phone = $request->phone;
         
-        if ($request->file('avatar')) {
+      
+        if ($request->file('uploadID')) {
+            // Remove existing thumbnail if it exists
+            if ($user->avatar && file_exists(public_path('uploads/' . $user->uploadID))) {
+                unlink(public_path('uploads/' . $user->uploadID));
+            }
+            $fileName = time() . '__ff__' . $request->file('uploadID')->getClientOriginalName();
+            $filePath = public_path('uploads/uploadID');
+            $request->file('uploadID')->move($filePath, $fileName);
+            $user->uploadID = $fileName;
+        }
+
+         if ($request->file('avatar')) {
             // Remove existing thumbnail if it exists
             if ($user->avatar && file_exists(public_path('uploads/' . $user->avatar))) {
                 unlink(public_path('uploads/' . $user->avatar));
@@ -156,6 +166,7 @@ class AuthController extends Controller
             $request->file('addressProof')->move($filePath, $fileName);
             $user->addressProof = $fileName;
         }
+       
 
         //Account
         $user->personalEmail = $request->personalEmail;
@@ -459,6 +470,33 @@ class AuthController extends Controller
 
 
     }
+
+    
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|min:6|string',
+            'new_password' => 'required|string|min:6|confirmed', // password_confirmation field required
+        ]);
+
+        $user = $request->user();
+
+        // Check current password
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Current password does not match'
+            ], 422);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Password changed successfully'
+        ], 200);
+    }
+
 
 
 

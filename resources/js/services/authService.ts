@@ -51,6 +51,25 @@ export async function updateProfile(data: Record<string, string | Blob | File>) 
 }
 
 
+    /**
+     * Update Profile.
+     */
+    export async function changPassword(options: {
+        current_password: string;
+        new_password: string;
+        new_password_confirmation: string;
+    }) {
+        
+        try {
+                const res = await api.post("/api/auth/changePassword",options);
+                return res.data;
+            
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+    }
+
+
 
 
 

@@ -6,7 +6,7 @@
                     <div class="py-5 d-flex align-center  flex-wrap">
                         <div class="py-2 px-5">
                             <div style="max-width: 150px" >
-                                <img style="width: 100px; height:100px" class="" :src="userStore.user.avatar" />
+                                <img style="width: 100px; height:100px" class="border" :src="userStore.user.avatar" />
                             </div>
                         </div>
                         <div class="py-2 " >
@@ -22,9 +22,9 @@
                                         <v-icon icon="mdi-briefcase-outline"/> 
                                         <span class="text-body-2 px-2" >{{ userStore.user.jobTitle }}</span>
                                     </div>
-                                    <div class="px-3 d-flex align-center" > 
+                                    <div v-if="userStore.user.plans" class="px-3 d-flex align-center" > 
                                         <v-icon icon="mdi-lightning-bolt"/> 
-                                        <span class="text-body-2 px-2">Active Plan</span>
+                                        <span class="text-body-2 px-2 text-capitalize ">{{ userStore.user.plans.membership_type }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +55,7 @@
 import { useUserStore } from '@/stores/userStore';
 import RecentDevices from './RecentDevices.vue';
 import Sidebar from './Sidebar.vue';
+import { changPassword } from '@/services/authService';
 
 
 export default {
@@ -71,6 +72,13 @@ export default {
     computed: {
        
     },
+   async mounted() {
+
+       
+    //    console.log(res);
+       
+        
+    }
 };
 </script>
 

@@ -1,13 +1,13 @@
 <template>
   <user-title-bar >
     
-    <div class="d-flex justify-space-between align-start pa-3">
+    <div class="d-flex flex-column flex-xs-row flex-md-row justify-space-between align-start pa-3">
       <div style="max-width: 600px;" >
           <div>
               <h6 class="text-h5 font-weight-bold" >Welcome back , <span class="text-primary" >Mr Shan!</span> </h6>
           </div>
-          <div class="pr-5" > 
-            <p class="mt-3 text-body-1 text-light" >
+          <div class="pr-5 pb-5" > 
+            <p class="mt-3 text-body-1 text-light " >
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam excepturi distinctio cum numquam minima porro tempore possimus a, id voluptates totam, inventore vitae unde cupiditate perspiciatis quidem dolor ab sequi.
             </p>
           </div>
@@ -15,8 +15,8 @@
       <div>
               <v-card max-width="500px" class="bg-primary rounded p-6" >
                 <v-card-text >
-                  <div class="d-flex align-center" >
-                    <div class="pa-3" >
+                  <div class="d-flex flex-sm-wrap align-center " >
+                    <div class="pa-3" style="max-width: 300px;" >
                         <h6 class="text-h6 font-weight-bold">Refer & Earn</h6>
                         <p class="text-body-1 text-background font-weight-bold">Use Refer & Earn modal to encourage your exiting customers refer their friends & colleague.</p>
                     </div>

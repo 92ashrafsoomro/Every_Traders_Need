@@ -14,8 +14,7 @@ import Support from "@views/user/support.vue"
 import VehicleDetail from "@/views/user/vehicle-detail/index.vue"
 
 import Setting from "@views/user/setting/index.vue"
-
-
+import navbar from "@/views/web/layout/navbar.vue" 
 
 export default [
     {
@@ -36,6 +35,7 @@ export default [
             { path: "support", component: Support, meta: { requiresAuth: true } },
             { path: "vehicle-detail/:id", component: VehicleDetail, meta: { requiresAuth: true } },
             { path: "settings/:id", component: Setting, meta: { requiresAuth: true } },
+            {path :"web", component: navbar, meta:{requiresAuth:true}}
         ],
     },
 ]

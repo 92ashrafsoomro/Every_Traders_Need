@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AuctionService;
+use App\Services\DataTableQuery;
 use Carbon\Carbon;
 
 class MasterController extends Controller
@@ -501,42 +502,109 @@ class MasterController extends Controller
 
     public function getAuctionHouse(Request $request)
     {
-        $query = AuctionPlatform::query()
-            ->join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
-            ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id');
 
+            $dt = (new DataTableQuery(
+                   AuctionPlatform::query()
+                    ->join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
+                    ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id')
+                    ->when($request->id, fn($q, $v) => $q->where('auction_platform.id', $v))
+                    ->select([
+                        'auction_platform.id',
+                        'auction_platform.name as label',
+                        DB::raw('COUNT(vehicles.id) as count')
+                    ])
+                    ->groupBy('auction_platform.id', 'auction_platform.name')
+                
+            ))
+           ->setCount(function($q) {
+                $clone = clone $q;
+                $clone->select(DB::raw('1'));
+                return $clone->count();
+            })
+            ->build()
+            ->getPaginated(function($response) {
 
+                $response['data'] = $response['data']->map(function($item){
+                    $item->test =1;
+                    return $item;
+                });
 
-        $data = $query->select(
-            'auction_platform.id',
-            'auction_platform.name as label',
-            DB::raw('COUNT(vehicles.id) as vehicle_count')
-        )
-            ->groupBy('auction_platform.id', 'auction_platform.name')
-            ->orderBy('auction_platform.name', 'ASC')
-            ->get();
+                return $response;
+            });
 
-        return response()->json(['data' => $data], 200);
+            return response()->json($dt, 200);
+
     }
+
+
+    //   public function getAuctionHouse(Request $request)
+    // {
+
+    //         $length = (int) $request->input('length', 10);
+    //         $page = (int) $request->input('page', 1);
+    //         $offset = ($page - 1) * $length;
+
+    //         $query = AuctionPlatform::query()
+    //             ->join('auctions', 'auctions.platform_id', '=', 'auction_platform.id')
+    //             ->join('vehicles', 'vehicles.auction_id', '=', 'auctions.id')
+    //             ->when($request->id, function ($query, $value){
+    //                 $query->where('auction_platform.id',$value);
+    //             });
+        
+    //         $totalRecords = (clone $query)->count();
+    //         $data         = $query
+    //                        ->select([
+    //                             'auction_platform.id',
+    //                             'auction_platform.name as label',
+    //                             DB::raw('COUNT(vehicles.id) as count'),
+    //                         ])
+    //                         ->groupBy('auction_platform.id', 'auction_platform.name')
+    //                         ->orderByDesc('count')
+
+    //                         ->skip($offset)
+    //                         ->take($length)
+    //                         ->get();
+
+
+    //         return response()->json([
+    //             'recordsTotal' => $totalRecords,
+    //             'recordsFiltered' => $totalRecords,
+    //             'data' => $data,
+    //             'length' =>  $length,
+    //             'page' => $page,
+    //             'offset' => $offset,
+    //             'last_page' => ceil($totalRecords / $length),
+    //         ], 200);
+
+    // }
+
+
 
     public function getAuctionCenter(Request $request)
     {
-        $query = AuctionCenter::query()
-            ->join('vehicles', 'vehicles.center_id', '=', 'auction_center.id')
-            ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id');
 
-   
+            $dt = (new DataTableQuery(
+                   AuctionCenter::query()
+                    ->join('vehicles', 'vehicles.center_id', '=', 'auction_center.id')
+                    ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+                    ->when($request->id, fn($q, $v) => $q->where('auction_center.id', $v))
+                    ->select([
+                        'auction_center.id',
+                        'auction_center.name as label',
+                        DB::raw('COUNT(vehicles.id) as count')
+                    ])
+                    ->groupBy('auction_center.id', 'auction_center.name')
+                    ->orderBy('auction_center.name', 'ASC')
+            ))
+            ->setCount(function($q) {
+                $clone = clone $q;
+                $clone->select(DB::raw('1'));
+                return $clone->count();
+            })
+            ->build()
+            ->getPaginated();
 
-        $data = $query->select(
-            'auction_center.id',
-            'auction_center.name as label',
-            DB::raw('COUNT(vehicles.id) as vehicle_count')
-        )
-            ->groupBy('auction_center.id', 'auction_center.name')
-            ->orderBy('auction_center.name', 'ASC')
-            ->get();
-
-        return response()->json(['data' => $data], 200);
+           return response()->json($dt, 200);
     }
 
    

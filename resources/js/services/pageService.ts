@@ -38,6 +38,42 @@ export async function reAuctionList(options: {
 
 
 
+/**
+ * Fetches the re-auction list for a user.
+ */
+
+    export async function auctionSheldulerList(options: {
+        platform_id?: number;
+        center_id?: number;
+        current?: string;
+        date?: string;
+        search?: string;
+        page?: number;
+        length?: number;
+
+    }): Promise<{
+        data: unknown[];
+        recordsFiltered: number;
+        recordsTotal: number;
+        page: number;
+        length: number;
+        last_page: number;
+        offset: number;
+    }> {
+
+        try {
+            const res = await api.get("/api/user/auctionShedule", { params: options });
+            return res.data;
+        } catch (e) {
+            throw await errorHandler(e);
+        }
+
+    }
+
+
+
+
 export default {
-    reAuctionList
+    reAuctionList,
+    auctionSheldulerList
 }

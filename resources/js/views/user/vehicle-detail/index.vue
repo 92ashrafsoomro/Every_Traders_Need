@@ -1,6 +1,5 @@
 <template>
     <v-container fluid>
-
         <v-row v-if="loading" >
             <v-col cols="12">
                 <p class="text-center">Loading..</p>
@@ -13,16 +12,11 @@
         </v-row>
         <v-row v-else no-gutters>
             <v-col cols="12">
-
                     <v-row class="d-flex" style="position: relative;" >
-
                         <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle">
                             <div style="position: sticky;top:0;" class=""  >
                                    <VehicleSidebar  />
                             </div>
-                            <!-- <template v-if="vehicleStore.sidebar">  -->
-                             
-                            <!-- </template> -->
                         </v-col>
                         <v-col :style="contentStyle">
                             <div class="">   
@@ -43,16 +37,12 @@
                                         </v-col>
                                         <v-col cols="12">
                                                <component :is="currentComponent" />
-
                                         </v-col>
                                 </v-row>
-
                             </div>
-        
+    
                         </v-col>
                     </v-row>
-
-
             </v-col>
         </v-row>
     </v-container>
@@ -65,6 +55,7 @@ import { toRaw } from 'vue';
 import DetailTab from './CarDetailTab/index.vue';
 import ValuationTab from './ValuationTab/index.vue';
 import VehicleSidebar from './VehicleSidebar.vue';
+import Vehicle from '@/models/vehicle.model';
 
 
 export default {
@@ -79,13 +70,19 @@ export default {
             loading: false,
         };
     },
-    mounted() {
-
+    async mounted() {
+    
         this.loadVehicle();
         this.$themeStore.menuType = "collapsed";
     },
     beforeUnmount() {
        
+    },
+    unmounted() {
+
+        this.loading = false;
+        this.vehicleStore.vehichleDetail = {};
+        this.vehicleStore.isVehicle = false;
     },
     computed: {
         currentComponent() {
@@ -119,33 +116,33 @@ export default {
         contentStyle() {
             return {
                 maxWidth: '1300px',
-
                 // width: this.vehicleStore.sidebar ? "calc(100% - 300px)" : "100%" ,
                 // height: '100vh',
             }
-        },
-
-        
+        },        
     },
-
     methods: {
-
         loadVehicle() {
+
             this.loading = true;
-            this.vehicleStore.getVehicleDetail({ id: this.$route.params.id })
-                .then((data) => {
-                    this.vehicleStore.v = data.data;
+            Vehicle.find(this.$route.params.id)
+                .then((res) => {
+
+                    this.vehicleStore.vehichleDetail = res.data.vehicle
                     this.loading = false;
-                    console.log(toRaw(this.vehicleStore.v));
+                    this.vehicleStore.isVehicle = true;
+                
                 }).catch(() => {
+
                     this.loading = false;
-                    this.vehicleStore.v = false;
+                    this.vehicleStore.vehichleDetail = {};
+                    this.vehicleStore.isVehicle = false;
                     this.$router.replace("/user/dashboard");
+                    
                 });
         },
 
     },
-
 };
 </script>
 

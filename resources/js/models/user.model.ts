@@ -1,3 +1,5 @@
+import api from "@/plugins/axios";
+import { errorHandler } from "@/services/responseHandleService";
 
 export default class UserModel {
 
@@ -82,6 +84,54 @@ export default class UserModel {
       
         return this.fields.filter((res) => res.group == group);
         
+    }
+
+
+    static async getProfile(options: {
+        search?: string;
+        page?: number;
+        length?: number;
+
+    }): Promise<{
+        data: unknown[];
+    }> {
+
+        try {
+            const res = await api.get("/api/auth/profile", { params: options });
+            return res.data;
+        } catch (e) {
+            throw await errorHandler(e);
+        }
+
+    }
+
+
+    static async getWatchList(options: {
+        search?: string;
+        page?: number;
+        length?: number;
+        make?: number;
+        year?: string;
+        reg_search?: number;
+    }): Promise<{
+            data: unknown[];
+            recordsFiltered: number;
+            recordsTotal: number;
+            page: number;
+            length: number;
+            last_page: number;
+            offset: number;
+    }> {
+
+        try {
+            let res = await api.get('/api/user/userWatchList', {
+                params:options,
+            })
+            return res.data;
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
     }
 
 

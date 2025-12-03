@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import UserModel from '@/models/User';
+import UserModel from '@/models/user.model';
 import authService from '@/services/authService';
 import { useUserStore } from '@/stores/userStore';
 import { toRaw } from 'vue';

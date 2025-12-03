@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-
 class AuctionService 
 {
-
 
    static public function getAuctionIdbyDate($date)
     {
@@ -35,7 +33,7 @@ class AuctionService
           ->pluck('auction_platform.name')
           ->filter()
           ->values();
-    
+
     }
 
        static public function getCenterNamesByPlateformName($auctionIds)
@@ -50,10 +48,4 @@ class AuctionService
     
     }
 
-
-
-
-
-
-  
 }

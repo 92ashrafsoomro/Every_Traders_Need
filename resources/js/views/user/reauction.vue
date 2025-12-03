@@ -72,7 +72,7 @@
             </v-col>
 
             <v-col cols="12">
-                <custom-card>
+                <v-card>
                        <div class="bg-surface" >
                             <v-data-table-server 
                             :headers="headers" 
@@ -99,7 +99,7 @@
 
                             </v-data-table-server>
                     </div>
-                </custom-card>
+                </v-card>
             </v-col>
         </v-row>
     </v-container>

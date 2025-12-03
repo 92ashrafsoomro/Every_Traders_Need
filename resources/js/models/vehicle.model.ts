@@ -1,4 +1,9 @@
-export default class AutoAdvanceModel {
+import api from "@/plugins/axios";
+import { errorHandler } from "@/services/responseHandleService";
+
+
+
+export default class Vehicle {
 
     static fields = [
 
@@ -116,5 +121,42 @@ export default class AutoAdvanceModel {
 
     ];
 
-    
+
+
+
+    /**
+     * Find by ID
+     */
+    static async find(id:number): Promise<{
+        data: unknown[];
+    }> {
+        try {
+            let res = await api.get('/api/user/auctionList/' + id, {
+                params: {
+                },
+            })
+            return res.data;
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+
+
+    /**
+     * Find by ID
+     */
+    static async setVehichleDetail(obj: any) {
+        
+        let vehicleDetail = {};
+        this.fields.forEach(field => {
+            vehicleDetail[field.key] = obj[field.key];
+        });
+
+        return vehicleDetail
+    }
+
+
+
 }

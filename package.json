@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test": "vitest",
+        "test:run": "vitest run"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -15,7 +17,8 @@
         "postcss": "^8.5.6",
         "tailwindcss": "^4.1.14",
         "vite": "^6.2.4",
-        "vite-plugin-vuetify": "^2.1.2"
+        "vite-plugin-vuetify": "^2.1.2",
+        "vitest": "^4.0.15"
     },
     "dependencies": {
         "@fontsource/inter": "^5.2.8",

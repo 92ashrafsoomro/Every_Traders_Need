@@ -73,10 +73,6 @@ export async function updateProfile(data: Record<string, string | Blob | File>) 
 
 
 
-
-
-
-
 export default {
     getProfile,
     updateProfile

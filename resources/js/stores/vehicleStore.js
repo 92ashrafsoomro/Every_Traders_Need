@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import api from "../plugins/axios";
 
 import { errorHandler } from "@/services/responseHandleService";
+import Vehicle from "@/models/vehicle.model";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
@@ -9,6 +10,7 @@ export const useVehicleStore = defineStore("vehicle", {
         isMobile: false,
         isVehicle: true,
         tab: 'details',
+        vehicle: {},
 
 
 
@@ -27,9 +29,7 @@ export const useVehicleStore = defineStore("vehicle", {
             data: [],
         },
         vehichleDetail: {
-            sidebar: true,
-            isMobile: false,
-            tab: 'details'
+            
         },
         overView: {
             title: 'ABARTH 595 1.4 T-JET 165 TURISMO Hatchback',
@@ -127,17 +127,7 @@ export const useVehicleStore = defineStore("vehicle", {
                 throw await errorHandler(error);
             }
         },
-        async getVehicleDetail(options) {
-            try {
-                let res = await api.get('/api/user/auctionList/' + options.id, {
-                    params: {
-                    },
-                })
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
+    
         async getRelatedVehicle(options) {
             try {
                 let res = await api.get('/api/user/getRelatedVehicle/' + options.id, {

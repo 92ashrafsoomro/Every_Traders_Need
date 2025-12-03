@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import UserModel from '@/models/User';
+import UserModel from '@/models/user.model';
 import { useUserStore } from '@/stores/userStore';
 
 export default {

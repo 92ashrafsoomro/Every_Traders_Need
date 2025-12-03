@@ -1,59 +1,51 @@
 <template>
-    <user-title-bar title="Auction Scheduler" subtitle="Manage and view platform auctions across all centers in one place.">
-            <div
-                class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
-                
-                <Plateforms />
-                <v-select label="Select Platform"
-                    :items="platforms" 
-                    variant="outlined"
-                    v-model="options.platform_id"
-                    item-value="id"
-                    item-title="label"
-                    color="primary" 
-                    density="compact"
-                    @update:model-value="handlePlatform"
-                    class="w-100 w-sm-auto" clearable />
-
-                 <v-select label="Select Center"
-                    :items="centers" 
-                    variant="outlined"
-                    v-model="options.center_id"
-                    @update:model-value="handleInput"
-                    item-value="id"
-                    item-title="label"
-                    color="primary" 
-                    density="compact" 
-                    class="w-100 w-sm-auto" clearable />
-
-                 <v-switch 
-                    v-model="options.enableCurrent" 
-                    color="primary"
-                    density="compact"  
-                    hide-details
-                    @change="handleInput" 
-                    class="ml-3" /> 
-            </div>
-            <div class="pt-4 d-flex align-center ga-4 flex-wrap ml-auto mr-auto">
-                <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key}"
-                    class="border rounded bg-surface-variant-1 pa-3 ps-5 d-flex flex-column mb-3"
-                    style=" height: 95px; width: 195px;" @click="handleTab(key)">
-                    <div class="text-caption d-flex align-center justify-center border-b border-border pb-2 pt-2 text-wrap"
-                        style="white-space: wrap !important;">
-                        {{ key.toUpperCase() }}
+    <user-title-bar 
+        title="Auction Scheduler" 
+        subtitle="Manage and view platform auctions across all centers in one place.">
+        <div class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
+            <PlateformDropdown
+                label="Select Platform"
+                variant="outlined"
+                :model-value="options.platform_id"
+                @update:modelValue="handleInput($event,'platform_id')"
+                clearable
+                />
+            <CenterDropdown
+                label="Select Center"
+                variant="outlined"
+                :model-value="options.center_id"
+                @update:modelValue="handleInput($event,'center_id')"
+                clearable
+                />
+            <v-switch 
+                model-value="options.enableCurrent" 
+                color="primary"
+                density="compact"  
+                hide-details
+                @change="handleInput($event,'enableCurrent')" 
+                class="ml-3" 
+                /> 
+        </div>
+        <div class="pt-4 d-flex align-center ga-4 flex-wrap ml-auto mr-auto">
+            <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key}"
+                class="border rounded bg-surface-variant-1 pa-3 ps-5 d-flex flex-column mb-3"
+                style=" height: 95px; width: 195px;" @click="handleTab(key)">
+                <div class="text-caption d-flex align-center justify-center border-b border-border pb-2 pt-2 text-wrap"
+                    style="white-space: wrap !important;">
+                    {{ key.toUpperCase() }}
+                </div>
+                <div class="lowerSection d-flex justify-space-between mt-2">
+                    <div class="d-flex align-center">
+                        <small><v-icon color="primary" icon="mdi-hammer" size="small"></v-icon></small>
+                        <span class="pl-1 text-caption ">{{ value.auction }}</span>
                     </div>
-                    <div class="lowerSection d-flex justify-space-between mt-2">
-                        <div class="d-flex align-center">
-                            <small><v-icon color="primary" icon="mdi-hammer" size="small"></v-icon></small>
-                            <span class="pl-1 text-caption ">{{ value.auction }}</span>
-                        </div>
-                        <div class="d-flex align-center" >
-                            <small class=" icon"><v-icon color="#00bad1" icon="mdi-car" size="small"></v-icon></small>
-                            <span class="pl-1 text-caption ">{{ value.car }}</span>
-                        </div>
+                    <div class="d-flex align-center" >
+                        <small class=" icon"><v-icon color="#00bad1" icon="mdi-car" size="small"></v-icon></small>
+                        <span class="pl-1 text-caption ">{{ value.car }}</span>
                     </div>
                 </div>
             </div>
+        </div>
     </user-title-bar>
 
     <v-container fluid>
@@ -91,20 +83,20 @@
 </template>
 
 <script>
-import masterService from '@/services/masterService';
+
 import { auctionSheldulerList } from '@/services/pageService';
 import { usePageStore } from '@/stores/pageStore';
 
-import Plateforms from '@/components/plateforms.vue';
-
-
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
+import CenterDropdown from '@/components/CenterDropdown.vue';
 
 export default {
     props: {
         
     },
     components: {
-        Plateforms,
+        PlateformDropdown,
+        CenterDropdown
     },
     data() {
         return {
@@ -167,30 +159,41 @@ export default {
     },
     async mounted() {
 
-        // let getPlateforms = await masterService.getPlateforms();
-        // this.platforms = getPlateforms.data;
-
-        // let getAuctionCenter = await masterService.getAuctionCenter();
-        // this.makes = getAuctionCenter.data;
+      
     },
     methods: {
-        async handlePlatform(id) {
-            
-            this.options.platform_id = id;
-            this.options.center_id = null;
-            this.centers = [];     
-            if (id) {
-                let response = await masterService.getModels({ makes: [id] });
-                this.centers = response.data;
-            } 
+        async handleInput(value,field) {
 
-        },
-        async handleInput() {
-          
+            switch (field) {
+                case 'platform_id':
+                          this.options.platform_id = value;
+                    break; 
+                case 'center_id':
+                          this.options.center_id = value;
+                    break;
+                case 'enableCurrent':
+                    console.log(value.target.checked);
+                    if (value.target.checked) {
+                        this.options.day = 'today';
+                    }
+                    this.options.enableCurrent = value.target.checked;
+
+                    break;
+            
+                default:
+                    break;
+            }
+
             this.getRecords();
         },
         handleTab(key) {
-            this.options.day = key;
+         
+            if(this.options.enableCurrent){
+               
+            } else {
+                this.options.day = key;
+            }
+
             this.getRecords();
         },
         async getRecords() {

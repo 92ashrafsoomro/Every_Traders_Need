@@ -965,8 +965,6 @@ class AuctionFinderController extends Controller
                     $query->where('auctions.status', $request->status);
                 }
 
-              
-
                 // if ($request->has('day') && $request->day != '') {
 
                 //     $day = $request->input('day');
@@ -998,8 +996,8 @@ class AuctionFinderController extends Controller
                 // }
                 
                 // else {
-                    // $dateRange = date('Y-m-d'); 
-                    // $query = $query->whereDate('auctions.auction_date', $dateRange);
+                //     $dateRange = date('Y-m-d'); 
+                //     $query = $query->whereDate('auctions.auction_date', $dateRange);
                 // }
 
               

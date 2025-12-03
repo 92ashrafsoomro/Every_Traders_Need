@@ -26,7 +26,7 @@ class DataTableQuery
 
          DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         $this->request = request();
-        $this->length = (int) $this->request->input('length', 10);
+        $this->length = (int) $this->request->input('length', 1000);
         $this->page   = (int) $this->request->input('page', 1);
         $this->offset = ($this->page - 1) * $this->length;
         $this->query = $query;

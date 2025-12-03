@@ -15,7 +15,7 @@
 /* Responsive logo spacing */
 @media (max-width: 960px) {
   .gap-8 > * + * {
-    margin-left: 2rem;
+    margin-left: 2rem; 
     margin-top: 1.5rem;
   }
 }

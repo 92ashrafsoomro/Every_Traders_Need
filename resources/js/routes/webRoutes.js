@@ -1,5 +1,5 @@
 import Layout from '@/views/web/layout/index.vue'
-import HomeView from "@/views/web/index.vue"
+import HomeView from "@/views/web/home/index.vue"
 import Home from '@/views/web/home.vue'
 import About from '@/views/web/about.vue'
 import Pricing from '@/views/web/pricing.vue'

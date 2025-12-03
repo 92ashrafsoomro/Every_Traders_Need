@@ -1,5 +1,5 @@
 <template>
-    <v-container class="bg-background pa-0" style="max-width: 100%; height: 80px; position: fixed; z-index: 1; ">
+    <v-container class="navbar bg-background pa-0" style="max-width: 100%; height: 80px; position: fixed; z-index: 1; ">
         <v-container class="d-flex bg-background pa-0 align-center" style="height: 80px; max-width: 85%;">
 
 
@@ -37,9 +37,10 @@
                 </v-list>
             </v-navigation-drawer>
         </v-container>
+    <div class="bg-shadow  mx-auto" style="height: 0.5px; width: 100% ;"></div>
 
     </v-container>
-    <div class="bg-shadow  mx-auto" style="height: 0.5px; width: 100% ;"></div>
+    
 </template>
 
 <script>
@@ -61,5 +62,9 @@ export default {
 
 }
 
-
 </script>
+<style scoped>
+.navbar{
+    z-index: 10;
+}
+</style>

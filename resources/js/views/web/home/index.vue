@@ -11,7 +11,6 @@
 <script>
 import screen from './screen.vue'
 import vision from './vision.vue';
-import keyfeatures from './keyfeatures.vue'
 import Trusted from './Trusted.vue';
 import wining from './wining.vue';
 

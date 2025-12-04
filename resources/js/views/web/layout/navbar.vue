@@ -14,7 +14,7 @@
 
 
             <!-- All nav items + buttons in single flex div -->
-            <div class="d-none d-lg-flex flex-grow-1 justify-end  bg-background ">
+            <div class="d-none d-lg-flex flex-grow-1 justify-end   ">
 
 
 

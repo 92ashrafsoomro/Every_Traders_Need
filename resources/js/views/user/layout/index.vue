@@ -6,10 +6,7 @@
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
            
             <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border"
-                style="width: 30px; height: 30px;" 
-                :class="{ 'bg-primary': isHovered }"
-                 @mouseenter="isHovered = true"
-                 @mouseleave="isHovered = false">
+                style="width: 30px; height: 30px;" >
                 <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="default"
                     :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" @click="toggleMenu"></v-icon>
             </div>
@@ -23,27 +20,21 @@
                 <div class="d-flex align-center justify-space-around mr-0 mr-lg-3">
                     <!-- Fullscreen -->
                     <v-col cols="auto">
-                        <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border"
-                            :class="{ 'bg-background': hoverFullscreen }" @mouseenter="isHover = true"
-                            @mouseleave="hoverFullscreen = false">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border">
                             <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
                         </v-sheet>
                     </v-col>
 
                     <!-- Theme Dropdown -->
                     <v-col cols="auto" class="ml-n3">
-                        <v-sheet color="" class="d-flex align-center justify-center rounded border"
-                            :class="{ 'bg-background': hoverTheme }" @mouseenter="hoverTheme = true"
-                            @mouseleave="hoverTheme = false">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded border">
                             <ThemeDropdown />
                         </v-sheet>
                     </v-col>
 
                     <!-- Notification Dropdown -->
                     <v-col cols="auto" class="ml-n3">
-                        <v-sheet color="" class="d-flex align-center justify-center rounded border"
-                            :class="{ 'bg-background': hoverNotification }" @mouseenter="hoverNotification = true"
-                            @mouseleave="hoverNotification = false">
+                        <v-sheet color="" class="d-flex align-center justify-center rounded border">
                             <Notificationdropdown class="test" />
                         </v-sheet>
                     </v-col>
@@ -88,12 +79,6 @@ export default {
             menus: getMenu(),
             themeStore: useThemeStore(),
             path: mdiFullscreen,
-            hoverFullscreen: false,
-            hoverTheme: false,
-            hoverNotification: false,
-            hoverProfile: false,
-            logoMenu: false,
-            isHovered: false,
             isMenuOpen: false,
         };
     },

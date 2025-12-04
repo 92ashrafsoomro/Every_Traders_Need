@@ -51,12 +51,14 @@ const vuetify = createVuetify({
                     danger: "#b91c1c",
                     success: "#4CAF50",
                     warning: "#FB8C00",
+                    text_light:"B2C0C3",
                     error: "#FF5252",
                     info: "#2196F3",
                     background: "#0E1B2B",
                     surface: "#000E20",
                     shadow: "#353f4c",
-                    light:"#b2c0ce"
+                    light:"#b2c0ce",
+                    
                     // lighthover: "#002145",
                     // secondary: "#000f21",
                 },

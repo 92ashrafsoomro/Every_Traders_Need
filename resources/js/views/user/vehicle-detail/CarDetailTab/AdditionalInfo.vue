@@ -14,7 +14,7 @@
                             <template #prepend>
                                 <v-icon color="primary">mdi-account-group</v-icon> 
                             </template>
-                            {{ vehicleStore.overView.formerKeepers }}
+                            {{ vehicleStore.vehicle.former_keepers}}
                         </v-chip>
                 </v-col>
 
@@ -24,7 +24,7 @@
                         <template #prepend>
                             <v-icon color="primary">mdi-file-account-outline</v-icon> 
                         </template>
-                        {{ vehicleStore.overView.vendors }}
+                        {{ vehicleStore.vehicle.vendor}}
                     </v-chip>
                 </v-col>
 
@@ -34,7 +34,7 @@
                         <template #prepend>
                         <v-icon color="primary">mdi-ticket-percent</v-icon>
                         </template>
-                        {{ vehicleStore.overView.vatType || '—' }}
+                        {{ vehicleStore.vehicle.vat_status}}
                     </v-chip>
                 </v-col>
 
@@ -44,7 +44,7 @@
                     <template #prepend>
                     <v-icon color="primary">mdi-leaf</v-icon>
                     </template>
-                    {{ vehicleStore.overView.euroStatus || '—' }}
+                    {{ vehicleStore.vehicle.euro_status }}
                 </v-chip>
                 </v-col>
 
@@ -54,7 +54,7 @@
                     <template #prepend>
                     <v-icon color="primary">mdi-car-wrench</v-icon>
                     </template>
-                    {{ vehicleStore.overView.engineRuns}}
+                    {{ vehicleStore.vehicle.engine_runs}}
                 </v-chip>
                 </v-col>
             </v-row>

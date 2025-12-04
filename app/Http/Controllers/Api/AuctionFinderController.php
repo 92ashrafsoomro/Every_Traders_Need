@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuctionCenter;
 use App\Models\AuctionPlatform;
 use App\Models\Auctions;
 use App\Models\Interest;
@@ -11,6 +12,7 @@ use App\Models\RecentView;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
@@ -77,6 +79,12 @@ class AuctionFinderController extends Controller
         $viewCount = DB::table('recent_views')
             ->where('vehicle_id', $vehicle->id)
             ->count();
+
+        $vehicle->auction = Auctions::find($vehicle->auction_id);
+        $vehicle->center = AuctionCenter::find($vehicle->center_id);
+        $vehicle->vehicleType = VehicleType::find($vehicle->vehicle_id);
+
+        
 
         $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
 

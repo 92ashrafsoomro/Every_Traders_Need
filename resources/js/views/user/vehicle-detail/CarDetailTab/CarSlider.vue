@@ -29,7 +29,7 @@ export default {
     mounted() {
 
         if (this.vehicleStore.overView.images) {
-            console.log(this.vehicleStore.overView.images);
+            
             
             this.image = this.vehicleStore.overView.images[0];
         }

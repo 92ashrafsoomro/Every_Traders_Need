@@ -4,7 +4,7 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-calendar" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-caption">{{ vehicleStore.overView.reg }}</p>
+                <p class="text-caption">{{ vehicleStore.vehicle.reg}}</p>
                 <p class="text-caption mt-n1">Reg</p>
             </div>
         </v-col>
@@ -12,7 +12,7 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-calendar" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-caption">{{ vehicleStore.overView.dor }}</p>
+                <p class="text-caption">{{ vehicleStore.vehicle.dor }}</p>
                 <p class="text-caption mt-n1">DOR</p>
             </div>
         </v-col>
@@ -20,7 +20,7 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-speedometer-medium" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-caption">{{ vehicleStore.overView.mileage }}</p>
+                <p class="text-caption">{{ vehicleStore.vehicle.mileage }}</p>
                 <p class="text-caption mt-n1">Mileage</p>
             </div>
         </v-col>
@@ -28,7 +28,7 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-creation-outline" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-caption">{{ vehicleStore.overView.grade }}</p>
+                <p class="text-caption">{{ vehicleStore.vehicle.grade }}</p>
                 <p class="text-caption mt-n1">Grade</p>
             </div>
         </v-col>
@@ -36,7 +36,7 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-file-document" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-caption">{{ vehicleStore.overView.v5 }}</p>
+                <p class="text-caption">{{ vehicleStore.vehicle.v5 }}</p>
                 <p class="text-caption mt-n1">V5</p>
             </div>
         </v-col>

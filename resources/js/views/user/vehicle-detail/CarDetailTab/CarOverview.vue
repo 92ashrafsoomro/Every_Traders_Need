@@ -39,7 +39,7 @@ export default {
             return [
                 {
                     title: 'Vehicle Type',
-                    value: this.vehicleStore.overView.vehicleType,
+                    value: this.vehicleStore.vehicle?.vehicleType?.name,
                     icon: 'mdi-car',
                     color:'red',
                 },

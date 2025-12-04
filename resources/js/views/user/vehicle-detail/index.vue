@@ -81,7 +81,7 @@ export default {
     unmounted() {
 
         this.loading = false;
-        this.vehicleStore.vehichleDetail = {};
+        // this.vehicleStore.vehichleDetail = {};
         this.vehicleStore.isVehicle = false;
     },
     computed: {
@@ -127,15 +127,15 @@ export default {
             this.loading = true;
             Vehicle.find(this.$route.params.id)
                 .then((res) => {
-
-                    this.vehicleStore.vehichleDetail = res.data.vehicle
+                    
+                    this.vehicleStore.vehicle = res.data.vehicle;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
                 
                 }).catch(() => {
 
                     this.loading = false;
-                    this.vehicleStore.vehichleDetail = {};
+                    this.vehicleStore.vehicle = {};
                     this.vehicleStore.isVehicle = false;
                     this.$router.replace("/user/dashboard");
                     

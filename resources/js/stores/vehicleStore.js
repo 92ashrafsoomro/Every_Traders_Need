@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import api from "../plugins/axios";
 
 import { errorHandler } from "@/services/responseHandleService";
-import Vehicle from "@/models/vehicle.model";
+
+import Vehicle from '@/models/vehicle.model';
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
@@ -10,26 +11,19 @@ export const useVehicleStore = defineStore("vehicle", {
         isMobile: false,
         isVehicle: true,
         tab: 'details',
-        vehicle: {},
-
-
-
+        vehicle: Vehicle.getModelKeys(),
         auctionTab: true,
         platforms: [],
         length: 10,
         sort_by: 'name-asc',
         data: [],
         fuel_type: [],
-        v: false,
         relatedVehicle: {
             total: 18,
             per_page: 10,
             current_page: 1,
             last_page: 2,
             data: [],
-        },
-        vehichleDetail: {
-            
         },
         overView: {
             title: 'ABARTH 595 1.4 T-JET 165 TURISMO Hatchback',
@@ -103,6 +97,7 @@ export const useVehicleStore = defineStore("vehicle", {
         }
     }),
     getters: {
+         
 
     },
     actions: {
@@ -112,22 +107,6 @@ export const useVehicleStore = defineStore("vehicle", {
         toggleAuctionTab() {
             this.auctionTab = !this.auctionTab
         },
-        async getAuctionList(options) {
-            try {
-                let res = await api.get('/api/user/auctionList', {
-                    params: {
-                        length: this.length,
-                        search: options?.search,
-                        sort_by: this.sort_by,
-                    },
-                })
-                this.data = res.data.data;
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-    
         async getRelatedVehicle(options) {
             try {
                 let res = await api.get('/api/user/getRelatedVehicle/' + options.id, {
@@ -151,48 +130,6 @@ export const useVehicleStore = defineStore("vehicle", {
                 throw await errorHandler(error);
             }
         },
-        async getWatchList(options) {
-            try {
-                let res = await api.get('/api/user/userWatchList', {
-                    params: {
-                        length: options.length,
-                        search: options.search
-                    },
-                })
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-        async getAlertList(options) {
-            try {
-                let res = await api.get('/api/user/userAlertList', {
-                    params: {
-                        length: options.length,
-                        search: options.search
-                    },
-                })
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-
-        async getPlatforms(options) {
-            try {
-                let res = await api.get('/api/master/getAuctionHouse', {
-                    params: {
-                    },
-                })
-
-                this.platforms = res.data.data;
-
-
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
-
 
     },
 

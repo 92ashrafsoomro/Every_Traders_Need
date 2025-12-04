@@ -1,6 +1,6 @@
 <template>
 
-    <h1 class="text-h4 font-weight-bold"> {{ vehicleStore.vehicle.title }}</h1>
+    <h1 class="text-h4 font-weight-bold"> {{ vehicleStore.vehicle?.make?.name }} {{ vehicleStore.vehicle?.model?.name }} {{ vehicleStore.vehicle?.variant?.name }}</h1>
     <v-row class="mt-2 bg-background">
         <v-col cols="6" sm="3">
                 <p class="text-light text-caption text-capitalize">Mileage</p>

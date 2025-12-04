@@ -76,13 +76,13 @@ export default {
         this.$themeStore.menuType = "collapsed";
     },
     beforeUnmount() {
-       
+
     },
     unmounted() {
 
         this.loading = false;
-        // this.vehicleStore.vehichleDetail = {};
         this.vehicleStore.isVehicle = false;
+
     },
     computed: {
         currentComponent() {
@@ -121,13 +121,21 @@ export default {
             }
         },        
     },
+    watch: {
+    '$route.params.id': {
+      immediate: true,
+      handler(newId) {
+        this.loadVehicle(newId);
+      }
+    }
+    },
     methods: {
         loadVehicle() {
 
             this.loading = true;
             Vehicle.find(this.$route.params.id)
                 .then((res) => {
-                    
+
                     this.vehicleStore.vehicle = res.data.vehicle;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
@@ -175,8 +183,6 @@ export default {
 ::-webkit-scrollbar {
     display: none;
 }
-
-
 
 
 @media (max-width: 1440px) {

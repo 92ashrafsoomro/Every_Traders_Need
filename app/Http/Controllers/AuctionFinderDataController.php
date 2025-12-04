@@ -539,30 +539,19 @@ class AuctionFinderDataController extends Controller
     public function getRelatedVehicle(Request $request, $id)
     {
 
-        $vehicle = Vehicle::where('id', $id)->orderBy('start_date', 'desc')->first();
-        if (!$vehicle) {
-            return response()->json([
-                "message" => "Vehicle Not Found",
-            ], 401);
-        }
-
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
         $perPage = (int) $request->input('length', 10);
         $page = (int) $request->input('page', 1);
         $offset = ($page - 1) * $perPage;
 
-
         //Base Query
         $query = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->join('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
             ->join('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-            ->join('make', 'make.id', '=', 'vehicles.make_id')
-            ->join('model', 'model.id', '=', 'vehicles.model_id')
-            ->join('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-            ->where('vehicles.make_id', $vehicle->make_id)
-            ->where('vehicles.model_id', $vehicle->model_id)
-            ->where('vehicles.variant_id', $vehicle->variant_id);
+            ->where('vehicles.make_id', $request->make_id)
+            ->where('vehicles.model_id', $request->model_id)
+            ->where('vehicles.variant_id', $request->variant_id);
 
 
         if ($request->has('platform') && $request->platform != '') {
@@ -586,25 +575,25 @@ class AuctionFinderDataController extends Controller
         //     $toDate = $now->copy()->endOfDay();
         //     $query->whereBetween('vehicles.start_date', [$fromDate->toDateString(), $toDate->toDateString()]);
         // }
-        $dateRange = $request->date_range ?? '';
+        // $dateRange = $request->date_range ?? '';
 
-        if ($dateRange !== '') {
-            $now = \Carbon\Carbon::now();
-            $fromDate = $now->copy()->subMonths(3)->startOfDay();
-            $toDate = $now->copy()->endOfDay();
+        // if ($dateRange !== '') {
+        //     $now = \Carbon\Carbon::now();
+        //     $fromDate = $now->copy()->subMonths(3)->startOfDay();
+        //     $toDate = $now->copy()->endOfDay();
 
-            if ($dateRange === 'future') {
-                $query->whereHas('auction', function ($q) use ($now) {
-                    $q->whereDate('auction_date', '>=', $now);
-                });
-            } elseif ($dateRange === 'previous') {
-                $query->whereHas('auction', function ($q) use ($now) {
-                    $q->whereDate('auction_date', '<', $now);
-                });
-            } else {
-                $query->whereBetween('vehicles.start_date', [$fromDate, $toDate]);
-            }
-        }
+        //     if ($dateRange === 'future') {
+        //         $query->whereHas('auction', function ($q) use ($now) {
+        //             $q->whereDate('auction_date', '>=', $now);
+        //         });
+        //     } elseif ($dateRange === 'previous') {
+        //         $query->whereHas('auction', function ($q) use ($now) {
+        //             $q->whereDate('auction_date', '<', $now);
+        //         });
+        //     } else {
+        //         $query->whereBetween('vehicles.start_date', [$fromDate, $toDate]);
+        //     }
+        // }
 
 
         // Count total BEFORE limit/offset
@@ -615,15 +604,11 @@ class AuctionFinderDataController extends Controller
             ->offset($offset)
             ->limit($perPage)
             ->select([
-                'vehicles.*',
+                'vehicles.start_date',
+                'vehicles.year',
                 'auction_platform.name as platform_name',
                 'auction_center.name as center_name',
-                'auctions.auction_date as auction_date',
-                'make.name as make_name',
-                'model.name as model_name',
-                'model_variant.name as variant_name',
             ])
-            ->groupBy('vehicles.reg')
             ->get()
             ->map(function ($item) {
 
@@ -635,9 +620,6 @@ class AuctionFinderDataController extends Controller
                     'center_name' => $item->center_name,
                     'year' => $item->year,
                     'price' => $item->last_bid,
-                    'make_name' => $item->make_name,
-                    'model_name' => $item->model_name,
-                    'variant_name' =>  $item->variant_name,
                     'date' =>  $item->start_date,
                     'image' =>  $image ? $image[0] : '',
                     'price_symbol' => $priceSymbol,

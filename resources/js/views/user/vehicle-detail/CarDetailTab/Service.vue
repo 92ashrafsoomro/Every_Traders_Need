@@ -40,41 +40,41 @@ export default {
 
             return [
                 {
-                    "label": "Service History",
-                    "value": "Service Book",
+                    "label":  "Service History",
+                    "value":  this.vehicleStore.vehicle.number_of_services_details,
                     "icon": "mdi-book-open-page-variant",
                     "type": "title"
                 },
                 {
-                    "label": "Number of services",
-                    "value": "3 (0 main dealer)",
+                    "label": "Number of service",
+                    "value": this.vehicleStore.vehicle.no_of_services,
                     "icon": "mdi-wrench",
                     "highlight": true
                 },
                 {
                     "label": "Last Service",
-                    "value": "08/05/2019",
+                    "value": this.vehicleStore.vehicle.last_service,
                     "icon": "mdi-calendar"
                 },
                 {
                     "label": "Last service mileage",
-                    "value": "35,443",
+                    "value": this.vehicleStore.vehicle.mileage,
                     "icon": "mdi-speedometer",
                     "highlight": true
                 },
                 {
                     "label": "DVSA Mileage",
-                    "value": "35k (06/04/2019), 50k (07/10/2020), 54k(06/02/2022), 58k(12/02/2023), 63k(18 /02 / 2024),66k(13/07/2025)",
+                    "value": this.vehicleStore.vehicle.dvsa_mileage,
                     "icon": "mdi-speedometer"
                 },
                 {
                     "label": "Additional service notes",
-                    "value": "No notes recorded",
+                    "value": this.vehicleStore.vehicle.number_of_services_details,
                     "icon": "mdi-note-text-outline"
                 },
                 {
                     "label": "MOT Expiry",
-                    "value": "12/07/2026",
+                    "value": this.vehicleStore.vehicle.mot_expiry_date,
                     "icon": "mdi-calendar-alert"
                 }
             ]

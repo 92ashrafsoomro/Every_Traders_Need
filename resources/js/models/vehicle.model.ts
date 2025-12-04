@@ -27,10 +27,8 @@ export const fields = [
     { key: "reg", label: "Registration", type: "text", group: "basic" },
     { key: "auction_date", label: "Auction Date", type: "text", group: "basic" },
     { key: "former_keepers", label: "former_keepers", type: "text", group: "basic" },
+    { key: "equipments", label: "Equipments", type: "text", group: "basic" },
 
-    
-
-    
 
     // -------------------------
     // ENGINE / DRIVE
@@ -175,6 +173,32 @@ export default class Vehicle {
             throw await errorHandler(error);
         }
 
+    }
+
+   static async getRelatedVehicle(options:{
+            search?: string;
+            page?: number;
+            length?: number;
+            platform?: number;
+            id:number,
+        }) : Promise<{
+            data: unknown[];
+            recordsFiltered: number;
+            recordsTotal: number;
+            page: number;
+            length: number;
+            last_page: number;
+            offset: number;
+        }> {
+        
+            try {
+                let res = await api.get('/api/user/getRelatedVehicle/' + options.id, {
+                    params: options,
+                })
+                return res.data;
+            } catch (error) {
+                throw await errorHandler(error);
+            }
     }
 
 

@@ -1,11 +1,12 @@
 <template>
-    <div v-if="vehicleStore.overView.images">
+    <div v-if="images">
         <v-responsive>
             <v-img v-if="image" :src="image" class="rounded" />
+           
             <v-row class="ga-2 pa-5">
                 <v-img  
                    @click="image = item" 
-                   v-for="item in vehicleStore.overView.images" 
+                   v-for="item in images" 
                    :src="item" class="rounded" :class="{'active border':image == item}"  />
             </v-row>
         </v-responsive>
@@ -19,20 +20,24 @@ import { image } from '@vee-validate/rules';
 export default {
     components: {
 
+      
     },
     data() {
         return {
-            image:'',
             vehicleStore: useVehicleStore(),
+            image:'',
         };
+    },
+    computed: {
+          images() {  
+
+            let images = this.vehicleStore.vehicle?.images?.split(",") || [];
+            return images;
+        }
     },
     mounted() {
 
-        if (this.vehicleStore.overView.images) {
-            
-            
-            this.image = this.vehicleStore.overView.images[0];
-        }
+        this.image = this.images[0];
 
     },
     beforeUnmount() {

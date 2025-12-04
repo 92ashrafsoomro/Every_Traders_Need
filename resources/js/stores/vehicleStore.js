@@ -107,16 +107,7 @@ export const useVehicleStore = defineStore("vehicle", {
         toggleAuctionTab() {
             this.auctionTab = !this.auctionTab
         },
-        async getRelatedVehicle(options) {
-            try {
-                let res = await api.get('/api/user/getRelatedVehicle/' + options.id, {
-                    params: options,
-                })
-                return res.data;
-            } catch (error) {
-                throw await errorHandler(error);
-            }
-        },
+    
         async getreAuctionList(options) {
             try {
                 let res = await api.get('/api/user/reAuctionList', {

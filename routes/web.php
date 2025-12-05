@@ -59,17 +59,17 @@ Broadcast::routes(['middleware' => ['auth']]);
 // Route::get('/cookiepolicy', [WebController::class, 'cookiepolicy']);
 // Route::get('/about', [WebController::class, 'about']);
 
-Route::get('/privacy', [WebController::class, 'privacy']);
+// Route::get('/privacy', [WebController::class, 'privacy']);
 
-Route::get('/pricing', [WebController::class, 'pricing']);
+// Route::get('/pricing', [WebController::class, 'pricing']);
 
-Route::get('/autionshadule', [WebController::class, 'AutionShadule']);
+// Route::get('/autionshadule', [WebController::class, 'AutionShadule']);
 
-Route::get('/exploreevery', [WebController::class, 'ExploreEvery']);
-Route::get('/compair', [WebController::class, 'compairaution']);
-Route::get('/privecy', [WebController::class, 'privecy']);
-Route::get('/faqs', [WebController::class, 'faqs']);
-Route::get('/explore/newss', [WebController::class, 'newss']);
+// Route::get('/exploreevery', [WebController::class, 'ExploreEvery']);
+// Route::get('/compair', [WebController::class, 'compairaution']);
+// Route::get('/privecy', [WebController::class, 'privecy']);
+// Route::get('/faqs', [WebController::class, 'faqs']);
+// Route::get('/explore/newss', [WebController::class, 'newss']);
 
 
 

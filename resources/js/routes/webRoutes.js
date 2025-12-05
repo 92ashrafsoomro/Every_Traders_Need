@@ -4,6 +4,7 @@ import Home from '@/views/web/home.vue'
 import About from '@/views/web/about/index.vue'
 import Pricing from '@/views/web/pricing/index.vue'
 import Support from '@/views/web/support.vue'
+import Checkout from '@/views/web/checkout/index.vue'
 // import Features from '@/views/web/feature/index.vue'
 
 export default [
@@ -32,6 +33,12 @@ export default [
                 path : "support",
                 component : Support
             },
+            {
+                path : "checkout",
+                component : Checkout
+            },
+
+            
             // {
             //     path : "feature",
             //     component : Features

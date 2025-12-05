@@ -1,17 +1,12 @@
 <template>
-  <section class="bg-background overflow-hidden">
+  <section class="bg-background ">
     <v-container class="py-16 py-md-20">
       <v-row align="center" justify="center" class="min-vh-100" no-gutters>
-        
+
         <!-- Left Big Card -->
         <v-col cols="12" lg="6" class="d-flex justify-center mb-8 mb-lg-0">
-          <v-card
-            class="pa-10 pa-md-16 text-center"
-            max-width="860"
-            color="#0f172a"
-            :border="true"
-            style="border: 10px solid #7f1d1d !important; border-radius: 90px;"
-          >
+          <v-card class="pa-10 pa-md-16 text-center" max-width="860" color="#0f172a" :border="true"
+            style="border: 10px solid #7f1d1d !important; border-radius: 90px;">
             <h1 class="text-h2 text-md-h1 font-weight-black text-white mb-4">
               The <span class="text-white bg-red-darken-2 px-4" style="border-radius: 8px;">Real</span>
             </h1>
@@ -38,11 +33,8 @@
 
             <!-- Problem Cards -->
             <div v-for="(item, i) in problems" :key="i" class="mb-6">
-              <v-card
-                class="d-flex align-center pa-5 position-relative border-lg border-danger bg-surface mx-auto"
-                rounded="xl"
-                elevation="8"
-              >
+              <v-card class="d-flex align-center pa-5 position-relative border-lg border-danger bg-surface mx-auto"
+                rounded="xl" elevation="8">
                 <!-- Red Minus Icon -->
                 <v-icon class="bg-danger text-h3 font-weight-bold rounded-lg mr-4" size="36">
                   mdi-minus
@@ -54,20 +46,10 @@
               </v-card>
             </div>
 
-            <!-- Final Blue Card -->
-            <v-card
-              class="d-flex align-center pa-5 position-relative border-lg bg-primary mx-auto"
-              rounded="xl"
-              elevation="8"
-            >
-              <!-- Plus Icon -->
-              <v-icon class="bg-black text-white text-h3 font-weight-bold rounded-lg mr-4" size="36">
-                mdi-plus
-              </v-icon>
-
-              <p class="text-body-1 text-white mb-0">
-                {{ solution.text }}
-              </p>
+            <v-card class="d-flex align-center pa-5 position-relative border-lg bg-primary mx-auto" rounded="xl"
+              elevation="8">
+              <v-icon class="bg-black text-white text-h3 font-weight-bold rounded-lg mr-4" size="36">mdi-plus</v-icon>
+              <p class="text-body-1 text-white mb-0">{{ solution.text }}</p>
             </v-card>
           </div>
         </v-col>
@@ -84,8 +66,8 @@ export default {
   name: "ProblemPage",
   data() {
     return {
-      problems: problem.problems,  
-      solution: problem.solution    
+      problems: problem.problems,
+      solution: problem.solution
     }
   }
 }

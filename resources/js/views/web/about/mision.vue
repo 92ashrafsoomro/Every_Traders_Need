@@ -1,8 +1,8 @@
 <!-- MissionSection.vue -->
 <template>
-    <section class="bg-surface overflow-hidden">
-        <v-container class="py-16 py-md-20" style=" max-width:1400px;  ">
-            <v-row align="center" class="min-vh-100">
+    <section class="bg-surface ">
+        <v-container fluid max-width="1400px" class="px-0 py-16 py-md-20">
+            <v-row no-gutters="" align="center" >
 
                 <!-- LEFT: Text Content -->
                 <v-col cols="12" lg="6">
@@ -11,14 +11,14 @@
                             {{ data.title }}
                         </h2>
 
-                        <div class="position-relative">
-                            <!-- Blue Vertical Line - Pure Vuetify -->
-                            <div class="position-absolute bg-white"
-                                style="left: -20px; top: 0; width: 6px; height: 60px; width: 10px; left: 0px;"></div>
+                        <div class="">
+                        
 
-                            <p class="text-body-1 text-grey-lighten-1 mb-10 opacity-90 ml-4 ">
-                                {{ data.highlight }}
-                            </p>
+                            <div style="border-left: 6px solid white;" >
+                                   <p class="text-body-1 text-grey-lighten-1 mb-10 opacity-90 ml-4 ">
+                                {{ data.highlight }} </p>
+                            </div>
+                         
 
                             <p class="text-body-1 text-grey-lighten-1 mb-10 mr-10 opacity-90 ">
                                 {{ data.description }}
@@ -78,52 +78,12 @@ export default {
 @media (max-width: 960px) {
 
     /* Big White Card */
-    .card {
-        top: 60px !important;
-        right: 20px !important;
-        width: 360px !important;
-        height: 280px !important;
-        left: auto !important;
-    }
 
-    .cardLeftDiv {
-        bottom: 160px !important;
-        left: 70px !important;
-        width: 140px !important;
-        height: 110px !important;
-    }
-
-    .cardRightDiv {
-        top: 20px !important;
-        right: 10px !important;
-        width: 140px !important;
-        height: 100px !important;
-    }
 }
 
 @media (max-width : 600px) {
   
 
-    .card {
-     
-    top: 40px !important;
-    right: 10px !important;
-    width: 280px !important;
-    height: 220px !important;
-  
-    }
-
-    .cardLeftDiv {
-        top: 200px;
-        left: 10px !important;
-    }
-
-    .cardRightDiv {
-        top: 0px !important;
-        right: 20px !important;
-    }
-    .missionVissionBoxDiv{
-        height: 300px !important;
-    }
+   
 }
 </style>

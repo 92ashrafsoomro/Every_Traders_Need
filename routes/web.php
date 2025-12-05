@@ -52,12 +52,12 @@ Broadcast::routes(['middleware' => ['auth']]);
 
 
 
-Route::get('/features', [WebController::class, 'features']);
-Route::get('/disclaimer', [WebController::class, 'disclaimer']);
-Route::get('/faq', [WebController::class, 'faq']);
-Route::get('/terms', [WebController::class, 'terms']);
-Route::get('/cookiepolicy', [WebController::class, 'cookiepolicy']);
-Route::get('/about', [WebController::class, 'about']);
+// Route::get('/features', [WebController::class, 'features']);
+// Route::get('/disclaimer', [WebController::class, 'disclaimer']);
+// Route::get('/faq', [WebController::class, 'faq']);
+// Route::get('/terms', [WebController::class, 'terms']);
+// Route::get('/cookiepolicy', [WebController::class, 'cookiepolicy']);
+// Route::get('/about', [WebController::class, 'about']);
 
 Route::get('/privacy', [WebController::class, 'privacy']);
 

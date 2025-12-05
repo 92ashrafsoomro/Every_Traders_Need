@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserNotificationAlert extends Model
 {
-    protected $table = 'user_notifications_alert';
+    protected $table = 'user_vehicle_alerts';
 
     protected $fillable = [
         'user_id',

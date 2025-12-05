@@ -124,7 +124,7 @@ export default class UserModel {
     }> {
 
         try {
-            let res = await api.get('/api/user/userWatchList', {
+            let res = await api.get('/api/user/notifications/userWatchList', {
                 params:options,
             })
             return res.data;

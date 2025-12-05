@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\MasterController;
+use App\Http\Controllers\Api\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,7 +48,28 @@ Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 });
 
 
+
 Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+
+
+    Route::prefix('notifications')->group(function () {
+
+        Route::get('/userNotification',[NotificationController::class,'userNotification']);
+        Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
+        Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+        
+    });
+
+
+    // Dashboard
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/counters',[DashboardController::class,'counters']);
+        Route::get('/vehicleStates',[DashboardController::class,'vehicleStates']);
+        Route::get('/onlineAuctions',[DashboardController::class,'onlineAuctions']);
+        Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
+    });
+    
+
 
     Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
     Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
@@ -55,8 +78,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
     Route::get('/auctionShedule',[AuctionFinderController::class,'auctionShedule']);
 
-    Route::get('/userWatchList',[AuctionFinderController::class,'userWatchList']);
-    Route::get('/userAlertList',[AuctionFinderController::class,'userAlertList']);
+  
     Route::get('/compareList',[AuctionFinderController::class,'compareList']);
     Route::prefix('interest')->group(function () {
          Route::get('/myInterest',[InterestController::class,'myInterest']);

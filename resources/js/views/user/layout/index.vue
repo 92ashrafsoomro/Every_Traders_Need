@@ -1,20 +1,20 @@
 <template>
     <v-app>
         <Sidebar />
-        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
-            style="height: 70px;">
+        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
            
-            <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border"
-                style="width: 30px; height: 30px;" >
-                <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="default"
-                    :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" @click="toggleMenu"></v-icon>
+            <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border" style="width: 30px; height: 30px;" >
+                <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="default" :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" 
+                @click="toggleMenu"></v-icon>
             </div>
            
             <v-toolbar-title class="d-none d-sm-inline pl-1">
                 <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
+
             <v-spacer></v-spacer>
+            
             <v-row class="d-flex align-center justify-end" no-gutters>
 
                 <div class="d-flex align-center justify-space-around mr-0 mr-lg-3">

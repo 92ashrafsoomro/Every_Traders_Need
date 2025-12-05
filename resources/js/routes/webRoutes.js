@@ -2,10 +2,9 @@ import Layout from '@/views/web/layout/index.vue'
 import HomeView from "@/views/web/home/index.vue"
 import Home from '@/views/web/home.vue'
 import About from '@/views/web/about/index.vue'
-import Pricing from '@/views/web/pricing.vue'
+import Pricing from '@/views/web/pricing/index.vue'
 import Support from '@/views/web/support.vue'
-import Features from '@/views/web/features.vue'
-
+// import Features from '@/views/web/feature/index.vue'
 
 export default [
     {
@@ -33,10 +32,10 @@ export default [
                 path : "support",
                 component : Support
             },
-            {
-                path : "feature",
-                component : Features
-            }
+            // {
+            //     path : "feature",
+            //     component : Features
+            // }
         ],
     },
 ]

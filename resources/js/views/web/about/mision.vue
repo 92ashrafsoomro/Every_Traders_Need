@@ -2,7 +2,7 @@
 <template>
     <section class="bg-surface ">
         <v-container fluid max-width="1400px" class="px-0 py-16 py-md-20">
-            <v-row no-gutters="" align="center" >
+            <v-row no-gutters="" align="center">
 
                 <!-- LEFT: Text Content -->
                 <v-col cols="12" lg="6">
@@ -12,13 +12,13 @@
                         </h2>
 
                         <div class="">
-                        
 
-                            <div style="border-left: 6px solid white;" >
-                                   <p class="text-body-1 text-grey-lighten-1 mb-10 opacity-90 ml-4 ">
-                                {{ data.highlight }} </p>
+
+                            <div style="border-left: 6px solid white;">
+                                <p class="text-body-1 text-grey-lighten-1 mb-10 opacity-90 ml-4 ">
+                                    {{ data.highlight }} </p>
                             </div>
-                         
+
 
                             <p class="text-body-1 text-grey-lighten-1 mb-10 mr-10 opacity-90 ">
                                 {{ data.description }}
@@ -33,25 +33,9 @@
 
 
                 <v-col cols="12" lg="6">
-                    <div class="missionVissionBoxDiv position-relative ms-auto" style="max-width: 520px; height: 560px;">
 
-                        <!-- Big White Card -->
-                        <v-card class="position-absolute card border-0" elevation="24" rounded="xl"
-                            color="grey-lighten-4" style="top: 80px; right: 40px; width: 480px; height: 320px;" />
+                    <img :src="rightImage" alt="" class="missionImage mt-10">
 
-                        <!-- Top Right Blue Card -->
-                        <v-card class="position-absolute cardRightDiv" color="primary" rounded="xl" elevation="20"
-                            style="top: 130px; right: 0; width: 160px; height: 120px;">
-                            <v-responsive :aspect-ratio="4 / 3" />
-                        </v-card>
-
-                        <!-- Bottom Left Blue Card -->
-                        <v-card class="position-absolute cardLeftDiv" color="primary" rounded="xl" elevation="20"
-                            style="bottom: 90px; left: -50px;  width: 180px; height: 140px;">
-                            <v-responsive :aspect-ratio="9 / 7" />
-                        </v-card>
-
-                    </div>
                 </v-col>
 
             </v-row>
@@ -61,12 +45,13 @@
 
 <script>
 import missionData from '@/json/mision.json'
-
+import rightImage from '@/assets/images/tabs/missionleft.png'
 export default {
     name: 'MissionSection',
     data() {
         return {
-            data: missionData
+            data: missionData,
+            rightImage
         }
     }
 }
@@ -82,8 +67,10 @@ export default {
 }
 
 @media (max-width : 600px) {
-  
 
-   
+    .missionImage {
+        width: 300px;
+    }
+
 }
 </style>

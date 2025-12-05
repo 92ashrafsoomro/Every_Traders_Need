@@ -11,12 +11,8 @@
 
           <!-- Black Vertical Line + Points -->
           <div class="position-relative">
-            <div
-              class="position-absolute bg-black"
-              style="left: -20px; top: 1px; width: 9px; height: 80px; "
-            ></div>
 
-            <div  class="mb-1">
+            <div  class="mb-1 ml-2" style="border-left:5px solid black ; ">
               <p class="text-body-1 text-black ml-2">
             We don't sell cars. <br>
             We don't push deals. <br>
@@ -36,7 +32,7 @@
       <v-col cols="12" lg="6" class="d-flex align-center justify-center">
         <div
           class="w-100 h-100"
-          style="  background: linear-gradient(to bottom, #000E20,#0080FF);"
+          style="  background: linear-gradient(rgb(0, 14, 32), rgba(0, 128, 225, 0.19));"
         ></div>
       </v-col>
 

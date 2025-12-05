@@ -1,16 +1,11 @@
 <template>
-  <v-container class="pa-0 mx-auto " style=" max-width:1400px; max-height: 403px;">
+  <v-container max-height="340px" max-width="1300px" class="pa-0 mx-auto " >
     <div class="py-16  ">
 
-      <div style="display:flex; gap:16px; align-items:flex-start;">
-
-        <!-- VERTICAL LINE -->
-        <div
-          class="vertical-line bg-verticalLineBlue" style="width: 4px; min-height: 180px;"
-        ></div>
+      <div class="d-flex items-start ml-4" style=" border-left: 5px solid white;">
 
         <!-- TEXT BLOCK -->
-        <div v-for="(data, i) in data" :key="i">
+        <div v-for="(data, i) in data" :key="i" class="ml-4 ">
 
        
           <h2 class="text-h6 text-sm-h5 text-md-h4 text-lg-h4 text-text_light mb-4 font-weight-light">
@@ -57,25 +52,13 @@ export default {
 </script>
 
 <style scoped>
-/* .vertical-line {
-  width: 4px;
-  background: #0080ff;
-  min-height: 180px; 
-} */
 
-.line-height-relaxed {
-  line-height: 1.7;
-}
 
-/* Mobile adjustments */
+
 @media (max-width: 600px) {
   .bgImage img{
-    /* display: none; */
         max-width: 292px;
   }
-  .vertical-line {
-    min-height: 220px;
-    margin-left: 10px;
-  }
+
 }
 </style>

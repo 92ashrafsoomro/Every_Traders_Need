@@ -21,10 +21,9 @@
         >
           <v-card
             :class="['card pa-6  position-relative elevation-8', item.highlight ? 'bg-danger darken-2' : 'bg-surface']"
-          >
-            <div class=" bg-white  border-lg border-danger  " style="position: absolute; left: 20px; top: 20px; bottom: 16px; width: 6px; height: 100px;     border-radius: 0 4px 4px 0;"></div>
-            <div class="text-body-1 text-white ml-4 mt-4 " style="height: 90px;">
-              {{ item.label }}
+          >    
+          <div class="text-body-1 text-white  " style="height: 70px; border-left: 5px solid white; ">
+              <p class="ml-10 pa-2 " >{{ item.label }}</p>
             </div>
           </v-card>
         </v-col>
@@ -48,24 +47,3 @@ export default {
     }}
 };
 </script>
-
-<style scoped>
-
-
-
-/* hero-gradient {
-
- 
-}
- */
-
-@media (max-width: 960px) {
- 
-
-}
-
-
-
-@media (max-width: 600px) {
-  
-}</style>

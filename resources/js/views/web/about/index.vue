@@ -10,7 +10,6 @@
   <mision />
   <problem/>
   <autodifferent/>
-  <!-- <Democards/> -->
   <promise/>
   <bidSmarter/>
 </template>
@@ -26,7 +25,7 @@ import problem from './problem.vue';
 import autodifferent from './autodifferent.vue';
 import promise from './promise.vue';
 import bidSmarter from './bidSmarter.vue';
-// import Democards from './democards.vue';
+
 
 export default {
   components: {
@@ -40,7 +39,6 @@ export default {
     autodifferent,
     promise,
     bidSmarter,
-    // Democards
   }
 }
 </script>

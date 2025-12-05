@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-background">
+    <div class="bg-surface">
 
         <v-container style="max-width: 1600px; justify-content: center; padding: 60px;"  > 
             <div >
@@ -19,35 +19,35 @@
                     <v-col cols="12" sm="6" md="3" lg="3"
                         class="text-center d-flex flex-column align-center align-lg-start  ">
                         <p class="text-body-1 font-weight-medium ">AutoBoli</p>
-                        <v-list class="bg-background text-text_light text-body-2">about us</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">customer</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">community</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">Affiliate & Referrals</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">about us</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">customer</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">community</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Affiliate & Referrals</v-list>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="3" lg="3"
                         class="text-center d-flex flex-column align-center align-lg-start ">
                         <p class="text-body-1 font-weight-bold">Learn</p>
                         <v-list v-for="value in [1, 2, 3, 4]"
-                            class="bg-background text-text_light text-body-2">Action</v-list>
+                            class="bg-surface text-text_light text-body-2">Action</v-list>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="3" lg="3"
                         class="text-center d-flex flex-column align-center align-lg-start ">
                         <p class="text-body-1 font-weight-bold">Resources</p>
-                        <v-list class="bg-background text-text_light text-body-2">News</v-list>
-                        <v-list class="bg-background text-text_light text-body-2"> Brand</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">Bidding</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">Roadmap</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">News</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2"> Brand</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Bidding</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Roadmap</v-list>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="3" lg="3"
                         class="text-center d-flex flex-column align-center align-lg-start ">
                         <p class="text-body-1 font-weight-bold">Contact</p>
-                        <v-list class="bg-background text-text_light text-body-2">Instagram</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">Facebook</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">X</v-list>
-                        <v-list class="bg-background text-text_light text-body-2">Tiktok</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Instagram</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Facebook</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">X</v-list>
+                        <v-list class="bg-surface text-text_light text-body-2">Tiktok</v-list>
                     </v-col>
 
                 </v-row>

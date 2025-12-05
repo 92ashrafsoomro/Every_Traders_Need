@@ -1,6 +1,6 @@
 <template>
 
-  <div class="bg-background " style="height: 100vh;">
+  <div class="bg-surface " style="height: 100vh;">
     <div class="dashboard-mockup ">
       <img :src="screenRight" alt="AutoBoli Dashboard" class="dashboard-img" style="max-width: 960px;" />
     </div>

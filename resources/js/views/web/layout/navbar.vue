@@ -1,6 +1,6 @@
 <template>
-    <v-container class="navbar bg-background pa-0" style="max-width: 100%; height: 80px; position: fixed; z-index: 1; ">
-        <v-container class="d-flex bg-background pa-0 align-center" style="height: 80px; max-width: 85%;">
+    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 80px; position: fixed; z-index: 1; ">
+        <v-container class="d-flex bg-surface pa-0 align-center" style="height: 80px; max-width: 85%;">
 
 
             <!-- Logo -->
@@ -22,7 +22,7 @@
                     <v-btn v-if="item.label == 'Get Started'" variant="outlined"
                         class="border-thin text-capitalize bg-shadow hover:bg-primary">{{ item.label }}</v-btn>
                     <router-link v-else :to="item.path" 
-                        class="text-capitalize text-body-2 bg-background text-decoration-none">
+                        class="text-capitalize text-body-2 bg-surface text-decoration-none">
                         {{ item.label }}
                     </router-link>
                 </v-list-item>

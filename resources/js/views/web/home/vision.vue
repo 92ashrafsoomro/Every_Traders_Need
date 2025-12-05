@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 1600px;" class="mx-auto">
     <!-- Top Logos Section -->
-    <v-row class="justify-center " style="background: #f8f9fa; margin-top: 10px; ">
+    <v-row class="justify-center " style=" margin-top: 10px; ">
       <v-col cols="12" class="text-center">
         <div class="logo-container">
           <img :src="zoom" alt="Zoom" class="logo-item" />

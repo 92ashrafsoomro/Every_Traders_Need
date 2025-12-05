@@ -1,35 +1,39 @@
 <template>
-  <user-title-bar >
-    
+  <user-title-bar>
+
     <div class="d-flex flex-column flex-xs-row flex-md-row justify-space-between align-start pa-3">
-      <div style="max-width: 600px;" >
-          <div>
-              <h6 class="text-h5 font-weight-bold" >Welcome back , <span class="text-primary" >Mr Shan!</span> </h6>
-          </div>
-          <div class="pr-5 pb-5" > 
-            <p class="mt-3 text-body-1 text-light " >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam excepturi distinctio cum numquam minima porro tempore possimus a, id voluptates totam, inventore vitae unde cupiditate perspiciatis quidem dolor ab sequi.
-            </p>
-          </div>
+      <div style="max-width: 600px;">
+        <div>
+          <h6 class="text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
+        </div>
+        <div class="pr-5 pb-5">
+          <p class="mt-3 text-body-1 text-light ">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam excepturi distinctio cum numquam minima
+            porro tempore possimus a, id voluptates totam, inventore vitae unde cupiditate perspiciatis quidem dolor ab
+            sequi.
+          </p>
+        </div>
       </div>
       <div>
-              <v-card max-width="500px" class="bg-primary rounded p-6" >
-                <v-card-text >
-                  <div class="d-flex flex-sm-wrap align-center " >
-                    <div class="pa-3" style="max-width: 300px;" >
-                        <h6 class="text-h6 font-weight-bold">Refer & Earn</h6>
-                        <p class="text-body-1 text-background font-weight-bold">Use Refer & Earn modal to encourage your exiting customers refer their friends & colleague.</p>
-                    </div>
-                    <div style="max-width: 300px;" class="pa-3" >
-                        <div class="dot-box" style="width: 100px; height: 50px; background-color: rgba(0, 0, 0, 0.466); border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-left: 10px; ">
-                              <div class="dot" style=" width: 30px;  height: 30px; background-color: black;  border-radius: 4px;">
-                              </div>
-                        </div>
-                    </div>
+        <v-card max-width="500px" class="bg-primary rounded p-6">
+          <v-card-text>
+            <div class="d-flex flex-sm-wrap align-center ">
+              <div class="pa-3" style="max-width: 300px;">
+                <h6 class="text-h6 font-weight-bold">Refer & Earn</h6>
+                <p class="text-body-1 text-background font-weight-bold">Use Refer & Earn modal to encourage your exiting
+                  customers refer their friends & colleague.</p>
+              </div>
+              <div style="max-width: 300px;" class="pa-3">
+                <div class="dot-box"
+                  style="width: 100px; height: 50px; background-color: rgba(0, 0, 0, 0.466); border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-left: 10px; ">
+                  <div class="dot" style=" width: 30px;  height: 30px; background-color: black;  border-radius: 4px;">
                   </div>
-                </v-card-text>
-              </v-card>
-      </div>  
+                </div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </div>
     </div>
   </user-title-bar>
 
@@ -37,71 +41,120 @@
   <v-container fluid class="">
 
     <v-row class="">
-      <v-col cols="12">
-        <v-row class="pt-4" justify="center">
-          <!-- Total Auctions -->
-          <v-col v-for="(value, key, index) in getCounter" cols="12" sm="6" md="3" class="d-flex">
+      <!-- Total Auctions -->
 
-            <v-card class="border-bottom w-100">
-              <v-container>
 
-                <div class="d-flex h-6 align-center  ">
-                  <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                    <v-icon size="32" color="primary">mdi-circle</v-icon>
-                  </div>
-                  <span class="text-h4 px-1">0</span>
-                </div>
+      <!-- Total Auctions -->
+      <v-col cols="12" sm="6" md="3" class="">
 
-                <template v-if="key == 'totalAuctions'">
-                  <div class="pt-3 text-body-1 text-light ">{{ value.title }}</div>
-                  <div class="pt-2 d-flex">
-                    <div class="text-body-2 pr-2">
-                      <span style="color: #76778e;">Live Auctions: </span>
-                      <span> 0</span>
-                    </div>
-                    <div class=" text-body-2 pl-2">
-                      <span style="color: #76778e;">Time Auctions: </span>
-                      <span> 0</span>
-                    </div>
-                  </div>
-                </template>
+        <v-card class="border-bottom w-100">
+          <v-container>
 
-                <template v-if="key == 'inprogressAuctions'">
-                  <div class="pt-3 text-body-1 text-light ">{{ value.title }}</div>
-                  <div class="pt-2 d-flex">
-                    <div class="text-body-2 pr-2">
-                      <span style="color: #76778e;">Inprogress Auctions: </span>
-                      <span> 0</span>
-                    </div>
-                  </div>
-                </template>
+            <div class="d-flex h-6 align-center  ">
+              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+                <v-icon size="32" color="primary">mdi-circle</v-icon>
+              </div>
+              <span class="text-h4 px-1">{{ counter.total_Auctions }}</span>
+            </div>
 
-                <template v-if="key == 'totalVehicles'">
-                  <div class="pt-3 text-body-1 text-light ">{{ value.title }}</div>
-                  <div class="pt-2 d-flex">
-                    <div class="text-body-2 pr-2">
-                      <span style="color: #76778e;">Total Vehicles: </span>
-                      <span> 0</span>
-                    </div>
-                  </div>
-                </template>
+            <div class="pt-3 text-body-1 text-light ">Total Auctions</div>
+            <div class="pt-2 d-flex">
+              <div class="text-body-2 pr-2">
+                <span style="color: #76778e;">Live Auctions: </span>
+                <span>{{ counter.liveAuctions }}</span>
+              </div>
+              <div class=" text-body-2 pl-2">
+                <span style="color: #76778e;">Time Auctions: </span>
+                <span> {{ counter.timeAuctions }}</span>
+              </div>
+            </div>
 
-                <template v-if="key == 'vehicleinReauctions'">
-                  <div class="pt-3 text-body-1 text-light ">Vehicle in reauctions</div>
-                  <div class="pt-2 d-flex">
-                    <div class="text-body-2 pr-2">
-                      <span style="color: #76778e;">Vehicles: </span>
-                      <span> 0</span>
-                    </div>
-                  </div>
-                </template>
-              </v-container>
-            </v-card>
 
-          </v-col>
-        </v-row>
+          </v-container>
+        </v-card>
+      </v-col>
+      <!-- Total Auctions -->
+      <v-col cols="12" sm="6" md="3" class="">
+
+        <v-card class="border-bottom w-100">
+          <v-container>
+
+            <div class="d-flex h-6 align-center  ">
+              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+                <v-icon size="32" color="primary">mdi-circle</v-icon>
+              </div>
+              <span class="text-h4 px-1">{{ counter.inprogress_Auctions }}</span>
+            </div>
+
+            <div class="pt-3 text-body-1 text-light ">Inprogress Auctions</div>
+            <div class="pt-2 d-flex">
+              <div class="text-body-2 pr-2">
+                <span style="color: #76778e;">Inprogress Auctions:  </span>
+                <span>{{ counter.inprogress_Auctions }}</span>
+              </div>
+              
+            </div>
+
+
+          </v-container>
+        </v-card>
+      </v-col>
+      <!-- Total Auctions -->
+      <v-col cols="12" sm="6" md="3" class="">
+
+        <v-card class="border-bottom w-100">
+          <v-container>
+
+            <div class="d-flex h-6 align-center  ">
+              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+                <v-icon size="32" color="primary">mdi-circle</v-icon>
+              </div>
+              <span class="text-h4 px-1">{{ counter.totalVehicles }}</span>
+            </div>
+
+            <div class="pt-3 text-body-1 text-light ">Total Vehicles</div>
+            <div class="pt-2 d-flex">
+              <div class="text-body-2 pr-2">
+                <span style="color: #76778e;">Total Vehicles:</span>
+                <span>{{ counter.totalVehicles }}</span>
+              </div>
+            </div>
+
+
+          </v-container>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" sm="6" md="3" class="">
+
+        <v-card class="border-bottom w-100">
+          <v-container>
+
+            <div class="d-flex h-6 align-center  ">
+              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+                <v-icon size="32" color="primary">mdi-circle</v-icon>
+              </div>
+              <span class="text-h4 px-1">{{ counter.vehicleReauctions }}</span>
+            </div>
+
+            <div class="pt-3 text-body-1 text-light ">Vehicle in reauctions</div>
+            <div class="pt-2 d-flex">
+              <div class="text-body-2 pr-2">
+                <span style="color: #76778e;">Vehicles:</span>
+                <span>{{ counter.vehicleReauctions }}</span>
+              </div>
+            
+            </div>
+
+
+          </v-container>
+        </v-card>
       </v-col>
     </v-row>
+
+    <v-container />
+
+
 
     <v-row>
       <v-col cols="12" md="6">
@@ -210,6 +263,8 @@
 </template>
 
 <script>
+import api from '@/plugins/axios';
+
 export default {
   name: 'AuctionDashboard',
 
@@ -217,7 +272,16 @@ export default {
     return {
       onlinePlatform: null,
       timePlatform: null,
-      platforms: [] // You can populate this later: ['Platform A', 'Platform B', ...]
+      platforms: [],
+
+      counter:{
+        total_Auctions : 1,
+        liveAuctions:2,
+        timeAuctions: 3,
+        inprogress_Auctions : 4,
+        totalVehicles : 5 , 
+        vehicleReauctions : 6 
+      }
     }
   },
   computed: {
@@ -246,10 +310,16 @@ export default {
 
   },
 
-  mounted() {
-    // You can fetch platforms here if needed
-    // this.platforms = ['Copart', 'IAAI', 'Manheim', ...]
+  async mounted() {
+    try {
+      let data = await api.get("/api/user/dashboard/counters")
+      console.log(data.data);
+    } catch (error) {
+      alert(error.massage)
+    }
   }
+
+
 }
 </script>
 

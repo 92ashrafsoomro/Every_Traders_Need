@@ -305,55 +305,7 @@ public function getTimeAuctions(Request $request)
 }
 
 
-      public function onlineAuctions(Request $request)
-    {
-        if ($request->ajax()) {
-            $onlineData = AuctionPlatform::leftJoin('auctions', 'auction_platform.id', '=', 'auctions.platform_id')
-                ->whereRaw("LOWER(auctions.auction_type) = 'online auction'")
-                ->select(
-                    'auction_platform.name AS auction_platform_name',
-                    'auctions.auction_type',
-                    DB::raw('(  SELECT COUNT(*)  FROM vehicles v  JOIN auctions a ON v.auction_id = a.id  WHERE a.platform_id = auctions.platform_id  ) as car_count'),
-                    DB::raw("(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = 'on sale') as remaining"),
-                    DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as lots'),
-                )
-                ->get()
-                ->map(function ($auction) {
-                    return [
-                        $auction->auction_platform_name,
-                        $auction->car_count,
-                        $auction->remaining ?? 'N/A',
-                        $auction->lots ?? 'N/A',
-                    ];
-                });
 
-            return response()->json(['data' => $onlineData]);
-        }
-    }
-
-    public function timeAuctions(Request $request)
-    {
-            if ($request->ajax()) {
-                $timeData = Auctions::leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-                    ->whereRaw("LOWER(auctions.auction_type) = 'time auction'")
-                    ->select(
-                        'auction_platform.name AS auction_platform_name',
-                        'auctions.auction_type',
-                        DB::raw('(  SELECT COUNT(*)  FROM vehicles v  JOIN auctions a ON v.auction_id = a.id  WHERE a.platform_id = auctions.platform_id  ) as car_count'),
-                        'auctions.end_date'
-                    )
-                    ->get()
-                    ->map(function ($auction) {
-                        return [
-                            $auction->auction_platform_name,
-                            $auction->car_count,
-                            $auction->end_date,
-                        ];
-                    });
-
-                return response()->json(['data' => $timeData]);
-            }
-    }
 
 
        public function lookbestauction(Request $request)

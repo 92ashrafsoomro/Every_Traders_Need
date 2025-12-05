@@ -89,6 +89,7 @@ class AuctionFinderController extends Controller
 
     public function auctionList(Request $request)
     {
+
         $perPage = (int) $request->input('length', 10);
         $page = (int) $request->input('page', 1);
         $offset = ($page - 1) * $perPage;
@@ -264,8 +265,6 @@ class AuctionFinderController extends Controller
         }
 
     
-
-
         // ==== PAGINATION ====
         $total = $query->count();
 
@@ -306,7 +305,7 @@ class AuctionFinderController extends Controller
                     'image3' => $images[2] ?? '',
                     'inspection_report' => $item->inspection_report,
                 ];
-            });
+        });
 
         return response()->json([
             'toDate' => $toDate,
@@ -332,10 +331,10 @@ class AuctionFinderController extends Controller
 
     }
 
+    
     public function getRelatedVehicle(Request $request, $id)
     {
 
-       
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
         $perPage = (int) $request->input('length', 10);
@@ -423,72 +422,7 @@ class AuctionFinderController extends Controller
         ]);
     }
 
-    public function getIntrest(Request $request)
-    {
-        $auctionId = $request->auction_id;
-        $platformId = $request->platform_id;
 
-        $interests = Interest::all();
-        $totalVehicles = Vehicle::where('auction_id', $auctionId)->count();
-
-        $result = [];
-
-        foreach ($interests as $interest) {
-            // Get all matching vehicles (with their auction)
-            $vehicles = Vehicle::with('auction')
-                ->where('auction_id', $auctionId)
-                ->when($interest->make_id, fn($q) => $q->where('make_id', $interest->make_id))
-                ->when($interest->model_id, fn($q) => $q->where('model_id', $interest->model_id))
-                ->when($interest->variant_id, fn($q) => $q->where('variant_id', $interest->variant_id))
-                ->when($interest->year_from, fn($q) => $q->where('year', '>=', $interest->year_from))
-                ->when($interest->year_to, fn($q) => $q->where('year', '<=', $interest->year_to))
-                ->when($interest->mileage_from, fn($q) => $q->where('mileage', '>=', $interest->mileage_from))
-                ->when($interest->mileage_to, fn($q) => $q->where('mileage', '<=', $interest->mileage_to))
-                ->when($interest->fuel_type, fn($q) => $q->where('fuel_type', $interest->fuel_type))
-                ->when($interest->transmission, fn($q) => $q->where('transmission', $interest->transmission))
-                ->when($interest->cc_from, fn($q) => $q->where('cc', '>=', $interest->cc_from))
-                ->when($interest->cc_to, fn($q) => $q->where('cc', '<=', $interest->cc_to))
-                ->when($interest->price_from, fn($q) => $q->where('buy_now_price', '>=', $interest->price_from))
-                ->when($interest->price_to, fn($q) => $q->where('buy_now_price', '<=', $interest->price_to))
-                ->get();
-
-            $interestVehicles = $vehicles->count();
-
-            // ✅ Auction date (from the first matching vehicle’s auction)
-            $auctionDate = optional($vehicles->first()?->auction)->auction_date;
-
-            if ($auctionDate) {
-                $today = date('Y-m-d');
-                $auctionDateFormatted = date('Y-m-d', strtotime($auctionDate));
-
-                if ($auctionDateFormatted < $today) {
-                    $status_data = 'previous';
-                } elseif ($auctionDateFormatted == $today) {
-                    $status_data = 'today';
-                } else {
-                    $status_data = $auctionDateFormatted; // upcoming date (e.g. 2025-10-18)
-                }
-            } else {
-                $status_data = null;
-            }
-
-            $result[] = [
-                'interest_name' => $interest->title,
-                'make_id' => $interest->make_id,
-                'model_id' => $interest->model_id,
-                'variant_id' => $interest->variant_id,
-                'platform_id' => $platformId ?? null,
-                'status_data' => $status_data,
-                'make_name' => optional($interest->make)->name,
-                'model_name' => optional($interest->model)->name,
-                'variant_name' => optional($interest->variant)->name,
-                'total_vehicles' => $totalVehicles,
-                'interest_vehicles' => $interestVehicles,
-            ];
-        }
-
-        return response()->json($result);
-    }
 
 
     public function reAuctionList(Request $request)
@@ -625,143 +559,6 @@ class AuctionFinderController extends Controller
 
 
   
-    public function userWatchList(Request $request)
-    {
-
-        $userId = $request->user()->id;
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
-
-        $baseQuery = RecentView::join('vehicles','vehicles.id','=','recent_views.vehicle_id')
-            ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
-            ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')
-            ->where('recent_views.user_id', $userId);
-
-            // Apply filters
-            if($request->has('make') && $request->make != '') {
-                $baseQuery->where('vehicles.make_id',$request->make);
-            }
-
-            if($request->has('model') && $request->model != '') {
-                $baseQuery->where('vehicles.model_id',$request->model);
-            }
-
-            if($request->has('year') && $request->year != '') {
-                $baseQuery->where('vehicles.year',$request->year);
-            }
-
-            if($request->has('reg_search') && $request->reg_search != '') {
-                $baseQuery->where('vehicles.reg', 'like', '%'.$request->reg_search.'%');
-            }
-
-
-            // ✅ Clone the query before using count()
-            $countQuery = (clone $baseQuery)->count(DB::raw('distinct recent_views.id'));
-            $data = $baseQuery->select([
-                        'vehicles.id', 
-                        'vehicles.title as vehicle', 
-                        'vehicles.year', 
-                        'vehicles.cc', 
-                        'vehicles.images as image',
-                        'vehicles.reg',
-                        'vehicles.mileage', 
-                        'vehicles.transmission', 
-                        'vehicles.auction_id', 
-                        'vehicles.last_bid',
-                        'vehicles.cap_clean',
-                        'vehicles.cap_below',
-                        'vehicles.cap_average',
-                        'vehicles.autotrader_retail_value',
-                        'auction_platform.name as platform_title'                        
-                ])
-                ->orderByDesc('recent_views.id')
-                ->skip($offset)
-                ->take($length)
-                ->get();
-
-            return response()->json([
-                'recordsTotal' => $countQuery,
-                'recordsFiltered' => $countQuery,
-                
-                'page' => $page,
-                'offset' => $offset,
-                'last_page' => ceil($countQuery / $length),
-                'data' => $data,
-            ]);
-
-    }
-
-
-    public function userAlertList(Request $request)
-    {
-
-        $userId = $request->user()->id;
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
-
-        $baseQuery = Notification::join('vehicles','vehicles.id','=','notifications.vehicle_id')
-            ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
-            ->where('notifications.user_id', $userId);
-
-            // Apply filters
-            if($request->has('make') && $request->make != '') {
-                $baseQuery->where('vehicles.make_id',$request->make);
-            }
-
-            if($request->has('model') && $request->model != '') {
-                $baseQuery->where('vehicles.model_id',$request->model);
-            }
-
-            if($request->has('year') && $request->year != '') {
-                $baseQuery->where('vehicles.year',$request->year);
-            }
-
-            if($request->has('reg_search') && $request->reg_search != '') {
-                $baseQuery->where('vehicles.reg', 'like', '%'.$request->reg_search.'%');
-            }
-
-            // ✅ Clone the query before using count()
-            $countQuery = (clone $baseQuery)->count(DB::raw('distinct notifications.id'));
-            $alerts = $baseQuery->select([
-                        'notifications.id as notification_id',
-                        'notifications.created_at as notified_at',
-                        
-                        'vehicles.id as vehicle_id',
-                        'vehicles.title as vehicle',
-                        'vehicles.year',
-                        'vehicles.cc',
-                        'vehicles.images as image',
-                        'vehicles.reg',
-                        'vehicles.mileage',
-                        'vehicles.transmission',
-                        'vehicles.auction_id',
-                        'vehicles.last_bid',
-                        'vehicles.cap_clean',
-                        'vehicles.cap_below',
-                        'vehicles.cap_average',
-                        'vehicles.autotrader_retail_value',
-
-                        'auctions.name as auction_name',
-                        'auctions.auction_date',
-                        'auctions.auction_type',
-                        'auctions.end_date',
-                ])
-                ->orderByDesc('notifications.id')
-                ->skip($offset)
-                ->take($length)
-                ->get();
-
-            return response()->json([
-                'recordsTotal' => $countQuery,
-                'recordsFiltered' => $countQuery,
-                'data' => $alerts,
-            ]);
-
-    }
-
-
       public function compareList(Request $request)
     {
         
@@ -1062,81 +859,6 @@ class AuctionFinderController extends Controller
         
 
 
-        //     $userId = auth()->id(); 
-        //     $today = Carbon::today();
-        //     $next7Days = Carbon::today()->addDays(6);
-
- 
-        //     $dailyAuctions = Auctions::whereBetween('auction_date', [$today, $next7Days])
-        //         ->select(
-        //             DB::raw('DATE(auction_date) as date'),
-        //             DB::raw('COUNT(*) as auctions_count')
-        //         )
-        //         ->groupBy(DB::raw('DATE(auction_date)'))
-        //         ->orderBy('date', 'asc')
-        //         ->get()
-        //         ->keyBy('date');
-
-       
-        //     $dailyVehicles = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-        //         ->whereBetween('auctions.auction_date', [$today, $next7Days])
-        //         ->select(
-        //             DB::raw('DATE(auctions.auction_date) as date'),
-        //             DB::raw('COUNT(vehicles.id) as vehicles_count')
-        //         )
-        //         ->groupBy(DB::raw('DATE(auctions.auction_date)'))
-        //         ->get()
-        //         ->keyBy('date');
-
-     
-        //     $interests = Interest::where('user_id', $userId)->get();
-
-    
-        //     $dailyInterestVehicles = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-        //         ->whereBetween('auctions.auction_date', [$today, $next7Days])
-        //         ->where(function ($q) use ($interests) {
-        //             foreach ($interests as $interest) {
-        //                 $q->orWhere(function ($sub) use ($interest) {
-        //                     $sub->where('vehicles.make_id', $interest->make_id)
-        //                         ->where('vehicles.model_id', $interest->model_id);
-
-        //                     if (!empty($interest->variant_id)) {
-        //                         $sub->where('vehicles.variant_id', $interest->variant_id);
-        //                     }
-        //                 });
-        //             }
-        //         })
-        //         ->select(
-        //             DB::raw('DATE(auctions.auction_date) as date'),
-        //             DB::raw('COUNT(vehicles.id) as interest_vehicles_count')
-        //         )
-        //         ->groupBy(DB::raw('DATE(auctions.auction_date)'))
-        //         ->get()
-        //         ->keyBy('date');
-
-   
-        //     $days = [];
-        //     for ($i = 0; $i < 7; $i++) {
-        //         $date = Carbon::today()->addDays($i);
-        //         $formattedDate = $date->format('Y-m-d');
-
-        //         $days[] = [
-        //             'label'     => $i === 0 ? 'Today' : $date->format('D'),
-        //             'date'      => $formattedDate,
-        //             'display'   => $date->format('d M'),
-        //             'auctions'  => $dailyAuctions[$formattedDate]->auctions_count ?? 0,
-        //             'vehicles'  => $dailyVehicles[$formattedDate]->vehicles_count ?? 0,
-        //             'interest'  => $dailyInterestVehicles[$formattedDate]->interest_vehicles_count ?? 0,
-        //         ];
-        //     }
-
-        // $platforms = AuctionPlatform::select('id', 'name')->get();
-        // $centers = AuctionCenter::select('id', 'name')->get();
-
-       
-
-
-        //   return view('user.auctionscheduler.index',compact('platforms', 'centers','days'));
     }
 
 

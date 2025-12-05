@@ -33,26 +33,32 @@
             <v-divider></v-divider>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="d-flex align-center ga-2 wrapper">
-                        <v-icon icon="mdi-account-outline text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">My Profile</p>
-                    </div>
+                    <router-link to="/user/settings/profile" class="text-decoration-none" >
+                        <div class="d-flex align-center ga-2 wrapper">
+                            <v-icon icon="mdi-account-outline text-light_text_on"></v-icon>
+                            <p class="text-light_text_on">My Profile</p>
+                        </div>
+                    </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="d-flex align-center ga-2">
-                        <v-icon icon="mdi-cog-outline text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">Settings</p>
-                    </div>
+                    <router-link to="/user/settings/security" class="text-decoration-none" >
+                        <div class="d-flex align-center ga-2">
+                            <v-icon icon="mdi-cog-outline text-light_text_on"></v-icon>
+                            <p class="text-light_text_on">Settings</p>
+                        </div>
+                    </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
-                    <div class="d-flex align-center ga-2 ">
-                        <v-icon icon="mdi-credit-card-outline text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">Billings</p>
-                    </div>
+                    <router-link to="/user/settings/billing" class="text-decoration-none" >
+                        <div class="d-flex align-center ga-2 ">
+                            <v-icon icon="mdi-credit-card-outline text-light_text_on"></v-icon>
+                            <p class="text-light_text_on">Billings</p>
+                        </div>
+                    </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>

@@ -36,8 +36,8 @@
               ></v-text-field>
 
               <v-textarea
-                label="Message *"
-                v-model="form.message"
+                label="description *"
+                v-model="form.description"
                 placeholder="I have a question about my subscription..."
                 variant="outlined"
                  bg-color="inputBg"
@@ -91,6 +91,9 @@
 </template>
 
 <script>
+import UserModel from '@/models/user.model';
+import api from '@/plugins/axios';
+
 export default {
   name: 'StaticContactPage',
 
@@ -105,21 +108,28 @@ export default {
     form:{
         name : "",
         email:"",
-        message : ""
+        description : ""
     }
   }),
   methods:{
     async formSubmit(){
         try {
-            let formResponse = ({
-                name : this.form.name,
-                email : this.form.email,
-                message : this.form.message
-            })
-            console.log(formResponse);
+            
+                        let formResponse = ({
+                            name : this.form.name,
+                            email : this.form.email,
+                            description : this.form.description
+                        })
+           let res = await UserModel.supportForm(formResponse);
+                           this.$alertStore.add('Form Submited Succesfully', 'success');
+                           this.form.name = "";
+                           this.form.email= "";
+                           this.description= "";
+          
             
         } catch (error) {
-            console.log("Somthing Went Wrong" , error)
+            this.$alertStore.add(error, 'error');
+            
         }
     }
   }

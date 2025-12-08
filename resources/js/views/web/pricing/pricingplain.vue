@@ -33,7 +33,7 @@
                             </div>
                            
                             </v-card-title>
-                             <v-btn color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
+                             <v-btn to="/checkout"  color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
 
                         </div>
                         <v-card-text class="text-start flex-grow-1">
@@ -62,7 +62,7 @@
                             </div>
                             </v-card-title>
                            
-                            <v-btn color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
+                            <v-btn to="/checkout" color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
 
                         </div>
                         <v-card-text class="text-start flex-grow-1">
@@ -100,7 +100,7 @@
                             </div>
                             </v-card-title>
                            
-                            <v-btn color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
+                            <v-btn to="/checkout" color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
 
                         </div>
 
@@ -143,7 +143,7 @@
                             </div>
                       
                             </v-card-title>
-                            <v-btn color="primary" bclass="" class="text-capitalize" width="200px">Get Started</v-btn>
+                            <v-btn to="/checkout" color="primary" bclass="" class="text-capitalize" width="200px">Get Started</v-btn>
                         </div>
                         <v-card-text class="text-start flex-grow-1">
                               <v-divider class="my-6 border-" ></v-divider>
@@ -185,7 +185,7 @@
                             </div>
                            
                             </v-card-title>
-                            <v-btn color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
+                            <v-btn to="/checkout" color="primary" class="text-capitalize " width="200px">Get Started</v-btn>
 
                         </div>
                         <v-card-text class="text-start flex-grow-1">

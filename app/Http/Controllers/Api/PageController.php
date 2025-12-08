@@ -24,66 +24,10 @@ use Illuminate\Support\Facades\Validator;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
-class NotificationController extends Controller
+class PageController extends Controller
 {
 
-       public function userNotification(Request $request)
-    { 
-
-        $perPage = (int) $request->input('length', 10);
-        $page = (int) $request->input('page', 1);
-        $offset = ($page - 1) * $perPage;
-        $id = $request->user()->id;
-
-        $query = UserNotificationAlert::query();
-
-        $total = (clone $query)->count();
-        $totalNew = (clone $query)->count();
-        $results = $query->select([
-                'user_notifications_alert.*'
-            ])
-            ->offset($offset)
-            ->limit($perPage)
-            
-            ->get()
-            ->map(function ($item) {
-
-                $item->ago =  $item->created_at->diffForHumans();
-
-            return $item;
-        });
-
-        return response()->json([
-            'offset' => $offset,
-            'total' => $total,
-            'totalNew' => $totalNew,
-            'per_page' => $perPage,
-            'current_page' => $page,
-            'last_page' => ceil($total / $perPage),
-            'data' => $results,
-        ]);
-
-    }
-
-    
-        public function markRead(Request $request,$id)
-    { 
-
-        $query = UserNotificationAlert::where('id',$id)->first();
-        if(!$query){
-            return response()->json(['message' => 'Record Not Found'],500);
-        }
-
-        $query->is_read = 1;
-        $query->save();
-
-        return response()->json([
-            'message' => 'Success',
-            'data' => $query
-        ],200);
-
-
-    }
+   
 
 
        public function userAlertList(Request $request)
@@ -220,10 +164,77 @@ class NotificationController extends Controller
                 'last_page' => ceil($countQuery / $length),
                 'data' => $data,
             ]);
+    }
+
+
+        public function plansList(Request $request)
+    {
+
+        $userId = $request->user()->id;
+        $length = $request->input('length', 50);
+        $page   = $request->input('page', 1);
+        $offset = ($page - 1) * $length;
+
+        $baseQuery = Plan::query();
+
+        // ✅ Clone the query before using count()
+        $countQuery = (clone $baseQuery)->count();
+        $data = $baseQuery->select([
+                    'membership_plans.*',                  
+            ])
+            ->skip($offset)
+            ->take($length)
+            ->get()
+            ->map(function($item){
+
+                $item->title = $item->plan_name.' - £'.$item->price.'/'.$item->duration_unit;
+
+             
+
+                return $item;
+            });
+
+        return response()->json([
+            'recordsTotal' => $countQuery,
+            'recordsFiltered' => $countQuery,
+            'page' => $page,
+            'offset' => $offset,
+            'last_page' => ceil($countQuery / $length),
+            'data' => $data,
+        ]);
 
     }
 
 
+
+        public function supportForm(Request $request)
+    {
+
+        $validator = Validator::make($request->all(),[
+         
+            'name' => 'required|min:3|string',
+            'email' => 'required|email|min:6',
+            'description' => 'required|max:1000',
+        ]);
+
+         if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+
+        return response()->json([
+            'message' => 'Record Submited successfully'
+        ], 200);
+
+    }
+
+
+    
+
+    
     
 
 

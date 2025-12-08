@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PageController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,14 +52,32 @@ Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 
 Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
-
+    
     Route::prefix('notifications')->group(function () {
 
         Route::get('/userNotification',[NotificationController::class,'userNotification']);
+        Route::get('/markRead/{id}',[NotificationController::class,'markRead']);
+
+        
         Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
         Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
         
     });
+
+    Route::prefix('page')->group(function () {
+
+        Route::get('/userWatchList',[PageController::class,'userWatchList']);
+        Route::get('/userAlertList',[PageController::class,'userAlertList']);
+        Route::get('/plansList',[PageController::class,'plansList']);
+
+        Route::post('/supportForm',[PageController::class,'supportForm']);
+        
+    });
+
+
+    Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
+    Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+
 
 
     // Dashboard
@@ -83,6 +102,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('interest')->group(function () {
          Route::get('/myInterest',[InterestController::class,'myInterest']);
     });
+
 
 });
 

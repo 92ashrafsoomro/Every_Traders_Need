@@ -1,17 +1,18 @@
 <template>
-<pricingplain/>
-<featureTable/>
+  <pricingplain/>
+  <featureTable/>
 </template>
 
 
 <script>
-import pricingplain from './pricingplain.vue';
-import featureTable from './featureTable.vue';
-export default {
-  components: {
-  name: 'pricing',
-  pricingplain,
-  featureTable
-}
+  import pricingplain from './pricingplain.vue';
+  import featureTable from './featureTable.vue';
+  
+  export default {
+      components: {
+        name: 'pricing',
+        pricingplain,
+        featureTable
+      }
   }
 </script>

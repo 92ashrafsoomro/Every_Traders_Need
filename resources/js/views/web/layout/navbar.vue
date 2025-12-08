@@ -15,17 +15,21 @@
 
             <!-- All nav items + buttons in single flex div -->
             <div class="d-none d-lg-flex flex-grow-1 justify-end   ">
-
-
-
-                <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link>
-                    <v-btn v-if="item.label == 'Get Started'" variant="outlined"
-                        class="border-thin text-capitalize bg-shadow hover:bg-primary">{{ item.label }}</v-btn>
-                    <router-link v-else :to="item.path" 
+                <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link>  
+                    <router-link  :to="item.path" 
                         class="text-capitalize text-body-2 bg-surface text-decoration-none">
                         {{ item.label }}
-                    </router-link>
+                    </router-link>                      
                 </v-list-item>
+
+                <v-list-item v-if="!userStore.user" to="/register" link>
+                    <v-btn variant="outlined" class="border-thin text-capitalize bg-shadow hover:bg-primary">Get Started</v-btn>
+                </v-list-item>
+
+                <v-list-item v-if="userStore.user" to="/user/dashboard" link>
+                    <v-btn variant="outlined" class="border-thin text-capitalize bg-shadow hover:bg-primary">Account</v-btn>
+                </v-list-item>
+                
             </div>
 
             <!-- Drawer (small screens) -->
@@ -47,11 +51,13 @@
 
 import logo from '@/assets/images/logo/logo.png'
 import navbarItem from "@/enums/WebHeaderMenu"
+import { useUserStore } from '@/stores/userStore';
 
 export default {
 
     data() {
         return {
+            userStore:useUserStore(),
             drawer: false,
             navMenu: navbarItem,
             logo: logo

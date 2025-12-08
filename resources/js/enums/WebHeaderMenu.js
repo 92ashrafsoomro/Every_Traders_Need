@@ -18,10 +18,6 @@ export default [
         path: "/support"
     },
     {
-        label: "Sign In",
-        path: "/login"
-    },
-    {
         label: "FAQs",
         path: "/faqs"
     },
@@ -36,10 +32,6 @@ export default [
     {
         label: "Disclaimer",
         path: "/disclaimer"
-    },
-    {
-        label: "Get Started",
-        path: "/register"
     },
    
 ];

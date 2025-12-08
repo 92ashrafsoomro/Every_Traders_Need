@@ -1,6 +1,6 @@
 <template>
-    <v-col cols="12" >
-        <CurrentPlan/>
+    <v-col cols="12" v-if="userStore?.user?.plans" >
+        <CurrentPlan  />
    
         <!-- <PaymentForm/> -->
     </v-col>
@@ -19,6 +19,7 @@ import CurrentPlan from './components/currentPlan.vue';
 // import pricePlan from './components/pricePlan.vue';
 // import PaymentForm from './components/PaymentForm.vue';
 import BillingHistory from './components/BillingHistory.vue';
+import { useUserStore } from '@/stores/userStore';
 
 
 export default {
@@ -30,7 +31,7 @@ export default {
     },
     data() {
         return {
-            
+            userStore:useUserStore
         };
     },
     computed: {

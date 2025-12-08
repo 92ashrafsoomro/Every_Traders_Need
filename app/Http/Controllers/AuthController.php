@@ -203,9 +203,9 @@ class AuthController extends Controller
     {
         $id = $request->input('plan_id');
 
-        if (Auth::check()) {
-            return redirect('/dashboard')->with('message', 'You are already logged in.');
-        }
+        // if (Auth::check()) {
+        //     return redirect('/dashboard')->with('message', 'You are already logged in.');
+        // }
 
         $plans = Plan::where('status', 1)->orderBy('sort_by')->get();
 

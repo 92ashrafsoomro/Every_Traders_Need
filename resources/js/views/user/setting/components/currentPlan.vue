@@ -1,12 +1,12 @@
 <template>
-    <v-card title="Current Plan" class="bg-surface">
+    <v-card title="Current Plan" class="bg-surface"  >
         <div class="border" ></div>
         <v-container>
             <div class="d-flex  flex-wrap justify-space-between">
 
                 <div class="py-3 px-3">
 
-                    <div class="d-flex align-center  rounded-lg px-5 mb-3 py-1" style="background-color: #504448;">
+                    <div class="d-flex align-center  rounded-lg px-5 mb-3 py-1" style="background-color: #504448;" >
                         <p class="px-1 py-1 rounded bg-warning">
                             <v-icon color="white" icon="mdi-alert" />
                         </p>
@@ -28,7 +28,7 @@
                             requires update</p>
                     </div>
 
-                    <div class="py-5 ">
+                    <div class="py-5">
                         <div class="mb-3">
                             <p class="text-body-1">Your Current Plan is "{{ userStore.user.plans.plan.plan_name }}"</p>
                             <p class="text-body-2" style="color:rgb(var(--v-theme-light))">For small dealers.</p>
@@ -95,7 +95,12 @@ export default {
         remainingDays() {
          
             const today = new Date();
-            const expiry = new Date(this.userStore.user.plans.membership_expiry_date);
+
+            const expiry = new Date(this.userStore.user.plans?.membership_expiry_date);
+
+            // const expiry = new Date(this.userStore.user.plans.membership_expiry_date);
+
+            
             const diffTime = expiry - today;
             return diffTime > 0 ? Math.ceil(diffTime / (1000 * 60 * 60 * 24)) : 0;
         },

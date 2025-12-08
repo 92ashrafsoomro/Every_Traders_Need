@@ -58,7 +58,8 @@ const vuetify = createVuetify({
                     surface: "#000E20",
                     shadow: "#353f4c",
                     light:"#b2c0ce",
-                    verticalLineBlue: "#0080ff"
+                    verticalLineBlue: "#0080ff",
+                    inputBg : "#021830"
                     
                     // lighthover: "#002145",
                     // secondary: "#000f21",

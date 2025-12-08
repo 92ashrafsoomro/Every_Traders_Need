@@ -1,4 +1,5 @@
 <template>
+
   <user-title-bar>
 
     <div class="d-flex flex-column flex-xs-row flex-md-row justify-space-between align-start pa-3">
@@ -36,7 +37,6 @@
       </div>
     </div>
   </user-title-bar>
-
 
   <v-container fluid class="">
 
@@ -89,10 +89,10 @@
             <div class="pt-3 text-body-1 text-light ">Inprogress Auctions</div>
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
-                <span style="color: #76778e;">Inprogress Auctions:  </span>
+                <span style="color: #76778e;">Inprogress Auctions: </span>
                 <span>{{ counter.inprogress_Auctions }}</span>
               </div>
-              
+
             </div>
 
 
@@ -143,7 +143,7 @@
                 <span style="color: #76778e;">Vehicles:</span>
                 <span>{{ counter.vehicleReauctions }}</span>
               </div>
-            
+
             </div>
 
 
@@ -158,31 +158,50 @@
 
     <v-row>
       <v-col cols="12" md="6">
+        <!-- Online Auction -->
         <v-card class="mb-5 border" title="Online Auction">
           <template v-slot:append>
             <div class="d-none d-sm-block">
-              <v-select v-model="onlinePlatform" :items="platforms" label="Select Platform" variant="outlined"
-                density="compact" max-width="200px" min-width="200px" hide-details class="" />
+              <v-select v-model="onlineAction.platformsId" :items="platforms" label="Select Platform" variant="outlined"
+                density="compact" max-width="200px" min-width="200px" hide-details />
             </div>
           </template>
+
           <div class="border-b"></div>
+
           <v-card-text>
-            <v-select v-model="onlinePlatform" :items="platforms" label="Select Platform" variant="outlined"
+            <v-select v-model="onlineAction.platformsId" :items="platforms" label="Select Platform" variant="outlined"
               density="compact" hide-details class="d-block d-sm-none mb-3" />
+
             <v-table density="comfortable">
               <thead>
                 <tr>
                   <th class="text-left">PLATFORM</th>
+                  <th>Type Of Action</th>
                   <th class="text-left">TOTAL AUCTION</th>
                   <th class="text-left">REMAINING</th>
                   <th class="text-left">LOTS</th>
                 </tr>
               </thead>
+
               <tbody>
-                <tr>
-                  <td colspan="4" class="text-center text-grey">
-                    No data available
+                <tr v-if="onlineAction.isLoadingOnline">
+                  <td colspan="5">
+                    <v-progress-linear color="primary" indeterminate />
                   </td>
+                </tr>
+
+                <tr v-else-if="onlineAction.data.length" v-for="item in onlineAction.data"
+                  :key="item.auction_platform_name">
+                  <td>{{ item.auction_platform_name }}</td>
+                  <td>{{ item.auction_type }}</td>
+                  <td>{{ item.car_count }}</td>
+                  <td>{{ item.remaining }}</td>
+                  <td>{{ item.lots }}</td>
+                </tr>
+
+                <tr v-else>
+                  <td colspan="5" class="text-center py-4 text-grey">No data found</td>
                 </tr>
               </tbody>
             </v-table>
@@ -190,17 +209,20 @@
         </v-card>
 
         <!-- Time Auction -->
-        <v-card title="Online Auction" class="">
+        <v-card title="Time Auction">
           <template v-slot:append>
             <div class="d-none d-sm-block">
-              <v-select v-model="onlinePlatform" :items="platforms" label="Select Platform" variant="outlined"
-                density="compact" max-width="200px" min-width="200px" hide-details class="" />
+              <v-select v-model="timeAutions.platformsId" :items="platforms" label="Select Platform" variant="outlined"
+                density="compact" max-width="200px" min-width="200px" hide-details />
             </div>
           </template>
+
           <div class="border-b"></div>
+
           <v-card-text>
-            <v-select v-model="onlinePlatform" :items="platforms" label="Select Platform" variant="outlined"
+            <v-select v-model="timeAutions.platformsId" :items="platforms" label="Select Platform" variant="outlined"
               density="compact" hide-details class="d-block d-sm-none mb-3" />
+
             <v-table density="comfortable">
               <thead>
                 <tr>
@@ -209,11 +231,23 @@
                   <th class="text-left">END TIME</th>
                 </tr>
               </thead>
+
               <tbody>
-                <tr>
-                  <td colspan="3" class="text-center text-grey">
-                    No data available
+                <tr v-if="timeAutions.isLoadingOnline">
+                  <td colspan="3">
+                    <v-progress-linear color="primary" indeterminate />
                   </td>
+                </tr>
+
+                <tr v-else-if="timeAutions.data.length" v-for="item in timeAutions.data"
+                  :key="item.auction_platform_name">
+                  <td>{{ item.auction_platform_name }}</td>
+                  <td>{{ item.totalVehicles }}</td>
+                  <td>{{ item.timeEnd }}</td>
+                </tr>
+
+                <tr v-else>
+                  <td colspan="3" class="text-center py-4 text-grey">No data found</td>
                 </tr>
               </tbody>
             </v-table>
@@ -221,42 +255,67 @@
         </v-card>
       </v-col>
 
-
       <!-- Right Column: Vehicle Statistics -->
       <v-col cols="12" md="6">
-
-        <v-card class="" title="Vehicle Statistics" subtitle="Today">
+        <v-card title="Vehicle Statistics" subtitle="Today">
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
             <v-container>
-
-
               <v-row class="mt-5">
                 <v-col cols="12">
                   <div class="text-h3 font-weight-bold">254</div>
                   <div class="text-body-2 text-light mb-6">Remaining</div>
                 </v-col>
               </v-row>
-              <v-row class="">
-                <v-col v-for="value in [1, 2, 3]" cols="12">
-                  <div class="d-flex align-center">
 
-                    <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                      <v-icon size="32" color="primary">mdi-circle</v-icon>
+              <v-row>
+                <v-col cols="12">
+
+                  <div v-if="vehicelState.isLoadingOnline" class="text-center py-5">
+                    <v-progress-circular indeterminate color="primary" />
+                  </div>
+
+                  <div v-else>
+                    <div class="d-flex align-center mb-3">
+                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                        <v-icon size="32" color="primary">mdi-circle</v-icon>
+                      </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">
+                          {{ vehicelState.inprogress_vehicles }}
+                        </div>
+                        <div class="text-h5 text-grey-lighten-1 ml-2">provisional</div>
+                      </div>
                     </div>
-                    <div class="pl-3">
-                      <div class="text-body-1 font-weight-bold">0</div>
-                      <div class="text-body-1 text-grey-lighten-1">Sold</div>
+
+                    <div class="d-flex align-center mb-3">
+                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                        <v-icon size="32" color="primary">mdi-circle</v-icon>
+                      </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
+                        <div class="text-h5 text-grey-lighten-1 ml-2">Sold</div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex align-center">
+                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                        <v-icon size="32" color="primary">mdi-circle</v-icon>
+                      </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
+                        <div class="text-h5 text-grey-lighten-1 ml-2">Not Sold</div>
+                      </div>
                     </div>
                   </div>
+
                 </v-col>
               </v-row>
-
             </v-container>
           </v-card-text>
         </v-card>
-
       </v-col>
     </v-row>
+
 
   </v-container>
 
@@ -274,53 +333,144 @@ export default {
       timePlatform: null,
       platforms: [],
 
-      counter:{
-        total_Auctions : 1,
-        liveAuctions:2,
+
+      counter: {
+        total_Auctions: 1,
+        liveAuctions: 2,
         timeAuctions: 3,
-        inprogress_Auctions : 4,
-        totalVehicles : 5 , 
-        vehicleReauctions : 6 
+        inprogress_Auctions: 4,
+        totalVehicles: 5,
+        vehicleReauctions: 6,
+        isLoadingOnline: false
+      },
+
+
+      onlineAction: {
+        data: [],
+        platformsId: null,
+        isLoadingOnline: false
+      },
+
+
+      timeAutions: {
+        data: [],
+        platformsId: null,
+        isLoadingOnline: false
+      },
+
+
+      vehicelState:
+      {
+        isLoadingOnline: false,
+        onsale_vehicles: 2,
+        provisional_vehicles: 3,
+        sold_vehicles: 5,
+        not_sold : 0,
       }
+
     }
   },
   computed: {
-    getCounter() {
+    // getCounter() {
 
-      return {
-        totalAuctions: {
-          title: 'Total Auctions',
-          live_auctions: '',
-          time_auctions: '',
-        },
-        inprogressAuctions: {
-          title: 'Inprogress Auctions',
-          vehicles: '',
-        },
-        totalVehicles: {
-          title: 'Total Vehicles',
-          sold: ''
-        },
-        vehicleinReauctions: {
-          title: 'Vehicle in reauctions',
-          vehicle: '',
-        }
-      }
-    }
+    //   return {
+    //     totalAuctions: {
+    //       title: 'Total Auctions',
+    //       live_auctions: '',
+    //       time_auctions: '',
+    //     },
+    //     inprogressAuctions: {
+    //       title: 'Inprogress Auctions',
+    //       vehicles: '',
+    //     },
+    //     totalVehicles: {
+    //       title: 'Total Vehicles',
+    //       sold: ''
+    //     },
+    //     vehicleinReauctions: {
+    //       title: 'Vehicle in reauctions',
+    //       vehicle: '',
+    //     }
+    //   }
+    // }
 
   },
+  methods: {
 
-  async mounted() {
-    try {
-      let data = await api.get("/api/user/dashboard/counters")
-      console.log(data.data);
-    } catch (error) {
-      alert(error.massage)
+    async getCountData() {
+      this.counter.isLoadingOnline = true;
+      try {
+
+        let res = await api.get("/api/user/dashboard/counters");
+        this.counter.total_Auctions = res.data.data.total_auctions;
+        this.counter.inprogress_Auctions = res.data.data.vehicles_in_progress_auctions;
+        this.counter.totalVehicles = res.data.data.total_vehicles;
+        this.counter.vehicleReauctions = res.data.data.vehicles_in_reauction
+        this.counter.isLoadingOnline = false;
+
+      } catch (error) {
+        this.counter.isLoadingOnline = false;
+        console.error(error.message, "counters Api error");
+      }
+    },
+
+
+
+    async getOnlineAction() {
+      this.onlineAction.isLoadingOnline = true;
+      try {
+        let res = await api.get("/api/user/dashboard/onlineAuctions");
+        this.onlineAction.data = res.data.data;
+        this.onlineAction.isLoadingOnline = false;
+      } catch (error) {
+        console.error(error.message, "onlineAuction Api error");
+        this.onlineAction.isLoadingOnline = false;
+      }
+    },
+
+
+    async getTimeAction() {
+      this.timeAutions.isLoadingOnline = true;
+      try {
+        let res = await api.get("/api/user/dashboard/timeAuctions");
+        this.timeAutions.data = res.data.data;
+        this.timeAutions.isLoadingOnline = false;
+      } catch (error) {
+        alert("Time Action Data not fetch", error)
+        this.timeAutions.isLoadingOnline = false;
+      }
+    },
+
+
+
+    async getVehicleStates() {
+      this.vehicelState.isLoadingOnline = true;
+      try {
+        let res = await api.get("/api/user/dashboard/vehicleStates");
+        this.vehicelState.inprogress_vehicles = res.data.data.inprogress_vehicles;
+        this.vehicelState.sold_vehicles = res.data.data.sold_vehicles
+
+
+        this.vehicelState.data = res.data.data;
+        this.vehicelState.isLoadingOnline = false;
+      } catch (error) {
+        console.error(error.message, "vehicleStates Api error");
+        this.timeAutions.isLoadingOnline = false
+      }
     }
+  },
+
+
+
+  mounted() {
+    this.getCountData();
+    this.getOnlineAction();
+    this.getVehicleStates();
   }
 
-
+  
 }
+
 </script>
 
 <style scoped>

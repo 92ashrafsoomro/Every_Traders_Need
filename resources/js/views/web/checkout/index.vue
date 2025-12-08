@@ -16,22 +16,21 @@
                                 class=" text-subtitle-1 text-white ">User Details</span>
                         </div>
 
-
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <v-text-field v-model="form.firstName" label="First Name" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" readonly />
+                                    density="comfortable"  readonly />
                             </v-col>
                             <v-col cols="12" sm="6">
                                 <v-text-field v-model="form.lastName" label="Last Name" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" readonly />
+                                    density="comfortable"  readonly />
                             </v-col>
                         </v-row>
 
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <v-text-field v-model="form.phone" label="Phone No" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" prepend-inner-icon="mdi-flag" readonly>
+                                    density="comfortable"  prepend-inner-icon="mdi-flag" readonly>
                                     <template #prepend-inner>
                                         <v-img src="https://flagcdn.com/16x12/gb.png" width="20" class="me-2"></v-img>
                                         <span class="text-white">+44</span>
@@ -77,7 +76,7 @@
 
                     <v-card-title class="text-h6 text-white mb-4">Order Summary</v-card-title>
                     <div class="border"></div>
-                    <div class="pt-5 mb-6">
+                    <!-- <div class="pt-5 mb-6">
                         <div class="d-flex justify-space-between align-center mb-3">
                             <span class="text-white">Your Plan</span>
                             <v-chip color="blue-lighten-1" label class="px-4">
@@ -85,9 +84,9 @@
                                 Free
                             </v-chip>
                         </div>
-                    </div>
-                    <div>
+                    </div> -->
 
+                    <div>
                         <div v-for="item in planList" :key="item.id">
                             <div v-if="item.id == selectedPlan">
                                 <div class="text-caption text-grey-lighten-1">
@@ -124,7 +123,7 @@
 
                         <div class="d-flex justify-space-between mt-4 text-h6">
                             <strong>Total</strong>
-                            <strong>£0.00</strong>
+                            <strong>£{{ currentPlan?.price }}</strong>
                         </div>
                     </div>
                 </v-card>

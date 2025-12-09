@@ -134,5 +134,16 @@ export default class UserModel {
 
     }
 
+   static async supportForm(options:any) {
+        
+        try {
+                const res = await api.post("/api/user/page/supportForm",options);
+                return res.data;
+            
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+    }
+
 
 }

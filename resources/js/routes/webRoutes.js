@@ -5,7 +5,7 @@ import About from '@/views/web/about/index.vue'
 import Pricing from '@/views/web/pricing/index.vue'
 import Support from '@/views/web/support/index.vue'
 import Checkout from '@/views/web/checkout/index.vue'
-
+import auctionsolutions from "@/views/web/auctionsolutions/index.vue"
 
 export default [
     {
@@ -38,7 +38,11 @@ export default [
                 component: Checkout,
                 meta:{requiresAuth:true}
             },
-
+            {
+                path : "auctionsolutions",
+                component : auctionsolutions
+            },
+            
             
             // {
             //     path : "feature",

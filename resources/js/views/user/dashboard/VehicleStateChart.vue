@@ -1,0 +1,106 @@
+<template>
+
+    <div style="width: 350px; height: 350px; position: relative;">
+
+      <Doughnut
+        :data="chartData"
+        :options="chartOptions"
+      />
+
+      <!-- Center label -->
+      <div class="center-text">
+        <div class="done-text">Done</div>
+        <div class="done-value">{{ doneValue }}</div>
+      </div>
+    </div>
+
+</template>
+
+<script>
+import { Doughnut } from "vue-chartjs";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend
+} from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+export default {
+  name: "CircleStats",
+  components: { Doughnut },
+  props:{
+    vehicelState:{
+      default:{}
+    }
+  },
+
+  data() {
+      return {
+        doneValue: 2,
+        totalSegments: 100, // total circular parts
+        completedSegments: 50,   // colored segments (blue)
+      };
+  },
+
+  computed: {
+      chartData() {
+
+          const colors = [];
+
+          for (let i = 0; i < this.totalSegments; i++) {
+            if (i < this.completedSegments) colors.push("#008CFF");
+            else colors.push("#3A3F47");
+          }
+
+          return {
+                labels: [],
+                datasets: [
+                              {
+                                data: new Array(this.totalSegments).fill(1), // equal segments
+                                backgroundColor: colors,
+                                borderWidth: 3,
+                                borderColor: "#0A101E",
+                                hoverBorderColor: "#0A101E",
+                                cutout: "70%",
+                                spacing: 4,
+                              }
+                          ]
+            };
+        },
+
+        chartOptions() {
+          return {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              tooltip: { enabled: false },
+              legend: { display: false }
+            }
+          };
+        }
+    }
+};
+</script>
+
+<style>
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.done-text {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.done-value {
+  font-size: 40px;
+  font-weight: bold;
+}
+</style>

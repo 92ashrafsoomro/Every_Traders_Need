@@ -113,6 +113,11 @@
     <v-row class="">
         <v-col cols="12" md="8">
             <TradeHistory/>
+
+            <v-card>
+
+                <Trade/>
+            </v-card>
         </v-col>
     </v-row>
 
@@ -122,10 +127,14 @@
 
 import { useVehicleStore } from '@/stores/vehicleStore';
 import TradeHistory from './TradeHistory.vue';
+import Trade from './Trade.vue';
+
+
 
 export default {
     components: {
         TradeHistory,
+        Trade
     },
     data(){
         return {

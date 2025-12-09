@@ -23,7 +23,7 @@ export default [
             },
             {
                 path : "about",
-                component : About
+                component: About,
             },
             {
                 path : "pricing",
@@ -35,7 +35,8 @@ export default [
             },
             {
                 path : "checkout",
-                component : Checkout
+                component: Checkout,
+                meta:{requiresAuth:true}
             },
 
             

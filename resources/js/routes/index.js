@@ -33,29 +33,43 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
 
+
     const auth = useUserStore()
     const alertStore = useAlertStore()
 
     //Auth Restriction
-    if (to.meta.requiresAuth) {
+ 
 
         try {
+            
             const res = await auth.getProfile();
+            console.log(res.user);
+            
             auth.user = res.user;
             auth.is_logged_in = true;
             //  alertStore.add('User Logged In','success')
-            next();
+            // next();
+
         } catch (error) {
             auth.user = {};
             auth.is_logged_in = false;
-            alertStore.add('Session Expired. Please Login Again.', 'warning')
+            // alertStore.add('Session Expired. Please Login Again.', 'warning')
             localStorage.removeItem('auth_token');
+            // next('/login');
+        }
+    
+    
+    if (to.meta.requiresAuth){
+        if (auth.is_logged_in) {
+            next()
+        }else{
             next('/login');
         }
 
     } else {
         next()
     }
+
 
 
 });

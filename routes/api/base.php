@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\StripeController;
+
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,6 +67,8 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
         
     });
 
+    
+
     Route::prefix('page')->group(function () {
 
         Route::get('/userWatchList',[PageController::class,'userWatchList']);
@@ -89,7 +94,6 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
     });
     
 
-
     Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
     Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
     Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
@@ -103,7 +107,15 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
          Route::get('/myInterest',[InterestController::class,'myInterest']);
     });
 
-
 });
+
+
+    Route::prefix('stripe')->group(function () {
+
+        
+        Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
+
+     
+    });
 
 

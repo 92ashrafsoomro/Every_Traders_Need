@@ -15,58 +15,87 @@
                             <span style="padding-right: 13px;padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
                                 class=" text-subtitle-1 text-white ">User Details</span>
                         </div>
-
+       
                         <v-row>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.firstName" label="First Name" variant="outlined"
-                                    density="comfortable"  readonly />
+                              <v-col cols="12" sm="6">
+                                <v-text-field 
+                                    v-model="form.firstName" 
+                                    label="First Name" 
+                                    variant="outlined"
+                                    density="comfortable"
+                                     />
                             </v-col>
                             <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.lastName" label="Last Name" variant="outlined"
-                                    density="comfortable"  readonly />
+                                <v-text-field 
+                                    v-model="form.phone" 
+                                    label="Phone" 
+                                    variant="outlined"
+                                    density="comfortable"  
+                                     />
+                            </v-col>
+                             <v-col cols="12" sm="6">
+                                <v-text-field 
+                                    v-model="form.email" 
+                                    label="Email" 
+                                    variant="outlined"
+                                    density="comfortable"  
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field 
+                                    v-model="form.country" 
+                                    label="Country" 
+                                    variant="outlined"
+                                    density="comfortable" 
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="4">
+                                <v-text-field 
+                                    v-model="form.townCity" 
+                                    label="City" 
+                                    variant="outlined" 
+                                    density="comfortable" 
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="4">
+                                <v-text-field 
+                                    v-model="form.postcode" 
+                                    label="Zip Code" 
+                                    variant="outlined"
+                                    density="comfortable" 
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="12">
+                                <v-text-field 
+                                    v-model="form.companyAddress1" 
+                                    label="Address" 
+                                    variant="outlined" 
+                                    density="comfortable"
+                                     />
                             </v-col>
                         </v-row>
 
-                        <v-row>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.phone" label="Phone No" variant="outlined"
-                                    density="comfortable"  prepend-inner-icon="mdi-flag" readonly>
-                                    <template #prepend-inner>
-                                        <v-img src="https://flagcdn.com/16x12/gb.png" width="20" class="me-2"></v-img>
-                                        <span class="text-white">+44</span>
-                                    </template>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.country" label="Country" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" readonly />
-                            </v-col>
-                        </v-row>
-
-                        <v-row>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.province" label="Province / State" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" readonly />
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.city" label="City" variant="outlined" density="comfortable"
-                                    color="blue-lighten-1" readonly />
-                            </v-col>
-                        </v-row>
-
-                        <v-row>
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="form.zipCode" label="Zip Code" variant="outlined"
-                                    density="comfortable" color="blue-lighten-1" />
-                            </v-col>
-                        </v-row>
-
-                        <v-text-field v-model="form.address" label="Address" variant="outlined" density="comfortable"
-                            color="blue-lighten-1" class="mt-4" />
-
-                        <v-btn color="primary" class="mt-8 text-white text-capitalize" @click="submit">
-                            Submit
-                        </v-btn>
+                        <div>
+                            <div class="pt-5 pb-8">
+                                <span style="padding-right: 13px;padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
+                                    class=" text-subtitle-1 text-white ">Card Details</span>
+                            </div>
+                            <div>
+                                <v-text-field
+                                    v-model="form.cardholderName"
+                                    label="Name on card"
+                                    variant="outlined"
+                                    density="comfortable"
+                                    />
+                            </div>
+                            <div class="pt-3" >
+                                <div id="card-element" class="my-4"></div>
+                                <div id="card-errors" class="text-red text-caption"></div>
+                            </div>
+                                    
+                        </div>
+                            
+                        <v-btn color="primary" class="mt-8 text-white text-capitalize" @click="submit">Submit</v-btn>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -136,29 +165,43 @@
 <script>
 import api from '@/plugins/axios';
 import { useUserStore } from '@/stores/userStore';
+import { loadStripe } from "@stripe/stripe-js";
+import { isEmpty } from 'lodash';
+
 
 
 export default {
     name: 'CheckoutPage',
     data() {
         return {
-            userStore:useUserStore,
+            userStore: useUserStore(),
+            stripe: null,
+            cardElement: null,
+            cardholderName: '',
+            processing: false,
+            loading:false,
             form: {
-                firstName: 'Owais',
-                lastName: 'Azam',
-                phone: '0312239342',
-                country: 'Pakistan',
-                province: 'Sindh',
-                city: 'karachi',
-                zipCode: '123',
-                address: 'Address'
+                firstName: '',
+                email: '',
+                phone: '',
+                country: '',
+                townCity: '',
+                postcode: '',
+                companyAddress1: '',
+                payment_method_id: '',
+                plan_id: '',
+                cardholderName:'',
             },
             selectedPlan: null,
             planList: [],
         }
     },
-    mounted() {
-        this.getPlans();
+    async mounted() {
+    
+       this.getPlans();
+       this.getAuth();
+       this.stripeLoad();
+             
     },
     computed: {
         oldPlan() {
@@ -169,18 +212,25 @@ export default {
         }
     },
     methods: {
-        submit() {
+       async stripeLoad() { 
 
-            console.log(this.oldPlan);
-            
-            
+            this.stripe = await loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+            const elements = this.stripe.elements();
+            this.cardElement = elements.create('card', {
+                style: {
+                    base:{
+                        color: '#fff',
+                        fontSize: '16px',
+                        '::placeholder': { color: '#aab7c4' },
+                    }
+                }
+            });
+            this.cardElement.mount('#card-element');
+        
         },
         getPlans() {
-
             try {
-
                 api.get('/api/user/page/plansList').then((res) => {
-                    console.log(res.data.data);
                     this.planList = res.data.data;
                 }).catch((error) => {
                     alert()
@@ -189,9 +239,64 @@ export default {
             } catch (error) {
                 alert('Something Went Wrong Contact To Admin.');
             }
+        },
+        getAuth() { 
 
-          
+            this.form.firstName = this.userStore.user?.firstName;
+            this.form.phone = this.userStore.user?.phone;
+            this.form.email = this.userStore.user?.personalEmail;
+            this.form.country = this.userStore.user?.country;
+            this.form.townCity = this.userStore.user?.townCity;
+            this.form.postcode = this.userStore.user?.postcode;
+            this.form.companyAddress1 = this.userStore.user?.companyAddress1;
+            this.form.cardholderName = this.userStore.user?.firstName;
+
+        },
+        async submit() {
+            this.loading = true;
+                
+            try {
+
+                console.log(this.selectedPlan);
+                
+                if(isEmpty(this.selectedPlan)) {
+                    this.$alertStore.add("Please Select Plan", "error");
+                    return false;
+                }
+
+                if (isEmpty(this.form.cardholderName)) {
+                    this.$alertStore.add("Please Add Cardholder Name", "error");
+                    return false;
+                }
+                
+                this.processing = true;
+
+                const { paymentMethod, error } = await this.stripe.createPaymentMethod({
+                    type: 'card',
+                    card: this.cardElement,       
+                    billing_details: { name: this.form.cardholderName },
+                });
+
+                if (error) {
+                    document.getElementById('card-errors').textContent = error.message;
+                    this.processing = false;
+                    return;
+                }
+
+                this.form.payment_method_id = paymentMethod.id;
+                const res = await api.post('/api/stripe/createPaymentIntent',form);
+                alert('Payment successful!');
+                this.processing = false;
+                this.loading = false;
+
+            } catch (error) {
+                this.loading = false;
+                alert(error)
+            }
+
         }
+
+
     },
 
 }

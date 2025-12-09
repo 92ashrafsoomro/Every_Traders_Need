@@ -110,7 +110,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 });
 
 
-    Route::prefix('stripe')->group(function () {
+    Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
 
         
         Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);

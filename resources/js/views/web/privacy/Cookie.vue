@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-16 " max-width="1300px">
+    <v-container fluid class="" max-width="1500px">
 
         <div class="mt-16 mx-auto content d-flex w-100 ga-12">
 
@@ -7,9 +7,9 @@
                <Sidebar/>
             </div>
 
-            <div class="flex-grow-1">
+            <div class="flex-grow-1 mt-10">
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mb-10">Cookie Policy</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mb-10">Cookie Policy</h1>
                     <p class="my-5 text-body-1">Your privacy is extremely important to us. To better protect you, we
                         provide
                         this notice explaining our online information practices and the choices you can make about

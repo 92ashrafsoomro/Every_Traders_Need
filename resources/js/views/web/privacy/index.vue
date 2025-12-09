@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-16 " max-width="1300px">
+    <v-container fluid  max-width="1500px">
 
         <div class="mt-16 mx-auto content d-flex w-100 ga-12">
             <div class="d-none d-md-block position-sticky"
@@ -8,9 +8,9 @@
             </div>
 
 
-            <div class="flex-grow-1">
+            <div class="flex-grow-1 mt-10">
                 <div>
-                    <h1 class="text-h3 text-md-h2 text-md-h2 font-weight-bold mb-10">Privacy Policy</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 text-md-h2 font-weight-bold mb-10">Privacy Policy</h1>
                     <p class="mb-5">Effective as of: July 3, 2025</p>
                     <p class="my-5 text-body-1">Your privacy is extremely important to us. To better protect you, we
                         provide
@@ -32,7 +32,7 @@
                 </div>
 
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Scope of this Privacy Policy</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Scope of this Privacy Policy</h1>
                     <p class="my-5 text-body-1">Please be aware that this Privacy Policy does not govern all the
                         information
                         ClickUp may process. Our commitment to customers and service providers is governed by a separate
@@ -52,7 +52,7 @@
                 </div>
 
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">What Information do we Collect?</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">What Information do we Collect?</h1>
                     <p class="my-5 text-body-1">You will be required to establish an account in order to take advantage
                         of
                         certain features of the ClickUp Service. If you wish to establish an account you will be
@@ -68,7 +68,7 @@
                         personally identifiable information and non-personally identifiable information.</p>
                 </div>
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Personally Identifiable Information</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Personally Identifiable Information</h1>
                     <p class="my-5 text-body-1">Personally identifiable information identifies you or can be used to
                         identify or contact you. Examples of personally identifiable information may include your name,
                         IP
@@ -80,7 +80,7 @@
                 </div>
 
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Non-Personally Identifiable Information
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Non-Personally Identifiable Information
                     </h1>
                     <p class="my-5 text-body-1">Non-personally identifiable information is information, any single item
                         of
@@ -100,7 +100,7 @@
                         preferences).</p>
                 </div>
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Why do we Need your Personal Data?</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Why do we Need your Personal Data?</h1>
                     <p class="my-5 text-body-1">We do not sell any data, including your personal data. We will only
                         collect
                         and process your personal data in accordance with applicable data protection and privacy laws.
@@ -116,7 +116,7 @@
                         at any time.</p>
                 </div>
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Information we collect automatically
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Information we collect automatically
                         when you use
                         the
                         Services:</h1>

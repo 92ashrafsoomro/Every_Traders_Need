@@ -29,7 +29,7 @@
 
                 <div class="d-flex flex-wrap align-center mt-lg-0 mt-md-0 mb-lg-0 mb-md-0 mt-10 mb-2">
                     <h4 class="font-weight-bold mr-4 d-lg-inline d-block">Privacy : </h4>
-                    <v-btn v-for="(item, index) in footerData" :key="index" :to="item.path" text class="mr-1 text-body-2">
+                    <v-btn v-for="(item, index) in footerData" :key="index" :to="item.path" text class="mr-1 text-body-2" variant="text">
                         {{ item.label }}
                     </v-btn>
 

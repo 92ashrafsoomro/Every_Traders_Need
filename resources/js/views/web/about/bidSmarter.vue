@@ -2,7 +2,7 @@
   <section class="bg-surface py-20 overflow-hidden relative pa-14 min-vh-100">
     <v-container class="relative z-10">
       <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-h3 text-md-h2 font-weight-bold text-white mb-6">
+        <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white mb-6">
           {{ bidSmarterData.title }}
         </h1>
         <div class=" d-flex justify-center">

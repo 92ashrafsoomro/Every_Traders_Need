@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-16 " max-width="1300px">
+    <v-container fluid  max-width="1500px">
 
         <div class="mt-16 mx-auto content d-flex w-100 ga-12">
 
@@ -7,9 +7,9 @@
                 <sidebar/>
             </div>
 
-            <div class="flex-grow-1">
+            <div class="flex-grow-1 mt-10">
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mb-10">FAQ's</h1>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mb-10">FAQ's</h1>
                     <p class="mb-5">Effective as of: July 3, 2025</p>
                     <p class="my-5 text-body-1">Your privacy is extremely important to us. To better protect you, we
                         provide
@@ -31,7 +31,7 @@
                 </div>
 
                 <div>
-                    <h1 class="text-h3 text-md-h2 font-weight-bold mt-12 mb-10">Information we collect automatically when you use
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Information we collect automatically when you use
                         the
                         Services:</h1>
                     <p class="my-5 text-body-1">We collect information about you when you use our Services, such as

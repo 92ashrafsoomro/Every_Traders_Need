@@ -1,17 +1,31 @@
 <template>
+  <div style=" margin-top: 30px; ">
+      <v-row class="mt-6  " align="center" justify="center" no-gutters>
+        <v-col cols="2" sm="6" md="3" lg="2" class="text-center">
+          <img :src="zoom" class="logo-item" />
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3" lg="2" class="text-center">
+          <img :src="microsoft" class="logo-item" />
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3" lg="2" class="text-center">
+          <img :src="teamviewer" class="logo-item" />
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3" lg="2" class="text-center">
+          <img :src="google" class="logo-item" />
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3" lg="2" class="text-center">
+          <img :src="slack" class="logo-item" />
+        </v-col>
+      </v-row>
+
+    </div>
   <div style="max-width: 1600px;" class="mx-auto">
     <!-- Top Logos Section -->
-    <v-row class="justify-center " style=" margin-top: 10px; ">
-      <v-col cols="12" class="text-center">
-        <div class="logo-container">
-          <img :src="zoom" alt="Zoom" class="logo-item" />
-          <img :src="microsoft" alt="Microsoft" class="logo-item" />
-          <img :src="teamviewer" alt="TeamViewer" class="logo-item" />
-          <img :src="google" alt="Google" class="logo-item" />
-          <img :src="slack" alt="Slack" class="logo-item" />
-        </div>
-      </v-col>
-    </v-row>
+    
 
 
     <!-- Vision Section (baki same) -->
@@ -84,7 +98,7 @@ export default {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  gap: 7rem;
+  gap: 10rem;
   overflow-x: auto;
   padding: 1rem 0;
   scrollbar-width: none;

@@ -5,11 +5,13 @@ import About from '@/views/web/about/index.vue'
 import Pricing from '@/views/web/pricing/index.vue'
 import Support from '@/views/web/support/index.vue'
 import Checkout from '@/views/web/checkout/index.vue'
+
+import auctionsolutions from "@/views/web/auctionsolutions/index.vue"
 import privacy from '@/views/web/privacy/index.vue'
 import cookie from '@views/web/privacy/Cookie.vue'
 import terms  from '@/views/web/privacy/Terms.vue'
-import disclaimer from '@/views/web/privacy/disclaimer.vue'
-import faq from '@/views/web/privacy/faq.vue'
+import disclaimer from '@/views/web/privacy/Disclaimer.vue'
+import faq from '@/views/web/privacy/Faq.vue'
 
 
 
@@ -45,7 +47,11 @@ export default [
                 meta:{requiresAuth:true}
             },
             {
-                path : "privacy",
+                path : "auctionsolutions",
+                component : auctionsolutions
+            },
+            {
+                path:"privacy",
                 component : privacy
             },
             {
@@ -64,12 +70,6 @@ export default [
                 path : "faqs",
                 component : faq
             }
-
-            
-            // {
-            //     path : "feature",
-            //     component : Features
-            // }
         ],
     },
 ]

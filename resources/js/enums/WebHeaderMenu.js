@@ -12,26 +12,9 @@ export default [
         label: "Pricing",
         path: "/pricing"
     },
-     
     {
-        label: "Support",
-        path: "/support"
-    },
-    {
-        label: "FAQs",
-        path: "/faqs"
-    },
-    {
-        label: "Privacy",
-        path: "/privacy"
-    },
-    {
-        label: "Terms",
-        path: "/terms"
-    },
-    {
-        label: "Disclaimer",
-        path: "/disclaimer"
-    },
-   
+        label: "Auction Solutions",
+        path: "/auctionsolutions"
+    }
+    
 ];

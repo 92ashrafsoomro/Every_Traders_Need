@@ -19,7 +19,7 @@
   elevation="12"
    style="width:400px;"
 >
-  <span class="d-flex align-center justify-center">
+  <span class="d-flex align-center justify-center text-capitalize">
     Get started. It's FREE
     <v-icon class="ml-3" size="large">mdi-arrow-right</v-icon>
   </span>

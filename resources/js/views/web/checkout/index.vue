@@ -253,18 +253,20 @@ export default {
 
         },
         async submit() {
+
+            console.log(this.selectedPlan);
+            
             this.loading = true;
                 
             try {
 
-                console.log(this.selectedPlan);
-                
-                if(isEmpty(this.selectedPlan)) {
+            
+                if(!this.selectedPlan) {
                     this.$alertStore.add("Please Select Plan", "error");
                     return false;
                 }
 
-                if (isEmpty(this.form.cardholderName)) {
+                if (!this.form.cardholderName) {
                     this.$alertStore.add("Please Add Cardholder Name", "error");
                     return false;
                 }

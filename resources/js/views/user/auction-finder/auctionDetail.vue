@@ -5,7 +5,7 @@
             @update:options="auctionStore.getAuctionList">
             <template #item.make_name="{ item }">
                 <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{ item.model_name
-                }}
+                    }}
                     {{ item.variant_name }}</v-btn>
 
             </template>
@@ -28,21 +28,27 @@
                 </v-btn>
             </template>
 
-        <template #expanded-row="{ columns, item }">
-  <tr>
-    <td colspan="1">
-      <img :src="item.image1" alt="" style="max-width:80px;">
-      <img :src="item.image2" alt="" style="max-width:80px;">
-      <img :src="item.image3" alt="" style="max-width:80px;">
-    </td>
-    <td colspan="5">
-      <v-checkbox :label="item.color || 'Color'"></v-checkbox>
-    </td>
-    <td colspan="2">
-      <v-btn variant="flat" color="primary" ><a :href="item.inspection_report" target="_blank" class="text-capitalize text-white" style="text-decoration: none;">View Report</a></v-btn>
-    </td>
-  </tr>
-</template>
+            <template #expanded-row="{ columns, item }">
+                <tr>
+
+                    <td colspan="1"class="d-flex ga-2" style="height:70px; ">
+                        <div v-for="(img, index) in item.images" :key="index" style="margin-top: 15px;"     >
+                             <img :src="img" alt="vehicle" width="40" height="40" style="object-fit: cover;"  />
+                        </div>
+                       
+                    </td>
+
+
+                    <td colspan="5">
+                        <v-checkbox :label="item.color || 'Color'"></v-checkbox>
+                    </td>
+                    <td colspan="2" style="margin-left: 10px;">
+                        <v-btn variant="flat" color="primary"><a :href="item.inspection_report" target="_blank"
+                                class="text-capitalize text-white" style="text-decoration: none;">View
+                                Report</a></v-btn>
+                    </td>
+                </tr>
+            </template>
 
 
 

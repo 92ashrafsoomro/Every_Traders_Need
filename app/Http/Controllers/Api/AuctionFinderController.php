@@ -300,6 +300,7 @@ class AuctionFinderController extends Controller
                     'autotrader_retail_value' => $item->autotrader_retail_value ?? '',
                     'autotrader_trade_value' => $item->autotrader_trade_value ?? '',
                     'auto_boli' => 0,
+                    'images' => $images,
                     'image1' => $images[0] ?? '',
                     'image2' => $images[1] ?? '',
                     'image3' => $images[2] ?? '',

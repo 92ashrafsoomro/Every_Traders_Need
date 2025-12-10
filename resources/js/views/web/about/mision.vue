@@ -45,7 +45,7 @@
 
 <script>
 import missionData from '@/json/mision.json'
-import rightImage from '@/assets/images/tabs/missionleft.png'
+import rightImage from '@/assets/images/tabs/mission.png'
 export default {
     name: 'MissionSection',
     data() {
@@ -60,6 +60,10 @@ export default {
 
 <style scoped>
 /* Float animations can be kept if needed */
+
+.missionImage {
+    width: 100%;
+    }
 @media (max-width: 960px) {
 
     /* Big White Card */

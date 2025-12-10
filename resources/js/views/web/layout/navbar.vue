@@ -8,7 +8,7 @@
                 <!-- Logo -->
                 <div class="d-flex align-center">
                     <v-list-item>
-                        <img :src="logo" height="30px" />
+                        <router-link to="/"> <img :src="logo" height="30px" /></router-link>
                     </v-list-item>
                 </div>
 

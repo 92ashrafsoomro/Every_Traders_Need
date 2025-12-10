@@ -1,5 +1,4 @@
 <template>
-
     <v-container>
         <v-card title="Create BodyType">
             <div class="border"></div>
@@ -19,11 +18,8 @@
                 <v-btn variant="tonal" type="submit" color="primary">Save</v-btn>
             </v-card-actions>
         </v-card>
-
     </v-container>
-
 </template>
-
 <script>
 import fields from "./fields.js";
 import DynmaicInput from "./DynmaicInput.vue";

@@ -8,14 +8,18 @@
                         <DynmaicInput 
                             :field="field.type" 
                             :label="field.label" 
-                            :items="field.options" 
-                            item-text="label" 
-                            item-value="value" />
+                            :items="field.options"
+                            variant="outlined" 
+                            item-title="label" 
+                            item-value="value"
+                            :model-value="form[field.key]"
+                            @update:model-value="handleValue($event,field.key)"
+                            :return-object="false" />
                     </v-col>
                 </v-row>
             </v-card-text>
             <v-card-actions>
-                <v-btn variant="tonal" type="submit" color="primary">Save</v-btn>
+                <v-btn variant="tonal" @click="submitForm" type="submit" color="primary">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
@@ -31,22 +35,34 @@ export default {
     components: {
     DynmaicInput
   },
-
   data() {
     return {
-      fields,
-      form: { ...this.modelValue }, // local copy
+      fields:fields,
+      form: {},
     };
+    },
+  mounted() {
+
+      fields.map(item => {
+          this.form[item.key] = '';
+      });
+ 
   },
 
   methods: {
     handleFile(event, key) {
       this.form[key] = event.target.files[0];
-    },
+      },
+      handleValue(value,key) {
 
+          
+          this.form[key] = value;
+        
+    },
     submitForm() {
-      this.$emit("update:modelValue", this.form); // send back updated form
-      this.$emit("submit");
+
+        console.log(this.form);
+        
     }
   }
 };

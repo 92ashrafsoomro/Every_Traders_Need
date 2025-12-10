@@ -1,32 +1,28 @@
 <!-- MissionSection.vue -->
 <template>
-    <section class="bg-surface ">
-        <v-container fluid max-width="1400px" class="px-0 py-16 py-md-20">
+    <section class="bg-primary ">
+        <v-container style="height: 800px;" fluid max-width="1400px"
+            class="d-flex justify-content-center align-content-center px-16 py-md-20">
             <v-row no-gutters="" align="center">
 
                 <!-- LEFT: Text Content -->
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 class="text-h3  text-white mb-8">
+                        <h2 style="" class="text-h2 font-weight-bold  text-white mb-8">
                             {{ data.title }}
                         </h2>
 
-                        <div class="">
-
-
-                            <div style="border-left: 6px solid white;">
-                                <p class="text-body-1 text-grey-lighten-1 mb-10 opacity-90 ml-4 ">
+                        <div>
+                            <div>
+                                <p class="text-h6 mb-6 opacity-90 mr-6 ">
                                     {{ data.highlight }} </p>
                             </div>
 
 
-                            <p class="text-body-1 text-grey-lighten-1 mb-10 mr-10 opacity-90 ">
+                            <p class="text-h6 mb-10 mr-6 opacity-90 ">
                                 {{ data.description }}
                             </p>
 
-                            <v-btn variant="tonal" size="large" class="px-8 text-capitalize bg-white">
-                                {{ data.buttonText }}
-                            </v-btn>
                         </div>
                     </div>
                 </v-col>
@@ -34,7 +30,7 @@
 
                 <v-col cols="12" lg="6">
 
-                    <img :src="rightImage" alt="" class="missionImage mt-10">
+                    <img :src="rightImage" alt="" class="missionImage">
 
                 </v-col>
 
@@ -45,7 +41,7 @@
 
 <script>
 import missionData from '@/json/mision.json'
-import rightImage from '@/assets/images/tabs/missionleft.png'
+import rightImage from '@/assets/images/tabs/mission.png'
 export default {
     name: 'MissionSection',
     data() {
@@ -57,20 +53,34 @@ export default {
 }
 </script>
 
-
 <style scoped>
-/* Float animations can be kept if needed */
-@media (max-width: 960px) {
-
-    /* Big White Card */
-
+.missionImage {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
-@media (max-width : 600px) {
+.missionImage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 128, 255, 0.3);
+}
 
+/* Tablet */
+@media (max-width: 960px) {
     .missionImage {
-        width: 300px;
+        max-width: 420px;
     }
+}
 
+/* Mobile */
+@media (max-width: 600px) {
+    .missionImage {
+        max-width: 320px;
+    }
 }
 </style>

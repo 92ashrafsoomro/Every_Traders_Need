@@ -3,7 +3,7 @@
         <v-card title="Recent Devices" class="">
             <div class="border"></div>
 
-            <v-data-table-server class="pb-3" :headers="headers" :items="data" :items-length="data.length"
+            <v-data-table-server class="pb-3" :headers="headers" :items="data" :items-length="total"
                 item-value="id">
                 <template #item.platform="{ item }">
                     <p>
@@ -32,34 +32,42 @@
 
 
 <script>
+
+import api from '@plugins/axios'
+
 export default {
     data() {
         return {
+
             loading: false,
-            data: [
-                {
-                    platform: 'Windows',
-                    browser: 'Chrome',
-                    device: 'Desktop',
-                    location: 'Not found',
-                    recent_activities: '21, November 2025 11:35'
-                },
-                {
-                    platform: 'Windows',
-                    browser: 'Chrome',
-                    device: 'Desktop',
-                    location: 'Not found',
-                    recent_activities: '21, November 2025 11:35'
-                }
-            ],
+            data: [],
             headers: [
-                { title: "Platform", key: "platform", sortable: false },
+                { title: "Platform", value: "platform", sortable: false },
                 { title: "Browser", value: "browser" },
                 { title: "Device", value: "device" },
                 { title: "Location", value: "location" },
                 { title: "Date", key: "created_at", sortable: false },
             ],
+            total : 0,
         };
+    },
+
+    methods:{
+        async getRecentdevices() {
+                try {
+                    let res = await api.get("/api/user/profile/userDevices");
+                    this.data = res.data.data;
+                    this.total = res.data.total;
+                } catch (err) {
+                    console.log(err.message);
+                }
+        }
+    },
+
+    mounted(){
+        this.getRecentdevices();
+
     }
+    
 }
 </script>

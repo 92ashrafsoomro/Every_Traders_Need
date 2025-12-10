@@ -145,5 +145,16 @@ export default class UserModel {
             }
     }
 
+    static async userDevices(options:any) {
+        
+        try {
+                const res = await api.get("/api/user/profile/userDevices",options);
+                return res.data;
+            
+            } catch (error) {
+                throw await errorHandler(error);
+            }
+    }
+
 
 }

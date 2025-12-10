@@ -1,12 +1,13 @@
 <template>
-    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 80px; position: fixed; z-index: 10;">
-        <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 80px; max-width: 1500px;">
+    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 60px; position: fixed; z-index: 10;">
+
+        <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 60px; max-width: 1500px;">
 
             <!-- NAV -->
             <nav class="d-flex align-center justify-space-between w-100">
 
                 <!-- Logo -->
-                <div class="d-flex align-center">
+                <div class="d-flex align-center ">
                     <v-list-item>
                         <router-link to="/"> <img :src="logo" height="30px" /></router-link>
                     </v-list-item>
@@ -14,8 +15,8 @@
 
                 <!-- NAV MENU (Desktop) -->
                 <div class="d-none d-lg-flex align-center">
-                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link class="mx-3">
-                        <v-list-item-title class="text-capitalize text-body-2">
+                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link class="m-item mx-3">
+                        <v-list-item-title class="nav-menu-links text-capitalize text-body-3">
                             {{ item.label }}
                         </v-list-item-title>
                     </v-list-item>
@@ -24,7 +25,7 @@
                 <!-- RIGHT BUTTONS -->
                 <div class="d-flex align-center">
                     <!-- Theme Toggle -->
-                    <v-list-item  class="pa-2">
+                    <v-list-item class="pa-2">
                         <v-icon @click="toggleTheme" link :color="'primary'">
                             {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
                         </v-icon>
@@ -110,5 +111,33 @@ export default {
 <style scoped>
 .navbar {
     z-index: 10;
+
+}
+
+.nav-menu-links {
+
+    font-size: 16px;
+    color: #6b7280;
+    background-color: transparent !important;
+    font-weight: 500;
+
+}
+
+.m-item:hover {
+    background-color: transparent !important;
+    color: white;
+    border-bottom: 2px solid #0080ff;
+}
+.m-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.m-item:hover .nav-menu-links {
+    color: white;
+}
+
+.v-list-item {
+    --v-theme-overlay-multiplier: 0 !important;
 }
 </style>

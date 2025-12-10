@@ -7,7 +7,7 @@
             <nav class="d-flex align-center justify-space-between w-100">
 
                 <!-- Logo -->
-                <div class="d-flex align-center">
+                <div class="d-flex align-center ">
                     <v-list-item>
                         <img :src="logo" height="30px" />
                     </v-list-item>
@@ -109,22 +109,28 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar {
     z-index: 10;
+
 }
+
 .nav-menu-links {
-    
+
     font-size: 16px;
     color: #6b7280;
     background-color: transparent !important;
     font-weight: 500;
-    
+
 }
+
 .m-item:hover {
     background-color: transparent !important;
     color: white;
-    border-bottom: 1px solid #0080ff;
+    border-bottom: 2px solid #0080ff;
+}
+.m-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .m-item:hover .nav-menu-links {

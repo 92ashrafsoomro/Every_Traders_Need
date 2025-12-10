@@ -9,8 +9,9 @@
   >
     <v-container style=" max-width:1400px;  max-height: 403px;" class="mt-14">
 
-      <div style="max-width: 1000px; margin-top: 20px;"><!-- small text responsive -->
-      <span class="font-weight-medium text-black text-subtitle-2 text-sm-subtitle-1">
+      <div style="max-width: 1000px; margin-top: 20px;">
+        <!-- small text responsive -->
+      <span class="text-h6 ">
         About Us
       </span>
 

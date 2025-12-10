@@ -82,9 +82,6 @@ export default {
 
     },
     mounted() {
-
-        this.data = this.userStore.user.userDevices;
-
     },
     methods: {
    

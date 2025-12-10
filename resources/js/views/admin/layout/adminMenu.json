@@ -1,0 +1,50 @@
+[
+        {
+            "label": "Menu",
+            "type": "group"
+        },
+        {
+            "icon": "mdi-view-dashboard-outline",
+            "label": "Dashboard",
+            "path": "/user/dashboard"
+            
+        },
+        {
+            "icon": "mdi-car-search-outline",
+            "label": "Master",
+            "path": "/user/auction-finder"
+        },
+       
+        {
+            "icon": "mdi-history",
+            "label": "Data Management",
+            "path": "/user/watchlist"
+        },
+        {
+            "icon": "mdi-calendar-sync-outline",
+            "label": "Staff Penal",
+            "path": "/user/reauction"
+        },
+       
+        {
+            "icon": "mdi-calendar-check-outline",
+            "label": "Support & Tickets",
+            "path": "/user/auctionscheduler"
+        },
+        {
+            "label": "Content Management",
+            "icon": "group",
+            "path": "/user/auctionscheduler"
+        },
+       
+        {
+            "icon": "mdi-account-outline",
+            "label": "Members & Plans",
+            "path": "/user/profile"
+        },
+        {
+            "icon": "mdi-cog-outline",
+            "label": "Notifications",
+            "path": "/user/settings/profile"
+        }
+]

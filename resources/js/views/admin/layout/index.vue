@@ -1,6 +1,6 @@
 <template>
        <v-app>
-        <Sidebar />
+        <adminSideBar />
         <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
            
@@ -55,18 +55,17 @@
 </template>
 
 <script>
-import Sidebar from "@/views/user/layout/Sidebar.vue";
+import adminSideBar from "./adminSideBar.vue";
 import ProfileDropdown from "@/views/user/layout/ProfileDropdown.vue";
 import Notificationdropdown from "@/views/user/layout/Notificationdropdown.vue";
 
 import { mdiFullscreen } from "@mdi/js";
-import { getMenu } from "@services/menuService";
 import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "@/views/user/layout/ThemeDropdown.vue";
 export default {
     name: "App",
     components: {
-        Sidebar,
+        adminSideBar,
         ProfileDropdown,
         Notificationdropdown,
         ThemeDropdown,
@@ -75,7 +74,6 @@ export default {
     data() {
         return {
             drawer: true,
-            menus: getMenu(),
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,

@@ -58,9 +58,7 @@
 import Sidebar from "./Sidebar.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
-
 import { mdiFullscreen } from "@mdi/js";
-import { getMenu } from "@services/menuService";
 import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "./ThemeDropdown.vue";
 
@@ -76,7 +74,6 @@ export default {
     data() {
         return {
             drawer: true,
-            menus: getMenu(),
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,

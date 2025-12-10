@@ -8,7 +8,7 @@
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <template v-for="(item, index) in menus" :key="index">
+            <template v-for="(item, index) in userMenu" :key="index">
                 <!-- Regular Menu Items -->
                 <v-list-item 
                     v-if="item.type !== 'group'" 
@@ -35,12 +35,12 @@
 <script>
 import { useDisplay } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
-import { getMenu } from "@services/menuService";
+import  userMenu  from "./userMenu.json";
 import logo from "@assets/images/logo/logo.png"
 export default {
     data() {
         return {
-            menus: getMenu(),
+            userMenu,
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,

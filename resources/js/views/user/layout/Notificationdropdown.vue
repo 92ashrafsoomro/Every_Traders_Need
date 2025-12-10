@@ -1,123 +1,122 @@
 <template>
-    <v-menu class="menuLabel" location="bottom" transition="fade-transition">
+    <v-menu location="bottom end" :offset="10" transition="slide-y-transition">
         <template #activator="{ props }">
-            <v-btn icon size="small" v-bind="props" class="notificationBtn">
-                <v-icon icon="mdi-bell-outline"></v-icon>
-            </v-btn>
+            <v-badge :content="unreadCount" color="primary" :model-value="unreadCount > 0" offset-x="8" offset-y="8">
+                <v-btn icon size="small" v-bind="props" variant="text">
+                    <v-icon>mdi-bell-outline</v-icon>
+                </v-btn>
+            </v-badge>
         </template>
 
-        <v-list elevation="0" class="rounded-lg border z-3 animate-fade-in w-[352px]" @click.stop>
-            <v-list-item>
-                <v-list-item-title class="d-flex justify-space-between align-center ps-4 p-3 w-100">
-                    <div class="text-h6">Notifications</div>
-                    <div class="d-flex align-center ga-2">
-                        <div class="bg-primary rounded-sm text-sm-caption font-weight-light ps-2 pe-2 text-lowercase">
-                            8 new
-                        </div>
-                        <span class="material-symbols-outlined text-h6">
-                            drafts
-                        </span>
-                    </div>
-                </v-list-item-title>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list>
-                <v-list-item v-for="(note, i) in notifications" :key="i" link class="transition-all duration-200">
-                    <v-list-item-title>
-                        <div class="d-flex align-start cursor-pointer overflow">
-                            <div class="d-flex align-center justify-center pt-2 ps-2">
-                                <div class="icon-notify-container  rounded-circle d-flex align-center justify-center">
-                                    <v-icon icon="mdi-bell-ring" color="primary" size="small"></v-icon>
-                                </div>
-                            </div>
+        <!-- Main Dropdown Card -->
+        <v-card width="380" class="bg-surface text-white rounded-lg" elevation="24">
+            <!-- Header -->
+            <div class="d-flex justify-space-between align-center pa-4">
+                <h2 class="text-h6 font-weight-medium">Notifications</h2>
+                <div class="d-flex align-center ga-3">
+                    <v-chip color="primary" size="small" class="font-weight-bold text-caption">
+                        {{ notifications.unread }} New
+                    </v-chip>
+                    <v-icon size="22">mdi-email-outline</v-icon>
+                </div>
+            </div>
 
-                            <div class="pt-2 ps-4 w-75">
-                                <div class="text-caption">
+            <v-divider />
+
+            <!-- Scrollable List -->
+            <div class="max-h-96 overflow-y-auto">
+                <template v-for="(note, i) in notifications.data" :key="i">
+                    <v-list-item class="px-4 py-4 bg-surface">
+                        <div class="d-flex align-start gap-4 w-100">
+                            <!-- Avatar -->
+                            <v-avatar size="42">
+                                <v-img :src="note.image || userAvatar" cover />
+                            </v-avatar>
+
+
+                            <div class="flex-grow-1 min-w-0 ml-2 mr-1">
+                                <p class="text-body-2 font-weight-medium mb-1 text-wrap">
                                     {{ note.title }}
-                                </div>
-                                <div class="text-caption">
-                                    {{ note.description }}
-                                </div>
-                                <p class="mt-2 text-caption text-[#76778e]">
-                                    {{ note.time }}
                                 </p>
+                                <p class="text-caption text-medium-emphasis text-wrap">
+                                    {{ note.message }}
+                                </p>
+
                             </div>
-                            <div>
-                                <div class="blue-dot bg-primary rounded-circle mt-5"></div>
+
+
+                            <div class="mt-2">
+                                <v-icon v-if="note.is_read == 0" color="primary" size="10">
+                                    mdi-circle
+                                </v-icon>
                             </div>
                         </div>
-                    </v-list-item-title>
-                </v-list-item>
-            </v-list>
+                    </v-list-item>
+                    <v-divider v-if="i < notifications.data.length - 1" />
+                </template>
+            </div>
 
-            <v-divider></v-divider>
+            <v-divider />
 
-            <v-list-item>
-                <v-list-item-title>
-                    <div class="d-flex justify-center align-center p-2 ps-3 mt-2">
-                        <button class="notificationbtn bg-primary pt-2 pb-2 ps-2 border-0 rounded">
-                            View All Notifications
-                        </button>
-                    </div>
-                </v-list-item-title>
-            </v-list-item>
-        </v-list>
+            <!-- View All Button -->
+            <div class="pa-3">
+                <v-btn block color="primary" variant="flat" class="text-none rounded-lg py-3">
+                    View all notifications
+                </v-btn>
+
+            </div>
+        </v-card>
     </v-menu>
 </template>
 
 <script>
-
+import api from "@/plugins/axios";
+import userAvatar from "@/assets/images/avatar/user.png"
 export default {
     name: "NotificationMenu",
     data() {
         return {
-            notifications: [
-                {
-                    title: "New Message",
-                    description: "You have received a new message.",
-                    time: "2m ago",
-                },
-                {
-                    title: "Server Alert",
-                    description: "Server CPU usage is high.",
-                    time: "10m ago",
-                },
-                {
-                    title: "Payment Received",
-                    description: "Payment of $100 has been completed.",
-                    time: "1h ago",
-                },
-            ],
+            userAvatar,
+            notifications: { data: [], unread: 0 },
+            isLoading: false,
         };
+    },
+    computed: {
+
+    },
+    mounted() {
+        this.notificationFetch();
+    },
+    methods: {
+        async notificationFetch() {
+            this.isLoading = true;
+            try {
+                const res = await api.get("/api/user/notifications/userNotification");
+                this.notifications = res.data;
+                this.notifications.unread = res.data.data.filter(n => n.is_read === 0).length
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
     },
 };
 </script>
 
 <style scoped>
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.min-w-0 {
+    min-width: 0;
+    /* Crucial for long text to wrap properly */
 }
 
-.icon-notify-container {
-    height: 40px;
-    width: 40px;
+.text-wrap {
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
-.blue-dot {
-    height: 8px;
-    width: 8px;
+.max-h-96 {
+    max-height: 384px;
 }
-
-.notificationbtn {
-    width: 90%;
-}
-
 </style>

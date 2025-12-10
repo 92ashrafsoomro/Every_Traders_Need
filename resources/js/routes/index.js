@@ -10,6 +10,7 @@ import NotFound from "@views/user/404.vue"
 import userRoutes from "./userRoutes"
 import authRoutes from "./authRoutes"
 import webRoutes from './webRoutes';
+import adminRoute from './adminRoute';
 
 const suburl = import.meta.env.VITE_SUB_URL;
 
@@ -17,6 +18,7 @@ const routes = [
     ...webRoutes,
     ...authRoutes,
     ...userRoutes,
+    ...adminRoute,
     {
         path: "/:pathMatch(.*)*",
         name: "NotFound",

@@ -15,7 +15,7 @@
                 Problem
               </span>
             </h1>
-            <h2 class="text-h3 text-md-h2 font-weight-bold text-white">
+            <h2 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white">
               in Auctions
             </h2>
           </v-card>

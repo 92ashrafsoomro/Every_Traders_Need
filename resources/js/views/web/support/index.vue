@@ -26,7 +26,7 @@
           <!-- Form Content -->
           <div class="position-relative pa-8 pa-md-12 mt-16  align-center justify-center "
             style="z-index: 2; max-width: 600px; margin: auto;  ">
-            <h1 class="text-h3 text-md-h2 text-white font-weight-bold mb-10 text-center text-lg-start">
+            <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
               Supported Page
             </h1>
 

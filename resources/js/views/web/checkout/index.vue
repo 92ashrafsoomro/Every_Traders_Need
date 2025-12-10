@@ -6,7 +6,7 @@
             </v-col>
             <v-col cols="12" lg="7">
 
-                <v-card class="pa-6" elevation="4">
+                <v-card class="pa-6" elevation="4" :loading="loading" >
                     <v-card-title class="text-h6 text-white mb-4">Billing Info</v-card-title>
                     <div class="border"></div>
 
@@ -17,10 +17,18 @@
                         </div>
        
                         <v-row>
-                              <v-col cols="12" sm="6">
+                            <v-col cols="12" sm="6">
                                 <v-text-field 
-                                    v-model="form.firstName" 
+                                    v-model="form.first_name" 
                                     label="First Name" 
+                                    variant="outlined"
+                                    density="comfortable"
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field 
+                                    v-model="form.last_name" 
+                                    label="Last Name" 
                                     variant="outlined"
                                     density="comfortable"
                                      />
@@ -49,17 +57,25 @@
                                     density="comfortable" 
                                      />
                             </v-col>
-                            <v-col cols="12" sm="4">
+                            <v-col cols="12" sm="6">
                                 <v-text-field 
-                                    v-model="form.townCity" 
+                                    v-model="form.state" 
+                                    label="State" 
+                                    variant="outlined" 
+                                    density="comfortable" 
+                                     />
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field 
+                                    v-model="form.city" 
                                     label="City" 
                                     variant="outlined" 
                                     density="comfortable" 
                                      />
                             </v-col>
-                            <v-col cols="12" sm="4">
+                            <v-col cols="12" sm="6">
                                 <v-text-field 
-                                    v-model="form.postcode" 
+                                    v-model="form.zip_code" 
                                     label="Zip Code" 
                                     variant="outlined"
                                     density="comfortable" 
@@ -67,7 +83,7 @@
                             </v-col>
                             <v-col cols="12" sm="12">
                                 <v-text-field 
-                                    v-model="form.companyAddress1" 
+                                    v-model="form.address" 
                                     label="Address" 
                                     variant="outlined" 
                                     density="comfortable"
@@ -101,7 +117,7 @@
             </v-col>
 
             <v-col cols="12" lg="5">
-                <v-card class="pa-6 bg-surface" elevation="4" height="100%">
+                <v-card class="pa-6 bg-surface" elevation="4" height="100%" :loading="loading" >
 
                     <v-card-title class="text-h6 text-white mb-4">Order Summary</v-card-title>
                     <div class="border"></div>
@@ -129,7 +145,7 @@
                         </div>
 
                         <v-select v-model="selectedPlan" :items="planList" item-title="title" item-value="id"
-                            label="Select Plan" variant="outlined" density="comfortable" class="mt-6" />
+                            label="Select Plan" variant="outlined" density="comfortable" class="mt-6" clearable="" />
                     </div>
 
                     <v-divider class="my-6"></v-divider>
@@ -166,7 +182,7 @@
 import api from '@/plugins/axios';
 import { useUserStore } from '@/stores/userStore';
 import { loadStripe } from "@stripe/stripe-js";
-import { isEmpty } from 'lodash';
+
 
 
 
@@ -177,19 +193,21 @@ export default {
             userStore: useUserStore(),
             stripe: null,
             cardElement: null,
-            cardholderName: '',
             processing: false,
             loading:false,
             form: {
-                firstName: '',
+                first_name: '',
+                last_name:'', 
                 email: '',
                 phone: '',
                 country: '',
-                townCity: '',
-                postcode: '',
-                companyAddress1: '',
+                state:'',
+                city: '',
+                zip_code: '',
+                address: '',
+
                 payment_method_id: '',
-                plan_id: '',
+                plan_id: null,
                 cardholderName:'',
             },
             selectedPlan: null,
@@ -242,13 +260,15 @@ export default {
         },
         getAuth() { 
 
-            this.form.firstName = this.userStore.user?.firstName;
+            this.form.first_name = this.userStore.user?.firstName;
+            this.form.last_name = this.userStore.user?.firstName;
             this.form.phone = this.userStore.user?.phone;
             this.form.email = this.userStore.user?.personalEmail;
             this.form.country = this.userStore.user?.country;
-            this.form.townCity = this.userStore.user?.townCity;
-            this.form.postcode = this.userStore.user?.postcode;
-            this.form.companyAddress1 = this.userStore.user?.companyAddress1;
+            this.form.state = this.userStore.user?.townCity; 
+            this.form.city = this.userStore.user?.townCity;
+            this.form.zip_code = this.userStore.user?.postcode;
+            this.form.address = this.userStore.user?.companyAddress1;
             this.form.cardholderName = this.userStore.user?.firstName;
 
         },
@@ -286,14 +306,20 @@ export default {
                 }
 
                 this.form.payment_method_id = paymentMethod.id;
-                const res = await api.post('/api/stripe/createPaymentIntent',form);
-                alert('Payment successful!');
+                this.form.plan_id = this.selectedPlan;
+                const res = await api.post('/api/stripe/createPaymentIntent', this.form);
+                this.$alertStore.add("Form Submitted", "success");
                 this.processing = false;
+                
                 this.loading = false;
+                this.getAuth();
 
             } catch (error) {
+           
                 this.loading = false;
-                alert(error)
+             
+                this.$alertStore.add(error.message,"error")
+             
             }
 
         }

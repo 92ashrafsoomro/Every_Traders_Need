@@ -13,8 +13,8 @@
         <v-row v-else no-gutters>
             <v-col cols="12">
                     <v-row class="d-flex" style="position: relative;" >
-                        <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle">
-                            <div style="position: sticky;top:0;" class=""  >
+                        <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"  style="position: sticky; top: 40px;">
+                            <div class=""  >
                                    <VehicleSidebar  />
                             </div>
                         </v-col>

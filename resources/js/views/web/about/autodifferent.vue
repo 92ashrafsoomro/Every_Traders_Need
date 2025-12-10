@@ -3,7 +3,7 @@
     <v-container style="max-width: 1500px; margin: auto;">
       
       <div class="text-center mb-12">
-        <h2 class="text-h3 text-md-h2 font-weight-bold text-white mb-4">
+        <h2 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white mb-4">
           {{ title }}
         </h2>
 

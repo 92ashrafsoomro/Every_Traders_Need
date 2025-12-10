@@ -18,6 +18,7 @@
                     @update:model-value="updateRange"
                 />
             </v-col>
+            
         </v-row>
 
         <v-divider class="mt-4 mb-4"></v-divider>
@@ -25,47 +26,46 @@
         <v-row>
             <v-col cols="12">
                 <v-row>
-                    <v-col cols="12" lg="4">
-                        <div class="d-flex flex-column ga-2 align-start">
-                            <h1 class="text-h4 font-weight-bold">
-                                £{{ avgWinning }}
-                            </h1>
-
+                    <v-col cols="12" lg="12 ">
+                        <!-- <div class="d-flex flex-column ga-2 align-start">
+                            
                             <p class="text-caption">Avg Winning</p>
-
+                            
                             <div class="mt-3">
                                 <p>Compare with win bids</p>
-
+                                
                                 <v-checkbox
-                                    v-for="item in compareOptions"
-                                    :key="item.key"
-                                    density="compact"
-                                    class="text-caption mb-n4"
-                                    :label="item.label"
-                                    v-model="compare[item.key]"
+                                v-for="item in compareOptions"
+                                :key="item.key"
+                                density="compact"
+                                class="text-caption mb-n4"
+                                :label="item.label"
+                                v-model="compare[item.key]"
                                 />
                             </div>
+                        </div> -->
+                        <div class="position-relative">
+    
+                            <h1 class="avg-top text-h4 font-weight-bold">
+                                £{{ avgWinning }}
+                            </h1>
+                            <Trade/>
                         </div>
-                    </v-col>
-
-                    <v-col cols="12" lg="8" class="d-flex flex-column justify-end">
-                        <v-sparkline
-                            fill
-                            :model-value="sparkline"
-                            :line-width="2"
-                            :padding="8"
-                            smooth
-                            color="primary"
-                        />
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
-    </v-card>
-</template>
+                    </v-col>          
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-card>
+    </template>
 
 <script>
+import Trade from './Trade.vue';
+
+
 export default {
+     components: {
+        Trade,   // ⬅ MUST ADD THIS
+    },
     data() {
         return {
             // RANGE DROPDOWN
@@ -118,3 +118,10 @@ export default {
     },
 };
 </script>
+
+<style>
+    .avg-top {
+        position: absolute;
+        margin-left: 100px;
+    }
+</style>

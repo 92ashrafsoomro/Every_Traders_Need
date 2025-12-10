@@ -260,55 +260,52 @@
         <v-card title="Vehicle Statistics" subtitle="Today">
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
             <v-container>
-              <v-row class="mt-5">
-                <v-col cols="12">
-                  <div class="text-h3 font-weight-bold">254</div>
-                  <div class="text-body-2 text-light mb-6">Remaining</div>
-                </v-col>
-              </v-row>
+          
 
               <v-row>
-                <v-col cols="12">
+                <v-col cols="12" sm="6" >
+                      <div>
+                        <div class="text-h3 font-weight-bold">254</div>
+                        <div class="text-body-2 text-light mb-6">Remaining</div>
+                      </div>
+                      <div>
+                            <div class="d-flex align-center mb-3">
+                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
+                                </div>
+                                <div class="pl-3 d-flex">
+                                  <div class="text-h5 font-weight-bold">
+                                    {{ vehicelState.inprogress_vehicles }}
+                                  </div>
+                                  <div class="text-h5 text-grey-lighten-1 ml-2">provisional</div>
+                                </div>
+                            </div>
 
-                  <div v-if="vehicelState.isLoadingOnline" class="text-center py-5">
-                    <v-progress-circular indeterminate color="primary" />
-                  </div>
+                            <div class="d-flex align-center mb-3">
+                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
+                                </div>
+                                <div class="pl-3 d-flex">
+                                  <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
+                                  <div class="text-h5 text-grey-lighten-1 ml-2">Sold</div>
+                                </div>
+                            </div>
 
-                  <div v-else>
-                    <div class="d-flex align-center mb-3">
-                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                        <v-icon size="32" color="primary">mdi-circle</v-icon>
+                            <div class="d-flex align-center">
+                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
+                                </div>
+                                <div class="pl-3 d-flex">
+                                  <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
+                                  <div class="text-h5 text-grey-lighten-1 ml-2">Not Sold</div>
+                                </div>
+                            </div>
                       </div>
-                      <div class="pl-3 d-flex">
-                        <div class="text-h5 font-weight-bold">
-                          {{ vehicelState.inprogress_vehicles }}
-                        </div>
-                        <div class="text-h5 text-grey-lighten-1 ml-2">provisional</div>
-                      </div>
-                    </div>
-
-                    <div class="d-flex align-center mb-3">
-                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                        <v-icon size="32" color="primary">mdi-circle</v-icon>
-                      </div>
-                      <div class="pl-3 d-flex">
-                        <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
-                        <div class="text-h5 text-grey-lighten-1 ml-2">Sold</div>
-                      </div>
-                    </div>
-
-                    <div class="d-flex align-center">
-                      <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                        <v-icon size="32" color="primary">mdi-circle</v-icon>
-                      </div>
-                      <div class="pl-3 d-flex">
-                        <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
-                        <div class="text-h5 text-grey-lighten-1 ml-2">Not Sold</div>
-                      </div>
-                    </div>
-                  </div>
-
                 </v-col>
+                <v-col cols="12" sm="6" >
+                    <VehicleStateChart :vehicelState="vehicelState" />
+                </v-col>
+
               </v-row>
             </v-container>
           </v-card-text>
@@ -323,9 +320,13 @@
 
 <script>
 import api from '@/plugins/axios';
+import VehicleStateChart from '@/views/user/dashboard/VehicleStateChart.vue';
 
 export default {
   name: 'AuctionDashboard',
+  components:{
+    VehicleStateChart
+  },
 
   data() {
     return {
@@ -366,6 +367,7 @@ export default {
         provisional_vehicles: 3,
         sold_vehicles: 5,
         not_sold : 0,
+        total_vehicles : 100,
       }
 
     }
@@ -454,6 +456,8 @@ export default {
 
         this.vehicelState.data = res.data.data;
         this.vehicelState.isLoadingOnline = false;
+        this.vehicelState.total_vehicles = res.data.data.total_vehicles;
+        
       } catch (error) {
         console.error(error.message, "vehicleStates Api error");
         this.timeAutions.isLoadingOnline = false

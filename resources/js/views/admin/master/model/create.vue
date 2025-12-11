@@ -56,7 +56,7 @@
                 <td>{{ item.test }}</td>
                 <td>
                   <v-btn size="small" color="warning "><router-link :to="`edit/${item.id}`" style="text-decoration: none; color: white;">Edit</router-link></v-btn>
-                  <v-btn size="small" color="error"  class="ml-2" @click="deleteData(item.id)">Delete</v-btn>
+                  <v-btn size="small" color="error" @click="deleteData(item.id)">Delete</v-btn>
                 </td>
               
               </tr>
@@ -105,10 +105,11 @@ export default {
   },
   methods: {
 
+    
     async getDataplatform() {
       this.platforms.isLoading = true;
       try {
-        let res = await api.get("/api/master/getAuctionHouse");
+        let res = await api.get("/api/master/getModels/");
         this.platforms.data = res.data.data
         this.platforms.isLoading = false
         console.log("This is Platform Data" + res.data.data);
@@ -120,13 +121,13 @@ export default {
 
 
 
-    //Delete Data logic
+
     async deleteData(id){
       if(!confirm("Delete")) return;
 
       try {
-        let res = await api.delete(`/api/master/getAuctionHouse/${id}`);
-        this.platforms.data  = res.data.filter (item => item.id !== id);
+        await api.delete(`/api/master/getModels/${id}`);
+        this.platforms.data  = this.platforms.data.filter (item => item.id !== id);
         alert("data Delete SuccesFully!")
       } catch (error) {
         alert("Feild to delete ")

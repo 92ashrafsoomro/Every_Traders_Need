@@ -33,7 +33,7 @@
         },
         {
             "label": "Content Management",
-            "icon": "group",
+            "icon": "mdi-content-paste",
             "path": "/user/auctionscheduler"
         },
        

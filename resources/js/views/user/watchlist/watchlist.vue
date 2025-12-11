@@ -1,14 +1,15 @@
 <template>
+    
     <v-col cols="12">
         <v-row class="mt-3">
             <v-col cols="12">
                 <div class="d-flex justify-md-space-between flex-wrap ">
-                    <div class="d-flex flex-wrap">
-                        <div class="px-2">
-                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
-                                @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                    <div class="d-flex flex-wrap ">
+                        <div class="px-2 " >
+                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]" 
+                                @update:model-value="handleInput"  variant="outlined" color="primary" width="120"
                                 density="compact" />
-                        </div>
+                        </div> 
                         <div class="px-2">
                             <YearDropdown label="All Years" :model-value="filter.year"
                                 @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
@@ -165,4 +166,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.table-border {
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  overflow: hidden; /* important: table border ko follow karega */
+}
+
+</style>

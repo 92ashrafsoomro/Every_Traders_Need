@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="bg-surface rounded border pa-4">
         <v-data-table-server class="dataTable rounded" :headers="headers" :items="auctionStore.data"
             :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"

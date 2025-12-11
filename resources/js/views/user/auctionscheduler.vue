@@ -49,9 +49,9 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid>
+    <v-container fluid style="max-width: 1500px;">
         <v-row class="mt-3" >
-            <v-col cols="12" >
+            <v-col cols="12"     >
                     <v-card>
                         <v-data-table-server 
                         :headers="headers" 

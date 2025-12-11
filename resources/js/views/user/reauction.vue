@@ -32,7 +32,7 @@
             </v-card>
         </v-container> -->
     </user-title-bar>
-    <v-container fluid>
+    <v-container fluid style="max-width: 1520px;">
         <v-row>
             <v-col cols="12">
                 <div class="pt-5 d-flex justify-md-space-between flex-wrap ">            

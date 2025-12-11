@@ -1,5 +1,5 @@
 <template>
-        <div>
+        <div >
             <v-expansion-panels>
 
                 <v-expansion-panel :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type">

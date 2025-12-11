@@ -39,48 +39,52 @@ export default {
   data() {
       return {
         doneValue: 2,
-        totalSegments: 100, // total circular parts
-        completedSegments: 50,   // colored segments (blue)
+        totalSegments: 30, // total circular parts
+        completedSegments: 20,   // colored segments (blue)
       };
   },
 
-  computed: {
-      chartData() {
+ computed: {
+  chartData() {
+    return {
+      labels: [],
+      datasets: [
+        {
+          data: new Array(this.totalSegments).fill(1),
+          backgroundColor: (ctx) => {
+            const chart = ctx.chart;
+            const { ctx: canvasCtx, chartArea } = chart;
 
-          const colors = [];
+            if (!chartArea) 
+              return Array(this.totalSegments).fill("#008CFF");
 
-          for (let i = 0; i < this.totalSegments; i++) {
-            if (i < this.completedSegments) colors.push("#008CFF");
-            else colors.push("#3A3F47");
-          }
+            const gradient = canvasCtx.createLinearGradient(
+              0, chartArea.top, 
+              0, chartArea.bottom   
+            );
 
-          return {
-                labels: [],
-                datasets: [
-                              {
-                                data: new Array(this.totalSegments).fill(1), // equal segments
-                                backgroundColor: colors,
-                                borderWidth: 3,
-                                borderColor: "#0A101E",
-                                hoverBorderColor: "#0A101E",
-                                cutout: "70%",
-                                spacing: 4,
-                              }
-                          ]
-            };
-        },
+            gradient.addColorStop(0, "#000f21"); 
+            gradient.addColorStop(1, "#33AFFF"); 
 
-        chartOptions() {
-          return {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              tooltip: { enabled: false },
-              legend: { display: false }
+            const colors = [];
+
+            for (let i = 0; i < this.totalSegments; i++) {
+              colors.push(i < this.completedSegments ? gradient : "#3A3F47");
             }
-          };
+            return colors;
+          },
+          borderWidth: 3,
+          borderColor: "#0A101E",
+          hoverBorderColor: "#0A101E",
+          cutout: "70%",
+          spacing: 4,
         }
-    }
+      ]
+    };
+  }
+}
+
+  
 };
 </script>
 

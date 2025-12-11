@@ -2,7 +2,7 @@
 
   <user-title-bar>
 
-    <div class="d-flex flex-column flex-xs-row flex-md-row justify-space-between align-start pa-3">
+    <div class="d-flex flex-column flex-xs-row flex-md-row ml-n10 justify-space-between align-start pa-3">
       <div style="max-width: 600px;">
         <div>
           <h6 class="text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
@@ -38,34 +38,37 @@
     </div>
   </user-title-bar>
 
-  <v-container fluid class="">
+  <v-container fluid class="" style="max-width: 1590px;">
 
-    <v-row class="">
+    <v-row class="mt-1">
       <!-- Total Auctions -->
 
 
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100">
+        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
           <v-container>
 
-            <div class="d-flex h-6 align-center  ">
-              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                <v-icon size="32" color="primary">mdi-store-clock</v-icon>
+            <div class="d-flex h-6">
+              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                class="circle d-flex justify-center align-center">
+                <v-icon size="22" color="primary">mdi-store-clock</v-icon>
               </div>
-              <span class="text-h4 px-1">{{ counter.total_Auctions }}</span>
+
+              <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
             </div>
+
 
             <div class="pt-3 text-body-1 text-light ">Total Auctions</div>
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span style="color: #76778e;">Live Auctions: </span>
-                <span>{{ counter.liveAuctions }}</span>
+                <span class="ml-2">{{ counter.liveAuctions }}</span>
               </div>
               <div class=" text-body-2 pl-2">
                 <span style="color: #76778e;">Time Auctions: </span>
-                <span> {{ counter.timeAuctions }}</span>
+                <span class="ml-2"> {{ counter.timeAuctions }}</span>
               </div>
             </div>
 
@@ -76,21 +79,21 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100">
+        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
           <v-container>
-
-            <div class="d-flex h-6 align-center  ">
-              <div style="border-radius: 22px;padding: 4px 6px;  " class="bg-danger-lite circle">
-                <v-icon size="32" color="danger"   >mdi-radiobox-marked</v-icon>
+            <div class="d-flex h-6">
+              <div style="border-radius: 22px; width: 40px; height: 40px;"
+                class="bg-danger-lite circle d-flex justify-center align-center">
+                <v-icon size="32" color="danger">mdi-radiobox-marked</v-icon>
               </div>
-              <span class="text-h4 px-1">{{ counter.inprogress_Auctions }}</span>
+              <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
             </div>
 
             <div class="pt-3 text-body-1 text-light ">Inprogress Auctions</div>
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span style="color: #76778e;">Inprogress Auctions: </span>
-                <span>{{ counter.inprogress_Auctions }}</span>
+                <span class="ml-2">{{ counter.inprogress_Auctions }}</span>
               </div>
 
             </div>
@@ -102,21 +105,22 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100">
+        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
           <v-container>
 
-            <div class="d-flex h-6 align-center  ">
-              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+            <div class="d-flex h-6">
+              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                class="circle d-flex justify-center align-center">
                 <v-icon size="32" color="primary">mdi-bash</v-icon>
               </div>
-              <span class="text-h4 px-1">{{ counter.totalVehicles }}</span>
+              <span class="text-h4 px-3">{{ counter.totalVehicles }}</span>
             </div>
 
             <div class="pt-3 text-body-1 text-light ">Total Vehicles</div>
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span style="color: #76778e;">Total Vehicles:</span>
-                <span>{{ counter.totalVehicles }}</span>
+                <span class="ml-2">{{ counter.totalVehicles }}</span>
               </div>
             </div>
 
@@ -127,21 +131,21 @@
 
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100">
+        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
           <v-container>
-
-            <div class="d-flex h-6 align-center  ">
-              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
+            <div class="d-flex h-6">
+              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                class="circle d-flex justify-center align-center">
                 <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
               </div>
-              <span class="text-h4 px-1">{{ counter.vehicleReauctions }}</span>
+              <span class="text-h4 px-3">{{ counter.vehicleReauctions }}</span>
             </div>
 
             <div class="pt-3 text-body-1 text-light ">Vehicle in reauctions</div>
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span style="color: #76778e;">Vehicles:</span>
-                <span>{{ counter.vehicleReauctions }}</span>
+                <span class="ml-2">{{ counter.vehicleReauctions }}</span>
               </div>
 
             </div>
@@ -177,7 +181,7 @@
               <thead>
                 <tr>
                   <th class="text-left">PLATFORM</th>
-               
+
                   <th class="text-left">TOTAL AUCTION</th>
                   <th class="text-left">REMAINING</th>
                   <th class="text-left">LOTS</th>
@@ -194,7 +198,7 @@
                 <tr v-else-if="onlineAction.data.length" v-for="item in onlineAction.data"
                   :key="item.auction_platform_name">
                   <td>{{ item.auction_platform_name }}</td>
-                 
+
                   <td>{{ item.car_count }}</td>
                   <td>{{ item.remaining }}</td>
                   <td>{{ item.lots }}</td>
@@ -257,54 +261,56 @@
 
       <!-- Right Column: Vehicle Statistics -->
       <v-col cols="12" md="6">
-        <v-card title="Vehicle Statistics" subtitle="Today">
+
+        <v-card title="Vehicle Statistics" subtitle="Today" class="pa-4">
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
             <v-container>
-          
+
 
               <v-row>
-                <v-col cols="12" sm="6" >
-                      <div>
-                        <div class="text-h3 font-weight-bold">254</div>
-                        <div class="text-body-2 text-light mb-6">Remaining</div>
+                <v-col cols="12" sm="6" class="ml-n4">
+                  <div>
+                    <div class="text-h3 font-weight-bold ">254</div>
+                    <div class="text-body-2 text-light mb-6">Remaining</div>
+                  </div>
+                  <div>
+                    <div class="d-flex h-6 mb-3">
+                      <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                        class="circle d-flex justify-center align-center">
+                        <v-icon size="32" color="primary">mdi-update</v-icon>
                       </div>
-                      <div>
-                            <div class="d-flex align-center mb-3">
-                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                               
-                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
-                                </div>
-                                <div class="pl-3 d-flex">
-                                  <div class="text-h5 font-weight-bold">
-                                    {{ vehicelState.inprogress_vehicles }}
-                                  </div>
-                                  <div class="text-h5 text-grey-lighten-1 ml-2">provisional</div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex align-center mb-3">
-                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
-                                </div>
-                                <div class="pl-3 d-flex">
-                                  <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
-                                  <div class="text-h5 text-grey-lighten-1 ml-2">Sold</div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex align-center">
-                                <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
-                                  <v-icon size="32" color="primary">mdi-circle</v-icon>
-                                </div>
-                                <div class="pl-3 d-flex">
-                                  <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
-                                  <div class="text-h5 text-grey-lighten-1 ml-2">Not Sold</div>
-                                </div>
-                            </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">
+                          {{ vehicelState.inprogress_vehicles }}
+                        </div>
+                        <div class="text-h6 text-grey-lighten-1 ml-2">provisional</div>
                       </div>
+                    </div>
+                    <div class="d-flex h-6 mb-3">
+                      <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                        class="circle d-flex justify-center align-center">
+                        <v-icon size="28" color="primary">mdi-check</v-icon>
+                      </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
+                        <div class="text-h6 text-grey-lighten-1 ml-2">Sold</div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex h-6 mb-3">
+                      <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                        class="circle d-flex justify-center align-center">
+                        <v-icon size="32" color="primary">mdi-cancel</v-icon>
+                      </div>
+                      <div class="pl-3 d-flex">
+                        <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
+                        <div class="text-h6 text-grey-lighten-1 ml-2">Not Sold</div>
+                      </div>
+                    </div>
+                  </div>
                 </v-col>
-                <v-col cols="12" sm="6" >
-                    <VehicleStateChart :vehicelState="vehicelState" />
+                <v-col cols="12" sm="6" class="mt-n12">
+                  <VehicleStateChart :vehicelState="vehicelState" />
                 </v-col>
 
               </v-row>
@@ -325,7 +331,7 @@ import VehicleStateChart from '@/views/user/dashboard/VehicleStateChart.vue';
 
 export default {
   name: 'AuctionDashboard',
-  components:{
+  components: {
     VehicleStateChart
   },
 
@@ -367,14 +373,14 @@ export default {
         onsale_vehicles: 2,
         provisional_vehicles: 3,
         sold_vehicles: 5,
-        not_sold : 0,
-        total_vehicles : 100,
+        not_sold: 0,
+        total_vehicles: 100,
       }
 
     }
   },
   computed: {
-    
+
     // getCounter() {
 
     //   return {
@@ -458,7 +464,7 @@ export default {
         this.vehicelState.data = res.data.data;
         this.vehicelState.isLoadingOnline = false;
         this.vehicelState.total_vehicles = res.data.data.total_vehicles;
-        
+
       } catch (error) {
         console.error(error.message, "vehicleStates Api error");
         this.timeAutions.isLoadingOnline = false
@@ -474,7 +480,7 @@ export default {
     this.getVehicleStates();
   }
 
-  
+
 }
 
 </script>

@@ -5,7 +5,7 @@
     <div class="d-flex flex-column flex-xs-row flex-md-row justify-space-between align-start pa-3">
       <div style="max-width: 600px;">
         <div>
-          <h6 class="text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
+          <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
         </div>
         <div class="pr-5 pb-5">
           <p class="mt-3 text-body-1 text-light ">

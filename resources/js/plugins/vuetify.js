@@ -49,6 +49,7 @@ const vuetify = createVuetify({
                     light_text_on: "#B1BFCD",
                     border: "#343E4B",
                     danger: "#b91c1c",
+                    dangerlite: "#b91c1c50",
                     success: "#4CAF50",
                     warning: "#FB8C00",
                     text_light:"#B2C0C3",
@@ -112,6 +113,7 @@ const vuetify = createVuetify({
                 colors: {
                     primary: "#0080ff",
                     'primary-lighten-1': '#8579F2',
+                    primaryLight : "#0080ff20",
                     background: "#f0eff5",
                     surface: "#F8F8FF",
                     'surface-variant-1': "#e9eff6",
@@ -123,6 +125,7 @@ const vuetify = createVuetify({
                     error: "#FF5252",
                     info: "#2196F3",
                     shadow: "#E1EBEE",
+                    
                     // secondary: "#FFFFFF",
                 },
             },

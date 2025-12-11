@@ -32,7 +32,7 @@
             </v-card>
         </v-container> -->
     </user-title-bar>
-    <v-container fluid>
+    <v-container fluid style="max-width: 1520px;">
         <v-row>
             <v-col cols="12">
                 <div class="pt-5 d-flex justify-md-space-between flex-wrap ">            
@@ -119,9 +119,9 @@ export default {
         return {
             pageStore:usePageStore(),
             headers: [
-                { title: "Name", value: "title" },
-                { title: "Make", value: "make_name" },
-                { title: "Vehicle", value: "model_name" },
+                { title: "Vehical", value: "title" },
+                // { title: "Make", value: "make_name" },
+                // { title: "Vehicle", value: "model_name" },
                 { title: "Reg", value: "reg" },
                 { title: "Previous", value: "last_bid" },
                 { title: "Platform", value: "platform_name" },

@@ -11,40 +11,40 @@
         },
         {
             "icon": "mdi-car-search-outline",
-            "label": "Master",
+            "label": "Master",  
             "path": "/user/auction-finder",
-            "childern":[
-                {
+            "children":[
+                   {
                     "label" :"Body Type",
-                    "path" : "/bodyType"
+                    "path" : "/admin/bodyType/create"
                 },
                 {
                     "label" :"Vehicle Type",
-                    "path" : "/vehicleType"
+                    "path" : "/admin/vehicleType/create"
                 },
                 {
                     "label" :"Platform",
-                    "path" : "/platform"
+                    "path" : "/admin/platform/create"
                 },
                 {
                     "label" :"Center",
-                    "path" : "/center"
+                    "path" : "/admin/center/create"
                 },
                 {
                     "label" :"Color",
-                    "path" : "/color"
+                    "path" : "/admin/color/create"
                 },
                 {
                     "label" :"Make",
-                    "path" : "/make"
+                    "path" : "/admin/make/create"
                 },
                 {
                     "label" :"Model",
-                    "path" : "/model"
+                    "path" : "/admin/model/create"
                 },
                 {
                     "label" :"Variant",
-                    "path" : "/variant"
+                    "path" : "/admin/variant/create"
                 }
             ]
         },
@@ -53,7 +53,7 @@
             "icon": "mdi-history",
             "label": "Data Management",
             "path": "/user/watchlist",
-            "childern":[
+            "children":[
                 {
                     "label" : "Import Data CSV",
                     "path" : "/"
@@ -66,28 +66,81 @@
         {
             "icon": "mdi-calendar-sync-outline",
             "label": "Staff Penal",
-            "path": "/user/reauction"
+            "path": "/user/reauction",
+            "children":[
+                {
+                    "label" : "Rolo",
+                    "path" : "/"
+                },{
+                    "label" :"/User",
+                    "path":"/"
+                }
+            ]
         },
        
         {
             "icon": "mdi-calendar-check-outline",
             "label": "Support & Tickets",
-            "path": "/user/auctionscheduler"
+            "path": "/user/auctionscheduler",
+            "children":[
+                {
+                    "label" : "All Support Tickets",
+                    "path" : "/"
+                }
+            ]
         },
         {
             "label": "Content Management",
             "icon": "mdi-content-paste",
-            "path": "/user/auctionscheduler"
+            "path": "/user/auctionscheduler",
+            "children":[
+                {
+                    "label" : "Blogs",
+                    "path" : "/"
+                }
+                ,{
+                    "label" :"Blogs Categories",
+                    "path":"/"
+                }
+                ,{
+                    "label" :"News",
+                    "path":"/"
+                }
+                ,{
+                    "label" :"News Categories",
+                    "path":"/"
+                }
+            ]
         },
        
         {
             "icon": "mdi-account-outline",
             "label": "Members & Plans",
-            "path": "/user/profile"
+            "path": "/user/profile",
+            "children":[
+                {
+                    "label" : "Members",
+                    "path" : "/"
+                }
+                ,{
+                    "label" :"/Membership",
+                    "path":"/"
+                }
+                ,{
+                    "label" :"/Plans",
+                    "path":"/"
+                }
+            ]
         },
         {
             "icon": "mdi-cog-outline",
             "label": "Notifications",
-            "path": "/user/settings/profile"
+            "path": "/user/settings/profile",
+            "children":[
+                {
+                    "label" : "Alerts",
+                    "path" : "/"
+                }
+            ]
         }
 ]

@@ -12,7 +12,7 @@
                 <!-- Regular Menu Items -->
                 <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
                     :hide-overlay="false" class="text-subtitle-1"
-                    active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
+                    active-class="bg-primary on-primary  rounded my-active-menu hide-overlay ">
                     <template #title>
                         <span :ripple="false" class="text-body-1">{{ item.label }}</span>
                     </template>
@@ -52,7 +52,7 @@ export default {
                 return "258";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "258" : "68";
+                return this.themeStore.menuType == "expanded" ? "258" : "58";
             }
 
         },

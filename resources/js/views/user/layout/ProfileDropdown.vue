@@ -3,7 +3,7 @@
         <template #activator="{ props }">
             <v-btn icon v-bind="props" class="profileBtn">
                 <div class="d-flex align-center ga-2">
-                    <div class="profileImage d-flex justify-center align-center">
+                    <div class="profileImage d-flex justify-center align-center border">
                         <img :src="userStore.user.avatar" alt="" class="rounded"
                             style="height: 80%; width: 80%;" />
                     </div>

@@ -1,14 +1,15 @@
 <template>
+    
     <v-col cols="12">
         <v-row class="mt-3">
             <v-col cols="12">
                 <div class="d-flex justify-md-space-between flex-wrap ">
-                    <div class="d-flex flex-wrap">
-                        <div class="px-2">
-                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
-                                @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                    <div class="d-flex flex-wrap ">
+                        <div class="px-2 " >
+                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]" 
+                                @update:model-value="handleInput"  variant="outlined" color="primary" width="120"
                                 density="compact" />
-                        </div>
+                        </div> 
                         <div class="px-2">
                             <YearDropdown label="All Years" :model-value="filter.year"
                                 @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
@@ -53,13 +54,11 @@
                         <template #item.autoboli="{ item }">
                             -
                         </template>
-
-                        <template v-slot:bottom>
-                            <div class="py-2">
-                                <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
-                                    @page-changed="loadItems" />
-                            </div>
+                        <template #item.platform_title="{ item }">
+                            <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
                         </template>
+
+                       
                     </v-data-table-server>
                 </div>
             </v-col>
@@ -101,16 +100,17 @@ export default {
             totalItems: 0,
             loading: false,
             headers: [
-                { title: "", key: 'view', sortable: false },
-                { title: "VEHICLE", value: "vehicle" },
-                { title: "REG", value: "reg" },
-                { title: "CLEAN", value: "cap_clean" },
-                { title: "AVERAGE", value: "cap_average" },
-                { title: "BELOW", value: "cap_below" },
-                { title: "AUTOTRADER", value: "autotrader_retail_value" },
-                { title: "AUCTION", value: "platform_title" },
-                { title: "LAST BID", value: "last_bid" },
-                { title: "AUTOBOLI", key: "autoboli", sortable: false },
+                // { title: "", key: 'view', sortable: false },
+                { title: "Vehicle", value: "vehicle" },
+                { title: "Reg", value: "reg" },
+                { title: "CC", value: "cap_clean" },
+                { title: "Milage", value: "cap_average" },
+                { title: "Year", value: "cap_below" },
+                { title: "Grad", value: "cap_below" },
+                { title: "Date Time", value: "autotrader_retail_value" },
+                { title: "Auction House", value: "platform_title" },
+                // { title: "LAST BID", value: "last_bid" },
+                // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],
         }
     },
@@ -166,4 +166,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.table-border {
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  overflow: hidden; /* important: table border ko follow karega */
+}
+
+</style>

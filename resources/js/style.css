@@ -31,3 +31,6 @@ aside {
 .no-overlay .v-btn__overlay{
     display: none;
 }
+.bg-danger-lite{
+    background-color: rgba(255, 0, 0,  0.24)
+}

@@ -51,13 +51,10 @@ export default {
 
   methods: {
     handleFile(event, key) {
-      this.form[key] = event.target.files[0];
+        this.form[key] = event.target.files[0];
       },
       handleValue(value,key) {
-
-          
-          this.form[key] = value;
-        
+        this.form[key] = value;  
     },
     submitForm() {
 

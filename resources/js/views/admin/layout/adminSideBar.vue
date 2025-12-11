@@ -9,9 +9,22 @@
 
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in userMenu" :key="index">
-                <!-- Regular Menu Items -->
-                <v-list-item 
-                    v-if="item.type !== 'group'" 
+
+                <v-list-item v-if="item.type == 'group'" class="ml-n1 mt-8"  title="" :subtitle="item.label">
+                    <v-divider class="mt-2"></v-divider>
+                </v-list-item>
+
+                <v-list-group value="users" v-else-if="item.hasOwnProperty('children')">
+                    <template #activator="{ props }">
+                        <v-list-item 
+                          v-bind="props" 
+                          :title="item.label" 
+                          :prepend-icon="item.icon" />
+                    </template>
+                    <v-list-item  v-for="child in item.children" :title="child.label" :to="child.path" ></v-list-item>
+                </v-list-group>
+            
+                <v-list-item v-else-if="!item.hasOwnProperty('children')"     
                     :to="item.path" 
                      link 
                     :prepend-icon="item.icon" 
@@ -24,9 +37,6 @@
                     </template>
                 </v-list-item>
 
-                <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
-                    <v-divider class="mt-2"></v-divider>
-                </v-list-item>
             </template>
         </v-list>
     </v-navigation-drawer>

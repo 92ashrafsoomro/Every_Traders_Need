@@ -52,7 +52,7 @@
 
             <div class="d-flex h-6 align-center  ">
               <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                <v-icon size="32" color="primary">mdi-circle</v-icon>
+                <v-icon size="32" color="primary">mdi-store-clock</v-icon>
               </div>
               <span class="text-h4 px-1">{{ counter.total_Auctions }}</span>
             </div>
@@ -80,8 +80,8 @@
           <v-container>
 
             <div class="d-flex h-6 align-center  ">
-              <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                <v-icon size="32" color="primary">mdi-circle</v-icon>
+              <div style="border-radius: 22px;padding: 4px 6px;  " class="bg-danger-lite circle">
+                <v-icon size="32" color="danger"   >mdi-radiobox-marked</v-icon>
               </div>
               <span class="text-h4 px-1">{{ counter.inprogress_Auctions }}</span>
             </div>
@@ -107,7 +107,7 @@
 
             <div class="d-flex h-6 align-center  ">
               <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                <v-icon size="32" color="primary">mdi-circle</v-icon>
+                <v-icon size="32" color="primary">mdi-bash</v-icon>
               </div>
               <span class="text-h4 px-1">{{ counter.totalVehicles }}</span>
             </div>
@@ -132,7 +132,7 @@
 
             <div class="d-flex h-6 align-center  ">
               <div style="background: #0080ff38;border-radius: 22px;padding: 4px 6px;" class=" circle">
-                <v-icon size="32" color="primary">mdi-circle</v-icon>
+                <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
               </div>
               <span class="text-h4 px-1">{{ counter.vehicleReauctions }}</span>
             </div>
@@ -177,7 +177,7 @@
               <thead>
                 <tr>
                   <th class="text-left">PLATFORM</th>
-                  <th>Type Of Action</th>
+               
                   <th class="text-left">TOTAL AUCTION</th>
                   <th class="text-left">REMAINING</th>
                   <th class="text-left">LOTS</th>
@@ -194,7 +194,7 @@
                 <tr v-else-if="onlineAction.data.length" v-for="item in onlineAction.data"
                   :key="item.auction_platform_name">
                   <td>{{ item.auction_platform_name }}</td>
-                  <td>{{ item.auction_type }}</td>
+                 
                   <td>{{ item.car_count }}</td>
                   <td>{{ item.remaining }}</td>
                   <td>{{ item.lots }}</td>
@@ -271,6 +271,7 @@
                       <div>
                             <div class="d-flex align-center mb-3">
                                 <div style="background:#0080ff38;border-radius:22px;padding:4px 6px;">
+                               
                                   <v-icon size="32" color="primary">mdi-circle</v-icon>
                                 </div>
                                 <div class="pl-3 d-flex">

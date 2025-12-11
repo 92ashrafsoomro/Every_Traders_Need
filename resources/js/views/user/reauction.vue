@@ -119,9 +119,9 @@ export default {
         return {
             pageStore:usePageStore(),
             headers: [
-                { title: "Name", value: "title" },
-                { title: "Make", value: "make_name" },
-                { title: "Vehicle", value: "model_name" },
+                { title: "Vehical", value: "title" },
+                // { title: "Make", value: "make_name" },
+                // { title: "Vehicle", value: "model_name" },
                 { title: "Reg", value: "reg" },
                 { title: "Previous", value: "last_bid" },
                 { title: "Platform", value: "platform_name" },

@@ -2,7 +2,7 @@
     <user-title-bar 
         title="Auction Scheduler" 
         subtitle="Manage and view platform auctions across all centers in one place.">
-        <div class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0">
+        <div class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0 mt-10">
             <PlateformDropdown
                 label="Select Platform"
                 variant="outlined"
@@ -25,8 +25,9 @@
                 @change="handleInput($event,'enableCurrent')" 
                 class="ml-3" 
                 /> 
+                <span class="mt-2 ml-2 "> In Progress</span>
         </div>
-        <div class="pt-4 d-flex align-center ga-4 flex-wrap ml-auto mr-auto">
+        <div class="pt-4 d-flex align-center ga-4 flex-wrap ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key}"
                 class="border rounded bg-surface-variant-1 pa-3 ps-5 d-flex flex-column mb-3"
                 style=" height: 95px; width: 195px;" @click="handleTab(key)">

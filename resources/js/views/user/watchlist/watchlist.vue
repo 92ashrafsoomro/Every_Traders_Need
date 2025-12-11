@@ -53,13 +53,11 @@
                         <template #item.autoboli="{ item }">
                             -
                         </template>
-
-                        <template v-slot:bottom>
-                            <div class="py-2">
-                                <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
-                                    @page-changed="loadItems" />
-                            </div>
+                        <template #item.platform_title="{ item }">
+                            <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
                         </template>
+
+                       
                     </v-data-table-server>
                 </div>
             </v-col>
@@ -101,16 +99,17 @@ export default {
             totalItems: 0,
             loading: false,
             headers: [
-                { title: "", key: 'view', sortable: false },
-                { title: "VEHICLE", value: "vehicle" },
-                { title: "REG", value: "reg" },
-                { title: "CLEAN", value: "cap_clean" },
-                { title: "AVERAGE", value: "cap_average" },
-                { title: "BELOW", value: "cap_below" },
-                { title: "AUTOTRADER", value: "autotrader_retail_value" },
-                { title: "AUCTION", value: "platform_title" },
-                { title: "LAST BID", value: "last_bid" },
-                { title: "AUTOBOLI", key: "autoboli", sortable: false },
+                // { title: "", key: 'view', sortable: false },
+                { title: "Vehicle", value: "vehicle" },
+                { title: "Reg", value: "reg" },
+                { title: "CC", value: "cap_clean" },
+                { title: "Milage", value: "cap_average" },
+                { title: "Year", value: "cap_below" },
+                { title: "Grad", value: "cap_below" },
+                { title: "Date Time", value: "autotrader_retail_value" },
+                { title: "Auction House", value: "platform_title" },
+                // { title: "LAST BID", value: "last_bid" },
+                // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],
         }
     },

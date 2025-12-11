@@ -1,23 +1,31 @@
 <template>
-  <section class="bg-background ">
-    <v-container class="py-16 py-md-20">
+  <section >
+    <v-container max-width="1500px" style="margin-top: 100px; margin-bottom: 100px;">
       <v-row align="center" justify="center" class="min-vh-100" no-gutters>
 
         <!-- Left Big Card -->
         <v-col cols="12" lg="6" class="d-flex justify-center mb-8 mb-lg-0">
-          <v-card class="pa-10 pa-md-16 text-center" max-width="860" color="#0f172a" :border="true"
-            style="border: 10px solid #7f1d1d !important; border-radius: 90px;">
-            <h1 class="text-h2 text-md-h1 font-weight-black text-white mb-4">
-              The <span class="text-white bg-red-darken-2 px-4" style="border-radius: 8px;">Real</span>
+          <v-card class="pa-16 text-start border-xl border-opacity-75 border-danger" max-width="860" :border="true"
+            style="border-radius: 90px;">
+
+            <h1 class="text-h2 text-md-h1 font-weight-bold text-white mb-4 " style="line-height: 1.3;" >
+              
+              The <span class="text-white bg-danger px-4">Real</span>
+               <span class="bg-danger text-white px-4 my-4 "> Problem</span>
+              <span> in Auctions</span>
             </h1>
+            
+            <!-- <h1 class="text-h2 text-md-h1 font-weight-bold text-white mb-4" >
+              The <span class="text-white bg-danger">Real</span>
+            </h1>
+            
             <h1 class="text-h2 text-md-h1 font-weight-black text-white mb-6">
-              <span class="bg-red-darken-2 text-white px-6 py-2" style="border-radius: 12px; display: inline-block;">
-                Problem
-              </span>
+              <span class="bg-danger text-white px-6 py-2" style="display: inline-block;">Problem</span>
             </h1>
-            <h2 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white">
+
+            <h2 class="text-h2 text-md-h1 font-weight-black text-white mb-6">
               in Auctions
-            </h2>
+            </h2> -->
           </v-card>
         </v-col>
 
@@ -25,31 +33,42 @@
         <v-col cols="12" lg="6" class="d-flex justify-center">
           <div class="text-center" style="max-width: 600px; width: 100%;">
             <!-- Top Text -->
-            <p class="text-body-1 text-light_text_on mb-2">The truth is simple:</p>
-            <p class="text-h6 text-white font-weight-medium mb-10">
+            <p class="text-body-1 text-start text-light_text_on mb-2">The truth is simple:</p>
+            <p class="text-h6 text-start text-white font-weight-medium mb-10">
               People don’t lose money because the market is bad.<br>
               They lose money because they bid blind.
             </p>
 
             <!-- Problem Cards -->
             <div v-for="(item, i) in problems" :key="i" class="mb-6">
-              <v-card class="d-flex align-center pa-5 position-relative border-lg border-danger bg-surface mx-auto"
-                rounded="xl" elevation="8">
+              <v-card class=" text-start d-flex align-center pa-5 position-relative bg-surface mx-auto" elevation="8">
                 <!-- Red Minus Icon -->
-                <v-icon class="bg-danger text-h3 font-weight-bold rounded-lg mr-4" size="36">
-                  mdi-minus
-                </v-icon>
+                <v-icon
+              
+                class="bg-danger text-h3  mr-4 py-6"
+                style="border-radius: 25%;"
+              >
+                mdi-minus-thick
+              </v-icon>
 
-                <p class="text-body-1 text-white mb-0">
+
+                <p class="text-body-1 text-white mb-0 ">
                   {{ item.text }}
                 </p>
               </v-card>
             </div>
 
-            <v-card class="d-flex align-center pa-5 position-relative border-lg bg-primary mx-auto" rounded="xl"
+            <v-card class="d-flex align-center pa-5 position-relative bg-primary mx-auto"
               elevation="8">
-              <v-icon class="bg-black text-white text-h3 font-weight-bold rounded-lg mr-4" size="36">mdi-plus</v-icon>
-              <p class="text-body-1 text-white mb-0">{{ solution.text }}</p>
+            <v-icon
+  size="33"
+  class="bg-black text-white mr-4 pa-8"
+  style="border-radius: 25%; font-size:40px !important; height:28px !important; width:28px !important; line-height:28px !important;"
+>
+  mdi-plus-thick
+</v-icon>
+
+              <p class="text-start text-body-1 text-white mb-0">{{ solution.text }}</p>
             </v-card>
           </div>
         </v-col>
@@ -72,9 +91,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.bg-red-darken-2 {
-  background: #7f1d1d !important;
-}
-</style>

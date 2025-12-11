@@ -1,14 +1,15 @@
 <template>
-  <v-container
+  <v-container style="padding-bottom: 80px;"
     fluid
-    class="d-flex justify-center align-center mt-10 "
+    class="d-flex justify-center align-center"
   >
     <v-card
+    elevation="0"
       outlined
       max-width="600"
-      class="pa-6 border-lg border-primary rounded-xl"
+      class="border-styling pa-12 mb-16 rounded-xl"
     >
-      <v-card-title class="cardText text-h6 text-primary font-weight-bold mt-10  ms-8 ">
+      <v-card-title class="cardText text-h6 text-primary font-weight-bold ms-8 ">
         Autoboli was built to change that.
       </v-card-title>
       <v-card-text class="text-body-1 text-light_text_on ms-8">
@@ -19,3 +20,10 @@
     </v-card>
   </v-container>
 </template>
+
+<style>
+
+  .border-styling {
+    border: 1px solid #0080ff;
+  }
+</style>

@@ -47,7 +47,7 @@ export default [
                 meta:{requiresAuth:true}
             },
             {
-                path : "auctionsolutions",
+                path : "auctionsolution",
                 component : auctionsolutions
             },
             {

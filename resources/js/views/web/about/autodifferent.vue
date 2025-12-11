@@ -1,9 +1,8 @@
 <template>
-  <div class="bg-surface pa-16">
+  <div style="padding-top: 100px; padding-bottom: 100px;" class="bg-surface">
     <v-container style="max-width: 1500px; margin: auto;">
-      
       <div class="text-center mb-12">
-        <h2 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white mb-4">
+        <h2 class="text-h6 text-lg-h4 text-md-h5 font-weight-bold text-white mb-4">
           {{ title }}
         </h2>
 
@@ -20,7 +19,7 @@
           sm="6"
           md="4"
         >
-          <v-card class=" rounded-xl">
+          <v-card class="rounded-xl">
             
             <v-img
               height="200"
@@ -28,24 +27,16 @@
               cover
             />
 
-            <v-card-text style="background-color: rgb(275, 275, 275 , 0.1);">
-              <v-timeline align="start" density="compact">
-                <v-timeline-item>
-
-                  <strong>{{ item.title }}</strong>
+            <v-card-text class="pa-10" style="background-color: rgb(275, 275, 275 , 0.1);">
+              <h1 class="text-h6 pb-5 font-weight-bold">{{ item.title }}</h1>
                   <div>{{ item.desc }}</div>
 
                   <v-btn
                     v-if="item.hasButton"
-                    size="small"
                     color="primary"
-                    variant="flat"
                   >
                     {{ item.buttonText }}
                   </v-btn>
-
-                </v-timeline-item>
-              </v-timeline>
             </v-card-text>
 
           </v-card>
@@ -69,9 +60,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.gap-2px {
-  gap: 2px !important;
-}
-</style>

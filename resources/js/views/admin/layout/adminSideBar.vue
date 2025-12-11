@@ -27,7 +27,12 @@
                 <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
                     <v-divider class="mt-2"></v-divider>
                 </v-list-item>
+                
             </template>
+            <div class="d-flex ga-6 ml-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1" >
+                 <router-link to="user/dashboard" style="text-decoration: none ; color: white;"> User</router-link></v-list-item>
+            </div>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -65,12 +70,6 @@ export default {
 </script>
 <style >
 
-
-
-
-
-
-/* Alternative (more future-proof) – target the actual overlay class */
 .my-active-menu  .v-list-item__overlay {
   display: none !important;
 }

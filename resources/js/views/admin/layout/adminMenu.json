@@ -12,13 +12,56 @@
         {
             "icon": "mdi-car-search-outline",
             "label": "Master",
-            "path": "/user/auction-finder"
+            "path": "/user/auction-finder",
+            "childern":[
+                {
+                    "label" :"Body Type",
+                    "path" : "/bodyType"
+                },
+                {
+                    "label" :"Vehicle Type",
+                    "path" : "/vehicleType"
+                },
+                {
+                    "label" :"Platform",
+                    "path" : "/platform"
+                },
+                {
+                    "label" :"Center",
+                    "path" : "/center"
+                },
+                {
+                    "label" :"Color",
+                    "path" : "/color"
+                },
+                {
+                    "label" :"Make",
+                    "path" : "/make"
+                },
+                {
+                    "label" :"Model",
+                    "path" : "/model"
+                },
+                {
+                    "label" :"Variant",
+                    "path" : "/variant"
+                }
+            ]
         },
        
         {
             "icon": "mdi-history",
             "label": "Data Management",
-            "path": "/user/watchlist"
+            "path": "/user/watchlist",
+            "childern":[
+                {
+                    "label" : "Import Data CSV",
+                    "path" : "/"
+                },{
+                    "label" :"/Vehicles",
+                    "path":"/"
+                }
+            ]
         },
         {
             "icon": "mdi-calendar-sync-outline",

@@ -10,24 +10,22 @@
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in userMenu" :key="index">
                 <!-- Regular Menu Items -->
-                <v-list-item 
-                    v-if="item.type !== 'group'" 
-                    :to="item.path" 
-                     link 
-                    :prepend-icon="item.icon" 
-                    :ripple="false"
-                    :hide-overlay="false"
-                    class="text-subtitle-1"
+                <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
+                    :hide-overlay="false" class="text-subtitle-1"
                     active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                     <template #title>
                         <span :ripple="false" class="text-body-1">{{ item.label }}</span>
                     </template>
                 </v-list-item>
-
                 <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
                     <v-divider class="mt-2"></v-divider>
                 </v-list-item>
+
             </template>
+            <div class="d-flex ga-6 ml-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1" >
+                 <router-link to="/admin" style="text-decoration: none ; color: white;">   Admin</router-link></v-list-item>
+            </div>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -35,7 +33,7 @@
 <script>
 import { useDisplay } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
-import  userMenu  from "./userMenu.json";
+import userMenu from "./userMenu.json";
 import logo from "@assets/images/logo/logo.png"
 export default {
     data() {
@@ -48,10 +46,10 @@ export default {
     },
     computed: {
         menuWidth() {
-            
+
             // md, sm, xs
             if (this.display.mdAndDown) {
-                return  "258";
+                return "258";
             } else {
                 //for: lg, xl
                 return this.themeStore.menuType == "expanded" ? "258" : "68";
@@ -63,17 +61,9 @@ export default {
     mounted() { },
 };
 </script>
-<style >
-
-
-
-
-
-
+<style>
 /* Alternative (more future-proof) – target the actual overlay class */
-.my-active-menu  .v-list-item__overlay {
-  display: none !important;
+.my-active-menu .v-list-item__overlay {
+    display: none !important;
 }
-
-
 </style>

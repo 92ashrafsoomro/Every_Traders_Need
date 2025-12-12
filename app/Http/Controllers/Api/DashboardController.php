@@ -146,7 +146,8 @@ class DashboardController extends Controller
             $page = (int) $request->input('page', 1);
             $offset = ($page - 1) * $length;
     
-            $query = AuctionPlatform::leftJoin('auctions', 'auction_platform.id', '=', 'auctions.platform_id')
+            $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
+
                     ->when($request->type, function($q) use ($request) {
                         if($request->type == 'time auction'){
                                 $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");
@@ -155,16 +156,18 @@ class DashboardController extends Controller
                         }
                     })
                     ->when($request->platform, function($q) use ($request) {
-                        return $q->whereIn('auction_platform', $request->platform);
+                        return $q->where('auction_platform.id',$request->platform);
                     });
 
             $count = (clone $query)->count();
+
+           
             $data =  $query->select([
                         'auction_platform.id AS auction_platform_id',        
                         'auction_platform.name AS auction_platform_name',
                         'auctions.auction_type',
                         'auctions.end_date',
-                        DB::raw('(  SELECT COUNT(*)  FROM vehicles v  JOIN auctions a ON v.auction_id = a.id  WHERE a.platform_id = auctions.platform_id  ) as car_count'),
+                        DB::raw('(SELECT COUNT(*)  FROM vehicles v  JOIN auctions a ON v.auction_id = a.id  WHERE a.platform_id = auctions.platform_id  ) as car_count'),
                         DB::raw("(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = 'on sale') as remaining"),
                         DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as lots'),
                     ])

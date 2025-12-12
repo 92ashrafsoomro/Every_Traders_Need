@@ -5,28 +5,17 @@
             class="d-flex justify-content-center align-content-center py-md-20">
             <v-row no-gutters="" align="center">
 
-                <!-- LEFT: Text Content -->
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 style="" class="text-h2 font-weight-bold text-white mb-8">
-                            {{ data.title }}
-                        </h2>
-
+                        <h2 style="" class="text-h2 font-weight-bold text-white mb-8">Our Mission</h2>
                         <div>
                             <div>
-                                <p class="text-h6 mb-6 opacity-90 mr-6 ">
-                                    {{ data.highlight }} </p>
+                                <p class="text-h6 mb-6 opacity-90 mr-6 ">To remove guesswork from vehicle auctions and give every dealer and trader the same data advantage that only insiders once had. </p>
                             </div>
-
-
-                            <p class="text-h6 mb-10 mr-6 opacity-90 ">
-                                {{ data.description }}
-                            </p>
-
+                            <p class="text-h6 mb-10 mr-6 opacity-90">We exist to empower you with clarity—so every bid is calculated, every purchase is strategic, and every deal is profitable, not painful.</p>
                         </div>
                     </div>
-                </v-col>
-                <!-- RIGHT: IMG -->
+                </v-col>   
                 <v-col cols="12" lg="6">
                     <img :src="rightImage" alt="" class="missionImage">
                 </v-col>

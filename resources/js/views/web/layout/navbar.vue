@@ -1,21 +1,21 @@
 <template>
-    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 60px; position: fixed; z-index: 10;">
+    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 50px; position: fixed; z-index: 10;">
 
-        <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 60px; max-width: 1500px;">
+        <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 50px; max-width: 1500px;">
 
             <!-- NAV -->
             <nav class="d-flex align-center justify-space-between w-100">
 
                 <!-- Logo -->
-                <div class="d-flex align-center ">
-                    <v-list-item>
+                <div class="d-flex align-center">
+                    <v-list-item class="mt-2">
                         <router-link to="/"> <img :src="logo" height="30px" /></router-link>
                     </v-list-item>
                 </div>
 
                 <!-- NAV MENU (Desktop) -->
                 <div class="d-none d-lg-flex align-center">
-                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link class="m-item mx-3">
+                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link class="m-item text-h6 mx-3 mb-2">
                         <v-list-item-title class="nav-menu-links text-capitalize text-body-3">
                             {{ item.label }}
                         </v-list-item-title>
@@ -26,7 +26,7 @@
                 <div class="d-flex align-center">
                     <!-- Theme Toggle -->
                     <v-list-item class="pa-2">
-                        <v-icon @click="toggleTheme" link :color="'primary'">
+                        <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
                             {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
                         </v-icon>
                     </v-list-item>
@@ -40,7 +40,7 @@
 
                     <!-- Dashboard -->
                     <v-list-item v-if="userStore.user" to="/user/dashboard" link class="pa-0 ma-0 d-none d-lg-flex">
-                        <v-btn variant="outlined" class="border-thin text-capitalize bg-shadow hover:bg-primary">
+                        <v-btn color="surface" variant="flat" class="border-thin text-capitalize ">
                             Get Started
                         </v-btn>
                     </v-list-item>
@@ -66,7 +66,7 @@
                         </v-btn>
                     </v-list-item>
                     <v-list-item v-if="userStore.user" to="/user/dashboard" link class="pa-0 ma-0 d-lg-none d-flex">
-                        <v-btn variant="outlined" class="border-thin text-capitalize bg-shadow hover:bg-primary">
+                        <v-btn variant="outlined" class="border-thin text-capitalize bg-background ">
                             Get Started
                         </v-btn>
                     </v-list-item>
@@ -111,26 +111,31 @@ export default {
 <style scoped>
 .navbar {
     z-index: 10;
+}
+.my-btn {
+    transition: all 0.3s ease; 
+    /* color: white; */
+    /* background-color: #0080ff; */
+}
 
+.my-btn:hover {
+    background-color: #0056b3; /* darker on hover */
+    transform: scale(1.05); /* subtle grow effect */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* optional shadow */
 }
 
 .nav-menu-links {
-
-    font-size: 16px;
-    color: #6b7280;
-    background-color: transparent !important;
-    font-weight: 500;
-
+    color: #B1BFCD;
 }
 
 .m-item:hover {
     background-color: transparent !important;
     color: white;
-    border-bottom: 2px solid #0080ff;
+    border-bottom: 1px solid #0080ff;
 }
 .m-item {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
 }
 
 .m-item:hover .nav-menu-links {
@@ -139,5 +144,11 @@ export default {
 
 .v-list-item {
     --v-theme-overlay-multiplier: 0 !important;
+}
+.get-hover:hover {
+    background-color: #0080ff;
+}
+.hover-icon:hover {
+    color: #0080ff;
 }
 </style>

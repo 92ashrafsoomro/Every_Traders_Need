@@ -1,6 +1,6 @@
 <template>
   <pricingplain/>
-  <featureTable/>
+  <!-- <featureTable/> -->
 </template>
 
 

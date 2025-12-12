@@ -20,46 +20,7 @@
                     ],
                     "mostPopular": false,
                     "minHeight": "auto"
-                },
-                {
-                    "title": "Core",
-                    "price": 30,
-                    "features": [
-                        "Image Generation — 10 AI models",
-                        "Video Generation — 24 AI models",
-                        "Image Editing — 15 projects",
-                        "Parallel jobs — 4 gens at a time",
-                        "Model Training"
-                    ],
-                    "mostPopular": false,
-                    "minHeight": "auto"
-                },
-                {
-                    "title": "Plus",
-                    "price": 65,
-                    "features": [
-                        "Image Generation — 10 AI models",
-                        "Video Generation — 24 AI models",
-                        "Image Editing — 50 projects",
-                        "Parallel jobs — 8 gens at a time",
-                        "Model Training",
-                        "Top-up Credits"
-                    ],
-                    "mostPopular": true,
-                    "minHeight": "620px"
-                },
-                {
-                    "title": "Ultra",
-                    "price": 175,
-                    "features": [
-                        "Image Generation — 10 AI models",
-                        "Video Generation — 24 AI models",
-                        "Image Editing — Unlimited projects",
-                        "Parallel jobs — 10 gens at a time",
-                        "Model Training",
-                        "Top-up Credits"
-                    ],
-                    "mostPopular": false,
-                    "minHeight": "auto"
                 }
+
+               
             ]

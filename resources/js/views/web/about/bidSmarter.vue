@@ -1,28 +1,36 @@
 <template>
   <section class="bg-surface py-20 overflow-hidden relative pa-14 min-vh-100">
-    <v-container class="relative z-10">
-      <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold text-white mb-6">
-          {{ bidSmarterData.title }}
-        </h1>
-        <div class=" d-flex justify-center">
-          <p class="text-subtitle-1 text-light_text_on mb-14" style="max-width: 600px;">
-            {{ bidSmarterData.paragraph }}
-          </p>
+    <v-container style="padding-top: 80px; padding-bottom: 80px;" class="relative z-10">
+      <div class="d-flex justify-content-center align-center">
+        <div class="images">
+          <div class=""><img :src="leftSideImage" alt="Left Image" /></div>
+
         </div>
 
+        <div class="text-center max-w-3xl mx-auto">
+          <!-- Centered Heading -->
+          <h1 class="text-h6 text-lg-h4 text-md-h5 font-weight-bold text-white mb-6">
+            {{ bidSmarterData.title }}
+          </h1>
 
-        <v-btn size="x-large" class="px-12 text-h6" elevation="1"
-          style="background:#1976d2; color:black;">
-          {{ bidSmarterData.button }}
-        </v-btn>
+          <!-- Centered Paragraph -->
+          <p class="text-subtitle-1 text-light_text_on mb-14 mx-auto" style="max-width: 600px;">
+            {{ bidSmarterData.paragraph }}
+          </p>
+
+          <!-- Centered Button -->
+          <v-btn color="primary" size="large" class="px-8 text-body-2 text-md-subtitle-1 font-weight-bold">
+            {{ bidSmarterData.button }}
+          </v-btn>
+
+        </div>
+        <div class="images">
+          <div class=""><img :src="leftSideImage" alt="Right Image" /></div>
+        </div>
       </div>
-    </v-container>
 
-    <div class="images">
-      <div class="left"><img :src="leftSideImage" /></div>
-      <div class="right"><img :src="leftSideImage" /></div>
-    </div>
+      <!-- Left & Right Images -->
+    </v-container>
 
   </section>
 </template>
@@ -41,12 +49,12 @@ export default {
 </script>
 
 <style scoped>
-.images {
+/* .images {
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-top: -160px;
-}
+} */
 
 .left {
   rotate: 90deg;

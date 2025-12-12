@@ -13,12 +13,12 @@
 
       <v-row>
         <v-col v-for="(item, index) in cards" :key="index" cols="12" sm="6" md="4">
-          <v-card class="rounded-xl">
+          <v-card class="rounded-lg border">
 
             <v-img height="200" src="https://cdn.vuetifyjs.com/docs/images/cards/purple-flowers.jpg" cover />
 
-            <v-card-text class="pa-10 bg-background">
-              <h1 class="text-h6 pb-5 font-weight-bold">{{ item.title }}</h1>
+            <v-card-text class="pa-8 bg-background">
+              <h1 class="text-h6 pb-2 font-weight-bold">{{ item.title }}</h1>
               <div>{{ item.desc }}</div>
 
               <!-- <v-btn
@@ -27,15 +27,15 @@
                   >
                     {{ item.buttonText }}
                   </v-btn> -->
-              <v-btn class="custom-btn" color="primary" v-if="item.hasButton" elevation="0"
+              <div style="display: flex;align-items: center;">
+                <v-btn class="custom-btn text-capitalize" color="primary" v-if="item.hasButton" elevation="0"
                 target="_blank">
                 Explore
-
-                <v-btn href="https://google.com" class="arrow-btn text-primary" icon>
-                  <v-icon size="32">mdi-arrow-top-right</v-icon>
+              </v-btn >
+                  <v-btn v-if="item.hasButton" href="https://google.com" class="arrow-btn text-primary" icon>
+                  <v-icon class="icon-bold" size="26">mdi-arrow-top-right</v-icon>
                 </v-btn>
-
-              </v-btn>
+              </div>
 
 
             </v-card-text>
@@ -64,16 +64,19 @@ export default {
 
 <style>
 .custom-btn {
-  position: relative;
+  font-weight: bold;
+  padding-left: 30px;
+  padding-right: 30px;
+  /* padding: 0px 10px ; */
   border-radius: 30px;
   height: 46px !important;
 
 }
-
 .arrow-btn {
-  position: absolute !important;
-  left: 105px;
   background: white !important;
-  height: 45px !important;
+  height: 46px !important;
+}
+.icon-bold::before {
+  font-weight: 700;
 }
 </style>

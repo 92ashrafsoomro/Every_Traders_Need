@@ -23,7 +23,7 @@
           <v-card elevation="0"
             :class="['card pa-6 position-relative elevation-8', item.highlight ? 'bg-danger darken-2' : 'bg-surface']"
           >    
-          <div class="text-body-1 text-white" style="height: 70px; border-left: 5px solid white; ">
+          <div class="text-body-1 text-text_light" style="height: 70px; border-left: 5px solid white; ">
               <p class="ml-10 pa-2" >{{ item.label }}</p>
             </div>
           </v-card>

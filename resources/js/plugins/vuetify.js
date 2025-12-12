@@ -48,12 +48,8 @@ const vuetify = createVuetify({
                     'surface-variant-1': "#0f1c2b",
                     light_text_on: "#B1BFCD",
                     border: "#343E4B",
-<<<<<<< HEAD
                     danger: "#b91c1c",
                     dangerlite: "#b91c1c50",
-=======
-                    danger: "#FF0000 ",
->>>>>>> 82e356ebdbfd92f3327601488a0727ee52adb8f9
                     success: "#4CAF50",
                     warning: "#FB8C00",
                     text_light:"#B2C0C3",

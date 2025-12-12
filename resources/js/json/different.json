@@ -24,7 +24,6 @@
     },
     {
       "title": "Spot Auction Dropouts",
-      "desc": "Identify vehicles that didn't sell the first time and",
       "hasButton": true,
       "buttonText": "Explore"
     }

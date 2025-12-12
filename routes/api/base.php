@@ -1,9 +1,20 @@
 <?php
 
+use App\Http\Controllers\Api\Master\CenterController;
+use App\Http\Controllers\Api\Master\ColorController;
+use App\Http\Controllers\Api\Master\MakeController;
+use App\Http\Controllers\Api\Master\ModelController;
+use App\Http\Controllers\Api\Master\PlatformController;
+use App\Http\Controllers\Api\Master\VariantController;
+use App\Http\Controllers\Api\Master\VehicleTypeController;
+use App\Http\Controllers\Api\Master\BodyTypeController;
+
+
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
@@ -18,15 +29,14 @@ use Illuminate\Support\Facades\Route;
 
         Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
         Route::post('/profile',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
-
         Route::post('/login',[AuthController::class,'login']);
         Route::post('/register',[AuthController::class,'register']);
-
         Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
 
     });
 
-
+    
+    // Master data
     Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/getVehicleTypes',[MasterController::class,'getVehicleTypes']);
@@ -54,6 +64,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+    // User Panel
     Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
 
@@ -113,15 +125,27 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('interest')->group(function () {
             Route::get('/myInterest',[InterestController::class,'myInterest']);
         });
-
-
+        
     });
-
-
-
 
     Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
+    });
+
+    // Master data
+    Route::prefix('cruds')->middleware(['auth:sanctum'])->group(function () {
+
+        Route::resource('bodyType',BodyTypeController::class);
+        Route::resource('vehicleType',VehicleTypeController::class);
+        Route::resource('platform',PlatformController::class);
+        Route::resource('center',CenterController::class);
+        Route::resource('color',ColorController::class);
+        Route::resource('make',MakeController::class);
+        Route::resource('model',ModelController::class);
+        Route::resource('variant',VariantController::class);
+
+        // Route::resource('platform',PlatformController::class);
+
     });
 
 

@@ -13,8 +13,8 @@ export default [
         path: "/pricing"
     },
     {
-        label: "Auction Solutions",
-        path: "/auctionsolutions"
+        label: "Auction Solution",
+        path: "/auctionsolution"
     }
     
 ];

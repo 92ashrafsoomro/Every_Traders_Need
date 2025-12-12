@@ -1,7 +1,7 @@
-<template>
-    <div style="max-width: 1400px; margin: auto;">
+<template >
+    <div style="max-width: 1500px; padding-top: 80px; padding-bottom: 80px; margin: auto;">
       <!-- Heading -->
-      <div class="text-center mb-12">
+      <div class="text-center my-12">
         <h2 class="text-h3 font-weight-bold text-white mb-4">
           Why Autoboli Exists
         </h2>
@@ -11,19 +11,20 @@
       </div>
 
       <!-- Cards Grid -->
-      <v-row  class="">
+      <v-row >
         <v-col
           v-for="(item, index) in existsCardData"
           :key="index"
           cols="12"
           sm="6"
           md="4"
+
         >
-          <v-card
-            :class="['card pa-6  position-relative elevation-8', item.highlight ? 'bg-danger darken-2' : 'bg-surface']"
+          <v-card elevation="0"
+            :class="['card pa-6 position-relative elevation-8', item.highlight ? 'bg-danger darken-2' : 'bg-surface']"
           >    
-          <div class="text-body-1 text-white  " style="height: 70px; border-left: 5px solid white; ">
-              <p class="ml-10 pa-2 " >{{ item.label }}</p>
+          <div class="text-body-1 text-white" style="height: 70px; border-left: 5px solid white; ">
+              <p class="ml-10 pa-2" >{{ item.label }}</p>
             </div>
           </v-card>
         </v-col>

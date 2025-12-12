@@ -6,13 +6,13 @@
           {{ bidSmarterData.title }}
         </h1>
         <div class=" d-flex justify-center">
-          <p class="text-subtitle-1 text-light_text_on mb-4 " style="max-width: 600px;">
+          <p class="text-subtitle-1 text-light_text_on mb-14" style="max-width: 600px;">
             {{ bidSmarterData.paragraph }}
           </p>
         </div>
 
 
-        <v-btn size="x-large" class="px-12 text-h6 font-weight-bold" elevation="1"
+        <v-btn size="x-large" class="px-12 text-h6" elevation="1"
           style="background:#1976d2; color:black;">
           {{ bidSmarterData.button }}
         </v-btn>
@@ -45,7 +45,7 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: -100px;
+  margin-top: -160px;
 }
 
 .left {

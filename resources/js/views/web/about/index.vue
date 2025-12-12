@@ -1,17 +1,19 @@
 <template>
-  <div class="bg-background ">
-    <aboutscreen />
-    <div class="bg-surface">
-      <Dealer />
-    </div>
-    <exists />
+  <aboutscreen />
+  <div class="bg-surface">
+    <Dealer />
   </div>
-  <card />
+  <div class="bg-background">
+    <exists />
+    <card />
+  </div>
   <mision />
-  <problem/>
-  <autodifferent/>
-  <promise/>
-  <bidSmarter/>
+  <problem />
+  <autodifferent />
+  <div>  
+    <promise />
+  </div>
+  <bidSmarter />
 </template>
 
 <script>
@@ -29,7 +31,7 @@ import bidSmarter from './bidSmarter.vue';
 
 export default {
   components: {
-  name: 'About',
+    name: 'About',
     aboutscreen,
     Dealer,
     exists,

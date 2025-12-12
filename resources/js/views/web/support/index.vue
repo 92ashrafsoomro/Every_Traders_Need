@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
 
         <!-- Left: Title + Form -->
-        <v-col cols="12" lg="6" class=" pa-md-12  position-relative " style="min-height: 100vh;">
+        <v-col cols="12" lg="6" class="bg-surface pa-md-12  position-relative " style="min-height: 100vh;">
 
           <!-- Background Image -->
           <!-- Background Image -->
@@ -15,33 +15,35 @@
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.1,
-            zIndex: 1,
-
-
-          }">
+            zIndex: 1}">
 
           </v-card>
 
 
+          <div class="logo" style="position: absolute;">
+            <img style="" height="40px" :src="logo" alt="">
+          </div>
           <!-- Form Content -->
-          <div class="position-relative pa-8 pa-md-12 mt-16  align-center justify-center "
-            style="z-index: 2; max-width: 600px; margin: auto;  ">
-            <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
-              Supported Page
-            </h1>
+           <div style=" display: flex; justify-content: center; align-items: center; height: 90vh;" >
 
-            <div class="max-w-md mx-auto mx-lg-0">
-              <v-text-field label="Name" v-model="form.name" placeholder="John Doe" variant="outlined"
+             <div class="position-relative pa-8 pa-md-12  align-center justify-center "
+             style="z-index: 2; max-width: 600px; margin: auto;  ">
+             <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
+               Supported Page
+              </h1>
+
+              <div class="max-w-md mx-auto mx-lg-0">
+                <v-text-field label="Name" v-model="form.name" placeholder="John Doe" variant="outlined"
                 bg-color="inputBg" base-color="gray-lighten-1" color="white" class="mb-6"></v-text-field>
-
-              <v-text-field label="Email" v-model="form.email" placeholder="john@example.com" variant="outlined"
+                
+                <v-text-field label="Email" v-model="form.email" placeholder="john@example.com" variant="outlined"
                 bg-color="inputBg" base-color="grey-lighten-1" color="white" class="mb-6"></v-text-field>
-
-              <v-textarea label="Description *" v-model="form.description"
+                
+                <v-textarea label="Description *" v-model="form.description"
                 placeholder="I have a question about my subscription..." variant="outlined" bg-color="inputBg"
                 base-color="grey-lighten-1" color="white" rows="5" class="mb-8"></v-textarea>
-
-              <div class="d-flex  flex-sm-row mb-8" style="max-width: 200px;">
+                
+                <div class="d-flex  flex-sm-row mb-8" style="max-width: 200px;">
                 <v-btn color="primary" class="flex-grow-1 mr-lg-10 text-capitalize" @click="formSubmit">
                   Submit
                 </v-btn>
@@ -49,18 +51,19 @@
                   Go Back
                 </v-btn>
               </div>
-
+              
               <p class="text-light text-body-2">
                 Hey! If you have a code-related question, please instead use
                 <a href="#" class="text-primary text-decoration-none">the forum</a>.
               </p>
+            </div>
             </div>
           </div>
 
         </v-col>
 
         <!-- Right: Quick Links -->
-        <v-col cols="12" lg="6" class=" pa-8   pa-md-12 d-flex align-center justify-center bg-surface" style="min-height: 100vh;">
+        <v-col cols="12" lg="6" class=" pa-8  b pa-md-12 d-flex align-center justify-center bg-background" style="min-height: 100vh;">
           <div class="w-100 " style="max-width: 560px;">
             <div v-for="(item, index) in quickLinks" :key="index"
               class="mb-4 px-6 py-1  border-thin rounded-sm bg-background">
@@ -93,11 +96,13 @@
 import UserModel from '@/models/user.model';
 import bgImage from "@/assets/images/reauction/Reauction.png"
 import quickLinks from "@/json/support.json"
+import logo from '@/assets/images/logo/logo.png'
 
 export default {
   name: 'support',
 
   data: () => ({
+     logo,
     bgImage,
     quickLinks ,
     activeIndex: null,
@@ -138,7 +143,7 @@ export default {
 </script>
 
 <style scoped>
-.inner-shadow {
+/* .inner-shadow {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-}
+} */
 </style>

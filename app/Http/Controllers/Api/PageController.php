@@ -189,7 +189,6 @@ class PageController extends Controller
 
                 $item->title = $item->plan_name.' - £'.$item->price.'/'.$item->duration_unit;
 
-             
 
                 return $item;
             });

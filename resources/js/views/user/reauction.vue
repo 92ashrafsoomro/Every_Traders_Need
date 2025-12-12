@@ -80,6 +80,7 @@
                             :items-length="pageStore.reauction.total"
                             :loading="pageStore.reauction.loading" 
                             item-value="id" 
+                            hover
                             @update:options="pageStore.getreAuctionList">
                             
                                 <template #item.action="{ item }">
@@ -87,7 +88,7 @@
                                 </template>
                             
                                 <template v-slot:bottom>
-                                    <div class="pt-2" >
+                                    <div  class="py-2 d-flex justify-end border-t" >
                                         <custom-pagination
                                         :loading="pageStore.reauction.loading"
                                         v-model:page="pageStore.reauction.page" 
@@ -131,7 +132,7 @@ export default {
                 { title: "Mileage", value: "mileage" },
                 { title: "Status", value: "bidding_status" },
                 { title: "Time", value: "auction_date" },
-                { title: "Action", value: "action", sortable: false },
+                // { title: "Action", value: "action", sortable: false },
             ],
         }
     },

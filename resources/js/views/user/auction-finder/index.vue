@@ -13,7 +13,7 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="">
+    <v-container fluid>
         <v-row class="mt-3" >
             <v-col cols="12 " >
                 <div class="mr-auto ml-auto ">

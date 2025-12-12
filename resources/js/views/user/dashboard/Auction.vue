@@ -1,8 +1,9 @@
 <template>
 
-    <v-card class="mb-5 border" title="Online / Time Auction">
+    <v-card class="mb-5 border pa-4" title="Online / Time Auction">
+        <p class="ml-4 mt-n6 text-body-2 text-light  mb-4">Today</p>
         <template v-slot:append>
-            <div class="d-flex mt-2">
+            <div class="d-flex mt-6">
                 <div class="mr-2">
                     <plateform-dropdown label="Online Auction" variant="outlined" density="compact" max-width="180px"
                         min-width="180px" hide-details v-model="auctionType"

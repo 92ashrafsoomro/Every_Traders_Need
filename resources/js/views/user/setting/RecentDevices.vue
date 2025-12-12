@@ -19,10 +19,10 @@
                 </template>
 
                 <template v-slot:bottom>
-                    <!-- <div class="py-2">
+                             <div class="py-2 d-flex justify-end border-t">
                         <custom-pagination :loading="pageStore.recentDevices.loading"
                             v-model:page="pageStore.recentDevices.page" :lastPage="pageStore.recentDevices.last_page" />
-                    </div> -->
+                    </div>
                 </template>
             </v-data-table-server>
         </v-card>

@@ -12,7 +12,7 @@
           
           <!-- Small Heading -->
           <span class="hero-about-heading text-on-primary">
-            About us
+            About
           </span>
 
           <!-- Main Heading -->

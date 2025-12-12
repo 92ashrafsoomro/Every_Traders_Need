@@ -25,21 +25,21 @@
                 <!-- RIGHT BUTTONS -->
                 <div class="d-flex align-center">
                     <!-- Theme Toggle -->
-                    <v-list-item class="pa-2">
+                    <v-list-item class="px-0 text-end">
                         <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
                             {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
                         </v-icon>
                     </v-list-item>
 
                     <!-- Login -->
-                    <v-list-item v-if="userStore.user" to="/login" link class="pa-2   d-none d-lg-flex">
+                    <v-list-item v-if="userStore.user" to="/login" link class="px-0   d-none d-lg-flex">
                         <v-btn variant="plain" class="text-capitalize">
                             SignIn
                         </v-btn>
                     </v-list-item>
 
                     <!-- Dashboard -->
-                    <v-list-item v-if="userStore.user" to="/user/dashboard" link class="pa-0 ma-0 d-none d-lg-flex">
+                    <v-list-item v-if="userStore.user" to="/user/dashboard" link class="px-0 d-none d-lg-flex">
                         <v-btn color="surface" variant="flat" class="border-thin text-capitalize ">
                             Get Started
                         </v-btn>

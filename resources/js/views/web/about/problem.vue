@@ -42,37 +42,15 @@
             <!-- Problem Cards -->
             <div v-for="(item, i) in problems" :key="i" class="mb-6">
               <v-card elevation="0" class=" text-start d-flex align-center pa-5 position-relative bg-surface mx-auto" >
-                <!-- Red Minus Icon -->
-                <v-icon
-               size="33"
-              class="bg-danger  text-white mr-4 pa-6"
-              style="font-size: 34px; border-radius: 25%; "
-              >
-                mdi-minus-thick
-              </v-icon>
-
-
-                <p class="text-body-1 text-white mb-0 ">
-                  {{ item.text }}
-                </p>
+           
+                <v-icon size="33" class="bg-danger  text-white mr-4 pa-6" style="font-size: 34px; border-radius: 25%">mdi-minus-thick</v-icon>
+                  <p class="text-body-1 text-white mb-0 ">
+                    {{ item.text }}
+                  </p>
               </v-card>
             </div>
-
-            <v-card class="d-flex align-center pa-5 position-relative bg-primary mx-auto"
-              elevation="0">
-            <v-icon
-              size="33"
-              class="bg-black  text-white mr-4 pa-6"
-              style="font-size: 34px; border-radius: 25%; "
-            >
-              mdi-plus-thick
-            </v-icon>
-
-              <p class="text-start text-body-1 text-white mb-0">{{ solution.text }}</p>
-            </v-card>
           </div>
         </v-col>
-
       </v-row>
     </v-container>
   </section>

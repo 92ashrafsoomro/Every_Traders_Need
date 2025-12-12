@@ -6,7 +6,7 @@
         
         <div class="text-center justify-center py-12"> 
             <!-- <v-chip class="mb-4" small> Monthly • Yearly <span class="text-subtitle-2 ml-2 text-primary">Up to 20% OFF</span> </v-chip> -->
-            <h1 class="text-h3 font-weight-bold white--text mb-3"> Flexible plans for AI content creators </h1>
+            <h1 class="text-h3 font-weight-bold white--text mb-3">Plans & Pricing</h1>
             <p class="text-body-1 white--text opacity-80"> Choose the best plan for your needs. </p>    
         </div>
         

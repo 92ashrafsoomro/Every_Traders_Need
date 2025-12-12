@@ -32,6 +32,9 @@ const vuetify = createVuetify({
             },
             class: 'no-overlay',
         },
+        VCard: {
+            elevation: 0
+        },
     },
     theme: {
         defaultTheme: "adminDark",

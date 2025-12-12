@@ -1,27 +1,23 @@
 export default [
   {
-    label: "No single platform to compare auction house prices, history, and valuations.",
+    label: "No single platform to compare auction house prices, history, and valuations",
     highlight: false
   },
   {
-    label: "No single platform to compare auction house prices, history, and valuations.",
+    label: "Limited access to true market value—leading to overbidding and profit loss.",
     highlight: true
   },
   {
-    label: "No single platform to compare auction house prices, history, and valuations.",
+    label: "Reauction traps—vehicles re-listed multiple times without clear insight into why.",
     highlight: false
   },
   {
-    label: "No single platform to compare auction house prices, history, and valuations.",
+    label: "New or inexperienced bidders lose money simply because they don’t know what the insiders know.",
     highlight: false
   },
   {
-    label: "No single platform to compare auction house prices, history, and valuations.",
+    label: "Data locked behind multiple subscriptions and slow platforms—causing delays in decision-making",
     highlight: false
-  },
-  {
-    label: "No single platform to compare auction house prices, history, and valuations.",
-    highlight: false
-  },
+  }
 ];
      

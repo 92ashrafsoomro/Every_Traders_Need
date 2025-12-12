@@ -13,9 +13,7 @@
         Autoboli was built to change that.
       </v-card-title>
       <v-card-text class="text-body-1 text-light_text_on ms-8">
-        We provide real-time, intelligent auction data from 30+ auction houses, 
-        unified into a powerful, easy-to-use platform designed for smart bidding, 
-        profit-driven buying, and risk-free decision making.
+        We provide real-time, intelligent auction data from 30+ auction houses, unified into a powerful, easy-to-use platform designed for smart bidding, profit-driven buying, and risk-free decision-making.
       </v-card-text>
     </v-card>
   </v-container>

@@ -1,29 +1,21 @@
 <template>
+  
   <v-container max-width="1500px"  class="bg-surface main-container mx-auto">
     <div class="pt-16"  >
       <div class="left-border-box d-flex items-start">
-
-        <div v-for="(item, i) in data" :key="i" class="ml-5">
-
-          <h2 class="text-h4 text-on-primary  mb-4 font-weight-bold">
-            {{ item.title }}
-          </h2>
-
+        <div  class="ml-5">
+          <h2 class="text-h4 text-on-primary  mb-4 font-weight-bold"> Empowering Dealers & Traders with Data-Backed Confidence</h2>
           <p class="paragraph mb-6 mt-5 text-text_light font-weight-light">
-            {{ item.paragraph }}
+            The vehicle auction industry is fast, competitive, and unforgiving—one wrong bid can cost thousands, and missing the right opportunity can cost even more.
+            For years, dealers and traders have relied on guesswork, scattered data, and outdated pricing tools, making every auction feel like a gamble instead of a calculated investment.
           </p>
-
           <p class=" text-text_light font-weight-light">
-            {{ item.ltd }}
+            That's where Autoboli Ltd steps in.
           </p>
-
         </div>
-
       </div>
-
     </div>
 
-    
     <!-- IMAGE -->
     <div  class="bgImage mt-16 mb-2 d-flex justify-center">
       <img class="" :src="gridImage" alt="">

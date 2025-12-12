@@ -3,7 +3,10 @@
     { "text": "Two similar vehicles... two different auction houses... two completely different price outcomes." },
     { "text": "A car looks like a deal until you realize it was reauctioned three times due to hidden issues" },
     { "text": "CAP and retail values tell part of the story, but they don’t show actual auction behavior" },
-    { "text": "Inexperienced bidders enter auctions with confidence but leave with regret and thin profit margins." }
+    { "text": "Inexperienced bidders enter auctions with confidence but leave with regret and thin profit margins." },
+    { "text": "Autoboli changes that by revealing the truths hidden in auction data.","is_main":true }
+
+    
   ],
   "solution": {
     "text": "Autoboli changes that by revealing the truths hidden in auction data."

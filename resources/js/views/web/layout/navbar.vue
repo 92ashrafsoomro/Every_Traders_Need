@@ -25,7 +25,7 @@
                 <!-- RIGHT BUTTONS -->
                 <div class="d-flex align-center">
                     <!-- Theme Toggle -->
-                    <v-list-item class="px-0">
+                    <v-list-item class="px-0 text-end">
                         <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
                             {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
                         </v-icon>

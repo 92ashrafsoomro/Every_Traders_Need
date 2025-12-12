@@ -4,6 +4,8 @@
 body,
 * {
     font-family: 'Inter', sans-serif !important;
+    scrollbar-width: thin;
+  scrollbar-color: #4c4f5a #1b1f2a;
 }
 
 aside {

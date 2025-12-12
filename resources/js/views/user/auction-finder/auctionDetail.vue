@@ -1,10 +1,10 @@
     <template>
     <div class="bg-surface rounded border pa-4">
-        <v-data-table-server class="dataTable rounded" :headers="headers" :items="auctionStore.data"
+        <v-data-table-server class="dataTable rounded " :headers="headers" :items="auctionStore.data"
             :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
-            @update:options="auctionStore.getAuctionList">
+            @update:options="auctionStore.getAuctionList"   hover >
             <template #item.make_name="{ item }">
-                <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{ item.model_name
+                <v-btn  variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{ item.model_name
                     }}
                     {{ item.variant_name }}</v-btn>
 
@@ -12,6 +12,9 @@
             <template #item.date="{ item }">
                 {{ item.auction_date }} {{ item.auction_time }}
             </template>
+         <template #item.auction_name="{item}">
+                             <span style="background-color: #0080ff50; padding: 5px ; border-radius: 3px;"> {{ item.auction_name }}</span>
+         </template>
             <template v-slot:bottom>
                 <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
                     :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
@@ -120,4 +123,5 @@ export default {
 </script>
 
 
-<style scoped></style>
+<style scoped>
+</style>

@@ -1,13 +1,13 @@
 <template>
-    <v-select
-        v-bind="$attrs"
-        :model-value="modelValue"
-        :items="data"
-        item-title="label"
-        item-value="id"
-        :loading="loading"
-        @update:model-value="handleValue($event)"
-        />  
+   <v-select
+  v-bind="$attrs"
+  :model-value="modelValue"
+  :items="data"
+  item-title="label"
+  item-value="id"
+  :loading="loading"
+  @update:model-value="handleValue($event)"
+/>
 </template>
 
 <script>

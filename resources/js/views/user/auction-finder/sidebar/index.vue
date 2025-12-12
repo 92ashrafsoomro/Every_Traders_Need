@@ -1,5 +1,6 @@
 <template>
-        <div >
+      <div style="max-height: 630px; overflow-y: auto;">
+
             <v-expansion-panels>
 
                 <v-expansion-panel :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type">

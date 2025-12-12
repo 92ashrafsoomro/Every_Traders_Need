@@ -44,7 +44,7 @@
 
             <v-col cols="12" class="">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems"
+                    <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
                         :loading="loading" item-value="id" @update:options="loadItems">
 
                         <template #item.view="{ item }">
@@ -56,6 +56,16 @@
                         </template>
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
+                        </template>
+
+                         <template v-slot:bottom>
+                            <div class="py-2 d-flex justify-end border-t">
+                                <custom-pagination 
+                                  :loading="loading" 
+                                  v-model:page="filter.page"
+                                  :lastPage="last_page" 
+                                  @page-changed="loadItems" />
+                            </div>
                         </template>
 
                        

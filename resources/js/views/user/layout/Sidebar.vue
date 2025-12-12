@@ -1,9 +1,15 @@
 <template>
     <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
-        <v-list density="compact" class="ps" nav>
-            <v-list-item class="d-flex ps-5 pe-5" style="height: 57px;">
-                <img :src="logo" class="d-flex justify-center align-center" />
+        <v-list density="compact" class="" nav>
+            <v-list-item class="d-flex " style="height: 57px; ">
+               
+                <img v-if="menuWidth == 258" :src="logo" class="d-flex justify-center align-center" />
+
+                <img v-else :src="newLogo" 
+                    style="width: 30px; height: 30px;" class="ml-1"/>
             </v-list-item>
+
+
 
             <v-divider class="ps-0 pe-0"></v-divider>
 
@@ -23,8 +29,9 @@
 
             </template>
             <div class="d-flex ga-6 ml-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
-                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1" >
-                 <router-link to="/admin" style="text-decoration: none ; color: white;">   Admin</router-link></v-list-item>
+                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1">
+                    <router-link to="/admin" style="text-decoration: none ; color: white;">
+                        Admin</router-link></v-list-item>
             </div>
         </v-list>
     </v-navigation-drawer>
@@ -35,6 +42,7 @@ import { useDisplay } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
 import userMenu from "./userMenu.json";
 import logo from "@assets/images/logo/logo.png"
+import newLogo from "@assets/images/logo/newLogo.png"
 export default {
     data() {
         return {
@@ -42,6 +50,7 @@ export default {
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
+            newLogo
         };
     },
     computed: {

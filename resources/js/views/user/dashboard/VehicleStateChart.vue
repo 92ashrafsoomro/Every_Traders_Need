@@ -63,13 +63,13 @@ export default {
               0, chartArea.bottom   
             );
 
-            gradient.addColorStop(0, "#000f21"); 
-            gradient.addColorStop(1, "#33AFFF"); 
+            gradient.addColorStop(0, "#3399ff"); 
+            gradient.addColorStop(1, "#0077ff"); 
 
             const colors = [];
 
             for (let i = 0; i < this.totalSegments; i++) {
-              colors.push(i < this.completedSegments ? gradient : "#3A3F47");
+              colors.push(i < this.completedSegments ? gradient : "#343E4B");
             }
             return colors;
           },

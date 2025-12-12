@@ -57,9 +57,6 @@ export default {
   border-left: 5px solid #0080FF;
   padding-left: 20px;
 }
-.bgImage {
-  /* padding-bottom: 150px; */
-}
 .paragraph {
   max-width: 900px;
   line-height: 1.7;
@@ -68,7 +65,6 @@ export default {
   width: 100%;
   max-width: 1000px;
 }
-
 
 @media (max-width: 600px) {
   .bgImage img{

@@ -3,17 +3,16 @@
   <div class="bg-surface">
     <Dealer />
   </div>
-  <div style="" class="bg-background">
+  <div class="bg-background">
     <exists />
     <card />
   </div>
   <mision />
-  <div class="">
-
-    <problem />
-  </div>
+  <problem />
   <autodifferent />
-  <promise />
+  <div>  
+    <promise />
+  </div>
   <bidSmarter />
 </template>
 

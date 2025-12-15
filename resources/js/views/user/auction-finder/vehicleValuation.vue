@@ -20,12 +20,15 @@
                 </template>
 
                 <template v-slot:bottom>
+                     <div  class="py-2 d-flex justify-end border-t" >
+                                   
                     <custom-pagination
                       :loading="auctionStore.loading"
                       v-model:page="auctionStore.filter.page" 
                       :lastPage="auctionStore.last_page"
                       @page-changed="auctionStore.getAuctionList"
                       />
+                      </div>
                 </template>
         </v-data-table-server>
     </div>

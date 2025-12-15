@@ -57,5 +57,8 @@ export default {
 </script>
 
 <style scoped>
-    
+    :deep(.v-field--active .v-field__outline),
+:deep(.v-field--focused .v-field__outline) {
+  border-color: red !important;
+}
 </style>

@@ -1,40 +1,43 @@
 <template>
 
-    <v-card class="mb-5 border pa-4" title="Online / Time Auction">
-        <p class="ml-4 mt-n6 text-body-2 text-light  mb-4">Today</p>
-        <template v-slot:append>
-            <div class="d-flex mt-6">
-                <div class="mr-2">
-                    <plateform-dropdown label="Online Auction" variant="outlined" density="compact" max-width="180px"
-                        min-width="180px" hide-details v-model="auctionType"
-                        :items="['Online Auction', 'Time Auction']" />
-
-                </div>
-
-                <div class="d-none d-sm-block">
-                    <PlateformDropdown v-model="platformsId" label="Select Platform" variant="outlined"
-                        density="compact" max-width="180px" min-width="180px" hide-details />
+    <v-card class="mb-5 border ">
 
 
-                </div>
+        <div class="d-flex pa-6 justify-space-between  ">
+            <div class="text-start">
+                <h3 class="text-h6">Vehicle Statistics</h3>
+                <p class=" text-body-2 text-light  ">Today</p>
+            </div>
+            <div class="mr-2 d-flex ga-2">
+                <plateform-dropdown label="Online Auction" variant="outlined" density="compact" max-width="180px"
+                    min-width="180px" hide-details v-model="auctionType" :items="['Online Auction', 'Time Auction']" />
+
+
+
+
+                <PlateformDropdown v-model="platformsId" label="Select Platform" variant="outlined" density="compact"
+                    max-width="180px" min-width="180px" hide-details />
+
             </div>
 
-        </template>
+        </div>
+
+
 
         <div class="border-b"></div>
 
-        <v-card-text style="max-height: 400px; ">
+        <v-card-text style="max-height: 415px; ">
 
             <v-select v-model="platformsId" :items="platforms" label="Select Platform" variant="outlined"
                 density="compact" hide-details class="d-block d-sm-none mb-3" />
 
             <v-table density="comfortable" height="400px" fixed-header>
-                <thead>
-                    <tr>
-                        <th>PLATFORM {{ auctionType }}</th>
-                        <th>TOTAL AUCTION</th>
-                        <th>REMAINING</th>
-                        <th>LOTS</th>
+                <thead >
+                    <tr  >
+                        <th class="pa-0 bg-background">Auction House {{ auctionType }}</th>
+                        <th class="pa-0 bg-background">Total Auction</th>
+                        <th class="pa-0 bg-background">Remaining</th>
+                        <th class="pa-0 bg-background">Lots</th>
                     </tr>
                 </thead>
 
@@ -48,10 +51,10 @@
                     <template v-else-if="data.length">
                         <v-hover v-for="item in data" :key="item.auction_platform_name" v-slot="{ isHovering, props }">
                             <tr v-bind="props" :class="[
-                                isHovering ? 'bg-shadow' : '',
+                                isHovering ? 'bg-background' : '',
                                 isHovering ? 'elevation-2' : ''
                             ]">
-                                <td>{{ item.auction_platform_name }}</td>
+                                <td class="pa-0">{{ item.auction_platform_name }}</td>
                                 <td>{{ item.car_count }}</td>
                                 <td>{{ item.remaining }}</td>
                                 <td>{{ item.lots }}</td>

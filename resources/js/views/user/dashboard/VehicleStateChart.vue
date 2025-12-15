@@ -69,7 +69,7 @@ export default {
             const colors = [];
 
             for (let i = 0; i < this.totalSegments; i++) {
-              colors.push(i < this.completedSegments ? gradient : "#343E4B");
+              colors.push(i < this.completedSegments ? gradient : "#0E1B2B");
             }
             return colors;
           },

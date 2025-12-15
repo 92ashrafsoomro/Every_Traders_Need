@@ -18,8 +18,11 @@
                     Most popular
                 </v-chip>
              
-                <v-card :elevation="plan.mostPopular ? 12 : 8" class="border h-100 d-flex flex-column pa-4" 
-                    :style="{ minHeight: plan.minHeight}">
+                
+                <v-card :elevation="plan.mostPopular ? 12 : 8" class="h-100 d-flex flex-column border-sm pa-4" :style="{
+                    backgroundColor: ' #0f1c2c',
+                    minHeight: plan.minHeight
+                }">
 
                     <div style="min-height: 150px;" class="text-center">
                         <v-card-title class="text-h6 font-weight-bold py-6">

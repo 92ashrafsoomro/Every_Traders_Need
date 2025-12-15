@@ -1,7 +1,7 @@
 <template>
     <div class="position-relative w-100 bg-surface h-auto pt-10 pb-8">
         <div class="pattern-bg"></div>
-        <div class="position-relative ma-auto pt-5 ps-4 ps-md-15  text-left" style="max-width: 1590px; z-index: 10">
+        <div class="position-relative  pt-5  mx-auto px-2 px-lg-4 " style=" max-width: 1400px; z-index: 10">
             <h1 class="text-h3 mb-2 font-weight-bold">{{ title }}</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">
                 {{ subtitle }}

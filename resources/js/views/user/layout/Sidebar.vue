@@ -6,7 +6,7 @@
                 <img v-if="menuWidth == 258" :src="logo" class="d-flex justify-center align-center" />
 
                 <img v-else :src="newLogo" 
-                    style="width: 30px; height: 30px;" class="ml-1"/>
+                    style="width: 30px; height: 30px; margin-left: -1px;" />
             </v-list-item>
 
 

@@ -4,6 +4,7 @@
             <v-data-table-server class="pb-3" 
                 :headers="headers" 
                 :items="data" 
+                hover
                 :items-length="data.length" 
                 item-value="id"
                 >
@@ -14,7 +15,7 @@
                     </template>
 
                     <template #item.invoice="{ item }">
-                        <v-btn icon="mdi-eye" ></v-btn>
+                        <v-btn icon="mdi-eye-outline" ></v-btn>
                         <v-btn icon="mdi-download"></v-btn>
                     </template>
             </v-data-table-server>

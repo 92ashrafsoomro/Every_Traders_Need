@@ -17,7 +17,7 @@
                 </v-chip>
 
                 <!-- Card -->
-                <v-card :elevation="plan.mostPopular ? 12 : 8" class="h-100 d-flex flex-column border-md pa-4" :style="{
+                <v-card :elevation="plan.mostPopular ? 12 : 8" class="h-100 d-flex flex-column border-sm pa-4" :style="{
                     backgroundColor: ' #0f1c2c',
                     minHeight: plan.minHeight
                 }">

@@ -42,8 +42,9 @@ const vuetify = createVuetify({
                     
                     'primary-lighten-1': '#3399ff',
                     primary: "#0080FF",
+                    primaryLite :"#3399ff20",
                     'on-primary': '#ffffff',
-                    background: "#000f21",
+                    // background: "#000f21",
                     surface: "#000E20",
                     'surface-variant-1': "#0f1c2b",
                     light_text_on: "#B1BFCD",

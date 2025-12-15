@@ -5,6 +5,7 @@
         :items="data"
         item-title="label"
         item-value="id"
+        
         :loading="loading"
         @update:model-value="handleValue($event)"
         />  

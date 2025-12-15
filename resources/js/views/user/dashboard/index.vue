@@ -48,7 +48,7 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
+        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
           <v-container>
 
             <div class="d-flex h-6">
@@ -84,16 +84,16 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom-inprogress w-100 border border-md" style="padding: 15px;">
-          <v-chip  text-color="white" size="small" class="bg-danger position-absolute top-1 right-0 " label>
+        <v-card class="border-bottom-inprogress w-100 border border-sm" style="padding: 15px;">
+          <v-chip  text-color="white" size="small" class="bg-danger position-absolute top-1 right-0  " style="border-radius: 3px 0 0 3px;" label>
              <v-icon size="10" color="white" class="mr-2">
                   mdi-circle 
                 </v-icon> Live
           </v-chip>
           <v-container>
             <div class="d-flex h-6">
-              <div class=" bg-danger-lite d-flex justify-center align-center"  style="border-radius: 22px; width: 40px; height: 40px;">
-                <v-icon size="32" color="danger" class="live-circle">
+              <div class=" bg-danger-lite d-flex justify-center align-center live-circle"  style="border-radius: 22px; width: 40px; height: 40px;">
+                <v-icon size="32" color="danger" class="">
                   mdi-radiobox-marked
                 </v-icon>
               </div>
@@ -105,10 +105,12 @@
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span class="white">Inprogress Auctions: </span>
+                
                 <span class=""
                   style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
                     counter.inprogress_Auctions }}</span>
               </div>
+              <span class="mr-10  ">View</span>
 
             </div>
 
@@ -119,7 +121,7 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
+        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
           <v-container>
 
             <div class="d-flex h-6">
@@ -147,7 +149,7 @@
 
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-md" style="padding: 15px;">
+        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
           <v-container>
             <div class="d-flex h-6">
               <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
@@ -181,16 +183,18 @@
 
       <!-- Auction Columns -->
       <v-col>
+        <!-- <div > -->
         <Auction />
+        <!-- </div> -->
       </v-col>
 
       <!-- Right Column: Vehicle Statistics -->
       <v-col cols="12" md="6">
 
-        <v-card   class="   border">
-          <div class=" ml-2 ">
-            <h3 class="mt-6 ml-2 text-h6">Vehicle Statistics</h3>
-            <p class="ml-2 mt-2 text-body-2 text-light  mb-4">Today</p>
+        <v-card   class="   border  ">
+          <div class=" pa-6  ">
+            <h3 class="text-h6">Vehicle Statistics</h3>
+            <p class=" text-body-2 text-light  ">Today</p>
           </div>
           <div class=" border-b mt-2 "></div>
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
@@ -199,6 +203,7 @@
 
               <v-row>
                 <v-col cols="12" sm="6" class="ml-n4  ">
+                  <div class="pa-3">
                   <div class="">
                     <div class="text-h3 font-weight-bold ">254</div>
                     <div class="text-subtitle-2 text-light mb-6">Remaining</div>
@@ -213,7 +218,7 @@
                         <div class="text-h5 font-weight-bold">
                           {{ vehicelState.inprogress_vehicles }}
                         </div>
-                        <div class="text-body-1 text-grey-lighten-1 ml-2 ">Provisional</div>
+                        <div class="text-body-1 text-light_text_on ml-2 ">Provisional</div>
                       </div>
                     </div>
                     <div class="d-flex h-6 mb-6">
@@ -223,7 +228,7 @@
                       </div>
                       <div class="pl-3 d-flex  align-center">
                         <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
-                        <div class="text-body-1 text-grey-lighten-1 ml-2 ">Sold</div>
+                        <div class="text-body-1 text-light_text_on ml-2 ">Sold</div>
                       </div>
                     </div>
 
@@ -234,12 +239,13 @@
                       </div>
                       <div class="pl-3 d-flex  align-center">
                         <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
-                        <div class="text-body-1 text-grey-lighten-1 ml-2  ">Not Sold</div>
+                        <div class="text-body-1 text-light_text_on ml-2  ">Not Sold</div>
                       </div>
                     </div>
                   </div>
+                  </div>
                 </v-col>
-                <v-col cols="12" sm="6" class="">
+                <v-col cols="12" sm="6" class="pa-6">
                   <VehicleStateChart :vehicelState="vehicelState" />
                 </v-col>
 
@@ -376,27 +382,38 @@ export default {
 
 .border-bottom-inprogress {
   border-bottom: 5px solid rgb(var(--v-theme-danger)) !important;
-}
-.live-circle {
+}.live-circle {
+  position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 22px;
-  animation: pulse 1.5s infinite;
+  border-radius: 50%;
+  background-color: rgba(255, 0, 0, 0.15);
 }
 
-@keyframes pulse {
+/* animated ring */
+.live-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 0, 0, 0.2);
+  animation: pulse-bg 1s infinite ease-in-out;
+  z-index: 0;
+}
+
+
+.live-circle > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulse-bg {
   0% {
-    transform: scale(1);
-    opacity: 1;
+    /* transform: scale(1); */
+    opacity: 0.1;
   }
   50% {
-    transform: scale(1.15);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
+    /* transform: scale(1.4); */
+    opacity: 0.
+  }}
 </style>

@@ -1,7 +1,7 @@
 <template>
     <user-title-bar title="Reauction Tracker"
         subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
-        
+
         <!-- <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 mb-n6 mb-sm-n5" fluid>
           
             <v-card class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger  mb-n3"
@@ -35,70 +35,50 @@
     <v-container fluid style="max-width: 1400px;">
         <v-row>
             <v-col cols="12">
-                <div class="pt-5 d-flex justify-md-space-between flex-wrap ">            
+                <div class="pt-5 d-flex justify-md-space-between flex-wrap  ">
                     <div class="d-flex flex-wrap">
-                            <div class="px-2" >
-                                <v-select 
-                                    label="Length"
-                                    v-model="pageStore.reauction.length"
-                                    :items="[10,20,50,100,200,500]" 
-                                    @update:model-value="handleInput"
-                                    variant="outlined"
-                                    color="primary" 
-                                    width="120" 
-                                    density="compact" 
-                                    />
-                            </div>
-                            <div class="align-self-center pl-2" >
-                                  {{pageStore.reauction.offset}} - {{(pageStore.reauction.offset + pageStore.reauction.length)}} of {{ pageStore.reauction.total }} Vehicles
-                            </div>
-                           
+                        <div class="px-2">
+                            <v-select label="Length" v-model="pageStore.reauction.length"
+                                :items="[10, 20, 50, 100, 200, 500]" @update:model-value="handleInput" variant="outlined"
+                                color="primary" width="120" density="compact" />
+                        </div>
+                        <div class="align-self-center pl-2">
+                            {{ pageStore.reauction.offset }} - {{ (pageStore.reauction.offset +
+                            pageStore.reauction.length)}} of {{ pageStore.reauction.total }} Vehicles
+                        </div>
+
                     </div>
                     <div class="d-flex flex-wrap">
-                        <div class="px-2" >
-                            <v-text-field 
-                                prepend-inner-icon="mdi-magnify"
-                                label="Reg No" 
-                                v-model="pageStore.reauction.reg"
-                                @update:model-value="handleInput"
-                                variant="outlined"
-                                color="primary" 
-                                width="200" 
-                                density="compact" 
-                                clearable />
-                        </div>   
+                        <div class="px-2">
+                            <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No"
+                                v-model="pageStore.reauction.reg" @update:model-value="handleInput" variant="outlined"
+                                color="primary" width="200" density="compact" clearable />
+                        </div>
                     </div>
                 </div>
             </v-col>
 
-            <v-col cols="12">
-                <v-card class="border-sm border-white">
-                       <div class="bg-surface" >
-                            <v-data-table-server 
-                            :headers="headers" 
-                            :items="pageStore.reauction.data" 
-                            :items-length="pageStore.reauction.total"
-                            :loading="pageStore.reauction.loading" 
-                            item-value="id" 
-                            hover
-                            @update:options="pageStore.getreAuctionList">
-                            
-                                <template #item.action="{ item }">
-                                    <v-btn :to="'/user/vehicle-detail/'+item.id"> <v-icon>mdi-eye</v-icon></v-btn>
-                                </template>
-                            
-                                <template v-slot:bottom>
-                                    <div  class="py-2 d-flex justify-end border-t" >
-                                        <custom-pagination
-                                        :loading="pageStore.reauction.loading"
-                                        v-model:page="pageStore.reauction.page" 
-                                        :lastPage="pageStore.reauction.last_page"
-                                        @page-changed="pageStore.getreAuctionList"
-                                        />
-                                    </div>
-                                </template>
+            <v-col cols="12 " class="mt-n4">
+                <v-card class="border-sm border-white ">
+                    <div class="bg-surface">
+                        <v-data-table-server :headers="headers" :items="pageStore.reauction.data"
+                            :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
+                            item-value="id" @update:options="pageStore.getreAuctionList">
 
-                            </v-data-table-server>
+                            <template #item.action="{ item }">
+                                <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                            </template>
+
+                            <template v-slot:bottom>
+                                <div class="py-2 d-flex justify-end border-t">
+                                    <custom-pagination :loading="pageStore.reauction.loading"
+                                        v-model:page="pageStore.reauction.page"
+                                        :lastPage="pageStore.reauction.last_page"
+                                        @page-changed="pageStore.getreAuctionList" />
+                                </div>
+                            </template>
+
+                        </v-data-table-server>
                     </div>
                 </v-card>
             </v-col>
@@ -113,42 +93,52 @@ import { usePageStore } from "@/stores/pageStore";
 export default {
     props: {},
     components: {
-     
+
     },
     data() {
 
         return {
-            
-            pageStore:usePageStore(),
+
+            pageStore: usePageStore(),
             headers: [
                 { title: "Vehical", value: "title" },
-                // { title: "Make", value: "make_name" },
-                // { title: "Vehicle", value: "model_name" },
-                { title: "Reg", value: "reg" },
-                { title: "Previous", value: "last_bid" },
-                { title: "Platform", value: "platform_name" },
-                { title: "Center", value: "center_name" },
-                { title: "Cap Clean", value: "cap_clean" },
-                { title: "Cap Average", value: "cap_average" },
-                { title: "Mileage", value: "mileage" },
-                { title: "Status", value: "bidding_status" },
-                { title: "Time", value: "auction_date" },
+                { title: "update col", value: "update_col" },
+                { title: "interested", value: "interested" },
+                { title: "make", value: "make" },
+                { title: "batter", value: "batter" },
+                { title: "need to improve ", value: "need_to_improve " },
+                { title: "Time", value: "time" },
+                { title: "filters", value: "filters" },
+                // { title: "Vehical", value: "title" },
+                // { title: "Vehical", value: "title" },
+                // { title: "Vehical", value: "title" },
+                
+                // // { title: "Make", value: "make_name" },
+                // // { title: "Vehicle", value: "model_name" },
+                // { title: "Reg", value: "reg" },
+                // { title: "Previous", value: "last_bid" },
+                // { title: "Platform", value: "platform_name" },
+                // { title: "Center", value: "center_name" },
+                // { title: "Cap Clean", value: "cap_clean" },
+                // { title: "Cap Average", value: "cap_average" },
+                // { title: "Mileage", value: "mileage" },
+                // { title: "Status", value: "bidding_status" },
+                // { title: "Time", value: "auction_date" },
                 // { title: "Action", value: "action", sortable: false },
+            //  update col, interested section make batter, need to improve Time filters 
             ],
         }
     },
     async mounted() {
 
-      
+
     },
     methods: {
         handleInput(e) {
-             this.pageStore.getreAuctionList();
+            this.pageStore.getreAuctionList();
         },
     },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

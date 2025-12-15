@@ -5,8 +5,10 @@
             <v-col cols="12">
                 <div class="d-flex justify-md-space-between flex-wrap ">
                     <div class="d-flex flex-wrap ">
-                        <div class="px-2 " >
+                        <div class=" " >
+                            
                             <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]" 
+                                 
                                 @update:model-value="handleInput"  variant="outlined" color="primary" width="120"
                                 density="compact" />
                         </div> 
@@ -18,7 +20,7 @@
                     </div>
                     <div class="d-flex flex-wrap">
 
-                        <div class="px-2">
+                        <div class="px-0">
                             <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No" v-model="filter.reg_search"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="200"
                                 density="compact" clearable />
@@ -30,7 +32,7 @@
                                 @update:modelValue="handleInput($event, 'make')" clearable />
                         </div>
 
-                        <div class="px-2">
+                        <div class="">
 
                             <ModelDropdown width="200" label="Select Model" variant="outlined" color="primary"
                                 :make="filter.make" :model-value="filter.model"
@@ -42,7 +44,7 @@
                 </div>
             </v-col>
 
-            <v-col cols="12" class="">
+            <v-col cols="12" class="mt-n3">
                 <div class="  border ">
                     <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
                         :loading="loading" item-value="id" @update:options="loadItems">

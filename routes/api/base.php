@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Master\RoleController;
 use App\Http\Controllers\Api\Master\UserController;
 use App\Http\Controllers\Api\Master\CenterController;
 use App\Http\Controllers\Api\Master\ColorController;
@@ -15,7 +16,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
-
+use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
@@ -144,6 +145,9 @@ use Illuminate\Support\Facades\Route;
         Route::resource('make',MakeController::class);
         Route::resource('model',ModelController::class);
         Route::resource('variant',VariantController::class);
+        Route::resource('roles',RoleController::class);
+        Route::resource('plans',PlanController::class);
+        
 
         
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);

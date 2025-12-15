@@ -367,7 +367,10 @@ return view('admin.memberships.index', compact('cards'));
             'membership_status' => $request->membership_status,
         ]);
 
-        return redirect('/admin/memberShips')->with('success', 'Membership created successfully.');
+          return response()->json([
+            'message' => 'Record Created Successfully',
+            'data' => $model
+        ],200);
         
     }
 

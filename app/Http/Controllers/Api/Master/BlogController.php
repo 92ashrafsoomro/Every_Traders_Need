@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuctionCenter;
+use App\Models\Blog;
 use App\Models\Color;
 use App\Models\Make;
-use App\Models\Membership;
-use App\Models\MembershipPlan;
-use App\Models\ModelVariant;
-use App\Models\Plan;
+use App\Models\News;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -19,11 +17,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AuctionService;
 use Carbon\Carbon;
-
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 
 
-class PlanController extends Controller
+class BlogController extends Controller
 {
 
       public function index(Request $request)
@@ -34,16 +32,16 @@ class PlanController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = MembershipPlan::query();
+        $query = Blog::query();
 
         //Filter
         if($request->has('id') && $request->id != '') {
             $query->where('id',$request->id);
         }
-        
+
         $count = (clone $query)->count();
         $data = $query->select([
-                    'membership_plans.*',
+                    '*'
                 ])
                 ->skip($offset)
                 ->take($length)
@@ -63,23 +61,13 @@ class PlanController extends Controller
             'data' => $data,
         ]);
 
-
     }
-
 
       public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(),[
-            'plan_name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'short_desc' =>  'required|string|max:255',
-            'description' =>  'nullable|string|max:255',
-            'duration_unit' =>  'required|in:month,week,year|max:255',
-            'duration_value' =>  'required|numeric|min:0',
-            'status' =>  'required|integer|in:0,1|max:255',
-            'is_officer' =>  'required|integer|in:0,1|max:255',
-            'sort_by' =>  'required|numeric|min:0',
+            'name' => 'required|string|max:255',
         ]);
 
         if($validator->fails()) {
@@ -89,16 +77,8 @@ class PlanController extends Controller
             ], 422);
         }
 
-        $model = MembershipPlan::create([
-            'plan_name' => $request->plan_name,
-            'price' => $request->price,
-            'short_desc' => $request->short_desc,
-            'description' => $request->description,
-            'duration_unit' => $request->duration_unit,
-            'duration_value' => $request->duration_value,
-            'status' => $request->status,
-            'is_officer' => $request->is_officer,
-            'sort_by' => $request->sort_by,
+        $model = Make::create([
+            'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
         ]);
@@ -114,7 +94,8 @@ class PlanController extends Controller
        public function update(Request $request,$id)
     {
 
-        $model = MembershipPlan::find($id);
+
+        $model = Make::find($id);
         if(!$model){
             return response()->json([
                 'message' => 'Record Not Found',
@@ -122,15 +103,7 @@ class PlanController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'plan_name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'short_desc' =>  'required|string|max:255',
-            'description' =>  'nullable|string|max:255',
-            'duration_unit' =>  'required|in:month,week,year|max:255',
-            'duration_value' =>  'required|numeric|min:0',
-            'status' =>  'required|integer|in:0,1|max:255',
-            'is_officer' =>  'required|integer|in:0,1|max:255',
-            'sort_by' =>  'required|numeric|min:0',
+            'name' => 'required|string|max:255',
         ]);
 
         if($validator->fails()) {
@@ -141,19 +114,11 @@ class PlanController extends Controller
         }
 
         $model->where('id',$id)->update([
-            'plan_name' => $request->plan_name,
-            'price' => $request->price,
-            'short_desc' => $request->short_desc,
-            'description' => $request->description,
-            'duration_unit' => $request->duration_unit,
-            'duration_value' => $request->duration_value,
-            'status' => $request->status,
-            'is_officer' => $request->is_officer,
-            'sort_by' => $request->sort_by,
-            'created_at' => Carbon::now(),
-            'updated_at' => NULL,
+            'name' => $request->name,
+            'updated_at' => Carbon::now(),
         ]);
 
+        
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model
@@ -162,16 +127,21 @@ class PlanController extends Controller
     }
 
 
-
     public function destroy($id)
     {
 
-        $model = MembershipPlan::find($id);
+        $model = Make::find($id);
         if(!$model){
             return response()->json(['message' =>'Record Not Found'], 422);
         }
 
-        if(Membership::where('plan_id',$id)->first()){
+        
+
+        if(VehicleModel::where('make_id',$id)->first()){
+            return response()->json(['message' =>'Cannot Delete Exist In Model'], 422);
+        }
+
+        if(Vehicle::where('make_id',$id)->first()){
             return response()->json(['message' =>'Cannot Delete Exist In Vehicle'], 422);
         }
 

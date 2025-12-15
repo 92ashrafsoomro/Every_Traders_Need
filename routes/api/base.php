@@ -16,14 +16,16 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+use App\Http\Controllers\Api\Master\BlogController;
+use App\Http\Controllers\Api\Master\MembershipController;
+use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
-
-
+use App\Models\Membership;
 use Illuminate\Support\Facades\Route;
 
 
@@ -147,8 +149,10 @@ use Illuminate\Support\Facades\Route;
         Route::resource('variant',VariantController::class);
         Route::resource('roles',RoleController::class);
         Route::resource('plans',PlanController::class);
+        Route::resource('memberships',MembershipController::class);
         
-
+        Route::resource('blogs',BlogController::class);
+        Route::resource('news',NewsController::class);
         
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);

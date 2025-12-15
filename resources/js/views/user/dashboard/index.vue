@@ -2,8 +2,9 @@
 
   <user-title-bar>
 
-    <div class="d-flex flex-column flex-xs-row  flex-md-row ml-n10 justify-space-between align-start pa-3" style="margin-top: -40px;">
-      <div style="max-width: 600px; ">
+    <div class="d-flex flex-column flex-xs-row  flex-md-row ml-n10 justify-space-between align-start pa-3 "
+      style="margin-top: -40px;">
+      <div style="max-width: 600px;  " class="ml-6 ml-lg-0">
         <div>
           <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
         </div>
@@ -16,10 +17,10 @@
         </div>
       </div>
       <div>
-        <v-card max-width="500px" class="bg-primary rounded p-6">
+        <v-card max-width="500px" class="bg-primary rounded p-6 ml-6  ">
           <v-card-text>
             <div class="d-flex flex-sm-wrap align-center ">
-              <div class="pa-3" style="max-width: 300px">
+              <div class="pa-1" style="max-width: 300px">
                 <h6 class="text-h6 font-weight-bold">Refer & Earn</h6>
                 <p class="text-body-1 text-background font-weight-bold">Use Refer & Earn modal to encourage your exiting
                   customers refer their friends & colleague.</p>
@@ -64,11 +65,15 @@
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span class="white">Live Auctions: </span>
-                <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ counter.liveAuctions }}</span>
+                <span class=""
+                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                    counter.liveAuctions }}</span>
               </div>
               <div class=" text-body-2 pl-2">
                 <span class="white">Time Auctions: </span>
-                <span class=""  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; "> {{ counter.timeAuctions }}</span>
+                <span class=""
+                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; "> {{
+                    counter.timeAuctions }}</span>
               </div>
             </div>
 
@@ -80,12 +85,19 @@
       <v-col cols="12" sm="6" md="3" class="">
 
         <v-card class="border-bottom-inprogress w-100 border border-md" style="padding: 15px;">
+          <v-chip  text-color="white" size="small" class="bg-danger position-absolute top-1 right-0 " label>
+             <v-icon size="10" color="white" class="mr-2">
+                  mdi-circle 
+                </v-icon> Live
+          </v-chip>
           <v-container>
             <div class="d-flex h-6">
-              <div style="border-radius: 22px; width: 40px; height: 40px;"
-                class="bg-danger-lite circle d-flex justify-center align-center">
-                <v-icon size="32" color="danger">mdi-radiobox-marked</v-icon>
+              <div class=" bg-danger-lite d-flex justify-center align-center"  style="border-radius: 22px; width: 40px; height: 40px;">
+                <v-icon size="32" color="danger" class="live-circle">
+                  mdi-radiobox-marked
+                </v-icon>
               </div>
+
               <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
             </div>
 
@@ -93,7 +105,9 @@
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span class="white">Inprogress Auctions: </span>
-                <span class=""  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ counter.inprogress_Auctions }}</span>
+                <span class=""
+                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                    counter.inprogress_Auctions }}</span>
               </div>
 
             </div>
@@ -120,7 +134,9 @@
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span class="white">Total Vehicles:</span>
-                <span class=""  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ counter.totalVehicles }}</span>
+                <span class=""
+                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                    counter.totalVehicles }}</span>
               </div>
             </div>
 
@@ -145,7 +161,9 @@
             <div class="pt-2 d-flex">
               <div class="text-body-2 pr-2">
                 <span class="white">Vehicles:</span>
-                <span class=""  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ counter.vehicleReauctions }}</span>
+                <span class=""
+                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                    counter.vehicleReauctions }}</span>
               </div>
 
             </div>
@@ -160,17 +178,21 @@
 
 
     <v-row>
-    
-    <!-- Auction Columns -->
+
+      <!-- Auction Columns -->
       <v-col>
-        <Auction/>
+        <Auction />
       </v-col>
 
       <!-- Right Column: Vehicle Statistics -->
       <v-col cols="12" md="6">
 
-        <v-card title="Vehicle Statistics" subtitle="Today" class="  pa-4 border" >
-           <div class=" border-b mt-2 "></div>
+        <v-card   class="   border">
+          <div class=" ml-2 ">
+            <h3 class="mt-6 ml-2 text-h6">Vehicle Statistics</h3>
+            <p class="ml-2 mt-2 text-body-2 text-light  mb-4">Today</p>
+          </div>
+          <div class=" border-b mt-2 "></div>
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
             <v-container>
 
@@ -354,6 +376,27 @@ export default {
 
 .border-bottom-inprogress {
   border-bottom: 5px solid rgb(var(--v-theme-danger)) !important;
+}
+.live-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 22px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 </style>

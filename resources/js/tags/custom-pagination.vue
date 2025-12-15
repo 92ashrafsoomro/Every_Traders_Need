@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-center pt-2 align-center flex-wrap">
+    <div class="d-flex justify-end pt-2 align-end  flex-wrap">
 
         <v-btn
             icon
@@ -73,17 +73,15 @@ export default {
 
             // Show up to 5 pages starting from current page
             const pages = []
-            const max = 10
+            const max = 5
             let start = Math.max(this.page - 2, 1)
             let end = Math.min(start + max - 1, this.lastPage)
 
             // adjust start if end is at last page
             start = Math.max(end - max + 1, 1)
-
             for (let i = start; i <= end; i++) {
                 pages.push(i)
             }
-
             return pages;
 
         }

@@ -1,66 +1,83 @@
     <template>
-    <div class="bg-surface rounded border pa-4">
-        <v-data-table-server class="dataTable rounded " :headers="headers" :items="auctionStore.data"
-            :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
-            @update:options="auctionStore.getAuctionList"   hover >
-            <template #item.make_name="{ item }">
-                <v-btn  variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{ item.model_name
-                    }}
-                    {{ item.variant_name }}</v-btn>
+        <div class="bg-surface rounded border ">
+            <v-data-table-server class="dataTable rounded " :headers="headers" :items="auctionStore.data"
+                :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
+                @update:options="auctionStore.getAuctionList" hover>
+                <template #item.make_name="{ item }">
+                    <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{
+                        item.model_name
+                        }}
+                        {{ item.variant_name }}</v-btn>
 
-            </template>
-            <template #item.date="{ item }">
-                {{ item.auction_date }} {{ item.auction_time }}
-            </template>
-         <template #item.auction_name="{item}">
-                             <span style="background-color: #0080ff50; padding: 5px ; border-radius: 3px;"> {{ item.auction_name }}</span>
-         </template>
-            <template v-slot:bottom>
-                <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
-                    :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
-            </template>
-
-
-            <!-- expentTable Code -->
-
-            <template #item.action="{ item, internalItem, isExpanded, toggleExpand }">
-                <v-btn icon color="primary" variant="text" @click="toggleExpand(internalItem)">
-                    <v-icon>
-                        {{ isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-information-outline' }}
-                    </v-icon>
-                </v-btn>
-            </template>
-
-            <template #expanded-row="{ columns, item }">
-                <tr>
-
-                    <td colspan="1"class="d-flex ga-2" style="height:70px; ">
-                        <div v-for="(img, index) in item.images" :key="index" style="margin-top: 15px;"     >
-                             <img :src="img" alt="vehicle" width="40" height="40" style="object-fit: cover;"  />
-                        </div>
-                       
-                    </td>
+                </template>
+                <template #item.date="{ item }">
+                    {{ item.auction_date }} {{ item.auction_time }}
+                </template>
+                <template #item.auction_name="{ item }">
+                    <span style="background-color: #0080ff50; padding: 5px ; border-radius: 3px;"> {{ item.auction_name
+                        }}</span>
+                </template>
+                <template v-slot:bottom>
+                    <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
+                        :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
+                </template>
+                <template #item.grade="{ item }">
+                    <span :style="{
+                        backgroundColor:
+                            item.grade == 5 ? '#4CAF5030' :
+                                item.grade == 4 ? '#3399ff30' :
+                                    item.grade == 3 ? '#FB8C0030' :
+                                        item.grade == 2 ? '#b91c1c50' :
+                                            '#b91c1c',
+                        padding: '5px',
+                        borderRadius: '3px',
+                        color: '#fff'
+                    }">
+                        {{ item.grade }}
+                    </span>
+                </template>
 
 
-                    <td colspan="5">
-                        <v-checkbox :label="item.color || 'Color'"></v-checkbox>
-                    </td>
-                    <td colspan="2" style="margin-left: 10px;">
-                        <v-btn variant="flat" color="primary"><a :href="item.inspection_report" target="_blank"
-                                class="text-capitalize text-white" style="text-decoration: none;">View
-                                Report</a></v-btn>
-                    </td>
-                </tr>
-            </template>
+                <!-- expentTable Code -->
+
+                <template #item.action="{ item, internalItem, isExpanded, toggleExpand }">
+                    <v-btn icon color="primary" variant="text" @click="toggleExpand(internalItem)">
+                        <v-icon>
+                            {{ isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-information-outline' }}
+                        </v-icon>
+                    </v-btn>
+                </template>
+
+                <template #expanded-row="{ columns, item }">
+                    <tr>
+
+                        <td colspan="1" class="d-flex ga-2" style="height:70px; ">
+                            <div v-for="(img, index) in item.images" :key="index" style="margin-top: 15px;">
+                                <img :src="img" alt="vehicle" width="40" height="40" style="object-fit: cover;" />
+                            </div>
+
+                        </td>
+
+
+                        <td colspan="5">
+                            <v-checkbox :label="item.color || 'Color'"></v-checkbox>
+                        </td>
+                        <td colspan="2" style="margin-left: 10px;">
+                            <v-btn variant="flat" color="primary"><a :href="item.inspection_report" target="_blank"
+                                    class="text-capitalize text-white" style="text-decoration: none;">View
+                                    Report</a></v-btn>
+                        </td>
+                    </tr>
+                </template>
 
 
 
-            <!-- Expend table code end -->
+                <!-- Expend table code end -->
 
-        </v-data-table-server>
-    </div>
+            </v-data-table-server>
+        </div>
 
-</template>
+    </template>
 
 <script>
 
@@ -123,5 +140,4 @@ export default {
 </script>
 
 
-<style scoped>
-</style>
+<style scoped></style>

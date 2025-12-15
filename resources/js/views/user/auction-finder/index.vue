@@ -13,7 +13,7 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid>
+    <v-container >
         <v-row class="mt-3" >
             <v-col cols="12 " >
                 <div class="mr-auto ml-auto ">
@@ -81,7 +81,7 @@
 
                     <div :class="{'sidebarOpen': auctionStore.sidebar }" class="main-div d-flex align-start justify-space-between flex-wrap">
                             <div class="sidebar" >
-                                <div class=" bg-surface rounded border pa-4">
+                                <div class=" bg-surface rounded border ">
                                     <auctionSidebar/>
                                 </div>   
                             </div> 

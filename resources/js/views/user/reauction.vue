@@ -32,7 +32,7 @@
             </v-card>
         </v-container> -->
     </user-title-bar>
-    <v-container fluid style="max-width: 1520px;">
+    <v-container fluid style="max-width: 1400px;">
         <v-row>
             <v-col cols="12">
                 <div class="pt-5 d-flex justify-md-space-between flex-wrap ">            
@@ -72,7 +72,7 @@
             </v-col>
 
             <v-col cols="12">
-                <v-card>
+                <v-card class="border-sm border-white">
                        <div class="bg-surface" >
                             <v-data-table-server 
                             :headers="headers" 
@@ -118,6 +118,7 @@ export default {
     data() {
 
         return {
+            
             pageStore:usePageStore(),
             headers: [
                 { title: "Vehical", value: "title" },

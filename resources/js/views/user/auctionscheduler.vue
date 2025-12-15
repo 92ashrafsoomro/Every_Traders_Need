@@ -3,12 +3,16 @@
         subtitle="Manage and view platform auctions across all centers in one place.">
         <div
             class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0 mt-10">
+            
             <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
                 @update:modelValue="handleInput($event, 'platform_id')" clearable />
+
             <CenterDropdown label="Select Center" variant="outlined" :model-value="options.center_id"
                 @update:modelValue="handleInput($event, 'center_id')" clearable />
+
             <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
                 @change="handleInput($event, 'enableCurrent')" class="ml-3" />
+
             <span class="mt-2 ml-2">In Progress</span>
 
         </div>
@@ -16,9 +20,9 @@
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
                 class="border rounded bg-surface-variant-1 pa-3 ps-5 d-flex flex-column mb-3"
                 style=" height: 95px; width: 195px;" @click="handleTab(key)">
-                <div class="text-caption d-flex align-center justify-center  pb-2 pt-2 text-wrap"
+                <div class="text-capitalize d-flex align-center justify-center  pb-2 pt-2 text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid gray;">
-                    {{ key.toUpperCase() }}
+                    {{ key}}
                 </div>
                 <div class="lowerSection d-flex justify-space-between mt-2">
                     <div class="d-flex align-center ">
@@ -34,15 +38,15 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="max-width: 1500px;">
-        <v-row class="mt-3">
-            <v-col cols="12">
-                <v-card>
+    <v-container fluid style="max-width: 1400px;" >
+        <v-row class="mt-3" >
+            <v-col cols="12" >
+                <v-card class="border-sm border-white">
                     <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading " hover
                         item-value="id" @update:options="getRecords">
 
                         <template #item.action="{ item }">
-                            <v-btn> <v-icon>mdi-eye</v-icon></v-btn>
+                            <v-btn> <v-icon>mdi-eye-outline</v-icon></v-btn>
                         </template>
                         <template #item.center_name="{ item }">
                             <div class="" style="max-width: 700px; ">

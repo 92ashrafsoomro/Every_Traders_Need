@@ -12,7 +12,7 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="max-width: 1550px;">
+    <v-container fluid style="max-width: 1400px;">
         <v-row >
             <component :is="currentComponent" />
          

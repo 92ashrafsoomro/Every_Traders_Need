@@ -1,6 +1,6 @@
 <template>
 
-    <v-card class="mb-5 border pa-4" title="Online / Time Auction">
+    <v-card class="mb-5 border " title="Online / Time Auction">
         <p class="ml-4 mt-n6 text-body-2 text-light  mb-4">Today</p>
         <template v-slot:append>
             <div class="d-flex mt-6">
@@ -23,18 +23,18 @@
 
         <div class="border-b"></div>
 
-        <v-card-text style="max-height: 400px; ">
+        <v-card-text style="max-height: 415px; ">
 
             <v-select v-model="platformsId" :items="platforms" label="Select Platform" variant="outlined"
                 density="compact" hide-details class="d-block d-sm-none mb-3" />
 
             <v-table density="comfortable" height="400px" fixed-header>
-                <thead>
+                <thead >
                     <tr>
-                        <th>PLATFORM {{ auctionType }}</th>
-                        <th>TOTAL AUCTION</th>
-                        <th>REMAINING</th>
-                        <th>LOTS</th>
+                        <th  class="pa-0" >PLATFORM {{ auctionType }}</th>
+                        <th  class="pa-0">TOTAL AUCTION</th>
+                        <th  class="pa-0">REMAINING</th>
+                        <th  class="pa-0">LOTS</th>
                     </tr>
                 </thead>
 
@@ -45,13 +45,13 @@
                         </td>
                     </tr>
 
-                    <template v-else-if="data.length">
-                        <v-hover v-for="item in data" :key="item.auction_platform_name" v-slot="{ isHovering, props }">
+                    <template v-else-if="data.length" >
+                        <v-hover v-for="item in data" :key="item.auction_platform_name" v-slot="{ isHovering, props }" >
                             <tr v-bind="props" :class="[
                                 isHovering ? 'bg-shadow' : '',
                                 isHovering ? 'elevation-2' : ''
                             ]">
-                                <td>{{ item.auction_platform_name }}</td>
+                                <td  class="pa-0">{{ item.auction_platform_name }}</td>
                                 <td>{{ item.car_count }}</td>
                                 <td>{{ item.remaining }}</td>
                                 <td>{{ item.lots }}</td>

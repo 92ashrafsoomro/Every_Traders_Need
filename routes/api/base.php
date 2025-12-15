@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Master\UserController;
 use App\Http\Controllers\Api\Master\CenterController;
 use App\Http\Controllers\Api\Master\ColorController;
 use App\Http\Controllers\Api\Master\MakeController;
@@ -143,6 +144,10 @@ use Illuminate\Support\Facades\Route;
         Route::resource('make',MakeController::class);
         Route::resource('model',ModelController::class);
         Route::resource('variant',VariantController::class);
+
+        
+        Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
+        Route::resource('users',UserController::class);
 
         // Route::resource('platform',PlatformController::class);
 

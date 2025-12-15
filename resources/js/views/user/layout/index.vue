@@ -12,13 +12,12 @@
             <v-toolbar-title class="d-none d-sm-inline pl-1">
                 <p class="text-h6">Dashboard</p>
             </v-toolbar-title>
-
-            <v-spacer></v-spacer>
             
-            <v-row class="d-flex align-center justify-end" no-gutters>
+            <v-spacer></v-spacer>
 
+            <v-row class="d-flex align-center justify-end" no-gutters>
                 <div class="d-flex align-center justify-space-around mr-0 mr-lg-3">
-                    <!-- Fullscreen -->
+                
                     <v-col cols="auto">
                         <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border">
                             <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
@@ -46,15 +45,14 @@
                 </div>
             </v-row>
         </v-app-bar>
-
-        <!-- Main Content -->
-        <v-main class="bg-background ">
+        <v-main class="bg-background">
             <router-view></router-view>
         </v-main>
     </v-app>
 </template>
 
 <script>
+    
 import Sidebar from "./Sidebar.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";

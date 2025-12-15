@@ -21,21 +21,29 @@
                     <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
                         :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
                 </template>
-                <template #item.grade="{ item }">
-                    <span :style="{
-                        backgroundColor:
-                            item.grade == 5 ? '#4CAF5030' :
-                                item.grade == 4 ? '#3399ff30' :
-                                    item.grade == 3 ? '#FB8C0030' :
-                                        item.grade == 2 ? '#b91c1c50' :
-                                            '#b91c1c',
-                        padding: '5px',
-                        borderRadius: '3px',
-                        color: '#fff'
-                    }">
-                        {{ item.grade }}
-                    </span>
-                </template>
+               <template #item.grade="{ item }">
+  <span
+    :style="{
+      backgroundColor:
+        item.grade == 5 ? '#e51f1f' :
+        item.grade == 4 ? '#f2ce02' :
+        item.grade == 3 ? '#ebff0a' :
+        item.grade == 2 ? '#85e62c' :
+        '#02de0a',
+      width: '30px',
+      height: '30px',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '50%',
+      color: '#000',
+      fontWeight: '600'
+    }"
+  >
+    {{ item.grade }}
+  </span>
+</template>
+
 
 
                 <!-- expentTable Code -->

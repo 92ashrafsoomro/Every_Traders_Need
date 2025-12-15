@@ -220,19 +220,23 @@ export default {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
 .center_name_width {
-max-width: 700px;  display: -webkit-box;
-  -webkit-line-clamp: 2 ;
+  max-width: 1000px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  transition: width 2s ease; 
+  /* padding: 10px;  */
+  max-height: 48px;
+  transition:
+    max-width 1s ease,
+    max-height 1s ease,
+    background-color 1s ease;
 }
 
 .center_name_width:hover {
   max-width: 900px;
-  max-height: 100px;
-  padding: 10px;
-  -webkit-line-clamp: 12;
+  max-height: 200px;
+  background-color: rgba(255,255,255,0.04);
+  -webkit-line-clamp: 6;
 }
-
 </style>

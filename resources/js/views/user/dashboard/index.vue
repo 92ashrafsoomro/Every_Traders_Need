@@ -2,44 +2,25 @@
 
   <user-title-bar>
 
-    <div class="d-flex flex-column flex-xs-row  flex-md-row ml-n10 justify-space-between align-start pa-3 "
-      style="margin-top: -40px;">
-      <div style="max-width: 600px;  " class="ml-6 ml-lg-0">
+    <div class="d-flex flex-column flex-xs-row  flex-md-row  justify-space-between align-start pa-3  "
+      style="margin-top: -40px; max-width: 1400px;">
+      <div style="max-width: 700px;  " class="">
         <div>
           <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
         </div>
         <div class="pr-5 pb-5">
-          <p class="mt-3 text-body-1 text-light ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam excepturi distinctio cum numquam minima
-            porro tempore possimus a, id voluptates totam, inventore vitae unde cupiditate perspiciatis quidem dolor ab
-            sequi.
+          <p class="mt-3 text-body-1 pa-2 rounded-lg  text-white" style="background-color: #3399ff20; backdrop-filter: blur(5px)">
+          Choose The best Plain For Your Need
           </p>
         </div>
       </div>
       <div>
-        <v-card max-width="500px" class="bg-primary rounded p-6 ml-6  ">
-          <v-card-text>
-            <div class="d-flex flex-sm-wrap align-center ">
-              <div class="pa-1" style="max-width: 300px">
-                <h6 class="text-h6 font-weight-bold">Refer & Earn</h6>
-                <p class="text-body-1 text-background font-weight-bold">Use Refer & Earn modal to encourage your exiting
-                  customers refer their friends & colleague.</p>
-              </div>
-              <div style="max-width: 300px;" class="pa-3">
-                <div class="dot-box"
-                  style="width: 100px; height: 50px; background-color: rgba(0, 0, 0, 0.466); border-radius: 8px;display: flex;align-items: center;justify-content: center;margin-left: 10px; ">
-                  <div class="dot" style=" width: 30px;  height: 30px; background-color: black;  border-radius: 4px;">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
+       
       </div>
     </div>
   </user-title-bar>
 
-  <v-container fluid class="" style="max-width: 1590px;">
+  <v-container fluid class="" style="max-width: 1400px;">
 
     <v-row style="margin-top: -60px;">
       <!-- Total Auctions -->
@@ -48,7 +29,7 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
+        <v-card class="border-bottom border border-sm"  >
           <v-container>
 
             <div class="d-flex h-6">
@@ -84,8 +65,8 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom-inprogress w-100 border border-sm" style="padding: 15px;">
-          <v-chip  text-color="white" size="small" class="bg-danger position-absolute top-1 right-0  " style="border-radius: 3px 0 0 3px;" label>
+        <v-card class="border-bottom-inprogress w-100 border border-sm" >
+          <v-chip  text-color="white" size="small" class="bg-danger position-absolute mt-5 right-0  " style="border-radius: 3px 0 0 3px;" label>
              <v-icon size="10" color="white" class="mr-2">
                   mdi-circle 
                 </v-icon> Live
@@ -121,7 +102,7 @@
       <!-- Total Auctions -->
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
+        <v-card class="border-bottom  border border-sm" >
           <v-container>
 
             <div class="d-flex h-6">
@@ -149,7 +130,7 @@
 
       <v-col cols="12" sm="6" md="3" class="">
 
-        <v-card class="border-bottom w-100 border border-sm" style="padding: 15px;">
+        <v-card class="border-bottom  border border-sm" >
           <v-container>
             <div class="d-flex h-6">
               <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
@@ -397,7 +378,7 @@ export default {
   inset: 0;
   border-radius: 50%;
   background-color: rgba(255, 0, 0, 0.2);
-  animation: pulse-bg 1s infinite ease-in-out;
+  animation: pulse-bg 2s infinite ease-in-out;
   z-index: 0;
 }
 
@@ -409,11 +390,19 @@ export default {
 
 @keyframes pulse-bg {
   0% {
-    /* transform: scale(1); */
-    opacity: 0.1;
+    transform: scale(1);
+    opacity: 1;
   }
   50% {
-    /* transform: scale(1.4); */
-    opacity: 0.
-  }}
+    transform: scale(1.2);
+    opacity: 0.10.
+  }
+  100%{
+    
+    transform: scale(1);
+    opacity: 0.16.
+  }
+
+}
+  
 </style>

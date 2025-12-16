@@ -10,12 +10,15 @@ use App\Http\Controllers\Api\Master\PlatformController;
 use App\Http\Controllers\Api\Master\VariantController;
 use App\Http\Controllers\Api\Master\VehicleTypeController;
 use App\Http\Controllers\Api\Master\BodyTypeController;
+use App\Http\Controllers\Api\Master\NewsCategoryController;
 
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+use App\Http\Controllers\Api\Master\AuctionController;
+use App\Http\Controllers\Api\Master\BlogCategoryController;
 use App\Http\Controllers\Api\Master\BlogController;
 use App\Http\Controllers\Api\Master\MembershipController;
 use App\Http\Controllers\Api\Master\NewsController;
@@ -150,12 +153,16 @@ use Illuminate\Support\Facades\Route;
         Route::resource('roles',RoleController::class);
         Route::resource('plans',PlanController::class);
         Route::resource('memberships',MembershipController::class);
-        
         Route::resource('blogs',BlogController::class);
         Route::resource('news',NewsController::class);
+        Route::resource('newsCategory',NewsCategoryController::class);
+        Route::resource('blogCategory',BlogCategoryController::class);
         
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
+
+        
+        Route::resource('auctions',AuctionController::class);
 
         // Route::resource('platform',PlatformController::class);
 

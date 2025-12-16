@@ -10,7 +10,7 @@ class NewsCategory extends Model
     use HasFactory;
     protected $table = 'news_categories';
     protected $fillable = [
-        'name',
+        'title',
     ];
     public $timestamps = true;
     

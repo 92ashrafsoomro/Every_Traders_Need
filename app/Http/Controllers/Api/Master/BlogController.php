@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 
@@ -51,7 +52,6 @@ class BlogController extends Controller
                     return $item;
                 });
             
-
         return response()->json([
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
@@ -63,11 +63,16 @@ class BlogController extends Controller
 
     }
 
+
       public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image',
+            'description' => 'required|string|max:255',
+            'date' => 'required|string|max:255',
+            'category_id' => 'nullable|exists:blog_categories,id',
         ]);
 
         if($validator->fails()) {
@@ -77,33 +82,38 @@ class BlogController extends Controller
             ], 422);
         }
 
-        $model = Make::create([
-            'name' => $request->name,
+        $model = Blog::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'date' => Carbon::parse($request->date),
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
+            'created_by' => Auth::user()->id,
         ]);
+
+        if ($request->file('image')) {
+             $model->updateImage($request->file('image'));
+        }
+     
 
         return response()->json([
             'message' => 'Record Created Successfully',
             'data' => $model
         ],200);
 
+        
     }
 
 
        public function update(Request $request,$id)
     {
 
-
-        $model = Make::find($id);
-        if(!$model){
-            return response()->json([
-                'message' => 'Record Not Found',
-            ], 422);
-        }
-
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image',
+            'description' => 'required|string|max:255',
+            'date' => 'required|string|max:255',
+            'category_id' => 'nullable|exists:blog_categories,id',
         ]);
 
         if($validator->fails()) {
@@ -113,10 +123,25 @@ class BlogController extends Controller
             ], 422);
         }
 
+
+        $model = Blog::find($id);
+        if(!$model){
+            return response()->json([
+                'message' => 'Record Not Found',
+            ], 422);
+        }
+
         $model->where('id',$id)->update([
-            'name' => $request->name,
+            'title' => $request->title,
+            'description' => $request->description,
+            'date' => Carbon::parse($request->date),
             'updated_at' => Carbon::now(),
         ]);
+
+
+        if ($request->file('image')) {
+             $model->updateImage($request->file('image'));
+        }
 
         
         return response()->json([
@@ -130,23 +155,18 @@ class BlogController extends Controller
     public function destroy($id)
     {
 
-        $model = Make::find($id);
+        $model = Blog::find($id);
         if(!$model){
-            return response()->json(['message' =>'Record Not Found'], 422);
+            return response()->json(['message' => 'Record Not Found.'], 422);
         }
 
-        
-
-        if(VehicleModel::where('make_id',$id)->first()){
-            return response()->json(['message' =>'Cannot Delete Exist In Model'], 422);
-        }
-
-        if(Vehicle::where('make_id',$id)->first()){
-            return response()->json(['message' =>'Cannot Delete Exist In Vehicle'], 422);
-        }
-
+        $model->removeImage();
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+
+        return response()->json([
+            'message' =>'Record deleted successfully.',
+            'data' => $model,
+        ], 200);
 
     }
 

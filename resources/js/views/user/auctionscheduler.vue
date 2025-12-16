@@ -10,7 +10,7 @@
             <CenterDropdown label="Select Center" variant="outlined" :model-value="options.center_id"
                 @update:modelValue="handleInput($event, 'center_id')" clearable />
 
-            <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
+            <v-switch :model-value="options.enableCurrent" color="primary"  density="compact" hide-details
                 @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
             <span class="mt-2 ml-2">In Progress</span>

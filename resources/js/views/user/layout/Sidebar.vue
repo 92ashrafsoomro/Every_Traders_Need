@@ -3,7 +3,7 @@
         <v-list density="compact" class="" nav>
             <v-list-item class="d-flex " style="height: 57px; ">
                
-                <img v-if="menuWidth == 258" :src="logo" class="d-flex justify-center align-center" />
+                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 50px; margin-left: -1px;" class="d-flex justify-center align-center" />
 
                 <img v-else :src="newLogo" 
                     style="width: 30px; height: 30px; margin-left: -1px;" />

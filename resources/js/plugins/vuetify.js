@@ -52,7 +52,7 @@ const vuetify = createVuetify({
                     'surface-variant-1': "#0f1c2b",
                     light_text_on: "#B1BFCD",
                     border: "#343E4B",
-                    danger: "#b91c1c",
+                    danger: "#f21202",
                     dangerlite: "#b91c1c50",
                     success: "#4CAF50",
                     warning: "#FB8C00",

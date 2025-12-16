@@ -48,3 +48,8 @@ aside {
 .v-data-table__tbody tr:hover{
     background-color: rgb(var(--v-theme-background));
 }
+
+.v-switch__thumb {
+    align-items: center;
+    background-color: rgb(var(--v-theme-surfaceBright));
+}

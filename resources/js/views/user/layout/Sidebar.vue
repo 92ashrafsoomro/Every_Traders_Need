@@ -3,10 +3,10 @@
         <v-list density="compact" class="" nav>
             <v-list-item class="d-flex " style="height: 57px; ">
                
-                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 50px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
 
                 <img v-else :src="newLogo" 
-                    style="width: 30px; height: 30px; margin-left: -1px;" />
+                    style="width: 40px; height: 40px; " />
             </v-list-item>
 
 
@@ -14,12 +14,12 @@
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <template v-for="(item, index) in userMenu" :key="index">
+            <template v-for="(item, index) in userMenu" :key="index" >
                 <!-- Regular Menu Items -->
                 <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
                     :hide-overlay="false" class="text-subtitle-1"
-                    active-class="bg-primary on-primary  rounded my-active-menu hide-overlay ">
-                    <template #title>
+                    active-class="bg-primary on-primary  rounded-sm my-active-menu hide-overlay ">
+                    <template #title >
                         <span :ripple="false" class="text-body-1">{{ item.label }}</span>
                     </template>
                 </v-list-item>
@@ -61,7 +61,7 @@ export default {
                 return "258";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "258" : "58";
+                return this.themeStore.menuType == "expanded" ? "258" : "70";
             }
 
         },

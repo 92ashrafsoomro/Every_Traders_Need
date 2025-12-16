@@ -1,41 +1,70 @@
 <template>
-    <user-title-bar title="Smart Auction Search"
-        subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
-        <div class="d-flex align-center ga-3">
+    <user-title-bar >
+        <div  style="width: auto; margin-left: -210px ;">
+            <h1 class="text-h3 mb-2 font-weight-bold">Smart Auction Search</h1>
+            <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
+        
+        <div class="d-flex mt-6  ga-3">
 
-            <v-btn variant="tonal" class="text-none px-5 py-2"
-                :class="{ 'bg-primary text-white': auctionStore.auctionTab === true}" 
-                @click="auctionStore.toggleAuctionTab()"> Auction Finder </v-btn>
+            <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2 "
+                :class="{ 'bg-primary text-white ': auctionStore.auctionTab === true}" 
+                @click="auctionStore.toggleAuctionTab()" style="height: 50px;" > <span class="text-capitalize text-body-1 "  > Auction Finder</span> </v-btn>
 
-            <v-btn variant="tonal" class="text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" 
-            @click="auctionStore.toggleAuctionTab()"> Vehicle Valuation</v-btn>
+            <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2" :class="{ 'bg-primary text-white': auctionStore.auctionTab === false}" 
+            @click="auctionStore.toggleAuctionTab()" style="height: 50px; "><span class="text-capitalize text-body-1"> Vehicle Valuation </span></v-btn>
 
+        </div>
         </div>
     </user-title-bar>
 
-    <v-container >
-        <v-row class="mt-3" >
+    <v-container  >
+        <v-row class="mt-1  " >
             <v-col cols="12 " >
-                <div class="mr-auto ml-auto ">
-                    <div class="pb-3 d-flex align-center justify-space-between">
-                        <div class="d-flex w-100 flex-wrap" >
-                            <div class="px-3"  >
+                <div class="mb-2 ">
+                    <div class=" d-flex w-100 flex-wrap justify-space-between">
+                        
+                           <div class="d-flex mb-1"> 
+                               <div  >
                                 <v-btn 
                                 v-if="auctionStore.sidebar"
                                 color="primary" 
-                                variant="outlined" 
+                                variant="outlined"
+                                class=" h-100"
+                                style="width: 120px;"
                                 prepend-icon="mdi-filter" 
-                                @click="auctionStore.toggleFilter()"></v-btn>
+                                @click="auctionStore.toggleFilter()"><span class="text-white text-capitalize text-body-1">Filter</span></v-btn>
 
                                 <v-btn v-else
                                 color="primary" 
                                 variant="outlined" 
                                 prepend-icon="mdi-filter-off" 
                                 @click="auctionStore.toggleFilter()"></v-btn>
-
-                                
                             </div>
-                            <div class="px-3"  style="width: 130px;" >
+
+                            <div class="">
+                                <v-btn 
+                                color="danger"
+                                class="mx-2 h-100" 
+                                variant="text" 
+                                prepend-icon="mdi-delete" 
+                                
+                                @click="this.auctionStore.ClearFilter()"><span class="text-white text-capitalize" style="text-decoration:underline;">Clear All</span></v-btn>
+
+                                <!-- <v-btn 
+                                color="primary" 
+                                variant="outlined" 
+                                prepend-icon="mdi-magnify" 
+                                @click="handleSearch" /> -->
+                            </div>
+                             <div class="px-3 mt-3 ">
+                                {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
+                            </div>
+                            
+                        </div>
+
+
+                           <div class="d-flex ">
+                             <div class="px-3 "  style="width: 130px; " >
                                 <v-select 
                                 persistent-placeholder 
                                 v-model="auctionStore.filter.length"
@@ -59,23 +88,10 @@
                                     label="Sort by"
                                     :items="sortingOptions" />
                             </div>
-                            <div class="px-3">
-                                <v-btn 
-                                color="danger"
-                                class="mx-2" 
-                                variant="outlined" 
-                                prepend-icon="mdi-delete" 
-                                @click="this.auctionStore.ClearFilter()" />
-
-                                <v-btn 
-                                color="primary" 
-                                variant="outlined" 
-                                prepend-icon="mdi-magnify" 
-                                @click="handleSearch" />
-                            </div>
-                            <div class="px-3 ">
-                                {{auctionStore.offset}} - {{(auctionStore.offset + auctionStore.filter.length)}} of {{ auctionStore.total }} Vehicles
-                            </div>
+                            
+                           
+                        
+                        </div>
                         </div>
                     </div>
 
@@ -90,8 +106,7 @@
                             </div>
                         </div>
 
-                </div>
-
+     
 
             </v-col>
         </v-row>
@@ -190,6 +205,8 @@ export default {
 
 }
 
-
+.buttonBorder{
+    border-radius: 2px;
+}
 
 </style>

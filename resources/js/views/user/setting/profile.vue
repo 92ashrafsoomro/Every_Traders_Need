@@ -14,7 +14,7 @@
                                          class="border" :src="image" />
                                 </div>
                                 <div class="pl-3 pt-3">
-                                    <v-btn color="primary" @click="this.$refs.fileInput.click();" class=" text-capitalize" variant="flat">Update New Photo</v-btn>
+                                    <v-btn color="primary" @click="this.$refs.fileInput.click();" class="buttonBorder text-capitalize" variant="flat" style="height: 50px; "><span class="text-capitalize text-body-1">Update New Photo</span></v-btn>
                                     <p class="pt-3 text-light text-body-2">{{ UserModel.getField('avatar')?.placeholder }}</p>
                                      <v-file-input 
                                         ref="fileInput"
@@ -94,8 +94,8 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12">
-                            <v-btn @click="onSubmit" class="bg-primary mr-2" variant="flat">Save Changes</v-btn>
-                            <v-btn @click="loadDataFromProfile" class="bg-background" variant="flat">Cancel</v-btn>
+                            <v-btn @click="onSubmit" class="buttonBorder bg-primary mr-2" variant="flat" style="height: 50px; "><span class="text-capitalize text-body-1">Save Changes</span></v-btn>
+                            <v-btn @click="loadDataFromProfile" class="bg-background" variant="flat" style="height: 52px; "><span class="text-capitalize text-body-1">Cancle</span></v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -205,3 +205,10 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+    .buttonBorder{
+    border-radius: 2px;
+}
+
+</style>

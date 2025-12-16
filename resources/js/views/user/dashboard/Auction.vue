@@ -1,131 +1,153 @@
 <template>
+    <v-card class="mb-5 border">
 
-    <v-card class="mb-5 border ">
-
-
-        <div class="d-flex pa-6 justify-space-between  ">
+        <!-- Header -->
+        <div class="d-flex pa-6 justify-space-between ">
             <div class="text-start">
                 <h3 class="text-h6">Vehicle Statistics</h3>
-                <p class=" text-body-2 text-light  ">Today</p>
+                <p class=" text-body-2 text-light ">Today</p>
             </div>
-            <div class="mr-2 d-flex ga-2">
-                <plateform-dropdown label="Online Auction" variant="outlined" density="compact" max-width="180px"
-                    min-width="180px" hide-details v-model="auctionType" :items="['Online Auction', 'Time Auction']" />
-
-
-
-
-                <PlateformDropdown v-model="platformsId" label="Select Platform" variant="outlined" density="compact"
-                    max-width="180px" min-width="180px" hide-details />
-
+        
+            <div class="mr-2 d-flex ga-2"> 
+                <plateform-dropdown
+                    label="Online Auction"
+                    variant="outlined"
+                    density="compact" 
+                    max-width="180px" 
+                    min-width="180px"
+                    hide-details
+                    v-model="auctionType"
+                    :items="['Online Auction', 'Time Auction']" 
+                />
+                
+                <PlateformDropdown  
+                    v-model="platformsId" 
+                    label="Select Platform" 
+                    variant="outlined"
+                    density="compact"
+                    max-width="180px"
+                    min-width="180px" 
+                    hide-details 
+                />
             </div>
-
         </div>
-
-
 
         <div class="border-b"></div>
 
-        <v-card-text style="max-height: 415px; ">
+        <!-- Data Table -->
+        <v-data-table-server
+            style="max-height: 450px; "
+            class="rounded" :headers="headers"
+            :items="data"
+            :items-length="data.length"
+            :loading="isLoading" 
+            item-value="auction_platform_name" 
+            hide-default-footer
+            hover>
 
-            <v-select v-model="platformsId" :items="platforms" label="Select Platform" variant="outlined"
-                density="compact" hide-details class="d-block d-sm-none mb-3" />
+            <!-- Auction Name -->
+            <template #item.auction_platform_name="{ item }">
+                <span class="font-weight-medium">
+                    {{ item.auction_platform_name }}
+                </span>
+            </template>
 
-            <v-table density="comfortable" height="400px" fixed-header>
-                <thead >
-                    <tr  >
-                        <th class="pa-0 bg-background">Auction House {{ auctionType }}</th>
-                        <th class="pa-0 bg-background">Total Auction</th>
-                        <th class="pa-0 bg-background">Remaining</th>
-                        <th class="pa-0 bg-background">Lots</th>
-                    </tr>
-                </thead>
+            <!-- Total Auction -->
+            <template #item.car_count="{ item }">
+                {{ item.car_count }}
+            </template>
 
-                <tbody>
-                    <tr v-if="isLoading">
-                        <td colspan="5">
-                            <v-progress-linear color="primary" indeterminate />
-                        </td>
-                    </tr>
+            <!-- Remaining -->
+            <template #item.remaining="{ item }">
+                <span class=" font-weight-medium">
+                    {{ item.remaining }}
+                </span>
+            </template>
 
-                    <template v-else-if="data.length">
-                        <v-hover v-for="item in data" :key="item.auction_platform_name" v-slot="{ isHovering, props }">
-                            <tr v-bind="props" :class="[
-                                isHovering ? 'bg-background' : '',
-                                isHovering ? 'elevation-2' : ''
-                            ]">
-                                <td class="pa-0">{{ item.auction_platform_name }}</td>
-                                <td>{{ item.car_count }}</td>
-                                <td>{{ item.remaining }}</td>
-                                <td>{{ item.lots }}</td>
-                            </tr>
-                        </v-hover>
-                    </template>
+            <!-- Lots -->
+            <template #item.lots="{ item }">
+                <span class=" font-weight-medium">
+                    {{ item.lots }}
+                </span>
+            </template>
 
+            <!-- No Data -->
+            <template #no-data>
+                <div class="text-center py-4 text-grey">
+                    No data found
+                </div>
+            </template>
 
-                    <tr v-else>
-                        <td colspan="5" class="text-center py-4 text-grey">No data found</td>
-                    </tr>
-                </tbody>
-            </v-table>
-
-        </v-card-text>
+        </v-data-table-server>
     </v-card>
-
-
 </template>
 
 <script>
+import PlateformDropdown from '@/components/PlateformDropdown.vue'
+import api from '@/plugins/axios'
 
-import PlateformDropdown from '@/components/PlateformDropdown.vue';
-import api from '@/plugins/axios';
 export default {
-    name: "actions",
-    components: {
-        PlateformDropdown
-    },
+    components: { PlateformDropdown },
+
     data() {
         return {
-            platforms: [],
-            data: [],
+            auctionType: 'Online Auction',
             platformsId: null,
             isLoading: false,
-            auctionType: 'Online Auction'
+            data: [],
+
+            headers: [
+                {
+                    title: 'Auction House',
+                    key: 'auction_platform_name',
+                    sortable: false
+                },
+                {
+                    title: 'Total Auction',
+                    key: 'car_count'
+                },
+                {
+                    title: 'Remaining',
+                    key: 'remaining'
+                },
+                {
+                    title: 'Lots',
+                    key: 'lots'
+                }
+            ]
         }
     },
+
     watch: {
-        auctionType(newVal, oldVal) {
+        auctionType() {
             this.getOnlineAction()
         },
-        platformsId(newVal, oldVal) {
+        platformsId() {
             this.getOnlineAction()
         }
     },
 
     methods: {
         async getOnlineAction() {
-            this.isLoading = true;
+            this.isLoading = true
             try {
-                let res = await api.get("/api/user/dashboard/onlineAuctions", {
+                const res = await api.get('/api/user/dashboard/onlineAuctions', {
                     params: {
                         type: this.auctionType.toLowerCase(),
                         platform: this.platformsId
                     }
-                });
-                this.data = res.data.data;
-                this.isLoading = false;
-            } catch (error) {
-                console.error(error.message, "onlineAuction Api error");
-                this.isLoadin = false;
+                })
+                this.data = res.data.data
+            } catch (e) {
+                console.error('onlineAuction API error', e)
+            } finally {
+                this.isLoading = false
             }
-        },
-
-
+        }
     },
 
     mounted() {
-        this.getOnlineAction();
-
+        this.getOnlineAction()
     }
 }
 </script>

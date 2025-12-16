@@ -30,11 +30,11 @@
 
                     <div class="py-5">
                         <div class="mb-3">
-                            <p class="text-body-1">Your Current Plan is "{{ userStore.user.plans.plan.plan_name }}"</p>
+                            <p class="text-body-1">Your Current Plan is "{{ userStore.user?.plan?.plan?.plan_name }}"</p>
                             <p class="text-body-2" style="color:rgb(var(--v-theme-light))">For small dealers.</p>
                         </div>
                         <div>
-                            <p class="text-body-1">Active until {{ userStore.user.plans.membership_expiry_date }} </p>
+                            <p class="text-body-1">Active until {{ userStore.user?.plan?.membership_expiry_date }} </p>
                             <p class="text-body-2 font-weight-thin" style="color:rgb(var(--v-theme-light))">We will send you a notification upon Subscription expiration</p>
                         </div>
                     </div>
@@ -42,18 +42,19 @@
                     <div>
                         <v-btn 
                             @click="showDialog = true" 
-                            color="primary" 
-                            text="Price Plain" 
+                            color="primary"  
                             variant="flat"
-                            class="text-capitalize"
-                            />
+                            class="buttonBorder"
+                             style="height: 50px; ">
+                             <span class="text-capitalize text-body-1">Price Plain</span></v-btn>
 
                         <v-btn 
-                            class="mx-2 text-capitalize" 
+                            class="buttonBorder mx-2 " 
                             @click="showDialog = true"
-                            color="danger" 
-                            text="Cancle Subscription"
-                            variant="flat" />
+                            color="danger"
+                            variant="flat" 
+                             style="height: 50px; ">
+                             <span class="text-capitalize text-body-1">Cancle Subscription</span></v-btn>
                     </div>
                     
                     <v-container class="d-flex m-2">
@@ -96,7 +97,7 @@ export default {
          
             const today = new Date();
 
-            const expiry = new Date(this.userStore.user.plans?.membership_expiry_date);
+            const expiry = new Date(this.userStore.user.plan?.membership_expiry_date);
 
             // const expiry = new Date(this.userStore.user.plans.membership_expiry_date);
 
@@ -122,3 +123,11 @@ export default {
     }
 };
 </script>
+
+
+<style scoped>
+    .buttonBorder{
+    border-radius: 2px;
+}
+
+</style>

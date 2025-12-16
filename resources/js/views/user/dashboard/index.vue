@@ -226,7 +226,7 @@
                   </div>
                   </div>
                 </v-col>
-                <v-col cols="12" sm="6" class="pa-6">
+                <v-col cols="12" sm="6" class="ml-n5">
                   <VehicleStateChart :vehicelState="vehicelState" />
                 </v-col>
 

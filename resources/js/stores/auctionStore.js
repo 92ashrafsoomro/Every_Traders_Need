@@ -113,6 +113,7 @@ export const useAuctionStore = defineStore("auction", {
                 let res = await api.get('/api/user/auctionList', {
                     params:this.filter
                 })
+                console.log(res.data)
 
                 this.data = res.data.data;
                 this.total = res.data.total;

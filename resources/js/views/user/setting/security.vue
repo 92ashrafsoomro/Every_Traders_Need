@@ -2,9 +2,10 @@
     <v-col cols="12">
 
         <v-card title="Change Password" class="bg-surface">
-             <div class="border" ></div>
-            <v-container fluid>
 
+             <div class="border" ></div>
+            <v-card-text>
+                
                 <v-row>
                     <v-col cols="12" md="6">
                         <v-text-field 
@@ -43,12 +44,15 @@
                         </ul>
 
                         <div class="my-3">
-                            <v-btn @click="formSubmit" class="bg-primary mr-2" variant="flat">Save Changes</v-btn>
+                            <v-btn @click="formSubmit" class="buttonBorder bg-primary mr-2" variant="flat" style="height: 50px; "><span class="text-capitalize text-body-1">Save Changes</span></v-btn>
                         </div>
 
                     </v-col>
                 </v-row>
-            </v-container>
+            </v-card-text>
+            
+
+      
         </v-card>
     </v-col>
 
@@ -59,7 +63,7 @@
 </template>
 <script>
 import { changPassword } from '@/services/authService';
-import RecentDevices from './RecentDevices.vue';
+import RecentDevices from './components/RecentDevices.vue';
 
 export default {
     components: {
@@ -107,3 +111,10 @@ export default {
     }
 };
 </script>
+
+
+<style scoped>
+   .buttonBorder{
+    border-radius: 2px;
+}
+</style>

@@ -33,7 +33,12 @@ const vuetify = createVuetify({
             class: 'no-overlay',
         },
         VCard: {
-            elevation: 0
+            elevation: 0,
+            class : "border-b"
+        },
+        VCardText: {
+             class:"pa-4 "
+
         },
     },
     theme: {
@@ -63,6 +68,7 @@ const vuetify = createVuetify({
                     shadow: "#353f4c",
                     light:"#b2c0ce",
                     verticalLineBlue: "#0080ff",
+                    surfaceBright: "#343E4B",
                     inputBg : "#021830"
                     
                     // lighthover: "#002145",

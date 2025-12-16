@@ -101,29 +101,20 @@ export default {
 
             pageStore: usePageStore(),
             headers: [
-                { title: "Vehical", value: "title" },
-                { title: "update col", value: "update_col" },
-                { title: "interested", value: "interested" },
-                { title: "make", value: "make" },
-                { title: "batter", value: "batter" },
-                { title: "need to improve ", value: "need_to_improve " },
-                { title: "Time", value: "time" },
-                { title: "filters", value: "filters" },
+            
                 // { title: "Vehical", value: "title" },
-                // { title: "Vehical", value: "title" },
-                // { title: "Vehical", value: "title" },
-                
-                // // { title: "Make", value: "make_name" },
-                // // { title: "Vehicle", value: "model_name" },
-                // { title: "Reg", value: "reg" },
+                { title: "Make", value: "make_name" },
+                { title: "Vehicle", value: "model_name" },
+                { title: "Reg", value: "reg" },
                 // { title: "Previous", value: "last_bid" },
                 // { title: "Platform", value: "platform_name" },
                 // { title: "Center", value: "center_name" },
                 // { title: "Cap Clean", value: "cap_clean" },
                 // { title: "Cap Average", value: "cap_average" },
-                // { title: "Mileage", value: "mileage" },
-                // { title: "Status", value: "bidding_status" },
-                // { title: "Time", value: "auction_date" },
+                { title: "Mileage", value: "mileage" },
+                { title: "Auction Status Time", value: "auction_status_time" },
+                { title: "Auction Time", value: "auction_date" },
+                {title : "Auction House", value : "auction_house"}
                 // { title: "Action", value: "action", sortable: false },
             //  update col, interested section make batter, need to improve Time filters 
             ],

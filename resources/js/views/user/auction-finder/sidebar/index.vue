@@ -1,5 +1,5 @@
 <template>
-      <div style="max-height: 630px; overflow-y: auto;">
+      <div  >
 
             <v-expansion-panels>
 
@@ -7,11 +7,11 @@
                     <v-expansion-panel-text>
                         <VehicleTypeField/>
                     </v-expansion-panel-text>
-                    <Chip 
+                  <Chip 
                         :data="masterStore.vehicleTypes.data" 
                         :compareValue="auctionStore.filter.vehicleType" 
                         removeKey="vehicleType"
-                        :removeValue="auctionStore.removeValue" />
+                        :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 
                 <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make">

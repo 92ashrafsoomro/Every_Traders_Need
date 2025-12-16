@@ -1,13 +1,29 @@
 <template>
-     <span v-for="item in myData">
-        <v-chip
-          class="bg-primary mr-2" 
-          size="x-small"
-         >{{ item.label}}
-         <v-icon @click="this.removeValue(removeKey,item.id)" icon="mdi-close" end></v-icon>
-        </v-chip>
-     </span>
+  <div class="d-flex flex-wrap ">
+    <span
+      v-for="item in myData"
+      :key="item.id"
+      class="text-center"
+    >
+      <v-chip
+        class=" ma-3 pa-4  "
+        style="border: 1px solid rgb(var(--v-theme-primary));"
+        size="x-small"
+      >
+      <span class="text-body-2 mt-1">  {{ item.label }}</span>
+        <v-icon
+          @click="removeValue(removeKey, item.id)"
+          icon="mdi-close"
+          
+          class="crossIcon"
+          end
+          style="margin-left: 12px;"
+        />
+      </v-chip>
+    </span>
+  </div>
 </template>
+
 
 <script>
 
@@ -58,3 +74,16 @@ export default {
 };
 
 </script>
+
+<style scoped>
+    .crossIcon{
+        color: rgb(var(--v-theme-danger));
+        padding: 8px ;
+        border-radius: 30px;
+  
+    }
+    .crossIcon:hover{
+        background-color: rgb(var(--v-theme-dangerlite));
+        color: white;
+    }
+</style>

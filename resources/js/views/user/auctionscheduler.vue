@@ -3,18 +3,18 @@
         subtitle="Manage and view platform auctions across all centers in one place.">
         <div
             class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0 mt-10">
-            
+
             <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
                 @update:modelValue="handleInput($event, 'platform_id')" clearable />
 
             <CenterDropdown label="Select Center" variant="outlined" :model-value="options.center_id"
                 @update:modelValue="handleInput($event, 'center_id')" clearable />
 
-            <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
-                @change="handleInput($event, 'enableCurrent')" class="ml-3" />
+            <div class="mt-2 d-flex"> <v-switch :model-value="options.enableCurrent" color="primary" density="compact"
+                    hide-details @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
-            <span class="mt-2 ml-2">In Progress</span>
-
+                <span class="mt-2 ml-2">In Progress only</span>
+            </div>
         </div>
         <div class="pt-4 d-flex align-center ga-3 flex-wrap ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
@@ -22,13 +22,21 @@
                 style=" height: 95px; width: 185px;" @click="handleTab(key)">
                 <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
-                    {{ key}}
+                    {{ key }}
                 </div>
                 <div class="lowerSection d-flex justify-space-between mt-2">
                     <div class="d-flex align-center ">
-                        <small><v-icon color="primary" icon="mdi-hammer" size="20"></v-icon></small>
-                        <span class="pl-1 mt-1 text-body-2 ">{{ value.auction }}</span>
+                        <svg width="15" height="15" viewBox="0 0 512 512" class="text-primary auction-svg"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor"
+                                d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z" />
+                        </svg>
+
+                        <span class="pl-1 mt-1 text-body-2">
+                            {{ value.auction }}
+                        </span>
                     </div>
+
                     <div class="d-flex align-center">
                         <small class=" icon"><v-icon color="primary" icon="mdi-car" size="20"></v-icon></small>
                         <span class="pl-1 mt-1 text-body-2 ">{{ value.car }}</span>
@@ -38,25 +46,28 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="max-width: 1400px;" >
-        <v-row class="mt-3" >
-            <v-col cols="12" >
+    <v-container fluid style="max-width: 1400px;">
+        <v-row class="mt-3">
+            <v-col cols="12">
                 <v-card class="border-sm border-white">
-                    <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading " hover
+                    <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading" hover
                         item-value="id" @update:options="getRecords">
 
                         <template #item.action="{ item }">
-                            <v-btn> <v-icon>mdi-eye-outline</v-icon></v-btn>
+                            <div class="d-flex">
+                                <v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon>
+                                <v-icon class="NotifyIcon ml-2 " size="20"> mdi-bell-outline</v-icon>
+                            </div>
                         </template>
                         <template #item.center_name="{ item }">
                             <div class="" style="max-width: 700px; ">
-                              
-                                     <div class="center_name_width">
-                                          <span>{{ item.center_names }}</span>
-                                     </div>
-                              
+
+                                <div class="center_name_width">
+                                    <span>{{ item.center_names }}</span>
+                                </div>
+
                             </div>
-                            
+
                         </template>
 
                         <template v-slot:bottom>
@@ -219,24 +230,35 @@ export default {
 .active {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
+
 .center_name_width {
-  max-width: 1000px;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  /* padding: 10px;  */
-  max-height: 48px;
-  transition:
-    max-width 1s ease,
-    max-height 1s ease,
-    background-color 1s ease;
+    max-width: 1000px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* padding: 10px;  */
+    max-height: 48px;
+    transition:
+        max-width 1s ease,
+        max-height 1s ease,
+        background-color 1s ease;
 }
 
 .center_name_width:hover {
-  max-width: 900px;
-  max-height: 200px;
-  background-color: rgba(255,255,255,0.04);
-  -webkit-line-clamp: 6;
+    max-width: 900px;
+    max-height: 200px;
+    background-color: rgba(255, 255, 255, 0.04);
+    -webkit-line-clamp: 6;
+}
+
+.eyeIcon:hover {
+    color: rgb(var(--v-theme-primary));
+    cursor: pointer;
+}
+
+.NotifyIcon:hover {
+    color: rgb(var(--v-theme-primary));
+    cursor: pointer;
 }
 </style>

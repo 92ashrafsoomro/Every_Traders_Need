@@ -1,86 +1,100 @@
     <template>
         <div class="bg-surface rounded border ">
-            <v-data-table-server class="dataTable rounded " :headers="headers" :items="auctionStore.data"
-                :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
-                @update:options="auctionStore.getAuctionList" hover>
-                <template #item.make_name="{ item }">
-                    <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{
-                        item.model_name
-                        }}
-                        {{ item.variant_name }}</v-btn>
+            <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
+                :loading="auctionStore.loading" item-value="id" hover>
 
-                </template>
-                <template #item.date="{ item }">
-                    {{ item.auction_date }} {{ item.auction_time }}
-                </template>
-                <template #item.auction_name="{ item }">
-                    <span style="background-color: #0080ff50; padding: 5px ; border-radius: 3px;"> {{ item.auction_name
-                        }}</span>
-                </template>
+
                 <template v-slot:bottom>
+                      <div class="py-2 d-flex justify-end border-t ma-2">
                     <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
                         :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
-                </template>
-               <template #item.grade="{ item }">
-  <span
-    :style="{
-      backgroundColor:
-        item.grade == 5 ? '#e51f1f' :
-        item.grade == 4 ? '#f2ce02' :
-        item.grade == 3 ? '#ebff0a' :
-        item.grade == 2 ? '#85e62c' :
-        '#02de0a',
-      width: '30px',
-      height: '30px',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '50%',
-      color: '#000',
-      fontWeight: '600'
-    }"
-  >
-    {{ item.grade }}
-  </span>
-</template>
-
+               </div> </template>
 
 
                 <!-- expentTable Code -->
 
-                <template #item.action="{ item, internalItem, isExpanded, toggleExpand }">
-                    <v-btn icon color="primary" variant="text" @click="toggleExpand(internalItem)">
-                        <v-icon>
-                            {{ isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-information-outline' }}
-                        </v-icon>
-                    </v-btn>
-                </template>
 
-                <template #expanded-row="{ columns, item }">
-                    <tr>
+                <template #item="{ item, columns }">
 
-                        <td colspan="1" class="d-flex ga-2" style="height:70px; ">
-                            <div v-for="(img, index) in item.images" :key="index" style="margin-top: 15px;">
-                                <img :src="img" alt="vehicle" width="40" height="40" style="object-fit: cover;" />
-                            </div>
+                    <!-- MAIN ROW -->
+                    <tr @mouseenter="hoveredRowId = item.id">
+                        <td > <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{
+                            item.model_name
+                                }}
+                                {{ item.variant_name }}</v-btn></td>
+                        <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
+                        <td>{{ item.mileage }}</td>
+                        <td>{{ item.transmission }}</td>
+                        <td>
+                            <span :style="{
+                                backgroundColor:
+                                    item.grade == 5 ? '#e51f1f' :
+                                        item.grade == 4 ? '#f2ce02' :
+                                            item.grade == 3 ? '#ebff0a' :
+                                                item.grade == 2 ? '#85e62c' :
+                                                    '#02de0a',
+                                width: '30px',
+                                height: '30px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '50%',
+                                color: '#000',
+                                fontWeight: '600'
+                            }">
+                                {{ item.grade }}
+                            </span>
 
                         </td>
-
-
-                        <td colspan="5">
-                            <v-checkbox :label="item.color || 'Color'"></v-checkbox>
-                        </td>
-                        <td colspan="2" style="margin-left: 10px;">
-                            <v-btn variant="flat" color="primary"><a :href="item.inspection_report" target="_blank"
-                                    class="text-capitalize text-white" style="text-decoration: none;">View
-                                    Report</a></v-btn>
+                        <td>{{ item.auction_date }} <br> {{ item.auction_time }}</td>
+                        <td>
+                            <span class="auction-badge">{{ item.auction_name }}</span>
                         </td>
                     </tr>
+
+                    <!-- HOVER ROW -->
+                    <tr v-if="hoveredRowId === item.id" class="hover-row">
+                        <td :colspan="columns.length">
+                            <div class="d-flex align-center justify-space-between px-4"
+                                @mouseenter="hoveredRowId = item.id" @mouseleave="handleHoverLeave">
+
+                                <!-- Images -->
+                                <div class="d-flex ga-2">
+                                    <v-dialog v-for="(img, i) in item.images.slice(0, 4)" :key="i" max-width="900">
+                                        <template #activator="{ props }">
+                                            <img v-bind="props" :src="img" width="45" height="45"
+                                                class="rounded cursor-pointer" @click.stop />
+                                        </template>
+
+                                        <template #default="{ isActive }">
+                                            <v-card class="pa-2">
+                                                <div class="d-flex justify-end">
+                                                    <v-btn icon variant="text" @click="isActive.value = false">
+                                                        <v-icon>mdi-close</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                                <v-img :src="img" contain max-height="80vh" />
+                                            </v-card>
+                                        </template>
+                                    </v-dialog>
+                                </div>
+
+                                <!-- Report -->
+                                <div class="w-25 text-center">
+                                    <v-btn size="small" color="primary" variant="flat" :href="item.inspection_report"
+                                        target="_blank">
+                                        View Report
+                                    </v-btn>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+
+
+
                 </template>
 
-
-
-                <!-- Expend table code end -->
 
             </v-data-table-server>
         </div>
@@ -97,6 +111,10 @@ export default {
     data() {
         return {
             auctionStore: useAuctionStore(),
+            hoveredRowId: null,
+            hoverTimeout: null,
+            // imageDialog:false,
+            // previewImage:null,
             headers: [
                 {
                     title: "Vehicle",
@@ -127,11 +145,6 @@ export default {
                     title: "Auction House",
                     key: "auction_name"
                 },
-                {
-                    title: "More Info",
-                    key: "action",
-                    sortable: false
-                }
             ],
 
         }
@@ -139,6 +152,11 @@ export default {
     computed: {
 
         methods: {
+            handleHoverLeave() {
+                this.hoverTimeout = setTimeout(() => {
+                    this.hoveredRowId = null
+                }, 200)
+            }
 
         },
 
@@ -147,5 +165,21 @@ export default {
 
 </script>
 
+<style scoped>
+.hover-row {
+    animation: fadeIn 0.2s ease-in-out;
+}
 
-<style scoped></style>
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>

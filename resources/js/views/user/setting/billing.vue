@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="12" v-if="userStore?.user?.plans" >
+    <v-col cols="12"  >
         <CurrentPlan  />
    
         <!-- <PaymentForm/> -->

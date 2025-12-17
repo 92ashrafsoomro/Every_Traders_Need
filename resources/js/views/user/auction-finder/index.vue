@@ -34,11 +34,13 @@
                             <!-- FILTER BUTTON -->
                             <div>
                                 <v-btn v-if="auctionStore.sidebar" color="primary" variant="outlined"  prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
-                                    <span class="text-white text-capitalize text-body-1">Filter</span>
+                                    <span class="text-white text-capitalize text-body-1">Hide Filter</span>
                                 </v-btn>
 
                                 <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
-                                    @click="auctionStore.toggleFilter()" />
+                                    @click="auctionStore.toggleFilter()" >
+                                  <span class="text-white text-capitalize text-body-1">Show Filter</span>
+                                </v-btn>
                             </div>
 
                             <!-- CLEAR ALL (FILTER OPEN ONLY) -->

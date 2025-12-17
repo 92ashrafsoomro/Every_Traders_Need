@@ -2,60 +2,43 @@
     <v-card title="Current Plan" class="bg-surface"  >
         <div class="border" ></div>
         <v-container>
-            <div class="d-flex  flex-wrap justify-space-between">
+            <div class="d-flex  w-100 flex-wrap justify-space-between">
 
-                <div class="py-3 px-3">
+                <div class="py-3 px-3 pr-7 w-50 border-e" >
 
-                    <div class="d-flex align-center  rounded-lg px-5 mb-3 py-1" style="background-color: #504448;" >
-                        <p class="px-1 py-1 rounded bg-warning">
-                            <v-icon color="white" icon="mdi-alert" />
-                        </p>
-                        <div class="pl-3 py-3">
-                            <h6 class="text-h5 text-warning font-weight-bold ">We need your attention!</h6>
-                            <p class="text-body-2 text-warning">Your plan requires update</p>
-                        </div>
-                    </div>
-
-                    <div class="w-100">
+                    <div class="w-100 mb-4">
                         <p class="d-flex justify-space-between">
                             <span class="text-body-1">Days</span>
                             <span class="text-body-1">{{ usedDays }} of 30 Days</span>
                         </p>
-                        <div class="py-3" style="width:300px">
-                            <v-progress-linear height="7" color="warning" :model-value="progressPercentage"></v-progress-linear>
+                        <div class="py-3" style="width:auto">
+                            <v-progress-linear height="7" color="primary" :model-value="progressPercentage"></v-progress-linear>
                         </div>
                         <p class="text-body-2" style="color:rgb(var(--v-theme-light))">{{ remainingDays }} days remaining until your plan
                             requires update</p>
                     </div>
 
-                    <div class="py-5">
-                        <div class="mb-3">
-                            <p class="text-body-1">Your Current Plan is "{{ userStore.user?.plan?.plan?.plan_name }}"</p>
+                    <div class="py-5 mb-4">
+                        <div class="mb-3 ">
+                            <p class="text-body-1">Your Current Plan is  <span class="activeUnit pa-2"> "{{ userStore.user?.plan?.plan?.plan_name }}" </span></p>
                             <p class="text-body-2" style="color:rgb(var(--v-theme-light))">For small dealers.</p>
                         </div>
-                        <div>
-                            <p class="text-body-1">Active until {{ userStore.user?.plan?.membership_expiry_date }} </p>
-                            <p class="text-body-2 font-weight-thin" style="color:rgb(var(--v-theme-light))">We will send you a notification upon Subscription expiration</p>
+                        <div class="mt-8">
+                            <p class="text-body-1">Active until <span class="activeUnit pa-2">{{ userStore.user?.plan?.membership_expiry_date }}</span> </p>
+                            <p class="text-body-2 font-weight-thin mt-2" style="color:rgb(var(--v-theme-light))">We will send you a notification upon Subscription expiration</p>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="mt-4">
                         <v-btn 
                             @click="showDialog = true" 
                             color="primary"  
                             variant="flat"
                             class="buttonBorder"
                              style="height: 50px; ">
-                             <span class="text-capitalize text-body-1">Price Plain</span></v-btn>
+                             <span class="text-capitalize text-body-1">Upgrade Plain</span></v-btn>
 
-                        <v-btn 
-                            class="buttonBorder mx-2 " 
-                            @click="showDialog = true"
-                            color="danger"
-                            variant="flat" 
-                             style="height: 50px; ">
-                             <span class="text-capitalize text-body-1">Cancle Subscription</span></v-btn>
-                    </div>
+                            </div>
                     
                     <v-container class="d-flex m-2">
                         <v-dialog v-model="showDialog" max-width="">
@@ -67,8 +50,9 @@
                         </v-dialog>
                     </v-container>
                 </div>
+                <div class="w-50 ">
                 <PaymentForm />
-            </div>
+            </div></div>
         </v-container>
     </v-card>
 </template>
@@ -127,6 +111,11 @@ export default {
 
 <style scoped>
     .buttonBorder{
+    border-radius: 2px;
+}
+.activeUnit{
+    /* background-color: rgb(var(--v-theme-primaryLite)); */
+    background-color: #3399ff20;
     border-radius: 2px;
 }
 

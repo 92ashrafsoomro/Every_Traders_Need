@@ -9,11 +9,11 @@ export default class UserModel {
     // -------------------------------
     static fields = [
         // Personal
-        { icon: 'mdi-account',key: "firstName", label: "First Name", type: "text", group: "personal" },
+        { icon: 'mdi-account-outline',key: "firstName", label: "First Name", type: "text", group: "personal" },
         { icon: 'mdi-web',key: "surname", label: "Surname", type: "text", group: "personal" },
         { icon: 'mdi-web',key: "jobTitle", label: "Job Title", type: "text", group: "personal" },
-        { icon: 'mdi-web',key: "avatar", label: "Avatar", type: "file", accept: "image/*", group: "personal" , placeholder:'Avatar Allowed JPG, GIF or PNG. Max size of 800K' },
-        { icon: 'mdi-phone',key: "phone", label: "Phone", type: "text", group: "personal" },
+        { icon: 'mdi-phone-outline',key: "avatar", label: "Avatar", type: "file", accept: "image/*", group: "personal" , placeholder:'Avatar Allowed JPG, GIF or PNG. Max size of 800K' },
+        { icon: 'mdi-phone-outline',key: "phone", label: "Phone", type: "text", group: "personal" },
         { icon: 'mdi-email-outline',key: "personalEmail", label: "Personal Email", type: "email", group: "personal" },
 
         // Business Info
@@ -22,13 +22,13 @@ export default class UserModel {
         { icon: 'mdi-web', key: "companyReg", label: "Company Reg", type: "text", group: "bussiness" },
         { icon: 'mdi-email-outline', key: "businessEmail", label: "Business Email", type: "email", group: "bussiness" },
         { icon: 'mdi-home-city', key: "country", label: "Country", type: "text", group: "bussiness" },
-        { icon: 'mdi-home-city', key: "townCity", label: "Town / City", type: "text", group: "bussiness" },
+        { icon: 'mdi-city-variant-outline', key: "townCity", label: "Town / City", type: "text", group: "bussiness" },
         { icon: 'mdi-home-city', key: "postcode", label: "Postcode", type: "text", group: "bussiness" },
         { icon: 'mdi-home-city', key: "companyAddress1", label: "Company Address 1", type: "text", group: "bussiness" },
         { icon: 'mdi-home-city', key: "companyAddress2", label: "Company Address 2", type: "text", group: "bussiness" },
         { icon: 'mdi-shield-check', key: "motorTradeInsurance", label: "Motor Trade Insurance", type: "select", group: "bussiness" },
         { icon: 'mdi-card-bulleted-outline', key: "vatNumber", label: "VAT Number", type: "text", group: "bussiness" },
-        { icon: 'mdi-phone', key: "telephone", label: "Telephone", type: "text", group: "bussiness" },
+        { icon: 'mdi-phone-outline', key: "telephone", label: "Telephone", type: "text", group: "bussiness" },
         { icon: 'mdi-web', key: "website", label: "Website", type: "text", group: "bussiness" },
 
         // Proof

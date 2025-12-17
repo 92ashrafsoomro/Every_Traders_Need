@@ -6,6 +6,7 @@
                 :items="data" 
                 hover
                 :items-length="data.length" 
+                 hide-default-footer
                 item-value="id"
                 >
                     <template #item.status="{ item }">

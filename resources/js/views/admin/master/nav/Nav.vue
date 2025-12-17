@@ -9,8 +9,7 @@
                     <v-btn v-for="item in items" :variant="$route.path.startsWith(item.path) ? 'flat' : 'tonal'" class=" mx-1 text-none px-5 py-2 "
                     :to="item.path"
                     color="primary"
-                    style="height: 50px;"> <span
-                    class="text-capitalize text-body-1 ">{{ item.title }}</span></v-btn>
+                    style="height: 50px;"> <span class="text-capitalize text-body-1">{{ item.title }}</span></v-btn>
 
             </div>
         </div>
@@ -21,19 +20,17 @@
 export default {
 
     data() {
-
-
-
+        
         return {
 
             items: [
                 {
-                    title: 'BodyType',
-                    path:'/admin/bodyType'
-                },
-                {
                     title: 'VehicleType',
                     path:'/admin/vehicleType'
+                },
+                {
+                    title: 'BodyType',
+                    path:'/admin/bodyType'
                 },
                 {
                     title: 'Platform',

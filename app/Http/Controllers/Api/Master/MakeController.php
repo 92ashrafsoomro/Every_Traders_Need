@@ -46,6 +46,7 @@ class MakeController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });
             

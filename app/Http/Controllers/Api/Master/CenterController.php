@@ -61,6 +61,11 @@ class CenterController extends Controller
                     if($item->image){
                     $item->image = asset('/uploads/'.$item->image);
                     }
+
+            
+                    $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+
+                
                     return $item;
                 });
             

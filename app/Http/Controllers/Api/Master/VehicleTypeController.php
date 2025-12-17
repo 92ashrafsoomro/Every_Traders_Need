@@ -49,6 +49,11 @@ class VehicleTypeController extends Controller
             $query->where('vehicle_type.id',$request->id);
         }
 
+        if($request->has('search') && $request->search != '') {
+                $query->where('vehicle_type.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('vehicle_type.id', 'like', '%'.$request->search.'%');
+        }
+
         $count = (clone $query)->count();
         $data = $query->select([
                 '*'
@@ -56,7 +61,13 @@ class VehicleTypeController extends Controller
             ->skip($offset)
             ->take($length)
             ->orderByDesc('id')
-            ->get();
+            ->get()
+            ->map(function($item){
+
+                $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+
+                return $item;
+            });
 
 
         return response()->json([

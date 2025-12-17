@@ -56,7 +56,13 @@ class BodyTypeController extends Controller
             ->skip($offset)
             ->take($length)
             ->orderByDesc('id')
-            ->get();
+            ->get()
+            ->map(function($item){
+
+                $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+
+                return $item;
+            });
 
 
         return response()->json([

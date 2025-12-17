@@ -16,35 +16,35 @@
             "children":[
                    {
                     "label" :"Body Type",
-                    "path" : "/admin/bodyType/create"
+                    "path" : "/admin/bodyType"
                 },
                 {
                     "label" :"Vehicle Type",
-                    "path" : "/admin/vehicleType/create"
+                    "path" : "/admin/vehicleType"
                 },
                 {
                     "label" :"Platform",
-                    "path" : "/admin/platform/create"
+                    "path" : "/admin/platform"
                 },
                 {
                     "label" :"Center",
-                    "path" : "/admin/center/create"
+                    "path" : "/admin/center"
                 },
                 {
                     "label" :"Color",
-                    "path" : "/admin/color/create"
+                    "path" : "/admin/color"
                 },
                 {
                     "label" :"Make",
-                    "path" : "/admin/make/create"
+                    "path" : "/admin/make"
                 },
                 {
                     "label" :"Model",
-                    "path" : "/admin/model/create"
+                    "path" : "/admin/model"
                 },
                 {
                     "label" :"Variant",
-                    "path" : "/admin/variant/create"
+                    "path" : "/admin/variant"
                 }
             ]
         },

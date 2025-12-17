@@ -1,10 +1,9 @@
 <template>
-    <v-col cols="12">
         <v-card title="Recent Devices" class="">
             
-           
-            <v-card-text>
-                <v-data-table-server class="pb-3" :headers="headers" :items="data" :items-length="total"
+              <div class="border" ></div>
+            <v-card-text class="ml-2" >
+                <v-data-table-server class="pb-3"   hide-default-footer :headers="headers" :items="data" :items-length="total"
                     item-value="id">
                     <template #item.platform="{ item }">
                         <p>
@@ -18,11 +17,12 @@
                             <span class="px-2 font-weight-thin"> {{ item.browser }}</span>
                         </p>
                     </template>
-
-                    <!-- <template v-slot:bottom>
+<!-- 
+                    <template v-slot:bottom>
                              <div class="py-2 d-flex justify-end border-t">
                         <custom-pagination :loading="loading"
-                            v-model:page="pageStore.recentDevices.page" :lastPage="pageStore.recentDevices.last_page" />
+                            v-model:page="pageStore.recentDevices.page" :lastPage="pageStore.recentDevices.last_page"
+                            @page-changed="" />
                     </div>
                 </template> -->
                 </v-data-table-server>
@@ -31,7 +31,6 @@
 
         </v-card>
 
-    </v-col>
 </template>
 
 

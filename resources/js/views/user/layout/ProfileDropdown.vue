@@ -13,14 +13,14 @@
         </template>
         
         <v-list elevation="0" class="border" style="min-width: 224px">
-            <v-list-item class="pa-3">
+            <v-list-item class=" pa-3 " >
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex justify-start align-center ps-2 ga-2">
                         <div class="profileImage d-flex justify-center align-center">
                             <img :src="userStore.user.avatar" class="h-100 w-100 rounded position-static" />
                         </div>
                         <div>
-                            <p class="profile-name text-subtitle-1">
+                            <p class="  profile-name text-subtitle-1">
                                 {{ userStore.user.title }}
                             </p>
                             <p class="profile-type text-caption text-light_text_on mt-n2">
@@ -32,11 +32,12 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item link>
-                <v-list-item-title class="cursor-pointer">
+                <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/settings/profile" class="text-decoration-none" >
-                        <div class="d-flex align-center ga-2 wrapper">
-                            <v-icon icon="mdi-account-outline text-light_text_on"></v-icon>
-                            <p class="text-light_text_on">My Profile</p>
+                        <div class=" d-flex align-center ga-2 wrapper">
+                          <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
+
+                            <p class="text text-light_text_on">My Profile</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
@@ -102,4 +103,10 @@ export default {
     height: 45px;
     width: 45px;
 }
+.profileDropDown:hover .text,
+.profileDropDown:hover .icon {
+  color: aqua;
+  transition: color 0.2s ease;
+}
+
 </style>

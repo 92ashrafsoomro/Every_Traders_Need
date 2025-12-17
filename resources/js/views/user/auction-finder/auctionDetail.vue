@@ -1,8 +1,7 @@
     <template>
-        <div class="bg-surface rounded border ">
+        <div class="bg-surface rounded border">
             <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
-                :loading="auctionStore.loading" item-value="id" >
-
+                :loading="auctionStore.loading" item-value="id">
 
                 <template v-slot:bottom>
                     <div class="py-2 d-flex justify-end border-t ma-2">
@@ -90,7 +89,7 @@
                                             </v-btn>
 
                                             <!-- Image -->
-                                            <v-img :src="currentImages[currentIndex]" max-height="85vh" contain />
+                                            <v-img :src="currentImages[currentIndex]" max-height="50vh" contain />
 
                                             <!-- Next -->
                                             <v-btn icon @click="nextImage">

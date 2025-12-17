@@ -32,13 +32,14 @@
                     </v-row>
                     <v-row class="mt-5">
                         <v-col cols="12">
-                            <h2 class="text-body-1 text-light mb-1">User Information</h2>
+                            <h2 class="text-h6 font-weight-bold mb-1">User Information</h2>
                         </v-col>
                         <v-col v-for="(value, key) in UserModel.groupByFields('personal').filter((res) => res.key != 'avatar')" cols="12" md="4">
                             <label class="d-block pb-2" :for="value.label">{{ value.label }}</label>
                             <v-text-field   
                                 v-model="form[value.key]" 
                                 variant="outlined" 
+                                base-color="border"
                                 color="primary"
                                 density="compact" 
                                 clearable />
@@ -47,13 +48,14 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12">
-                            <h2 class="text-body-1 text-light mb-1">Company Information</h2>
+                            <h2 class="text-h6 font-weight-bold mb-1">Company Information</h2>
                         </v-col>
                         <v-col v-for="(value, key) in UserModel.fields.filter((res) => res.group == 'bussiness')" cols="12" md="4">
                             <label class="d-block pb-2" :for="value.label">{{ value.label }}</label>
                             <v-select v-if="value.type == 'select'" 
                                 v-model="form[value.key]" 
-                                variant="outlined" 
+                                variant="outlined"
+                                base-color="border" 
                                 color="primary"
                                 :items="['yes','no']"
                                 density="compact" />
@@ -61,6 +63,7 @@
                             <v-text-field v-else
                             v-model="form[value.key]" 
                             variant="outlined" 
+                            base-color="border"
                             color="primary"
                             density="compact" 
                             clearable />
@@ -68,7 +71,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12">
-                            <h2 class="text-body-1 text-light mb-1">Proof Information</h2>
+                            <h2 class="text-h6 font-weight-bold mb-1">Proof Information</h2>
                         </v-col>
                         <v-col v-for="(value, key) in UserModel.groupByFields('proof')" cols="12" md="4">
                              <label class="d-block pb-2" :for="value.label">{{ value.label }}</label>
@@ -78,6 +81,7 @@
                                 label="File input" 
                                 density="comfortable"
                                 variant="outlined" 
+                                base-color="border"
                                 accept="image/*" 
                                 color="primary"
                                 prepend-icon="mdi-image"/>

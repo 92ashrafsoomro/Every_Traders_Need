@@ -115,8 +115,7 @@ export default {
                 { title: "Auction Status Time", value: "auction_status_time" },
                 { title: "Auction Time", value: "auction_date" },
                 {title : "Auction House", value : "auction_house"}
-                // { title: "Action", value: "action", sortable: false },
-            //  update col, interested section make batter, need to improve Time filters 
+                // Vehicle(make,model,V,year), Reg, Auction Time, Auc houes, Center,        Mileage,        Auc Status, Time,        Action(basic detail, full view)
             ],
         }
     },

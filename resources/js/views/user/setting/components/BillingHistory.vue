@@ -14,9 +14,9 @@
                         <v-btn v-else  class="text-capitalize">{{ item.status }}</v-btn>
                     </template>
 
-                    <template #item.invoice="{ item }">
-                        <v-btn icon="mdi-eye-outline" ></v-btn>
-                        <v-btn icon="mdi-download"></v-btn>
+                    <template #item.invoice="{ item }" >
+                        <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>
+                        <v-icon icon="mdi-download"></v-icon>
                     </template>
             </v-data-table-server>
         </v-card>

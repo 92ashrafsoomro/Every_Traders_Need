@@ -40,6 +40,9 @@ const vuetify = createVuetify({
              class:"pa-4 "
 
         },
+        VTable: {
+    class: 'v-table--no-borders',
+  },
     },
     theme: {
         defaultTheme: "adminDark",

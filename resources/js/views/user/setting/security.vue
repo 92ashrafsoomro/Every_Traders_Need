@@ -11,6 +11,7 @@
                         <v-text-field 
                             append-inner-icon="mdi-eye" 
                             label="Current Password"
+                            base-color="border"
                             v-model="form.current_password" 
                             :type="toggle_password ? 'text' : 'password'"
                             @click:append-inner="toggle_password = !toggle_password" 
@@ -24,12 +25,14 @@
                     <v-col cols="12" md="6">
                         <v-text-field append-inner-icon="mdi-eye" label="New Password" v-model="form.new_password"
                             :type="toggle_new_password ? 'text' : 'password'"
+                            base-color="border"
                             @click:append-inner="toggle_new_password = !toggle_new_password" variant="outlined"
                             color="primary" density="compact" />
 
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field append-inner-icon="mdi-eye" label="Confirm New Password"
+                        base-color="border"
                             v-model="form.confirm_password" :type="toggle_confirm_Password ? 'text' : 'password'"
                             @click:append-inner="toggle_confirm_Password = !toggle_confirm_Password" variant="outlined"
                             color="primary" density="compact" />

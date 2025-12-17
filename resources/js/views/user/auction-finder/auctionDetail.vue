@@ -17,11 +17,11 @@
                 <template #item="{ item, columns }">
 
                     <!-- MAIN ROW -->
-                    <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder" >
+                    <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder">
                         <td>
                             <!-- <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id"> -->
                             <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
-                                }}
+                            }}
                             </span>
                             <!-- </v-btn> -->
                         </td>
@@ -71,31 +71,32 @@
                                 </div>
 
                                 <!-- IMAGE VIEWER -->
-                                <v-dialog v-model="imageDialog" fullscreen>
-                                    <v-card color="black">
+                                <v-dialog v-model="imageDialog" style="background-color:rgba(0, 0, 0, 0.3);">
+                                    <v-card class="w-100">
                                         <!-- Top bar -->
-                                        <v-toolbar density="compact" color="black">
-                                            <v-spacer />
-                                            <v-btn icon @click="imageDialog = false">
-                                                <v-icon color="white">mdi-close</v-icon>
-                                            </v-btn>
-                                        </v-toolbar>
+
 
                                         <!-- Content -->
-                                        <v-card-text class="d-flex align-center justify-space-between">
+                                        <div class="d-flex align-center justify-center   "
+                                            style="background-color:rgba(0, 0, 0, 0.9);">
                                             <!-- Previous -->
-                                            <v-btn icon @click="prevImage">
+                                            <v-btn icon @click="prevImage" >
                                                 <v-icon color="white" size="36">mdi-chevron-left</v-icon>
                                             </v-btn>
 
                                             <!-- Image -->
-                                            <v-img :src="currentImages[currentIndex]" max-height="50vh" contain />
+                                            <div>
+                                                <v-btn icon @click="imageDialog = false" style="position: absolute; ">
+                                                    <v-icon color="white">mdi-close</v-icon>
+                                                </v-btn>
+                                                <img :src="currentImages[currentIndex]" height="500" contain />
+                                            </div>
 
                                             <!-- Next -->
                                             <v-btn icon @click="nextImage">
                                                 <v-icon color="white" size="36">mdi-chevron-right</v-icon>
                                             </v-btn>
-                                        </v-card-text>
+                                        </div>
                                     </v-card>
                                 </v-dialog>
 
@@ -179,8 +180,8 @@ export default {
 
 <style scoped>
 :deep(.mainTdBorder td) {
-  border-bottom: 0 !important;
-  border-top: 1px solid rgb(var(--v-theme-border));
+    border-bottom: 0 !important;
+    border-top: 1px solid rgb(var(--v-theme-border));
     background-color: rgb(var(--v-theme-surface));
 
 }

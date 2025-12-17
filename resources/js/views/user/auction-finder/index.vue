@@ -1,6 +1,6 @@
 <template>
     <user-title-bar>
-        <div style="width: auto; margin-left: -210px ;">
+        <div style="width: auto; margin-left: -130px ;">
             <h1 class="text-h3 mb-2 font-weight-bold">Smart Auction Search</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your
                 profit goals.</p>

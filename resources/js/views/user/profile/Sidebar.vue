@@ -24,7 +24,7 @@
                 </v-col>
             </v-row>
 
-            <v-divider class="border-opacity-30 mb-4" color="grey" />
+             <v-divider class="pa-2 mt-3"></v-divider>
 
             <!-- Personal Information -->
             <h2 class="text-body-1 text-light my-3 mb-3">Company Information</h2>
@@ -40,14 +40,13 @@
                     </div>
                 </v-col>
             </v-row>
-
-            <v-divider class="border-opacity-30 mb-4" color="grey" />
+  <v-divider class="pa-2 mt-3"></v-divider>
             <h2 class="text-body-1 text-light mt-3  mb-3 ">Business Proof</h2>
             <v-row>
                 <v-col cols="12" class="">
 
                     <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'proof' )" :key="i" class=" d-flex align-center mb-6">
-                        <v-icon color="white" class="mr-4 ">mdi-card-account-details</v-icon>
+                        <v-icon color="white" class="mr-4 ">mdi-text-box-outline</v-icon>
                         <div class="d-flex align-center">
                             <div class="text-body-2 text-light pr-2">{{ item.label }} :</div>
                             <div class="text-body-2">

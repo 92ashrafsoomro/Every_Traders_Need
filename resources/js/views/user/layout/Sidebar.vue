@@ -17,7 +17,7 @@
             <template v-for="(item, index) in userMenu" :key="index"  >
                 <!-- Regular Menu Items -->
                 <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
-                    :hide-overlay="false" class="text-subtitle-1 ml-2"
+                    :hide-overlay="false" class="text-subtitle-1  "
                     active-class="bg-primary on-primary  rounded-sm my-active-menu hide-overlay ">
                     <template #title >
                         <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>

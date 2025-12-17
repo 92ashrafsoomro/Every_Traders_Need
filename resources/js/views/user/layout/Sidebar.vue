@@ -14,21 +14,21 @@
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <template v-for="(item, index) in userMenu" :key="index" >
+            <template v-for="(item, index) in userMenu" :key="index"  >
                 <!-- Regular Menu Items -->
                 <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
-                    :hide-overlay="false" class="text-subtitle-1"
+                    :hide-overlay="false" class="text-subtitle-1 ml-2"
                     active-class="bg-primary on-primary  rounded-sm my-active-menu hide-overlay ">
                     <template #title >
-                        <span :ripple="false" class="text-body-1">{{ item.label }}</span>
+                        <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>
                     </template>
                 </v-list-item>
-                <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
+                <v-list-item class=" mt-8 ml-1" v-else title="" :subtitle="item.label">
                     <v-divider class="mt-2"></v-divider>
                 </v-list-item>
 
             </template>
-            <div class="d-flex ga-6 ml-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+            <div class="d-flex ga-6 ml-4"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1">
                     <router-link to="/admin" style="text-decoration: none ; color: white;">
                         Admin</router-link></v-list-item>

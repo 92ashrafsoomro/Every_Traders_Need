@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mb-5 border">
+    <v-card class="mb-5 border ">
 
         <!-- Header -->
         <div class="d-flex pa-6 justify-space-between ">
@@ -11,6 +11,7 @@
             <div class="mr-2 d-flex ga-2"> 
                 <plateform-dropdown
                     label="Online Auction"
+                  
                     variant="outlined"
                     density="compact" 
                     max-width="180px" 
@@ -37,7 +38,7 @@
         <!-- Data Table -->
         <v-data-table-server
             style="max-height: 450px; "
-            class="rounded" :headers="headers"
+            class="rounded " :headers="headers"
             :items="data"
             :items-length="data.length"
             :loading="isLoading" 
@@ -47,7 +48,7 @@
 
             <!-- Auction Name -->
             <template #item.auction_platform_name="{ item }">
-                <span class="font-weight-medium">
+                <span class="font-weight-medium ">
                     {{ item.auction_platform_name }}
                 </span>
             </template>
@@ -151,3 +152,4 @@ export default {
     }
 }
 </script>
+

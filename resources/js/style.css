@@ -53,3 +53,11 @@ aside {
     align-items: center;
     background-color: rgb(var(--v-theme-surfaceBright));
 }
+
+
+.v-select .v-select__selection-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 4px;
+}

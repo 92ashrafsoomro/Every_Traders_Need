@@ -11,10 +11,11 @@
                         :data="masterStore.vehicleTypes.data" 
                         :compareValue="auctionStore.filter.vehicleType" 
                         removeKey="vehicleType"
+                        
                         :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make">
+                <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;">
                     <v-expansion-panel-text>
                         <MakeField/>
                     </v-expansion-panel-text>
@@ -25,7 +26,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small" >
+                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small" style="background-color: rgb(var(--v-theme-border));" >
                     <v-expansion-panel-text>
                         <ModelField/>
                     </v-expansion-panel-text>
@@ -36,7 +37,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.variants.data.length ? false : true" title="Model Variant">
+                <v-expansion-panel :disabled="masterStore.variants.data.length ? false : true" title="Model Variant" style="background-color: rgb(var(--v-theme-border));">
                     <v-expansion-panel-text>
                         <VariantField/>
                     </v-expansion-panel-text>
@@ -47,7 +48,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
 
-                <v-expansion-panel :disabled="masterStore.platforms.data.length ? false : true" title="Auction House">
+                <v-expansion-panel :disabled="masterStore.platforms.data.length ? false : true" title="Auction House" style="border-bottom: 1px solid rgb(var(--v-theme-border));">
                     <v-expansion-panel-text>
                         <PlatformField/>
                     </v-expansion-panel-text>
@@ -235,7 +236,7 @@ export default {
         };
     },
     computed: {
-
+       
     },
     methods: {
         handleChipClose(field,e) {

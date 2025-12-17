@@ -1,14 +1,15 @@
     <template>
         <div class="bg-surface rounded border ">
             <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
-                :loading="auctionStore.loading" item-value="id" hover>
+                :loading="auctionStore.loading" item-value="id" >
 
 
                 <template v-slot:bottom>
-                      <div class="py-2 d-flex justify-end border-t ma-2">
-                    <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
-                        :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
-               </div> </template>
+                    <div class="py-2 d-flex justify-end border-t ma-2">
+                        <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
+                            :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
+                    </div>
+                </template>
 
 
                 <!-- expentTable Code -->
@@ -17,11 +18,14 @@
                 <template #item="{ item, columns }">
 
                     <!-- MAIN ROW -->
-                    <tr @mouseenter="hoveredRowId = item.id">
-                        <td > <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">{{ item.make_name }} {{
-                            item.model_name
+                    <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder" >
+                        <td>
+                            <!-- <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id"> -->
+                            <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
                                 }}
-                                {{ item.variant_name }}</v-btn></td>
+                            </span>
+                            <!-- </v-btn> -->
+                        </td>
                         <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
                         <td>{{ item.mileage }}</td>
                         <td>{{ item.transmission }}</td>
@@ -48,36 +52,54 @@
                         </td>
                         <td>{{ item.auction_date }} <br> {{ item.auction_time }}</td>
                         <td>
-                            <span class="auction-badge">{{ item.auction_name }}</span>
+                            <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">
+                                <span class="auction-badge">{{ item.auction_name }}</span></span>
                         </td>
                     </tr>
 
                     <!-- HOVER ROW -->
-                    <tr v-if="hoveredRowId === item.id" class="hover-row">
+                    <tr v-if="hoveredRowId === item.id" class="openRow hover-row ">
                         <td :colspan="columns.length">
                             <div class="d-flex align-center justify-space-between px-4"
                                 @mouseenter="hoveredRowId = item.id" @mouseleave="handleHoverLeave">
 
                                 <!-- Images -->
+                                <!-- Images thumbnails (same as before, sirf click handler add) -->
                                 <div class="d-flex ga-2">
-                                    <v-dialog v-for="(img, i) in item.images.slice(0, 4)" :key="i" max-width="900">
-                                        <template #activator="{ props }">
-                                            <img v-bind="props" :src="img" width="45" height="45"
-                                                class="rounded cursor-pointer" @click.stop />
-                                        </template>
-
-                                        <template #default="{ isActive }">
-                                            <v-card class="pa-2">
-                                                <div class="d-flex justify-end">
-                                                    <v-btn icon variant="text" @click="isActive.value = false">
-                                                        <v-icon>mdi-close</v-icon>
-                                                    </v-btn>
-                                                </div>
-                                                <v-img :src="img" contain max-height="80vh" />
-                                            </v-card>
-                                        </template>
-                                    </v-dialog>
+                                    <img v-for="(img, i) in item.images.slice(0, 4)" :key="i" :src="img" width="45"
+                                        height="45" class="rounded cursor-pointer"
+                                        @click="openViewer(item.images, i)" />
                                 </div>
+
+                                <!-- IMAGE VIEWER -->
+                                <v-dialog v-model="imageDialog" fullscreen>
+                                    <v-card color="black">
+                                        <!-- Top bar -->
+                                        <v-toolbar density="compact" color="black">
+                                            <v-spacer />
+                                            <v-btn icon @click="imageDialog = false">
+                                                <v-icon color="white">mdi-close</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+
+                                        <!-- Content -->
+                                        <v-card-text class="d-flex align-center justify-space-between">
+                                            <!-- Previous -->
+                                            <v-btn icon @click="prevImage">
+                                                <v-icon color="white" size="36">mdi-chevron-left</v-icon>
+                                            </v-btn>
+
+                                            <!-- Image -->
+                                            <v-img :src="currentImages[currentIndex]" max-height="85vh" contain />
+
+                                            <!-- Next -->
+                                            <v-btn icon @click="nextImage">
+                                                <v-icon color="white" size="36">mdi-chevron-right</v-icon>
+                                            </v-btn>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-dialog>
+
 
                                 <!-- Report -->
                                 <div class="w-25 text-center">
@@ -104,68 +126,70 @@
 <script>
 
 import { useAuctionStore } from "@/stores/auctionStore";
-// import carImage from ""
 export default {
-    components: {
-    },
     data() {
         return {
             auctionStore: useAuctionStore(),
             hoveredRowId: null,
-            hoverTimeout: null,
-            // imageDialog:false,
-            // previewImage:null,
-            headers: [
-                {
-                    title: "Vehicle",
-                    key: "make_name",
-                    sortable: false
-                },
-                {
-                    title: "Year / CC",
-                    key: "cc"
-                },
-                {
-                    title: "Mileage",
-                    key: "mileage"
-                },
-                {
-                    title: "Transmission",
-                    key: "transmission"
-                },
-                {
-                    title: "Grade",
-                    key: "grade"
-                },
-                {
-                    title: "Date Time",
-                    key: "date"
-                },
-                {
-                    title: "Auction House",
-                    key: "auction_name"
-                },
-            ],
 
+            imageDialog: false,
+            currentImages: [],
+            currentIndex: 0,
+
+            headers: [
+                { title: "Vehicle", key: "make_name", sortable: false },
+                { title: "Year / CC", key: "cc" },
+                { title: "Mileage", key: "mileage" },
+                { title: "Transmission", key: "transmission" },
+                { title: "Grade", key: "grade" },
+                { title: "Date Time", key: "date" },
+                { title: "Auction House", key: "auction_name" },
+            ],
         }
     },
-    computed: {
 
-        methods: {
-            handleHoverLeave() {
-                this.hoverTimeout = setTimeout(() => {
-                    this.hoveredRowId = null
-                }, 200)
-            }
-
+    methods: {
+        handleHoverLeave() {
+            this.hoverTimeout = setTimeout(() => {
+                this.hoveredRowId = null
+            }, 200)
         },
 
-    },
-};
+        openViewer(images, index) {
+            this.currentImages = images
+            this.currentIndex = index
+            this.imageDialog = true
+        },
+
+        nextImage() {
+            if (!this.currentImages.length) return
+            this.currentIndex =
+                (this.currentIndex + 1) % this.currentImages.length
+        },
+
+        prevImage() {
+            if (!this.currentImages.length) return
+            this.currentIndex =
+                (this.currentIndex - 1 + this.currentImages.length) %
+                this.currentImages.length
+        },
+    }
+}
 
 </script>
 
 <style scoped>
+:deep(.mainTdBorder td) {
+  border-bottom: 0 !important;
+  border-top: 1px solid rgb(var(--v-theme-border));
+    background-color: rgb(var(--v-theme-surface));
+
+}
+
+.openRow:hover {
+    background-color: rgb(var(--v-theme-surface));
+}
+
 .hover-row {
     animation: fadeIn 0.2s ease-in-out;
 }

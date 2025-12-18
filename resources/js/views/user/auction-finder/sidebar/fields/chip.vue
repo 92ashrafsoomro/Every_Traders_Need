@@ -6,7 +6,7 @@
       class="text-center"
     >
       <v-chip
-        class=" ma-3 pa-4  "
+        class=" ma-1 ml-2 pa-4  "
         style="border: 1px solid rgb(var(--v-theme-primary));"
         size="x-small"
       >

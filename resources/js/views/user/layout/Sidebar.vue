@@ -2,11 +2,11 @@
     <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
         <v-list density="compact" class="" nav>
             <v-list-item class="d-flex " style="height: 57px; ">
-               
-                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
 
-                <img v-else :src="newLogo" 
-                    style="width: 40px; height: 40px; " />
+                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;"
+                    class="d-flex justify-center align-center" />
+
+                <img v-else :src="newLogo" style="width: 40px; height: 40px; " />
             </v-list-item>
 
 
@@ -14,21 +14,39 @@
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <template v-for="(item, index) in userMenu" :key="index"  >
-                <!-- Regular Menu Items -->
-                <v-list-item v-if="item.type !== 'group'" :to="item.path" link :prepend-icon="item.icon" :ripple="false"
-                    :hide-overlay="false" class="text-subtitle-1  "
-                    active-class="bg-primary on-primary  rounded-sm my-active-menu hide-overlay ">
-                    <template #title >
-                        <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>
+            <template v-for="(item, index) in userMenu" :key="index">
+
+                <!-- NORMAL ITEM -->
+                <v-list-item v-if="item.type !== 'group'" :to="item.path" link :ripple="false"
+                    class="menu-item text-subtitle-1" active-class="bg-primary on-primary rounded-sm my-active-menu">
+
+                    <!-- CUSTOM ICON -->
+                    <template #prepend>
+                        <div class="menu-icon-wrapper">
+                            <v-icon size="25" class="ml-1">
+                                {{ item.icon }}
+                            </v-icon>
+                        </div>
                     </template>
+
+                    <!-- TITLE -->
+                        <template #title>
+                            <span class="text-body-1 ml-10">
+                                {{ item.label }}
+                            </span>
+                    </template>
+
+
                 </v-list-item>
-                <v-list-item class=" mt-8 ml-1" v-else title="" :subtitle="item.label">
-                    <v-divider class="mt-2"></v-divider>
+
+                <!-- GROUP / DIVIDER -->
+                <v-list-item v-else class="mt-8  " :subtitle="item.label">
+                    <v-divider class="mt-2 " />
                 </v-list-item>
 
             </template>
-            <div class="d-flex ga-6 ml-4"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+
+            <div class="d-flex ga-6 ml-3 mt-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1">
                     <router-link to="/admin" style="text-decoration: none ; color: white;">
                         Admin</router-link></v-list-item>

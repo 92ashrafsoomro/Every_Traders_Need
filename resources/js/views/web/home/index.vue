@@ -3,9 +3,12 @@
   <div>
     <screen />
     <TrustedPartner/>
+    <!-- <v-divider></v-divider> -->
     <SmartBuyer/>
-    <BeforeAutoboli/>
+    <!-- <BeforeAutoboli/> -->
     <AfterAutoboli/>
+    
+    <SmarterChoice/>
     <GainAutoboli/>
     <FAQ/>
     <!-- <vision />
@@ -18,7 +21,8 @@
 import screen from './screen.vue'
 import TrustedPartner from './TrustedPartner.vue';
 import SmartBuyer from './SmartBuyer.vue';
-import BeforeAutoboli from './BeforeAutoboli.vue';
+import SmarterChoice from './SmarterChoice.vue';
+// import BeforeAutoboli from './BeforeAutoboli.vue';
 import AfterAutoboli from './AfterAutoboli.vue';
 import GainAutoboli from './GainAutoboli.vue';
 import FAQ from './FAQ.vue';
@@ -33,7 +37,8 @@ export default {
     screen,
     TrustedPartner,
     SmartBuyer,
-    BeforeAutoboli,
+    SmarterChoice,
+    // BeforeAutoboli,
     AfterAutoboli,
     GainAutoboli,
     FAQ

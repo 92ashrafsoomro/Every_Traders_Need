@@ -91,6 +91,7 @@
 
 <script>
 
+import Auction from '@/models/auction.model';
 import Make from '@/models/make.model';
 
 import VehicleType from '@/models/vehicle-type.model';
@@ -116,9 +117,17 @@ export default {
             total: 0,
             loading: true,
             headers: [
-                { title: "ID", value: "id",sortable: false },
-                { title: "Title", value: "name" },
-                { title: "Created At", value: "date" },
+                { title: "ID", value: "id", sortable: false },
+                { title: "Auction Id", value: "id",sortable: false },
+                { title: "Name", value: "name" },
+                { title: "Type", value: "auction_type" },
+                { title: "Au House", value: "platform.name" },
+                { title: "Status", value: "status" },
+
+                
+                { title: "Start Date", value: "auction_date" },
+                { title: "End Date", value: "end_date" },
+                { title: "Created At", value: "created_at" },
                 { title: "Action", key: "action" },
             ],
     };
@@ -147,7 +156,7 @@ export default {
         
                 this.loading = true;
                 try {
-                    let res = await  Make.all(this.filter);
+                    let res = await  Auction.all(this.filter);
                     this.items = res.data;
                     this.total = res.recordsTotal;
                     this.filter.page = Number(res.page);

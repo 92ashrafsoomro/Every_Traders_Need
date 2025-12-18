@@ -104,6 +104,26 @@ class BodyTypeController extends Controller
 
     }
 
+         public function show(Request $request,$id)
+    {
+
+            $model = BodyType::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
 
 
        public function update(Request $request,$id)

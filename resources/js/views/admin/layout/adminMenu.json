@@ -15,7 +15,6 @@
             "path": "/admin/bodyType"
            
         },
-       
         {
             "icon": "mdi-history",
             "label": "Data Management",
@@ -23,9 +22,9 @@
             "children":[
                 {
                     "label" : "Import Data CSV",
-                    "path" : "/"
+                    "path" : "/csv"
                 },{
-                    "label" :"/Vehicles",
+                    "label" :"Vehicles",
                     "path":"/"
                 }
             ]

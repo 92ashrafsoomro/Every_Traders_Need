@@ -154,7 +154,7 @@ class VehicleTypeController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'BodyType deleted successfully.'], 422);
+        return response()->json(['message' =>'BodyType deleted successfully.'], 200);
 
     }
 

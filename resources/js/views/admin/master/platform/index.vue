@@ -4,7 +4,7 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap align-center">
+                    <div class="d-flex flex-wrap align-center align-center">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
@@ -28,6 +28,13 @@
                             density="compact"
                             max-width="300px" 
                             clearable />
+                       
+                            <v-btn  class="mx-2" variant="outlined"  >
+                                <v-icon @click="loadItems" icon="mdi-magnify" ></v-icon>
+                            </v-btn>
+                            
+                       
+                        
                     </div>
                 </v-col>
 

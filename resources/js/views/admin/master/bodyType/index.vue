@@ -26,8 +26,10 @@
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px" 
+                            max-width="300px"
+                            @click:prepend-inner="loadItems" 
                             clearable />
+
                     </div>
                 </v-col>
 
@@ -79,6 +81,8 @@ import Nav from '../nav/Nav.vue';
 
 
 
+
+
 export default {
 
   components: {
@@ -103,6 +107,7 @@ export default {
                 { title: "Created At", value: "date" },
                 { title: "Action", key: "action" },
             ],
+            searchTimer:null
     };
   },
   mounted() {
@@ -119,7 +124,10 @@ export default {
             this.loadItems()
         },
         'filter.search'(newVal, oldVal) {
-            this.loadItems()
+
+            // this.filter.page = 1
+            // this.loadItems()
+
         }
         
     },

@@ -2,7 +2,7 @@
     
     <!-- NAV -->
     <v-app-bar>
-
+<div style="max-width: 1400px;" class="mx-auto d-flex align-center">
         <div class="d-flex align-center  ">
             <v-list-item class="mt-2">
                 <router-link to="/">
@@ -51,7 +51,7 @@
             <!-- Mobile Menu -->
             <v-app-bar-nav-icon class="d-lg-none" @click="drawer = !drawer" />
         </div>
-
+</div>
     </v-app-bar>
 
 

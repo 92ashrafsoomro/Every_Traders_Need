@@ -1,59 +1,81 @@
-<template> <v-divider></v-divider>
-    <div class="bg-surface py-12">
+<template>
+    <div class="mx-auto d-flex bg-surface pt-16 position-relative pa-4" style="
+      width:100%;
+      border-top: 1px solid rgb(var(--v-theme-border));
+      border-radius: 0 300px 0 0;
+      overflow: hidden;
+      z-index: 1;
+    ">
+        <!-- Right background image -->
+        <div class="position-absolute top-10  right-0  h-100 d-none d-lg-flex d-md-flex" :style="{
+            width: '30%',
+            backgroundImage: `url(${logo})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right center',
+            backgroundSize: 'contain',
+            opacity: 0.1,
+            pointerEvents: 'none'
+        }"></div>
 
-        <v-container max-width="1550px" class="py-2 mt-16 ">
+        <div class="position-relative mx-auto mt-10" style="max-width: 1400px;">
 
-            <div class="d-flex flex-wrap justify-space-between">
-
-
-                <div cols="12" md="8">
-                    <img :src="logo" height="auto" width="150px" />
-                    <img alt="" srcset="">
-
-                    <p class="my-4 text-body-3 text-light_text_on" style="max-width: 600px;">
-                        Nine out of ten doctors recommend Laracasts over competing
-                        brands. Come inside, see for yourself, and massively level up your
-                        development skills in the process.
+            <div class="w-100  justify-space-between">
+                <div class="image">
+                    <img :src="logoAutoBoli" alt="" srcset="" width="120">
+                </div>
+                <div class="left mt-4">
+                    <p class="text-light_text_on w-75"> Helping dealers, exporters, and traders buy smarter with real-time
+                        auction data from across the UK & Japan. Save money, reduce risk,
+                        and grow your automotive business <br> all in one platform.
                     </p>
-
                 </div>
-
-            </div> <v-divider></v-divider>
-            <div class="d-flex flex-wrap justify-space-between mt-10 ">
-
-                <div class="text-caption text-light_text_on">
-                    © AUTOBOLI Ltd 2025. All rights reserved.
-
-                    Proudly built & hosted with secure infrastructure in the UK & EU.
-                </div>
-
-
-                <div class="d-flex flex-wrap align-center mt-lg-0 mt-md-0 mb-lg-0 mb-md-0 mt-10 mb-2">
-                    <v-btn v-for="(item, index) in footerData" :key="index" :to="item.path" text
-                        class="mr-1 text-body-2" variant="text">
-                        {{ item.label }}
-                    </v-btn>
-
-                </div>
-
             </div>
+            <div class="mt-10">
+                <div v-for="(section, index) in footerData" :key="index" class="mb-2 ">
+                    <div class="d-flex flex-wrap">
+                        <div class="mt-2  text-body-2 " style="width: 100px;">{{ section.title }}</div>
+                        <div class=" text-light_text_on ">
+                            <v-btn v-for="(link, i) in section.links" :key="i" variant="text" class="footerElement mr-2 text-body-2"
+                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null">
+                                {{ link.label }}
+                            </v-btn>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-light_text_on mt-10 pb-10 text-body-2">
+                <p>© AUTOBOLI Ltd 2025. All rights reserved.</p>
+                <p>
+                    Proudly built & hosted with secure infrastructure in the UK & EU.
+                </p>
+            </div>
+        </div>
 
 
-        </v-container>
+
     </div>
 </template>
 
 <script>
-import logo from '@/assets/images/logo/logo.png'
+import logo from '@/assets/images/logo/newlogo.png'
 import footerData from "@/enums/WebfooterMenu"
+import logoAutoBoli from "@/assets/images/logo/logo.png"
 export default {
 
     data() {
         return {
             footerRightImage: '',
             footerData,
-            logo
+            logo,
+            logoAutoBoli
         }
     }
 }
 </script>
+
+<style scoped>
+    .footerElement:hover{
+        color: white;
+
+    }
+</style>

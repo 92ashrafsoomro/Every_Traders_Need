@@ -27,6 +27,7 @@ use App\Models\User;
 use App\Mail\AuctionStatusUpdatedMail;
 use App\Models\UserNotificationAlert;
 use App\Events\NotificationEvent;
+use App\Models\Auction;
 use App\Services\AuctionService;
 use App\Services\SheetService;
 use Carbon\Carbon;
@@ -82,6 +83,29 @@ class AuctionController extends Controller
         $centers = AuctionCenter::all();
         return view('admin.auctions.create', compact('platforms', 'centers'));
     }
+
+
+
+           public function show(Request $request,$id)
+    {
+
+            $model = Auction::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
 
 
 

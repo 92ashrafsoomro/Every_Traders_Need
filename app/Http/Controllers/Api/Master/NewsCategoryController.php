@@ -63,6 +63,26 @@ class NewsCategoryController extends Controller
 
     }
 
+              public function show(Request $request,$id)
+    {
+
+            $model = NewsCategory::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
 
       public function store(Request $request)
     {

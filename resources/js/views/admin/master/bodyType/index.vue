@@ -4,14 +4,13 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap align-center">
+                    <div class="d-flex flex-wrap ">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[10, 25, 50, 100]" 
                                 density="compact" 
                                 variant="outlined"
-                                label="Length"
                                 max-width="150px" class="mr-2" 
                                 />
                                 <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
@@ -20,15 +19,24 @@
 
                         <v-spacer />
 
-                        <v-text-field 
+                      <v-text-field 
                             v-model="filter.search" 
-                            prepend-inner-icon="mdi-magnify" 
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px"
-                            @click:prepend-inner="loadItems" 
+                            max-width="300px" 
                             clearable />
+
+                        <div class="pl-2" >
+                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                                <v-icon icon="mdi-magnify"></v-icon>
+                            </v-btn>
+                        </div>
+                        <div class="pl-2" >
+                            <v-btn to="/admin/bodyType/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                                <v-icon icon="mdi-plus"></v-icon>
+                            </v-btn>
+                        </div>
 
                     </div>
                 </v-col>
@@ -123,12 +131,7 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-        'filter.search'(newVal, oldVal) {
-
-            // this.filter.page = 1
-            // this.loadItems()
-
-        }
+       
         
     },
     

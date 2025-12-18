@@ -25,88 +25,9 @@
                     "path" : "/csv"
                 },{
                     "label" :"Vehicles",
-                    "path":"/"
-                }
-            ]
-        },
-        {
-            "icon": "mdi-calendar-sync-outline",
-            "label": "Staff Penal",
-            "path": "/",
-            "children":[
-                {
-                    "label" : "Rolo",
-                    "path" : "/"
-                },{
-                    "label" :"/User",
-                    "path":"/"
-                }
-            ]
-        },
-       
-        {
-            "icon": "mdi-calendar-check-outline",
-            "label": "Support & Tickets",
-            "path": "/",
-            "children":[
-                {
-                    "label" : "All Support Tickets",
-                    "path" : "/"
-                }
-            ]
-        },
-        {
-            "label": "Content Management",
-            "icon": "mdi-content-paste",
-            "path": "/",
-            "children":[
-                {
-                    "label" : "Blogs",
-                    "path" : "/"
-                }
-                ,{
-                    "label" :"Blogs Categories",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"News",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"News Categories",
-                    "path":"/"
-                }
-            ]
-        },
-       
-        {
-            "icon": "mdi-account-outline",
-            "label": "Members & Plans",
-            "path": "/",
-            "children":[
-                {
-                    "label" : "Members",
-                    "path" : "/"
-                }
-                ,{
-                    "label" :"/Membership",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"/Plans",
-                    "path":"/"
-                }
-            ]
-        },
-        {
-            "icon": "mdi-cog-outline",
-            "label": "Notifications",
-            "path": "/",
-            "children":[
-                {
-                    "label" : "Alerts",
-                    "path" : "/"
+                    "path":"/vehicle"
                 }
             ]
         }
+      
 ]

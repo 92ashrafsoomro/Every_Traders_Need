@@ -134,7 +134,7 @@ import AuctionFinder from "./auctionDetail.vue";
 import VehicleValuation from "./vehicleValuation.vue";
 import auctionSidebar from "./sidebar/index.vue";
 import { useAuctionStore } from "@/stores/auctionStore";
-import Chips from "./chips.vue";
+import Chips from "./Chips.vue";
 export default {
     components: {
         AuctionFinder,
@@ -150,7 +150,7 @@ export default {
     mounted() {
 
         this.auctionStore.loadSiderBarFilters();
-        // this.auctionStore.getAuctionList();  
+        this.auctionStore.getAuctionList();  
         this.$themeStore.menuType = 'collapsed';
 
     },

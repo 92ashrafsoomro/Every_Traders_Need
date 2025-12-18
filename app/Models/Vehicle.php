@@ -104,11 +104,7 @@ class Vehicle extends Model
         return $this->belongsTo(ModelVariant::class, 'variant_id');
     }
 
-    public function year()
-    {
-        return $this->belongsTo(Year::class, 'year_id');
-    }
-
+ 
     public function previousAuction()
     {
 

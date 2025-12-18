@@ -1,7 +1,7 @@
   <template>
     <user-title-bar>
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Import CSV Data</h1>
+            <h1 class="text-h3 mb-2 font-weight-bold">Vehicle</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
         </div>
     </user-title-bar>
@@ -13,14 +13,12 @@
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
-                                :items="[10, 25, 50, 100]" 
+                                :items="[100, 500, 1000, 2000]" 
                                 density="compact" 
                                 variant="outlined"
-                       
                                 max-width="150px" class="mr-2" 
                                 />
                                 <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
-                            
                         </div>
 
                         <v-spacer />
@@ -60,15 +58,7 @@
                             item-value="id" 
                             @update:options="loadItems" >
 
-                            <template #item.action="{ item }">
-                                <router-link :to="'/admin/bodyType/'">
-                                    <v-icon color="light">mdi-pencil</v-icon>
-                                </router-link>
-                                <span class="px-2" ></span>
-                                <router-link :to="'/admin/bodyType/'">
-                                    <v-icon color="light" >mdi-delete</v-icon>
-                                </router-link>
-                            </template>
+            
 
                             <template v-slot:bottom>
                                 <div class="py-2 d-flex justify-end border-t">
@@ -91,11 +81,7 @@
 
 <script>
 
-import Auction from '@/models/auction.model';
-import Make from '@/models/make.model';
-
-import VehicleType from '@/models/vehicle-type.model';
-
+import Vehicle from '@/models/vehicle.model';
 
 
 export default {
@@ -117,18 +103,16 @@ export default {
             total: 0,
             loading: true,
             headers: [
-                { title: "ID", value: "id", sortable: false },
-                { title: "Auction Id", value: "table_id",sortable: false },
-                { title: "Name", value: "name" },
-                { title: "Type", value: "auction_type" },
-                { title: "Au House", value: "platform.name" },
-                { title: "Status", value: "status" },
-
-                
-                { title: "Start Date", value: "auction_date" },
-                { title: "End Date", value: "end_date" },
-                { title: "Created At", value: "created_at" },
-                { title: "Action", key: "action" },
+                { title: "#", value: "id", sortable: false },
+                { title: "Reg", value: "reg" },  
+                { title: "Make", value: "make_name" },
+                { title: "Model", value: "model_name" },
+                { title: "Variant", value: "variant_name" },
+                { title: "Year", value: "year" },
+                { title: "Vehicle", value: "vehicle_name" },
+                { title: "Body", value: "body_name" },
+                { title: "Center", value: "center_name" },
+                { title: "Bidding Status", value: "bidding_status" },  
             ],
     };
   },
@@ -140,6 +124,7 @@ export default {
     },
     watch: {
         'filter.length'(newVal, oldVal) {
+            this.filter.page = 1;
             this.loadItems()
         },
         'filter.page'(newVal, oldVal) {
@@ -152,11 +137,13 @@ export default {
      methods: {
 
     
-        async loadItems() {
+         async loadItems() {
+
+              
         
                 this.loading = true;
                 try {
-                    let res = await  Auction.all(this.filter);
+                    let res = await  Vehicle.all(this.filter);
                     this.items = res.data;
                     this.total = res.recordsTotal;
                     this.filter.page = Number(res.page);

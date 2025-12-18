@@ -9,6 +9,7 @@ import model from "@/views/admin/master/model/route"
 import variant from "@/views/admin/master/variant/route"
 import center from "@/views/admin/master/center/route"
 import csv from "@/views/admin/csv/route"
+import vehicle from "@/views/admin/vehicle/route"
 
 export default [
     {
@@ -25,7 +26,8 @@ export default [
             ...variant,
             ...model,
             ...center,
-            ...csv
-                ]
+            ...csv,
+            ...vehicle
+            ]
     },
 ]

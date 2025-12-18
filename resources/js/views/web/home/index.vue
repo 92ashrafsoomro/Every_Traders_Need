@@ -1,8 +1,9 @@
 <template>
 
-  <div class="bg-white">
+  <div>
     <screen />
     <TrustedPartner/>
+    <SmartBuyer/>
     <BeforeAutoboli/>
     <AfterAutoboli/>
     <GainAutoboli/>
@@ -16,6 +17,7 @@
 <script>
 import screen from './screen.vue'
 import TrustedPartner from './TrustedPartner.vue';
+import SmartBuyer from './SmartBuyer.vue';
 import BeforeAutoboli from './BeforeAutoboli.vue';
 import AfterAutoboli from './AfterAutoboli.vue';
 import GainAutoboli from './GainAutoboli.vue';
@@ -30,6 +32,7 @@ export default {
   components: {
     screen,
     TrustedPartner,
+    SmartBuyer,
     BeforeAutoboli,
     AfterAutoboli,
     GainAutoboli,

@@ -1,104 +1,77 @@
 <template>
 
-  <div class="bg-surface  " style="height: 100vh;">
-    <div class="dashboard-mockup ">
-      <img :src="screenRight" alt="AutoBoli Dashboard" class="dashboard-img" style="max-width: 960px;" />
-    </div>
-    <div style="max-width: 1500px;" class="mx-auto">
-      <v-row>
-        <v-col cols="12">
+  <v-container fluid class="bg-surface " style="min-height: 70vh;">
+    <v-container style="max-width:1500px">
+      <v-row align="center">
 
-          <div class="d-flex h-screen content-wrapper
-               flex-column flex-md-row   
-               align-center         
-               justify-center justify-md-start 
-      ">
+        <!-- LEFT : TEXT -->
+        <v-col cols="12" md="6" class="text-center text-md-left">
+          <h1 class="text-h5 text-md-h3 font-weight-bold text-white mb-6">
+            Smarter Vehicle Auction <br />
+            Insights - All in One Place
+          </h1>
 
-            <!-- LEFT TEXT SECTION -->
-            <div class="text-section
-                 text-center text-md-left  
-          ">
+          <p class="text-body-1 text-light_text_on mb-8 w-100 w-md-75">
+            Stay ahead of the market with real-time UK vehicle auction data,
+            transparent valuations, and powerful tools designed for dealers.
+          </p>
 
-              <!-- Trust Badge -->
-              <div class="trust-badge mb-8 rounded-xl d-flex border border-white
-                   w-75 w-md-25              
-                   mx-auto mx-md-0             
-          " style="padding: 2px; height: 40px; background-color: rgba(255, 255, 255, 0.2);">
-                <div class="avatar-stack ">
-                  <v-avatar size="30" class="avatar-item border border-white">
-                    <v-img :src="avatar1" />
-                  </v-avatar>
-                  <v-avatar size="30" class="avatar-item border border-white">
-                    <v-img :src="avatar2" />
-                  </v-avatar>
-                  <v-avatar size="30" class="avatar-item border border-white">
-                    <v-img :src="avatar3" />
-                  </v-avatar>
-                </div>
+          <div class="d-flex ga-2 pb-4 justify-center justify-md-start">
+            <span>We Check:</span>
+            <v-icon v-for="i in 4" :key="i">mdi-car-sports</v-icon>
+          </div>
 
-                <span class="text-caption text-md-body-2 text-white ml-2 mt-2">
-                  3,000+ dealers trust AutoBoli
-                </span>
-              </div>
-
-              <!-- MAIN TITLE -->
-              <h1 class="text-h5 text-md-h3 text-lg-h3
-                   text-white font-weight-bold mb-6 lh-1
-                   text-center text-md-left   
-          ">
-                Smarter Vehicle Auction <br />
-                Insights - All in One Place
-              </h1>
-
-              <!-- Description -->
-              <p class="text-body-2 text-md-body-1 text-light_text_on mb-10
-                   w-100 w-md-50             
-                   mx-auto mx-md-0           
-                   text-center text-md-left  
-          ">
-                Stay ahead of the market with real-time UK vehicle auction data,
-                transparent valuations, and powerful tools designed for dealers,
-                traders, and smart buyers.
-              </p>
-
-              <!-- CTA Buttons -->
-              <div class="d-flex flex-wrap ga-4 mb-8
-                   justify-center justify-md-start   <!-- mobile center -->
-          ">
-
-                <v-btn color="primary" size="large" class="px-8 text-body-2 text-md-subtitle-1 font-weight-bold">
-                  Explore Auctions
-                </v-btn>
-
-                <v-btn variant="outlined" size="large"
-                  class="px-8 text-body-2 text-md-subtitle-1 text-white font-weight-bold border-1"
-                  style="background-color: rgba(255, 255, 255, 0.2);">
-                  Start Free Trial
-                </v-btn>
-
-              </div>
-
-              <!-- Bottom Text -->
-              <p class="text-caption text-md-body-2 text-grey-lighten-3
-                    text-center text-md-left  <!-- mobile center -->
-          ">
-                No card required • Cancel anytime • UK & JP auction coverage
-              </p>
-
+          <div class="d-flex ga-4 justify-center justify-md-start">
+            <v-btn color="primary" size="large">Explore Auctions</v-btn>
+            <v-btn variant="outlined" size="large">Start Free Trial</v-btn>
+          </div>
+          <div class="w-100  mt-10">
+            <p>A carVertical report can uncover:</p>
+            <div class="w-100 text-light_text_on mt-5 ">
+              <ul class="d-flex ga-2 w-100 mb-2 " style="list-style:none">
+                <li v-for="(item, i) in featuresCol1" :key="i" class="d-flex align-center ga-1"> <v-icon size="18"
+                    color="primary">mdi-check</v-icon> {{ item }} </li>
+              </ul>
+              <ul class="d-flex ga-2 w-100 mb-2" style="list-style:none">
+                <li v-for="(item, i) in featuresCol2" :key="i" class="d-flex align-center ga-1"> <v-icon size="18"
+                    color="primary">mdi-check</v-icon> {{ item }} </li>
+              </ul>
+              <ul class="d-flex ga-2 w-100" style="list-style:none">
+                <li v-for="(item, i) in featuresCol3" :key="i" class="d-flex align-center ga-1"> <v-icon size="18"
+                    color="primary">mdi-check</v-icon> {{ item }} </li>
+              </ul>
             </div>
-
           </div>
 
         </v-col>
-      </v-row>
-    </div>
 
-  </div>
+        <!-- RIGHT : MOCKUP -->
+        <v-col cols="12" md="6" class="d-none d-md-flex justify-end">
+          <div class="d-flex flex-column align-end">
+
+            <!-- TOP CARD -->
+            <v-sheet rounded="lg" elevation="6" width="600" height="260" class="mb-n10 mr-n6 overflow-hidden bg-white">
+              <!-- <v-img :src="screenRight" cover height="100%" /> -->
+            </v-sheet>
+
+            <!-- BOTTOM CARD -->
+            <v-sheet rounded="lg" elevation="4" width="600" height="260" class="overflow-hidden bg-white">
+              <!-- <v-img :src="logoImage" cover height="100%" /> -->
+            </v-sheet>
+
+          </div>
+        </v-col>
+
+
+      </v-row>
+    </v-container>
+  </v-container>
 
 </template>
 
 <script>
 import screenRight from '@/assets/images/reauction/Reauction.png'
+import logoImage from '@/assets/images/logo/logo.png'
 import avatar1 from '@/assets/images/avatar/avatar1.png'
 import avatar2 from '@/assets/images/avatar/avatar2.png'
 import avatar3 from '@/assets/images/avatar/avatar3.png'
@@ -108,9 +81,29 @@ export default {
   data() {
     return {
       screenRight,
+      logoImage,
       avatar1,
       avatar2,
-      avatar3
+      avatar3,
+      featuresCol1: [
+        'Recorded images',
+        'Damage',
+        'Theft records',
+        'Mileage rollbacks'
+      ],
+      featuresCol2: [
+
+        'Specs & equipment',
+        'Emission taxes',
+        'Market value',
+        'Safety ratings',
+      ],
+      featuresCol3: [
+
+        'Financial restrictions',
+        'Natural disaster exposure',
+        'and more...',
+      ],
     }
   }
 }

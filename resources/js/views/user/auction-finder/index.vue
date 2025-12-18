@@ -1,6 +1,6 @@
 <template>
     <user-title-bar>
-        <div style="width: auto; margin-left: -130px ;">
+      
             <h1 class="text-h3 mb-2 font-weight-bold">Smart Auction Search</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your
                 profit goals.</p>
@@ -17,11 +17,11 @@
                     @click="auctionStore.toggleAuctionTab()" style="height: 50px; "><span
                         class="text-capitalize text-body-1"> Vehicle Valuation </span></v-btn>
 
-            </div>
+         
         </div>
     </user-title-bar>
 
-    <v-container>
+    <v-container  style="max-width: 1400px;">
         <v-row class="mt-1  ">
             <v-col cols="12 ">
                 <!-- ROW 1 -->
@@ -111,7 +111,7 @@
 
 
                 <div :class="{ 'sidebarOpen': auctionStore.sidebar }"
-                    class="main-div d-flex align-start justify-space-between flex-wrap">
+                    class="main-div d-flex align-start justify-space-between flex-wrap mx-auto">
                     <div class="sidebar">
                         <div class=" bg-surface rounded border ">
                             <auctionSidebar />

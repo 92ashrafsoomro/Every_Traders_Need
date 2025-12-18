@@ -21,7 +21,7 @@
                         <td>
                             <!-- <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id"> -->
                             <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
-                            }}
+                                }}
                             </span>
                             <!-- </v-btn> -->
                         </td>
@@ -71,31 +71,33 @@
                                 </div>
 
                                 <!-- IMAGE VIEWER -->
-                                <v-dialog v-model="imageDialog" style="background-color:rgba(0, 0, 0, 0.3);">
-                                    <v-card class="w-100">
-                                        <!-- Top bar -->
+                                <v-dialog v-model="imageDialog" fullscreen content-class="bg-transparent"
+                                    scrim="rgba(0,0,0,0.85)" >
+                                    <v-card flat class="bg-transparent d-flex align-center justify-center">
+                                        <!-- IMAGE WRAPPER -->
+                                        <div class="position-relative d-inline-flex align-center">
 
+                                            <!-- CLOSE -->
+                                            <v-btn icon class="position-absolute top-0  ma-3"
+                                            style="right:45px;"
+                                                @click="imageDialog = false">
+                                                <v-icon color="white">mdi-close</v-icon>
+                                            </v-btn>
 
-                                        <!-- Content -->
-                                        <div class="d-flex align-center justify-center   "
-                                            style="background-color:rgba(0, 0, 0, 0.9);">
-                                            <!-- Previous -->
-                                            <v-btn icon @click="prevImage" >
+                                            <!-- PREV -->
+                                            <v-btn icon class="me-2" @click="prevImage" color="primary">
                                                 <v-icon color="white" size="36">mdi-chevron-left</v-icon>
                                             </v-btn>
 
-                                            <!-- Image -->
-                                            <div>
-                                                <v-btn icon @click="imageDialog = false" style="position: absolute; ">
-                                                    <v-icon color="white">mdi-close</v-icon>
-                                                </v-btn>
-                                                <img :src="currentImages[currentIndex]" height="500" contain />
-                                            </div>
+                                            <!-- IMAGE -->
+                                            <img :src="currentImages[currentIndex]" style="max-height: 500px;"
+                                                class="rounded" />
 
-                                            <!-- Next -->
-                                            <v-btn icon @click="nextImage">
+                                            <!-- NEXT -->
+                                            <v-btn icon class="ms-2" @click="nextImage" color="primary">
                                                 <v-icon color="white" size="36">mdi-chevron-right</v-icon>
                                             </v-btn>
+
                                         </div>
                                     </v-card>
                                 </v-dialog>
@@ -192,6 +194,39 @@ export default {
 
 .hover-row {
     animation: fadeIn 0.2s ease-in-out;
+}
+
+.image-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.viewer-image {
+    max-height: 500px;
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-btn.left {
+    left: -50px;
+    /* ~10px gap from image */
+}
+
+.nav-btn.right {
+    right: -50px;
+}
+
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
 }
 
 

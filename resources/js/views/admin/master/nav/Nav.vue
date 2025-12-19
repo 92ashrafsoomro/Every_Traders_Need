@@ -2,7 +2,7 @@
     <user-title-bar>
         <div>
             <h1 class="text-h3 mb-2 font-weight-bold">Master</h1>
-            <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
+            <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
 
             <div class="d-flex mt-6  ga-3">
 

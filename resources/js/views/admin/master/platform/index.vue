@@ -27,9 +27,9 @@
                             max-width="300px" 
                             clearable />
                         <div class="pl-2" >
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                            <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn>
+                            </v-btn> -->
                         </div>
                         <div class="pl-2" >
                             <v-btn to="/admin/platform/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
@@ -59,13 +59,17 @@
                             </template>
 
                             <template #item.action="{ item }">
-                                <router-link :to="'/admin/bodyType/'">
+                                 <router-link :to="'/admin/platform/edit/' + item.id">
                                     <v-icon color="light">mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
-                                <router-link :to="'/admin/bodyType/'">
-                                    <v-icon color="light" >mdi-delete</v-icon>
-                                </router-link>
+                                 <v-icon
+                                    small
+                                    class="clickable-icon"
+                                    @click="deleteItem(item.id)"
+                                    >
+                                    mdi-delete
+                                </v-icon>
                             </template>
 
                             <template v-slot:bottom>
@@ -134,9 +138,9 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-        // 'filter.search'(newVal, oldVal) {
-        //     this.loadItems()
-        // }
+        'filter.search'(newVal, oldVal) {
+            this.loadItems()
+        }
         
     },
     
@@ -159,6 +163,23 @@ export default {
                     this.loading = false
                 }
         },
+        async deleteItem(id) {
+                if (!confirm("Are you sure you want to delete this item?")) return;
+                this.loading = true;
+                try {
+                const res = await Platform.delete(id);
+        
+                this.$alertStore.add(res.message || "Platform deleted", "success");
+                this.loadItems(); 
+                
+            } catch (error) {
+                console.error(error);
+                this.$alertStore.add(error.message || "Delete failed", "error");
+                // this.loadItems(); 
+                } finally {
+                this.loading = false;
+                }
+        }
 
 
     }

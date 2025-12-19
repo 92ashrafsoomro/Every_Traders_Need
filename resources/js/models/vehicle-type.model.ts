@@ -62,6 +62,48 @@ export default class VehicleType {
             }
 
     }
-    
+        static async find(id) {
+        
+        try {
+            const res = await api.get("/api/cruds/vehicleType/?id="+id);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async update(id: number | string, formData: FormData) {
+        try {
+            formData.append("_method", "PUT");
+
+            const res = await api.post(`/api/cruds/vehicleType/${id}`, formData);
+            return res.data;
+
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async create(options:any) {
+
+        try {
+            console.log("options in model",options);
+            const res = await api.post("/api/cruds/vehicleType",options);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+    static async delete(id){
+        try{
+            const res = await api.delete(`/api/cruds/vehicleType/${id}`);
+            return res.data;
+
+        }
+        catch(error){
+            throw await errorHandler(error);
+        }
+    }
     
 }

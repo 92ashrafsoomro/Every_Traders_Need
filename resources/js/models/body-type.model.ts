@@ -3,13 +3,7 @@ import { errorHandler } from "@/services/responseHandleService";
 
 
 export default class BodyType {
-
-    
-
-        /**
-     * Fetches the Get All.
-     */
-       static async all(options: {
+    static async all(options: {
             search?: string;
             page?: number;
             length?: number;
@@ -32,12 +26,7 @@ export default class BodyType {
             }
 
     }
-
-
-    /**
-     * Fetches the Get All.
-     */
-       static async get(options: {
+    static async get(options: {
             search?: string;
             page?: number;
             length?: number;
@@ -60,6 +49,48 @@ export default class BodyType {
             }
 
     }
-    
+    static async find(id) {
+        
+        try {
+            const res = await api.get("/api/cruds/bodyType/?id="+id);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async update(id: number | string, formData: FormData) {
+        try {
+            formData.append("_method", "PUT");
+
+            const res = await api.post(`/api/cruds/bodyType/${id}`, formData);
+            return res.data;
+
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async create(options:any) {
+
+        try {
+            console.log("options in model",options);
+            const res = await api.post("/api/cruds/bodyType",options);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+    static async delete(id){
+        try{
+            const res = await api.delete(`/api/cruds/bodyType/${id}`);
+            return res.data;
+
+        }
+        catch(error){
+            throw await errorHandler(error);
+        }
+    }
     
 }

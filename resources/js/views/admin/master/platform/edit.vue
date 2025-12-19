@@ -4,7 +4,7 @@
       <v-card class="border">
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
-           Edit Make
+           Edit Platform
           </h3>
           <v-btn
             variant="text"
@@ -24,7 +24,7 @@
             <v-row>
               <v-col cols="12">
                 <v-row align="center" no-gutters>
-                  <v-col cols="1" sm="3">
+                  <v-col cols="4" sm="4">
                     <v-text-field
                       v-model="id"
                       label="ID"
@@ -37,7 +37,7 @@
                       hide-details
                     />
                   </v-col>
-                  <v-col cols="11" sm="9" class="pl-2">
+                  <v-col cols="4" sm="4" class="pl-2">
                     <v-text-field
                       v-model="titleInput"
                       label="Title"
@@ -50,8 +50,25 @@
                       hide-details
                     />
                   </v-col>
+                  <v-col cols="4" sm="4" class="pl-2">
+                            <v-file-input
+                                v-model="image"    
+                                label="Image"
+                                accept="image/*"
+                                variant="outlined"
+                                density="compact"
+                                color="primary"
+                                prepend-icon=""
+                                persistent-placeholder=""
+                                @change="previewImage"
+                            />
+                            </v-col>
                 </v-row>
               </v-col>
+              <div class="d-flex w-100">
+
+                <v-img v-if="imageUrl" :src="imageUrl" width="50" height="50"></v-img>
+              </div>
               <v-col cols="12" class="mt-3 text-center">
                 <v-btn
                   @click="updateBodyType"
@@ -77,13 +94,14 @@
 </template>
 
 <script>
-import Make from '@/models/make.model';
-
+import Platform from '@/models/platform.model';
 export default {
   data() {
     return {
       id: '',
       titleInput: '',
+      image:"",
+      imageUrl:"",
       loading: false,
     };
   },
@@ -95,11 +113,14 @@ export default {
     this.loading = true;
     try {
         const id = this.$route.params.id;
-        const res = await Make.find(id);
+        const res = await Platform.find(id);
         if (res.data && res.data.length > 0) {
         const record = res.data[0];  
+        console.log(res.data[0])
         this.id = record.id;
         this.titleInput = record.name;
+        this.image =record.image
+        this.imageUrl = record.image_preview;
         } else {
         this.$alertStore.add('Record not found', 'error');
         }
@@ -110,14 +131,17 @@ export default {
         this.loading = false;
     }
     },
+
+
+
     async updateBodyType() {
       this.loading = true;
       try {
         let formData = new FormData();
         formData.append('name', this.titleInput);
-        const res = await Make.update(this.id, formData);
-        this.$alertStore.add(res.message || 'Make updated', 'success');
-        this.$router.push('/admin/make');
+        const res = await Platform.update(this.id, formData);
+        this.$alertStore.add(res.message || 'platform updated', 'success');
+        this.$router.push('/admin/platform');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {
@@ -127,6 +151,14 @@ export default {
     goBack() {
       this.$router.back();
     },
+    previewImage(){
+      if(this.image){
+        this.imageUrl = URL.createObjectURL(this.image)
+        console.log(this.imageUrl)
+      }else{
+        this.imageUrl=null
+      }
+    }
   },
 };
 </script>

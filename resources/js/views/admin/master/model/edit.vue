@@ -4,7 +4,7 @@
       <v-card class="border">
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
-           Edit Make
+           Edit Model
           </h3>
           <v-btn
             variant="text"
@@ -24,7 +24,7 @@
             <v-row>
               <v-col cols="12">
                 <v-row align="center" no-gutters>
-                  <v-col cols="1" sm="3">
+                  <v-col cols="4" sm="4">
                     <v-text-field
                       v-model="id"
                       label="ID"
@@ -37,7 +37,13 @@
                       hide-details
                     />
                   </v-col>
-                  <v-col cols="11" sm="9" class="pl-2">
+                  <v-col cols="4" sm="4" class="pl-2">
+                      <MakeDropdown label="Select Make" variant="outlined" color="primary"class="id-box" v-model="makeid" 
+                          persistent-placeholder=""
+                          hide-details
+                          density="compact"  />
+                  </v-col>
+                  <v-col cols="4" sm="4" class="pl-2">
                     <v-text-field
                       v-model="titleInput"
                       label="Title"
@@ -77,13 +83,18 @@
 </template>
 
 <script>
-import Make from '@/models/make.model';
+import Model from '@/models/vehicle-model.model';
+import MakeDropdown from "@components/MakeDropdown.vue"
 
 export default {
+    components:{
+    MakeDropdown,
+  },
   data() {
     return {
       id: '',
       titleInput: '',
+      makeid:"", 
       loading: false,
     };
   },
@@ -95,7 +106,7 @@ export default {
     this.loading = true;
     try {
         const id = this.$route.params.id;
-        const res = await Make.find(id);
+        const res = await Model.find(id);
         if (res.data && res.data.length > 0) {
         const record = res.data[0];  
         this.id = record.id;
@@ -115,9 +126,10 @@ export default {
       try {
         let formData = new FormData();
         formData.append('name', this.titleInput);
-        const res = await Make.update(this.id, formData);
-        this.$alertStore.add(res.message || 'Make updated', 'success');
-        this.$router.push('/admin/make');
+        formData.append('make_id', this.makeid);
+        const res = await Model.update(this.id, formData);
+        this.$alertStore.add(res.message || 'Model updated', 'success');
+        // this.$router.push('/admin/model');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {

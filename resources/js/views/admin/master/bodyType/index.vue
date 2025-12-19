@@ -28,9 +28,9 @@
                             clearable />
 
                         <div class="pl-2" >
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                            <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn>
+                            </v-btn> -->
                         </div>
                         <div class="pl-2" >
                             <v-btn to="/admin/bodyType/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
@@ -135,7 +135,9 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-       
+        'filter.search'(newVal, oldVal) {
+            this.loadItems()
+        },
         
     },
     

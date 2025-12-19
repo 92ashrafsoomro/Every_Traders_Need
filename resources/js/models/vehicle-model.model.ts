@@ -2,14 +2,7 @@ import api from "@/plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
 
 export default class Model {
-
-
-
-    
-              /**
-     * Fetches the Get All.
-     */
-       static async all(options: {
+    static async all(options: {
             search?: string;
             page?: number;
             length?: number;
@@ -32,10 +25,6 @@ export default class Model {
             }
 
     }
-
-    /**
-     * Fetches the Models.
-     */
        static async get(options: {
             makes:unknown[],
             search?: string;
@@ -60,6 +49,49 @@ export default class Model {
             }
 
     }
-    
+
+    static async find(id) {
+        
+        try {
+            const res = await api.get("/api/cruds/model/?id="+id);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async update(id: number | string, formData: FormData) {
+        try {
+            formData.append("_method", "PUT");
+
+            const res = await api.post(`/api/cruds/model/${id}`, formData);
+            return res.data;
+
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    static async create(options:any) {
+
+        try {
+            console.log("options in model",options);
+            const res = await api.post("/api/cruds/model",options);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+    static async delete(id){
+        try{
+            const res = await api.delete(`/api/cruds/model/${id}`);
+            return res.data;
+
+        }
+        catch(error){
+            throw await errorHandler(error);
+        }
+    }
     
 }

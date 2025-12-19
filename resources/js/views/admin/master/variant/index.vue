@@ -28,9 +28,9 @@
                             clearable />
 
                         <div class="pl-2" >
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                            <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn>
+                            </v-btn> -->
                         </div>
                         <div class="pl-2" >
                             <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
@@ -87,7 +87,7 @@
 import Variant from '@/models/variant.model';
 import Nav from '../nav/Nav.vue';
 import VehicleType from '@/models/vehicle-type.model';
-
+import _ from 'lodash'
 
 
 export default {
@@ -131,7 +131,8 @@ export default {
         },
         'filter.search'(newVal, oldVal) {
             this.loadItems()
-        }
+        },
+
         
     },
     

@@ -4,7 +4,7 @@
       <v-card class="border">
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
-           Edit Make
+           Edit Vehicle Type
           </h3>
           <v-btn
             variant="text"
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import Make from '@/models/make.model';
+import VehicleType from '@/models/vehicle-type.model';
 
 export default {
   data() {
@@ -95,7 +95,7 @@ export default {
     this.loading = true;
     try {
         const id = this.$route.params.id;
-        const res = await Make.find(id);
+        const res = await VehicleType.find(id);
         if (res.data && res.data.length > 0) {
         const record = res.data[0];  
         this.id = record.id;
@@ -115,9 +115,9 @@ export default {
       try {
         let formData = new FormData();
         formData.append('name', this.titleInput);
-        const res = await Make.update(this.id, formData);
-        this.$alertStore.add(res.message || 'Make updated', 'success');
-        this.$router.push('/admin/make');
+        const res = await VehicleType.update(this.id, formData);
+        this.$alertStore.add(res.message || 'Vehicle Type updated', 'success');
+        this.$router.push('/admin/vehicleType');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {

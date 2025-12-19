@@ -8,7 +8,7 @@ import make from "@/views/admin/master/make/route"
 import model from "@/views/admin/master/model/route"
 import variant from "@/views/admin/master/variant/route"
 import center from "@/views/admin/master/center/route"
-import csv from "@/views/admin/csv/route"
+import auction from "@/views/admin/auction/route"
 import vehicle from "@/views/admin/vehicle/route"
 
 export default [
@@ -26,7 +26,7 @@ export default [
             ...variant,
             ...model,
             ...center,
-            ...csv,
+            ...auction,
             ...vehicle
             ]
     },

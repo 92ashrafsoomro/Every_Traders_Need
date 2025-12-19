@@ -21,11 +21,11 @@
             "path": "/",
             "children":[
                 {
-                    "label" : "Import Data CSV",
-                    "path" : "/csv"
+                    "label" : "Auction",
+                    "path" : "/admin/auction"
                 },{
                     "label" :"Vehicles",
-                    "path":"/vehicle"
+                    "path":"/admin/vehicle"
                 }
             ]
         }

@@ -1,5 +1,6 @@
 import api from "@/plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
+import { toFormData } from "@/utils/helper";
 
 
 export default class Auction {
@@ -57,6 +58,21 @@ export default class Auction {
             } catch (e) {
                 throw await errorHandler(e);
             }
+
+    }
+
+
+     static async create(options:any) {
+
+        try {
+            
+            let req = await toFormData(options);
+            const res = await api.post("/api/cruds/auctions",req);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
 
     }
     

@@ -103,7 +103,7 @@ class PlatformController extends Controller
 
         if($request->file('image')) {
             $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/platforms');
+            $filePath = public_path('uploads/');
             $request->file('image')->move($filePath, $fileName);
             $model->image = $fileName;
             $model->save();
@@ -174,7 +174,7 @@ class PlatformController extends Controller
 
         if($request->file('image')) {
             $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/platforms');
+            $filePath = public_path('uploads/');
             $request->file('image')->move($filePath, $fileName);
             $model->image = $fileName;
             $model->save();

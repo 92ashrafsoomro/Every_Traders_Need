@@ -41,9 +41,9 @@ class SheetService
         
 
             // dd($this->data[400]);
-
+            
          $this->save();
-         dd($this->data);
+        
 
     }
 

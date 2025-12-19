@@ -5,7 +5,7 @@ import edit from './edit.vue'
 
 export default [
     {
-        path: "csv",
+        path: "auction",
         children: [  
             { path: '', component: index },
             { path: 'create', component: create },

@@ -16,18 +16,13 @@
                                 :items="[10, 25, 50, 100]" 
                                 density="compact" 
                                 variant="outlined"
-                       
                                 max-width="150px" class="mr-2" 
                                 />
                                 <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
-                            
                         </div>
-
                         <v-spacer />
-
                         <v-text-field 
                             v-model="filter.search" 
-                        
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
@@ -40,7 +35,7 @@
                             </v-btn>
                         </div>
                         <div class="pl-2" >
-                            <v-btn to="/admin/csv/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                            <v-btn to="/admin/auction/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
                         </div>
@@ -125,7 +120,7 @@ export default {
                 
                 { title: "Start Date", value: "auction_date" },
                 { title: "End Date", value: "end_date" },
-                { title: "Created At", value: "created_at" },
+                { title: "Created At", value: "created_date" },
                 { title: "Action", key: "action" },
             ],
     };

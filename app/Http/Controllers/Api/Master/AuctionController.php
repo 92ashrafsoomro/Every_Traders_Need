@@ -62,6 +62,8 @@ class AuctionController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+
+                      $item->created_date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });
             
@@ -268,15 +270,13 @@ class AuctionController extends Controller
     public function store(Request $request)
     {
 
-        Auctions::query()->delete();
          $validator = Validator::make($request->all(),[
+            'id' => 'required|string|max:255|unique:auctions,table_id',
             'name' => 'required|string|max:255',
-            'id' => 'required|string|max:255',
             'auction_date' => 'required|date',
             'end_date' => 'nullable',
             'auction_type' => 'required|in:Online,Live',
             'platform_id' => 'required|integer',
-            'status' => 'required|in:Planned,In Progress,Cancel,Update',
             'csv_path' => 'nullable|file|mimes:csv,txt',
         ]);
 
@@ -294,17 +294,11 @@ class AuctionController extends Controller
             'end_date' => $request->end_date,
             'auction_type' => $request->auction_type,
             'platform_id' => $request->platform_id,
-            'status' => $request->status,
+            'status' => 'planned',
         ]);
 
-
         if($request->hasFile('csv_path')){
-
             $csvFile = $request->file('csv_path');
-            // $lines = file($csvFile->getRealPath());
-            // $data  = array_map('str_getcsv', $lines);
-
-
             $rows = [];
             if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
                 while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
@@ -312,69 +306,13 @@ class AuctionController extends Controller
                 }
                 fclose($handle);
             }
-
-           
-            $res =  new SheetService($auction,$rows);
-            // $data = $this->csvRowsToAssociativeArray($lines);
-          
-         
-
-            // $path = $csvFile->storeAs('uploads/csv', $filename);
-            // $fullPath = storage_path('app/private/' . $path);
-
+            new SheetService($auction,$rows);
         }
 
-    
-        // DB::beginTransaction();
-
-        // try {
-
-        //     $auction = Auctions::create([
-        //         'name' => $request->name,
-        //         'table_id' => $request->id,
-        //         'auction_date' => $request->auction_date,
-        //         'end_date' => $request->end_date,
-        //         'auction_type' => $request->auction_type,
-        //         'platform_id' => $request->platform_id,
-        //         'status' => $request->status,
-        //     ]);
-
-        //     if ($request->hasFile('csv_path')) {
-
-        //         $csvFile = $request->file('csv_path');
-        //         $filename = time() . '_' . $csvFile->getClientOriginalName();
-        //         $path = $csvFile->storeAs('uploads/csv', $filename);
-        //         $fullPath = storage_path('app/private/' . $path);
-
-        //         $auction->csv_path = $path;
-        //         $auction->save();
-
-        //         if(Storage::exists($path) == false) {
-        //             throw new \Exception("Failed to open CSV file: " . $fullPath);
-        //         }
-
-        //         $csv = Storage::get($path);
-        //         $rows = array_map('str_getcsv', explode("\n", $csv));
-        //         $rows = $this->csvRowsToAssociativeArray($rows);
-
-        //         foreach ($rows as $key => $data) {
-        //              AuctionService::handleSheet($auction,$data);
-        //         }
-        //     }
-
-        
-        //     DB::commit();
-
-        //     return response()->json([
-        //         'message' => 'Auction and related data created successfully.',
-        //         'data' => $auction,
-        //     ],400);
-
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return response()->json(['message' => $e->getMessage()],400);
-        // }
-
+        return response()->json([
+            'data' => $auction,
+            'message' => 'Record Created',
+        ],200);
 
     }
 

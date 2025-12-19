@@ -34,13 +34,14 @@ class SheetService
 
          $this->intilaize();
 
-                //    dd($this->data); 
+            // dd($this->data); 
 
          $this->sanitization();
          $this->validation();
         
 
-        //    dd($this->data[400]);
+            // dd($this->data[400]);
+
          $this->save();
          dd($this->data);
 

@@ -40,7 +40,7 @@
                             </v-btn>
                         </div>
                         <div class="pl-2" >
-                            <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                            <v-btn to="/admin/csv/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
                         </div>
@@ -92,9 +92,7 @@
 <script>
 
 import Auction from '@/models/auction.model';
-import Make from '@/models/make.model';
 
-import VehicleType from '@/models/vehicle-type.model';
 
 
 

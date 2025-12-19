@@ -19,11 +19,11 @@
                     <!-- MAIN ROW -->
                     <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder">
                         <td>
-                            <!-- <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id"> -->
+                            <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
                             <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
                                 }}
                             </span>
-                            <!-- </v-btn> -->
+                            </v-btn>
                         </td>
                         <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
                         <td>{{ item.mileage }}</td>

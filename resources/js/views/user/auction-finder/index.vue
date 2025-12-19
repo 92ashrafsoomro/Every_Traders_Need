@@ -26,10 +26,10 @@
             <v-col cols="12 ">
                 <!-- ROW 1 -->
                 <div class="mb-2">
-                    <div class="d-flex w-100 align-center">
+                    <div class="d-flex flex-wrap w-100 align-center">
 
                         <!-- LEFT -->
-                        <div class="d-flex align-center ga-2 flex-grow-1">
+                        <div class="d-flex flex-wrap align-center ga-2 flex-grow-1">
 
                             <!-- FILTER BUTTON -->
                             <div>
@@ -64,15 +64,15 @@
                         </div>
 
                         <!-- RIGHT -->
-                        <div class="d-flex align-center ga-3 ml-auto">
+                        <div class="d-flex flex-wrap align-center ga-3 ml-auto  ">
 
-                            <div style="width: 130px">
+                            <div style="width: 130px" class="mt-lg-2 mt-md-2 mt-4 ">
                                 <v-select persistent-placeholder v-model="auctionStore.filter.length"
                                     @update:model-value="handleInput()" color="primary" variant="outlined"
                                     density="compact" label="Length" :items="[10, 50, 100, 200, 500]" />
                             </div>
 
-                            <div style="width: 300px">
+                            <div style="width: 300px" class="mt-2">
                                 <v-select persistent-placeholder v-model="auctionStore.filter.sort_by"
                                     @update:model-value="handleInput()" color="primary" variant="outlined"
                                     density="compact" item-title="name" item-value="id" label="Sort by"
@@ -86,7 +86,7 @@
                 <!-- ROW 2 -->
                 <v-slide-y-transition>
                     <div v-if="!auctionStore.sidebar && isAnyFilterSelected" class="mb-3">
-                        <div class="d-flex ">
+                        <div class="d-flex flex-wrap ">
 
                             <!-- CHIPS SCROLL -->
                             <div class="d-flex align-center overflow-x-auto no-wrap">

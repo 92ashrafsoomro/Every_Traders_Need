@@ -1,6 +1,6 @@
 <template>
   <section >
-    <v-container max-width="1500px" style="margin-top: 100px; margin-bottom: 100px;">
+    <v-container max-width="1400px" style="margin-top: 100px; margin-bottom: 100px;">
       <v-row align="center" justify="center" class="min-vh-100" no-gutters>
 
         <!-- Left Big Card -->

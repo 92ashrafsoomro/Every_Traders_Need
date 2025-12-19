@@ -1,7 +1,7 @@
 <template>
     <custom-card title="Features">
         <v-container>
-            <v-row dense>
+            <v-row dense class="mt-2">
                 <v-col v-for="value in features" cols="6" sm="4" class="text-caption">
                     <v-chip variant="text" prepend-icon="mdi-circle-small" >{{ value }}</v-chip>
                 </v-col>

@@ -1,5 +1,5 @@
 <template >
-    <div style="max-width: 1500px; padding-top: 80px; padding-bottom: 80px; margin: auto;">
+    <div style="max-width: 1400px; padding-top: 80px; padding-bottom: 80px; " class="mx-auto">
       <!-- Heading -->
       <div class="text-center my-12">
         <h2 class="text-h3 font-weight-bold text-white mb-4">

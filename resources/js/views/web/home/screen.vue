@@ -2,7 +2,7 @@
 
   <v-container fluid class="bg-surface d-flex flex-wrap align-center" style="min-height: 90vh;">
 
-    <v-container style="max-width:1500px">
+    <v-container style="max-width:1400px">
       <v-row align="center " class="m-auto">
 
         <!-- LEFT : TEXT -->

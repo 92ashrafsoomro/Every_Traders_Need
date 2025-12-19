@@ -1,6 +1,6 @@
 <template>
     <v-row no-gutters>
-        <v-col cols="12" class="mt-3 ">
+        <v-col cols="12" class="mt-3 border ">
             <v-card>
                 <div class="pa-5">
                     <v-row>
@@ -23,6 +23,11 @@
     <v-row class="mt-3 ">
         <v-col cols="12" md="8">
             <CarOverview />
+            <div class="mt-6"></div>
+            <Equipment />
+            <div class="mt-6"></div>
+
+            <Features />
         </v-col>
         <v-col cols="12" md="4">
             <Service />
@@ -38,24 +43,6 @@
         </v-col>
     </v-row> -->
 
-    <v-row class="mt-3">
-        <v-col cols="12" md="8">
-            <Equipment />
-        </v-col>
-        <v-col cols="12" md="4">
-
-        </v-col>
-    </v-row>
-
-
-    <v-row class="mt-2">
-        <v-col cols="12" md="8">
-            <Features />
-        </v-col>
-        <v-col cols="12" md="4">
-
-        </v-col>
-    </v-row>
 </template>
 
 <script>
@@ -91,7 +78,7 @@ export default {
     mounted() {
 
 
-   
+
     },
     beforeUnmount() {
 

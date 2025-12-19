@@ -1,13 +1,14 @@
 <template>
     <div v-if="images">
         <v-responsive>
-            <v-img v-if="image" :src="image" class="rounded" />
+            <v-img v-if="image" :src="image" class="rounded"  />
            
             <v-row class="ga-2 pa-5">
                 <v-img  
                    @click="image = item" 
                    v-for="item in images" 
-                   :src="item" class="rounded" :class="{'active border':image == item}"  />
+                   :src="item" class="rounded" :class="{'active border':image == item}"
+                   width="100"  />
             </v-row>
         </v-responsive>
     </div>

@@ -2,11 +2,11 @@
   <main>
 
     <!-- HERO -->
-    <section max-width="1500px"
-      class="aboutScreen py-16 d-flex align-center"
-      style="padding-right: 80px;  background-color: #0A70FF;"
+    <section 
+      class="aboutScreen py-16 d-flex align-center "
+      style="background-color: #0A70FF;"
     >
-      <v-container style="max-width:1400px; height:100%;" class="d-flex align-center">
+      <v-container style="max-width:1400px; " fluid="" class="d-flex align-center mx-auto ">
         
         <div class="hero-text" style="max-width: 900px;">
           
@@ -16,7 +16,7 @@
           </span>
 
           <!-- Main Heading -->
-          <h1 class="text-white text-h2 font-weight-bold mt-3"
+          <h1 class="text-white text-h2 font-weight-bold  mt-3"
               style="line-height: 1.1; ">
             Our vision is to inspire brands to thrive through exceptional content experiences
           </h1>

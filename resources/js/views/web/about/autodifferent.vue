@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 100px; padding-bottom: 100px;" class="bg-surface">
-    <v-container elevation style="max-width: 1500px; margin: auto;">
+    <v-container elevation style="max-width: 1400px; margin: auto;">
       <div class="text-center mb-12">
         <h2 class="text-h6 text-lg-h4 text-md-h5 font-weight-bold text-white mb-4">
           {{ title }}
@@ -13,11 +13,11 @@
 
       <v-row>
         <v-col v-for="(item, index) in cards" :key="index" cols="12" sm="6" md="4">
-          <v-card class="rounded-lg border">
+          <v-card class="rounded-lg border h-100" >
 
             <v-img height="200" src="https://cdn.vuetifyjs.com/docs/images/cards/purple-flowers.jpg" cover />
 
-            <v-card-text class="pa-8 bg-background">
+            <v-card-text class="pa-8 bg-background h-100">
               <h1 class="text-h6 pb-2 font-weight-bold">{{ item.title }}</h1>
               <div>{{ item.desc }}</div>
 
@@ -27,15 +27,10 @@
                   >
                     {{ item.buttonText }}
                   </v-btn> -->
-              <div style="display: flex;align-items: center;">
-                <v-btn class="custom-btn text-capitalize" color="primary" v-if="item.hasButton" elevation="0"
-                target="_blank">
-                Explore
-              </v-btn >
-                  <v-btn v-if="item.hasButton" href="https://google.com" class="arrow-btn text-primary" icon>
-                  <v-icon class="icon-bold" size="26">mdi-arrow-top-right</v-icon>
-                </v-btn>
-              </div>
+             
+                <AppButton text="Explore" to="/" v-if="item.hasButton"/>
+               
+           
 
 
             </v-card-text>
@@ -50,10 +45,17 @@
 
 <script>
 import autoboliCardContent from '@/json/different.json'
-
+import AppButton from '../component/AppButton.vue';
 export default {
+  name:"AutoBoliDifference",
+    components:{
+
+AppButton
+    },
   data() {
+    
     return {
+
       title: autoboliCardContent.title,
       subtitle: autoboliCardContent.subtitle,
       cards: autoboliCardContent.cards

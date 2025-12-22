@@ -11,7 +11,6 @@
             <div class="mr-2 d-flex ga-2"> 
                 <plateform-dropdown
                     label="Online Auction"
-                  
                     variant="outlined"
                     density="compact" 
                     max-width="180px" 

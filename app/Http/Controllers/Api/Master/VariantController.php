@@ -45,7 +45,7 @@ class VariantController extends Controller
 
         $count = (clone $query)->count();
         $data = $query->select([
-                    'model.*',
+                    'model_variant.*',
                     'make.name as makeName',
                     'make.id as makeId',
                     'model.name as modelName',
@@ -56,6 +56,7 @@ class VariantController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });
             
@@ -99,6 +100,26 @@ class VariantController extends Controller
             'data' => $model
         ],200);
 
+    }
+
+         public function show(Request $request,$id)
+    {
+
+            $model = ModelVariant::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
     }
 
 
@@ -152,7 +173,7 @@ class VariantController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+        return response()->json(['message' =>'Record deleted successfully.'], 200);
 
     }
 

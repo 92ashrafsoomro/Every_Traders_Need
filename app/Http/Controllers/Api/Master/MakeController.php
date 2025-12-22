@@ -46,6 +46,7 @@ class MakeController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });
             
@@ -86,6 +87,26 @@ class MakeController extends Controller
             'data' => $model
         ],200);
 
+    }
+
+             public function show(Request $request,$id)
+    {
+
+            $model = Make::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
     }
 
 
@@ -144,7 +165,7 @@ class MakeController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+        return response()->json(['message' =>'Record deleted successfully.'], 200);
 
     }
 

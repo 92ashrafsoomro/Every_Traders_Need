@@ -8,7 +8,8 @@ export default [
         children: [  
             { path: '', component: index },
             { path: 'create', component: create },
-            { path: 'edit/:id', component: edit },
+            { path: 'edit/:id', component: edit, props: true},
+          
         ],
     },
 ]

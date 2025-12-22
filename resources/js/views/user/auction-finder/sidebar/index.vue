@@ -26,7 +26,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small" style="background-color: rgb(var(--v-theme-border));" >
+                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small" >
                     <v-expansion-panel-text>
                         <ModelField/>
                     </v-expansion-panel-text>
@@ -37,7 +37,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.variants.data.length ? false : true" title="Model Variant" style="background-color: rgb(var(--v-theme-border));">
+                <v-expansion-panel  :disabled="masterStore.variants.data.length ? false : true" title="Model Variant">
                     <v-expansion-panel-text>
                         <VariantField/>
                     </v-expansion-panel-text>

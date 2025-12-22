@@ -11,23 +11,26 @@ use App\Http\Controllers\Api\Master\VariantController;
 use App\Http\Controllers\Api\Master\VehicleTypeController;
 use App\Http\Controllers\Api\Master\BodyTypeController;
 use App\Http\Controllers\Api\Master\NewsCategoryController;
-
-
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\AuctionFinderController;
-use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\Master\AuctionController;
 use App\Http\Controllers\Api\Master\BlogCategoryController;
 use App\Http\Controllers\Api\Master\BlogController;
 use App\Http\Controllers\Api\Master\MembershipController;
 use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
+
+use App\Http\Controllers\Api\Master\VehicleController as VController;
+
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AuctionFinderController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
+use App\Http\Controllers\VehicleController;
 use App\Models\Membership;
 use Illuminate\Support\Facades\Route;
 
@@ -163,6 +166,7 @@ use Illuminate\Support\Facades\Route;
 
         
         Route::resource('auctions',AuctionController::class);
+        Route::resource('vehicles',VController::class);
 
         // Route::resource('platform',PlatformController::class);
 

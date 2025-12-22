@@ -49,6 +49,11 @@ class VehicleTypeController extends Controller
             $query->where('vehicle_type.id',$request->id);
         }
 
+        if($request->has('search') && $request->search != '') {
+                $query->where('vehicle_type.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('vehicle_type.id', 'like', '%'.$request->search.'%');
+        }
+
         $count = (clone $query)->count();
         $data = $query->select([
                 '*'
@@ -56,7 +61,13 @@ class VehicleTypeController extends Controller
             ->skip($offset)
             ->take($length)
             ->orderByDesc('id')
-            ->get();
+            ->get()
+            ->map(function($item){
+
+                $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+
+                return $item;
+            });
 
 
         return response()->json([
@@ -68,6 +79,26 @@ class VehicleTypeController extends Controller
             'data' => $data,
         ]);
 
+    }
+
+         public function show(Request $request,$id)
+    {
+
+            $model = VehicleType::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
     }
 
       public function store(Request $request)
@@ -143,7 +174,7 @@ class VehicleTypeController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'BodyType deleted successfully.'], 422);
+        return response()->json(['message' =>'BodyType deleted successfully.'], 200);
 
     }
 

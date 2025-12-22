@@ -1,10 +1,14 @@
 <template>
 
-  <div class="bg-white">
+  <div>
     <screen />
     <TrustedPartner/>
-    <BeforeAutoboli/>
+    <!-- <v-divider></v-divider> -->
+    <SmartBuyer/>
+    <!-- <BeforeAutoboli/> -->
     <AfterAutoboli/>
+    
+    <SmarterChoice/>
     <GainAutoboli/>
     <FAQ/>
     <!-- <vision />
@@ -16,7 +20,9 @@
 <script>
 import screen from './screen.vue'
 import TrustedPartner from './TrustedPartner.vue';
-import BeforeAutoboli from './BeforeAutoboli.vue';
+import SmartBuyer from './SmartBuyer.vue';
+import SmarterChoice from './SmarterChoice.vue';
+// import BeforeAutoboli from './BeforeAutoboli.vue';
 import AfterAutoboli from './AfterAutoboli.vue';
 import GainAutoboli from './GainAutoboli.vue';
 import FAQ from './FAQ.vue';
@@ -30,7 +36,9 @@ export default {
   components: {
     screen,
     TrustedPartner,
-    BeforeAutoboli,
+    SmartBuyer,
+    SmarterChoice,
+    // BeforeAutoboli,
     AfterAutoboli,
     GainAutoboli,
     FAQ

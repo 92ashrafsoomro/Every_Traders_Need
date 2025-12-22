@@ -262,4 +262,5 @@ export default {
     color: rgb(var(--v-theme-primary));
     cursor: pointer;
 }
+
 </style>

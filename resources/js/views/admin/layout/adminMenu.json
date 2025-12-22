@@ -6,141 +6,28 @@
         {
             "icon": "mdi-view-dashboard-outline",
             "label": "Dashboard",
-            "path": "/user/dashboard"
+            "path": "/admin/dashboard"
             
         },
         {
             "icon": "mdi-car-search-outline",
             "label": "Master",  
-            "path": "/user/auction-finder",
-            "children":[
-                   {
-                    "label" :"Body Type",
-                    "path" : "/admin/bodyType/create"
-                },
-                {
-                    "label" :"Vehicle Type",
-                    "path" : "/admin/vehicleType/create"
-                },
-                {
-                    "label" :"Platform",
-                    "path" : "/admin/platform/create"
-                },
-                {
-                    "label" :"Center",
-                    "path" : "/admin/center/create"
-                },
-                {
-                    "label" :"Color",
-                    "path" : "/admin/color/create"
-                },
-                {
-                    "label" :"Make",
-                    "path" : "/admin/make/create"
-                },
-                {
-                    "label" :"Model",
-                    "path" : "/admin/model/create"
-                },
-                {
-                    "label" :"Variant",
-                    "path" : "/admin/variant/create"
-                }
-            ]
+            "path": "/admin/bodyType"
+           
         },
-       
         {
             "icon": "mdi-history",
             "label": "Data Management",
-            "path": "/user/watchlist",
+            "path": "/",
             "children":[
                 {
-                    "label" : "Import Data CSV",
-                    "path" : "/"
+                    "label" : "Auction",
+                    "path" : "/admin/auction"
                 },{
-                    "label" :"/Vehicles",
-                    "path":"/"
-                }
-            ]
-        },
-        {
-            "icon": "mdi-calendar-sync-outline",
-            "label": "Staff Penal",
-            "path": "/user/reauction",
-            "children":[
-                {
-                    "label" : "Rolo",
-                    "path" : "/"
-                },{
-                    "label" :"/User",
-                    "path":"/"
-                }
-            ]
-        },
-       
-        {
-            "icon": "mdi-calendar-check-outline",
-            "label": "Support & Tickets",
-            "path": "/user/auctionscheduler",
-            "children":[
-                {
-                    "label" : "All Support Tickets",
-                    "path" : "/"
-                }
-            ]
-        },
-        {
-            "label": "Content Management",
-            "icon": "mdi-content-paste",
-            "path": "/user/auctionscheduler",
-            "children":[
-                {
-                    "label" : "Blogs",
-                    "path" : "/"
-                }
-                ,{
-                    "label" :"Blogs Categories",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"News",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"News Categories",
-                    "path":"/"
-                }
-            ]
-        },
-       
-        {
-            "icon": "mdi-account-outline",
-            "label": "Members & Plans",
-            "path": "/user/profile",
-            "children":[
-                {
-                    "label" : "Members",
-                    "path" : "/"
-                }
-                ,{
-                    "label" :"/Membership",
-                    "path":"/"
-                }
-                ,{
-                    "label" :"/Plans",
-                    "path":"/"
-                }
-            ]
-        },
-        {
-            "icon": "mdi-cog-outline",
-            "label": "Notifications",
-            "path": "/user/settings/profile",
-            "children":[
-                {
-                    "label" : "Alerts",
-                    "path" : "/"
+                    "label" :"Vehicles",
+                    "path":"/admin/vehicle"
                 }
             ]
         }
+      
 ]

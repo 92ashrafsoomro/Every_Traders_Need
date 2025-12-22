@@ -1,8 +1,7 @@
     <template>
-        <div class="bg-surface rounded border ">
+        <div class="bg-surface rounded border">
             <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
-                :loading="auctionStore.loading" item-value="id" >
-
+                :loading="auctionStore.loading" item-value="id">
 
                 <template v-slot:bottom>
                     <div class="py-2 d-flex justify-end border-t ma-2">
@@ -18,7 +17,7 @@
                 <template #item="{ item, columns }">
 
                     <!-- MAIN ROW -->
-                    <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder" >
+                    <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder">
                         <td>
                             <!-- <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id"> -->
                             <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
@@ -72,31 +71,34 @@
                                 </div>
 
                                 <!-- IMAGE VIEWER -->
-                                <v-dialog v-model="imageDialog" fullscreen>
-                                    <v-card color="black">
-                                        <!-- Top bar -->
-                                        <v-toolbar density="compact" color="black">
-                                            <v-spacer />
-                                            <v-btn icon @click="imageDialog = false">
+                                <v-dialog v-model="imageDialog" fullscreen content-class="bg-transparent"
+                                    scrim="rgba(0,0,0,0.85)" >
+                                    <v-card flat class="bg-transparent d-flex align-center justify-center">
+                                        <!-- IMAGE WRAPPER -->
+                                        <div class="position-relative d-inline-flex align-center">
+
+                                            <!-- CLOSE -->
+                                            <v-btn icon class="position-absolute top-0  ma-3"
+                                            style="right:45px;"
+                                                @click="imageDialog = false">
                                                 <v-icon color="white">mdi-close</v-icon>
                                             </v-btn>
-                                        </v-toolbar>
 
-                                        <!-- Content -->
-                                        <v-card-text class="d-flex align-center justify-space-between">
-                                            <!-- Previous -->
-                                            <v-btn icon @click="prevImage">
+                                            <!-- PREV -->
+                                            <v-btn icon class="me-2" @click="prevImage" color="primary">
                                                 <v-icon color="white" size="36">mdi-chevron-left</v-icon>
                                             </v-btn>
 
-                                            <!-- Image -->
-                                            <v-img :src="currentImages[currentIndex]" max-height="85vh" contain />
+                                            <!-- IMAGE -->
+                                            <img :src="currentImages[currentIndex]" style="max-height: 500px;"
+                                                class="rounded" />
 
-                                            <!-- Next -->
-                                            <v-btn icon @click="nextImage">
+                                            <!-- NEXT -->
+                                            <v-btn icon class="ms-2" @click="nextImage" color="primary">
                                                 <v-icon color="white" size="36">mdi-chevron-right</v-icon>
                                             </v-btn>
-                                        </v-card-text>
+
+                                        </div>
                                     </v-card>
                                 </v-dialog>
 
@@ -180,8 +182,8 @@ export default {
 
 <style scoped>
 :deep(.mainTdBorder td) {
-  border-bottom: 0 !important;
-  border-top: 1px solid rgb(var(--v-theme-border));
+    border-bottom: 0 !important;
+    border-top: 1px solid rgb(var(--v-theme-border));
     background-color: rgb(var(--v-theme-surface));
 
 }
@@ -192,6 +194,39 @@ export default {
 
 .hover-row {
     animation: fadeIn 0.2s ease-in-out;
+}
+
+.image-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.viewer-image {
+    max-height: 500px;
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-btn.left {
+    left: -50px;
+    /* ~10px gap from image */
+}
+
+.nav-btn.right {
+    right: -50px;
+}
+
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
 }
 
 

@@ -33,13 +33,17 @@ class SheetService
          $this->auction = $auction;
 
          $this->intilaize();
+
+            // dd($this->data); 
+
          $this->sanitization();
          $this->validation();
         
 
-         
+            // dd($this->data[400]);
+            
          $this->save();
-         dd($this->data);
+        
 
     }
 
@@ -131,13 +135,15 @@ class SheetService
 
             'year' => $data['year'] ?? null,
 
-            'center_id' => $data['body_id'] ? (int) $data['center_id'] : null,
+            'center_id' => $data['center'] ? (int) $data['center'] : null,
           
             'color' => $data['colour'] ?? null,
             
             'vin' => $data['vin'] ?? null,
             
             'lot' => $data['lot'] ?? null,
+
+            
 
             // -------------------------
             // Vehicle Specs
@@ -150,7 +156,7 @@ class SheetService
             'transmission_details' => $data['transmission_details'] ?? null,
             'cc' => $data['cc'] ? (float) $data['cc'] : null,
             'keys' => (int) ($data['keys'] ?? 0),
-            'engine_runs' => $data['engine_runs'] ?? null,
+            'engine_runs' => $data['non_runner'] ?? null,
             'mileage' => (int) ($data['keys'] ?? 0),
             'mileage_warranted' => $data['mileage_warranted'] ?? null,
             'former_keepers' => (int) ($data['former_keepers'] ?? 0),
@@ -188,6 +194,7 @@ class SheetService
             // Documents & Reports
             // -------------------------
             'v5' => $data['v5'] ?? null,
+            'reg' => $data['reg'] ?? null,
             'service_history' => $data['service_history'] ?? null,
             'no_of_services' => (int) ($data['no_of_services'] ?? 0),
             'number_of_services_details' => $data['number_of_services_details'] ?? null,

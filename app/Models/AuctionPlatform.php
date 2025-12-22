@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class AuctionPlatform extends Model
@@ -10,6 +11,9 @@ class AuctionPlatform extends Model
 
     // protected $fillable = ['name'];
      protected $guarded = [];
+     protected $appends = [
+        'image_preview',
+    ];
 
 
 
@@ -20,6 +24,12 @@ public function centers()
 }
 
 
+    protected function imagePreview(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->image ?  asset('/uploads/'.$this->image) : null
+        );
+    }
     
 
 

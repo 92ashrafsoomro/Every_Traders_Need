@@ -56,7 +56,13 @@ class BodyTypeController extends Controller
             ->skip($offset)
             ->take($length)
             ->orderByDesc('id')
-            ->get();
+            ->get()
+            ->map(function($item){
+
+                $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+
+                return $item;
+            });
 
 
         return response()->json([
@@ -96,6 +102,26 @@ class BodyTypeController extends Controller
             'data' => []
         ],200);
 
+    }
+
+         public function show(Request $request,$id)
+    {
+
+            $model = BodyType::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
     }
 
 
@@ -144,7 +170,7 @@ class BodyTypeController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'BodyType deleted successfully.'], 422);
+        return response()->json(['message' =>'BodyType deleted successfully.'], 200);
 
     }
 

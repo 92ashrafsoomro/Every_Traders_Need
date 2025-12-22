@@ -12,19 +12,20 @@
                         <div class="py-2 " >
                             <div class="pl-3 " >
                                  <h6 class="pb-3 text-h4 font-weight-bold">{{ userStore.user.firstName }}</h6>
-                                <div class="d-flex align-center flex-wrap text-light" >
+                                <div class="d-flex align-center flex-wrap text-light ga-3" >
                                     
-                                    <div class="pr-3 d-flex align-center" > 
-                                        <v-icon icon="mdi-equalizer"/> 
+                                    <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm" > 
+                                        <v-icon icon="mdi-equalizer" color="primary"/> 
                                         <span class="text-body-2 px-2" >{{ userStore.user.companyName }}</span>
                                     </div>
-                                    <div class="px-3 d-flex align-center" > 
-                                        <v-icon icon="mdi-briefcase-outline"/> 
+                                    <div class="px-3 d-flex align-center bg-background pa-2 rounded-sm" > 
+                                        <v-icon icon="mdi-briefcase-outline" color="primary"/> 
                                         <span class="text-body-2 px-2" >{{ userStore.user.jobTitle }}</span>
                                     </div>
-                                    <div v-if="userStore.user.plans" class="px-3 d-flex align-center" > 
-                                        <v-icon icon="mdi-lightning-bolt"/> 
-                                        <span class="text-body-2 px-2 text-capitalize ">{{ userStore.user.plans.membership_type }}</span>
+                                    
+                                    <div v-if="userStore.user.plan" class="bg-background pa-2 rounded-sm px-3 d-flex align-center" > 
+                                        <v-icon icon="mdi-lightning-bolt" color="primary"/> 
+                                        <span class="text-body-2 px-2 text-capitalize ">{{ userStore.user.plan.membership_type }}</span>
                                     </div>
                                 </div>
                             </div>

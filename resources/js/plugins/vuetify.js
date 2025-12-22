@@ -36,13 +36,14 @@ const vuetify = createVuetify({
             elevation: 0,
             class : "border-b"
         },
-        VCardText: {
-             class:"pa-4 "
-
+        VCardTitle:{
+            class:"pl-1"
         },
-        VTable: {
-    class: 'v-table--no-borders',
-  },
+        VCardText: {
+             class:"pl-2 "
+
+        }
+       
     },
     theme: {
         defaultTheme: "adminDark",

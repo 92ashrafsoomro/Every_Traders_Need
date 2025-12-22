@@ -1,66 +1,131 @@
 <template>
-    <v-container>
-        <v-card title="Create BodyType">
-            <div class="border"></div>
+<v-container  max-width="1400px">
+    <v-col cols="12" md="12">
+        <v-card class="border " >
+            <div class="d-flex align-center justify-space-between px-4 py-3">
+                <h3 class="text-h6 font-weight-bold">
+                {{ title }}
+                </h3>
+                <v-btn
+                variant="text"
+                color="primary"
+                class="text-capitalize"
+                @click="goBack"
+            
+                >
+                <v-icon start>mdi-arrow-left</v-icon>
+                Back
+                </v-btn>
+            </div>
+
+            <div class="border-b"></div>
             <v-card-text>
-                 <v-row>
-                    <v-col v-for="field in fields" :key="field.key" :sm="field.col"> 
-                        <DynmaicInput 
-                            :field="field.type" 
-                            :label="field.label" 
-                            :items="field.options"
-                            variant="outlined" 
-                            item-title="label" 
-                            item-value="value"
-                            :model-value="form[field.key]"
-                            @update:model-value="handleValue($event,field.key)"
-                            :return-object="false" />
+                <v-container fluid>
+                <v-row>
+                    <v-col cols="12">
+                        <v-row align="center" no-gutters>
+                            <v-col cols="1" sm="3">
+                            <v-text-field
+                                v-model="id" 
+                                label="ID"
+                                variant="outlined"
+                                density="compact"
+                                color="primary"
+                                
+                                class="id-box"
+                                persistent-placeholder=""
+                                hide-details
+                            />
+                            </v-col>
+                            <v-col cols="11" sm="9" class="pl-2">
+                            <v-text-field
+                                v-model="titleInput"    
+                                label="Title"
+                                variant="outlined"
+                                density="compact"
+                                color="primary"
+                                clearable
+                                persistent-placeholder=""
+                                class="custom-input"
+                                
+                                hide-details
+                            />
+                            </v-col>
+
+                        </v-row>
+                    </v-col>
+                    <v-col cols="12" class="mt-3 text-center">
+                    <v-btn
+                        @click="submitId"
+                        class="buttonBorder bg-primary"
+                        variant="flat"
+                        style="height: 40px;"
+                    >
+                        <span class="text-capitalize text-body-1 text-white">
+                        Submit
+                        </span>
+                    </v-btn>
                     </v-col>
                 </v-row>
+                </v-container>
             </v-card-text>
-            <v-card-actions>
-                <v-btn variant="tonal" @click="submitForm" type="submit" color="primary">Save</v-btn>
-            </v-card-actions>
         </v-card>
-    </v-container>
+    </v-col>
+</v-container>
 </template>
-<script>
-import fields from "./fields.js";
-import DynmaicInput from "./DynmaicInput.vue";
 
+<script>
+import BodyType from '@/models/body-type.model';
 export default {
   props: {
-        modelValue: Object, 
-    },
-    components: {
-    DynmaicInput
+    title: {   
+      type: String,   
+      default: 'Create Body Type',
+    }
   },
   data() {
     return {
-      fields:fields,
-      form: {},
-    };
-    },
-  mounted() {
-
-      fields.map(item => {
-          this.form[item.key] = '';
-      });
- 
+      id: '',      
+      titleInput: '' 
+    }
   },
+   methods: {
+    async  submitId() {
+       this.loading = true;
 
-  methods: {
-    handleFile(event, key) {
-        this.form[key] = event.target.files[0];
-      },
-      handleValue(value,key) {
-        this.form[key] = value;  
+        try {
+            let formData = new FormData();
+            formData.append('id', this.id);
+            formData.append('name', this.titleInput);
+
+            let res = await BodyType.create(formData);
+            this.$alertStore.add(res.message, 'success');
+            this.$router.push('/admin/bodyType');
+
+        } catch (error) {
+            console.error(error);
+            this.$alertStore.add(error.message, 'error');
+        } finally {
+            this.loading = false;
+            this.resetForm();
+        }
+
     },
-    submitForm() {
-
-        console.log(this.form);
-        
+    goBack() {
+      this.$router.back();
     }
   }
-};
+}
 </script>
+
+
+<style scoped>
+.buttonBorder {
+  border-radius: 2px;
+}
+
+.custom-input :deep(input) {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+</style>

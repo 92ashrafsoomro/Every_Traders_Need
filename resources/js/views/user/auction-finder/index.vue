@@ -1,6 +1,6 @@
 <template>
     <user-title-bar>
-        <div style="width: auto; margin-left: -210px ;">
+      
             <h1 class="text-h3 mb-2 font-weight-bold">Smart Auction Search</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your
                 profit goals.</p>
@@ -17,11 +17,11 @@
                     @click="auctionStore.toggleAuctionTab()" style="height: 50px; "><span
                         class="text-capitalize text-body-1"> Vehicle Valuation </span></v-btn>
 
-            </div>
+         
         </div>
     </user-title-bar>
 
-    <v-container>
+    <v-container  style="max-width: 1400px;">
         <v-row class="mt-1  ">
             <v-col cols="12 ">
                 <!-- ROW 1 -->
@@ -34,11 +34,13 @@
                             <!-- FILTER BUTTON -->
                             <div>
                                 <v-btn v-if="auctionStore.sidebar" color="primary" variant="outlined"  prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
-                                    <span class="text-white text-capitalize text-body-1">Filter</span>
+                                    <span class="text-white text-capitalize text-body-1">Hide Filter</span>
                                 </v-btn>
 
                                 <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
-                                    @click="auctionStore.toggleFilter()" />
+                                    @click="auctionStore.toggleFilter()" >
+                                  <span class="text-white text-capitalize text-body-1">Show Filter</span>
+                                </v-btn>
                             </div>
 
                             <!-- CLEAR ALL (FILTER OPEN ONLY) -->
@@ -109,7 +111,7 @@
 
 
                 <div :class="{ 'sidebarOpen': auctionStore.sidebar }"
-                    class="main-div d-flex align-start justify-space-between flex-wrap">
+                    class="main-div d-flex align-start justify-space-between flex-wrap mx-auto">
                     <div class="sidebar">
                         <div class=" bg-surface rounded border ">
                             <auctionSidebar />
@@ -132,7 +134,7 @@ import AuctionFinder from "./auctionDetail.vue";
 import VehicleValuation from "./vehicleValuation.vue";
 import auctionSidebar from "./sidebar/index.vue";
 import { useAuctionStore } from "@/stores/auctionStore";
-import Chips from "./chips.vue";
+import Chips from "./Chips.vue";
 export default {
     components: {
         AuctionFinder,
@@ -148,7 +150,7 @@ export default {
     mounted() {
 
         this.auctionStore.loadSiderBarFilters();
-        // this.auctionStore.getAuctionList();  
+        this.auctionStore.getAuctionList();  
         this.$themeStore.menuType = 'collapsed';
 
     },

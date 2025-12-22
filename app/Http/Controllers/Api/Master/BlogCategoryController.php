@@ -64,6 +64,29 @@ class BlogCategoryController extends Controller
 
     }
 
+    
+
+           public function show(Request $request,$id)
+    {
+
+            $model = BlogCategory::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
+
 
       public function store(Request $request)
     {
@@ -137,7 +160,7 @@ class BlogCategoryController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+        return response()->json(['message' =>'Record deleted successfully.'], 200);
 
     }
 

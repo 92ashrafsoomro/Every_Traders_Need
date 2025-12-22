@@ -48,6 +48,11 @@ class PlatformController extends Controller
             $query->where('auction_platform.id',$request->id);
         }
 
+        if($request->has('search') && $request->search != '') {
+                $query->where('auction_platform.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('auction_platform.id', 'like', '%'.$request->search.'%');
+        }
+
         $count = (clone $query)->count();
         $data = $query->select([
                     '*'
@@ -57,9 +62,8 @@ class PlatformController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
-                    if($item->image){
-                    $item->image = asset('/uploads/'.$item->image);
-                    }
+                 
+                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });
             
@@ -99,7 +103,7 @@ class PlatformController extends Controller
 
         if($request->file('image')) {
             $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/platforms');
+            $filePath = public_path('uploads/');
             $request->file('image')->move($filePath, $fileName);
             $model->image = $fileName;
             $model->save();
@@ -113,6 +117,29 @@ class PlatformController extends Controller
         ],200);
 
     }
+
+         public function show(Request $request,$id)
+    {
+
+            $model = AuctionPlatform::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
+
+    
 
 
        public function update(Request $request,$id)
@@ -147,7 +174,7 @@ class PlatformController extends Controller
 
         if($request->file('image')) {
             $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/platforms');
+            $filePath = public_path('uploads/');
             $request->file('image')->move($filePath, $fileName);
             $model->image = $fileName;
             $model->save();
@@ -178,7 +205,7 @@ class PlatformController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+        return response()->json(['message' =>'Record deleted successfully.'], 200);
 
     }
 

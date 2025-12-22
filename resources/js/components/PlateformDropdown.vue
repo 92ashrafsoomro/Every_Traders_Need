@@ -3,7 +3,7 @@
   v-bind="$attrs"
   :model-value="modelValue"
   :items="data"
-  item-title="label"
+  item-title="name"
   item-value="id"
   :loading="loading"
   @update:model-value="handleValue($event)"
@@ -39,7 +39,7 @@ export default {
         async fetchPlatforms() {
                 this.loading = true;
                 try {
-                    const response = await Platform.get({});
+                    const response = await Platform.all({});
                     this.data = response.data; 
                 } catch (err) {
                     console.error("Error loading platforms:", err);

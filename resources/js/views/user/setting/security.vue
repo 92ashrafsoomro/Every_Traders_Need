@@ -4,7 +4,7 @@
         <v-card title="Change Password" class="bg-surface">
 
              <div class="border" ></div>
-            <v-card-text>
+            <v-card-text class="ml-2">
                 
                 <v-row>
                     <v-col cols="12" md="6">

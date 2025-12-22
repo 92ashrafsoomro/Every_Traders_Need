@@ -1,7 +1,7 @@
 <template>
     <!-- <custom-card title="Payment Methods"> -->
-    <v-col cols="12" md="5">
-        <v-card class="rounded-xl pa-6 d-flex flex-wrap align-center justify-space-between" color="#1e1e2e" elevation="4">
+
+        <v-card class="rounded-xl pa-6 ml-4 d-flex flex-wrap align-center justify-space-between" color="#1e1e2e" elevation="4">
             <div class="d-flex align-center">
                 <div class="mr-6">
                     <!-- Mastercard Logo Placeholder -->
@@ -24,7 +24,7 @@
                 Delete
             </v-btn>
         </v-card>
-    </v-col>
+    
 
     <!-- <v-container fluid class="pa-8 pa-md-12 bg-#0f0f1e">
         <v-radio-group v-model="selectedMethod" inline class="mb-8">

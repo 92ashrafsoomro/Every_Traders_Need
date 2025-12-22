@@ -1,45 +1,36 @@
 <template>
-  <v-container fluid style="min-height: 70vh;" class="py-16 bg-background">
-<div style="max-width: 1300px;" class="mx-auto">
-    <!-- Page Heading -->
-    <div class="text-center mb-10">
-      <h2 class="text-h4 text-md-h3 font-weight-bold">
-        FAQs
-      </h2>
-    
-    </div>
+  <v-container fluid style="min-height: 800px;" class="py-16 bg-background d-flex flex-wrap align-center">
+    <div style="max-width: 1300px;" class="mx-auto">
+      <!-- Page Heading -->
+      <div class="text-center mb-10">
+        <h2 class="text-h4 text-md-h3 font-weight-bold">
+         Frequently asked questions
+        </h2>
 
-    <!-- FAQ List -->
-    <v-expansion-panels style="max-width: 800px; margin: auto;">
-  <v-expansion-panel
-    v-for="(faq, index) in faqs"
-    :key="index"
-    elevation="0"
-    variant="flat"
-    class="bg-background"
-  >
-    <v-expansion-panel-title
-      elevation="0"
-      class=""
-      
-    >
-      <div class="d-flex align-center justify-space-between w-100 " style="border-bottom: none;">
-        <span class="text-body-1 font-weight-medium">
-          {{ faq.question }}
-        </span>
       </div>
-    </v-expansion-panel-title>
 
-    <v-expansion-panel-text class="bg-background">
-      <p class="text-body-2 text-text_light">
-        {{ faq.answer }}
-      </p>
-    </v-expansion-panel-text>
+      <!-- FAQ List -->
+      <v-expansion-panels style="max-width: 800px; margin: auto; ">
+        <v-expansion-panel v-for="(faq, index) in faqs" :key="index" elevation="0" variant="flat" class="faq-panel bg-background pa-2">
+          <v-expansion-panel-title>
+            <div class="d-flex align-center justify-space-between w-100  " >
+              <span class="text-body-1 font-weight-medium">
+                {{ faq.question }}
+              </span>
+            </div>
+          </v-expansion-panel-title>
 
-  </v-expansion-panel>
-</v-expansion-panels>
+          <v-expansion-panel-text>
 
-</div>
+            <p class="text-body-1 text-white pa-4" style="line-height: 2;">
+              {{ faq.answer }}
+            </p>
+          </v-expansion-panel-text>
+
+        </v-expansion-panel>
+      </v-expansion-panels>
+
+    </div>
   </v-container>
 </template>
 
@@ -79,3 +70,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.faq-panel.v-expansion-panel--active {
+  background-color: #000E20 !important;
+  border-radius: 5px;
+}
+
+
+.faq-panel.v-expansion-panel--active .v-expansion-panel-title {
+  background-color: #000E20 !important;
+}
+
+
+.faq-panel.v-expansion-panel--active .v-expansion-panel-text {
+  background-color: #000E20 !important;
+}
+</style>

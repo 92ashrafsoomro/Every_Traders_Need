@@ -20,7 +20,7 @@
             </v-col>   
             <v-col cols="12" >
                  <div class="px-2">
-                 <p class="text-light label">DVSA </p>
+                 <p class="text-light text-body-2 label">DVSA </p>
                    <div class="d-flex pt-2" >
                         <v-icon class="iconSize" color="primary">mdi-speedometer</v-icon>
                         <span class="pl-3 text-body-2" >{{ vehicleStore.vehicle.dvsa_mileage }}</span>
@@ -29,7 +29,7 @@
             </v-col>  
             <v-col cols="12" >
                  <div class="px-2">
-                 <p class="text-light label">Additional service notes </p>
+                 <p class="text-light label text-body-2">Additional service notes </p>
                    <div class="d-flex pt-2" >
                         <v-icon color="primary" class="iconSize">mdi-note-text-outline</v-icon>
                         <span class="pl-3 text-body-2" >{{vehicleStore.vehicle.number_of_services_details}}</span>
@@ -112,12 +112,6 @@ export default {
 
 <style scope >
 
-.my-chip{
-    max-width: auto !important;       /* remove default Vuetify max-width */
-    min-width: auto !important;          /* allow small chips if needed */
-    white-space: normal !important;   /* allow wrapping */
-    overflow: visible !important;     /* prevent clipping */
-}
 .iconSize::before{
     font-size: 21px;
 }

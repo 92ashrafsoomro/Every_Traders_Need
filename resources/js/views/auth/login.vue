@@ -14,20 +14,18 @@
         </div>
         <AuthHeader></AuthHeader>
         <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center">
-            <v-container fluid class="d-flex justify-center align-center">
+            <!-- <v-container fluid class="d-flex justify-center align-center" > -->
 
-                <v-row justify="center">
-                    <v-col cols="12" sm="8" md="6" lg="4">
-                        <v-card color="background" class="py-6 px-4" elevation="10" rounded="lg">
+                        <v-card color="background" class="py-6 px-4 mx-auto border-sm" rounded="lg" style="width: 500px;">
                             <v-card-item>
-                                <v-card-title class="text-center text-h5 text-md-h3 font-weight-medium text-capitalize">
+                                <v-card-title class="text-center text-h5 text-md-h4 text-lg-h4 font-weight-bold text-capitalize">
                                     Welcome back!
                                 </v-card-title>
                             </v-card-item>
                             <v-card-text>
                                 <v-container>
-                                    <div class="google-icon text-center mb-5">
-                                        <v-btn size="large" class="text-capitalize d-flex justify-space-around"
+                                    <div class="google-icon text-center mb-5 bg-white rounded-sm">
+                                        <v-btn size="large" class="text-capitalize d-flex justify-space-around border-none"
                                             rounded="lg" block variant="outlined">
                                             <img src="https://imgs.search.brave.com/bdmCEEDU5vFEHnyuP6ebEB5TZx6UAjhIkxkswf1Jerg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yODc1LzI4NzU0/MDQucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs"
                                                 width="20" height="20" class="me-2" alt="">
@@ -43,16 +41,17 @@
                                         <v-row>
                                             <v-col cols="12">
                                                 <v-text-field clearable v-model="form.email" type="email"
-                                                    prepend-inner-icon="mdi-email" variant="outlined" label="Work Email"
+                                                
+                                                    prepend-inner-icon="mdi-email-outline"  variant="outlined" label="Work Email"
                                                     :error="errors.email ? true : false" :error-messages="errors?.email"
-                                                    density="comfortable" color="primary" />
+                                                    density="comfortable" color="primary"   />
                                             </v-col>
 
                                             <v-col cols="12">
                                                 <v-text-field v-model="form.password"
                                                     :error="errors.password ? true : false"
                                                     :error-messages="errors?.password" type="password" clearable
-                                                    prepend-inner-icon="mdi-lock" variant="outlined" label="Password"
+                                                    prepend-inner-icon="mdi-lock-outline" variant="outlined" label="Password"
                                                     density="comfortable" color="primary" />
                                             </v-col>
 
@@ -62,35 +61,34 @@
                                                     <v-checkbox color="primary" label="Remember me" class="text-body-2"
                                                         hide-details />
                                                     <v-btn color="primary"
-                                                        to="http://localhost/autoboli/forgot-password" variant="text"
+                                                        to="forget" variant="text"
                                                         class="text-body-2 pa-0 mt-n2 mt-sm-0" size="small">
                                                         Forgot Password?
                                                     </v-btn>
                                                 </div>
                                             </v-col>
 
-                                            <v-col cols="12" class="pt-4">
+                                            <v-col cols="12" class="">
                                                 <v-btn @click="login()" color="primary" variant="flat" block
-                                                    size="large" :loading="themeStore.loading">
+                                                    size="large" :loading="themeStore.loading" class="text-capitalize rounded-sm">
                                                     {{ themeStore.loading ? "Loading..." : "Log In" }}
                                                 </v-btn>
                                             </v-col>
 
                                             <v-col cols="12" class="text-center pt-2">
-                                                <span class="text-body-2">Don't have an account?</span>
-                                                <v-btn to="/register" variant="plain" class="px-1 text-body-2"
-                                                    color="primary" size="small">
-                                                    Sign up
-                                                </v-btn>
+                                               <p>
+                                              Don't have an account?
+                                              <span><a href="/register" class="text-primary">Sign Up</a></span>
+                                               </p>
+                                               
                                             </v-col>
                                         </v-row>
                                     </div>
                                 </v-container>
                             </v-card-text>
                         </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
+                 
+            <!-- </v-container> -->
         </v-main>
     </v-app>
 </template>

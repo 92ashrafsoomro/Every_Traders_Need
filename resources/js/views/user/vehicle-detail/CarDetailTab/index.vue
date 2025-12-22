@@ -1,5 +1,5 @@
 <template>
-    <v-row no-gutters>
+    <v-row no-gutters >
         <v-col cols="12" class="mt-3 border ">
             <v-card>
                 <div class="pa-5">

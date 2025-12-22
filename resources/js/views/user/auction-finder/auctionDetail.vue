@@ -20,9 +20,10 @@
                     <tr @mouseover="hoveredRowId = item.id" class="mainTdBorder">
                         <td>
                             <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
-                            <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
-                                }}
-                            </span>
+                                <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{
+                                    item.variant_name
+                                    }}
+                                </span>
                             </v-btn>
                         </td>
                         <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
@@ -67,42 +68,12 @@
                                 <div class="d-flex ga-2">
                                     <img v-for="(img, i) in item.images.slice(0, 4)" :key="i" :src="img" width="45"
                                         height="45" class="rounded cursor-pointer"
-                                        @click="openViewer(item.images, i)" />
+                                        @click="openPreview(item.images, i)" />
                                 </div>
+                                <image-preview-carousel v-model="showPreview" :images="currentImages"
+                                    :startIndex="currentIndex" />
 
-                                <!-- IMAGE VIEWER -->
-                                <v-dialog v-model="imageDialog" fullscreen content-class="bg-transparent"
-                                    scrim="rgba(0,0,0,0.85)" >
-                                    <v-card flat class="bg-transparent d-flex align-center justify-center">
-                                        <!-- IMAGE WRAPPER -->
-                                        <div class="position-relative d-inline-flex align-center">
-
-                                            <!-- CLOSE -->
-                                            <v-btn icon class="position-absolute top-0  ma-3"
-                                            style="right:45px;"
-                                                @click="imageDialog = false">
-                                                <v-icon color="white">mdi-close</v-icon>
-                                            </v-btn>
-
-                                            <!-- PREV -->
-                                            <v-btn icon class="me-2" @click="prevImage" color="primary">
-                                                <v-icon color="white" size="36">mdi-chevron-left</v-icon>
-                                            </v-btn>
-
-                                            <!-- IMAGE -->
-                                            <img :src="currentImages[currentIndex]" style="max-height: 500px;"
-                                                class="rounded" />
-
-                                            <!-- NEXT -->
-                                            <v-btn icon class="ms-2" @click="nextImage" color="primary">
-                                                <v-icon color="white" size="36">mdi-chevron-right</v-icon>
-                                            </v-btn>
-
-                                        </div>
-                                    </v-card>
-                                </v-dialog>
-
-
+                              
                                 <!-- Report -->
                                 <div class="w-25 text-center">
                                     <v-btn size="small" color="primary" variant="flat" :href="item.inspection_report"
@@ -128,14 +99,18 @@
 <script>
 
 import { useAuctionStore } from "@/stores/auctionStore";
+import ImagePreviewCarousel from "./sidebar/fields/ImagePreviewCarousel.vue";
+
 export default {
+    components: {
+        ImagePreviewCarousel
+    },
     data() {
         return {
             auctionStore: useAuctionStore(),
             hoveredRowId: null,
-
-            imageDialog: false,
             currentImages: [],
+            showPreview: false,
             currentIndex: 0,
 
             headers: [
@@ -157,23 +132,16 @@ export default {
             }, 200)
         },
 
-        openViewer(images, index) {
+        openPreview(images, index) {
             this.currentImages = images
             this.currentIndex = index
-            this.imageDialog = true
+            this.showPreview = true
         },
 
         nextImage() {
             if (!this.currentImages.length) return
             this.currentIndex =
                 (this.currentIndex + 1) % this.currentImages.length
-        },
-
-        prevImage() {
-            if (!this.currentImages.length) return
-            this.currentIndex =
-                (this.currentIndex - 1 + this.currentImages.length) %
-                this.currentImages.length
         },
     }
 }
@@ -195,40 +163,6 @@ export default {
 .hover-row {
     animation: fadeIn 0.2s ease-in-out;
 }
-
-.image-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-}
-
-.viewer-image {
-    max-height: 500px;
-    max-width: 100%;
-    border-radius: 6px;
-}
-
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.nav-btn.left {
-    left: -50px;
-    /* ~10px gap from image */
-}
-
-.nav-btn.right {
-    right: -50px;
-}
-
-.close-btn {
-    position: absolute;
-    top: -40px;
-    right: 0;
-}
-
 
 @keyframes fadeIn {
     from {

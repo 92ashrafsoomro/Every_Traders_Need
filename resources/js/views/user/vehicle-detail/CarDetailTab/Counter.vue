@@ -20,8 +20,8 @@
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-speedometer-medium" ></v-btn>
             <div class="d-flex flex-column ga-1">
-                <p class="text-body-1 ">{{ vehicleStore.vehicle.mileage }}</p>
-                <p class="text-body-2 text-light_text_on mt-n1">Mileage</p>
+                <p class="text-body-1  ">{{ vehicleStore.vehicle.mileage }}</p>
+                <p class="text-body-2 text-light_text_on mt-n1" >Mileage</p>
             </div>
         </v-col>
         <v-col cols="6" lg="2" md="2" sm="3"

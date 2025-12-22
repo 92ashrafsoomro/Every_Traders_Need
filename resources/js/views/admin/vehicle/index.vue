@@ -69,7 +69,14 @@
                                     @page-changed="loadItems" />
                                 </div>
                             </template>
-
+                        <template #item.id="{ item }">
+                            <router-link
+                            :to="`vehicle/show/${item.id}`"
+                            class="text-primary font-weight-bold text-decoration-none"
+                            >
+                            {{ item.id }}
+                            </router-link>
+                        </template>
                         
                         </v-data-table-server>
                     </div>

@@ -7,7 +7,7 @@ import Support from '@/views/web/support/index.vue'
 import Checkout from '@/views/web/checkout/index.vue'
 
 import auctionsolutions from "@/views/web/auctionsolutions/index.vue"
-import auctionshedule from "@views/web/auctionshedule/index.vue"
+import auctionschedule from "@views/web/auctionschedule/index.vue"
 import privacy from '@/views/web/privacy/index.vue'
 import cookie from '@views/web/privacy/Cookie.vue'
 import terms  from '@/views/web/privacy/Terms.vue'
@@ -52,8 +52,8 @@ export default [
                 component : auctionsolutions
             },
             {
-                path : "auctionshedule",
-                component : auctionshedule
+                path : "auctionschedule",
+                component : auctionschedule
             },
             {
                 path:"privacy",

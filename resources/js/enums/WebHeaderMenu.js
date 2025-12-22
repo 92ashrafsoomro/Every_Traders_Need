@@ -18,6 +18,6 @@ export default [
     },
     {
         label: "Auction Schedule",
-        path: "/auctionshedule"
+        path: "/auctionschedule"
     }
 ];

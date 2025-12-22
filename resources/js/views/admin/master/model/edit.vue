@@ -107,8 +107,10 @@ export default {
     try {
         const id = this.$route.params.id;
         const res = await Model.find(id);
-        if (res.data && res.data.length > 0) {
-        const record = res.data[0];  
+        console.log(res.data); 
+        if (res.message && res.message.length > 0) {
+        const record = res.data;
+        this.makeid = record.make_id;
         this.id = record.id;
         this.titleInput = record.name;
         } else {

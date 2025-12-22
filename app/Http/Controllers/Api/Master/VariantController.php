@@ -45,7 +45,7 @@ class VariantController extends Controller
 
         $count = (clone $query)->count();
         $data = $query->select([
-                    'model.*',
+                    'model_variant.*',
                     'make.name as makeName',
                     'make.id as makeId',
                     'model.name as modelName',

@@ -18,31 +18,38 @@
           <v-container fluid>
             <v-row>
 
-              <!-- ID -->
+ 
               <v-col cols="4">
                 <v-text-field
                   v-model="id"
                   label="ID"
                   variant="outlined"
                   density="compact"
+                  persistent-placeholder=""
+                  color="primary"
                 />
               </v-col>
 
-              <!-- TITLE -->
+
               <v-col cols="4">
                 <v-text-field
                   v-model="titleInput"
                   label="Title"
                   variant="outlined"
                   density="compact"
+                  persistent-placeholder=""
+                  color="primary"
                 />
               </v-col>
 
-              <!-- UPLOAD -->
+
+
+
               <v-col cols="4">
                 <v-btn
                   variant="outlined"
                   class="w-100"
+                  color="primary"
                   @click="uploadImage"
                 >
                   <v-icon class="mr-2">mdi-upload</v-icon>
@@ -58,7 +65,7 @@
               </v-col>
 
   
-              <v-col cols="12" class="text-center mt-4">
+              <v-col class="d-flex justify-center text-center mt-4 w-100">
                 <v-img
                   v-if="imageUrl"
                   :src="imageUrl"

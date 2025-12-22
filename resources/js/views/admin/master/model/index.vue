@@ -162,23 +162,23 @@ export default {
                     this.loading = false
                 }
         },
-    async deleteItem(id) {
-                if (!confirm("Are you sure you want to delete this item?")) return;
-                this.loading = true;
-                try {
-                const res = await Model.delete(id);
-        
-                this.$alertStore.add(res.message || "Model deleted", "success");
-                this.loadItems(); 
-                
-            } catch (error) {
-                console.error(error);
-                this.$alertStore.add(error.message || "Delete failed", "error");
-                // this.loadItems(); 
-                } finally {
-                this.loading = false;
-                }
-            }
+        async deleteItem(id) {
+                    if (!confirm("Are you sure you want to delete this item?")) return;
+                    this.loading = true;
+                    try {
+                    const res = await Model.delete(id);
+            
+                    this.$alertStore.add(res.message || "Model deleted", "success");
+                    this.loadItems(); 
+                    
+                } catch (error) {
+                    console.error(error);
+                    this.$alertStore.add(error.message || "Delete failed", "error");
+                    // this.loadItems(); 
+                    } finally {
+                    this.loading = false;
+                    }
+        }
 
     }
   

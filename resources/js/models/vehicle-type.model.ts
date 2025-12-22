@@ -65,7 +65,7 @@ export default class VehicleType {
         static async find(id) {
         
         try {
-            const res = await api.get("/api/cruds/vehicleType/?id="+id);
+            const res = await api.get("/api/cruds/vehicleType/"+id);
             return res.data;
         
         } catch (error) {

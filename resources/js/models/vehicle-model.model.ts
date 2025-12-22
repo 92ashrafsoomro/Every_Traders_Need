@@ -53,7 +53,7 @@ export default class Model {
     static async find(id) {
         
         try {
-            const res = await api.get("/api/cruds/model/?id="+id);
+            const res = await api.get("/api/cruds/model/"+id);
             return res.data;
         
         } catch (error) {

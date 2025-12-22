@@ -1,4 +1,10 @@
 <template>
+     <user-title-bar>
+        <div>
+            <h1 class="text-h3 mb-2 font-weight-bold">Import CSV Data</h1>
+            <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
+        </div>
+    </user-title-bar>
     <v-container max-width="1400px" class="m-auto">
         <v-card class="border">
             <div class="border-b d-flex align-center justify-space-between px-4 py-3">
@@ -38,33 +44,31 @@
                             clearable />
                     </v-col>
                     <v-col cols="12" sm="4">
-                          <v-select 
-                            v-model="form.auction_type" 
-                            variant="outlined" 
+                          <AuctionTypeDropdown 
+                            v-model="form.auction_type"
                             label="Auction Type"
-                            :items="['Online','Live']"
+                            variant="outlined" 
                             base-color="white"
                             density="compact" 
-                            color="primary"  
-                                />
+                            />
                     </v-col>
                     <v-col cols="12" sm="4" >
                           <v-text-field 
                             v-model="form.auction_date" 
                             variant="outlined" 
                             label="Auction Date"
-                            type="date"
+                            type="datetime-local"
                             density="compact"
                             base-color="white" 
                             color="primary"  
                             clearable />
                     </v-col>
-                    <v-col cols="12" sm="4" >
+                    <v-col cols="12" sm="4" v-if="form.auction_type != 2" >
                           <v-text-field 
                             v-model="form.end_date" 
                             variant="outlined" 
                             label="End Date"
-                            type="date"
+                            type="datetime-local"
                             density="compact"
                             base-color="white" 
                             color="primary" 
@@ -90,7 +94,7 @@
                             />
                     </v-col>
                     <v-col cols="12" class="text-center" >
-                        <v-btn @click="submit()" color="primary" variant="flat" >Submit</v-btn>
+                        <v-btn @click="submit()" color="primary" class="text-capitalize"  variant="flat" >Submit</v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -101,12 +105,14 @@
 
 <script>
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
+import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
+
 import Auction from '@/models/auction.model';
 
 
 export default {
 
-    components:{PlateformDropdown},
+    components:{PlateformDropdown,AuctionTypeDropdown},
     data() {
 
         return {
@@ -116,7 +122,7 @@ export default {
                 name: '',
                 auction_date: '',
                 end_date: '',
-                auction_type:'Online',
+                auction_type:null,
                 platform_id: '',
                 csv_path:null,
             }
@@ -127,7 +133,11 @@ export default {
 
                 this.loading = true;
 
-                try {
+            try {
+
+                    if (this.form.auction_type == 2) {
+                        this.form.end_date = null;
+                    }
 
                     let res = await Auction.create(this.form);   
                     this.$alertStore.add(res.message, 'success');

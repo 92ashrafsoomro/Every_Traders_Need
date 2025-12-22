@@ -107,7 +107,6 @@ class VehicleController extends Controller
             }
 
         
-
             return response()->json([
                 'message' => 'Record Updated Successfully',
                 'data' => $model
@@ -116,6 +115,7 @@ class VehicleController extends Controller
         
     }
 
+    
       public function store(Request $request)
     {
 

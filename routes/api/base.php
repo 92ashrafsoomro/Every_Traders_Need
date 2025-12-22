@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+use App\Http\Controllers\Api\Master\AuctionTypeController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
@@ -164,7 +165,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
-        
+         Route::resource('auctionType',AuctionTypeController::class);
         Route::resource('auctions',AuctionController::class);
         Route::resource('vehicles',VController::class);
 

@@ -5,7 +5,7 @@
     <v-row>
 
       <v-col cols="12" md="6">
-        <Slider :images="sliderImages" />
+        <Slider :images="sliderImages" :auction="true" :vehicle="vehicle" />
       </v-col>
 
 

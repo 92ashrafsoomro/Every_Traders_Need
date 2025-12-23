@@ -1,47 +1,45 @@
 <template>
-  <v-window-item value="specifications" >
+  <v-window-item value="specifications">
     <h2 class="text-h5 mb-4">Specifications</h2>
 
-    <v-row >
-      <v-col cols="12" md="6" class="bg-surface rounded-lg mt-2 ">
-        <v-list class="mx-4 mr-4 my-4">
-          <v-list-item
-            v-for="(item, index) in leftDetails"
-            :key="'left-' + index"
-            class="px-0 rounded"
-            :class="index % 2 === 0 ? 'bg-dark' : 'bg-light_color'"
-          >
-            <v-list-item-title class="font-weight-bold">
-              {{ item.label }}
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-right">
-              {{ item.value }}
-            </v-list-item-subtitle>
-          </v-list-item>
-        </v-list>
+    <v-row dense>
+      <!-- Left Specifications Card -->
+      <v-col cols="12" md="6">
+        <v-card class="pa-4 rounded-lg elevation-2">
+          <v-list class="pa-0">
+            <v-list-item
+              v-for="(item, index) in leftDetails"
+              :key="'left-' + index"
+              class="px-0 rounded"
+              :class="index % 2 === 0 ? 'bg-dark' : 'bg-light_color'"
+            >
+              <v-list-item-title class="font-weight-bold">{{ item.label }}</v-list-item-title>
+              <v-list-item-subtitle class="text-right">{{ item.value }}</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
+        </v-card>
       </v-col>
 
-
-      <v-col cols="12" md="6" class="bg-surface rounded-lg mt-2">
-        <v-list class="mx-4 mr-4 my-4">
-          <v-list-item
-            v-for="(item, index) in rightDetails"
-            :key="'right-' + index"
-            class="px-0 rounded"
-            :class="index % 2 === 0 ? 'bg-dark' : 'bg-light_color'"
-          >
-            <v-list-item-title class="font-weight-bold">
-              {{ item.label }}
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-right">
-              {{ item.value }}
-            </v-list-item-subtitle>
-          </v-list-item>
-        </v-list>
+      <!-- Right Specifications Card -->
+      <v-col cols="12" md="6">
+        <v-card class="pa-4 rounded-lg elevation-2">
+          <v-list class="pa-0">
+            <v-list-item
+              v-for="(item, index) in rightDetails"
+              :key="'right-' + index"
+              class="px-0 rounded"
+              :class="index % 2 === 0 ? 'bg-dark' : 'bg-light_color'"
+            >
+              <v-list-item-title class="font-weight-bold">{{ item.label }}</v-list-item-title>
+              <v-list-item-subtitle class="text-right">{{ item.value }}</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
+        </v-card>
       </v-col>
     </v-row>
   </v-window-item>
 </template>
+
 
 
 <script>

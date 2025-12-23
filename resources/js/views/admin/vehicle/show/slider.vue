@@ -55,7 +55,7 @@
       </div>
 
       <div class="text-subtitle-1 font-weight-medium">
-        {{ vehicle.user ?? "Unknow" }}
+        <!-- {{ vehicle.user ?? "Unknow" }} -->
       </div>
     </div>
   </v-col>

@@ -1,18 +1,30 @@
 <template>
   <v-app>
-    <v-container fluid class="pa-6">
-      <v-row>
-        
+      <user-title-bar>
+        <div>
+            <h1 class="text-h3 mb-2 font-weight-bold">{{ vehicle.title }}</h1>
+            <p class="text-subtitle-1 mb-2 font-weight-medium">Created by <span class="text-primary"> {{ vehicle.created_by ?? "Muhammad Shakeeb Raza" }} </span></p>
 
- 
-        <v-col cols="12" md="12">
-          <v-tabs v-model="tab" bg-color="transparent" color="primary">
+            <div class="d-flex mt-6  ga-3">
+
+            <v-tabs v-model="tab" bg-color="transparent" color="primary">
             <v-tab value="vehicle">VEHICLE</v-tab>
             <v-tab value="specifications">Specifications</v-tab>
             <v-tab value="Servicehistory">Service History & Pricings</v-tab>
             <v-tab value="condition">Condition</v-tab>
             <v-tab value="additionalinformation">Additional information</v-tab>
           </v-tabs>
+
+            </div>
+        </div>
+    </user-title-bar>
+    <v-container fluid class="pa-6">
+      <v-row>
+        
+  
+ 
+        <v-col cols="12" md="12">
+     
 
           <v-divider class="mb-4"></v-divider>
 
@@ -23,7 +35,8 @@
             <Specifications :vehicle="vehicle" />
             <Servicehistory :vehicle="vehicle" />
             <Condition :vehicle="vehicle" :images="damaged_images" :damage_details="damage_details" />
-
+            <Additionalinformation :vehicle="vehicle" />
+            
             <v-window-item value="Pricings">
               <p class="text-center pa-10">Damage report content</p>
             </v-window-item>
@@ -36,17 +49,18 @@
 
 <script>
 import VehicleDetail from '@/models/getvehicledetail.model';
-
 import Vehicledetail from './Vehicledetail.vue';
 import Specifications from './specifications.vue';
 import Servicehistory from './Servicehistory.vue';
+import Additionalinformation from './additionalinformation.vue';
 import Condition from './condition.vue';
 export default {
   components: {
     Vehicledetail,
     Specifications,
     Servicehistory,
-    Condition
+    Condition,
+    Additionalinformation
   },
 
   data() {

@@ -217,9 +217,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'User not found or not authorized.',], 422);
         }
 
-        if ($user->email_verification_token_status == 0) {
-            return response()->json(['message' => 'This user verification not be done',], 422);
-        }
+        // if ($user->email_verification_token_status == 0) {
+        //     return response()->json(['message' => 'This user verification not be done',], 422);
+        // }
 
         if ($user->status == 0) {
             return response()->json(['message' => 'Your account is deactivated or blocked. Please contact support.',], 422);

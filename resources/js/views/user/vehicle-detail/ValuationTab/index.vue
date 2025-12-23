@@ -1,28 +1,24 @@
 <template>
     <v-container fluid style="max-width: 1400px; " class="justify-center ">
         <v-row>
-            <v-col>
-                <div class=" d-flex  justify-end mr-12">
-                    <v-btn color="danger" class="text-capitalize">Reauction Detacted</v-btn>
-                    <v-icon class="ml-3 text-primary">mdi-bell-outline</v-icon>
-                </div>
-            </v-col>
+
         </v-row>
         <v-row class="">
 
             <!-- Left Column -->
 
-            <v-col cols="12" lg="8">
-                <v-row class="d-flex flex-wrap  pa-0 ga-4" style="max-width: 1000px; ">
+            <v-col cols="12" lg="9">
+                <v-row class="  pa-0 ga-4 ">
                     <!-- First -->
-                    <v-col sm="12" md="8" lg="6" class="pa-0 rounded-lg ">
+
+                    <v-col sm="12" md="8" lg="5" class="pa-0 rounded-lg ">
 
                         <custom-card title="Trade Values">
 
-                            <v-container fluid>
+                            <v-container class="px-6 pb-0">
                                 <v-row>
                                     <v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">Autotrader</div>
+                                        <div class="text-body-2  mb-1">Autotrader</div>
                                         <div class="text-h6 font-weight-bold ">£{{
                                             vehicleStore.vehicle.autotrader_trade_value }}</div>
                                         <div class="d-flex mt-2">
@@ -34,7 +30,7 @@
                                         </div>
                                     </v-col>
                                     <v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">CAP</div>
+                                        <div class="text-body-2  mb-1">CAP Trade</div>
                                         <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
                                         </div>
                                         <div class="d-flex mt-2">
@@ -45,7 +41,7 @@
                                             <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                         </div>
                                     </v-col><v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">CAP</div>
+                                        <div class="text-body-2  mb-1">CAP</div>
                                         <div class="text-h6 font-weight-bold ">£{{
                                             vehicleStore.vehicle.autotrader_trade_value }}</div>
                                         <div class="d-flex mt-2">
@@ -57,7 +53,7 @@
                                         </div>
                                     </v-col>
                                     <v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">CAP</div>
+                                        <div class="text-body-2  mb-1">CAP</div>
                                         <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
                                         </div>
                                         <div class="d-flex mt-2">
@@ -71,38 +67,40 @@
                                 </v-row>
                             </v-container>
 
-                        </custom-card>
 
-                        <custom-card title="Retail Values" class="mt-4">
-                            <v-container fluid>
-                                <v-row>
-                                    <v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">Autotrader</div>
-                                        <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
-                                        </div>
-                                        <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
-                                                style="font-size: 10px;">
-                                                <span class="text-white">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-2 text-caption d-flex align-center ">From last month</p>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <div class="text-subtitle-2  mb-1">CAP</div>
-                                        <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
-                                        </div>
-                                        <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
-                                                style="font-size: 10px;">
-                                                <span class="text-white">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-2 text-caption d-flex align-center ">From last month</p>
-                                        </div>
-                                    </v-col>
-                                </v-row></v-container>
-                        </custom-card>
 
+                            <custom-card title="Retail Values" class="mt-4 rounded-none">
+                                <v-container class="px-6 ">
+                                    <v-row>
+                                        <v-col cols="6">
+                                            <div class="text-body-2  mb-1">Autotrader</div>
+                                            <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                                }}
+                                            </div>
+                                            <div class="d-flex mt-2">
+                                                <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                                    style="font-size: 10px;">
+                                                    <span class="text-white">↑ 5.6%</span>
+                                                </v-chip>
+                                                <p class="ml-2 text-caption d-flex align-center ">From last month</p>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <div class="text-body-2  mb-1">Retail CAP</div>
+                                            <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                                }}
+                                            </div>
+                                            <div class="d-flex mt-2">
+                                                <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                                    style="font-size: 10px;">
+                                                    <span class="text-white">↑ 5.6%</span>
+                                                </v-chip>
+                                                <p class="ml-2 text-caption d-flex align-center ">From last month</p>
+                                            </div>
+                                        </v-col>
+                                    </v-row></v-container>
+                            </custom-card>
+                        </custom-card>
                     </v-col>
 
 
@@ -128,7 +126,7 @@
 
                                 <!-- Car Details -->
                                 <div class="text-h6 mt-3 text-light font-weight-bold mb-4">{{ vehicleStore.vehicle.title
-                                    }}</div>
+                                }}</div>
 
                             </div>
 
@@ -137,7 +135,7 @@
                                 <v-row class=" d-flex flex-wrap bg-background  "
                                     style="border-left: 4px solid var(--primary-color);">
                                     <v-col>
-                                        <p class="  text-capitalize" style="font-size: 13px;">Auction House</p>
+                                        <p class="  text-capitalize text-body-2">Auction House</p>
                                         <p class="text-body-2 mt-2 pl-3  "
                                             style="background-color: rgb(var(--v-theme-primary),0.2); border-radius: 5px ; padding: 5px 10px 5px 10px;">
                                             {{
@@ -146,20 +144,20 @@
 
 
                                     <v-col>
-                                        <p cl3ass="textSizes text-light text-capitalize width: 110px;  ">Time</p>
-                                        <p class="text-body-2 mt-2 ">{{ vehicleStore.vehicle.auction_date }}</p>
+                                        <p class=" text-capitalize text-body-2">Time</p>
+                                        <p class=" text-body-2 mt-3 ">{{ vehicleStore.vehicle.auction_date }}</p>
                                     </v-col>
 
                                     <v-col>
-                                        <p class="textSizes text-light text-capitalize">Auction Status</p>
-                                        <p class="text-body-2 mt-2 ">{{ vehicleStore.vehicle.bidding_status }}</p>
+                                        <p class="text-body-2 text-capitalize">Auction Status</p>
+                                        <p class="text-body-2 mt-3 ">{{ vehicleStore.vehicle.bidding_status }}</p>
                                     </v-col>
 
 
                                 </v-row>
                             </div>
 
-                            <v-col class="pa-1 mt-6" style="height: 240px;">
+                            <v-col class="pa-1 mt-6">
                                 <v-img :src="image" class="rounded-lg h-100 cursor-pointer" @click="dialog = true"
                                     cover />
                                 <v-dialog v-model="dialog" max-width="50%">
@@ -193,23 +191,28 @@
 
 
             <!-- Right Column -->
-            <v-col style="max-width: 400px;" cols="12" lg="4">
+            <v-col cols="12" lg="3">
 
                 <v-row class="ml-lg-1 ml-md-3  mt-1 mt-lg-n3 mt-md-0">
                     <v-col class="bg-surface  pa-0  border rounded-lg" cols="12">
-                        <custom-card title="Autoboli Predicted">
-                            <v-container fluid>
+                        <custom-card title="Accuracy %">
+                            <v-container class="px-6 pb-6">
                                 <div class="">
 
 
-                                    <div class="d-flex justify-space-between pb-2 pt-2">
-                                        <div>CAP</div>
-                                        <div>{{ vehicleStore.vehicle.cap_average }}%</div>
+                                    <div class="d-flex justify-space-between  pb-2 pt-2">
+                                        <div class="text-body-2">CAP</div>
+
+                                        <div class="text-body-2">{{ vehicleStore.vehicle.cap_average }}%</div>
+
                                     </div>
-                                    <div class="d-flex justify-space-between">
-                                        <div>AUTOTRADER</div>
-                                        <div>{{ vehicleStore.vehicle.autotrader_trade_value }}%</div>
+                                    <v-progress-linear model-value="20"></v-progress-linear>
+                                    <div class="d-flex justify-space-between mt-8 mb-3">
+                                        <div class="text-body-2">AUTOTRADER</div>
+                                        <div class="text-body-2">{{ vehicleStore.vehicle.autotrader_trade_value }}%
+                                        </div>
                                     </div>
+                                    <v-progress-linear model-value="20"></v-progress-linear>
                                 </div>
                             </v-container>
                         </custom-card>
@@ -217,97 +220,119 @@
 
                     <v-col class="bg-surface mt-3 pa-0  border rounded-lg" cols="12">
                         <custom-card title="Auction Results">
-                            <v-container fluid>
+                            <v-container class="px-6 pb-6">
 
                                 <div class="">
                                     <div class="d-flex justify-space-between pb-2 pt-2">
                                         <div class="text-body-2">Auc Status</div>
                                         <div style="background-color: rgb(var(--v-theme-primary),0.2) ; padding: 1px 9px  ;"
-                                            class="rounded-sm">{{ vehicleStore.vehicle.sold || "Sold" }}</div>
+                                            class="rounded-sm text-body-2">{{ vehicleStore.vehicle.sold || "Sold" }}
+                                        </div>
                                     </div>
                                     <div class="d-flex justify-space-between pb-2 pt-2">
                                         <div class="text-body-2">Win bid/Last Bid</div>
-                                        <div><span class="text-warning">{{ vehicleStore.vehicle.win_bid || "5"
-                                        }}%</span> £{{
-                                                    vehicleStore.vehicle.last_bid }}</div>
+                                        <div><span class="text-warning text-body-2">{{ vehicleStore.vehicle.win_bid ||
+                                            "5"
+                                                }}%</span> <span class="text-body-2"> £{{ vehicleStore.vehicle.last_bid
+                                                }}</span></div>
                                     </div>
                                     <div class="d-flex justify-space-between pb-2 pt-2">
                                         <div class="text-body-2">No of bids</div>
-                                        <div>{{ vehicleStore.vehicle.no_of_bid || 0 }}</div>
+                                        <div class="text-body-2">{{ vehicleStore.vehicle.no_of_bid || 0 }}</div>
                                     </div>
                                     <v-divider class="mt-2"></v-divider>
                                 </div>
                                 <div class="justify-space-between mt-3">
                                     <div class="text-body-2 pb-2">Auc Status</div>
-                                    <div>{{ vehicleStore.vehicle.auction_status || "£19,850, £19,950," }}</div>
+                                    <div class="text-body-2">{{ vehicleStore.vehicle.auction_status }}</div>
                                 </div>
                             </v-container>
                         </custom-card>
                     </v-col>
+                    <v-col class="bg-surface mt-3 pa-0 border rounded-lg" cols="12">
+                        <custom-card title="Pre Vehicles">
+                            <v-container class="px-6 pb-0">
 
-                    <v-col class="bg-surface mt-3 pa-0  border rounded-lg" cols="12">
-                        <custom-card title="Pre Vahicls">
-                            <v-container fluid>
-                                <div>
-                                    <div class="today">
-                                        <h4 class="">Today</h4>
-                                        <div class="d-flex justify-space-between mt-2">
-                                            <div class="left d-flex  ">
-                                                <img :src="image" class="rounded-lg cursor-pointer"
-                                                    @click="dialog = true" height="40" cover />
+                                <!-- TODAY -->
+                                <h4 class="text-body-2 text-light_text_on mb-2">Today</h4>
 
-                                                <v-dialog v-model="dialog" max-width="50%">
-                                                    <v-card>
-                                                        <v-img :src="image" contain></v-img>
-                                                    </v-card>
-                                                </v-dialog>
+                                <table class="w-100 text-center ml-n2">
+                                    <thead>
+                                        <tr class="text-grey-lighten-1">
+                                            <th class="py-2">Image</th>
+                                            <th class="py-2">Name</th>
+                                            <th class="py-2">Status</th>
+                                            <th class="py-2">ID</th>
+                                        </tr>
+                                    </thead>
 
-                                                <div class="d-flex  align-center">
-                                                    <h4 class="mx-2 text-light_text_on">ABC</h4>
-                                                    <h4 class="mx-2 text-light_text_on">123</h4>
-                                                    <div style="background-color: rgb(var(--v-theme-primary),0.2) ; padding: 1px 9px  ;"
-                                                        class="rounded-sm">{{ vehicleStore.vehicle.sold || "Sold" }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right d-flex align-center text-light_text_on">
-                                                <h3>£{{ vehicleStore.vehicle.auction_id }}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="yesterday mt-4">
-                                        <h4 class="">Yesterday</h4>
-                                        <div class="d-flex justify-space-between mt-2 pb-2 " v-for="value in [1, 2, 3]">
-                                            <div class="left d-flex  ">
-                                                <img :src="image" class="rounded-lg cursor-pointer" height="40" cover
-                                                    @click="dialog = true" />
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-2">
+                                                <v-img :src="image" height="40" width="40"
+                                                    class="mx-auto rounded-lg cursor-pointer" @click="dialog = true" />
+                                            </td>
 
-                                                <v-dialog v-model="dialog" max-width="50%">
-                                                    <v-card>
-                                                        <v-img :src="image" contain></v-img>
-                                                    </v-card>
-                                                </v-dialog>
-                                                <div class="d-flex  align-center">
-                                                    <h4 class="mx-2 text-light_text_on">ABC</h4>
-                                                    <h4 class="mx-2 text-light_text_on">123</h4>
-                                                    <div style="background-color: rgb(var(--v-theme-primary),0.2) ; padding: 1px 9px  ;"
-                                                        class="rounded-sm">{{ vehicleStore.vehicle.sold || "Sold" }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right d-flex align-center text-light_text_on">
-                                                <h3>£{{ vehicleStore.vehicle.auction_id }}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <td class="text-grey-lighten-2">
+                                                {{ vehicleStore.vehicle.reg }}
+                                            </td>
+
+                                            <td>
+                                                <v-chip size="small" color="primary" variant="tonal">
+                                                    {{ vehicleStore.vehicle.sold || 'Sold' }}
+                                                </v-chip>
+                                            </td>
+
+                                            <td class="text-grey-lighten-2">
+                                                £{{ vehicleStore.vehicle.auction_id }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <!-- YESTERDAY -->
+                                <h4 class="text-body-2 text-light_text_on mt-6 mb-2">Yesterday</h4>
+
+                                <table class="w-100 text-center ml-n2 mb-10 ">
+                                    <thead>
+                                        <tr class="text-grey-lighten-1">
+                                            <th class="py-2">Image</th>
+                                            <th class="py-2">Name</th>
+                                            <th class="py-2">Status</th>
+                                            <th class="py-2">ID</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr class="border-b" v-for="value in [1, 2, 3]">
+                                            <td class="py-2">
+                                                <v-img :src="image" height="40" width="40"
+                                                    class="mx-auto rounded-lg cursor-pointer" @click="dialog = true" />
+                                            </td>
+
+                                            <td class="text-grey-lighten-2">
+                                                {{ vehicleStore.vehicle.reg }}
+                                            </td>
+
+                                            <td>
+                                                <v-chip size="small" color="primary" variant="tonal">
+                                                    {{ vehicleStore.vehicle.sold || 'Sold' }}
+                                                </v-chip>
+                                            </td>
+
+                                            <td class="text-grey-lighten-2">
+                                                £{{ vehicleStore.vehicle.auction_id }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                             </v-container>
-
-
                         </custom-card>
-
-
                     </v-col>
+
+
                 </v-row>
             </v-col>
 
@@ -376,5 +401,18 @@ export default {
 
 .mobile-panel {
     max-width: 280px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    font-size: 14px;
+}
+
+.border-b {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 </style>

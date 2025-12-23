@@ -9,32 +9,24 @@
 
   <v-app class="bg-surface">
     <!-- Decorative Shape -->
-    <div
-      class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
-      style="z-index: 0; border-radius: 0 300px 0 0;"
-    ></div>
+    <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
+      style="z-index: 0; border-radius: 0 300px 0 0;"></div>
 
-      <AuthHeader></AuthHeader>
+    <AuthHeader></AuthHeader>
     <!-- Main -->
     <v-main class="h-screen d-flex align-center justify-center pa-4 pa-lg-0" style="z-index: 10;">
-      <v-card
-        color="background"
-        class="pa-lg-10 pa-6 mx-auto border-sm "
-        rounded="lg"
-        style="width: 480px;"
-      >
+      <v-card color="background" class="pa-lg-10 pa-6 mx-auto border-sm " rounded="lg" style="width: 480px;">
         <!-- Title -->
         <v-card-item>
-          <v-card-title
-            class="text-center text-h5 text-md-h4 font-weight-bold"
-          >
-          
+          <v-card-title class="text-center text-h5 text-md-h4 font-weight-bold">
+
             Verify Code
             <p class="text-body-2 mt-1">
               Enter the 6-digit code sent to your email
             </p>
-             <p class="text-body-2 pa-2 rounded-sm mb-2 mt-2" style="background-color: rgb(var(--v-theme-primary),0.2);">huzaifaabdulrab2@gmail.com</p>
-         
+            <p class="text-body-2 pa-2 rounded-sm mb-2 mt-2" style="background-color: rgb(var(--v-theme-primary),0.2);">
+              huzaifaabdulrab2@gmail.com</p>
+
           </v-card-title>
 
         </v-card-item>
@@ -43,41 +35,22 @@
 
         <!-- Content -->
         <div class="mt-6">
-       
+
 
           <!-- OTP Inputs -->
           <v-row justify="center" class="mb-6" dense>
-            <v-col
-              v-for="(digit, index) in otp"
-              :key="index"
-              cols="2"
-            >
-              <v-text-field
-                v-model="otp[index]"
-                maxlength="1"
-                variant="outlined"
-                density="comfortable"
-                color="primary"
-                class="text-center   otp-input "
-                style="border: none;"
-            
-             
-              
-              />
+            <v-col v-for="(digit, index) in otp" :key="index" cols="2">
+              <v-text-field v-model="otp[index]" maxlength="1" variant="outlined" density="comfortable" color="primary"
+                class="text-center   otp-input " style="border: none;" />
             </v-col>
           </v-row>
 
           <!-- Button -->
-          <v-btn
-            color="primary"
-            variant="flat"
-            block
-            size="large"
-            class="text-capitalize rounded-sm"
-          >
-           <router-link to="resetpassword" style="text-decoration: none; color: white;">Verify</router-link>
-          </v-btn>
-
+          <router-link to="resetpassword" style="text-decoration: none; color: white;"><v-btn color="primary"
+              variant="flat" block size="large" class="text-capitalize rounded-sm">
+              Verify
+            </v-btn>
+          </router-link>
           <!-- Resend -->
           <div class="text-center mt-4 text-body-2">
             Didn’t receive code?
@@ -92,20 +65,20 @@
 </template>
 
 <script>
-    import AuthHeader from "./AuthHeader.vue";
+import AuthHeader from "./AuthHeader.vue";
 
 export default {
-    name: "verify",
-    components: {
-        AuthHeader
-    },
-    data() {
+  name: "verify",
+  components: {
+    AuthHeader
+  },
+  data() {
     return {
       otp: ['', '', '', '', '', ''],
     };
   },
   methods: {
-    
+
   },
 };
 </script>
@@ -117,6 +90,7 @@ export default {
   font-size: 22px;
   font-weight: 600;
 }
+
 .cursor-pointer {
   cursor: pointer;
 }

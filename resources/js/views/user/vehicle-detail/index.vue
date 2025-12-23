@@ -1,22 +1,30 @@
 <template>
+    <!-- SIDEBAR OVERLAY -->
+    <v-navigation-drawer v-model="vehicleStore.sidebar" location="left" temporary width="300" class="bg-surface">
+
+        <v-btn value="details" height="50" @click="vehicleStore.sidebar = !vehicleStore.sidebar"
+            class="bg-background text-capitalize text-body-1 border position-absolute" style="z-index: 10; right: 0;">
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <VehicleSidebar />
+
+    </v-navigation-drawer>
     <!-- TOP BACKGROUND -->
-    <div class="w-100 bg-surface pb-8" style="position: absolute; height: 400px;">
+    <div class="w-100 bg-surface pb-8" style="position:absolute; height:400px;">
         <div class="pattern-bg"></div>
 
-        <div class="position-relative pt-5 mx-auto px-2 px-lg-4" style="max-width: 1400px; z-index: 10">
+        <div class="position-relative pt-5 mx-auto px-2 px-lg-4" style="max-width:1400px; z-index:10">
             <slot />
         </div>
     </div>
 
-
-    <v-container fluid class="mt-10">
+    <v-container fluid class="mt-10 p-0 " style="max-width: 1400px">
 
         <v-row justify="center">
-            <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"
-                style="position: sticky; top: 40px; left: 0px;">
-                <VehicleSidebar />
-            </v-col>
-            <v-col cols="12" style="max-width: 1400px">
+
+
+
+            <v-col cols="12">
 
                 <v-row v-if="loading">
                     <v-col cols="12" class="text-center">
@@ -37,30 +45,55 @@
 
                         <v-row style="position: relative;">
 
-
-
-
-
                             <v-col>
                                 <v-row no-gutters>
+                                    <!-- class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal" -->
 
-                                    <v-col cols="12"
-                                        class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal">
-                                        <v-btn-toggle style="overflow: hidden;"> <v-btn size="small" color="primary"
-                                                @click="vehicleStore.sidebar = !vehicleStore.sidebar"> <v-icon
-                                                    size="large">mdi-menu</v-icon> </v-btn> </v-btn-toggle>
+                                    <v-col cols="12" class="d-flex  mb-6   justify-space-between align-center">
+                                        <div class="d-flex ga-3">
 
-                                        <v-btn-toggle v-model="vehicleStore.tab" class="w-100 d-flex ga-4"
-                                            color="primary" mandatory>
-                                            <v-btn value="details" height="50" class="text-capitalize text-body-1">
-                                                Vehicle Details
+
+
+                                            <v-btn value="details" height="50"
+                                                @click="vehicleStore.sidebar = !vehicleStore.sidebar"
+                                                class="bg-background text-capitalize text-body-1 border">
+                                                <v-icon>mdi-menu</v-icon>
                                             </v-btn>
 
-                                            <v-btn value="valuation" height="50" class="text-capitalize text-body-1">
-                                                Vehicle Valuation
+
+
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 h-100 d-flex ga-4"
+                                                mandatory>
+                                                <v-btn value="details" height="50" variant="tonal"
+                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }"
+                                                    style="border-radius: 5px">
+                                                    Vehicle Details
+                                                </v-btn>
+
+                                                <v-btn value="valuation" height="50" variant="tonal"
+                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }"
+                                                    style="border-radius: 5px">
+                                                    Vehicle Valuation
+                                                </v-btn>
+                                            </v-btn-toggle>
+
+                                        </div>
+                                        <div class="d-flex ga-3">
+                                            <v-btn value="Reauction Detacted" height="50"
+                                                class="text-capitalize text-body-1"
+                                                style="background-color: rgb(var(--v-theme-danger), 0.2);">
+                                                Reauction Detacted
                                             </v-btn>
-                                        </v-btn-toggle>
-                                       
+                                            <v-btn value="Reauction Detacted" height="50"
+                                                class="bell text-capitalize text-body-1 bg-background border"
+                                                style="background-color: rgb(var(--v-theme-primary), 0.2);">
+                                                <v-icon class=" text-primary">mdi-bell-outline</v-icon>
+
+                                            </v-btn>
+                                        </div>
+
                                     </v-col>
 
 
@@ -225,6 +258,14 @@ export default {
     display: none;
 }
 
+.v-btn.bell:hover {
+    background-color: rgb(var(--v-theme-primary), 0.2) !important;
+}
+
+.v-btn-toggle .v-btn--active {
+    background-color: rgb(var(--v-theme-primary)) !important;
+    color: white !important;
+}
 
 @media (max-width: 1440px) {}
 

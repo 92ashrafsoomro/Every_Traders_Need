@@ -2,12 +2,14 @@
     <div v-if="images">
         <v-responsive>
             <div>
-                <v-img v-if="image" :src="image" class="rounded cursor-pointer" @click="openPreview" />
+                <v-img v-if="image" :src="image" class="rounded cursor-pointer" />
 
                 <!-- Overlay Icon -->
-                <v-btn icon  size="small" class=" position-absolute top-0 right-0 ma-2"
+                <v-btn icon  size="small" class="d-flex position-absolute top-0 right-0 ma-2 rounded-sm  "
+                style="width: 40px; height: 40px;"
+                
                     @click.stop="openPreview">
-                    <v-icon color="primary">mdi-magnify-plus</v-icon>
+                    <v-icon color="primary" size="30">mdi-fullscreen</v-icon>
                 </v-btn>
             </div>
 

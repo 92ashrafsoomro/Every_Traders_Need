@@ -1,6 +1,6 @@
 <template>
-    <v-container fluid max-width="1300px" class="bg-background pa-8">
-        <v-row>
+    <v-container fluid max-width="1400px" class="bg-background pa-8">
+        <v-row class="mt-4">
             <v-col cols="12">
                 <h1 class="text-h4 text-white mb-6 text-center">Checkout</h1>
             </v-col>

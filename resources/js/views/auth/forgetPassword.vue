@@ -25,19 +25,23 @@
                 </v-divider>
                 <div class="mt-4">
                     <v-row>
-                        
-                         <v-col cols="12">
-                            <v-text-field clearable type="email" prepend-inner-icon="mdi-email-outline"
-                                variant="outlined" label="Email" density="comfortable" color="primary" />
+
+                        <v-col cols="12">
+                            <v-text-field clearable v-model="form.email" type="email"
+                                prepend-inner-icon="mdi-email-outline" variant="outlined" label="Email"
+                                density="comfortable" color="primary" />
                         </v-col>
                         <v-col cols="12" class="">
-                        <v-btn color="primary" variant="flat" block size="large" class="text-capitalize rounded-sm">
-                           <router-link  href="emailverify" style="text-decoration: none; color: white;"> {{ "Forget Password" }}</router-link>
-                        </v-btn>
-                        <div class="d-flex justify-center  mt-4 "><router-link to="login"  class="text-body-2 text-primary">Go Back</router-link></div>
-                    </v-col>
+
+                            <v-btn @click="formSubmit" color="primary" variant="flat" block size="large"
+                                class="text-capitalize rounded-sm">
+                                Verify Email
+                            </v-btn>
+                            <div class="d-flex justify-center  mt-4 "><router-link to="login"
+                                    class="text-body-2 text-primary">Go Back</router-link></div>
+                        </v-col>
                     </v-row>
-                    
+
                 </div>
             </v-card>
         </v-main>
@@ -45,12 +49,39 @@
 </template>
 
 <script>
+import api from "@/plugins/axios";
 import AuthHeader from "./AuthHeader.vue";
-
+import UserModel from "@/models/user.model";
 
 export default {
     name: "Login",
     components: {
         AuthHeader
-    },}
+    },
+    data: () => ({
+        form: {
+            email: ""
+        }
+    }),
+    methods: {
+        async formSubmit() {
+  try {
+    let res = await api.post("/api/auth/forgotPassword", {
+      email: this.form.email
+    });
+
+    this.form.email = "";
+    this.$alertStore.add("Password reset link sent successfully");
+    // this.$router.replace("/verifyemail");
+
+  } catch (error) {
+    this.$alertStore.add(
+      error.response?.data?.message || "Something went wrong",
+      "error"
+    );
+  }
+}
+    },
+    
+}
 </script>

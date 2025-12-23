@@ -6,7 +6,16 @@
         </div>
     </user-title-bar>
     <v-container class="m-auto">
-        <v-card class="border">
+        <v-card :loading="loading" :disabled="loading" class="border">
+
+            <v-file-input
+                v-model="csv"
+                label="Upload CSV"
+                prepend-icon="mdi-file"
+                variant="filled"
+                @change="handleFile"
+                />
+
             <div class="border-b d-flex align-center justify-space-between px-4 py-3">
                 <h3 class="text-h6">
                  Edit CSV
@@ -21,62 +30,32 @@
                     </v-btn>
             </div>
             <v-card-text>
-
             <v-table
                 style=" table-layout: fixed;
-            width: 100%;"
-             height="500px"
-             fixed-header
-            >
+                width: 100%;"
+                height="500px"
+                fixed-header
+                >
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th v-for="value in columns" :style="{ width: value?.width }"  class="text-left">
                          {{value.title}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item ,key) in data" >
+                    <tr v-for="(item,id) in data" >
+                        <td>{{ id }}</td>
                         <td v-for="col in columns">
-                            <div v-if="col.disabled"  >
-                                <input disabled class=" py-2" :value="item[col.key]" >
+                            <div v-if="col.key == 'vehicle_id'">
+                                  <v-btn @click="handleVehicle(id)">{{ item[col.key] }}</v-btn>
                             </div>
-                             <div v-else >
-
-                                <div v-if="col.key == 'vehicle_id'">
-                                    <select style="width: 200px;" v-model="data[key][col.key]" >
-                                        <option v-for="v in vehicles" :value="v.id">{{ v.name }}</option>
-                                    </select>
-                                </div>
-
-                                <div v-else-if="col.key == 'body_id'">
-                                    <select style="width: 200px;" v-model="data[key][col.key]" >
-                                       <option v-for="b in body" :value="b.id">{{ b.name }}</option>
-                                     </select>
-                                </div>
-
-                                 <div v-else-if="col.key == 'make_id'">
-                                    <select style="width: 200px;" v-model="data[key][col.key]" >
-                                       <option v-for="m in make" :value="m.id">{{ m.name }}</option>
-                                     </select>
-                                </div>
-                                 <div v-else-if="col.key == 'model_id'">
-                                    <select style="width: 200px;" v-model="data[key][col.key]" >
-                                       <option v-for="b in model" :value="b.id">{{ b.name }}</option>
-                                     </select>
-                                </div>
-                                <div v-else-if="col.key == 'variant_id'">
-                                    <select style="width: 200px;" v-model="data[key][col.key]" >
-                                       <option v-for="v in variant" :value="v.id">{{ v.name }}</option>
-                                     </select>
-                                </div>
-                                <div v-else >
-                                    <input  class="border py-2 px-1" v-model="data[key][col.key]" >
-                                </div>
-
-                             
-
-                                
+                            <div v-else-if="col.disabled">
+                                <input disabled class=" py-2" :value="item[col.key]" />
+                            </div>
+                            <div v-else>
+                                <input class="border py-2 px-1" :value="item[col.key]" @change="updateCell(id, col.key, $event.target.value)" />
                             </div>
                         </td>
                     </tr>
@@ -84,6 +63,16 @@
             </v-table>
             </v-card-text>
         </v-card>
+
+
+
+        <v-btn @click="handleVehicle(1)" >Open</v-btn>
+        
+        <PopUp :dailog="vehicleDailog" :onChange="hanldeDailog"   />
+
+    
+
+
     </v-container>
 </template>
 
@@ -91,27 +80,37 @@
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import Auction from '@/models/auction.model';
 import columns from './columns'
-import VehicleType from '@/models/vehicle-type.model';
-import BodyType from '@/models/body-type.model';
-import Make from '@/models/make.model';
-import Model from '@/models/vehicle-model.model';
-import Variant from '@/models/variant.model';
+import cskMaker from '@/plugins/cskMaker';
+import PopUp from './PopUp.vue';
+
+
+import { useCsvStore } from '@/stores/csvStore';
 
 
 export default {
-
-    components:{PlateformDropdown},
+    components: {
+        PlateformDropdown,
+        PopUp
+    
+    },
     data() {
 
         return {
+            
+            vehicleDailog:false,
+            loading: false,
+            csv:useCsvStore(),
+            data: [],
+            platform_id:'',
+
             vehicles: [],
             body: [],
             make: [],
             model: [],
             variant:[],
-            loading: true,
+         
             columns: columns,
-            data:[],
+          
             form: {
                 id: '',
                 name: '',
@@ -124,44 +123,17 @@ export default {
         }
     },
     mounted() {
-        this.loadData()
-        this.loadVehicles();
-        this.loadBody();
-        this.loadMake();
-        this.loadModel();
+        // this.loadData()
+        // this.loadVehicles();
+        // this.loadBody();
+        // this.loadMake();
+        // this.loadModel();
         // this.loadVariant();
 
         
     },
     methods: {
-        async loadData() { 
-
-            const id = this.$route.params.id;
-            try {
-
-                let res = await Auction.find(id, {});
-                console.log(res);
-                
-                this.form.name = res.data.name;
-                this.form.id = res.data.table_id;
-                this.form.auction_date = res.data.auction_date;
-                this.form.end_date = res.data.end_date;
-                this.form.auction_type = res.data.auction_type;
-                this.form.platform_id = res.data.platform_id;
-                this.form.csv_path = null;
-
-
-                this.data = res.data.vehicle;
-
-
-                // this.renderData();
-            
-            } catch (error) {
-                this.$alertStore.add(error.message, 'error');
-                // this.$router.push('/admin/auction');
-            }   
-
-        },
+    
         async submit() {
 
             this.loading = true;
@@ -182,87 +154,38 @@ export default {
                 this.$alertStore.add(error.message, 'error');
             } finally {
                 this.loading = false;
+            }  
+        },
+      
+        async handleFile(event) {
+
+            this.loading = true;
+            const file = event.target.files[0];
+            try {
+                this.data = await cskMaker(file);
+                this.loading = false;
+            } catch (error) {
+                console.log(error);
+                this.loading = false;
             }
+        },
+        updateCell(rowIndex, key, value) {
 
+            this.data[rowIndex][key] = value;
+        },
+        handleVehicle(row) {
+
+            this.vehicleDailog = true;
             
         },
+        hanldeDailog(e) {
 
-        async renderData() {
-
-            // let data = [];
-
-            // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach(item => {
-            //     let obj = {};
-            //     this.columns.forEach(col => {
-            //         obj[col.key] = item;
-            //     });
-            //     data.push(obj);
-            // });
-
-
-            // this.data = data;
+            this.vehicleDailog = e;
+            console.log('open',e);
             
-        },
-
-        async loadVehicles() {
-            try {
-                let res = await VehicleType.all();
-                this.vehicles = res.data;
-            } catch (error) {
-                
-            }
-           
-        },
-        async loadBody() {
-            try {
-                let res = await BodyType.all({length:100000});
-                this.body = res.data;
-
-             
-                
-            } catch (error) {
-                
-            } 
-        },
-        async loadMake() {
-            try {
-                let res = await Make.all({length:100000});
-                this.make = res.data;
-
-              
-                
-            } catch (error) {
-                
-            } 
-        },
-        async loadModel() {
-            try {
-                let res = await Model.all({length:100000});
-                this.model = res.data;
-
-                
-            
-            } catch (error) {
-                
-            } 
-        },
-
-        async loadVariant() {
-            try {
-                let res = await Variant.all({length:100000});
-                this.variant = res.data;
-
-                
-            
-            } catch (error) {
-                
-            } 
-        },
-
-
-        
-        
-        
+        }   
+    
+   
 
 
     }

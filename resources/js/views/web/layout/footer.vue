@@ -21,7 +21,7 @@
 
             <div class="w-100  justify-space-between">
                 <div class="image">
-                    <img :src="logoAutoBoli" alt="" srcset="" width="120">
+                    <img :src="logoAutoBoli" alt="" srcset="" width="150">
                 </div>
                 <div class="left mt-4">
                     <p class="text-light_text_on w-75"> Helping dealers, exporters, and traders buy smarter with real-time
@@ -43,8 +43,9 @@
                     </div>
                 </div>
             </div>
-            <div class="text-light_text_on mt-10 pb-10 text-body-2">
-                <p>© AUTOBOLI Ltd 2025. All rights reserved.</p>
+        
+            <div class="text-light_text_on mt-10    pb-2 text-body-2" style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
+                <p class="mt-6" >© AUTOBOLI Ltd 2025. All rights reserved.</p>
                 <p>
                     Proudly built & hosted with secure infrastructure in the UK & EU.
                 </p>

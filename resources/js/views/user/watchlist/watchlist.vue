@@ -26,7 +26,7 @@
                                 density="compact" clearable />
                         </div>
 
-                        <div class="px-2">
+                        <div class="px-lg-2 px-md-2">
                             <MakeDropdown width="200" label="Select Make" variant="outlined" color="primary"
                                 density="compact" :model-value="filter.make"
                                 @update:modelValue="handleInput($event, 'make')" clearable />

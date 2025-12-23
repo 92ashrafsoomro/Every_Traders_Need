@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-surface py-20 overflow-hidden relative pa-14 min-vh-100">
+  <section class="bg-background py-20 overflow-hidden relative pa-14 min-vh-100">
     <v-container style="padding-top: 80px; padding-bottom: 80px;" class="relative z-10">
       <div class="d-flex justify-content-center align-center">
         <div class="images">

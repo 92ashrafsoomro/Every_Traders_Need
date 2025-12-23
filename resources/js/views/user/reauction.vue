@@ -37,7 +37,7 @@
             <v-col cols="12">
                 <div class="pt-5 d-flex justify-md-space-between flex-wrap  ">
                     <div class="d-flex flex-wrap">
-                        <div class="px-2">
+                        <div class="px-lg-2 px-md-2">
                             <v-select label="Length" v-model="pageStore.reauction.length"
                                 :items="[10, 20, 50, 100, 200, 500]" @update:model-value="handleInput" variant="outlined"
                                 color="primary" width="120" density="compact" />
@@ -49,7 +49,7 @@
 
                     </div>
                     <div class="d-flex flex-wrap">
-                        <div class="px-2">
+                        <div class="px-lg-2 px-md-2">
                             <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No"
                                 v-model="pageStore.reauction.reg" @update:model-value="handleInput" variant="outlined"
                                 color="primary" width="200" density="compact" clearable />

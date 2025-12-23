@@ -1,5 +1,12 @@
 <template>
-    <v-container fluid>
+     <div class=" w-100 bg-surface   pb-8" style="position: absolute; height: 400px;">
+        <div class="pattern-bg"></div>
+        <div class="position-relative  pt-5  mx-auto px-2 px-lg-4 " style=" max-width: 1400px; z-index: 10">
+            
+            <slot> </slot>
+        </div>
+    </div>
+    <v-container fluid style="max-width: 1400px; margin-top: 10px;">
         <v-row v-if="loading" >
             <v-col cols="12">
                 <p class="text-center">Loading..</p>
@@ -22,17 +29,17 @@
                             <div class="">   
                                     <v-row no-gutters>
                                         <v-col cols="12"
-                                            class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal">
-                                            <v-btn-toggle>
+                                            class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal">
+                                            <v-btn-toggle style="overflow: hidden;">
                                                 <v-btn size="small" color="primary"
                                                     @click="vehicleStore.sidebar = !vehicleStore.sidebar">
                                                     <v-icon size="large">mdi-menu</v-icon>
                                                 </v-btn>
                                             </v-btn-toggle>
-                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100" color="primary"
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 d-flex ga-4" color="primary"
                                                 mandatory>
-                                                <v-btn value="details">Vehicle Details</v-btn>
-                                                <v-btn value="valuation">Vehicle Valuation</v-btn>
+                                                <v-btn value="details" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Details</v-btn>
+                                                <v-btn value="valuation" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Valuation</v-btn>
                                             </v-btn-toggle>
                                         </v-col>
                                         <v-col cols="12">
@@ -156,7 +163,16 @@ export default {
 
 <style scoped>
 
-
+.pattern-bg {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+    background-size: 16px 16px;
+    background-repeat: repeat;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
 .sidebar--mobile {
     position: fixed;
     height: 100%;

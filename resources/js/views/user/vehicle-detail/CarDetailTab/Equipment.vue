@@ -1,14 +1,16 @@
 <template>
-    <v-card title="Equipments">
-        <div class="border"></div>
+
+    <custom-card title="Equipments">
+
         <v-container>
-            <v-row dense>
+            <v-row dense class="mt-2">
                 <v-col v-for="value in equipments" :key="value" cols="6" sm="4" class="text-caption">
                     <v-chip variant="text" prepend-icon="mdi-circle-small">{{ value }}</v-chip>
                 </v-col>
             </v-row>
         </v-container>
-    </v-card>
+ 
+    </custom-card>
 </template>
 <script>
 

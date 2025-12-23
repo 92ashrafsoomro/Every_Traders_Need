@@ -1,26 +1,27 @@
 <template>
     <user-title-bar title="Auction Scheduler"
         subtitle="Manage and view platform auctions across all centers in one place.">
-        <div
-            class="d-flex flex-column flex-sm-row ga-2 w-100 w-md-75 w-lg-50 justify-center justify-sm-start align-start pr-5 pr-sm-0 mt-10">
-
-            <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
-                @update:modelValue="handleInput($event, 'platform_id')" clearable />
-
-            <CenterDropdown label="Select Center" variant="outlined" :model-value="options.center_id"
-                @update:modelValue="handleInput($event, 'center_id')" clearable />
+        <div class="d-flex flex-wrap ga-2 ">
+            <div style="width: 200px;">
+                <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
+                    @update:modelValue="handleInput($event, 'platform_id')" clearable />
+            </div>
+            <div style="width: 200px;">
+                <CenterDropdown label="Select Center" variant="outlined" :model-value="options.center_id"
+                    @update:modelValue="handleInput($event, 'center_id')" clearable />
+            </div>
 
             <div>
-                <v-switch :model-value="options.enableCurrent" color="primary"  density="compact" hide-details
+                <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
                     @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
                 <span class="mt-2 ml-2">In Progress</span>
             </div>
         </div>
-        <div class="pt-4 d-flex align-center ga-3 flex-wrap ml-auto mr-auto mt-4">
+        <div class="pt-4 d-flex flex-wrap align-center ga-3 ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
-                class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3"
-                style=" height: 95px; width: 185px;" @click="handleTab(key)">
+                class=" border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3"
+                style=" height: 95px; width: 165px;" @click="handleTab(key)">
                 <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
                     {{ key }}
@@ -262,5 +263,6 @@ export default {
     color: rgb(var(--v-theme-primary));
     cursor: pointer;
 }
+
 
 </style>

@@ -1,13 +1,13 @@
 <template>
-    <v-card class="pa-5 flex-grow-1">
-        <v-row class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center">
+    <custom-card class=" flex-grow-1">
+        <v-row class="d-flex  flex-column flex-md-row justify-space-between align-start align-md-center pa-4">
             <v-col cols="12" lg="8">
                 <v-card-title class="text-h6 font-weight-medium">
                     Trade History
                 </v-card-title>
             </v-col>
 
-            <v-col cols="12" lg="4">
+            <v-col cols="12" lg="4" class="mt-4">
                 <v-select
                     color="primary"
                     variant="outlined"
@@ -55,7 +55,7 @@
                     </v-row>
                 </v-col>
             </v-row>
-        </v-card>
+        </custom-card>
     </template>
 
 <script>

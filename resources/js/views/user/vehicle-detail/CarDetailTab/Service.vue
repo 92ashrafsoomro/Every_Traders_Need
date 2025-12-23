@@ -1,22 +1,42 @@
 <template>
     <custom-card title="Service History" class="h-100">
       <v-container>
-        <v-row>
+        <v-row class="mt-2">
             <v-col v-for="(item,key) in items"  cols="12" sm="6" class="text-body-2">
                 <div class="px-2">
 
-                    <p class="text-light">{{item.label }} </p>
+                    <p class="text-light label">{{item.label }} </p>
                     <div class="d-flex pt-2" >
-                        <v-icon color="primary">{{ item.icon }}</v-icon>
+                        <v-icon class="iconSize" color="primary">{{ item.icon }}</v-icon>
                         <span class="pl-3 text-body-2" >{{ item.value }}</span>
                     </div>
+
 
                     <!-- <v-chip  class="my-chip" variant="text" size="large" :prepend-icon="item.icon">
                         <template #prepend> <v-icon color="primary">{{ item.icon }}</v-icon></template>
                         {{ item.value }}
                     </v-chip> -->
                 </div>
-            </v-col>     
+            </v-col>   
+            <v-col cols="12" >
+                 <div class="px-2">
+                 <p class="text-light text-body-2 label">DVSA </p>
+                   <div class="d-flex pt-2" >
+                        <v-icon class="iconSize" color="primary">mdi-speedometer</v-icon>
+                        <span class="pl-3 text-body-2" >{{ vehicleStore.vehicle.dvsa_mileage }}</span>
+                    </div>
+                    </div>
+            </v-col>  
+            <v-col cols="12" >
+                 <div class="px-2">
+                 <p class="text-light label text-body-2">Additional service notes </p>
+                   <div class="d-flex pt-2" >
+                        <v-icon color="primary" class="iconSize">mdi-note-text-outline</v-icon>
+                        <span class="pl-3 text-body-2" >{{vehicleStore.vehicle.number_of_services_details}}</span>
+                    </div>
+            
+                    </div>
+                </v-col>  
         </v-row>
       </v-container>
     </custom-card>
@@ -46,7 +66,7 @@ export default {
                     "type": "title"
                 },
                 {
-                    "label": "Number of service",
+                    "label": "No of service",
                     "value": this.vehicleStore.vehicle.no_of_services,
                     "icon": "mdi-wrench",
                     "highlight": true
@@ -57,21 +77,21 @@ export default {
                     "icon": "mdi-calendar"
                 },
                 {
-                    "label": "Last service mileage",
+                    "label": "Last service",
                     "value": this.vehicleStore.vehicle.mileage,
                     "icon": "mdi-speedometer",
                     "highlight": true
                 },
-                {
-                    "label": "DVSA Mileage",
-                    "value": this.vehicleStore.vehicle.dvsa_mileage,
-                    "icon": "mdi-speedometer"
-                },
-                {
-                    "label": "Additional service notes",
-                    "value": this.vehicleStore.vehicle.number_of_services_details,
-                    "icon": "mdi-note-text-outline"
-                },
+                // {
+                //     "label": "DVSA Mileage",
+                //     "value": this.vehicleStore.vehicle.dvsa_mileage,
+                //     "icon": "mdi-speedometer"
+                // },
+                // {
+                //     "label": "Additional service notes",
+                //     "value": this.vehicleStore.vehicle.number_of_services_details,
+                //     "icon": "mdi-note-text-outline"
+                // },
                 {
                     "label": "MOT Expiry",
                     "value": this.vehicleStore.vehicle.mot_expiry_date,
@@ -92,12 +112,11 @@ export default {
 
 <style scope >
 
-.my-chip{
-    max-width: auto !important;       /* remove default Vuetify max-width */
-    min-width: auto !important;          /* allow small chips if needed */
-    white-space: normal !important;   /* allow wrapping */
-    overflow: visible !important;     /* prevent clipping */
+.iconSize::before{
+    font-size: 21px;
 }
-
+.label::before{
+    font-size: 14px;
+}
 
 </style>

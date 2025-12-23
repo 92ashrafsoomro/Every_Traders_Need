@@ -1,10 +1,10 @@
 <template>
   <section>
-    <v-row no-gutters class="min-vh-100">
+    <v-row no-gutters class="min-vh-100 ">
 
       <!-- LEFT: Blue Half -->
       <v-col cols="12" lg="6" class="bg-primary d-flex align-center justify-center " style="padding: 180px 180px;">
-        <div class="text-white" style="width: 500px;">
+        <div class="text-white" style="width: 400px;">
           <h1 class="text-h2 mb-4 font-weight-bold">
             Our Promise
           </h1>

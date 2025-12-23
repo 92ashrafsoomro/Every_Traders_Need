@@ -1,22 +1,13 @@
 <template>
-  <div class="d-flex align-center w-100"><v-btn
-    class="app-btn  h-50 pa-4 d-flex justify-space-between  align-center"
-
-    variant="flat"
-    color="primary"
-    :to="to"
-    :href="href"
-    target="_blank"
-    rounded
-  >
-    <span class="text-capitalize text-subtitle-2 ">
+  <div class="button d-flex justify-space-between bg-primary align-center  pa-3  " style=" min-width: 150px; max-width: 200px; border-radius: 40px;">
+    <div class="text ml-2 mr-2">
       {{ text }}
-    </span>
+    </div>
+    <div class="icon bg-white rounded-xl pa-1"> <v-icon>
+        {{ icon }}
+      </v-icon></div>
 
-  
-  </v-btn><v-btn icon color="white" class="circle-btn" :href="href" target="_blank" style="width: 40px; height: 40px; min-width: 30px; border-radius: 50%; "> <v-icon class="text-primary font-weight-bold"> {{ icon }} </v-icon> </v-btn>
-
-</div>
+  </div>
 </template>
 
 <script>
@@ -45,8 +36,8 @@ export default {
 
 <style scoped>
 .app-btn {
-width: 120px;
-height: 50px;
+  width: 120px;
+  height: 50px;
   font-weight: 500;
 }
 </style>

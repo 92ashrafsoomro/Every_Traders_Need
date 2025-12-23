@@ -1,7 +1,7 @@
 <!-- MissionSection.vue -->
 <template>
     <section class="bg-primary">
-        <v-container style="height: 800px" fluid max-width="1500px"
+        <v-container style="height: 800px" fluid max-width="1400px"
             class="d-flex justify-content-center align-content-center py-md-20">
             <v-row no-gutters="" align="center">
 

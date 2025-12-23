@@ -7,52 +7,50 @@
       </div>
 
       <!-- CONTENT -->
-      <div class="leftContent text-center">
+      <div class="leftContent ">
         <v-chip class="mb-4 text-primary  " style="border-radius: 0px 20px 0px 0px; padding: 6px 16px;">
           Why Autoboli
         </v-chip>
 
-        <h1 class="text-h5 text-md-h3 mb-6 font-weight-bold">
-          Your Trusted Partner For Smarter Vehicle <br class="d-none d-md-block" />
-          Trading
-        </h1>
-
-        <p class="mb-6 text-light_text_on">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit...
-        </p>
-
-        <p class="text-light_text_on">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit...
-        </p>
         <div>
-        <v-chip class="mb-4 text-primary d-flex " style="border-radius: 2px 20px 10px 0px; padding: 6px 16px;">
-          Why Autoboli
-        </v-chip>
-</div>
-        <!-- <div class="mt-10 w-50">
-                    <v-btn class="w-100 h-75 pa-4"  variant="flat" color="primary" rounded="">
-                      <span class="text-capitalize" >View More</span>
-                    </v-btn>
-                    <v-btn class="w-100 h-75 pa-4" variant="flat" color="primary" rounded="">
-                          <span class="text-capitalize">View Less</span>
-                    </v-btn>
+          <h1 class="text-h5 text-md-h3 mb-6 font-weight-bold">
+            Your Trusted Partner For Smarter Vehicle <br class="d-none d-md-block" />
+            Trading
+          </h1>
 
-                </div> -->
+          <p class="mb-6 text-light_text_on">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit...
+          </p>
+
+          <p class="text-light_text_on">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit...
+          </p>
+        </div>
+
+
+        <div class=" mt-4" style="width: 100px;">
+          <AppButton text="About Us" to="/about" />
+
+        </div>
+
+
       </div>
 
+  
     </div>
+
   </div>
 </template>
 
 
 <script>
 import TrustedPartnerImage from '@assets/images/hero/HomepageImageTrusted.png'
-// import AppButton from '../component/AppButton.vue'
+import AppButton from '../component/AppButton.vue'
 
 export default {
   name: "TrustedPartner",
   components: {
-    // AppButton
+    AppButton
   },
   data() {
     return {
@@ -69,12 +67,26 @@ export default {
   max-width: 600px;
   height: auto;
   object-fit: contain;
+  animation: rotateImage 2s infinite ease-in-out;
 }
 
-.rightImage,
-.leftContent {
-  flex: 1 1 100%;
-  max-width: 100%;
+@keyframes rotateImage {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.10.
+  }
+
+  100% {
+
+    transform: scale(1);
+    opacity: 0.16.
+  }
+
 }
 
 @media (min-width: 960px) {

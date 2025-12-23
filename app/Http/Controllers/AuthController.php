@@ -685,13 +685,13 @@ class AuthController extends Controller
 
 
 
-    public function forgotpassword()
-    {
-        return view('user.forgetPassword.forgetPassword');
-    }
+    // public function forgotpassword()
+    // {
+    //     return view('user.forgetPassword.forgetPassword');
+    // }
 
 
-    public function sendResetLinkEmail(Request $request)
+    public function forgotPassword(Request $request)
     {
         $request->validate([
             'email' => 'required|email|exists:users,personalEmail',
@@ -738,13 +738,11 @@ class AuthController extends Controller
     {
 
         $request->validate([
-            'email' => 'required|email|exists:users,personalEmail',
             'token' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $tokenData = DB::table('password_reset_tokens')
-            ->where('email', $request->email)
             ->where('token', $request->token)
             ->first();
 
@@ -752,10 +750,10 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid or expired token.'], 422);
         }
 
-        User::where('personalEmail', $request->email)
+        User::where('personalEmail', $tokenData->email)
             ->update(['password' => FacadesHash::make($request->password)]);
 
-        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        DB::table('password_reset_tokens')->where('email', $tokenData->email)->delete();
 
         return response()->json(['message' => 'Password reset successfully!']);
     }

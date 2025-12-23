@@ -43,6 +43,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('/login',[AuthController::class,'login']);
         Route::post('/register',[AuthController::class,'register']);
         Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
+        Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
+        Route::post('/resetpassword', [AuthController::class, 'resetpasswordsubmit']);
 
     });
 

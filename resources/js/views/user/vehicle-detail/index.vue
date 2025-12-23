@@ -1,59 +1,84 @@
 <template>
-     <div class=" w-100 bg-surface   pb-8" style="position: absolute; height: 400px;">
+    <!-- TOP BACKGROUND -->
+    <div class="w-100 bg-surface pb-8" style="position: absolute; height: 400px;">
         <div class="pattern-bg"></div>
-        <div class="position-relative  pt-5  mx-auto px-2 px-lg-4 " style=" max-width: 1400px; z-index: 10">
-            
-            <slot> </slot>
+
+        <div class="position-relative pt-5 mx-auto px-2 px-lg-4" style="max-width: 1400px; z-index: 10">
+            <slot />
         </div>
     </div>
-    <v-container fluid style="max-width: 1400px; margin-top: 10px;">
-        <v-row v-if="loading" >
-            <v-col cols="12">
-                <p class="text-center">Loading..</p>
+
+
+    <v-container fluid class="mt-10">
+
+        <v-row justify="center">
+            <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"
+                style="position: sticky; top: 40px; left: 0px;">
+                <VehicleSidebar />
             </v-col>
-        </v-row>
-        <v-row v-else-if="!vehicleStore.isVehicle" >
-            <v-col cols="12">
-                <p class="text-center">No Data</p>
-            </v-col>
-        </v-row>
-        <v-row v-else no-gutters>
-            <v-col cols="12">
-                    <v-row class="d-flex" style="position: relative;" >
-                        <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"  style="position: sticky; top: 40px;">
-                            <div class=""  >
-                                   <VehicleSidebar  />
-                            </div>
-                        </v-col>
-                        <v-col :style="contentStyle">
-                            <div class="">   
-                                    <v-row no-gutters>
-                                        <v-col cols="12"
-                                            class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal">
-                                            <v-btn-toggle style="overflow: hidden;">
-                                                <v-btn size="small" color="primary"
-                                                    @click="vehicleStore.sidebar = !vehicleStore.sidebar">
-                                                    <v-icon size="large">mdi-menu</v-icon>
-                                                </v-btn>
-                                            </v-btn-toggle>
-                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 d-flex ga-4" color="primary"
-                                                mandatory>
-                                                <v-btn value="details" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Details</v-btn>
-                                                <v-btn value="valuation" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Valuation</v-btn>
-                                            </v-btn-toggle>
-                                        </v-col>
-                                        <v-col cols="12">
-                                               <component :is="currentComponent" />
-                                        </v-col>
+            <v-col cols="12" style="max-width: 1400px">
+
+                <v-row v-if="loading">
+                    <v-col cols="12" class="text-center">
+                        Loading..
+                    </v-col>
+                </v-row>
+
+
+                <v-row v-else-if="!vehicleStore.isVehicle">
+                    <v-col cols="12" class="text-center">
+                        No Data
+                    </v-col>
+                </v-row>
+
+
+                <v-row v-else>
+                    <v-col cols="12">
+
+                        <v-row style="position: relative;">
+
+
+
+
+
+                            <v-col>
+                                <v-row no-gutters>
+
+                                    <v-col cols="12"
+                                        class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal">
+                                        <v-btn-toggle style="overflow: hidden;"> <v-btn size="small" color="primary"
+                                                @click="vehicleStore.sidebar = !vehicleStore.sidebar"> <v-icon
+                                                    size="large">mdi-menu</v-icon> </v-btn> </v-btn-toggle>
+
+                                        <v-btn-toggle v-model="vehicleStore.tab" class="w-100 d-flex ga-4"
+                                            color="primary" mandatory>
+                                            <v-btn value="details" height="50" class="text-capitalize text-body-1">
+                                                Vehicle Details
+                                            </v-btn>
+
+                                            <v-btn value="valuation" height="50" class="text-capitalize text-body-1">
+                                                Vehicle Valuation
+                                            </v-btn>
+                                        </v-btn-toggle>
+                                       
+                                    </v-col>
+
+
+                                    <v-col cols="12">
+                                        <component :is="currentComponent" />
+                                    </v-col>
                                 </v-row>
-                            </div>
-    
-                        </v-col>
-                    </v-row>
+                            </v-col>
+                        </v-row>
+
+                    </v-col>
+                </v-row>
+
             </v-col>
         </v-row>
     </v-container>
 </template>
+
 <script>
 
 import { useVehicleStore } from '@/stores/vehicleStore';
@@ -78,7 +103,7 @@ export default {
         };
     },
     async mounted() {
-    
+
         this.loadVehicle();
         this.$themeStore.menuType = "collapsed";
     },
@@ -106,7 +131,7 @@ export default {
                 flexBasis: this.vehicleStore.sidebar ? '300px' : '0px',
                 display: this.vehicleStore.sidebar ? 'block' : 'none',
                 flexGrow: '0',
-                height:'100%'
+                height: '100%'
                 // flexShrin: '0',
             }
         },
@@ -114,7 +139,7 @@ export default {
             return {
                 width: '0px',
                 display: 'none',
-              
+
                 // display: 'none',
                 // flexGrow: '0',
                 // flexShrin: '0',
@@ -126,15 +151,15 @@ export default {
                 // width: this.vehicleStore.sidebar ? "calc(100% - 300px)" : "100%" ,
                 // height: '100vh',
             }
-        },        
+        },
     },
     watch: {
-    '$route.params.id': {
-      immediate: true,
-      handler(newId) {
-        this.loadVehicle(newId);
-      }
-    }
+        '$route.params.id': {
+            immediate: true,
+            handler(newId) {
+                this.loadVehicle(newId);
+            }
+        }
     },
     methods: {
         loadVehicle() {
@@ -146,14 +171,14 @@ export default {
                     this.vehicleStore.vehicle = res.data.vehicle;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
-                
+
                 }).catch(() => {
 
                     this.loading = false;
                     this.vehicleStore.vehicle = {};
                     this.vehicleStore.isVehicle = false;
                     this.$router.replace("/user/dashboard");
-                    
+
                 });
         },
 
@@ -162,7 +187,6 @@ export default {
 </script>
 
 <style scoped>
-
 .pattern-bg {
     position: absolute;
     inset: 0;
@@ -173,6 +197,7 @@ export default {
     pointer-events: none;
     z-index: 0;
 }
+
 .sidebar--mobile {
     position: fixed;
     height: 100%;
@@ -201,14 +226,7 @@ export default {
 }
 
 
-@media (max-width: 1440px) {
- 
+@media (max-width: 1440px) {}
 
-}
-
-@media (max-width: 1440px) {
-  
-}
-
-
+@media (max-width: 1440px) {}
 </style>

@@ -32,9 +32,9 @@
                         </v-col>
                         <v-col cols="12" class="">
                         <v-btn color="primary" variant="flat" block size="large" class="text-capitalize rounded-sm">
-                           <a  href="emailverify" style="text-decoration: none; color: white;"> {{ "Forget Password" }}</a>
+                           <router-link  href="emailverify" style="text-decoration: none; color: white;"> {{ "Forget Password" }}</router-link>
                         </v-btn>
-                        <div class="d-flex justify-center  mt-4 "><a href="login"  class="text-body-2 text-primary">Go Back</a></div>
+                        <div class="d-flex justify-center  mt-4 "><router-link to="login"  class="text-body-2 text-primary">Go Back</router-link></div>
                     </v-col>
                     </v-row>
                     

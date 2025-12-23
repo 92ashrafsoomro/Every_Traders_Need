@@ -43,7 +43,7 @@
                     color="primary"
                     variant="flat"
                   >
-                   <a href="/autoboli" style="text-decoration: none; color: white;"> Go Back</a>
+                   <router-link to="/autoboli" style="text-decoration: none; color: white;"> Go Back</router-link>
                   </v-btn>
 
 

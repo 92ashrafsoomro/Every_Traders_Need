@@ -38,7 +38,7 @@
                         </v-col>
                         <v-col cols="12" class="">
                         <v-btn color="primary" variant="flat" block size="large" class="text-capitalize rounded-sm">
-                            {{ "Reset Password" }}
+                            <router-link to="login" style="text-decoration: none; color: white;">Reset Password</router-link>
                         </v-btn>
                     </v-col>
                     </v-row>

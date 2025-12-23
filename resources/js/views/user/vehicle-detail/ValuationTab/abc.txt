@@ -1,227 +1,56 @@
-<template>
-    <v-container fluid="" >
-        <v-row class="mt-5 ">
-            <v-col cols="12" md="4" class="">
-                <custom-card title="Vehicle Values" class="h-100">
-                    <v-divider class="ml-2"></v-divider>
-                    <div class="">
-                        <div class="mb-8 text-capitalize pa-4 ml-2">
-                            <div class=" mb-4  text-capitalize">Trade Values</div>
-                            <v-row align="center">
-                                <v-col cols="6">
-                                    <div class="text-body-2 text-grey-lighten-1 mb-1">Autotrader</div>
-                                    <div class="text-body-2 text-white  mt-2">£{{
-                                        vehicleStore.vehicle.autotrader_trade_value }}</div>
-                                </v-col>
-                                <v-col cols="6">
-                                    <div class="text-body-2 text-light mb-1">CAP</div>
-                                    <div class="text-body-2 ">£{{ vehicleStore.vehicle.cap_average }}</div>
-                                </v-col>
-                            </v-row>
-                        </div>
-                        <v-divider></v-divider>
-                        <!-- Retail Values -->
-                        <div class="pa-4 ml-2">
-                            <div class="mb-4 text-capitalize">Retail Values</div>
-                            <v-row align="center">
-                                <v-col cols="6">
-                                    <div class="text-body-2 text-grey-lighten-1 mb-1">Autotrader</div>
-                                    <div class="text-body-2 text-white  mt-2">£{{
-                                        vehicleStore.vehicle.autotrader_retail_value }}</div>
-                                </v-col>
-                                <v-col cols="6">
-                                    <div class="text-body-2 text-light mb-1">CAP</div>
-                                    <div class="text-body-2 ">£{{ vehicleStore.vehicle.cap_retail }}</div>
-                                </v-col>
-                            </v-row>
-                        </div>
-                    </div>
-                </custom-card>
-            </v-col>
-            <v-col cols="12" md="4" class="">
-                <custom-card class="h-100">
-                    <div class="pa-4">
-
-                        <!-- Top Row: Reg + New Report Button -->
-                        <div class="d-flex align-center justify-space-between mb-3">
-                            <div class="text-body-1 text-white font-weight-bold">{{ vehicleStore.vehicle.reg }}</div>
-                            <v-btn color="primary" variant="flat" size="small">New Report</v-btn>
-                        </div>
-
-                        <!-- Car Details -->
-                        <div class="text-body-2 text-light mb-4">{{ vehicleStore.vehicle.title }}</div>
-
-                        <!-- Auction Info + Status -->
-                        <div class="mb-4 d-flex justify-space-between">
-                            <div class="pa-2">
-                                <div class="text-body-2 text-light">Auction House</div>
-                                <div class="text-body-2">{{ vehicleStore.vehicle?.auction?.name }}</div>
-                            </div>
-                            <div class="pa-2">
-                                <div class="text-body-2 text-light">Date/End</div>
-                                <div class="text-body-2 ">{{ vehicleStore.vehicle?.auction_date }}</div>
-                            </div>
-                            <div class="pa-2">
-                                <div class="text-body-2 text-light">Status</div>
-                                <div class="text-body-2 ">{{ vehicleStore.vehicle?.bidding_status }}</div>
-                            </div>
-                        </div>
-                        <div class="pa-2">
-                            <div class="">
-                                <v-img :src="image" class="rounded-lg" cover />
-                            </div>
-                        </div>
-                    </div>
-                </custom-card>
-            </v-col>
-
-        </v-row>
-        <v-row><v-col cols="12" md="4" class="">
-                <custom-card>
-                    <div class="px-3 pa-4">
-                        <div class="text-body-2 text-capitalize text-light d-flex justify-space-between mb-3">
-                            <p class="">CAP</p>
-                            <p class="">90%</p>
-                        </div>
-                        <div class="text-body-2 text-capitalize text-light d-flex justify-space-between">
-                            <p class="">AUTOTRADER</p>
-                            <p class="">90%</p>
-                        </div>
-                    </div>
-                </custom-card>
-                <custom-card class="mt-5 pa-4">
-                    <div class="px-3">
-                        <h3 class="text-body-1 pb-5">Auction Results</h3>
-                        <div class="text-body-2 text-capitalize text-light d-flex justify-space-between mb-3">
-                            <p class="">Auction Status</p>
-                            <p class="">{{ vehicleStore.vehicle?.bidding_status }}</p>
-                        </div>
-                        <div class="text-body-2 text-capitalize text-light d-flex justify-space-between mb-3">
-                            <p class="text-body-2">Win Bid / Last Bid</p>
-                            <p class="text-body-2">{{ vehicleStore.vehicle?.last_bid }}</p>
-                        </div>
-                        <div class="text-body-2 text-capitalize text-light d-flex justify-space-between">
-                            <p class="">No. of Bids</p>
-                            <p class="">{{ bidding_history.length }}</p>
-                        </div>
-
-                        <h3 class="text-body-1 text-light pt-6 pb-3">Auc Bid History</h3>
-                        <p class="text-body-2">
-                            <v-chip v-for="value in bidding_history" variant="tonal" color="primary" class="my-1 mx-1">
-                                {{
-                                    value }} </v-chip>
-
-                        </p>
-                    </div>
-                </custom-card>
-            </v-col></v-row>
-        <v-row class="">
+yr ye layout screen ky center q nhi a rha mx-auto bhi krdia phir bhi <template>
+     <div class=" w-100 bg-surface   pb-8" style="position: absolute; height: 400px;">
+        <div class="pattern-bg"></div>
+        <div class="position-relative  pt-5  mx-auto px-2 px-lg-4 " style=" max-width: 1400px; z-index: 10">
+            
+            <slot> </slot>
+        </div>
+    </div>
+    <v-container fluid >
+        <v-row v-if="loading" >
             <v-col cols="12">
-                <TradeHistory />
-
-                <!-- <custom-card>
-
-                <Trade/>
-            </custom-card> -->
+                <p class="text-center">Loading..</p>
+            </v-col>
+        </v-row>
+        <v-row v-else-if="!vehicleStore.isVehicle" >
+            <v-col cols="12">
+                <p class="text-center">No Data</p>
+            </v-col>
+        </v-row>
+        <v-row v-else no-gutters>
+            <v-col cols="12">
+                    <v-row class="d-flex" style="position: relative;" >
+                        <!-- <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"  style="position: sticky; top: 40px;">
+                            <div class=""  >
+                                   <VehicleSidebar  />
+                            </div>
+                        </v-col> -->
+                        <v-col :style="contentStyle">
+                            <div class="">   
+                                    <v-row no-gutters>
+                                        <v-col cols="12"
+                                            class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal">
+                                            <v-btn-toggle style="overflow: hidden;">
+                                                <v-btn size="small" color="primary"
+                                                    @click="vehicleStore.sidebar = !vehicleStore.sidebar">
+                                                    <v-icon size="large">mdi-menu</v-icon>
+                                                </v-btn>
+                                            </v-btn-toggle>
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 d-flex ga-4" color="primary"
+                                                mandatory>
+                                                <v-btn value="details" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Details</v-btn>
+                                                <v-btn value="valuation" style="height: 50px; border-radius: 2px;"    class="text-capitalize text-body-1 ">Vehicle Valuation</v-btn>
+                                            </v-btn-toggle>
+                                        </v-col>
+                                        <v-col cols="12" style="max-width: 1400px; margin-top: 10px;" class="mx-auto bg-red">
+                                               <component :is="currentComponent" />
+                                        </v-col>
+                                </v-row>
+                            </div>
+    
+                        </v-col>
+                    </v-row>
             </v-col>
         </v-row>
     </v-container>
 </template>
-
-<script>
-
-import { useVehicleStore } from '@/stores/vehicleStore';
-import TradeHistory from './TradeHistory.vue';
-// import Trade from './Trade.vue';
-
-
-
-export default {
-    components: {
-        TradeHistory,
-        // Trade
-    },
-    data() {
-        return {
-            vehicleStore: useVehicleStore(),
-            loading: false,
-            image: '',
-        };
-    },
-    mounted() {
-
-        this.image = this.vehicleStore.vehicle?.images?.split(",")[0];
-        //  console.log(this.bidding_history);
-    },
-    beforeUnmount() {
-
-    },
-    computed: {
-        bidding_history() {
-
-
-
-            let bidding_history = this.vehicleStore.vehicle?.bidding_history;
-
-            bidding_history = bidding_history.replaceAll("[", "").replaceAll("]", "").replaceAll("'", "");
-
-            bidding_history = bidding_history.split(", ") || [];
-
-            return bidding_history;
-
-        },
-
-    },
-    methods: {
-
-
-    },
-};
-
-</script>
-
-<style scoped>
-/* Vuetify’s internal wrapper override */
-::-webkit-scrollbar {
-    display: none;
-}
-
-.mobile-panel {
-    max-width: 280px;
-}
-</style>
-
-
-
-<v-row class="mt-10">
-  <!-- LEFT SIDE -->
-  <v-col cols="12" lg="8">
-    <v-row class="pa-0 ga-4">
-      
-      <!-- First Card -->
-      <v-col cols="12">
-        ...
-      </v-col>
-
-      <!-- Second Card -->
-      <v-col cols="12">
-        ...
-      </v-col>
-
-      <!-- Third -->
-      <v-col cols="12">
-        <TradeHistory />
-      </v-col>
-
-    </v-row>
-  </v-col>
-
-  <!-- RIGHT SIDE -->
-  <v-col cols="12" lg="4">
-    <v-row>
-      <v-col cols="12">...</v-col>
-      <v-col cols="12">...</v-col>
-      <v-col cols="12">...</v-col>
-    </v-row>
-  </v-col>
-</v-row>

@@ -75,7 +75,7 @@
             size="large"
             class="text-capitalize rounded-sm"
           >
-           <a href="resetpassword" style="text-decoration: none; color: white;">Verify</a>
+           <router-link to="resetpassword" style="text-decoration: none; color: white;">Verify</router-link>
           </v-btn>
 
           <!-- Resend -->

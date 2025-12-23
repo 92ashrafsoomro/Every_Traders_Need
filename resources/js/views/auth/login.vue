@@ -78,7 +78,7 @@
                                             <v-col cols="12" class="text-center pt-2">
                                                <p>
                                               Don't have an account?
-                                              <span><a href="/register" class="text-primary">Sign Up</a></span>
+                                              <span><router-link to="register" class="text-primary">Sign Up</router-link></span>
                                                </p>
                                                
                                             </v-col>

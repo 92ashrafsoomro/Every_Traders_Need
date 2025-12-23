@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="model" max-width="900" scrim="black">
-    <v-card>
+  <v-dialog v-model="model" max-width="900" >
+
       <!-- Carousel -->
       <v-carousel
         v-model="activeIndex"
         hide-delimiters
-        show-arrows
+        show-arrows="hover"
         height="500"
         
       >
@@ -13,16 +13,16 @@
           v-for="(img, index) in images"
           :key="index"
         >
-          <v-img :src="img" cover />
+        <v-card>
+          <v-img :src="img" cover /></v-card>
         </v-carousel-item>
       </v-carousel>
 
       <!-- Close -->
-      <v-card-actions class="justify-end ">
-        <v-btn icon="mdi-close"  class=" position-absolute   ma-3"
-          style="right:-20px; top: -20px; z-index: 1000;" @click="model = false" />
-      </v-card-actions>
-    </v-card>
+        <v-btn icon="mdi-close"  class=" position-absolute  bg-primary ma-3"
+          style="right:-20px; top: -30px; z-index: 1000;" @click="model = false" />
+   
+   
   </v-dialog>
 </template>
 
@@ -76,4 +76,5 @@ export default {
   background-color: rgba(var(--v-theme-primary),0.4 );
   color: white;
 }
+
 </style>

@@ -17,7 +17,7 @@
 
             <v-row class="ga-2 pa-5 align-center">
 
-                <v-btn icon="mdi-chevron-left" variant="tonal" size="small"  color="primary" :disabled="thumbIndex === 0"
+                <v-btn icon="mdi-chevron-left" variant="elevated" size="small"  color="primary" :disabled="thumbIndex === 0"
                     @click="thumbIndex--" >
                 </v-btn>
 
@@ -25,7 +25,7 @@
                     :class="{ 'active border': image === item }" @click="selectImage(item)" />
 
              
-                <v-btn icon="mdi-chevron-right" variant="tonal" size="small"  color="primary"
+                <v-btn icon="mdi-chevron-right" variant="elevated" size="small"  color="primary"
                     :disabled="thumbIndex + thumbLimit >= images.length" @click="thumbIndex++" />
 
             </v-row>
@@ -38,12 +38,12 @@
 
 <script>
 import { useVehicleStore } from '@/stores/vehicleStore';
-import AppButton from '@/views/web/component/AppButton.vue';
+
 import ImagePreviewCarousel from '../../auction-finder/sidebar/fields/ImagePreviewCarousel.vue';
 
 export default {
     components: {
-        AppButton,
+
         ImagePreviewCarousel
     },
     data() {

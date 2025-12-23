@@ -2,7 +2,111 @@
     <user-title-bar>
         <div>
             <h1 class="text-h3 mb-2 font-weight-bold">Vehicle</h1>
-            <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
+            <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
+              <v-container fluid>
+                 <v-row>
+                    <v-col cols="12">
+                        <v-row cols="12" class="mt-1 text-center">
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform" 
+                                  persistent-placeholder=""
+                                  hide-details
+                                  density="compact"  />
+                            </v-col>
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center" 
+                                  persistent-placeholder=""
+                                  hide-details
+                                  density="compact"  />
+                            </v-col>
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <v-select 
+                                    v-model="filter.vehicleType" 
+                                    variant="outlined" 
+                                    label="Auction Type"
+                                    :items="['Online','Live']"
+                                    base-color="white"
+                                    density="compact" 
+                                    color="primary" 
+                                    persistent-placeholder="" 
+                                        />
+                            </v-col>
+                      
+
+                        </v-row>
+                        <v-row cols="12" class="mt-1 text-center">
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <MakeDropdown
+                                label="Select Make"
+                                variant="outlined"
+                                color="primary"
+                                class="id-box"
+                                v-model="filter.make"
+                                persistent-placeholder=""
+                                hide-details
+                                density="compact"
+                                />
+                            </v-col>
+
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <ModelDropdown
+                                label="Select Model"
+                                variant="outlined"
+                                color="primary"
+                                class="id-box"
+                                v-model="filter.model"
+                                :make="filter.make"
+                                persistent-placeholder=""
+                                hide-details
+                                density="compact"
+                                />
+                            </v-col>
+
+                            <v-col cols="4" sm="4" class="pl-2">
+                                <VariantDropdown
+                                label="Select Variant"
+                                variant="outlined"
+                                color="primary"
+                                class="id-box"
+                                v-model="filter.variant"
+                                :model="filter.model" 
+                                persistent-placeholder=""
+                                hide-details
+                                density="compact"
+                                />
+                            </v-col>
+                        </v-row>
+
+                        <v-row cols="12" class="mt-1 text-center" >
+                                <v-col cols="12" sm="4" class="pl-2">
+                                    <v-text-field
+                                    v-model="filter.registration"
+                                    label="Search Registration"
+                                    variant="outlined"
+                                    color="primary"
+                                    density="compact"
+                                    persistent-placeholder=""
+                                    hide-details
+                                    clearable
+                                    />
+                                </v-col>
+                                <v-col cols="12" sm="2" class="pl-2 d-flex align-center">
+                                    <v-btn
+                                    color="primary"
+                                    block
+                                    class="mt-sm-0 mt-2"
+                                    @click="loadItems"
+                                    >
+                                    Search
+                                    </v-btn>
+                                </v-col>
+                        </v-row>
+
+          
+                    </v-col>
+           
+                </v-row>
+                </v-container>
         </div>
     </user-title-bar>
 
@@ -89,13 +193,22 @@
 <script>
 
 import Vehicle from '@/models/vehicle.model';
-
+import CenterDropdown from "@components/CenterDropdown.vue"
+import PlateformDropdown from "@components/PlateformDropdown.vue"
+import MakeDropdown from "@components/MakeDropdown.vue"
+import ModelDropdown from "@components/ModelDropdown.vue"
+import VariantDropdown from "@components/VariantDropDown.vue"
 
 export default {
 
   components: {
- 
+    MakeDropdown,
+    CenterDropdown,
+    PlateformDropdown,
+    ModelDropdown,
+    VariantDropdown,
   },
+
   data() {
       return {
             filter: {
@@ -121,6 +234,7 @@ export default {
                 { title: "Center", value: "center_name" },
                 { title: "Bidding Status", value: "bidding_status" },  
             ],
+   
     };
   },
   mounted() {
@@ -137,17 +251,19 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-       
+        'filter.make'(val) {
+            this.filter.model = null
+            this.filter.variant = null
+        },
+        'filter.model'(val) {
+            this.filter.variant = null
+        }
+
         
     },
     
-     methods: {
-
-    
-         async loadItems() {
-
-              
-        
+     methods: {         
+        async loadItems() {
                 this.loading = true;
                 try {
                     let res = await  Vehicle.all(this.filter);
@@ -162,6 +278,7 @@ export default {
                     this.loading = false
                 }
         },
+
 
 
     }

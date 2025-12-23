@@ -1,10 +1,39 @@
 import api from "@/plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
+import { toFormData } from "@/utils/helper";
 
 
 export default class Auction {
 
     
+      /**
+     * Fetches the Get All.
+     */
+       static async all(options: {
+            search?: string;
+            page?: number;
+            length?: number;
+            id?: number;
+        }): Promise<{
+            data: unknown[];
+            recordsFiltered: number;
+            recordsTotal: number;
+            page: number;
+            length: number;
+            last_page: number;
+            offset: number;
+        }> {
+
+            try {
+                const res = await api.get("/api/cruds/auctions", { params: options });
+                return res.data;
+            } catch (e) {
+                throw await errorHandler(e);
+            }
+
+    }
+
+
     /**
      * Fetches the Get All.
      */
@@ -31,6 +60,61 @@ export default class Auction {
             }
 
     }
+
+
+     static async create(options:any) {
+
+        try {
+            
+            let req = await toFormData(options);
+            const res = await api.post("/api/cruds/auctions",req);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+      static async find(id:any,options:any) {
+
+        try {
+            const res = await api.get("/api/cruds/auctions/"+id,{
+                params:options,
+            });
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+    static async update(id:any,options:any) {
+
+        try {
+            
+            let req = await toFormData(options);
+            req.append("_method", "put");
+            const res = await api.post("/api/cruds/auctions/"+id,req);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+    static async delete(id:any){
+        try{
+            const res = await api.delete(`/api/cruds/auctions/${id}`);
+            return res.data;
+
+        }
+        catch(error){
+            throw await errorHandler(error);
+        }
+    }
     
 
 
@@ -46,6 +130,35 @@ export default class Auction {
 
             try {
                 const res = await api.get("/api/master/getYears", { params: options });
+                return res.data;
+            } catch (e) {
+                throw await errorHandler(e);
+            }
+
+    }
+
+
+
+    /**
+     * Fetches the Get All.
+     */
+       static async auctionType(options: {
+            search?: string;
+            page?: number;
+            length?: number;
+            id?: number;
+        }): Promise<{
+            data: unknown[];
+            recordsFiltered: number;
+            recordsTotal: number;
+            page: number;
+            length: number;
+            last_page: number;
+            offset: number;
+        }> {
+
+            try {
+                const res = await api.get("/api/cruds/auctionType", { params: options });
                 return res.data;
             } catch (e) {
                 throw await errorHandler(e);

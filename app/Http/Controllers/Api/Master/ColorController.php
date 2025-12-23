@@ -86,6 +86,26 @@ class ColorController extends Controller
 
     }
 
+        public function show(Request $request,$id)
+    {
+
+            $model = Color::find($id);
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+        
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);
+
+        
+    }
+
 
        public function update(Request $request,$id)
     {
@@ -139,7 +159,7 @@ class ColorController extends Controller
         }
 
         $model->delete();
-        return response()->json(['message' =>'Record deleted successfully.'], 422);
+        return response()->json(['message' =>'Record deleted successfully.'], 200);
 
     }
 

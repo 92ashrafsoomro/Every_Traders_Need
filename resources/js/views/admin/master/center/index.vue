@@ -4,14 +4,14 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap align-center">
+                    <div class="d-flex flex-wrap ">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[10, 25, 50, 100]" 
                                 density="compact" 
                                 variant="outlined"
-                                label="Length"
+                            
                                 max-width="150px" class="mr-2" 
                                 />
                                 <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
@@ -22,12 +22,23 @@
 
                         <v-text-field 
                             v-model="filter.search" 
-                            prepend-inner-icon="mdi-magnify" 
+                      
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
                             max-width="300px" 
                             clearable />
+
+                        <div class="pl-2" >
+                            <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                                <v-icon icon="mdi-magnify"></v-icon>
+                            </v-btn> -->
+                        </div>
+                        <div class="pl-2" >
+                            <v-btn to="/admin/center/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                                <v-icon icon="mdi-plus"></v-icon>
+                            </v-btn>
+                        </div>
                     </div>
                 </v-col>
 
@@ -45,13 +56,17 @@
                             @update:options="loadItems" >
 
                             <template #item.action="{ item }">
-                                <router-link :to="'/admin/bodyType/'">
+                                <router-link :to="'/admin/center/edit/' + item.id">
                                     <v-icon color="light">mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
-                                <router-link :to="'/admin/bodyType/'">
-                                    <v-icon color="light" >mdi-delete</v-icon>
-                                </router-link>
+                                 <v-icon
+                                    small
+                                    class="clickable-icon"
+                                    @click="deleteItem(item.id)"
+                                    >
+                                    mdi-delete
+                                </v-icon>
                             </template>
 
                             <template v-slot:bottom>
@@ -122,7 +137,7 @@ export default {
         },
         'filter.search'(newVal, oldVal) {
             this.loadItems()
-        }
+        },
         
     },
     
@@ -145,7 +160,23 @@ export default {
                     this.loading = false
                 }
         },
-
+        async deleteItem(id) {
+             if (!confirm("Are you sure you want to delete this item?")) return;
+            this.loading = true;
+            try {
+            const res = await Center.delete(id);
+      
+            this.$alertStore.add(res.message || "Center deleted", "success");
+            this.loadItems(); 
+            
+        } catch (error) {
+            console.error(error);
+            this.$alertStore.add(error.message || "Delete failed", "error");
+            // this.loadItems(); 
+            } finally {
+            this.loading = false;
+            }
+        }
 
     }
   

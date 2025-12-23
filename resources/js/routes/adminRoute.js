@@ -8,6 +8,8 @@ import make from "@/views/admin/master/make/route"
 import model from "@/views/admin/master/model/route"
 import variant from "@/views/admin/master/variant/route"
 import center from "@/views/admin/master/center/route"
+import auction from "@/views/admin/auction/route"
+import vehicle from "@/views/admin/vehicle/route"
 
 export default [
     {
@@ -23,7 +25,9 @@ export default [
             ...make,
             ...variant,
             ...model,
-            ...center
-                ]
+            ...center,
+            ...auction,
+            ...vehicle
+            ]
     },
 ]

@@ -28,24 +28,36 @@ class Auctions extends Model
     {
         return $this->belongsTo(AuctionCenter::class);
     }
+
+     public function vehicle()
+    {
+        return $this->hasMany(Vehicle::class,'auction_id');
+    }
+
+    public function actionType()
+    {
+        return $this->belongsTo(AuctionType::class,'auction_type');
+    }
     
 
-public function autoBasics() {
-    return $this->hasMany(AutoBasic::class, 'auction_id');
-}
+    
 
-public function autoPrices() {
-    return $this->hasMany(AutoPrice::class, 'auction_id');
-}
+    public function autoBasics() {
+        return $this->hasMany(AutoBasic::class, 'auction_id');
+    }
+
+    public function autoPrices() {
+        return $this->hasMany(AutoPrice::class, 'auction_id');
+    }
 
 
-public function autoLegals() {
-    return $this->hasMany(AutoLegal::class, 'auction_id');
-}
+    public function autoLegals() {
+        return $this->hasMany(AutoLegal::class, 'auction_id');
+    }
 
-public function autoAdvances() {
-    return $this->hasMany(AutoAdvance::class, 'auction_id');
-}
+    public function autoAdvances() {
+        return $this->hasMany(AutoAdvance::class, 'auction_id');
+    }
 
 
 

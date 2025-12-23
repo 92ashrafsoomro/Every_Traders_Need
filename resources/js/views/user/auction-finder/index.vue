@@ -150,7 +150,7 @@ export default {
     mounted() {
 
         this.auctionStore.loadSiderBarFilters();
-        // this.auctionStore.getAuctionList();  
+        this.auctionStore.getAuctionList();  
         this.$themeStore.menuType = 'collapsed';
 
     },

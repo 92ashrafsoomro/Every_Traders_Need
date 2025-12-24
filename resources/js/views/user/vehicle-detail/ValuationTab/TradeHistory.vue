@@ -1,13 +1,11 @@
 <template>
-    <v-card class="pa-5 flex-grow-1">
-        <v-row class="d-flex flex-column flex-md-row justify-space-between align-start align-md-center">
-            <v-col cols="12" lg="8">
-                <v-card-title class="text-h6 font-weight-medium">
+    <custom-card class=" flex-grow-1" >
+          
+            <div cols="12" lg="4" class="d-flex align-center justify-space-between   pa-4">
+            <div class="text-h6 font-weight-medium">
                     Trade History
-                </v-card-title>
-            </v-col>
-
-            <v-col cols="12" lg="4">
+                </div>
+                <div>
                 <v-select
                     color="primary"
                     variant="outlined"
@@ -17,11 +15,10 @@
                     v-model="selectedRange"
                     @update:model-value="updateRange"
                 />
-            </v-col>
+                </div>
+            </div>
             
-        </v-row>
-
-        <v-divider class="mt-4 mb-4"></v-divider>
+        <v-divider class="mb-4"></v-divider>
 
         <v-row>
             <v-col cols="12">
@@ -55,7 +52,7 @@
                     </v-row>
                 </v-col>
             </v-row>
-        </v-card>
+        </custom-card>
     </template>
 
 <script>

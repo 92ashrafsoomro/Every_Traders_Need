@@ -1,5 +1,5 @@
 <template>
-          <v-app-bar class="px-3 px-sm-5" flat>
+          <v-app-bar class="px-3 px-sm-5" flat style="background-color: transparent;">
             <template v-slot:prepend>
                 <v-btn to="/">
                     <v-img width="130" :src="logo" to="/"></v-img>
@@ -10,7 +10,7 @@
                 </v-btn>
                 <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name == 'adminLight'" icon="mdi-lightbulb-off">
                 </v-btn>
-                <v-btn color="primary" variant="flat" to="/">Back To Home</v-btn>
+                <v-btn color="primary" variant="flat" to="/" class="rounded-sm text-capitalize">Back To Home</v-btn>
             </template>
         </v-app-bar>
 </template>

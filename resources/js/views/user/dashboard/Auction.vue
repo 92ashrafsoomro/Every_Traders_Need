@@ -2,13 +2,13 @@
     <v-card class="mb-5 border ">
 
         <!-- Header -->
-        <div class="d-flex pa-6 justify-space-between ">
+        <div class="d-flex flex-wrap pa-6 justify-space-between ">
             <div class="text-start">
                 <h3 class="text-h6">Vehicle Statistics</h3>
                 <p class=" text-body-2 text-light ">Today</p>
             </div>
         
-            <div class="mr-2 d-flex ga-2"> 
+            <div class="mr-2 ml-n5 d-flex  ga-2 mt-4 mt-lg-0 mt-md-4 pl-md-4 "> 
                 <plateform-dropdown
                     label="Online Auction"
                     variant="outlined"

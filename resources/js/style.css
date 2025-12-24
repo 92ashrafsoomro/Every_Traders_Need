@@ -61,3 +61,12 @@ aside {
     white-space: nowrap;
     margin-top: 4px;
 }
+
+.v-expansion-panel-title__overlay:hover{
+    background-color: rgb(var(--v-theme-background));
+}
+/* 
+.v-list-item--active{
+    
+    background-color: #00;
+} */

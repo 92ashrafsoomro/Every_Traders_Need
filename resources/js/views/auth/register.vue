@@ -1,7 +1,15 @@
 <template>
+      <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute;">
+        <div class="pattern-bg"></div>
+        <div class="position-relative  pt-5  " style=" max-width: 1400px; z-index: 10">
+            
+            <slot> </slot>
+        </div>
+    </div>
     <v-app>
-        <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
-            style="z-index: 0; clip-path: polygon(0 29%, 100% 0, 100% 100%, 0% 100%);">
+         <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
+            style="z-index: 0; border-radius:  0 300px 0 0;">
+            <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
         <AuthHeader />
 

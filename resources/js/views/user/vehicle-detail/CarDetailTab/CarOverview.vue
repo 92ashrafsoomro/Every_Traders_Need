@@ -4,29 +4,34 @@
             <!-- <v-row>
                 <v-card-title class="text-h4 font-weight-medium">Overview</v-card-title>
             </v-row> -->
-            <v-row>
+            <v-row class="mt-2">
                 <v-col v-for="item in items" cols="6" sm="4" lg="3" >
-                    <p class="ml-2 text-body-1 text-light text-overline text-capitalize">{{ item.title }}</p>
+                    <p class="ml-2 text-body-2  text-capitalize text-light_text_on">{{ item.title }}</p>
                     <v-chip  variant="text" size="large" :prepend-icon="item.icon">
                             <template #prepend>
                             <v-icon color="primary">{{ item.icon }}</v-icon>
                         </template>
-                        {{ item.value }}</v-chip>
+                        <span class="text-body-1">
+                        {{ item.value }}</span></v-chip>
                             
                 </v-col>
             </v-row>
-        </v-container>
+         
+        </v-container> 
+        
+       
     </custom-card>
-    
+   
 </template>
 
 <script>
 import { useVehicleStore } from '@/stores/vehicleStore';
-
-
+import Equipment from './Equipment.vue';
+import Features from './Features.vue';
 export default {
     components: {
-
+        Equipment,
+        Features
     },
     data() {
         return {
@@ -46,13 +51,13 @@ export default {
                 {
                     title: 'Make',
                     value: this.vehicleStore.vehicle?.make?.name,
-                    icon: 'mdi-steering',
+                    icon: ' mdi-car-cog',
                     color:'primary',
                 },
                 {
                     title: 'Model',
                     value: this.vehicleStore.vehicle?.model?.name,
-                    icon:'mdi-car-cog',
+                    icon:'mdi-steering',
                 },
                 {
                     title: 'Variant',
@@ -72,7 +77,7 @@ export default {
                 {
                     title: 'Color',
                     value: this.vehicleStore.vehicle?.color?.name,
-                    icon:'mdi-palette',
+                    icon:'mdi-water',
                 },
                 {
                     title: 'Fuel Type',
@@ -92,12 +97,12 @@ export default {
                 {
                     title: 'Doors',
                     value: this.vehicleStore.vehicle.doors,
-                    icon:'mdi-door',
+                    icon:'mdi-car-door',
                 },
                 {
                     title: 'Seats',
                     value: this.vehicleStore.vehicle.seats,
-                    icon:'mdi-seat-passenger',
+                    icon:'mdi-car-seat',
                 },
                 {
                     title: 'Former Keepers',
@@ -117,12 +122,12 @@ export default {
                 {
                     title: 'Euro Status',
                     value: this.vehicleStore.vehicle.euro_status,
-                    icon:'mdi-leaf',
+                    icon:'mdi-hexagram',
                 },
                 {
-                    title: 'Engine Runs',
+                    title: 'Non Runner',
                     value: this.vehicleStore.vehicle.engine_runs,
-                    icon:'mdi-car-wrench',
+                    icon:'mdi-engine',
                 }
             ]
         }

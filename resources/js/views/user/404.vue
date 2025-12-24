@@ -1,109 +1,83 @@
-<template>
-    <v-container fluid class="fill-height">
-        <v-row align="center" justify="center">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="5">
-                <v-card elevation="0" class="text-center pa-8" color="transparent">
-                    <!-- Animated 404 SVG -->
-                    <div class="mb-8">
-                        <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"
-                            class="mx-auto">
-                            <!-- Background circles for effect -->
-                            <circle cx="60" cy="100" r="40" fill="#E3F2FD" opacity="0.5">
-                                <animate attributeName="r" values="40;45;40" dur="2s" repeatCount="indefinite" />
-                            </circle>
-                            <circle cx="240" cy="100" r="40" fill="#E3F2FD" opacity="0.5">
-                                <animate attributeName="r" values="40;45;40" dur="2s" repeatCount="indefinite"
-                                    begin="1s" />
-                            </circle>
+<template>  
+<!-- Background Wrapper -->
+  <div class="w-100 h-100 bg-surface pb-8" style="position: absolute;">
+    <div class="pattern-bg"></div>
+    <div class="position-relative pt-5" style="max-width: 1400px; z-index: 10">
+      <slot />
+    </div>
+  </div>
+  <v-container
+    fluid
+    class="bg-surface d-flex align-center justify-center"
+    style="min-height: 100vh;"
+  >
 
-                            <!-- 4 -->
-                            <path d="M 40 60 L 40 100 L 70 100 M 70 50 L 70 120" stroke="#1976D2" stroke-width="12"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" values="0,200;200,0" dur="1.5s"
-                                    fill="freeze" />
-                            </path>
+    <div style="max-width: 900px;" class="mx-auto w-100">
+      <v-row align="center" justify="center">
+        <v-col cols="12" md="8">
+          <v-card
+            class="pa-8 rounded-xl border"
+            elevation="0"
+          >
+            <v-row align="center">
+              <!-- LEFT -->
+              <v-col cols="12" md="6">
+                <h1
+                  class="text-h1 font-weight-bold text-primary"
+                  style="line-height: 1;"
+                >
+                  404
+                </h1>
 
-                            <!-- 0 (center) -->
-                            <ellipse cx="150" cy="100" rx="35" ry="50" fill="none" stroke="#1976D2" stroke-width="12">
-                                <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.5s" fill="freeze" />
-                            </ellipse>
+                <h3 class="text-h5 mt-2">
+                  Page not found
+                </h3>
 
-                            <!-- Eye wink effect -->
-                            <circle cx="140" cy="90" r="4" fill="#1976D2">
-                                <animate attributeName="opacity" values="1;0;1" dur="3s" repeatCount="indefinite"
-                                    begin="2s" />
-                            </circle>
-                            <circle cx="160" cy="90" r="4" fill="#1976D2" />
+                <p class="text-body-2 text-medium-emphasis mt-3">
+                  The page you’re looking for doesn’t exist or has been moved.
+                  Please check the URL or return to the dashboard.
+                </p>
 
-                            <!-- Smile -->
-                            <path d="M 135 110 Q 150 120 165 110" stroke="#1976D2" stroke-width="3" fill="none"
-                                stroke-linecap="round">
-                                <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1s" fill="freeze" />
-                            </path>
+                <div class="mt-6 d-flex ga-3">
+                  <v-btn
+                    color="primary"
+                    variant="flat"
+                  >
+                   <router-link to="/autoboli" style="text-decoration: none; color: white;"> Go Back</router-link>
+                  </v-btn>
 
-                            <!-- 4 (right) -->
-                            <path d="M 220 60 L 220 100 L 250 100 M 250 50 L 250 120" stroke="#1976D2" stroke-width="12"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" values="0,200;200,0" dur="1.5s"
-                                    fill="freeze" />
-                            </path>
-                        </svg>
-                    </div>
 
-                    <!-- Title -->
-                    <v-card-title class="text-h3 font-weight-bold justify-center mb-4 text-primary">
-                        Oops! Page Not Found
-                    </v-card-title>
+                </div>
+              </v-col>
 
-                    <!-- Subtitle -->
-                    <v-card-text class="text-primary-lighten-1">
-                        <p class="text-h6 text-medium-emphasis mb-2">
-                            The page you're looking for seems to have wandered off.
-                        </p>
-                        <p class="text-body-1 text-medium-emphasis">
-                            Don't worry, even the best explorers lose their way sometimes!
-                        </p>
-                    </v-card-text>
+              <!-- RIGHT -->
+              <v-col cols="12" md="6" class="text-center">
+             <img :src="logo" alt="" srcset="" sizes="cover">
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+  </v-container>
 
-                    <!-- Action Buttons -->
-                    <v-card-actions class="justify-center mt-6">
-                        <v-btn color="primary" size="large" prepend-icon="mdi-undo-variant" variant="elevated" to="/"
-                            class="px-8">
-                            Go Back
-                        </v-btn>
-                    </v-card-actions>
-
-                    <!-- Additional Help -->
-                    <v-card-text class="mt-8">
-                        <v-divider class="mb-6"></v-divider>
-                        <p class="text-body-2 text-medium-emphasis mb-4">
-                            Need help? Try these:
-                        </p>
-                        <v-row dense justify="center">
-                            <v-col cols="auto">
-                                <v-btn variant="text" size="small" prepend-icon="mdi-arrow-left" to="/">
-                                    Go Back
-                                </v-btn>
-                            </v-col>
-                            <v-col cols="auto">
-                                <v-btn variant="text" size="small" prepend-icon="mdi-refresh" @click="refresh">
-                                    Refresh
-                                </v-btn>
-                            </v-col>
-                            <v-col cols="auto">
-                                <v-btn variant="text" size="small" prepend-icon="mdi-help-circle" @click="getHelp">
-                                    Contact Support
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
 </template>
 
-<script setup>
+<script>
+import logo from "@/assets/images/logo/logo.png"
+export default {
+    data(){
+        return{
+           
+            logo
+        }
+    }
+}
+</script>
+
+<!-- <script setup>
+    import navbar from '../web/layout/navbar.vue';
+    import footer from '../web/layout/footer.vue';
 const refresh = () => {
     console.log('Refreshing page...');
     window.location.reload();
@@ -113,7 +87,7 @@ const getHelp = () => {
     console.log('Opening support...');
     alert('Support contact feature would open here!');
 };
-</script>
+</script> -->
 
 <style scoped>
 .fill-height {

@@ -20,7 +20,6 @@ class PasswordResetMail extends Mailable
     {
         return $this->subject('Reset Your Password')
                     ->view('emails.password_reset')
-                    ->with(['resetLink' => $this->resetLink])
-                    ->cc('man411210@gmail.com'); 
+                    ->with(['resetLink' => $this->resetLink]); 
     }
 }

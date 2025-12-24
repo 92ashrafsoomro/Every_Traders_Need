@@ -8,6 +8,8 @@
                 :items-length="data.length" 
                  hide-default-footer
                 item-value="id"
+                 fixed-header
+                  height="300px"
                 >
                     <template #item.status="{ item }">
                         <v-btn v-if="item.status == 'Active'"   class="text-capitalize">{{ item.status }}</v-btn>

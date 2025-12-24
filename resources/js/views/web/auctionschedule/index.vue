@@ -1,5 +1,6 @@
 <template>
     <user-title-bar title="Auction Scheduler"
+    style="z-index: 1; margin-top: 20px;"
         subtitle="Manage and view platform auctions across all centers in one place.">
         <div class="d-flex flex-wrap ga-2 ">
             <div style="width: 200px;">
@@ -48,66 +49,85 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="max-width: 1400px;">
-        <v-row class="mt-3">
-            <v-col cols="12">
-                <v-card class="border-sm border-white">
-                    <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading" hover
-                        item-value="id" @update:options="getRecords">
 
-                        <template #item.action="{ item }">
-                            <div class="d-flex">
-                                <v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon>
-                                <v-icon class="NotifyIcon ml-2 " size="20"> mdi-bell-outline</v-icon>
+    <div class="w-100 h-auto d-flex justify-center">
+        <div class="mt-10 mb-10 w-75 ">
+            <v-table fixed-header class="rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="text-left text-subtitle-1">
+                            Platfrom
+                        </th>
+
+                        <th class="text-left text-subtitle-1">
+                            Center
+                        </th>
+
+                        <th class="text-left text-subtitle-1">
+                            Total Vahicls
+                        </th>
+
+                        <th class="text-left text-subtitle-1">
+                            time
+                        </th>
+
+                        <th class="text-left text-subtitle-1">
+                            Status
+                        </th>
+                        <th class="text-left text-subtitle-1">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr v-for="value in [1,2,3,4,5]">
+                        <td>
+                            <p class="text-primary">BCA</p>
+                        </td>
+                        <td>Birmingham, Bristol, Thurleigh </td>
+                        <td>225</td>
+                        <td>14/8/2025_10:00</td>
+                        <td>
+                            <div class="rounded h-50  d-flex justify-center align-center"
+                                style="width:100px ; background-color: rgba(var(--v-theme-primary),0.10);">
+                                In Progress
                             </div>
-                        </template>
-                        <template #item.center_name="{ item }">
-                            <div class="" style="max-width: 700px; ">
+                        </td>
+                        <td>View/Alert/</td>
+                    </tr>
 
-                                <div class="center_name_width">
-                                    <span>{{ item.center_names }}</span>
-                                </div>
+                </tbody>
+            </v-table>
+        </div>
+    </div>
+    <div style="max-width: 1400px;" class="mx-auto">
 
-                            </div>
 
-                        </template>
 
-                        <template v-slot:bottom>
-                            <div class="py-2 d-flex justify-end border-t">
-                                <custom-pagination :loading="loading" v-model:page="options.page"
-                                    :lastPage="options.last_page" @page-changed="getRecords" />
-                            </div>
-                        </template>
-
-                    </v-data-table-server>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>
 
-import { auctionSheldulerList } from '@/services/pageService';
-import { usePageStore } from '@/stores/pageStore';
 
-import PlateformDropdown from '@/components/PlateformDropdown.vue';
+import { auctionSheldulerList } from '@/services/pageService';
 import CenterDropdown from '@/components/CenterDropdown.vue';
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
 
 export default {
-    props: {
-
-    },
+    name: "auctionsolution",
     components: {
-        PlateformDropdown,
-        CenterDropdown
+        CenterDropdown,
+        PlateformDropdown
+
     },
     data() {
         return {
-            pageStore: usePageStore(),
-            platforms: [],
-            centers: [],
-            days: {
+            center: null,
+               platforms: [],
+            dropdown: null,
+                  days: {
                 today: {
                     auction: 0,
                     car: 10,
@@ -136,8 +156,9 @@ export default {
                     auction: 10,
                     car: 10,
                 },
+
             },
-            options: {
+                             options: {
                 length: 10,
                 page: 1,
                 last_page: 1,
@@ -147,25 +168,13 @@ export default {
                 day: 'today',
                 enableCurrent: false,
                 date: '',
+             data: [],
+             total:0,
+             loading: false,
             },
-            data: [],
-            total: 0,
-            loading: false,
-            headers: [
-                { title: "Platform", key: "platform_name", sortable: false },
-                { title: "Center", value: "center_name" },
-                { title: "Total Vehicles", value: "car_count" },
-                { title: "Time", value: "time" },
-                { title: "Status", value: "status" },
-                { title: "Action", key: "action", sortable: false },
-            ],
-        };
+        }
     },
-    async mounted() {
-
-
-    },
-    methods: {
+     methods: {
         async handleInput(value, field) {
 
             switch (field) {
@@ -220,9 +229,9 @@ export default {
         }
 
     },
-};
-</script>
+}
 
+</script>
 <style scoped>
 .icon {
     font-size: 10px;
@@ -232,37 +241,5 @@ export default {
 .active {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
-
-.center_name_width {
-    max-width: 1000px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    /* padding: 10px;  */
-    max-height: 48px;
-    transition:
-        max-width 1s ease,
-        max-height 1s ease,
-        background-color 1s ease;
-}
-
-.center_name_width:hover {
-    max-width: 900px;
-    max-height: 200px;
-    background-color: rgba(255, 255, 255, 0.04);
-    -webkit-line-clamp: 6;
-}
-
-.eyeIcon:hover {
-    color: rgb(var(--v-theme-primary));
-    cursor: pointer;
-}
-
-.NotifyIcon:hover {
-    color: rgb(var(--v-theme-primary));
-    cursor: pointer;
-}
-
 
 </style>

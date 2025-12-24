@@ -39,13 +39,15 @@
                     </div>
 
                 </div>
-                <div class="mt-10">
-                    <v-btn class="w-100 h-75 pa-4" v-if="showLimit < allItems.length"  @click="showLimit = allItems.length" variant="flat" color="primary" rounded="">
-                      <span class="text-capitalize" >View More</span>
-                    </v-btn>
-                    <v-btn class="w-100 h-75 pa-4" @click="showLimit = 6" v-else="" variant="flat" color="primary" rounded="">
-                          <span class="text-capitalize">View Less</span>
-                    </v-btn>
+                <div class="mt-16">
+                    <!-- <v-btn class=" " variant="flat" color="primary" rounded=""> -->
+                      <!-- <span class="text-capitalize" >View More</span> -->
+                       <AppButton text="View More" to="/" icon="mdi-arrow-down"  v-if="showLimit < allItems.length"  @click="showLimit = allItems.length"/>
+                    <!-- </v-btn> -->
+                    <!-- <v-btn class="w-100 h-75 pa-4" @click="showLimit = 6" v-else="" variant="flat" color="primary" rounded=""> -->
+                          <!-- <span class="text-capitalize">View Less</span> -->
+                            <AppButton text="View Less" to="/"   icon="mdi-arrow-up"  @click="showLimit = 6" v-else=""/>
+                    <!-- </v-btn> -->
 
                 </div>
 
@@ -59,15 +61,18 @@
 <script>
 import AfterAutoboliImage from "@/assets/images/hero/heroAutoboliSmart.png"
 import afterImages from "@/assets/images/smarter/smarter1.png"
-import { computed } from "vue";
+import AppButton from "../component/AppButton.vue";
 export default {
 
     name: 'AfterAutoboli',
+    components:{
+        AppButton,
+    },
     data() {
         return {
             AfterAutoboliImage,
             showLimit: 4,
-
+            
             afterData: [
                 {
                     title: "Track live auction activity",

@@ -1,9 +1,9 @@
 <template>
   
-  <v-container max-width="1500px"  class="bg-surface main-container mx-auto">
+  <v-container max-width="1400px"  class="bg-surface main-container mx-auto">
     <div class="pt-16"  >
       <div class="left-border-box d-flex items-start">
-        <div  class="ml-5">
+        <div  class="ml-lg-5 ml-md-5">
           <h2 class="text-h4 text-on-primary  mb-4 font-weight-bold"> Empowering Dealers & Traders with Data-Backed Confidence</h2>
           <p class="paragraph mb-6 mt-5 text-text_light font-weight-light">
             The vehicle auction industry is fast, competitive, and unforgiving—one wrong bid can cost thousands, and missing the right opportunity can cost even more.

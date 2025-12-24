@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "1db562ad-791a-42a7-8d0e-4284ced7a1b1",
+		"_postman_id": "59e7e6ac-9ecd-4043-992d-a158bfdec95b",
 		"name": "autoboli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "49888145",
-		"_collection_link": "https://owais-dapp-6870499.postman.co/workspace/Owais-Azam's-Workspace~4bdbb424-e895-42af-8e84-18f7ddcaec3f/collection/49888145-1db562ad-791a-42a7-8d0e-4284ced7a1b1?action=share&source=collection_link&creator=49888145"
+		"_exporter_id": "50942393",
+		"_collection_link": "https://speeding-sunset-9077779.postman.co/workspace/DA-PP's-Workspace~08aef13c-7ee3-498d-8cdc-87a721c97d51/collection/50942393-59e7e6ac-9ecd-4043-992d-a158bfdec95b?action=share&source=collection_link&creator=50942393"
 	},
 	"item": [
 		{
@@ -65,6 +65,33 @@
 								"profile"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/auth/forgotPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgotPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -156,7 +183,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/user/auctionList/8636",
+									"raw": "{{url}}/api/user/auctionList/10139",
 									"host": [
 										"{{url}}"
 									],
@@ -164,7 +191,7 @@
 										"api",
 										"user",
 										"auctionList",
-										"8636"
+										"10139"
 									]
 								}
 							},

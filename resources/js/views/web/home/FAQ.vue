@@ -12,7 +12,7 @@
       <!-- FAQ List -->
       <v-expansion-panels style="max-width: 800px; margin: auto; ">
         <v-expansion-panel v-for="(faq, index) in faqs" :key="index" elevation="0" variant="flat" class="faq-panel bg-background pa-2">
-          <v-expansion-panel-title>
+          <v-expansion-panel-title ripple="false" class="v-theme--dark bg-transparent">
             <div class="d-flex align-center justify-space-between w-100  " >
               <span class="text-body-1 font-weight-medium">
                 {{ faq.question }}
@@ -72,18 +72,6 @@ export default {
 </script>
 
 <style scoped>
-.faq-panel.v-expansion-panel--active {
-  background-color: #000E20 !important;
-  border-radius: 5px;
-}
 
 
-.faq-panel.v-expansion-panel--active .v-expansion-panel-title {
-  background-color: #000E20 !important;
-}
-
-
-.faq-panel.v-expansion-panel--active .v-expansion-panel-text {
-  background-color: #000E20 !important;
-}
 </style>

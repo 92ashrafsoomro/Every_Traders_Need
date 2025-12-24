@@ -1,7 +1,7 @@
 <template>
     <v-menu location="bottom end" :offset="10" transition="slide-y-transition">
         <template #activator="{ props }">
-            <v-badge :content="unreadCount" color="primary" :model-value="unreadCount > 0" offset-x="8" offset-y="8">
+            <v-badge :content="notifications.unread" color="primary" :model-value="notifications.unread > 0" offset-x="8" offset-y="8">
                 <v-btn icon size="small" v-bind="props" variant="text">
                     <v-icon>mdi-bell-outline</v-icon>
                 </v-btn>

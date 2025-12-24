@@ -1,52 +1,117 @@
 <template>
-    <v-container fluid>
-        <v-row v-if="loading" >
+    <!-- SIDEBAR OVERLAY -->
+    <v-navigation-drawer v-model="vehicleStore.sidebar" location="left" temporary width="300" class="bg-surface">
+
+        <v-btn value="details" height="50" @click="vehicleStore.sidebar = !vehicleStore.sidebar"
+            class="bg-background text-capitalize text-body-1 border position-absolute" style="z-index: 10; right: 0;">
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <VehicleSidebar />
+
+    </v-navigation-drawer>
+    <!-- TOP BACKGROUND -->
+    <div class="w-100 bg-surface pb-8" style="position:absolute; height:400px;">
+        <div class="pattern-bg"></div>
+
+        <div class="position-relative pt-5 mx-auto px-2 px-lg-4" style="max-width:1400px; z-index:10">
+            <slot />
+        </div>
+    </div>
+
+    <v-container fluid class="mt-10 p-0 " style="max-width: 1400px">
+
+        <v-row justify="center">
+
+
+
             <v-col cols="12">
-                <p class="text-center">Loading..</p>
-            </v-col>
-        </v-row>
-        <v-row v-else-if="!vehicleStore.isVehicle" >
-            <v-col cols="12">
-                <p class="text-center">No Data</p>
-            </v-col>
-        </v-row>
-        <v-row v-else no-gutters>
-            <v-col cols="12">
-                    <v-row class="d-flex" style="position: relative;" >
-                        <v-col :style="$vuetify.display.lgAndUp ? sidebarStyle : sidebarResponsiveStyle"  style="position: sticky; top: 40px;">
-                            <div class=""  >
-                                   <VehicleSidebar  />
-                            </div>
-                        </v-col>
-                        <v-col :style="contentStyle">
-                            <div class="">   
-                                    <v-row no-gutters>
-                                        <v-col cols="12"
-                                            class="d-flex flex-column flex-sm-row align-end align-lg-start justify-normal">
-                                            <v-btn-toggle>
-                                                <v-btn size="small" color="primary"
-                                                    @click="vehicleStore.sidebar = !vehicleStore.sidebar">
-                                                    <v-icon size="large">mdi-menu</v-icon>
+
+                <v-row v-if="loading">
+                    <v-col cols="12" class="text-center">
+                        Loading..
+                    </v-col>
+                </v-row>
+
+
+                <v-row v-else-if="!vehicleStore.isVehicle">
+                    <v-col cols="12" class="text-center">
+                        No Data
+                    </v-col>
+                </v-row>
+
+
+                <v-row v-else>
+                    <v-col cols="12">
+
+                        <v-row style="position: relative;">
+
+                            <v-col>
+                                <v-row no-gutters>
+                                    <!-- class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal" -->
+
+                                    <v-col cols="12" class="d-flex  mb-6   justify-space-between align-center">
+                                        <div class="d-flex ga-3">
+
+
+
+                                            <v-btn value="details" height="50"
+                                                @click="vehicleStore.sidebar = !vehicleStore.sidebar"
+                                                class="bg-background text-capitalize text-body-1 border">
+                                                <v-icon>mdi-menu</v-icon>
+                                            </v-btn>
+
+
+
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 h-100 d-flex ga-4"
+                                                mandatory>
+                                                <v-btn value="details" height="50" variant="tonal"
+                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }"
+                                                    style="border-radius: 5px">
+                                                    Vehicle Details
+                                                </v-btn>
+
+                                                <v-btn value="valuation" height="50" variant="tonal"
+                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }"
+                                                    style="border-radius: 5px">
+                                                    Vehicle Valuation
                                                 </v-btn>
                                             </v-btn-toggle>
-                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100" color="primary"
-                                                mandatory>
-                                                <v-btn value="details">Vehicle Details</v-btn>
-                                                <v-btn value="valuation">Vehicle Valuation</v-btn>
-                                            </v-btn-toggle>
-                                        </v-col>
-                                        <v-col cols="12">
-                                               <component :is="currentComponent" />
-                                        </v-col>
+
+                                        </div>
+                                        <div class="d-flex ga-3">
+                                            <v-btn value="Reauction Detacted" height="50"
+                                                class="text-capitalize text-body-1"
+                                                style="background-color: rgb(var(--v-theme-danger), 0.2);">
+                                                Reauction Detacted
+                                            </v-btn>
+                                            <v-btn value="Reauction Detacted" height="50"
+                                                class="bell text-capitalize text-body-1 bg-background border"
+                                                style="background-color: rgb(var(--v-theme-primary), 0.2);">
+                                                <v-icon class=" text-primary">mdi-bell-outline</v-icon>
+
+                                            </v-btn>
+                                        </div>
+
+                                    </v-col>
+
+
+                                    <v-col cols="12">
+                                        <component :is="currentComponent" />
+                                    </v-col>
                                 </v-row>
-                            </div>
-    
-                        </v-col>
-                    </v-row>
+                            </v-col>
+                        </v-row>
+
+                    </v-col>
+                </v-row>
+
             </v-col>
         </v-row>
     </v-container>
 </template>
+
 <script>
 
 import { useVehicleStore } from '@/stores/vehicleStore';
@@ -71,7 +136,7 @@ export default {
         };
     },
     async mounted() {
-    
+
         this.loadVehicle();
         this.$themeStore.menuType = "collapsed";
     },
@@ -99,7 +164,7 @@ export default {
                 flexBasis: this.vehicleStore.sidebar ? '300px' : '0px',
                 display: this.vehicleStore.sidebar ? 'block' : 'none',
                 flexGrow: '0',
-                height:'100%'
+                height: '100%'
                 // flexShrin: '0',
             }
         },
@@ -107,7 +172,7 @@ export default {
             return {
                 width: '0px',
                 display: 'none',
-              
+
                 // display: 'none',
                 // flexGrow: '0',
                 // flexShrin: '0',
@@ -119,15 +184,15 @@ export default {
                 // width: this.vehicleStore.sidebar ? "calc(100% - 300px)" : "100%" ,
                 // height: '100vh',
             }
-        },        
+        },
     },
     watch: {
-    '$route.params.id': {
-      immediate: true,
-      handler(newId) {
-        this.loadVehicle(newId);
-      }
-    }
+        '$route.params.id': {
+            immediate: true,
+            handler(newId) {
+                this.loadVehicle(newId);
+            }
+        }
     },
     methods: {
         loadVehicle() {
@@ -139,14 +204,14 @@ export default {
                     this.vehicleStore.vehicle = res.data.vehicle;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
-                
+
                 }).catch(() => {
 
                     this.loading = false;
                     this.vehicleStore.vehicle = {};
                     this.vehicleStore.isVehicle = false;
                     this.$router.replace("/user/dashboard");
-                    
+
                 });
         },
 
@@ -155,7 +220,16 @@ export default {
 </script>
 
 <style scoped>
-
+.pattern-bg {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+    background-size: 16px 16px;
+    background-repeat: repeat;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
 
 .sidebar--mobile {
     position: fixed;
@@ -184,15 +258,16 @@ export default {
     display: none;
 }
 
-
-@media (max-width: 1440px) {
- 
-
+.v-btn.bell:hover {
+    background-color: rgb(var(--v-theme-primary), 0.2) !important;
 }
 
-@media (max-width: 1440px) {
-  
+.v-btn-toggle .v-btn--active {
+    background-color: rgb(var(--v-theme-primary)) !important;
+    color: white !important;
 }
 
+@media (max-width: 1440px) {}
 
+@media (max-width: 1440px) {}
 </style>

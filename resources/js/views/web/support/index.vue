@@ -1,6 +1,6 @@
 <template>
   <div class="mainContainer   ">
-    <div class="content " style="max-width: 1900px; min-height: 100vh; ">
+    <div class="content " style="min-height: 100vh; ">
       <v-row align="center" justify="center">
 
         <!-- Left: Title + Form -->
@@ -15,7 +15,8 @@
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.1,
-            zIndex: 1}">
+            zIndex: 1
+          }">
 
           </v-card>
 
@@ -24,61 +25,61 @@
             <img style="" height="40px" :src="logo" alt="">
           </div>
           <!-- Form Content -->
-           <div style=" display: flex; justify-content: center; align-items: center; height: 90vh;" >
+          <div style=" display: flex; justify-content: center; align-items: center; height: 90vh;">
 
-             <div class="position-relative pa-8 pa-md-12  align-center justify-center "
-             style="z-index: 2; max-width: 600px; margin: auto;  ">
-             <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
-               Supported Page
+            <div class="position-relative align-center justify-center " style="z-index: 2;  width: 500px;">
+              <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
+                Help & Support
               </h1>
 
               <div class="max-w-md mx-auto mx-lg-0">
                 <v-text-field label="Name" v-model="form.name" placeholder="John Doe" variant="outlined"
-                bg-color="inputBg" base-color="gray-lighten-1" color="white" class="mb-6"></v-text-field>
-                
+                  bg-color="background" base-color="border" color="white" class="mb-2"></v-text-field>
+
                 <v-text-field label="Email" v-model="form.email" placeholder="john@example.com" variant="outlined"
-                bg-color="inputBg" base-color="grey-lighten-1" color="white" class="mb-6"></v-text-field>
-                
+                  bg-color="background" base-color="border" color="white" class="mb-2"></v-text-field>
+
                 <v-textarea label="Description *" v-model="form.description"
-                placeholder="I have a question about my subscription..." variant="outlined" bg-color="inputBg"
-                base-color="grey-lighten-1" color="white" rows="5" class="mb-8"></v-textarea>
-                
-                <div class="d-flex  flex-sm-row mb-8" style="max-width: 200px;">
-                <v-btn color="primary" class="flex-grow-1 mr-lg-10 text-capitalize" @click="formSubmit">
-                  Submit
-                </v-btn>
-                <v-btn color="white" class="flex-grow-1 ml-lg-0 ml-4  text-surface  text-capitalize" to="/">
+                  placeholder="I have a question about my subscription..." variant="outlined" bg-color="background"
+                  base-color="border" color="white" rows="5" class="mb-2"></v-textarea>
+
+                <div class="d-flex  flex-sm-row mb-3" style="max-width: 200px;">
+
+                  <v-btn color="primary" class="flex-grow-1 text-body-1  text-capitalize " style="height: 50px;"
+                    @click="formSubmit">
+                    Submit
+                  </v-btn>
+                  <!-- <v-btn color="white" class="flex-grow-1  ml-4 text-body-1   text-surface  text-capitalize" to="/">
                   Go Back
-                </v-btn>
+                </v-btn> -->
+                </div>
+
               </div>
-              
-              <p class="text-light text-body-2">
-                Hey! If you have a code-related question, please instead use
-                <a href="#" class="text-primary text-decoration-none">the forum</a>.
-              </p>
-            </div>
             </div>
           </div>
 
         </v-col>
 
         <!-- Right: Quick Links -->
-        <v-col cols="12" lg="6" class=" pa-8  b pa-md-12 d-flex align-center justify-center bg-background" style="min-height: 100vh;">
+        <v-col cols="12" lg="6" class=" pa-8 pa-md-12 d-flex align-center justify-center bg-background"
+          style="min-height: 100vh;">
           <div class="w-100 " style="max-width: 560px;">
-            <div v-for="(item, index) in quickLinks" :key="index"
-              class="mb-4 px-6 py-1  border-thin rounded-sm bg-background">
+            <div v-for="(item, index) in quickLinks" :key="index" class="mb-4 px-6 py-1 border-thin rounded-sm"
+              :class="activeIndex === index ? 'active-item' : 'bg-background'">
+
               <div class="d-flex align-center justify-space-between">
                 <span class="text-white text-body-1">{{ item.heading }}</span>
 
-                <v-btn icon @click="toggle(index)" variant="plain">
-                  <v-icon color="grey-lighten-2" size="20">
+                <v-btn icon variant="text">
+                  <v-icon color="white"  size="20" @click="toggle(index)">
                     {{ activeIndex === index ? 'mdi-minus' : 'mdi-plus' }}
                   </v-icon>
                 </v-btn>
+
               </div>
 
               <v-expand-transition>
-                <div v-if="activeIndex === index" class="mt-3 text-light ">
+                <div v-if="activeIndex === index" class="mt-3 text-light pb-4">
                   {{ item.description }}
                 </div>
               </v-expand-transition>
@@ -102,9 +103,9 @@ export default {
   name: 'support',
 
   data: () => ({
-     logo,
+    logo,
     bgImage,
-    quickLinks ,
+    quickLinks,
     activeIndex: null,
     form: {
       name: "",
@@ -133,7 +134,7 @@ export default {
 
       }
     },
-    
+
     toggle(index) {
       this.activeIndex = this.activeIndex === index ? null : index;
     }
@@ -146,4 +147,12 @@ export default {
 /* .inner-shadow {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 } */
+.active-item {
+  background-color: rgb(var(--v-theme-primary), 0.1);
+  border: 1px solid rgb(var(--v-theme-broder));
+}
+
+.bg-background {
+  background-color: rgb(var(--v-theme-background));
+}
 </style>

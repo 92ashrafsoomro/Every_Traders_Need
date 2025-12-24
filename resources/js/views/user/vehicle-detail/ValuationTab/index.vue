@@ -75,7 +75,7 @@
                                         <v-col cols="6">
                                             <div class="text-body-2  mb-1">Autotrader</div>
                                             <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                                }}
+                                            }}
                                             </div>
                                             <div class="d-flex mt-2">
                                                 <v-chip color="danger" small label class=" text-white pa-1 py-0    "
@@ -88,7 +88,7 @@
                                         <v-col cols="6">
                                             <div class="text-body-2  mb-1">Retail CAP</div>
                                             <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                                }}
+                                            }}
                                             </div>
                                             <div class="d-flex mt-2">
                                                 <v-chip color="danger" small label class=" text-white pa-1 py-0    "
@@ -126,7 +126,7 @@
 
                                 <!-- Car Details -->
                                 <div class="text-h6 mt-3 text-light font-weight-bold mb-4">{{ vehicleStore.vehicle.title
-                                }}</div>
+                                    }}</div>
 
                             </div>
 
@@ -218,7 +218,7 @@
                         </custom-card>
                     </v-col>
 
-                    <v-col class="bg-surface mt-3 pa-0  border rounded-lg" cols="12">
+                    <v-col class="bg-surface mt-4 pa-0  border rounded-lg" cols="12">
                         <custom-card title="Auction Results">
                             <v-container class="px-6 pb-6">
 
@@ -249,31 +249,33 @@
                             </v-container>
                         </custom-card>
                     </v-col>
-                    <v-col class="bg-surface mt-3 pa-0 border rounded-lg" cols="12">
+                    <v-col class="bg-surface mt-4 pa-0 border rounded-lg" cols="12">
                         <custom-card title="Pre Vehicles">
-                            <v-container class="px-6 pb-0">
+                            <v-container class=" pb-4">
 
                                 <!-- TODAY -->
-                                <h4 class="text-body-2 text-light_text_on mb-2">Today</h4>
-
-                                <table class="w-100 text-center ml-n2">
-                                    <thead>
-                                        <tr class="text-grey-lighten-1">
-                                            <th class="py-2">Image</th>
-                                            <th class="py-2">Name</th>
-                                            <th class="py-2">Status</th>
-                                            <th class="py-2">ID</th>
+                              
+                                <v-table striped="even">
+                                    <thead >
+                                        <tr  >
+                                            <th class="text-left" style="padding: 0px;" >
+                                               Reg
+                                            </th>
+                                            
+                                            <th >
+                                                Status
+                                            </th>
+                                            
+                                            <th >
+                                                Last Bid
+                                            </th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-                                        <tr class="border-b">
-                                            <td class="py-2">
-                                                <v-img :src="image" height="40" width="40"
-                                                    class="mx-auto rounded-lg cursor-pointer" @click="dialog = true" />
-                                            </td>
+                                        <tr v-for="value in [1,2,3,4]">
+                                          
 
-                                            <td class="text-grey-lighten-2">
+                                            <td class="text-white pa-0"  >
                                                 {{ vehicleStore.vehicle.reg }}
                                             </td>
 
@@ -283,51 +285,16 @@
                                                 </v-chip>
                                             </td>
 
-                                            <td class="text-grey-lighten-2">
+                                            <td class="text-white">
                                                 £{{ vehicleStore.vehicle.auction_id }}
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
-
+                                </v-table>
 
                                 <!-- YESTERDAY -->
-                                <h4 class="text-body-2 text-light_text_on mt-6 mb-2">Yesterday</h4>
-
-                                <table class="w-100 text-center ml-n2 mb-10 ">
-                                    <thead>
-                                        <tr class="text-grey-lighten-1">
-                                            <th class="py-2">Image</th>
-                                            <th class="py-2">Name</th>
-                                            <th class="py-2">Status</th>
-                                            <th class="py-2">ID</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr class="border-b" v-for="value in [1, 2, 3]">
-                                            <td class="py-2">
-                                                <v-img :src="image" height="40" width="40"
-                                                    class="mx-auto rounded-lg cursor-pointer" @click="dialog = true" />
-                                            </td>
-
-                                            <td class="text-grey-lighten-2">
-                                                {{ vehicleStore.vehicle.reg }}
-                                            </td>
-
-                                            <td>
-                                                <v-chip size="small" color="primary" variant="tonal">
-                                                    {{ vehicleStore.vehicle.sold || 'Sold' }}
-                                                </v-chip>
-                                            </td>
-
-                                            <td class="text-grey-lighten-2">
-                                                £{{ vehicleStore.vehicle.auction_id }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                             
+                             
                             </v-container>
                         </custom-card>
                     </v-col>

@@ -70,3 +70,9 @@ aside {
     
     background-color: #00;
 } */
+ .register_stepper .v-avatar {
+    background-color: rgb(var(--v-theme-primary)) !important   ;
+ }
+ .custom-field .v-field__overlay {
+ background-color: rgb(var(--v-theme-background));
+}

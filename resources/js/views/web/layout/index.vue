@@ -7,7 +7,7 @@
       <router-view></router-view>
     </v-main>
 
-    <Footer v-if="$route.path !== '/support'" />
+    <Footer v-if="$route.path !== '/support' && $route.path !== '/checkout'" />
   </v-app>
 </template>
 

@@ -83,23 +83,15 @@
                             density="compact" 
                             />
                     </v-col>
-               
-
-                    <v-col cols="4">
-                        <v-file-input
-                            v-model="form.csv_path"
-                            label="Upload CSV"
-                            prepend-icon="mdi-file"
-                            variant="filled"
-                            />
-                    </v-col>
-                    <v-col cols="12" class="text-center" >
+             
+                    <v-col cols="12" sm="4" class="" >
                         <v-btn @click="submit()" color="primary" class="text-capitalize"  variant="flat" >Update</v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
-
         </v-card>
+
+         <CSVTable :auction="form"  />
     </v-container>
 </template>
 
@@ -107,11 +99,16 @@
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
+import CSVTable from './Csv/index.vue';
 
 
 export default {
 
-    components:{PlateformDropdown,AuctionTypeDropdown},
+    components: {
+        PlateformDropdown,
+        AuctionTypeDropdown,
+        CSVTable
+    },
     data() {
 
         return {
@@ -123,7 +120,6 @@ export default {
                 end_date: '',
                 auction_type:null,
                 platform_id: '',
-                csv_path:null,
             }
         }
     },

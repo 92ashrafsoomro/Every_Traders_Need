@@ -43,11 +43,11 @@ class VehicleController extends Controller
 
         //Query
         $query = Vehicle::leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-            ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
-            ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id');
+                ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+                ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+                ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+                ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
+                ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id');
             
             
 

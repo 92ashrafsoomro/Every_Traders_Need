@@ -1,8 +1,8 @@
 import papaparse from "papaparse";
-import columns from '@/views/admin/auction/csv/columns';
+import columns from '@/views/admin/auction/Csv/columns';
 
 
-const rowRender = (rows) => {
+export const rowRender = (rows) => {
 
     let output = [];
 
@@ -13,11 +13,12 @@ const rowRender = (rows) => {
     return output;
 }
 
-const ColRender = (row) => {
+export const ColRender = (row) => {
 
     let item = {}
     columns.forEach((col) => {
-        item[col.key] = row?.[col.key];
+        let v = row?.[col.key];
+        item[col.key] = v ? String(v).trim() : null;
 
     });
 

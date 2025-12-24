@@ -8,16 +8,16 @@ export default [
     { title: 'Make', key: 'make_id' },
     { title: 'Model', key: 'model_id' },
     { title: 'Variant', key: 'variant_id' },
-    { title: 'FuelType', key: 'fuel_type', },
+    { title: 'FuelType', key: 'fuel_type', disabled: true },
     
 
     { title: 'Fuel Details', key: 'fuel_details' , disabled: true },
-    { title: 'Transmission', key: 'transmission' },
+    { title: 'Transmission', key: 'transmission',disabled: true },
     { title: 'Transmission_details', key: 'transmission_details' , disabled: true },
-    { title: 'CC', key: 'cc' },
+    { title: 'CC', key: 'cc' , disabled: true },
 
 
-    { title: 'Year', key: 'year' },
+    { title: 'Year', key: 'year' , disabled: true },
     { title: 'Center', key: 'center_id' },
 
     { title: 'Color', key: 'color' , disabled:true },
@@ -30,12 +30,12 @@ export default [
     { title: 'Euro Status', key: 'euro_status' , disabled: true  },
     { title: 'Mileage', key: 'mileage', disabled: true },
     
-    { title: 'Non Runner', key: 'engine_runs' },
+    { title: 'Non Runner', key: 'engine_runs' , disabled: true },
 
     { title: 'Bidding History', key: 'bidding_history' , disabled: true },
     { title: 'Last bid', key: 'last_bid' , disabled: true},
 
-    { title: 'Bidding Status', key: 'bidding_status' },
+    { title: 'Bidding Status', key: 'bidding_status',disabled: true },
 
     { title: 'Cap New', key: 'cap_new' , disabled: true },
 

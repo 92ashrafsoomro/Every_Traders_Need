@@ -1,6 +1,9 @@
 import index from './index.vue'
 import create from './create.vue'
 import edit from './edit.vue'
+import csv from './csv/index.vue'
+
+
 
 
 export default [
@@ -9,7 +12,8 @@ export default [
         children: [  
             { path: '', component: index },
             { path: 'create', component: create },
-            { path: 'edit', component: edit },
+            { path: 'edit/:id', component: edit },
+            { path: 'csv/:id', component: csv },
         ],
     },
 ]

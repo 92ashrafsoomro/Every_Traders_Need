@@ -56,13 +56,19 @@
                             @update:options="loadItems" >
 
                             <template #item.action="{ item }">
-                                <router-link :to="'/admin/bodyType/'">
+                                <router-link :to="'/admin/auction/edit/'+item.id">
                                     <v-icon color="light">mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
-                                <router-link :to="'/admin/bodyType/'">
-                                    <v-icon color="light" >mdi-delete</v-icon>
+                                
+                                <router-link :to="'/admin/auction/csv/'+item.id">
+                                    <v-icon color="light">mdi-file</v-icon>
                                 </router-link>
+
+                                <span class="px-2" ></span>
+                        
+                                <v-icon @click="deleteItem(item.id)" color="light" >mdi-delete</v-icon>
+                            
                             </template>
 
                             <template v-slot:bottom>
@@ -88,9 +94,6 @@
 
 import Auction from '@/models/auction.model';
 
-
-
-
 export default {
 
   components: {
@@ -113,7 +116,7 @@ export default {
                 { title: "ID", value: "id", sortable: false },
                 { title: "Auction Id", value: "table_id",sortable: false },
                 { title: "Name", value: "name" },
-                { title: "Type", value: "auction_type" },
+                { title: "Type", value: "action_type.title" },
                 { title: "Au House", value: "platform.name" },
                 { title: "Status", value: "status" },
 
@@ -160,7 +163,26 @@ export default {
                     alert(error)
                     this.loading = false
                 }
-        },
+         },
+
+         async deleteItem(id) {
+            
+             if (!confirm("Are you sure you want to delete this item?")) return;
+            this.loading = true;
+            try {
+            const res = await Auction.delete(id);
+      
+            this.$alertStore.add(res.message || "BodyType deleted", "success");
+            this.loadItems(); 
+            
+        } catch (error) {
+            console.error(error);
+            this.$alertStore.add(error.message || "Delete failed", "error");
+            // this.loadItems(); 
+            } finally {
+            this.loading = false;
+            }
+        }
 
 
     }

@@ -6,13 +6,14 @@ import { toRaw } from 'vue';
 const pinia = createPinia()
 
 pinia.use(({ store }) => {
-  store.$subscribe((mutation, state) => {
 
-    console.log(`[STORE CHANGE] ${store.$id}`)
-    // console.log('Mutation:', mutation)
-    console.log('New State:',toRaw(state))
+    store.$subscribe((mutation, state) => {
 
-  })
+      console.log(`[STORE CHANGE] ${store.$id}`)
+      // console.log('Mutation:', mutation)
+      console.log('New State:',toRaw(state))
+
+    })
 })
 
 

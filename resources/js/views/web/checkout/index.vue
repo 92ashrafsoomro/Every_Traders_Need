@@ -135,11 +135,11 @@
                                 <div v-if="item.id === selectedPlan">
                                     <v-divider class="mb-4"></v-divider>
 
-                                    <div class="text-caption text-grey-lighten-1">
+                                    <div class="text-body-1 font-weight-bold">
                                         {{ item.plan_name }}
                                     </div>
 
-                                    <div class="text-caption text-grey-lighten-1 mt-1">
+                                    <div class="text-body-2 mt-1">
                                         {{ item.short_desc }}
                                     </div>
 
@@ -157,7 +157,7 @@
 
                                 <template #activator="{ props }">
                                     <v-btn v-bind="props" block variant="outlined"
-                                        class="mt-6 border bg-background pa-6 justify-space-between"
+                                        class="mt-6 border bg-background text-capitalize pa-6 justify-space-between"
                                         append-icon="mdi-chevron-down">
                                         Change plan
                                     </v-btn>
@@ -168,19 +168,19 @@
                                     <v-list-item v-for="item in planList" :key="item.id" @click="selectedPlan = item.id"
                                         class="pa-0"
                                         :class="selectedPlan === item.id ? 'bg-primary text-white' : 'bg-background'">
-                                        <div class="d-flex justify-space-between align-center w-100 pa-3 selectedHover">
+                                        <div class="d-flex justify-space-between align-center w-100 pa-5 selectedHover">
                                             <div>
-                                                <div class="text-subtitle-1">
+                                                <div class="text-body-1 font-weight-bold">
                                                     {{ item.plan_name }}
                                                 </div>
-                                                <div class="text-caption"
+                                                <div class="text-body-2"
                                                     :class="selectedPlan === item.id ? 'text-white' : 'text-grey-lighten-1'">
                                                     {{ item.short_desc }}
                                                 </div>
                                             </div>
 
                                             <div class="text-right">
-                                                <div class="text-subtitle-1">
+                                                <div class="text-body-1 font-weight-bold">
                                                     £{{ item.price }}
                                                 </div>
                                                 <div class="text-caption"
@@ -201,7 +201,7 @@
 
 
 
-                        <div class="text-white mt-4">
+                        <div class="text-white mt-7">
                             <div class="d-flex justify-space-between mb-2">
                                 <span>Base price</span>
                                 <span>£{{ currentPlan?.price }}</span>

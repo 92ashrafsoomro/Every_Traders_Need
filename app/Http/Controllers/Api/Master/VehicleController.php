@@ -43,13 +43,12 @@ class VehicleController extends Controller
 
         //Query
         $query = Vehicle::leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-                ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-                ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-                ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-                ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
-                ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id');
-            
-            
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
+            ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id');
 
 
         //Filter
@@ -57,11 +56,36 @@ class VehicleController extends Controller
             $query->where('vehicles.id',$request->id);
         }
 
-        if($request->has('search') && $request->search != '') {
-                $query->where('vehicles.name', 'like', '%'.$request->search.'%');
+        if($request->filled('search')) {
+                $query->where('make.name', 'like', '%'.$request->search.'%');
                 $query->orWhere('vehicles.id', 'like', '%'.$request->search.'%');
         }
+        if ($request->filled('make')) {
+            $query->where('vehicles.make_id', $request->make);
+        }
 
+        if ($request->filled('model')) {
+            $query->where('vehicles.model_id', $request->model);
+        }
+
+        if ($request->filled('variant')) {
+            $query->where('vehicles.variant_id', $request->variant);
+        }
+        if ($request->filled('platform')) {
+            $query->where('vehicles.auction_id', $request->platform);
+        }
+        if ($request->filled('center')) {
+            $query->where('auction_center.id', $request->center);
+        }
+        if ($request->filled('vehicleType')) {
+            $query->where('auctions.auction_type', $request->vehicleType);
+        }
+        if ($request->filled('registration')) {
+            $query->where('vehicles.reg', $request->registration);
+        }
+        if($request->filled("tableid")){
+            $query->where('auctions.table_id',$request->tableid);
+        }
         $count = (clone $query)->count();
         $data = $query->select([
                 'vehicles.*',

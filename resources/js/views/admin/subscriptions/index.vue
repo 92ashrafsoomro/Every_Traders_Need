@@ -1,7 +1,7 @@
   <template>
     <user-title-bar>
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Vehicle</h1>
+            <h1 class="text-h3 mb-2 font-weight-bold">Subscriptions </h1>
             <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
        
                 <v-card-title
@@ -23,26 +23,25 @@
                             <v-row>
                                 <v-col cols="12">
                                     <v-row cols="12" class="mt-1 text-center">
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                            <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform" 
-                                            persistent-placeholder=""
-                                            hide-details
-                                            clearable
-                                            density="compact"  />
+                                       <v-col cols="4" sm="4" class="pl-2">
+                                            <v-select
+                                                v-model="filter.status"
+                                                variant="outlined"
+                                                label="Status"
+                                                :items="statusItems"
+                                                item-title="label"
+                                                item-value="value"
+                                                density="compact"
+                                                color="primary"
+                                                clearable
+                                                />
+
                                         </v-col>
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                            <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center" 
-                                            persistent-placeholder=""
-                                            hide-details
-                                            clearable
-                                            density="compact"  />
-                                        </v-col>
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                            <v-select 
-                                                v-model="filter.vehicleType" 
+                                       <v-col cols="4" sm="4" class="pl-2">
+                                            <PlansDropDron
+                                                v-model="filter.plan_id" 
                                                 variant="outlined" 
-                                                label="Auction Type"
-                                                :items="['Online','Live']"
+                                                label="Plan Name"
                                                 base-color="white"
                                                 density="compact" 
                                                 color="primary" 
@@ -50,81 +49,31 @@
                                                 persistent-placeholder="" 
                                                     />
                                         </v-col>
+                                        <v-col cols="6" sm="4">
+                                            <v-select
+                                            v-model="filter.year"
+                                            :items="years"
+                                            label="Select Year"
+                                            variant="outlined"
+                                            density="compact"
+                                            clearable
+                                            />
+                                        </v-col>
                                 
 
-                                    </v-row>
-                                    <v-row cols="12" class="mt-1 text-center">
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                            <MakeDropdown
-                                            label="Select Make"
+                                        </v-row>
+
+                                    <v-row>
+                                        <v-col cols="6" sm="4">
+                                            <v-select
+                                            v-model="filter.month"
+                                            :items="months"
+                                            label="Select Month"
                                             variant="outlined"
-                                            color="primary"
-                                            class="id-box"
-                                            v-model="filter.make"
-                                            persistent-placeholder=""
-                                            hide-details
                                             density="compact"
                                             clearable
                                             />
                                         </v-col>
-
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                            <ModelDropdown
-                                            label="Select Model"
-                                            variant="outlined"
-                                            color="primary"
-                                            class="id-box"
-                                            v-model="filter.model"
-                                            :make="filter.make"
-                                            persistent-placeholder=""
-                                            hide-details
-                                            density="compact"
-                                            clearable
-                                            />
-                                        </v-col>
-
-                                        <v-col cols="4" sm="4" class="pl-2">
-                                        <VariantDropdown
-                                                label="Select Variant"
-                                                variant="outlined"
-                                                color="primary"
-                                                class="id-box"
-                                                v-model="filter.variant"
-                                                :model-id="filter.model" 
-                                                persistent-placeholder
-                                                hide-details
-                                                density="compact"
-                                                clearable
-                                                />
-                                        </v-col>
-                                    </v-row>
-
-                                    <v-row cols="12" class="mt-1 text-center" >
-                                            <v-col cols="12" sm="4" class="pl-2">
-                                                <v-text-field
-                                                v-model="filter.registration"
-                                                label="Search Registration"
-                                                variant="outlined"
-                                                color="primary"
-                                                density="compact"
-                                                persistent-placeholder=""
-                                                hide-details
-                                                clearable
-                                                />
-                                            </v-col>
-                                            <v-col cols="12" sm="4" class="pl-2">
-                                                <v-text-field
-                                                v-model="filter.tableid"
-                                                label="Search Auction ID"
-                                                variant="outlined"
-                                                type="number"
-                                                color="primary"
-                                                density="compact"
-                                                persistent-placeholder=""
-                                                hide-details
-                                                clearable
-                                                />
-                                            </v-col>
                                             <v-col cols="12" sm="2" class="pl-2 d-flex align-center">
                                                 <v-btn
                                                 color="primary"
@@ -134,10 +83,9 @@
                                                 >
                                                 Search
                                                 </v-btn>
-                                            </v-col>
+                                        </v-col>
                                     </v-row>
 
-                    
                                 </v-col>
                     
                             </v-row>
@@ -210,14 +158,38 @@
                                     @page-changed="loadItems" />
                                 </div>
                             </template>
-                        <template #item.id="{ item }">
-                            <router-link
-                            :to="`vehicle/show/${item.id}`"
-                            class="text-primary font-weight-bold text-decoration-none"
-                            >
-                            {{ item.id }}
-                            </router-link>
-                        </template>
+
+                            <template #item.membership_status="{ item }">
+                                <v-btn
+                                    size="small"
+                                    :color="getStatusColor(item.membership_status)"
+                                    variant="flat"
+                                    >
+                                    {{ getStatusLabel(item.membership_status) }}
+                                </v-btn>
+
+                            </template>
+                              <template #item.user="{ item }">
+                                <div class="d-flex flex-column">
+                                <span class="font-weight-medium">
+                                    {{ item.firstName }} {{ item.surname }}
+                                </span>
+
+                                <span class="text-caption text-grey">
+                                    {{ item.personalEmail }}
+                                </span>
+                                </div>
+                            </template>
+
+                            <template #item.membership_start_date="{ item }">
+                                {{ item.membership_start_date?.split(' ')[0] }}
+                            </template>
+
+                            <template #item.membership_expiry_date="{ item }">
+                                {{ item.membership_expiry_date?.split(' ')[0] }}
+                            </template>
+                  
+                       
                         
                         </v-data-table-server>
                     </div>
@@ -228,22 +200,14 @@
   </template>
 
 <script>
+import Subscriptions from '@/models/subscriptions.model';
+import PlansDropDron from "@components/PlanDropDown.vue"
 
-import Vehicle from '@/models/vehicle.model';
-import CenterDropdown from "@components/CenterDropdown.vue"
-import PlateformDropdown from "@components/PlateformDropdown.vue"
-import MakeDropdown from "@components/MakeDropdown.vue"
-import ModelDropdown from "@components/ModelDropdown.vue"
-import VariantDropdown from "@components/VariantDropDown.vue"
 
 export default {
 
   components: {
-    MakeDropdown,
-    CenterDropdown,
-    PlateformDropdown,
-    ModelDropdown,
-    VariantDropdown,
+   PlansDropDron,
   },
 
   data() {
@@ -254,24 +218,54 @@ export default {
                 length: 10,
                 page: 1,
                 offset: 0,
-          },
+            },
             
             last_page: 1,
             items: [],
             total: 0,
             loading: true,
             headers: [
-                { title: "#", value: "id", sortable: false },
-                { title: "Reg", value: "reg" },  
-                { title: "Make", value: "make_name" },
-                { title: "Model", value: "model_name" },
-                { title: "Variant", value: "variant_name" },
-                { title: "Year", value: "year" },
-                { title: "Vehicle", value: "vehicle_name" },
-                { title: "Body", value: "body_name" },
-                { title: "Center", value: "center_name" },
-                { title: "Bidding Status", value: "bidding_status" },  
+                // { title: "Action", key: "action" },
+                {title:"id",value:"id", sortable: false},
+                { title: "User", value: "user" },
+                { title: "Company Name", value: "companyName", sortable: false },
+                { title: "Plan Name", value: "plan" },  
+                { title: "Type", value: "membership_type" },
+                { title: "Status", value: "membership_status" },
+                {   title: "Membership Start Date", 
+                    value: "membership_start_date",
+                    format: (value) => value ? value.split(' ')[0] : ''
+
+
+                },
+                {   title: "Membership Expiry Date", 
+                    value: "membership_expiry_date",
+                    format: (value) => value ? value.split(' ')[0] : ''
+
+
+                },
+        
             ],
+            statusItems: [
+                { label: 'Active', value: "Active" },
+                { label: 'Inactive', value: "Inactive" },
+                { label: 'Pending', value: "Pending" },
+                { label: 'Expried', value: "Expired" },
+            ],
+                  months: [
+        { title: "January", value: 1 },
+        { title: "February", value: 2 },
+        { title: "March", value: 3 },
+        { title: "April", value: 4 },
+        { title: "May", value: 5 },
+        { title: "June", value: 6 },
+        { title: "July", value: 7 },
+        { title: "August", value: 8 },
+        { title: "September", value: 9 },
+        { title: "October", value: 10 },
+        { title: "November", value: 11 },
+        { title: "December", value: 12 },
+      ],
    
     };
   },
@@ -279,7 +273,15 @@ export default {
     this.loadItems()
   },
   computed: {
- 
+    years() {
+      const currentYear = new Date().getFullYear();
+      const startYear = 2000;
+
+      return Array.from(
+        { length: currentYear - startYear + 1 },
+        (_, i) => currentYear - i
+      );
+    },
     },
     watch: {
         'filter.length'(newVal, oldVal) {
@@ -304,7 +306,7 @@ export default {
         async loadItems() {
                 this.loading = true;
                 try {
-                    let res = await  Vehicle.all(this.filter);
+                    let res = await  Subscriptions.all(this.filter);
                     this.items = res.data;
                     this.total = res.recordsTotal;
                     this.filter.page = Number(res.page);
@@ -316,6 +318,25 @@ export default {
                     this.loading = false
                 }
         },
+
+        getStatusColor(status) {
+            switch (status) {
+            case "Active":
+                return "primary";
+            case "Inactive":
+                return "grey";
+            case "Pending":
+                return "warning";
+            case "Expired":
+                return "error";
+            default:
+                return "default";
+            }
+        },
+
+        getStatusLabel(status) {
+            return status ?? "N/A";
+        }
 
 
 

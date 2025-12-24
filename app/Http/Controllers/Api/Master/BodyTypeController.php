@@ -48,6 +48,10 @@ class BodyTypeController extends Controller
         if($request->has('id') && $request->id != '') {
             $query->where('body_types.id',$request->id);
         }
+         if($request->filled('search')) {
+               $query->where('body_types.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('body_types.id', 'like', '%'.$request->search.'%');
+        }
 
         $count = (clone $query)->count();
         $data = $query->select([

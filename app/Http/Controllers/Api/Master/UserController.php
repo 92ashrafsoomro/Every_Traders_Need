@@ -50,6 +50,12 @@ class UserController extends Controller
                 ->orWhere('membership_plans.plan_name', 'like', "%{$search}%");
             });
         }
+        if($request->filled('plan_name')) {
+               $query->where('membership_plans.id', 'like', '%'.$request->plan_name.'%');
+        }
+        if($request->filled('status')) {
+               $query->where('users.status', $request->status);
+        }
 
         // if ($request->has('plan_id') && $request->plan_id !== '') {
         //     $query->where('membership_plans.id', $request->plan_id);
@@ -94,19 +100,19 @@ class UserController extends Controller
                     ->map(function ($row) {
                         
                         
-                        if ($row->membership_status === 'Expired' || empty($row->membership_status)) {
-                            $row->membership_status = '<span>-</span>';
-                        } elseif (stripos($row->membership_status, 'Active') !== false) {
-                            $row->membership_status = '<span class="badge btn btn-success btn-sm" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Inactive') !== false) {
-                            $row->membership_status = '<span class="badge bg-secondary" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Pending') !== false) {
-                            $row->membership_status = '<span class="badge bg-warning" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Cancelled') !== false) {
-                            $row->membership_status = '<span class="badge bg-primary" style="color:white;">'.$row->membership_status.'</span>';
-                        } else {
-                            $row->membership_status = '<span class="badge bg-info text-dark" style="color:white;">' . e($row->membership_status) . '</span>';
-                        }
+                        // if ($row->membership_status === 'Expired' || empty($row->membership_status)) {
+                        //     $row->membership_status = '<span>-</span>';
+                        // } elseif (stripos($row->membership_status, 'Active') !== false) {
+                        //     $row->membership_status = '<span class="badge btn btn-success btn-sm" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Inactive') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-secondary" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Pending') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-warning" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Cancelled') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-primary" style="color:white;">'.$row->membership_status.'</span>';
+                        // } else {
+                        //     $row->membership_status = '<span class="badge bg-info text-dark" style="color:white;">' . e($row->membership_status) . '</span>';
+                        // }
                         
                         return $row;
                     });

@@ -159,30 +159,38 @@ class MasterController extends Controller
     {
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
-        $data = DB::table('model_variant')
+        $query = DB::table('model_variant')
             ->join('model', 'model.id', '=', 'model_variant.model_id')
-            ->join('vehicles', 'vehicles.variant_id', '=', 'model_variant.id')
+            ->leftJoin('vehicles', 'vehicles.variant_id', '=', 'model_variant.id')
             ->select([
                 'model_variant.id',
                 'model_variant.name as label',
                 'model.name as model',
                 DB::raw('COUNT(vehicles.id) as count')
-            ])->whereIn('model_variant.model_id',$request->model)
-            
-            // ->when($request->model, function ($query, $value) {
-                
-            // })
-            ->when($request->id, function ($query, $value) {
-                $query->where('model_variant.id',$value);
-            })
-            ->groupBy('model_variant.id')
-            ->orderBy('count', 'desc')
+            ]);
+
+        if ($request->filled('model')) {
+            if (is_array($request->model_id)) {
+                $query->whereIn('model_variant.model_id', $request->model);
+            } else {
+                $query->where('model_variant.model_id', $request->model);
+            }
+        }
+
+        if ($request->filled('id')) {
+            $query->where('model_variant.id', $request->id);
+        }
+
+        $data = $query
+            ->groupBy('model_variant.id', 'model_variant.name', 'model.name')
+            ->orderByDesc('count')
             ->get();
 
-            return response()->json([
-                "data" => $data
-            ], 200);
+        return response()->json([
+            "data" => $data
+        ], 200);
     }
+
 
 
     public function getColors(Request $request)

@@ -8,6 +8,8 @@ export default [
     { title: 'Make', key: 'make_id' },
     { title: 'Model', key: 'model_id' },
     { title: 'Variant', key: 'variant_id' },
+    { title: 'Center', key: 'center_id' },
+    
     { title: 'FuelType', key: 'fuel_type', disabled: true },
     
 
@@ -18,7 +20,7 @@ export default [
 
 
     { title: 'Year', key: 'year' , disabled: true },
-    { title: 'Center', key: 'center_id' },
+    
 
     { title: 'Color', key: 'color' , disabled:true },
     { title: 'doors', key: 'doors' , disabled:true },

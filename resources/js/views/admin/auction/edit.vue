@@ -91,7 +91,7 @@
             </v-card-text>
         </v-card>
 
-         <CSVTable :auction="form"  />
+         <CSVTable   />
     </v-container>
 </template>
 
@@ -133,7 +133,7 @@ export default {
             try {
 
                 let res = await Auction.find(id, {});
-                console.log(res);
+            
                 
                 this.form.name = res.data.name;
                 this.form.id = res.data.table_id;

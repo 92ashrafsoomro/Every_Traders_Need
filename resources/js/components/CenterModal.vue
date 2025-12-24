@@ -6,7 +6,7 @@
     >
         <v-card
             prepend-icon="mdi-update"
-            title="Body Type"
+            title="Center"
         >
         <v-card-text>
             <v-text-field v-model="search" @keyup.enter="handleSearch()"/>
@@ -23,11 +23,14 @@
     </v-dialog>
 </template>
 <script>
-import BodyType from '@/models/body-type.model';
+import Center from '@/models/center.model';
+
+
+
 
 
 export default {
-    name:"BodyTypeModal",
+    name:"CenterModal",
     watch: {
         dailog(newVal) {
             if (newVal) {
@@ -57,7 +60,7 @@ export default {
         async handleSearch(){
             try {
                 this.loading = true;
-               let res = await BodyType.all({ search: this.search ,length:10});
+               let res = await Center.all({ search: this.search ,length:10});
                 this.data = res.data;
                 this.loading = false;
             } catch (error) {
@@ -69,7 +72,7 @@ export default {
         async selectValue(item) {
 
             this.dailog = false;
-            this.$emit('update:dailog',this.row,'body_id',item.name);
+            this.$emit('update:dailog',this.row,'center_id',item.name);
         },
         open(row,initialValue = '') {
             this.row = row;

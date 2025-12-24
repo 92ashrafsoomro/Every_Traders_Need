@@ -22,8 +22,8 @@
                     </div>
                 </div>
             </div>
-           
             <v-card-text>
+           
             <v-table
                 style="table-layout: fixed;
                 width: 100%;"
@@ -38,15 +38,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,id) in data" @click="selectedRow = id" >
+                    <tr v-for="(item,id) in data"  >
+
                         <td>{{ id }}</td>
                         <td v-for="col in columns">
                             <div v-if="col.key == 'vehicle_id'">
-                                <span  @click="this.$refs.auctionTypeModal.open(item[col.key])" >{{ item[col.key] }}</span>
-                              
+                                <span class="pointer"  @click="OpenModal(id,'vehicle_id',item[col.key])" >{{ item[col.key] }}</span>
                             </div>
                             <div v-else-if="col.key == 'body_id'">
-                                <span  @click="this.$refs.bodyTypeModal.open(item[col.key])" >{{ item[col.key] }}</span>
+                                <span class="pointer"  @click="OpenModal(id,'body_id',item[col.key])" >{{ item[col.key] }}</span>
+                            </div>
+                            <div v-else-if="col.key == 'make_id'">
+                                <span class="pointer"  @click="OpenModal(id,'make_id',item[col.key])" >{{ item[col.key] }}</span>
+                            </div>
+                            <div v-else-if="col.key == 'center_id'">
+                                <span class="pointer"  @click="OpenModal(id,'center_id',item[col.key])" >{{ item[col.key] }}</span>
                             </div>
                             <div v-else-if="col.disabled">
                                 <input disabled class=" py-2" :value="item[col.key]" />
@@ -61,8 +67,10 @@
             </v-card-text>
         </v-card>
 
-        <AuctionTypeModal ref="auctionTypeModal" @update:dailog="hanldeDailog('vehicle_id',$event)"/>
-        <BodyTypeModal ref="bodyTypeModal" @update:dailog="hanldeDailog('body_id',$event)"/>
+        <VehicleTypeModal ref="vehicleTypeModalModal" @update:dailog="hanldeDailog"/>
+        <BodyTypeModal ref="bodyTypeModal" @update:dailog="hanldeDailog"/>
+        <MakeModal ref="makeModal" @update:dailog="hanldeDailog"/>
+        <CenterModal ref="centerModal" @update:dailog="hanldeDailog"/>
 
    
 </template>
@@ -72,14 +80,18 @@ import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import Auction from '@/models/auction.model';
 import columns from './columns'
 import cskMaker, { ColRender } from '@/plugins/cskMaker';
-import AuctionTypeModal from '@/components/AuctionTypeModal.vue';
+import VehicleTypeModal from '@/components/VehicleTypeModal.vue';
 import BodyTypeModal from '@/components/BodyTypeModal.vue';
+import MakeModal from '@/components/MakeModal.vue';
+import CenterModal from '@/components/CenterModal.vue';
 
 export default {
     components: {
         PlateformDropdown,
-        AuctionTypeModal,
-        BodyTypeModal
+        VehicleTypeModal,
+        BodyTypeModal,
+        MakeModal,
+        CenterModal
     },
     data() {
 
@@ -89,15 +101,7 @@ export default {
             loading: false,
             data: [],
             columns: columns,
-            form: {
-                id: '',
-                name: '',
-                auction_date: '',
-                end_date: '',
-                auction_type:'online',
-                platform_id: '',
-                csv_path:null,
-            }
+            csv:null,
         }
     },
     mounted() {
@@ -151,7 +155,6 @@ export default {
         },
       
         async handleFile(event) {
-
             this.loading = true;
             const file = event.target.files[0];
             try {
@@ -163,11 +166,28 @@ export default {
             }
 
         },
+        OpenModal(row,key,value) {
+         switch (key) {
+            case 'vehicle_id':
+                this.$refs.vehicleTypeModalModal.open(row, value);
+                break;
+            case 'body_id':
+                this.$refs.bodyTypeModal.open(row, value);
+                 break;
+            case 'make_id':
+                this.$refs.makeModal.open(row, value);
+                 break;
+            case 'center_id':
+                this.$refs.centerModal.open(row, value);
+                break;
+            
+         }
+        },
         updateCell(rowIndex, key, value) {
             this.data[rowIndex][key] = value;
         },
-        hanldeDailog(key,e) {
-            this.data[this.selectedRow][key] = e; 
+        hanldeDailog(row,key,e) {
+            this.data[row][key] = e; 
         }
 
     }
@@ -188,4 +208,12 @@ td{
     width: auto;
 }
 
+.activeRow{
+    background-color: red!important;
+}
+
+
+.pointer{
+    cursor: pointer;
+}
 </style>

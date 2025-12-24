@@ -6,14 +6,21 @@
     >
         <v-card
             prepend-icon="mdi-update"
-            title="Body Type"
+            title="Vehicle Type"
         >
         <v-card-text>
-            <v-text-field v-model="search" @keyup.enter="handleSearch()"/>
+            <v-text-field  
+                @keyup.enter="handleSearch()"
+                v-model="search"
+                />
                 <ul class="mt-2">
+
                     <li v-if="loading" >Loading...</li>
                     <li class="text-center" v-if="data.length == 0" >No Record</li>
-                    <li style="cursor: pointer;" v-else @click="selectValue(item)" class="py-3 px-2 mx-1 border" v-for="item in data">{{ item.id }} - {{ item.name }}</li>
+                    <li v-else  style="cursor: pointer;" 
+                        @click="selectValue(item)" 
+                        class="py-3 px-2 mx-1 border" 
+                        v-for="item in data">{{ item.id }} - {{ item.name }}</li>
                 </ul>
         </v-card-text>
          <v-card-actions>
@@ -23,16 +30,16 @@
     </v-dialog>
 </template>
 <script>
-import BodyType from '@/models/body-type.model';
-
+import VehicleType from '@/models/vehicle-type.model';
 
 export default {
-    name:"BodyTypeModal",
+    name:"VehicleTypeModal",
     watch: {
         dailog(newVal) {
             if (newVal) {
                 
             } else {
+                
                 this.data = [];
                 this.value = '';
             }
@@ -41,9 +48,9 @@ export default {
     emits: ['update:dailog'],
     data() {
         return {
-            dailog:false,
-            loading: false,
+            loading:false,
             row:null,
+            dailog:false,
             search: '',
             data: [],            
         }
@@ -55,21 +62,21 @@ export default {
     methods: {
 
         async handleSearch(){
+        
             try {
                 this.loading = true;
-               let res = await BodyType.all({ search: this.search ,length:10});
+               let res = await VehicleType.all({ search: this.search ,length:10});
                 this.data = res.data;
-                this.loading = false;
-            } catch (error) {
                this.loading = false;
+            } catch (error) {
+             this.loading = false;
                alert(error);
               
            }
         },
         async selectValue(item) {
-
             this.dailog = false;
-            this.$emit('update:dailog',this.row,'body_id',item.name);
+            this.$emit('update:dailog',this.row,'vehicle_id',item.name);
         },
         open(row,initialValue = '') {
             this.row = row;

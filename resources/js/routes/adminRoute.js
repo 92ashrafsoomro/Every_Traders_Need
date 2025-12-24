@@ -10,7 +10,8 @@ import variant from "@/views/admin/master/variant/route"
 import center from "@/views/admin/master/center/route"
 import auction from "@/views/admin/auction/route"
 import vehicle from "@/views/admin/vehicle/route"
-
+import members from "@views/admin/members/route" 
+import subscriptions from "@views/admin/subscriptions/route" 
 export default [
     {
         path: "/admin",
@@ -27,7 +28,9 @@ export default [
             ...model,
             ...center,
             ...auction,
-            ...vehicle
+            ...vehicle,
+            ...members,
+            ...subscriptions
             ]
     },
 ]

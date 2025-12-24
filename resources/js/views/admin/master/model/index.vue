@@ -93,7 +93,7 @@
 import Model from '@/models/vehicle-model.model';
 import Nav from '../nav/Nav.vue';
 import VehicleType from '@/models/vehicle-type.model';
-
+import { debounce } from "lodash";
 
 
 
@@ -126,6 +126,12 @@ export default {
   mounted() {
     this.loadItems()
   },
+      created() {
+        this.debouncedSearch = debounce(() => {
+        this.filter.page = 1;   
+        this.loadItems();
+        }, 600);
+    },
   computed: {
  
     },
@@ -137,7 +143,7 @@ export default {
             this.loadItems()
         },
         'filter.search'(newVal, oldVal) {
-            this.loadItems()
+            this.debouncedSearch();
         }
         
     },

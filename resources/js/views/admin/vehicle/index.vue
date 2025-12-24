@@ -3,110 +3,147 @@
         <div>
             <h1 class="text-h3 mb-2 font-weight-bold">Vehicle</h1>
             <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
-              <v-container fluid>
-                 <v-row>
-                    <v-col cols="12">
-                        <v-row cols="12" class="mt-1 text-center">
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform" 
-                                  persistent-placeholder=""
-                                  hide-details
-                                  density="compact"  />
-                            </v-col>
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center" 
-                                  persistent-placeholder=""
-                                  hide-details
-                                  density="compact"  />
-                            </v-col>
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <v-select 
-                                    v-model="filter.vehicleType" 
-                                    variant="outlined" 
-                                    label="Auction Type"
-                                    :items="['Online','Live']"
-                                    base-color="white"
-                                    density="compact" 
-                                    color="primary" 
-                                    persistent-placeholder="" 
-                                        />
-                            </v-col>
-                      
+       
+                <v-card-title
+                    class="d-flex cursor-pointer widthstatic"
+                    @click="showFilters = !showFilters"
+                >
+                    <span class="text-h6 font-weight-bold">
+                    Filters
+                    </span>
 
-                        </v-row>
-                        <v-row cols="12" class="mt-1 text-center">
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <MakeDropdown
-                                label="Select Make"
-                                variant="outlined"
-                                color="primary"
-                                class="id-box"
-                                v-model="filter.make"
-                                persistent-placeholder=""
-                                hide-details
-                                density="compact"
-                                />
-                            </v-col>
+                    <v-icon color="primary">
+                    {{ showFilters ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                    </v-icon>
+                </v-card-title>
+            
+                <v-expand-transition>
+                    <div v-show="showFilters">
+                        <v-container fluid>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-row cols="12" class="mt-1 text-center">
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                            <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform" 
+                                            persistent-placeholder=""
+                                            hide-details
+                                            clearable
+                                            density="compact"  />
+                                        </v-col>
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                            <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center" 
+                                            persistent-placeholder=""
+                                            hide-details
+                                            clearable
+                                            density="compact"  />
+                                        </v-col>
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                            <v-select 
+                                                v-model="filter.vehicleType" 
+                                                variant="outlined" 
+                                                label="Auction Type"
+                                                :items="['Online','Live']"
+                                                base-color="white"
+                                                density="compact" 
+                                                color="primary" 
+                                                clearable
+                                                persistent-placeholder="" 
+                                                    />
+                                        </v-col>
+                                
 
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <ModelDropdown
-                                label="Select Model"
-                                variant="outlined"
-                                color="primary"
-                                class="id-box"
-                                v-model="filter.model"
-                                :make="filter.make"
-                                persistent-placeholder=""
-                                hide-details
-                                density="compact"
-                                />
-                            </v-col>
+                                    </v-row>
+                                    <v-row cols="12" class="mt-1 text-center">
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                            <MakeDropdown
+                                            label="Select Make"
+                                            variant="outlined"
+                                            color="primary"
+                                            class="id-box"
+                                            v-model="filter.make"
+                                            persistent-placeholder=""
+                                            hide-details
+                                            density="compact"
+                                            clearable
+                                            />
+                                        </v-col>
 
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <VariantDropdown
-                                label="Select Variant"
-                                variant="outlined"
-                                color="primary"
-                                class="id-box"
-                                v-model="filter.variant"
-                                :model="filter.model" 
-                                persistent-placeholder=""
-                                hide-details
-                                density="compact"
-                                />
-                            </v-col>
-                        </v-row>
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                            <ModelDropdown
+                                            label="Select Model"
+                                            variant="outlined"
+                                            color="primary"
+                                            class="id-box"
+                                            v-model="filter.model"
+                                            :make="filter.make"
+                                            persistent-placeholder=""
+                                            hide-details
+                                            density="compact"
+                                            clearable
+                                            />
+                                        </v-col>
 
-                        <v-row cols="12" class="mt-1 text-center" >
-                                <v-col cols="12" sm="4" class="pl-2">
-                                    <v-text-field
-                                    v-model="filter.registration"
-                                    label="Search Registration"
-                                    variant="outlined"
-                                    color="primary"
-                                    density="compact"
-                                    persistent-placeholder=""
-                                    hide-details
-                                    clearable
-                                    />
+                                        <v-col cols="4" sm="4" class="pl-2">
+                                        <VariantDropdown
+                                                label="Select Variant"
+                                                variant="outlined"
+                                                color="primary"
+                                                class="id-box"
+                                                v-model="filter.variant"
+                                                :model-id="filter.model" 
+                                                persistent-placeholder
+                                                hide-details
+                                                density="compact"
+                                                clearable
+                                                />
+                                        </v-col>
+                                    </v-row>
+
+                                    <v-row cols="12" class="mt-1 text-center" >
+                                            <v-col cols="12" sm="4" class="pl-2">
+                                                <v-text-field
+                                                v-model="filter.registration"
+                                                label="Search Registration"
+                                                variant="outlined"
+                                                color="primary"
+                                                density="compact"
+                                                persistent-placeholder=""
+                                                hide-details
+                                                clearable
+                                                />
+                                            </v-col>
+                                            <v-col cols="12" sm="4" class="pl-2">
+                                                <v-text-field
+                                                v-model="filter.tableid"
+                                                label="Search Auction ID"
+                                                variant="outlined"
+                                                type="number"
+                                                color="primary"
+                                                density="compact"
+                                                persistent-placeholder=""
+                                                hide-details
+                                                clearable
+                                                />
+                                            </v-col>
+                                            <v-col cols="12" sm="2" class="pl-2 d-flex align-center">
+                                                <v-btn
+                                                color="primary"
+                                                block
+                                                class="mt-sm-0 mt-2"
+                                                @click="loadItems"
+                                                >
+                                                Search
+                                                </v-btn>
+                                            </v-col>
+                                    </v-row>
+
+                    
                                 </v-col>
-                                <v-col cols="12" sm="2" class="pl-2 d-flex align-center">
-                                    <v-btn
-                                    color="primary"
-                                    block
-                                    class="mt-sm-0 mt-2"
-                                    @click="loadItems"
-                                    >
-                                    Search
-                                    </v-btn>
-                                </v-col>
-                        </v-row>
-
-          
-                    </v-col>
-           
-                </v-row>
-                </v-container>
+                    
+                            </v-row>
+                        </v-container>
+                    </div>
+                </v-expand-transition>
         </div>
     </user-title-bar>
 
@@ -141,11 +178,11 @@
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn>
                         </div>
-                        <div class="pl-2" >
+                        <!-- <div class="pl-2" >
                             <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
-                        </div>
+                        </div> -->
                     </div>
                 </v-col>
 
@@ -211,6 +248,7 @@ export default {
 
   data() {
       return {
+        showFilters: false,
             filter: {
                 search: '',
                 length: 10,
@@ -288,5 +326,7 @@ export default {
 </script>
 
 <style scoped>
-
+.widthstatic{
+    width: 10% !important;
+}
 </style>

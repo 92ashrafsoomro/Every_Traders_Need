@@ -60,15 +60,15 @@ export default {
 
       try {
         const response = await variant.get({
-          model_id: this.modelId,
-          type: "variant",
-          length: 1000,
+          model: this.modelId,   
         });
+
 
         this.items = (response?.data || []).map(item => ({
           id: item.id,
-          label: item.name, 
+          label: item.label,   
         }));
+
       } catch (error) {
         console.error("VariantDropdown error:", error);
         this.items = [];
@@ -76,6 +76,7 @@ export default {
         this.loading = false;
       }
     },
+
 
   
     updateValue(value) {
@@ -88,7 +89,6 @@ export default {
 </script>
 
 <style scoped>
-/* Optional: Make it look cleaner */
 .v-select {
   min-width: 200px;
 }

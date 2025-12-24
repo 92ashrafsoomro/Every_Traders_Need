@@ -93,7 +93,7 @@
 import Platform from '@/models/platform.model';
 import Nav from '../nav/Nav.vue';
 import Center from '@/models/center.model';
-
+import { debounce } from "lodash";
 
 
 
@@ -125,6 +125,12 @@ export default {
   mounted() {
     this.loadItems()
   },
+    created() {
+    this.debouncedSearch = debounce(() => {
+      this.filter.page = 1;   
+      this.loadItems();
+    }, 600);
+  },
   computed: {
  
     },
@@ -136,7 +142,7 @@ export default {
             this.loadItems()
         },
         'filter.search'(newVal, oldVal) {
-            this.loadItems()
+            this.debouncedSearch();
         },
         
     },

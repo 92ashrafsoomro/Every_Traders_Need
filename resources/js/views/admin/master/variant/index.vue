@@ -90,8 +90,7 @@
 
 import Variant from '@/models/variant.model';
 import Nav from '../nav/Nav.vue';
-
-import _ from 'lodash'
+import { debounce } from "lodash";
 
 
 export default {
@@ -123,9 +122,16 @@ export default {
   mounted() {
     this.loadItems()
   },
+  created() {
+        this.debouncedSearch = debounce(() => {
+        this.filter.page = 1;   
+        this.loadItems();
+        }, 600);
+    },
   computed: {
  
     },
+    
     watch: {
         'filter.length'(newVal, oldVal) {
             this.loadItems()
@@ -134,7 +140,7 @@ export default {
             this.loadItems()
         },
         'filter.search'(newVal, oldVal) {
-            this.loadItems()
+            this.debouncedSearch();
         },
 
         

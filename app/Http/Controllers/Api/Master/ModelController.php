@@ -40,6 +40,10 @@ class ModelController extends Controller
         if($request->has('make_id') && $request->make_id != '') {
             $query->where('model.make_id',$request->make_id);
         }
+        if($request->filled('search')) {
+               $query->where('model.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('model.id', 'like', '%'.$request->search.'%');
+        }
 
         $count = (clone $query)->count();
         $data = $query->select([

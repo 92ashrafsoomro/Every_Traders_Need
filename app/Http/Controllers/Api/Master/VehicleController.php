@@ -84,7 +84,9 @@ class VehicleController extends Controller
         if ($request->filled('registration')) {
             $query->where('vehicles.reg', $request->registration);
         }
-
+        if($request->filled("tableid")){
+            $query->where('auctions.table_id',$request->tableid);
+        }
         $count = (clone $query)->count();
         $data = $query->select([
                 'vehicles.*',

@@ -48,6 +48,10 @@ class CenterController extends Controller
         if($request->has('id') && $request->id != '') {
             $query->where('auction_center.id',$request->id);
         }
+        if($request->filled('search')) {
+                $query->where('auction_center.name', 'like', '%'.$request->search.'%');
+                    $query->orWhere('auction_center.id', 'like', '%'.$request->search.'%');
+        }
 
         $count = (clone $query)->count();
         $data = $query->select([

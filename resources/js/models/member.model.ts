@@ -48,7 +48,10 @@ export default class Member {
             }
 
     }
-
+    static async show(id) {
+        const res = await api.get(`/api/cruds/users/${id}`);
+        return res.data;
+    }
     static async changeStatus(id: number, params: params) {
         try {
             const res = await api.get(
@@ -61,5 +64,14 @@ export default class Member {
         }
     }
 
-    
+        static async delete(id){
+        try{
+            const res = await api.delete(`/api/cruds/users/${id}`);
+            return res.data;
+
+        }
+        catch(error){
+            throw await errorHandler(error);
+        }
+    }
 }

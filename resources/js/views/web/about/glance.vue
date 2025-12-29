@@ -8,24 +8,71 @@
       <v-container max-width="1400px">
         <v-row justify="center">
           <v-col cols="12" lg="10">
-            <h2 class="text-h3 d-flex ga-4 justify-center font-weight-bold mb-8 text-white">
-              <img :src="logo" width="200" alt=""> at a Glance
-            </h2>
+            <div class="d-flex flex-column align-center justify-center">
+              <h2 class="text-h3 font-weight-bold d-flex align-center  mb-8 text-white">
+                <img :src="logo" width="300" alt="" class="mr-4"> at a Glance
+              </h2>
+            </div>
 
-            <v-row>
-              <v-col
-                v-for="item in items"
-                :key="item"
-                cols="12"
-                md="6"
-              >
-              
-                  <div class="text-h6 text-white pa-4 glass-card">
-                    {{ item }}
-                  </div>
-               
-              </v-col>
-            </v-row>
+
+
+            <div class="d-flex justify-center mt-10">
+              <ul style="list-style:none; padding:0; gap:16px;">
+                <div class="d-flex "> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                    mdi-check-circle
+                  </v-icon>
+                 </div>
+                  <li>
+
+                    <span class="text-h6 text-white pa-4 glass-card">30+ UK auction houses covered</span>
+                  </li>
+                </div>
+
+                <div class="d-flex"> 
+                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                    mdi-check-circle
+                  </v-icon>
+                 </div>
+                  <li>
+                    <span class="text-h6 text-white pa-4 glass-card">Live</span> <span
+                      class="text-h6 text-white pa-4 glass-card">upcoming</span> <span
+                      class="text-h6 text-white pa-4 glass-card"> and historical auction data</span>
+                  </li>
+                </div>
+                <div class="d-flex"> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                    mdi-check-circle
+                  </v-icon>
+                 </div>
+                  <li>
+                    <span class="text-h6 text-white pa-4 glass-card">Vehicle valuation</span> <span
+                      class="text-h6 text-white pa-4 glass-card">comparison & reauction tracking</span>
+                  </li>
+                </div>
+                <div class="d-flex"> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                    mdi-check-circle
+                  </v-icon>
+                 </div>
+                  <li> <span class="text-h6 text-white pa-4 glass-card"> VIN & registration-based vehicle
+                      intelligence</span>
+                  </li>
+                </div>
+                <div class="d-flex">  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                    mdi-check-circle
+                  </v-icon>
+                 </div>
+                  <li>
+                    <span class="text-h6 text-white pa-4 glass-card">Built for speed</span> <span
+                      class="text-h6 text-white pa-4 glass-card">accuracy</span> <span
+                      class="text-h6 text-white pa-4 glass-card"> and profitability</span>
+                  </li>
+                </div>
+              </ul>
+            </div>
 
           </v-col>
         </v-row>
@@ -35,17 +82,17 @@
 </template>
 
 <script>
-  import logo from'@/assets/images/logo/logo.png'
+import logo from '@/assets/images/logo/logo.png'
 export default {
   name: "AutoboliAtGlance",
   data() {
     return {
       items: [
-        "30+ UK auction houses covered",
-        "Live, upcoming, and historical auction data",
-        "Vehicle valuation, comparison & reauction tracking",
+        "30+ UK auction houses covered", "Live",
+        "upcoming", "and historical auction data",
+        "Vehicle valuation ", " comparison & reauction tracking",
         "VIN & registration-based vehicle intelligence",
-        "Built for speed, accuracy, and profitability"
+        "Built for speed ", " accuracy ", "and profitability"
       ],
       logo
     }
@@ -75,13 +122,34 @@ export default {
 }
 
 .glass-card {
-
+  display: inline-block;
+  padding: 16px;
+  margin-bottom: 16px;
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px); 
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 80px rgba(var(--v-theme-primary),0.3); 
+  box-shadow: 0 8px 80px rgba(var(--v-theme-primary), 0.3);
   overflow: hidden;
+  width: auto;
+  max-width: 100%;
 }
 
+.glass-card-icon {
+  display: inline-block;
+  /* padding: 10px; */
+  margin-right: 20px;
+  display: flex; 
+align-items: center;      
+  justify-content: center;
+  height: 66px;
+  width:  66px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 80px rgba(var(--v-theme-primary), 0.3);
+
+}
 </style>

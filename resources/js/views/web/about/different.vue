@@ -1,9 +1,9 @@
 <template>
-    <v-container fluid class="bg-surface py-16">
+    <v-container fluid class="bg-surface " style="padding: 100px 0 100px 0" >
         <v-container max-width="1400px">
             <!-- Heading -->
             <div class="text-center mb-12">
-                <h2 class="text-h4 font-weight-bold mb-4">
+                <h2 class="text-h3 font-weight-bold mb-4" style="  line-height: 1.2;">
                     What Makes Autoboli Different
                 </h2>
                 <p class="text-h5 text-light_text_on">
@@ -12,16 +12,19 @@
             </div>
 
 
-            <v-row align="stretch">
+            <v-row align="stretch" >
                 <!-- LEFT SIDE -->
                 <v-col cols="12" md="6">
                     <v-row class="" align="stretch">
 
                         <!-- Card 1 -->
                         <v-col cols="12">
-                            <div class="pa-6 rounded-xl h-100 border-sm" style="background-color: #3399ff10;">
+                            <div class="pa-6  rounded-xl h-100 border-sm" style="background-color: #3399ff10;">
                                 <v-row align="center" no-gutters>
-                                    <v-col cols="12" md="7">
+                                    <v-col cols="12" md="5">
+                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
+                                    </v-col>
+                                    <v-col cols="12" md="7" class="pl-4">
                                         <h3 class="text-h6 font-weight-bold text-white mb-2">
                                             One Platform. Total Auction Intelligence.
                                         </h3>
@@ -30,9 +33,7 @@
                                         </p>
                                     </v-col>
 
-                                    <v-col cols="12" md="5">
-                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
-                                    </v-col>
+                                   
                                 </v-row>
                             </div>
                         </v-col>
@@ -41,7 +42,10 @@
                         <v-col cols="12">
                             <div class="pa-6 rounded-xl h-100 border-sm" style="background-color: #3399ff10;">
                                 <v-row align="center" no-gutters>
-                                    <v-col cols="12" md="7">
+                                    <v-col cols="12" md="5" >
+                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
+                                    </v-col>
+                                    <v-col cols="12" md="7" class="pl-4">
                                         <h3 class="text-h6 font-weight-bold text-white mb-2">
                                             Built for Dealers & Traders
                                         </h3>
@@ -50,9 +54,7 @@
                                         </p>
                                     </v-col>
 
-                                    <v-col cols="12" md="5">
-                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
-                                    </v-col>
+                                  
                                 </v-row>
                             </div>
                         </v-col>

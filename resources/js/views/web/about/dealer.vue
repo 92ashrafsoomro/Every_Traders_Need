@@ -7,18 +7,18 @@
         <v-row align="center" no-gutters>
           <!-- Left Content -->
           <v-col cols="12" md="6" class="pr-md-8">
-            <h2 class="text-h3 font-weight-bold mb-6">
+            <h2 class="text-h3 font-weight-bold mb-6" style="  line-height: 1.2;">
               The Problem We Saw in the Market
             </h2>
             <p class="text-body-1 mb-6 text-white">
               Vehicle auctions move fast. Prices change daily. Information is scattered.<br>
             </p>
-            <div class=" pa-10  rounded-xl mb-2" style="background-color: rgb(var(--v-theme-primary),0.2);">
-              <p class="text-body-1 mb-6 text-white">
+            <div class=" px-10 py-6  rounded-xl mb-2" style="background-color: rgb(var(--v-theme-primary),0.2);">
+              <p class="text-body-1 mb-3 text-white">
                 Dealers and traders often face:
               </p>
 
-              <div class="problem-list mb-8">
+              <div class="problem-list mb-4">
                 <div v-for="(item, index) in problemItems" :key="index" class="d-flex align-center mb-3 d-flex align-start">
                   <v-icon color="primary" class="mr-3 mt-1">
                     mdi-check-circle

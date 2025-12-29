@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-primary py-16">
+    <section class="bg-primary" style="padding-bottom: 100px; padding-top: 100px;">
         <v-container  fluid max-width="1400px"
             class="d-flex justify-content-center align-content-center py-md-20">
             <v-row no-gutters align="center">

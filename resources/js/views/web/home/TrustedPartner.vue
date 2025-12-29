@@ -66,11 +66,11 @@ export default {
 
 <style scoped>
 .trusted-img {
-  width: 100%;
-  max-width: 600px;
+  width: 500px;
   height: auto;
   object-fit: contain;
   animation: rotateImage 2s infinite ease-in-out;
+  max-width: 100%;
 }
 
 @keyframes rotateImage {
@@ -78,26 +78,31 @@ export default {
     transform: scale(1);
     opacity: 1;
   }
-
   50% {
     transform: scale(1.2);
-    opacity: 0.10.
+    opacity: 0.1;
   }
-
   100% {
-
     transform: scale(1);
-    opacity: 0.16.
+    opacity: 0.16;
   }
-
+}
+.rightImage,
+.leftContent {
+  flex: 1 1 100%;
 }
 
 @media (min-width: 960px) {
-
   .rightImage,
   .leftContent {
-    flex: 1 1 50%;
+    flex: 1 1 50%; 
     max-width: 700px;
   }
 }
+@media (max-width: 960px) {
+  
+  .trusted-img {
+  width: 300px;}
+}
+
 </style>

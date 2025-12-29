@@ -1,12 +1,12 @@
 <template>
-    <section class="bg-background py-16">
+    <section class="bg-background " style="padding-top: 100px; padding-bottom: 100px;">
         <v-container  fluid max-width="1400px"
             class="d-flex justify-content-center align-content-center ">
             <v-row no-gutters align="center">
 
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 class="text-h3 font-weight-bold text-white mb-8">Helping You Avoid Costly Bidding Mistakes
+                        <h2 class="text-h3 font-weight-bold text-white mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
                         </h2>
                         <div>
                             <div class=" border-sm pa-5 rounded-lg"

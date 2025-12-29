@@ -5,27 +5,27 @@
   background: rgba(3, 20, 40, 0.85);
   backdrop-filter: blur(2px);"></div>
 
-    <v-container fluid class="position-relative" style="max-width: 1400px;">
-      <v-row align="center">
-        <v-col cols="12" md="6" class="mt-10 text-center text-md-left">
+    <v-container fluid class="position-relative " style="max-width: 1400px; z-index: 1; ">
+      <v-row align="center" >
+        <v-col cols="12" md="6" style="backdrop-filter: blur(1px);" class="items-center mx-lg-0 mx-auto mt-10 text-center text-lg-start">
           <h1 class="text-h5 text-lg-h3   text-md-h3 font-weight-bold text-white mb-6">
             Smarter Vehicle Auction <br />
             Insights - All in One Place
           </h1>
 
-          <p class="text-body-1 text-light_text_on mb-8 w-100 w-md-75">
+          <p class="text-body-1 text-light_text_on mb-8 w-100  d-flex text-center text-lg-start justify-center">
             Stay ahead of the market with real-time UK vehicle auction data,
             transparent valuations, and powerful tools designed for dealers.
           </p>
 
 
 
-          <div class="d-flex flex-wrap ga-4 justify-center justify-md-start">
+          <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
             <v-btn color="primary" size="large" class="text-capitalize">Explore Auctions</v-btn>
             <v-btn variant="outlined" size="large" class="text-capitalize">Start Free Trial</v-btn>
           </div>
 
-          <div class="d-flex mt-8  ga-2 justify-center justify-md-start">
+          <div class="d-flex mt-8  ga-2 justify-center  justify-lg-start">
             <span>We analyse:</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24"
               aria-hidden="true" data-slot="icon">
@@ -52,7 +52,7 @@
                 clip-rule="evenodd"></path>
             </svg>
           </div>
-          <div class="w-100  mt-10 lg-mt-6 ml-n4 ml-lg-0">
+          <div class="w-100  mt-10 lg-mt-6 ml-n4 ml-lg-0 text-center text-lg-start  ">
             <p>Autoboli intelligence can reveal:</p>
             <div class="w-100 text-light_text_on mt-2 mt-5 ">
               <ul class="d-flex flex-wrap ga-2 w-100 mb-2 pa-lg-0 pa-4 ml-10 ml-lg-0" style="list-style:none">
@@ -68,7 +68,7 @@
       </v-row>
     </v-container>
 
-    <v-img :src="currentImage" class="hero-image-abs md-d-none d-none position-absolute top-1 d-lg-flex " rounded="xl" :key="currentImage"  style="  right: 0;
+    <v-img :src="currentImage" class="hero-image-abs d-none  position-absolute top-1 d-lg-flex " rounded="xl" :key="currentImage"  style="  right: 0;
   margin-top: 150px;
   min-width: 1050px;
   max-width: 200px;
@@ -77,7 +77,7 @@
   max-width: none;"/>
 
   </v-container>
-  <div style=" margin-top: -100px; " class="d-flex justify-center ga-4">
+  <div style=" margin-top: -100px; " class="d-lg-flex d-none justify-center ga-4">
     <v-btn icon @click="prevImage" class="rounded-sm" color="primary"><v-icon>mdi-chevron-left</v-icon></v-btn>
     <v-btn icon @click="nextImage" class="rounded-sm" color="primary"><v-icon>mdi-chevron-right</v-icon></v-btn>
 

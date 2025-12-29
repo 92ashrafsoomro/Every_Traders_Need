@@ -1,8 +1,8 @@
 <template>
-    <user-title-bar title="Auction Scheduler"
-    style="z-index: 1; margin-top: 20px;"
-        subtitle="Manage and view platform auctions across all centers in one place.">
-        <div class="d-flex flex-wrap ga-2 ">
+    <user-title-bar title="Auction Schedule"
+    style="z-index: 1;"
+        subtitle="Manage and view platform auctions across all centers in one place." class="pt-16">
+        <div class="d-flex flex-wrap ga-2 mt-10 ">
             <div style="width: 200px;">
                 <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
                     @update:modelValue="handleInput($event, 'platform_id')" clearable />
@@ -12,17 +12,17 @@
                     @update:modelValue="handleInput($event, 'center_id')" clearable />
             </div>
 
-            <div>
+            <div class="d-flex">
                 <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
                     @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
-                <span class="mt-2 ml-2">In Progress</span>
+                <span class="mt-5 ml-3">In Progress</span>
             </div>
         </div>
         <div class="pt-4 d-flex flex-wrap align-center ga-3 ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
-                class=" border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3"
-                style=" height: 95px; width: 165px;" @click="handleTab(key)">
+                class=" border rounded bg-surface-variant-1 pa-3 d-flex  flex-column mb-3 cursor-pointer"
+                style=" height: 95px; width: 13.5%;" @click="handleTab(key)">
                 <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
                     {{ key }}
@@ -50,19 +50,22 @@
     </user-title-bar>
 
 
-    <div class="w-100 h-auto d-flex justify-center">
-        <div class="mt-10 mb-10 w-75 ">
+    <div class=" h-auto mx-auto d-flex justify-center  "  style="padding:0 0 100px 0; max-width: 1400px;">
+        <div class="mt-10 mb-10 w-100 ">
             <v-table fixed-header class="rounded-lg">
                 <thead>
                     <tr>
                         <th class="text-left text-subtitle-1">
-                            Platfrom
+                            Auction house
                         </th>
 
                         <th class="text-left text-subtitle-1">
                             Center
                         </th>
 
+                         <th class="text-left text-subtitle-1">
+                            Auction Name
+                        </th>
                         <th class="text-left text-subtitle-1">
                             Total Vahicls
                         </th>
@@ -74,9 +77,7 @@
                         <th class="text-left text-subtitle-1">
                             Status
                         </th>
-                        <th class="text-left text-subtitle-1">
-                            Action
-                        </th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -86,26 +87,27 @@
                             <p class="text-primary">BCA</p>
                         </td>
                         <td>Birmingham, Bristol, Thurleigh </td>
+                        <td>Abc</td>
                         <td>225</td>
-                        <td>14/8/2025_10:00</td>
+                        <td>    
+                           
+                            <span class="rounded h-50  d-flex justify-center align-center" style=" background-color: rgba(var(--v-theme-background));">10:00</span></td>
                         <td>
                             <div class="rounded h-50  d-flex justify-center align-center"
                                 style="width:100px ; background-color: rgba(var(--v-theme-primary),0.10);">
                                 In Progress
                             </div>
                         </td>
-                        <td>View/Alert/</td>
+                      
                     </tr>
 
                 </tbody>
             </v-table>
         </div>
     </div>
-    <div style="max-width: 1400px;" class="mx-auto">
+   
 
 
-
-    </div>
 </template>
 
 <script>

@@ -55,6 +55,7 @@ const vuetify = createVuetify({
                     'primary-lighten-1': '#3399ff',
                     primary: "#0080FF",
                     primaryLite :"#3399ff20",
+                    primaryDark:"#0658e5ff",
                     'on-primary': '#ffffff',
                     // background: "#000f21",
                     surface: "#000E20",

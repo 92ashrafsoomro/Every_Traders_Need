@@ -6,17 +6,17 @@
   <div class="bg-background">
     <exists />
     <different />
-    <!-- <card /> -->
+     <!-- <card />  -->
   </div>
   <helping />
   <vision />
   <glance/>
-  <!-- <problem />
-  <autodifferent />
+  <!-- <problem /> -->
+  <!-- <autodifferent /> -->
   <div>
-    <promise />
+    <!-- <promise /> -->
   </div>
-  <bidSmarter /> -->
+  <bidSmarter /> 
 </template>
 
 <script>

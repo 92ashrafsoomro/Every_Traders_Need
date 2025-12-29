@@ -76,3 +76,11 @@ aside {
  .custom-field .v-field__overlay {
  background-color: rgb(var(--v-theme-background));
 }
+
+
+/* .v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single{
+    background-color: aqua !important;
+}
+.v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single:active{
+    background-color: #b91c1c
+} */

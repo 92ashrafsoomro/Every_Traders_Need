@@ -1,26 +1,53 @@
 <template>
-  
-  <v-container max-width="1400px"  class="bg-surface main-container mx-auto">
-    <div class="pt-16"  >
-      <div class="left-border-box d-flex items-start">
-        <div  class="ml-lg-5 ml-md-5">
-          <h2 class="text-h4 text-on-primary  mb-4 font-weight-bold"> Empowering Dealers & Traders with Data-Backed Confidence</h2>
-          <p class="paragraph mb-6 mt-5 text-text_light font-weight-light">
-            The vehicle auction industry is fast, competitive, and unforgiving—one wrong bid can cost thousands, and missing the right opportunity can cost even more.
-            For years, dealers and traders have relied on guesswork, scattered data, and outdated pricing tools, making every auction feel like a gamble instead of a calculated investment.
-          </p>
-          <p class=" text-text_light font-weight-light">
-            That's where Autoboli Ltd steps in.
-          </p>
-        </div>
-      </div>
-    </div>
+  <v-container max-width="1400px" fluid class="bg-surface main-container mx-auto pa-0">
+    <div style="padding-top: 100px; padding-bottom: 100px;">
+      <!-- Main Card -->
+      <v-card class="mx-auto pa-8 pa-md-12 rounded-xl bg-background border-sm"
+        style=" background: linear-gradient(to top, rgba(var(--v-theme-primary),0.2) 5%, transparent 80%);">
+        <v-row align="center" no-gutters>
+          <!-- Left Content -->
+          <v-col cols="12" md="6" class="pr-md-8">
+            <h2 class="text-h3 font-weight-bold mb-6">
+              The Problem We Saw in the Market
+            </h2>
+            <p class="text-body-1 mb-6 text-white">
+              Vehicle auctions move fast. Prices change daily. Information is scattered.<br>
+            </p>
+            <div class=" pa-10  rounded-xl mb-2" style="background-color: rgb(var(--v-theme-primary),0.2);">
+              <p class="text-body-1 mb-6 text-white">
+                Dealers and traders often face:
+              </p>
 
-    <!-- IMAGE -->
-    <div  class="bgImage mt-16 mb-2 d-flex justify-center">
-      <img class="" :src="gridImage" alt="">
-    </div>
+              <div class="problem-list mb-8">
+                <div v-for="(item, index) in problemItems" :key="index" class="d-flex align-center mb-3 d-flex align-start">
+                  <v-icon color="primary" class="mr-3 mt-1">
+                    mdi-check-circle
+                  </v-icon>
 
+                  <span class="text-white text-body-2">
+                    {{ item }}
+                  </span>
+                </div>
+              </div>
+
+              <p class="text-body-1 text-white font-weight-medium">Inexperience — or lack of real-time data — leads to
+                costly bidding mistakes</p>
+            </div>
+            <p class="text-body-1 text-white font-weight-medium mt-4">
+
+              We saw too many good traders losing money not because they were bad at business, but because they didn’t
+              have the right information at the right time.
+            </p>
+          </v-col>
+
+          <!-- Right Image -->
+          <v-col cols="12" md="6" class="text-center mt-8 mt-md-0">
+            <v-img :src="gridImage" alt="Confident vehicle trader presenting with confidence" max-width="500"
+              class="mx-auto rounded-lg" aspect-ratio="1"></v-img>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
   </v-container>
 </template>
 
@@ -30,38 +57,38 @@ import gridImage from '@assets/images/tabs/about2.png';
 import dealerContent from "@/json/dealer.json";
 
 export default {
-    data(){      
-        return{
-             gridImage,
-             data :  dealerContent
-            }    
+  data() {
+    return {
+      gridImage,
+      data: dealerContent,
+      problemItems: [
+        'Overbidding due to incomplete market insight',
+        'Missed opportunities hidden across different auction houses',
+        'Losses caused by unseen condition issues or misleading valuations',
+        'Hours wasted switching between platforms, spreadsheets, and guesswork'
+      ]
     }
+  }
 }
 
 </script>
 
 <style scoped>
-.main-container {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-.left-border-box {
-  border-left: 5px solid #0080FF;
-  padding-left: 20px;
-}
-.paragraph {
-  max-width: 900px;
-  line-height: 1.7;
-}
-.bgImage img {
-  width: 100%;
-  max-width: 1000px;
+.problem-list li span {
+  color: #444;
 }
 
-@media (max-width: 600px) {
-  .bgImage img{
-        max-width: 292px;
+@media (max-width: 960px) {
+  .v-row {
+    flex-direction: column-reverse;
   }
 
+  .v-col {
+    text-align: center;
+  }
+
+  .problem-list li {
+    justify-content: center;
+  }
 }
 </style>

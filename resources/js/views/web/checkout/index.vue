@@ -6,14 +6,14 @@
             </v-col>
             <v-col cols="12" lg="7">
 
-                <v-card class="pa-6" elevation="4" :loading="loading">
-                    <v-card-title class="text-h6 text-white mb-4">Billing Info</v-card-title>
+                <v-card class="pa-6 border-sm" :loading="loading">
+                    <v-card-title class="text-h5 font-weight-bold text-white mb-4">Billing Info</v-card-title>
                     <div class="border"></div>
 
                     <v-card-text class="pa-0">
                         <div class="pt-5- pb-10 mt-4">
                             <span style="padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
-                                class=" text-subtitle-1 text-white ">User Details</span>
+                                class=" text-h6  text-white ">User Details</span>
                         </div>
 
                         <v-row>
@@ -60,7 +60,7 @@
                         <div>
                             <div class="pt-5 pb-8">
                                 <span style="padding-right: 13px;padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
-                                    class=" text-subtitle-1 text-white ">Card Details</span>
+                                    class=" text-h6 text-white ">Card Details</span>
                             </div>
                             <div>
                                 <v-text-field class="custom-field" v-model="form.cardholderName" label="Name on card"
@@ -70,22 +70,30 @@
                                 <div id="card-element" class="my-4 mx-2"></div>
                                 <div id="card-errors" class="text-red mx-2 text-caption"></div>
                             </div>
-                            <v-checkbox class="mt-4">
+                            <v-checkbox class="mt-4 w-full">
                                 <template #label>
-                                    I have read and agree to the
-                                    <router-link to="/terms-and-conditions" target="_blank"
-                                        class="text-primary ml-2 mr-2">
-                                        Terms & Conditions
-                                    </router-link>,
-                                    <router-link to="/privacy-policy" target="_blank" class="text-primary ml-2 mr-2">
-                                        Privacy Policy
-                                    </router-link>
-                                    and
-                                    <router-link to="/disclaimer" target="_blank" class="text-primary ml-2 ">
-                                        Disclaimer
-                                    </router-link>.
+                                    <div
+                                        class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center text-sm sm:text-base">
+                                        <span>I have read and agree to the</span>
+                                        <router-link to="/terms-and-conditions" target="_blank"
+                                            class="text-primary  ml-lg-2 ml-2 mr-lg-2 mr-2 underline">
+                                            Terms & Conditions
+                                        </router-link>
+                                        <span class="ml-0 sm:ml-0 mr-0 sm:mr-2">,</span>
+                                        <router-link to="/privacy-policy" target="_blank"
+                                            class="text-primary ml-lg-2 ml-2 mr-lg-2 mr-2 underline">
+                                            Privacy Policy
+                                        </router-link>
+                                        <span class="ml-0 sm:ml-0 mr-0 sm:mr-2">and</span>
+                                        <router-link to="/disclaimer" target="_blank"
+                                            class="text-primary ml-lg-2 ml-2 mr-lg-2 mr-2 underline">
+                                            Disclaimer
+                                        </router-link>
+                                        <span class="ml-0 sm:ml-0">.</span>
+                                    </div>
                                 </template>
                             </v-checkbox>
+
 
 
                         </div>
@@ -101,7 +109,7 @@
                     <div class="d-flex mb-4  justify-space-between pa-6 rounded-sm "
                         style="background-color: rgb(var(--v-theme-primary),0.2);">
                         <div class="d-flex align-center gap-2">
-                            <v-icon class="bg-primary rounded-sm" size="40">
+                            <v-icon class="bg-primary rounded-sm" size="30">
                                 mdi-plus
                             </v-icon>
 
@@ -124,9 +132,9 @@
                     </div>
 
 
-                    <v-card class="pa-6 bg-surface  mt-6" elevation="4" :loading="loading">
+                    <v-card class="gradiantColor pa-6 bg-surface border-sm  mt-6" :loading="loading">
 
-                        <v-card-title class="text-h6 text-white mb-4 ">Order Summary</v-card-title>
+                        <v-card-title class="text-h5 font-weight-bold text-white mb-4 ">Order Summary</v-card-title>
 
 
                         <div>
@@ -134,21 +142,33 @@
                             <div v-for="item in planList" :key="item.id">
                                 <div v-if="item.id === selectedPlan">
                                     <v-divider class="mb-4"></v-divider>
+                                    <div class="d-flex   justify-space-between px-6 py-3 rounded-sm "
+                                        style="background-color: rgb(var(--v-theme-primary));">
+                                        <div class="d-flex align-center gap-2">
+                                            <v-icon class="bg-white text-primary rounded-sm" size="30">
+                                                mdi-plus
+                                            </v-icon>
+                                            <div class="ml-4">
+                                                <div class="text-h6 font-weight-bold">
 
-                                    <div class="text-body-1 font-weight-bold">
-                                        {{ item.plan_name }}
+                                                    {{ item.plan_name }}
+                                                </div>
+                                                <div class="text-body-2 ">
+                                                    {{ item.short_desc }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-h6 text-white font-weight-bold ">
+                                            £{{ item.price }}
+                                            <div class="text-body-2 text-white ">
+                                                Per {{ item.duration_unit }}
+                                            </div>
+                                        </div>
+
                                     </div>
 
-                                    <div class="text-body-2 mt-1">
-                                        {{ item.short_desc }}
-                                    </div>
 
-                                    <div class="text-h4 text-white font-weight-bold mt-2">
-                                        £{{ item.price }}
-                                        <span class="text-caption text-grey-lighten-1">
-                                            Per {{ item.duration_unit }}
-                                        </span>
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -164,27 +184,28 @@
                                 </template>
 
 
-                                <v-list class="mt-3" density="compact">
+                                <v-list class="v-list-rounded bg-background mt-3 " density="compact">
                                     <v-list-item v-for="item in planList" :key="item.id" @click="selectedPlan = item.id"
-                                        class="pa-0"
-                                        :class="selectedPlan === item.id ? 'bg-primary text-white' : 'bg-background'">
-                                        <div class="d-flex justify-space-between align-center w-100 pa-5 selectedHover">
+                                        class="pa-0 "
+                                        :class="selectedPlan === item.id ? 'bg-primary text-white rounded-t' : 'bg-background'">
+                                        <div
+                                            class="d-flex justify-space-between  align-center w-100 pa-5 selectedHover">
                                             <div>
                                                 <div class="text-body-1 font-weight-bold">
                                                     {{ item.plan_name }}
                                                 </div>
                                                 <div class="text-body-2"
-                                                    :class="selectedPlan === item.id ? 'text-white' : 'text-grey-lighten-1'">
+                                                    :class="selectedPlan === item.id ? 'text-white' : 'text-white'">
                                                     {{ item.short_desc }}
                                                 </div>
                                             </div>
 
                                             <div class="text-right">
-                                                <div class="text-body-1 font-weight-bold">
+                                                <div class="text-body-1 font-weight-bold ">
                                                     £{{ item.price }}
                                                 </div>
-                                                <div class="text-caption"
-                                                    :class="selectedPlan === item.id ? 'text-white' : 'text-grey-lighten-1'">
+                                                <div class="text-caption "
+                                                    :class="selectedPlan === item.id ? 'text-white' : ''">
                                                     Per {{ item.duration_unit }}
                                                 </div>
                                             </div>
@@ -404,5 +425,14 @@ export default {
 
 .selectedHover:hover {
     background-color: rgb(var(--v-theme-primary));
+}
+
+.v-list-rounded {
+    /* background-color: aquamarine !important; */
+    border-radius: 10px;
+}
+
+.gradiantColor {
+    background: linear-gradient(to top, rgb(var(--v-theme-primary), 0.2) 5%, transparent 50%);
 }
 </style>

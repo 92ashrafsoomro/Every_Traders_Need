@@ -24,7 +24,7 @@
                     <img :src="logoAutoBoli" alt="" srcset="" width="150">
                 </div>
                 <div class="left mt-4">
-                    <p class="text-light_text_on w-75"> Helping dealers, exporters, and traders buy smarter with real-time
+                    <p class="text-light_text_on w-25 w-lg-50 w-md-50"> Helping dealers, exporters, and traders buy smarter with real-time
                         auction data from across the UK & Japan. Save money, reduce risk,
                         and grow your automotive business <br> all in one platform.
                     </p>

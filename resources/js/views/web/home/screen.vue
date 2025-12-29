@@ -1,13 +1,14 @@
 <template>
+  <v-container fluid class="hero-section d-flex align-center border-b position-relative overflow-hidden" min-height="900"
+    :style="{ backgroundImage: `url(${currentBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+    <div class="hero-overlay position-absolute" style=" inset: 0;
+  background: rgba(3, 20, 40, 0.85);
+  backdrop-filter: blur(2px);"></div>
 
-  <v-container fluid class="bg-surface d-flex flex-wrap align-center" style="min-height: 90vh;">
-
-    <v-container style="max-width:1400px">
-      <v-row align="center " class="m-auto">
-
-        <!-- LEFT : TEXT -->
-        <v-col cols="12" md="6" class="text-center text-md-left">
-          <h1 class="text-h5 text-lg-h3  text-md-h3 font-weight-bold text-white mb-6">
+    <v-container fluid class="position-relative" style="max-width: 1400px;">
+      <v-row align="center">
+        <v-col cols="12" md="6" class="mt-10 text-center text-md-left">
+          <h1 class="text-h5 text-lg-h3   text-md-h3 font-weight-bold text-white mb-6">
             Smarter Vehicle Auction <br />
             Insights - All in One Place
           </h1>
@@ -64,52 +65,36 @@
           </div>
 
         </v-col>
-
-        <!-- RIGHT : MOCKUP -->
-        <v-col cols="12" md="6" class="d-none d-md-flex justify-end">
-          <div class="d-flex flex-column align-end">
-
-            <!-- TOP CARD -->
-            <v-sheet rounded="lg" elevation="6" width="600" height="300" class="mr-n6 overflow-hidden bg-white"
-              style="margin-bottom:-60px; border:1px solid rgb(var(--v-theme-border))">
-              <v-img :src="screenRight" cover position="top" height="100%" />
-            </v-sheet>
-
-
-            <!-- BOTTOM CARD -->
-            <div style="box-shadow: -5px 10px 50px 5px #3399ff50; border-radius: 12px; z-index: 1;">
-              <v-sheet rounded="lg" elevation="4" width="600" height="300" class="overflow-hidden bg-white "
-                style=" border: 1px solid rgb(var(--v-theme-primary))">
-                <v-img :src="screenRight" cover position="top" height="100%" style="object-position: top;" />
-              </v-sheet>
-            </div>
-
-          </div>
-        </v-col>
-
-
       </v-row>
     </v-container>
-  </v-container>
 
+    <v-img :src="currentImage" class="hero-image-abs md-d-none d-none position-absolute top-1 d-lg-flex " rounded="xl" :key="currentImage"  style="  right: 0;
+  margin-top: 150px;
+  min-width: 1050px;
+  max-width: 200px;
+  box-shadow: 0 10px 200px rgba(var(--v-theme-primary), 0.3);
+  transform: translate(120px, 40px);
+  max-width: none;"/>
+
+  </v-container>
+  <div style=" margin-top: -100px; " class="d-flex justify-center ga-4">
+    <v-btn icon @click="prevImage" class="rounded-sm" color="primary"><v-icon>mdi-chevron-left</v-icon></v-btn>
+    <v-btn icon @click="nextImage" class="rounded-sm" color="primary"><v-icon>mdi-chevron-right</v-icon></v-btn>
+
+  </div>
 </template>
 
+
 <script>
-import screenRight from '@/assets/images/reauction/Reauction.png'
-import logoImage from '@/assets/images/logo/logo.png'
-import avatar1 from '@/assets/images/avatar/avatar1.png'
-import avatar2 from '@/assets/images/avatar/avatar2.png'
-import avatar3 from '@/assets/images/avatar/avatar3.png'
+import Reauction1 from '@/assets/images/reauction/Reauction.png'
+import Reauction2 from '@/assets/images/reauction/Reauction.png'
+
 
 export default {
-  name: 'HeroSection',
   data() {
     return {
-      screenRight,
-      logoImage,
-      avatar1,
-      avatar2,
-      avatar3,
+      images: [Reauction1, Reauction2],
+      currentIndex: 0,
       featuresCol1: [
         'Reauction history',
         'Previous auction results',
@@ -120,55 +105,68 @@ export default {
         'Auction timing & status',
         'And more…',
       ],
-      featuresCol3: [
-      ],
+    }
+  },
+  computed: {
+    currentBg() {
+      return this.images[this.currentIndex]
+    },
+    currentImage() {
+      const nextIndex = (this.currentIndex + 1) % this.images.length
+      return this.images[nextIndex]
+    }
+  },
+  methods: {
+    nextImage() {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length
+    },
+    prevImage() {
+      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
     }
   }
 }
 </script>
 
 <style scoped>
-.dashboard-mockup {
-  position: absolute;
-  top: 90px;
-  right: 0;
-  height: 600px;
-  /* overflow: hidden; */
-  pointer-events: none;
-  overflow: hidden;
+.hero-image-abs-enter-active,
+.hero-image-abs-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-@media (max-width: 1400px) {
+.hero-image-abs-enter-from {
+  opacity: 0;
+  transform: translateX(50px);
+}
 
-  .dashboard-mockup {
-    position: absolute;
-    top: 90px;
-    right: 0;
-    width: 600px;
-    height: 600px;
-    /* overflow: hidden; */
-    pointer-events: none;
-    overflow: hidden;
+.hero-image-abs-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+
+@media (max-width: 960px) {
+  .hero-image-abs {
+    position: relative;
+    width: 100%;
+    margin: 20px auto;
   }
-
 }
 
-@media (max-width: 1024px) {
-  .dashboard-mockup {
-    position: absolute;
-    top: 90px;
-    right: 0;
+
+@media (max-width: 960px) {
+  .hero-image-abs {
     display: none;
-    height: auto;
-    pointer-events: none;
+ 
   }
-}
 
-@media (max-width: 600px) {
-  .dashboard-mockup {
+  .hero-section {
+    min-height: auto;
+    padding: 60px 20px;
+  }
 
-    right: 10px;
-    background-color: aliceblue;
+  .hero-content {
+    text-align: center;
+
   }
 }
 </style>

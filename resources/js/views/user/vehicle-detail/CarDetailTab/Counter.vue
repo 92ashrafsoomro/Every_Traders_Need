@@ -1,46 +1,46 @@
 <template>
-    <v-row no-gutters class="d-flex align-center justify-center ga-4 bg-surface border-t  pt-8 pb-8 ">
-        <v-col cols="6" lg="2" md="2" sm="3"
+    <div  class="d-flex flex-wrap align-center justify-space-between pa-8 ga-lg-0 ga-10 border-t  pt-8 pb-8 ">
+        <div
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-pound" ></v-btn>
-            <div class="d-flex flex-column ga-1">
+            <div class="d-flex flex-column align-lg-start align-md-start align-center ga-1">
                 <p class="text-body-1 ">{{ vehicleStore.vehicle.reg}}</p>
                 <p class="text-body-2 text-light_text_on mt-n1">Reg</p>
             </div>
-        </v-col>
-        <v-col cols="6" lg="2" md="2" sm="3"
+        </div>
+        <div
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-calendar" ></v-btn>
-            <div class="d-flex flex-column ga-1">
+            <div class="d-flex flex-column ga-1 align-lg-start align-md-start align-center">
                 <p class="text-body-1 ">{{ vehicleStore.vehicle.dor || "-"}}</p>
                 <p class="text-body-2 text-light_text_on mt-n1">DOR</p>
             </div>
-        </v-col>
-        <v-col cols="6" lg="2" md="2" sm="3"
+        </div>
+        <div
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-speedometer-medium" ></v-btn>
-            <div class="d-flex flex-column ga-1">
+            <div class="d-flex flex-column ga-1 align-lg-start align-md-start align-center">
                 <p class="text-body-1  ">{{ vehicleStore.vehicle.mileage }}</p>
                 <p class="text-body-2 text-light_text_on mt-n1" >Mileage</p>
             </div>
-        </v-col>
-        <v-col cols="6" lg="2" md="2" sm="3"
+        </div>
+        <div
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-star" ></v-btn>
-            <div class="d-flex flex-column ga-1">
+            <div class="d-flex flex-column ga-1 align-lg-start align-md-start align-center">
                 <p class="text-body-1 ">{{ vehicleStore.vehicle.grade }}</p>
                 <p class="text-body-2 text-light_text_on mt-n1">Grade</p>
             </div>
-        </v-col>
-        <v-col cols="6" lg="2" md="2" sm="3"
+        </div>
+        <div
             class="d-flex align-center flex-column flex-sm-row ga-2">
             <v-btn color="primary" variant="tonal" icon="mdi-file-document" ></v-btn>
-            <div class="d-flex flex-column ga-1">
+            <div class="d-flex flex-column ga-1 align-lg-start align-md-start align-center">
                 <p class="text-body-1 ">{{ vehicleStore.vehicle.v5 }}</p>
                 <p class="text-body-2 text-light_text_on mt-n1">V5</p>
             </div>
-        </v-col>
-    </v-row>
+        </div>
+    </div>
 </template>
 <script>
     import {

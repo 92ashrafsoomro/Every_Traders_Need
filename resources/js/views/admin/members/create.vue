@@ -166,9 +166,9 @@
 
 
 <script>
-import BaseField from "./BaseField.vue";
-import BaseSelect from "./BaseSelect.vue";
-import BaseImageUpload from "./BaseImageUpload.vue";
+import BaseField from "./component/BaseField.vue";
+import BaseSelect from "./component/BaseSelect.vue";
+import BaseImageUpload from "./component/BaseImageUpload.vue";
 export default {
   components: { BaseField,BaseSelect,BaseImageUpload },
 
@@ -220,6 +220,7 @@ export default {
   },
 
   methods: {
+
     submitForm() {
       console.log(this.form);
     },

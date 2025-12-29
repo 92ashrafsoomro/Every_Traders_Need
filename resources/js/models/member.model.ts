@@ -64,13 +64,24 @@ export default class Member {
         }
     }
 
-        static async delete(id){
+    static async delete(id){
         try{
             const res = await api.delete(`/api/cruds/users/${id}`);
             return res.data;
 
         }
         catch(error){
+            throw await errorHandler(error);
+        }
+    }
+    static async update(id: number | string, formData: FormData) {
+        try {
+         
+
+            const res = await api.post(`/api/auth/profile/${id}`, formData);
+            return res.data;
+
+        } catch (error) {
             throw await errorHandler(error);
         }
     }

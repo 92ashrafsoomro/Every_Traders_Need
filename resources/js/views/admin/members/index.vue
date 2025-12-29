@@ -2,10 +2,6 @@
     <user-title-bar>
         <div>
             <h1 class="text-h3 mb-2 font-weight-bold">Members </h1>
-            <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
-       
-       
-            
                 <v-expand-transition>
                     <div >
                         <v-container fluid>
@@ -64,8 +60,6 @@
                                                     </v-btn>
                                                 </div>
                                             </v-col>
-                                
-
                                         </v-row>
                                 </v-col>
                     
@@ -107,9 +101,6 @@
                            
                             item-value="id" 
                             @update:options="loadItems" >
-
-            
-
                             <template v-slot:bottom>
                                 <div class="py-2 d-flex justify-end border-t">
                                     <custom-pagination 
@@ -188,8 +179,7 @@
                                 </div>
                             </template>
 
-                       
-                        
+                            
                         </v-data-table-server>
                     </div>
                 </v-col>

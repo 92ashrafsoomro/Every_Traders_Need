@@ -1,6 +1,7 @@
 import index from './index.vue'
 // import show from './show/index.vue'
 import create from "./create.vue"
+import edit from './edit.vue'
 
 export default [
     {
@@ -8,7 +9,7 @@ export default [
         children: [  
             { path: '', component: index },
             { path: 'create', component: create },
-            // { path: 'show/:id', component: show },
+            { path: 'edit/:id', component: edit },
         ],
     },
 ]

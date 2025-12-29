@@ -123,19 +123,19 @@ class AuctionController extends Controller
             'status' => 'planned',
         ]);
 
-        if($request->hasFile('csv_path')){
+        // if($request->hasFile('csv_path')){
 
-            $csvFile = $request->file('csv_path');
-            $rows = [];
-            if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
-                while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
-                    $rows[] = $row;
-                }
-                fclose($handle);
-            }
-            new SheetService($auction,$rows);
+        //     $csvFile = $request->file('csv_path');
+        //     $rows = [];
+        //     if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
+        //         while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
+        //             $rows[] = $row;
+        //         }
+        //         fclose($handle);
+        //     }
+        //     new SheetService($auction,$rows);
 
-        }
+        // }
 
         return response()->json([
             'data' => $auction,
@@ -195,21 +195,21 @@ class AuctionController extends Controller
             'status' => 'planned',
         ]);
 
-        if($request->hasFile('csv_path')){
+        // if($request->hasFile('csv_path')){
 
 
-            Vehicle::where('auction_id',$model->id)->delete();
-            $csvFile = $request->file('csv_path');
-            $rows = [];
-            if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
-                while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
-                    $rows[] = $row;
-                }
-                fclose($handle);
-            }
-            new SheetService($model,$rows);
+        //     Vehicle::where('auction_id',$model->id)->delete();
+        //     $csvFile = $request->file('csv_path');
+        //     $rows = [];
+        //     if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
+        //         while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
+        //             $rows[] = $row;
+        //         }
+        //         fclose($handle);
+        //     }
+        //     new SheetService($model,$rows);
 
-        }
+        // }
 
         return response()->json([
             'data' => $model,
@@ -300,49 +300,60 @@ class AuctionController extends Controller
             ], 422);
         }
 
+        // DB::beginTransaction();
+
         
-        Vehicle::where('auction_id',$id)->delete();
+        // Vehicle::where('auction_id',$id)->delete();
 
+        $errors = [];
         foreach ($request->data as $key => $item) {
-            
-            $vehicle_id = VehicleType::whereRaw('TRIM(name) = ?',[trim($item['vehicle_id'])])->first();
-            if(!$vehicle_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['vehicle_id'].' Vehcile Not Found'],500);
-            }
-
-            $body_id = BodyType::whereRaw('TRIM(name) = ?',[trim($item['body_id'])])->first();
-            if(!$body_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['body_id'].' Body Not Found'],500);
-            }
-
-            $make_id = Make::whereRaw('TRIM(name) = ?',[trim($item['make_id'])])->first();
-            if(!$make_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['make_id'].' Make Not Found'],500);
-            }
-
-            $model_id = VehicleModel::where('make_id',$make_id->id)->whereRaw('TRIM(name) = ?',[trim($item['model_id'])])->first();
-            if(!$model_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['model_id'].' Model Not Found'],500);
-            }
-
-            $variant_id = ModelVariant::where('model_id',$model_id->id)->whereRaw('TRIM(name) = ?',[trim($item['variant_id'])])->first();
-            if(!$variant_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['variant_id'].' Variant Not Found'],500);
-            }
-
-            $center_id = AuctionCenter::whereRaw('TRIM(name) = ?',[trim($item['center_id'])])->first();
-            if(!$center_id){
-                return response()->json(['message' => 'Row: '.$key.' '.$item['center_id'].' Center Not Found'],500);
-            }
 
 
-            $item['vehicle_id'] = $vehicle_id->id;
-            $item['body_id'] = $body_id->id;
-            $item['make_id'] = $make_id->id;
-            $item['model_id'] = $model_id->id;
-            $item['variant_id'] = $variant_id->id;
-            $item['center_id'] = $center_id->id;
-            $item['auction_id'] = $model->id;
+            dd($item);
+            // $vehicle_id = VehicleType::whereRaw('TRIM(name) = ?',[trim($item['vehicle_id'])])->first();
+            // if(!$vehicle_id){
+            //     $errors[$key]['vehicle_id'] = 'Vehcile Not Found';
+            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['vehicle_id'].' Vehcile Not Found'],500);
+            // }
+
+            // $body_id = BodyType::whereRaw('TRIM(name) = ?',[trim($item['body_id'])])->first();
+            // if(!$body_id){
+            //     $errors[$key]['body_id'] = 'Body Not Found';
+            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['body_id'].' Body Not Found'],500);
+            // }
+
+            // $make_id = Make::whereRaw('TRIM(name) = ?',[trim($item['make_id'])])->first();
+            // if(!$make_id){
+            //     $errors[$key]['make_id'] = 'Make Not Found';
+            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['make_id'].' Make Not Found'],500);
+            // }
+
+            // $model_id = VehicleModel::where('make_id',$make_id->id)->whereRaw('TRIM(name) = ?',[trim($item['model_id'])])->first();
+            // if(!$model_id){
+            //     $errors[$key]['model_id'] = 'Model Not Found';
+            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['model_id'].' Model Not Found'],500);
+            // }
+
+            // $variant_id = ModelVariant::where('model_id',$model_id->id)->whereRaw('TRIM(name) = ?',[trim($item['variant_id'])])->first();
+            // if(!$variant_id){
+            //     $errors[$key]['variant_id'] = 'Model Not Found';
+            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['variant_id'].' Variant Not Found'],500);
+            // }
+
+            // $center_id = AuctionCenter::whereRaw('TRIM(name) = ?',[trim($item['center_id'])])->first();
+            // if(!$center_id){
+            //     $errors[$key]['center_id'] = 'Model Not Found';
+            //     return response()->json(['message' => 'Row: '.$key.' '.$item['center_id'].' Center Not Found'],500);
+            // }
+
+
+            // $item['vehicle_id'] = $vehicle_id->id;
+            // $item['body_id'] = $body_id->id;
+            // $item['make_id'] = $make_id->id;
+            // $item['model_id'] = $model_id->id;
+            // $item['variant_id'] = $variant_id->id;
+            // $item['center_id'] = $center_id->id;
+            // $item['auction_id'] = $model->id;
 
             Vehicle::create($item);
         }

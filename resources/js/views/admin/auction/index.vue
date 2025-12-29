@@ -28,7 +28,6 @@
                             density="compact"
                             max-width="300px" 
                             clearable />
-
                         <div class="pl-2" >
                             <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
@@ -41,8 +40,7 @@
                         </div>
                     </div>
                 </v-col>
-
-                <v-col cols="12" class="mt-2"  >
+                <v-col cols="12" class="mt-2">
                     <div class="border"> 
                         <v-data-table-server 
                             class=""
@@ -51,7 +49,6 @@
                             :items="items" 
                             :items-length="total" 
                             hover
-                           
                             item-value="id" 
                             @update:options="loadItems" >
 
@@ -61,14 +58,11 @@
                                 </router-link>
                                 <span class="px-2" ></span>
                                 
-                                <router-link :to="'/admin/auction/csv/'+item.id">
+                                <!-- <router-link :to="'/admin/auction/csv/'+item.id">
                                     <v-icon color="light">mdi-file</v-icon>
-                                </router-link>
-
+                                </router-link> -->
                                 <span class="px-2" ></span>
-                        
-                                <v-icon @click="deleteItem(item.id)" color="light" >mdi-delete</v-icon>
-                            
+                                <v-icon @click="deleteItem(item.id)" color="light" >mdi-delete</v-icon>     
                             </template>
 
                             <template v-slot:bottom>
@@ -80,8 +74,6 @@
                                     @page-changed="loadItems" />
                                 </div>
                             </template>
-
-                        
                         </v-data-table-server>
                     </div>
                 </v-col>

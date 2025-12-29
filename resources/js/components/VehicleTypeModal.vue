@@ -9,9 +9,11 @@
             title="Vehicle Type"
         >
         <v-card-text>
-            <v-text-field  
+            <v-text-field
+                label="Search"  
                 @keyup.enter="handleSearch()"
                 v-model="search"
+                clearable
                 />
                 <ul class="mt-2">
 

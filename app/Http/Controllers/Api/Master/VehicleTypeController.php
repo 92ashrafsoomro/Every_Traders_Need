@@ -29,7 +29,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Validation\Rule;
 
 class VehicleTypeController extends Controller
 {
@@ -105,6 +105,7 @@ class VehicleTypeController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
+            'id' => 'required|integer|unique:vehicle_type,id',
             'name' => 'required|string|max:255',
         ]);
 
@@ -116,6 +117,7 @@ class VehicleTypeController extends Controller
         }
 
         $model = VehicleType::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -142,8 +144,11 @@ class VehicleTypeController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('vehicle_type')->ignore($model->id)],
             'name' => 'required|string|max:255',
+            
         ]);
+
          if ($validator->fails()) {
             return response()->json([
                 'message' => $validator->errors()->first(),
@@ -152,6 +157,7 @@ class VehicleTypeController extends Controller
         }
 
        $model = VehicleType::where('id',$id)->update([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

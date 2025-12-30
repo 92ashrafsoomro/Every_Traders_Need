@@ -17,10 +17,11 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Validation\Rule;
 
 class MakeController extends Controller
 {
+
 
       public function index(Request $request)
     {
@@ -36,12 +37,14 @@ class MakeController extends Controller
         if($request->has('id') && $request->id != '') {
             $query->where('id',$request->id);
         }
-       if($request->filled('search')) {
-               $query->where('make.name', 'like', '%'.$request->search.'%');
-                $query->orWhere('make.id', 'like', '%'.$request->search.'%');
+
+        if($request->filled('search')) {
+            $query->where('make.name', 'like', '%'.$request->search.'%');
+            $query->orWhere('make.id', 'like', '%'.$request->search.'%');
         }
+
         $count = (clone $query)->count();
-        $data = $query->select([
+        $data  = $query->select([
                     '*'
                 ])
                 ->skip($offset)
@@ -53,7 +56,7 @@ class MakeController extends Controller
                     return $item;
                 });
             
-
+        
         return response()->json([
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
@@ -65,10 +68,12 @@ class MakeController extends Controller
 
     }
 
+
       public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('make')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -80,6 +85,7 @@ class MakeController extends Controller
         }
 
         $model = Make::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -92,30 +98,27 @@ class MakeController extends Controller
 
     }
 
-             public function show(Request $request,$id)
+
+        public function show(Request $request,$id)
     {
 
-            $model = Make::find($id);
-            if(!$model){
-                return response()->json([
-                    'message' => 'Record Not Found',
-                ], 422);
-            }
-
-        
-
+        $model = Make::find($id);
+        if(!$model){
             return response()->json([
-                'message' => 'Record Updated Successfully',
-                'data' => $model
-            ],200);
+                'message' => 'Record Not Found',
+            ], 422);
+        }
 
-        
+        return response()->json([
+            'message' => 'Record Updated Successfully',
+            'data' => $model
+        ],200);
+
     }
 
 
        public function update(Request $request,$id)
     {
-
 
         $model = Make::find($id);
         if(!$model){
@@ -127,26 +130,27 @@ class MakeController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
         ]);
-
-        if($validator->fails()) {
+        
+        if($validator->fails()){
             return response()->json([
                 'message' => $validator->errors()->first(),
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $model->where('id',$id)->update([
+        $model->where('id',$id)
+        ->update([
             'name' => $request->name,
             'updated_at' => Carbon::now(),
         ]);
 
-        
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model
         ],200);
         
     }
+
 
 
     public function destroy($id)
@@ -156,9 +160,7 @@ class MakeController extends Controller
         if(!$model){
             return response()->json(['message' =>'Record Not Found'], 422);
         }
-
         
-
         if(VehicleModel::where('make_id',$id)->first()){
             return response()->json(['message' =>'Cannot Delete Exist In Model'], 422);
         }

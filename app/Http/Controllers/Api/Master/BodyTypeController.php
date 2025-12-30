@@ -29,7 +29,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Validation\Rule;
 
 class BodyTypeController extends Controller
 {
@@ -84,6 +84,7 @@ class BodyTypeController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('body_types')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -94,7 +95,8 @@ class BodyTypeController extends Controller
             ], 422);
         }
 
-        BodyType::create([
+        $model = BodyType::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -103,7 +105,7 @@ class BodyTypeController extends Controller
 
         return response()->json([
             'message' => 'Record Created Successfully',
-            'data' => []
+            'data' => $model,
         ],200);
 
     }
@@ -141,6 +143,7 @@ class BodyTypeController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('body_types')->ignore($model->id)],
             'name' => 'required|string|max:255',
         ]);
          if ($validator->fails()) {
@@ -150,7 +153,8 @@ class BodyTypeController extends Controller
             ], 422);
         }
 
-        BodyType::where('id',$id)->update([
+        $model->where('id',$id)->update([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -158,7 +162,7 @@ class BodyTypeController extends Controller
 
         return response()->json([
             'message' => 'Record Updated Successfully',
-            'data' => []
+            'data' => $model
         ],200);
 
         

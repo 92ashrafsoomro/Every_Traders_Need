@@ -5,15 +5,18 @@
   </div>
   <div class="bg-background">
     <exists />
-    <card />
+    <different />
+     <!-- <card />  -->
   </div>
-  <mision />
-  <problem />
-  <autodifferent />
-  <div>  
-    <promise />
+  <helping />
+  <vision />
+  <glance/>
+  <!-- <problem /> -->
+  <!-- <autodifferent /> -->
+  <div>
+    <!-- <promise /> -->
   </div>
-  <bidSmarter />
+  <bidSmarter /> 
 </template>
 
 <script>
@@ -21,8 +24,11 @@
 import aboutscreen from './aboutscreen.vue';
 import Dealer from './dealer.vue';
 import exists from './exists.vue';
+import glance from './glance.vue';
+import different from './different.vue';
+import helping from './helping.vue';
 import card from './card.vue';
-import mision from './mision.vue';
+import vision from './vision.vue';
 import problem from './problem.vue';
 import autodifferent from './autodifferent.vue';
 import promise from './promise.vue';
@@ -34,9 +40,12 @@ export default {
     name: 'About',
     aboutscreen,
     Dealer,
+    glance,
     exists,
+    different,
     card,
-    mision,
+    helping,
+    vision,
     problem,
     autodifferent,
     promise,

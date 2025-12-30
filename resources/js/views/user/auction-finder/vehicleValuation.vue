@@ -1,15 +1,16 @@
 <template>
-    <div class="bg-surface rounded border pa-4">
-          <v-data-table-server class="dataTable rounded" 
+    <div class="bg-surface rounded border ">
+          <v-data-table-server class="dataTable rounded " 
             :headers="headers" 
             :items="auctionStore.data"
             :items-length="auctionStore.total" 
             :loading="auctionStore.loading"
             item-value="id"   
             @update:options="auctionStore.getAuctionList">
-                <template #item.vehicle="{ item }">
+                <template #item.vehicle="{ item }" >
+                    <span class="ml-4 text-light_text_on text-body-2">
                     {{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}
-                </template>
+                </span></template>
 
                 <template #item.date="{ item }">
                     {{ item.auction_date }} {{ item.auction_time }}

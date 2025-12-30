@@ -3,7 +3,7 @@
 
             <v-expansion-panels>
 
-                <v-expansion-panel :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type">
+                <v-expansion-panel :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type" >
                     <v-expansion-panel-text>
                         <VehicleTypeField/>
                     </v-expansion-panel-text>
@@ -15,25 +15,26 @@
                         :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;">
-                    <v-expansion-panel-text>
+                <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;  ">
+                    <v-expansion-panel-text >
                         <MakeField/>
                     </v-expansion-panel-text>
                      <Chip 
                         :data="masterStore.makes.data" 
                         :compareValue="auctionStore.filter.make" 
                         removeKey="make"
+                        class="pb-2"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small" >
+                <v-expansion-panel :disabled="masterStore.models.data.length ? false : true" title="Model" size="x-small"  >
                     <v-expansion-panel-text>
                         <ModelField/>
                     </v-expansion-panel-text>
                     <Chip 
                         :data="masterStore.models.data" 
                         :compareValue="auctionStore.filter.model" 
-                        removeKey="model"
+                        removeKey="model" class="pb-2"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
                 
@@ -42,6 +43,7 @@
                         <VariantField/>
                     </v-expansion-panel-text>
                      <Chip 
+                     class="pb-2" 
                         :data="masterStore.variants.data" 
                         :compareValue="auctionStore.filter.variant" 
                         removeKey="variant"
@@ -53,6 +55,7 @@
                         <PlatformField/>
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.platforms.data" 
                         :compareValue="auctionStore.filter.platform" 
                         removeKey="platform"
@@ -64,6 +67,7 @@
                         <CenterField/>
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.centers.data" 
                         :compareValue="auctionStore.filter.center" 
                         removeKey="center"
@@ -75,6 +79,7 @@
                           <YearField/>
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.years.data" 
                         :compareValue="auctionStore.filter.year" 
                         removeKey="year"
@@ -86,6 +91,7 @@
                        <TransmissionField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.transmissions.data" 
                         :compareValue="auctionStore.filter.transmission" 
                         removeKey="transmission"
@@ -97,6 +103,7 @@
                         <FuelTypeField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.fuelType.data" 
                         :compareValue="auctionStore.filter.fuelType" 
                         removeKey="fuelType"
@@ -107,6 +114,7 @@
                          <DoorField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.doors.data" 
                         :compareValue="auctionStore.filter.door" 
                         removeKey="door"
@@ -117,6 +125,7 @@
                          <SeatField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.seats.data" 
                         :compareValue="auctionStore.filter.seat" 
                         removeKey="seat"
@@ -127,6 +136,7 @@
                       <GradeField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.grades.data" 
                         :compareValue="auctionStore.filter.grade" 
                         removeKey="grade"
@@ -137,6 +147,7 @@
                         <V5Field />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.v5.data" 
                         :compareValue="auctionStore.filter.v5" 
                         removeKey="v5"
@@ -147,6 +158,7 @@
                        <CCField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.cc.data" 
                         :compareValue="auctionStore.filter.cc" 
                         removeKey="cc"
@@ -157,6 +169,7 @@
                         <FormerKeeperField />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.formerKeepers.data" 
                         :compareValue="auctionStore.filter.formerKeeper" 
                         removeKey="formerKeeper"
@@ -167,6 +180,7 @@
                       <NoOfServices />
                     </v-expansion-panel-text>
                     <Chip 
+                    class="pb-2" 
                         :data="masterStore.noOfServices.data" 
                         :compareValue="auctionStore.filter.noOfService" 
                         removeKey="noOfService"

@@ -49,21 +49,17 @@
                                 <v-row no-gutters>
                                     <!-- class="d-flex flex-column flex-sm-row align-end align-lg-start ga-4 justify-normal" -->
 
-                                    <v-col cols="12" class="d-flex  mb-6   justify-space-between align-center">
-                                        <div class="d-flex ga-3">
-
-
-
+                                    <v-col cols="12"
+                                        class="d-flex justify-space-between align-center flex-column flex-sm-row mb-6">
+                                        <!-- Left group -->
+                                        <div class="d-flex ga-3 w-100 w-sm-auto mb-3 mb-sm-0">
                                             <v-btn value="details" height="50"
                                                 @click="vehicleStore.sidebar = !vehicleStore.sidebar"
                                                 class="bg-background text-capitalize text-body-1 border">
                                                 <v-icon>mdi-menu</v-icon>
                                             </v-btn>
 
-
-
-                                            <v-btn-toggle v-model="vehicleStore.tab" class="w-100 h-100 d-flex ga-4"
-                                                mandatory>
+                                            <v-btn-toggle v-model="vehicleStore.tab" class="d-flex ga-4" mandatory>
                                                 <v-btn value="details" height="50" variant="tonal"
                                                     class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
                                                     :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }"
@@ -77,24 +73,28 @@
                                                     style="border-radius: 5px">
                                                     Vehicle Valuation
                                                 </v-btn>
-                                            </v-btn-toggle>
 
+                                            </v-btn-toggle>
                                         </div>
+
+                                        <!-- Right group -->
                                         <div class="d-flex ga-3">
-                                            <v-btn value="Reauction Detacted" height="50"
-                                                class="text-capitalize text-body-1"
-                                                style="background-color: rgb(var(--v-theme-danger), 0.2);">
+                                            <v-btn-toggle class="detection-toggle" v-model="vehicleStore.tab" mandatory >
+                                            <v-btn value="detection" height="50"
+                                                 class="detection buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                    :class="{ 'bg-danger text-white': vehicleStore.tab === 'detection' }"
+                                                style="background-color: rgba(var(--v-theme-danger), 0.2);">
                                                 Reauction Detacted
-                                            </v-btn>
+                                            </v-btn> </v-btn-toggle>
                                             <v-btn value="Reauction Detacted" height="50"
                                                 class="bell text-capitalize text-body-1 bg-background border"
-                                                style="background-color: rgb(var(--v-theme-primary), 0.2);">
-                                                <v-icon class=" text-primary">mdi-bell-outline</v-icon>
-
+                                                style="background-color: rgba(var(--v-theme-primary), 0.2);">
+                                                <v-icon class="text-primary">mdi-bell-outline</v-icon>
                                             </v-btn>
+                                           
                                         </div>
-
                                     </v-col>
+
 
 
                                     <v-col cols="12">
@@ -119,6 +119,7 @@ import { toRaw } from 'vue';
 
 import DetailTab from './CarDetailTab/index.vue';
 import ValuationTab from './ValuationTab/index.vue';
+import Detaction from './DetactionTab/index.vue'
 import VehicleSidebar from './VehicleSidebar.vue';
 import Vehicle from '@/models/vehicle.model';
 
@@ -127,6 +128,7 @@ export default {
     components: {
         DetailTab,
         ValuationTab,
+        Detaction,
         VehicleSidebar,
     },
     data() {
@@ -154,6 +156,8 @@ export default {
             switch (this.vehicleStore.tab) {
                 case "details":
                     return DetailTab
+                case "detection":
+                    return Detaction
                 default:
                     return ValuationTab
             }
@@ -266,7 +270,11 @@ export default {
     background-color: rgb(var(--v-theme-primary)) !important;
     color: white !important;
 }
+.detection-toggle .v-btn--active{
+        background-color: rgb(var(--v-theme-danger)) !important;
+    color: white !important;
 
+}
 @media (max-width: 1440px) {}
 
 @media (max-width: 1440px) {}

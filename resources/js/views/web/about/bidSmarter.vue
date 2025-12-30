@@ -1,74 +1,107 @@
 <template>
-  <section class="bg-background py-20 overflow-hidden relative pa-14 min-vh-100">
-    <v-container style="padding-top: 80px; padding-bottom: 80px;" class="relative z-10">
-      <div class="d-flex justify-content-center align-center">
-        <div class="images">
-          <div class=""><img :src="leftSideImage" alt="Left Image" /></div>
+  <v-container class="py-16">
+    <div class="mx-auto d-flex  flex-column  align-center text-center" style="
+        max-width: 1400px;
+        height: 800px;
+           background: linear-gradient(
+      to bottom,
+      rgb(var(--v-theme-primary)),
+      rgb(var(--v-theme-primaryDark))
+    ); border: 1px solid rgb(var(--v-theme-border)); border-radius: 70px;">
+      <!-- TOP IMAGE -->
+      <!-- <img
+        :src="heroImage"
+        class="mb-6 mt-16"
+        width="120"
+        height="120"
+        alt="Logo"
+      /> -->
 
+
+      <!-- TEXT -->
+      <div class="text-white mb-10 " style="margin-top: 100px;">
+        <h5 class="text-h2 font-weight-bold">Bid Smarter. Buy Better.</h5>
+        <p class="text-body-1 mt-2 font-weight-bold">
+          Trade with Confidence. Autoboli — Turning auction data into winning decisions.
+        </p>
+
+        <div>
+        </div>
+        <div class="d-flex justify-center mt-10 mb-2">
+
+          <router-link to="/register" style="text-decoration: none;">
+            <div class="button d-flex justify-space-between bg-white align-center  pa-1  hoverEffect "
+              style=" min-width: 150px; max-width: 200px; border-radius: 40px;">
+
+              <div class="text ml-2 mr-2 font-weight-bold">
+                Get Started
+              </div>
+              <div class="icon bg-primary rounded-xl pa-1"> <v-icon>
+                  mdi-arrow-top-right
+                </v-icon></div>
+
+            </div>
+          </router-link>
         </div>
 
-        <div class="text-center max-w-3xl mx-auto">
-          <!-- Centered Heading -->
-          <h1 class="text-h6 text-lg-h4 text-md-h5 font-weight-bold text-white mb-6">
-            {{ bidSmarterData.title }}
-          </h1>
-
-          <!-- Centered Paragraph -->
-          <p class="text-subtitle-1 text-light_text_on mb-14 mx-auto" style="max-width: 600px;">
-            {{ bidSmarterData.paragraph }}
-          </p>
-
-          <!-- Centered Button -->
-          <v-btn color="primary" size="large" class="px-8 text-body-2 text-md-subtitle-1 font-weight-bold">
-            {{ bidSmarterData.button }}
-          </v-btn>
-
-        </div>
-        <div class="images">
-          <div class=""><img :src="leftSideImage" alt="Right Image" /></div>
-        </div>
       </div>
 
-      <!-- Left & Right Images -->
-    </v-container>
+      <!-- BOTTOM IMAGE (FIXED WITH PADDING) -->
+      <div class="bottom-image-wrapper">
+        <div class="hero-overlay"></div>
+        <img :src="newlogo" class="responsive-img" alt="Logo" />
+      </div>
 
-  </section>
+    </div>
+  </v-container>
 </template>
 
+
 <script>
-import leftSideImage from '@/assets/images/tabs/footerimg.png'
-import bidSmarterData from "@/json/bidsmarter.json"
+import logo from '@/assets/images/logo/auto1.png'
+import newlogo from '@/assets/images/reauction/Reauction.png'
+import AppButton from '../component/AppButton.vue';
 export default {
+  components: {
+    AppButton
+  },
   data() {
     return {
-      leftSideImage,
-      bidSmarterData
+      heroImage: logo,
+      newlogo,
+      AppButton
     }
   }
 }
 </script>
 
 <style scoped>
-/* .images {
-  display: flex;
+.bottom-image-wrapper {
+  padding-left: 10px;
+  position: relative;
+  padding-right: 10px;
   width: 100%;
-  justify-content: space-between;
-  margin-top: -160px;
-} */
-
-.left {
-  rotate: 90deg;
+  overflow: hidden;
 }
 
-@media (max-width: 600px) {
-  .images {
-    justify-content: space-between !important;
-    margin-left: -30px;
-    margin-top: 0;
-  }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(var(--v-theme-primaryDark), 0.8) 2%, transparent 70%);
+  z-index: 1;
+  border-radius: 70px;
+}
 
-  .images img {
-    width: 150px;
-  }
+.responsive-img {
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+}
+.hoverEffect:hover {
+  transform: translateY(-4px);
+  transition: 0.2s ease-in-out;
 }
 </style>

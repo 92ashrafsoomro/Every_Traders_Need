@@ -1,381 +1,342 @@
 <template>
-      <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute;">
+    <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute;">
         <div class="pattern-bg"></div>
         <div class="position-relative  pt-5  " style=" max-width: 1400px; z-index: 10">
-            
+
             <slot> </slot>
         </div>
     </div>
     <v-app>
-         <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
+        <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
             style="z-index: 0; border-radius:  0 300px 0 0;">
             <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
         <AuthHeader />
 
-        <v-main style="z-index: 10;" class="z-index-1 h-lg-screen d-flex align-center justify-center">
-            <v-container fluid class="d-flex justify-center align-center">
-                <v-row justify="center">
-                    <v-col cols="12" sm="10" md="8" lg="6" xl="5">
-                        <v-stepper class="pa-4" v-model="step"
-                            :items="['Company Info', 'User Info', 'Proof', 'Security']" color="primary">
+        <v-main class="z-index-1">
+            <div class="mt-4">
+                <div class="text-center ">
+                    <h1 class="text-h3 font-weight-bold ">Create your Autoboli Account</h1>
+                    <p class="text-h6 mt-2 text-light_text_on">Built for dealers & traders — fast onboarding, powerful
+                        insights.</p>
+                </div>
+            </div>
+            <div class="custom-stepper mx-auto  pa-4  mt-6 rounded-sm"
+                style="max-width: 800px; height: 70px; background-color: rgb(var(--v-theme-primary),0.2);">
 
-                            <!-- Step 1 -->
-                            <template v-slot:item.1>
-                                <v-card flat>
-                                    <v-card-title class="text-h4 font-weight-bold mb-n2">Company
-                                        Information</v-card-title>
-                                    <v-card-subtitle class="text-medium-emphasis">
-                                        Provide your company details.
-                                    </v-card-subtitle>
-                                    <v-container fluid class="py-6">
-                                        <v-row class="gap-4" justify="start">
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                   persistent-placeholder 
-                                                   v-model="form.companyName" 
-                                                   :error-messages="errors?.companyName"
-                                                   variant="outlined" 
-                                                   density="comfortable" 
-                                                   label="Company / Business Name"
-                                                   placeholder="Company / Business Name" 
-                                                   color="primary" 
-                                                   clearable required />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    persistent-placeholder
-                                                    v-model="form.companyAddress1"
-                                                    :error-messages="errors?.companyAddress1" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Company Address"
-                                                    placeholder="Company Address" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    persistent-placeholder
-                                                    v-model="form.companyAddress2"
-                                                    :error-messages="errors?.companyAddress2" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Company Address 2" 
-                                                    placeholder="Company Address 2"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                    persistent-placeholder
-                                                    v-model="form.businessType"
-                                                    :error-messages="errors?.businessType" 
-                                                    density="comfortable" 
-                                                    variant="outlined" 
-                                                    label="Business Type"
-                                                    placeholder="Business Type"
-                                                    :items="['Motor Dealer', 'Motor Trader', 'Independent Dealer', 'Other']"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    persistent-placeholder 
-                                                    v-model="form.companyReg"
-                                                    :error-messages="errors?.companyReg"
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Company Reg. Number"
-                                                    placeholder="Company Reg. Number" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    persistent-placeholder
-                                                    v-model="form.townCity"
-                                                    :error-messages="errors?.townCity" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Town / City"
-                                                    placeholder="Town / City" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field 
-                                                    persistent-placeholder
-                                                    v-model="form.website"
-                                                    :error-messages="errors?.website" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Website (Optional)"
-                                                    placeholder="Website (Optional)" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="form.country"
-                                                    :error-messages="errors?.country" 
-                                                    variant="outlined" 
-                                                    density="comfortable" 
-                                                    label="Country"
-                                                    color="primary"
-                                                    placeholder="Country" 
-                                                    persistent-placeholder
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field 
-                                                    v-model="form.businessEmail"
-                                                    :error-messages="errors?.businessEmail"
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Business Email (optional)"
-                                                    placeholder="Business Email (optional)" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    persistent-placeholder
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Postal Code / Zip Code"
-                                                    placeholder="Postal Code / Zip Code" 
-                                                    v-model="form.postcode"
-                                                    :error-messages="errors?.postcode"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                    persistent-placeholder 
-                                                    density="comfortable" 
-                                                    variant="outlined"
-                                                    v-model="form.motorTradeInsurance"
-                                                    :error-messages="errors?.motorTradeInsurance"
-                                                    label="Motor Trade Insurance"
-                                                    placeholder="Motor Trade Insurance" 
-                                                    :items="['Yes', 'No', 'Pending']"
-                                                    color="primary" 
-                                                    clearable="" />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    label="Cell"
-                                                    placeholder="Cell"
-                                                    persistent-placeholder 
-                                                    variant="outlined" 
-                                                    v-model="form.telephone"
-                                                    :error-messages="errors?.telephone"
-                                                    density="comfortable" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field 
-                                                    variant="outlined"
-                                                    placeholder="VAT Number (optional)"
-                                                    persistent-placeholder 
-                                                    v-model="form.vatNumber"
-                                                    :error-messages="errors?.vatNumber"
-                                                    density="comfortable"
-                                                    label="VAT Number (optional)" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                </v-card>
-                            </template>
+                <div v-for="(label, index) in steps" :key="index" class="step"
+                    :class="{ active: step === index + 1, done: step > index + 1 }">
+                    <div class="circle">{{ index + 1 }}</div>
+                    <div class=" ">
+                        <div class="text-start">
+                            {{ label.label }}
+                        </div>
+                        <div class="text-body-2 text-light_text_on text-start">
+                            {{ label.subHeading }}
+                        </div>
+                    </div>
+                </div>
 
-                            <!-- Step 2 -->
-                            <template v-slot:item.2>
-                                <v-card flat>
-                                    <v-card-title class="text-h4 font-weight-bold mb-n2">User Information</v-card-title>
-                                    <v-card-subtitle class="text-medium-emphasis">
-                                        Add your personal details and profile image.
-                                    </v-card-subtitle>
-                                    <v-container fluid class="py-6">
-                                        <v-row class="gap-4" justify="start">
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="form.firstName" 
-                                                    :error-messages="errors?.firstName" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="First Name" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="form.surname"
-                                                    :error-messages="errors?.surname" 
-                                                    variant="outlined" 
-                                                    density="comfortable" 
-                                                    label="Surname"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                    v-model="form.source"
-                                                    :error-messages="errors?.source"
-                                                    density="comfortable" 
-                                                    variant="outlined"
-                                                    label="Referral Source?"
-                                                    :items="source"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field 
-                                                    variant="outlined"
-                                                    v-model="form.phone"
-                                                    :error-messages="errors?.phone"
-                                                    density="comfortable"
-                                                    label="Phone Number" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field 
-                                                    variant="outlined" 
-                                                    density="comfortable" 
-                                                    label="Position"
-                                                    color="primary" 
-                                                    :error-messages="errors?.jobTitle"
-                                                    v-model="form.jobTitle"
-                                                    clearable />
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-card-subtitle class="ml-n3 mb-2 text-medium-emphasis">Profile Image</v-card-subtitle>
-                                                <v-file-input clearable 
-                                                    label="File input"
-                                                    v-model="form.avatar"
-                                                    :error-messages="errors?.avatar" 
-                                                    density="comfortable"
-                                                    variant="outlined" 
-                                                    accept="image/*" 
-                                                    color="primary"
-                                                    prepend-icon="mdi-image" />
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                </v-card>
-                            </template>
+            </div>
+            <div class="d-flex justify-center pb-6 mt-2 ">
+                <v-progress-linear :model-value="step" :max="steps.length" height="5" style="max-width: 800px;"
+                    color="primary"></v-progress-linear>
+            </div>
+            <v-container fluid class="d-flex flex-column ">
 
-                            <!-- Step 3 -->
-                            <template v-slot:item.3>
-                                <v-card flat>
-                                    <v-card-title class="text-h4 font-weight-bold mb-n2">Proof Documents</v-card-title>
-                                    <v-card-subtitle class="text-medium-emphasis">
-                                        Upload required proof documents.
-                                    </v-card-subtitle>
-                                    <v-row class="gap-4 mt-6" justify="start">
-                                        <v-col cols="12" sm="6">
-                                            <div class="text-medium-emphasis text-caption mb-2">Proof of motor trade
-                                            </div>
-                                            <v-file-input 
-                                                clearable
-                                                v-model="form.motorTradeProof"
-                                                :error-messages="errors?.motorTradeProof"  
-                                                label="File input" 
-                                                density="comfortable"
-                                                variant="outlined" 
-                                                accept="image/*" 
-                                                color="primary"
-                                                prepend-icon="mdi-image"/>
+
+
+                <v-row justify="center " class=" ">
+
+                    <v-col cols="12" sm="10" md="8" lg="6" xl="5" class="border bg-background position-relative"
+                        style="padding: 0; z-index: 5;">
+
+                        <!-- Step 1 -->
+                        <div v-if="step === 1" class="pa-7">
+                            <div class="">
+                                <h2 class="text-h4 font-weight-bold mb-n2">Company
+                                    Information</h2>
+                                <p class="text-medium-emphasis mt-3">
+                                    Provide your company details.
+                                </p>
+                                <v-container fluid class="py-6">
+                                    <v-row class="gap-4" justify="start">
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.companyName"
+                                                :error-messages="errors?.companyName" variant="outlined"
+                                                density="comfortable" label="Company / Business Name" color="primary"
+                                                clearable required />
                                         </v-col>
-                                        <v-col cols="12" sm="6">
-                                            <div class="text-medium-emphasis text-caption mb-2">Proof of address</div>
-                                            <v-file-input 
-                                                clearable 
-                                                v-model="form.addressProof"
-                                                :error-messages="errors?.addressProof" 
-                                                label="File input" 
-                                                density="comfortable"
-                                                variant="outlined" 
-                                                accept="image/*" 
-                                                color="primary"
-                                                prepend-icon="mdi-image"/>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.companyAddress1"
+                                                :error-messages="errors?.companyAddress1" variant="outlined"
+                                                density="comfortable" label="Company Address" color="primary"
+                                                clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.companyAddress2"
+                                                :error-messages="errors?.companyAddress2" variant="outlined"
+                                                density="comfortable" label="Company Address 2" color="primary"
+                                                clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-select v-model="form.businessType" :error-messages="errors?.businessType"
+                                                density="comfortable" variant="outlined" label="Business Type"
+                                                :items="['Motor Dealer', 'Motor Trader', 'Independent Dealer', 'Other']"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.companyReg" :error-messages="errors?.companyReg"
+                                                variant="outlined" density="comfortable" label="Company Reg. Number"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.townCity" :error-messages="errors?.townCity"
+                                                variant="outlined" density="comfortable" label="Town / City"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.website" :error-messages="errors?.website"
+                                                variant="outlined" density="comfortable" label="Website (Optional)"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.country" :error-messages="errors?.country"
+                                                variant="outlined" density="comfortable" label="Country" color="primary"
+                                                clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.businessEmail"
+                                                :error-messages="errors?.businessEmail" variant="outlined"
+                                                density="comfortable" label="Business Email (optional)" color="primary"
+                                                clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field variant="outlined" density="comfortable"
+                                                label="Postal Code / Zip Code" v-model="form.postcode"
+                                                :error-messages="errors?.postcode" color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-select density="comfortable" variant="outlined"
+                                                v-model="form.motorTradeInsurance"
+                                                :error-messages="errors?.motorTradeInsurance"
+                                                label="Motor Trade Insurance" :items="['Yes', 'No', 'Pending']"
+                                                color="primary" clearable="" />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field label="Cell" variant="outlined" v-model="form.telephone"
+                                                :error-messages="errors?.telephone" density="comfortable"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field variant="outlined" v-model="form.vatNumber"
+                                                :error-messages="errors?.vatNumber" density="comfortable"
+                                                label="VAT Number (optional)" color="primary" clearable />
                                         </v-col>
                                     </v-row>
-                                </v-card>
-                            </template>
+                                </v-container>
+                            </div>
+                        </div>
 
-                            <!-- Step 4 -->
-                            <template v-slot:item.4>
-                                <v-card flat>
-                                    <v-card-title class="text-h4 font-weight-bold mb-n2">Security</v-card-title>
-                                    <v-card-subtitle class="text-medium-emphasis">
-                                        Set your login email & password.
-                                    </v-card-subtitle>
-                                    <v-container fluid class="py-6">
-                                        <v-row class="gap-4" justify="start">
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field
-                                                    v-model="form.personalEmail"
-                                                    :error-messages="errors?.personalEmail" 
-                                                    variant="outlined" 
-                                                    density="comfortable"
-                                                    label="Personal / Login Email" 
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field 
-                                                    v-model="form.password"
-                                                    :error-messages="errors?.password"
-                                                    variant="outlined" 
-                                                    density="comfortable" 
-                                                    label="Password"
-                                                    color="primary" 
-                                                    clearable />
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                </v-card>
-                            </template>
+                        <!-- Step 2 -->
+                        <div v-else-if="step === 2" class="pa-7">
+                            <div flat>
+                                <h2 class="text-h4 font-weight-bold mb-n2">User Information</h2>
+                                <p class="text-medium-emphasis mt-3">
+                                    Add your personal details and profile image.
+                                </p>
+                                <v-container fluid class="py-6">
+                                    <v-row class="gap-4" justify="start">
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.firstName" :error-messages="errors?.firstName"
+                                                variant="outlined" density="comfortable" label="First Name"
+                                                color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="form.surname" :error-messages="errors?.surname"
+                                                variant="outlined" density="comfortable" label="Surname" color="primary"
+                                                clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-select v-model="form.source" :error-messages="errors?.source"
+                                                density="comfortable" variant="outlined" label="Referral Source?"
+                                                :items="source" color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field variant="outlined" v-model="form.phone"
+                                                :error-messages="errors?.phone" density="comfortable"
+                                                label="Phone Number" color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field variant="outlined" density="comfortable" label="Position"
+                                                color="primary" :error-messages="errors?.jobTitle"
+                                                v-model="form.jobTitle" clearable />
+                                        </v-col>
+                                    </v-row>
+                                    <v-row style="width: 800px;">
+                                        <v-col cols="12" sm="6" md="4">
 
-                            <!-- Footer Actions with Login Message -->
-                            <template v-slot:actions="{ next, prev }">
-                                <v-row class="w-100 align-center px-4 py-2 border-t" no-gutters>
-                                    <!-- Login message only on last step -->
-                                    <v-col cols="12" sm="4"
-                                        class="d-flex align-center justify-center justify-sm-start mb-2 mb-sm-0">
-                                        <div class="text-medium-emphasis text-center text-sm-left">
-                                            Already have an account?
-                                            <v-btn to="/login" variant="plain" class="px-1 text-body-2" color="primary"
-                                                size="small">
-                                                Login
-                                            </v-btn>
-                                        </div>
-                                    </v-col>
+                                            <div class="text-medium-emphasis text-caption ">Upload your ID</div>
+                                            <div class=" pt-3  ">
+                                                <!-- Custom Button -->
+                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+                                                <v-btn color="" class="buttonBorder text-capitalize"  variant="outlined"
+                                                    style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
+                                                    @click="$refs.avatarInput.click()">
+                                                    <span class="text-body-1">Upload</span>
+                                                </v-btn>
 
-                                    <!-- Previous & Next/Submit Buttons -->
-                                    <v-col cols="12" sm="8" class="d-flex justify-center justify-sm-end">
-                                        <v-btn class="mr-2" variant="tonal" color="primary" :disabled="step === 1"
-                                            @click="prev">
-                                            <v-icon start>mdi-arrow-left</v-icon>
-                                            Previous
-                                        </v-btn>
+                                                <!-- Helper / Error text -->
+                                                <p v-if="errors?.avatar" class="pt-2 text-error text-body-2">
+                                                    {{ errors.avatar }}
+                                                </p>
 
-                                        <v-btn variant="flat" color="primary" @click="handleNext(next)">
-                                            {{ step === 4 ? 'Submit' : 'Next' }}
-                                            <v-icon end>{{ step === 4 ? 'mdi-check' : 'mdi-arrow-right' }}</v-icon>
-                                        </v-btn>
-                                    </v-col>
-                                </v-row>
-                            </template>
 
-                        </v-stepper>
+                                                <!-- Hidden File Input -->
+                                                <v-file-input ref="avatarInput" v-model="form.avatar" class="d-none"
+                                                    accept="image/*" @change="onFileChange" />
+                                            </div>
+                                            <div class="mt-4 text-light text-body-2">
+                                                <p>Accepted formats: JPG, PNG, PDF.</p>
+                                            </div>
+
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div v-else-if="step === 3" class="pa-7">
+                            <div flat>
+                                <h2 class="text-h4 font-weight-bold mb-n2">Proof Documents</h2>
+                                <p class="text-medium-emphasis mt-3">
+                                    Upload required proof documents.
+                                </p>
+                                <v-container fluid class="py-6">
+                                    <v-row class="gap-4 mt-6" justify="start">
+                                        <v-col cols="12" sm="6">
+                                            <div class="text-medium-emphasis text-caption">
+                                                Proof of motor trade
+                                            </div>
+
+                                            <div class="pt-3">
+                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+
+                                                <v-btn class="buttonBorder text-capitalize" variant="outlined"
+                                                    style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
+                                                    @click="$refs.motorTradeProofRef.click()">
+                                                    <span class="text-body-1">Upload</span>
+                                                </v-btn>
+
+                                                <p v-if="errors?.motorTradeProof" class="pt-2 text-error text-body-2">
+                                                    {{ errors.motorTradeProof }}
+                                                </p>
+
+                                                <v-file-input ref="motorTradeProofRef" class="d-none"
+                                                    v-model="form.motorTradeProof" accept="image/*"
+                                                    @change="onFileChange('motorTradeProof', $event)" />
+                                            </div>
+
+                                            <div class="mt-4 text-light text-body-2">
+                                                <p>Accepted formats: JPG, PNG, PDF.</p>
+                                            </div>
+                                        </v-col>
+
+
+                                        <v-col cols="12" sm="6">
+                                            <div class="text-medium-emphasis text-caption">
+                                                Proof of address
+                                            </div>
+
+                                            <div class="pt-3">
+                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+
+                                                <v-btn class="buttonBorder text-capitalize" variant="outlined"
+                                                    style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
+                                                    @click="$refs.addressProofRef.click()">
+                                                    <span class="text-body-1">Upload</span>
+                                                </v-btn>
+
+                                                <p v-if="errors?.addressProof" class="pt-2 text-error text-body-2">
+                                                    {{ errors.addressProof }}
+                                                </p>
+
+                                                <v-file-input ref="addressProofRef" class="d-none"
+                                                    v-model="form.addressProof" accept="image/*"
+                                                    @change="onFileChange('addressProof', $event)" />
+                                            </div>
+
+                                            <div class="mt-4 text-light text-body-2">
+                                                <p>Accepted formats: JPG, PNG, PDF.</p>
+                                            </div>
+                                        </v-col>
+
+                                      
+                                    </v-row>
+                                </v-container>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div v-else="step === 4" class="pa-7">
+                            <div flat>
+                                <h2 class="text-h4 font-weight-bold mb-n2">Login Details</h2>
+                                <p class="text-medium-emphasis mt-3">
+                                    Set your login email & password.
+                                </p>
+                                <v-container fluid class="py-6">
+                                    <v-row class="gap-4" justify="start">
+                                        <v-col cols="12" sm="6">
+                                            <v-text-field v-model="form.personalEmail"
+                                                :error-messages="errors?.personalEmail" variant="outlined"
+                                                density="comfortable" label="Login Email" color="primary" clearable />
+                                        </v-col>
+                                        <v-col cols="12" sm="6">
+                                            <v-text-field v-model="form.password" :error-messages="errors?.password"
+                                                variant="outlined" density="comfortable" label="Password"
+                                                color="primary" clearable />
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </div>
+                        </div>
+                        <v-divider></v-divider>
+
+                        <!-- Footer Actions with Login Message -->
+
+                        <v-row class="w-100 align-center px-4 pt-6 pb-4 " no-gutters>
+                            <!-- Login message only on last step -->
+                            <v-col cols="12" sm="4"
+                                class="d-flex align-center justify-center justify-sm-start mb-2 mb-sm-0">
+                                <div class="d-flex text-light_text_on text-medium-emphasis text-center text-sm-left">
+                                    Already have an account?
+                                    <div> <router-link to="/login" variant="plain" class="text-primary px-1 text-body-2"
+                                            color="primary" size="small">
+                                            Login
+                                        </router-link>
+                                    </div>
+                                </div>
+                            </v-col>
+
+                            <!-- Previous & Next/Submit Buttons -->
+                            <v-col cols="12" sm="8" class="d-flex  justify-center justify-sm-end">
+
+                                <div class="d-flex justify-space-between ga-3">
+                                    <v-btn variant="tonal" color="primary" :disabled="step === 1" @click="step--">
+                                        Previous
+                                    </v-btn>
+
+                                    <v-btn color="primary" @click="handleNext">
+                                        {{ step === 4 ? 'Submit' : 'Next' }}
+                                    </v-btn>
+                                </div>
+
+                               
+                            </v-col>
+                        </v-row>
+
+
                     </v-col>
                 </v-row>
             </v-container>
@@ -402,37 +363,37 @@ export default {
             themeStore: useThemeStore(),
             userStore: useUserStore(),
             alertStore: useAlertStore(),
+
             form: {
-                companyName: 'Business 1',
-                companyAddress1: 'Address 1',
-                companyAddress2: 'Address 2',
-                businessType:'Other',
-                companyReg:'1234',
-                townCity:'Karachi',
-                website:'https://localhost/autoboli/register',
-                country:'Pakistan',
-                businessEmail:'business35@gmail.com',
-                postcode: '1234',
-                motorTradeInsurance:'yes',
-                telephone: '03112239342',
-                vatNumber: '12345',
+                companyName: '',
+                companyAddress1: '',
+                companyAddress2: '',
+                businessType: null,
+                companyReg: '',
+                townCity: '',
+                website: '',
+                country: '',
+                businessEmail: '',
+                postcode: '',
+                motorTradeInsurance: null,
+                telephone: '',
+                vatNumber: '',
+                firstName: '',
+                surname: '',
+                source: null,
+                phone: '',
+                jobTitle: '',
+                avatar: null,
 
-                firstName: 'Owais',
-                surname: 'Azam',
-                source: 'Other',
-                phone: '03112239342',
-                jobTitle: 'Test Title',
-                avatar:null,
-        
-                motorTradeProof:null,
-                addressProof:null,
+                motorTradeProof: null,
+                addressProof: null,
 
-                personalEmail:'iamowaisazam35@gmail.com',
-                password:'owais123',
-                
+                personalEmail: '',
+                password: '',
+
             },
             errors: {
-                
+
             },
             source: [
                 'Google Search',
@@ -445,6 +406,24 @@ export default {
                 'Other'
             ],
             step: 1,
+            steps: [
+                {
+                    label: 'Company',
+                    subHeading: "Business details",
+                },
+                {
+                    label: 'User',
+                    subHeading: "Personal Info",
+                },
+                {
+                    label: 'Proofs',
+                    subHeading: "Docs",
+                },
+                {
+                    label: 'Login Details',
+                    subHeading: "Email & password",
+                },
+            ],
             proofMotorTrade: [],
             proofAddress: [],
             showMessage: false,
@@ -457,28 +436,35 @@ export default {
             this.$themeStore.endLoading()
             this.$router.replace("/user/dashboard");
         }).catch(() => this.$themeStore.endLoading())
-        
+
     },
     methods: {
-        handleNext(next) {
-            switch (this.step) {
-                case 1:
-                    this.step1(next);       
-                    break;
-                case 2:
-                    this.step2(next);       
-                    break;
-                case 3:
-                    this.step3(next);       
-                    break;
-                case 4:
-                    this.step4(next);       
-                    break;
-                default:
-                    
-                break;
+        handleNext() {
+            if (this.step === 4) {
+                this.onSubmit()
+            } else {
+                this.step++
             }
         },
+        // handleNext(next) {
+        //     switch (this.step) {
+        //         case 1:
+        //             this.step1(next);
+        //             break;
+        //         case 2:
+        //             this.step2(next);
+        //             break;
+        //         case 3:
+        //             this.step3(next);
+        //             break;
+        //         case 4:
+        //             this.step4(next);
+        //             break;
+        //         default:
+
+        //             break;
+        //     }
+        // },
         step1(next) {
 
             next()
@@ -492,7 +478,7 @@ export default {
         step4(next) {
             this.onSubmit();
         },
-        async onSubmit() {            
+        async onSubmit() {
 
             this.themeStore.startLoading()
             this.errors = {};
@@ -500,12 +486,12 @@ export default {
             try {
 
                 console.log(this.form);
-                
+
                 let response = await this.userStore.registerRequest(this.form);
-                this.userStore.initializeUserSession(response.token,response.user);
+                this.userStore.initializeUserSession(response.token, response.user);
                 this.themeStore.endLoading();
-                this.alertStore.add('Account Created Successfully','success');
-                    
+                this.alertStore.add('Account Created Successfully', 'success');
+
             } catch (error) {
 
                 this.themeStore.endLoading();
@@ -521,3 +507,39 @@ export default {
 };
 </script>
 
+<style scoped>
+.custom-stepper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    text-align: center;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.circle {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgb(var(--v-theme-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.step.active .circle {
+    background: rgb(var(--v-theme-primary));
+    color: white;
+   
+}
+
+.step.done .circle {
+    background: rgb(var(--v-theme-primary));
+    color: white;
+ 
+}
+</style>

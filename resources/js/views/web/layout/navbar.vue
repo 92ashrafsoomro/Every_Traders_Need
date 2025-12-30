@@ -1,10 +1,11 @@
 <template>
-    <v-container class="navbar bg-surface pa-0" style="max-width: 100%; height: 50px; position: fixed; z-index: 10;">
+    <v-container class="navbar  bg-transparent pa-0 "
+        style="max-width: 100%; height: 50px; position: fixed; z-index: 10;" :class="{ 'scrolled': isScrolled }">
 
         <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 50px; max-width: 1500px;">
 
             <!-- NAV -->
-            <nav class="d-flex align-center justify-space-between w-100">
+            <nav class="d-flex align-center justify-space-between w-100 border-none">
 
                 <!-- Logo -->
                 <div class="d-flex align-center">
@@ -14,18 +15,20 @@
                 </div>
 
                 <!-- NAV MENU (Desktop) -->
-                <div class="d-none d-lg-flex align-center">
-                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link class="m-item text-h6 mx-3 mb-2">
-                        <v-list-item-title class="nav-menu-links text-capitalize text-body-3">
+                <div class="d-none d-lg-flex align-center ga-7">
+                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link exact
+                        class="m-item text-h6 mx-3 mb-2 pl-0 pr-0" active-class="nav-menu-links-active">
+                        <v-list-item-title class="nav-menu-links  text-capitalize text-body-3">
                             {{ item.label }}
                         </v-list-item-title>
                     </v-list-item>
+
                 </div>
 
                 <!-- RIGHT BUTTONS -->
                 <div class="d-flex align-center">
                     <!-- Theme Toggle -->
-                    <v-list-item class="px-0 text-end">
+                    <v-list-item class="px-0 text-end mr-2">
                         <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
                             {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
                         </v-icon>
@@ -33,16 +36,16 @@
 
                     <!-- Login -->
                     <v-list-item v-if="userStore.user" to="/login" link class="px-0   d-none d-lg-flex">
-                        <v-btn variant="plain" class="text-capitalize" v-if="userStore.is_logged_in ==true">
+                        <v-btn variant="elevated" color="primary" class="text-capitalize " v-if="userStore.is_logged_in == true">
                             My Account
                         </v-btn>
-                        <v-btn class="text-capitalize" v-else>SignIn</v-btn>
+                        <v-btn variant="outlined" class="text-capitalize mr-2 " v-else>SignIn</v-btn>
                     </v-list-item>
 
                     <!-- Dashboard -->
-                    <v-list-item v-if="userStore.user" to="/user/dashboard" link class="px-0 d-none d-lg-flex">
-                        <v-btn color="surface" variant="flat" class="border-thin text-capitalize ">
-                            Get Started
+                    <v-list-item v-if="!userStore.is_logged_in" to="/register" link class="px-0 d-none d-lg-flex">
+                        <v-btn color="primary" variant="flat" class="border-thin text-capitalize ">
+                            Register
                         </v-btn>
                     </v-list-item>
 
@@ -66,9 +69,9 @@
                             SignIn
                         </v-btn>
                     </v-list-item>
-                    <v-list-item v-if="userStore.user" to="/user/dashboard" link class="pa-0 ma-0 d-lg-none d-flex">
+                    <v-list-item v-if="userStore.user" to="/register" link class="pa-0 ma-0 d-lg-none d-flex">
                         <v-btn variant="outlined" class="border-thin text-capitalize bg-background ">
-                            Get Started
+                            Register
                         </v-btn>
                     </v-list-item>
                 </div>
@@ -76,7 +79,7 @@
 
         </v-container>
 
-        <div class="bg-shadow mx-auto" style="height: 0.5px; width: 100%"></div>
+        <div v-if="isScrolled" class="bg-shadow mx-auto"></div>
     </v-container>
 </template>
 
@@ -94,6 +97,7 @@ export default {
             navMenu: navbarItem,
             logo: logo,
             vuetify: useTheme(),
+            isScrolled: false,
         }
     },
     computed: {
@@ -104,36 +108,91 @@ export default {
     methods: {
         toggleTheme() {
             this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
+        },
+        handleScroll() {
+            this.isScrolled = window.scrollY > 20
         }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll)
+    },
+    beforeDestroy() { // Vue 2
+        window.removeEventListener('scroll', this.handleScroll)
+    },
+    beforeUnmount() { // Vue 3
+        window.removeEventListener('scroll', this.handleScroll)
     }
 }
+
 </script>
 
 <style scoped>
 .navbar {
-    z-index: 10;
+    transition: all 0.3s ease;
 }
+
+
+.navbar.scrolled {
+    box-shadow: 0 2px 6px rgba(108, 65, 65, 0.15);
+    background-color: rgb(var(--v-theme-surface), 0.6) !important;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+
+}
+
+.bg-shadow {
+    height: 0.5px;
+    width: 100%;
+    background-color: #ccc;
+}
+
 .my-btn {
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
     /* color: white; */
     /* background-color: #0080ff; */
 }
 
 .my-btn:hover {
-    background-color: #0056b3; /* darker on hover */
-    transform: scale(1.05); /* subtle grow effect */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* optional shadow */
+    background-color: #0056b3;
+    /* darker on hover */
+    transform: scale(1.05);
+    /* subtle grow effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* optional shadow */
 }
 
 .nav-menu-links {
     color: #B1BFCD;
 }
 
+/* .nav-menu-links:hover {
+    color: #B1BFCD;
+     border-bottom: 1px solid #0080ff;
+} */
+
 .m-item:hover {
     background-color: transparent !important;
     color: white;
     border-bottom: 1px solid #0080ff;
 }
+
+::v-deep(.nav-menu-links-active).m-item {
+    border-bottom: 3px solid #0080ff;
+}
+
+.m-item:hover .nav-menu-links {
+    color: white;
+}
+
+::v-deep(.nav-menu-links-active) .nav-menu-links {
+    color: white !important;
+
+}
+
+
+
 .m-item {
     padding-top: 20px;
     padding-bottom: 12px;
@@ -146,10 +205,14 @@ export default {
 .v-list-item {
     --v-theme-overlay-multiplier: 0 !important;
 }
+
 .get-hover:hover {
     background-color: #0080ff;
 }
+
 .hover-icon:hover {
     color: #0080ff;
 }
+
+
 </style>

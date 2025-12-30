@@ -24,7 +24,7 @@
                     <img :src="logoAutoBoli" alt="" srcset="" width="150">
                 </div>
                 <div class="left mt-4">
-                    <p class="text-light_text_on w-75"> Helping dealers, exporters, and traders buy smarter with real-time
+                    <p class="text-light_text_on w-25 w-lg-50 w-md-50"> Helping dealers, exporters, and traders buy smarter with real-time
                         auction data from across the UK & Japan. Save money, reduce risk,
                         and grow your automotive business <br> all in one platform.
                     </p>
@@ -32,12 +32,12 @@
             </div>
             <div class="mt-10">
                 <div v-for="(section, index) in footerData" :key="index" class="mb-2 ">
-                    <div class="d-flex flex-wrap">
-                        <div class="mt-2  text-body-2 " style="width: 100px;">{{ section.title }}</div>
-                        <div class=" text-light_text_on ">
-                            <v-btn v-for="(link, i) in section.links" :key="i" variant="text" class="footerElement mr-2 text-body-2"
+                    <div class="d-flex flex-lg-row flex-column">
+                        <div class="mt-2  text-body-2 font-weight-bold " style="width: 100px;">{{ section.title }}</div>
+                        <div class=" text-light_text_on w-lg-100 w-50">
+                            <v-btn v-for="(link, i) in section.links" :key="i" variant="text" class="footerElement mr-lg-2 ml-n4 ml-lg-0 text-body-2"
                                 :to="link.to" :href="link.url" :target="link.url ? '_blank' : null">
-                                {{ link.label }}
+                              <span class="text-white">  {{ link.label }}</span>
                             </v-btn>
                         </div>
                     </div>

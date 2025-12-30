@@ -1,5 +1,5 @@
 <template>
-    <div v-for="item in masterStore.makes.data" :key="item.id">
+    <div v-for="item in masterStore.makes.data" :key="item.id" >
            <v-checkbox 
              v-model="auctionStore.filter.make" 
              :label="item.label"

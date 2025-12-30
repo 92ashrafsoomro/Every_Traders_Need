@@ -21,7 +21,7 @@
         <div class="pt-4 d-flex flex-wrap align-center ga-3 ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
                 class=" border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3"
-                style=" height: 95px; width: 165px;" @click="handleTab(key)">
+                style=" height: 95px; width: 13.5%;" @click="handleTab(key)">
                 <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
                     {{ key }}

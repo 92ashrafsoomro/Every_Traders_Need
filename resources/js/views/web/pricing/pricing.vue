@@ -15,9 +15,15 @@
                             You can explore Autoboli with limited access, but upgrading unlocks the tools that help you:
                         </p>
                         <ul class="ml-4 my-6" style="list-style: none;">
-                            <li><v-icon color="" class="mr-2  " style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon> Avoid bad stock</li>
-                            <li> <v-icon color="" class="mr-2  " style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon>  Save hours each week</li>
-                            <li> <v-icon color="" class="mr-2  " style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon>  Protect margin at the point of purchase</li>
+                            <li><v-icon color="" class="mr-2  "
+                                    style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon>
+                                Avoid bad stock</li>
+                            <li> <v-icon color="" class="mr-2  "
+                                    style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon>
+                                Save hours each week</li>
+                            <li> <v-icon color="" class="mr-2  "
+                                    style="width: 30px; height: 30px; margin-top: 5px; background-color: rgb(var(--v-theme-primary),0.3); border-radius: 20px ;">mdi-check</v-icon>
+                                Protect margin at the point of purchase</li>
                         </ul>
                         <p>If Autoboli aligns with how you buy, choose a plan and start bidding with confidence.</p>
 
@@ -32,9 +38,9 @@
                                 <ul style="list-style: none ;" class="d-flex flex-column ga-2 flex-wrap my-5">
 
                                     <li>
-                                         <v-icon color="primary">mdi-check</v-icon> 
-                                         <span class="px-2 ">
-                                            Live auction tracking</span> 
+                                        <v-icon color="primary">mdi-check</v-icon>
+                                        <span class="px-2 ">
+                                            Live auction tracking</span>
                                     </li>
 
                                     <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2">
@@ -42,7 +48,8 @@
                                         </span>
                                     </li>
 
-                                    <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2"> Reauction detection
+                                    <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2"> Reauction
+                                            detection
                                             & alerts</span>
                                     </li>
                                     <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2">Auction & bidding
@@ -50,7 +57,8 @@
                                     </li>
                                     <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2"> Watchlists &
                                             reminders</span> </li>
-                                    <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2"> UK auction-focused
+                                    <li><v-icon color="primary">mdi-check</v-icon> <span class="px-2"> UK
+                                            auction-focused
                                             data</span> </li>
                                 </ul>
                             </div>
@@ -68,10 +76,11 @@
                                             <p>/mo</p>
                                         </div>
 
+                                        <router-link to="/checkout" style="width: 80%; height:40px;">
                                         <v-btn variant="flat" color="primary "
-                                            style="border-radius:10px; width: 80%; height:40px;"
+                                            style="border-radius:10px; "
                                             class="text-capitalize">Get Started</v-btn>
-                                    </div>
+                                    </router-link></div>
 
                                 </div>
 
@@ -92,11 +101,17 @@
 
 
 <script>
-import pricingplain from './pricingplain.vue';
-import featureTable from './featureTable.vue';
-
+import api from '@/plugins/axios';
+import { useUserStore } from '@/stores/userStore';
+// import pricingplain from './pricingplain.vue';
+// import featureTable from './featureTable.vue';
 export default {
-
+    name: "pricing",
+    data() {
+        return {
+            userStore: useUserStore(),
+        }
+    }
 }
 </script>
 

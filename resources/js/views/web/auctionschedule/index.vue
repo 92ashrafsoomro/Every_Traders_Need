@@ -50,7 +50,7 @@
     </user-title-bar>
 
 
-    <div class=" h-auto mx-auto d-flex justify-center  "  style="padding:0 0 100px 0; max-width: 1400px;">
+    <v-container class="mx-auto  "  style="padding:0 0 100px 0; max-width: 1400px;">
         <div class="mt-10 mb-10 w-100 ">
             <v-table fixed-header class="rounded-lg">
                 <thead>
@@ -104,7 +104,7 @@
                 </tbody>
             </v-table>
         </div>
-    </div>
+    </v-container>
    
 
 

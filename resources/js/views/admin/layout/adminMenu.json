@@ -28,6 +28,20 @@
                     "path":"/admin/vehicle"
                 }
             ]
+        },
+        {
+            "icon": "mdi-account-multiple",
+            "label": "User Management",
+            "path": "/",
+            "children":[
+                {
+                    "label" : "Members",
+                    "path" : "/admin/members"
+                },{
+                    "label" :"Subscriptions",
+                    "path":"/admin/subscriptions"
+                }
+            ]
         }
       
 ]

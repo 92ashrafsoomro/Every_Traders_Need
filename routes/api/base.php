@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Route;
     Route::prefix('auth')->group(function () {
 
         Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
-        Route::post('/profile',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
+        Route::post('/profile/{id?}',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
         Route::post('/login',[AuthController::class,'login']);
         Route::post('/register',[AuthController::class,'register']);
         Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
@@ -167,8 +167,12 @@ use Illuminate\Support\Facades\Route;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
-         Route::resource('auctionType',AuctionTypeController::class);
+        Route::resource('auctionType',AuctionTypeController::class);
+        
+        Route::get('/auctions/csvGet/{id}',[AuctionController::class,'csvGet']);
+        Route::post('/auctions/csvUpdate/{id}',[AuctionController::class,'csvUpdate']);
         Route::resource('auctions',AuctionController::class);
+        
         Route::resource('vehicles',VController::class);
 
         // Route::resource('platform',PlatformController::class);

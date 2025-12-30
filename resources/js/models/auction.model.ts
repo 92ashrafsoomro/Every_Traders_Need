@@ -6,7 +6,7 @@ import { toFormData } from "@/utils/helper";
 export default class Auction {
 
     
-      /**
+    /**
      * Fetches the Get All.
      */
        static async all(options: {
@@ -76,7 +76,8 @@ export default class Auction {
 
     }
 
-      static async find(id:any,options:any) {
+
+    static async find(id:any,options:any) {
 
         try {
             const res = await api.get("/api/cruds/auctions/"+id,{
@@ -89,6 +90,36 @@ export default class Auction {
         }
 
     }
+
+    static async csvGet(id:any,options:any) {
+
+        try {
+            const res = await api.get("/api/cruds/auctions/csvGet/"+id,{
+                params:options,
+            });
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+     static async csvUpdate(id:any,options:any) {
+
+         try {
+             
+          
+            const res = await api.post("/api/cruds/auctions/csvUpdate/"+id,{data:options.data});
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
+    
 
     static async update(id:any,options:any) {
 

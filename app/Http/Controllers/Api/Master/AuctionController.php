@@ -27,6 +27,7 @@ use App\Models\User;
 use App\Mail\AuctionStatusUpdatedMail;
 use App\Models\UserNotificationAlert;
 use App\Events\NotificationEvent;
+use App\Http\Requests\Api\Master\UpdateCsvAuctionRequest;
 use App\Models\Auction;
 use App\Services\AuctionService;
 use App\Services\SheetService;
@@ -227,8 +228,125 @@ class AuctionController extends Controller
             ], 422);
         }
 
+        return response()->json([
+            'message' => 'Record Updated Successfully',
+            'data' => $model
+        ],200);
+
+    }
+
+
+
+        public function csvGet(Request $request,$id)
+    {
+
+        $model = Auctions::where('id',$id)->first();
+        if(!$model){
+            return response()->json([
+                'message' => 'Record Not Found',
+            ], 422);
+        }
+
+
+        $data = Vehicle::where('auction_id',$id)
+                ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+                ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+                ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+                ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+                ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
+                ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id')
+                ->select([
+                    'vehicles.*',
+                    'auction_center.name as center_name',
+                    'make.name as make_name',
+                    'model.name as model_name',
+                    'model_variant.name as variant_name',
+                    'vehicle_type.name as vehicle_name',
+                    'body_types.name as body_name',
+                ])
+                ->get()
+                ->map(function ($item, $key) {
+
+                    $item->center_id = $item->center_name;
+                    $item->vehicle_id = $item->vehicle_name;
+                    $item->body_id = $item->body_name;
+                    $item->make_id = $item->make_name;
+                    $item->model_id = $item->model_name;
+                    $item->variant_id = $item->variant_name;
+                    
+
+                    return $item;
+
+                });
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => [
+                    'auction'=> $model,
+                    'data' => $data,
+                ]
+            ],200);
+
+    }
+
+
+        public function csvUpdate(UpdateCsvAuctionRequest $request,$id)
+    {
+
+        $model = Auctions::where('id',$id)->first();
+        if(!$model){
+            return response()->json([
+                'message' => 'Record Not Found',
+            ], 422);
+        }
+
         
-        
+        Vehicle::where('auction_id',$id)->delete();
+
+        foreach ($request->data as $key => $item) {
+            
+            $vehicle_id = VehicleType::whereRaw('TRIM(name) = ?',[trim($item['vehicle_id'])])->first();
+            if(!$vehicle_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['vehicle_id'].' Vehcile Not Found'],500);
+            }
+
+            $body_id = BodyType::whereRaw('TRIM(name) = ?',[trim($item['body_id'])])->first();
+            if(!$body_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['body_id'].' Body Not Found'],500);
+            }
+
+            $make_id = Make::whereRaw('TRIM(name) = ?',[trim($item['make_id'])])->first();
+            if(!$make_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['make_id'].' Make Not Found'],500);
+            }
+
+            $model_id = VehicleModel::where('make_id',$make_id->id)->whereRaw('TRIM(name) = ?',[trim($item['model_id'])])->first();
+            if(!$model_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['model_id'].' Model Not Found'],500);
+            }
+
+            $variant_id = ModelVariant::where('model_id',$model_id->id)->whereRaw('TRIM(name) = ?',[trim($item['variant_id'])])->first();
+            if(!$variant_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['variant_id'].' Variant Not Found'],500);
+            }
+
+            $center_id = AuctionCenter::whereRaw('TRIM(name) = ?',[trim($item['center_id'])])->first();
+            if(!$center_id){
+                return response()->json(['message' => 'Row: '.$key.' '.$item['center_id'].' Center Not Found'],500);
+            }
+
+
+            $item['vehicle_id'] = $vehicle_id->id;
+            $item['body_id'] = $body_id->id;
+            $item['make_id'] = $make_id->id;
+            $item['model_id'] = $model_id->id;
+            $item['variant_id'] = $variant_id->id;
+            $item['center_id'] = $center_id->id;
+            $item['auction_id'] = $model->id;
+
+            Vehicle::create($item);
+        }
+
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model

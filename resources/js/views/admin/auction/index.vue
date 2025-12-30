@@ -119,8 +119,6 @@ export default {
                 { title: "Type", value: "action_type.title" },
                 { title: "Au House", value: "platform.name" },
                 { title: "Status", value: "status" },
-
-                
                 { title: "Start Date", value: "auction_date" },
                 { title: "End Date", value: "end_date" },
                 { title: "Created At", value: "created_date" },

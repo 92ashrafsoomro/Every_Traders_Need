@@ -47,13 +47,20 @@ class MembershipController extends Controller
             });
         }
 
-        // if ($request->has('plan_id') && $request->plan_id !== '') {
-        //     $query->where('membership_plans.id', $request->plan_id);
-        // }
+        if ($request->has('plan_id') && $request->plan_id !== '') {
+            $query->where('membership_plans.id', $request->plan_id);
+        }
 
-        // if ($request->status !== null && $request->status !== '') {
-        //     $query->where('users.status', $request->status);
-        // }
+        if ($request->status !== null && $request->status !== '') {
+            $query->where('memberships.membership_status', $request->status);
+        }
+        if ($request->has('year') && $request->year !== '') {
+            $query->whereYear('memberships.membership_expiry_date', $request->year);
+        }
+
+        if ($request->has('month') && $request->month !== '') {
+            $query->whereMonth('memberships.membership_expiry_date', $request->month);
+        }
 
         // if ($request->user_type !== null && $request->user_type !== '') {
         //     $query->where('users.user_type', $request->user_type);
@@ -85,19 +92,19 @@ class MembershipController extends Controller
                     ->map(function ($row) {
                         
                         
-                        if ($row->membership_status === 'Expired' || empty($row->membership_status)) {
-                            $row->membership_status = '<span>-</span>';
-                        } elseif (stripos($row->membership_status, 'Active') !== false) {
-                            $row->membership_status = '<span class="badge btn btn-success btn-sm" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Inactive') !== false) {
-                            $row->membership_status = '<span class="badge bg-secondary" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Pending') !== false) {
-                            $row->membership_status = '<span class="badge bg-warning" style="color:white;">'.$row->membership_status.'</span>';
-                        } elseif (stripos($row->membership_status, 'Cancelled') !== false) {
-                            $row->membership_status = '<span class="badge bg-primary" style="color:white;">'.$row->membership_status.'</span>';
-                        } else {
-                            $row->membership_status = '<span class="badge bg-info text-dark" style="color:white;">' . e($row->membership_status) . '</span>';
-                        }
+                        // if ($row->membership_status === 'Expired' || empty($row->membership_status)) {
+                        //     $row->membership_status = '<span>-</span>';
+                        // } elseif (stripos($row->membership_status, 'Active') !== false) {
+                        //     $row->membership_status = '<span class="badge btn btn-success btn-sm" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Inactive') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-secondary" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Pending') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-warning" style="color:white;">'.$row->membership_status.'</span>';
+                        // } elseif (stripos($row->membership_status, 'Cancelled') !== false) {
+                        //     $row->membership_status = '<span class="badge bg-primary" style="color:white;">'.$row->membership_status.'</span>';
+                        // } else {
+                        //     $row->membership_status = '<span class="badge bg-info text-dark" style="color:white;">' . e($row->membership_status) . '</span>';
+                        // }
                         
                         return $row;
                     });

@@ -30,65 +30,44 @@ class AuthController extends Controller
 
     }
 
-      public function profileUpdate(Request $request)
-    {   
+    public function profileUpdate(Request $request)
+    {
+        $user = $request->id ? User::find($request->id) : $request->user();
 
-        $user = $request->user();
-        $validator = Validator::make($request->all(),[
-                'companyName' => 'required|string|max:255',
-                'companyAddress1' => 'required|string|max:255',
-                'companyAddress2' => 'required|string|max:255',
-                'businessType' => 'required|string|max:255',
-                'companyReg' => 'required|string|max:255',
-                'townCity' => 'required|string|max:255',
-                'country' => 'required|string|max:255',
-                'website' => 'required|url',
-                'postcode' => 'required|string|max:255',
-                'telephone' => 'required|string|max:255',
-                'businessEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
-                'motorTradeInsurance' => 'required|string|max:255',
-                'vatNumber' => 'required|string|max:255',
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found.'
+            ], 404);
+        }
 
-                'firstName' => 'required|string|max:255',
-                'surname' => 'required|string|max:255',
-                'jobTitle' => 'required|string|max:255',
-                'source' => 'nullable|string|max:255',
-                'phone' => 'required|string|max:255',
-                
-                // 'avatar' => 'required|file|mimes:jpg,png,pdf|max:4096',
-                // 'motorTradeProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
-                // 'addressProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
-
-                'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
-                'password' => 'string|min:6',
+        $validator = Validator::make($request->all(), [
+            'companyName' => 'required|string|max:255',
+            'companyAddress1' => 'required|string|max:255',
+            'companyAddress2' => 'required|string|max:255',
+            'businessType' => 'required|string|max:255',
+            'companyReg' => 'required|string|max:255',
+            'townCity' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'website' => 'required|url',
+            'postcode' => 'required|string|max:255',
+            'telephone' => 'required|string|max:255',
+            'businessEmail' => [
+                'required','string','email','max:255',
+                Rule::unique('users', 'businessEmail')->ignore($user->id)
             ],
-            [],
-            [
-                'companyName' => 'Company Name',
-                'companyAddress1' => 'Address Line 1',
-                'companyAddress2' => 'Address Line 2',
-                'townCity' => 'Town or City',
-                'country' => 'Country',
-                'postcode' => 'Postcode',
-                'telephone' => 'Telephone Number',
-                'businessType' => 'Business Type',
-                'companyReg' => 'Company Registration Number',
-                'website' => 'Company Website',
-                'businessEmail' => 'Business Email',
-                'motorTradeInsurance' => 'Motor Trade Insurance',
-                'vatNumber' => 'VAT Number',
-                'firstName' => 'First Name',
-                'surname' => 'Surname',
-                'jobTitle' => 'Job Title',
-                'password' => 'Password',
-                'phone' => 'Phone Number',
-                'personalEmail' => 'Personal Email',
-                'password' => 'Password',
-                'uploadID' => 'Upload ID',
-                'motorTradeProof' => 'Motor Trade Proof',
-                'addressProof' => 'Address Proof',
-            ]
-        );
+            'motorTradeInsurance' => 'required|string|max:255',
+            'vatNumber' => 'required|string|max:255',
+            'firstName' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'jobTitle' => 'required|string|max:255',
+            'source' => 'nullable|string|max:255',
+            'phone' => 'required|string|max:255',
+            'personalEmail' => [
+                'required','string','email','max:255',
+                Rule::unique('users', 'personalEmail')->ignore($user->id)
+            ],
+            'password' => 'nullable|string|min:6',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -97,10 +76,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // dd($request->all());
-
-
-        //Profile Company
+        // Profile Company
         $user->companyName = $request->companyName;
         $user->companyAddress1 = $request->companyAddress1;
         $user->companyAddress2 = $request->companyAddress2;
@@ -114,85 +90,68 @@ class AuthController extends Controller
         $user->country = $request->country;
         $user->postcode = $request->postcode;
         $user->telephone = $request->telephone;
-        
 
-        //Profile
+        // Profile Personal
         $user->firstName = $request->firstName;
         $user->surname = $request->surname;
         $user->jobTitle = $request->jobTitle;
         $user->title = $request->jobTitle;
         $user->source = $request->source;
         $user->phone = $request->phone;
-        
-      
+
+        // Handle file uploads (uploadID, avatar, proofs)
         if ($request->file('uploadID')) {
-            // Remove existing thumbnail if it exists
-            if ($user->avatar && file_exists(public_path('uploads/' . $user->uploadID))) {
-                unlink(public_path('uploads/' . $user->uploadID));
+            if ($user->uploadID && file_exists(public_path('uploads/uploadID/' . $user->uploadID))) {
+                unlink(public_path('uploads/uploadID/' . $user->uploadID));
             }
             $fileName = time() . '__ff__' . $request->file('uploadID')->getClientOriginalName();
-            $filePath = public_path('uploads/uploadID');
-            $request->file('uploadID')->move($filePath, $fileName);
+            $request->file('uploadID')->move(public_path('uploads/uploadID'), $fileName);
             $user->uploadID = $fileName;
         }
 
-         if ($request->file('avatar')) {
-            // Remove existing thumbnail if it exists
-            if ($user->avatar && file_exists(public_path('uploads/' . $user->avatar))) {
-                unlink(public_path('uploads/' . $user->avatar));
+        if ($request->file('avatar')) {
+            if ($user->avatar && file_exists(public_path('uploads/avatar/' . $user->avatar))) {
+                unlink(public_path('uploads/avatar/' . $user->avatar));
             }
             $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
-            $filePath = public_path('uploads/avatar');
-            $request->file('avatar')->move($filePath, $fileName);
+            $request->file('avatar')->move(public_path('uploads/avatar'), $fileName);
             $user->avatar = $fileName;
         }
 
-        //License
         if ($request->file('motorTradeProof')) {
-            // Remove existing thumbnail if it exists
-            if ($user->motorTradeProof && file_exists(public_path('uploads/' . $user->motorTradeProof))) {
-                unlink(public_path('uploads/' . $user->motorTradeProof));
+            if ($user->motorTradeProof && file_exists(public_path('uploads/motorTradeProof/' . $user->motorTradeProof))) {
+                unlink(public_path('uploads/motorTradeProof/' . $user->motorTradeProof));
             }
             $fileName = time() . '__ff__' . $request->file('motorTradeProof')->getClientOriginalName();
-            $filePath = public_path('uploads/motorTradeProof');
-            $request->file('motorTradeProof')->move($filePath, $fileName);
+            $request->file('motorTradeProof')->move(public_path('uploads/motorTradeProof'), $fileName);
             $user->motorTradeProof = $fileName;
         }
 
         if ($request->file('addressProof')) {
-            // Remove existing thumbnail if it exists
-            if ($user->addressProof && file_exists(public_path('uploads/' . $user->addressProof))) {
-                unlink(public_path('uploads/' . $user->addressProof));
+            if ($user->addressProof && file_exists(public_path('uploads/addressProof/' . $user->addressProof))) {
+                unlink(public_path('uploads/addressProof/' . $user->addressProof));
             }
             $fileName = time() . '__ff__' . $request->file('addressProof')->getClientOriginalName();
-            $filePath = public_path('uploads/addressProof');
-            $request->file('addressProof')->move($filePath, $fileName);
+            $request->file('addressProof')->move(public_path('uploads/addressProof'), $fileName);
             $user->addressProof = $fileName;
         }
 
-        //Account
+        // Account
         $user->personalEmail = $request->personalEmail;
-        if($request->password) {
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
-        
-        // $user->email_verification_token = null;
-        // $user->email_verification_token_status = 1;
-        // $user->status = 1;
-        // $user->user_type = 0;
 
         $user->save();
 
-   
         return response()->json([
-            'message' => "Profile Updated Successfuly",
-            'data' =>[
+            'message' => "Profile Updated Successfully",
+            'data' => [
                 'user' => new UserProfileResource($user),
-            ],  
-        ],200);
-
-
+            ],
+        ], 200);
     }
+
 
 
     public function login(Request $request)

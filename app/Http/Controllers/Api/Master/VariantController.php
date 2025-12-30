@@ -42,6 +42,10 @@ class VariantController extends Controller
         if($request->has('make_id') && $request->make_id != '') {
             $query->where('model.make_id',$request->make_id);
         }
+        if($request->filled('search')) {
+               $query->where('model_variant.name', 'like', '%'.$request->search.'%');
+                $query->orWhere('model_variant.id', 'like', '%'.$request->search.'%');
+        }
 
         $count = (clone $query)->count();
         $data = $query->select([

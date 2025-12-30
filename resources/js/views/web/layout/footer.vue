@@ -23,11 +23,13 @@
                 <div class="image">
                     <img :src="logoAutoBoli" alt="" srcset="" width="150">
                 </div>
-                <div class="left mt-4">
-                    <p class="text-light_text_on w-25 w-lg-50 w-md-50"> Helping dealers, exporters, and traders buy smarter with real-time
+                <div class=" mt-4">
+                    <div class="w-50 pr-10">
+                        <p class="text-light_text_on "> Helping dealers, exporters, and traders buy smarter with real-time
                         auction data from across the UK & Japan. Save money, reduce risk,
-                        and grow your automotive business <br> all in one platform.
+                        and grow your automotive business  all in one platform.
                     </p>
+                    </div>
                 </div>
             </div>
             <div class="mt-10">
@@ -37,7 +39,7 @@
                         <div class=" text-light_text_on w-lg-100 w-50">
                             <v-btn v-for="(link, i) in section.links" :key="i" variant="text" class="footerElement mr-lg-2 ml-n4 ml-lg-0 text-body-2"
                                 :to="link.to" :href="link.url" :target="link.url ? '_blank' : null">
-                              <span class="text-white">  {{ link.label }}</span>
+                              <span class="text-light_text_on">  {{ link.label }}</span>
                             </v-btn>
                         </div>
                     </div>
@@ -45,10 +47,10 @@
             </div>
         
             <div class="text-light_text_on mt-10    pb-2 text-body-2" style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
-                <p class="mt-6" >© AUTOBOLI Ltd 2025. All rights reserved.</p>
-                <p>
+                <div class="w-50 w-lg-100"><p class="mt-6 mr-2" >© AUTOBOLI Ltd 2025. All rights reserved.</p>
+                <p >
                     Proudly built & hosted with secure infrastructure in the UK & EU.
-                </p>
+                </p></div>
             </div>
         </div>
 

@@ -18,28 +18,8 @@
                 <v-col cols="12" sm="6" md="4">
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
-
-                        <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
-                                What Makes Autoboli Different
-                            </h3>
-
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
-                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
-                                you:
-                            </p>
-                        </div>
-
-                    </v-card>
-
-                </v-col> <v-col cols="12" sm="6" md="4">
-                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
-
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
 
                         <!-- Content -->
                         <div>
@@ -47,7 +27,7 @@
                                 What Makes Autoboli Different
                             </h3>
 
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
+                            <p class="text-body-2 text-light_text_on mb-0">
                                 Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
                                 you:
                             </p>
@@ -55,87 +35,119 @@
 
                     </v-card>
 
-                </v-col> <v-col cols="12" sm="6" md="4">
-                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
-
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
-
-                        <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
-                                What Makes Autoboli Different
-                            </h3>
-
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
-                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
-                                you:
-                            </p>
-                        </div>
-
-                    </v-card>
-
-                </v-col> <v-col cols="12" sm="6" md="4">
-                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
-
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
-
-                        <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
-                                What Makes Autoboli Different
-                            </h3>
-
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
-                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
-                                you:
-                            </p>
-                        </div>
-
-                    </v-card>
-
-                </v-col> <v-col cols="12" sm="6" md="4">
-                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
-
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
-
-                        <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
-                                What Makes Autoboli Different
-                            </h3>
-
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
-                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
-                                you:
-                            </p>
-                        </div>
-
-                    </v-card>
-
-                </v-col> <v-col cols="12" sm="6" md="4">
-                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
-
-
-                        <v-sheet rounded="lg" height="110" class="mb-5" color="grey-lighten-3" />
-
-                        <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
-                                What Makes Autoboli Different
-                            </h3>
-
-                            <p class="text-body-2 text-grey-lighten-1 mb-0">
-                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
-                                you:
-                            </p>
-                        </div>
-
-                    </v-card>
 
                 </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
+
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
+                                What Makes Autoboli Different
+                            </h3>
+
+                            <p class="text-body-2 text-light_text_on mb-0">
+                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
+                                you:
+                            </p>
+                        </div>
+
+                    </v-card>
+
+
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
+
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
+                                What Makes Autoboli Different
+                            </h3>
+
+                            <p class="text-body-2 text-light_text_on mb-0">
+                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
+                                you:
+                            </p>
+                        </div>
+
+                    </v-card>
+
+
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
+
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
+                                What Makes Autoboli Different
+                            </h3>
+
+                            <p class="text-body-2 text-light_text_on mb-0">
+                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
+                                you:
+                            </p>
+                        </div>
+
+                    </v-card>
+
+
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
+
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
+                                What Makes Autoboli Different
+                            </h3>
+
+                            <p class="text-body-2 text-light_text_on mb-0">
+                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
+                                you:
+                            </p>
+                        </div>
+
+                    </v-card>
+
+
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
+
+                        <!-- Image -->
+                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-body-1 font-weight-semibold text-white mb-2">
+                                What Makes Autoboli Different
+                            </h3>
+
+                            <p class="text-body-2 text-light_text_on mb-0">
+                                Unlike traditional valuation tools or static vehicle lookup platforms, Autoboli gives
+                                you:
+                            </p>
+                        </div>
+
+                    </v-card>
+
+
+                </v-col>
+                
             </v-row>
 
         </v-container>
@@ -144,11 +156,11 @@
 
 <script>
 
-
+import logo from '@/assets/images/logo/logo.png'
 export default {
     data() {
         return {
-       
+            logo
         }
     }
 }

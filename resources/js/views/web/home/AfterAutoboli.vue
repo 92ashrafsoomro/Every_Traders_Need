@@ -21,16 +21,16 @@
 
                     <div v-for="(item, index) in visibleItems" :key="index" class="benefit-item ">
                      <div class="pa-3 ">
-                           <v-card class="pa-3 pa-md-4 d-flex flex-column flex-md-row w-100 border-none align-center" style="background-color: #3399ff10;" >
+                           <v-card class="pa-3 pa-md-4 d-flex flex-column flex-md-row w-100 border-none align-center" style="background-color: rgb(var(--v-theme-primary),0.1);" >
                             <div class="icon-box">
                                 <img :src="item.image" width="150" height="150" />
                             </div>
 
                             <div class="text-white ml-4">
-                                <h6 class="text-body-2 font-weight-medium mb-2">
+                                <h6 class="text-body-2 font-weight-medium mb-2 text-whiteLight">
                                     {{ item.title }}
                                 </h6>
-                                <p class="text-body-2 text-text_light mb-0">
+                                <p class="text-body-2  mb-0 text-light_text_on">
                                     {{ item.description }}
                                 </p>
                             </div>

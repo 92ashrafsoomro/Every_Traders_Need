@@ -1,7 +1,6 @@
 <template>
-    <user-title-bar title="Auction Schedule"
-    style="z-index: 1;"
-        subtitle="Manage and view platform auctions across all centers in one place." class="pt-16">
+    <user-title-bar title="Auction Schedule" style="z-index: 1;"
+        subtitle="Manage and view platform auctions across all centers in one place." class="pt-16 pa-16">
         <div class="d-flex flex-wrap ga-2 mt-10 ">
             <div style="width: 200px;">
                 <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
@@ -19,10 +18,11 @@
                 <span class="mt-5 ml-3">In Progress</span>
             </div>
         </div>
-        <div class="pt-4 d-flex flex-wrap align-center ga-3 ml-auto mr-auto mt-4">
-            <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
-                class=" border rounded bg-surface-variant-1 pa-3 d-flex  flex-column mb-3 cursor-pointer"
-                style=" height: 95px; width: 13.5%;" @click="handleTab(key)">
+        <div class="pt-4 d-flex flex-wrap align-center  justify-start  ga-3 ml-auto mr-auto mt-4">
+            <div v-for="(value, key, index) in days" :key="index" :class="['day-card', { active: options.day == key }]"
+                class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3 cursor-pointer"
+                @click="handleTab(key)">
+
                 <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
                     {{ key }}
@@ -50,7 +50,7 @@
     </user-title-bar>
 
 
-    <v-container class="mx-auto  "  style="padding:0 0 100px 0; max-width: 1400px;">
+    <v-container class="mx-auto  " style="padding:0 0 100px 0; max-width: 1400px;">
         <div class="mt-10 mb-10 w-100 ">
             <v-table fixed-header class="rounded-lg">
                 <thead>
@@ -63,7 +63,7 @@
                             Center
                         </th>
 
-                         <th class="text-left text-subtitle-1">
+                        <th class="text-left text-subtitle-1">
                             Auction Name
                         </th>
                         <th class="text-left text-subtitle-1">
@@ -77,35 +77,37 @@
                         <th class="text-left text-subtitle-1">
                             Status
                         </th>
-                       
+
                     </tr>
                 </thead>
                 <tbody>
 
-                    <tr v-for="value in [1,2,3,4,5]">
+                    <tr v-for="value in [1, 2, 3, 4, 5]">
                         <td>
                             <p class="text-primary">BCA</p>
                         </td>
                         <td>Birmingham, Bristol, Thurleigh </td>
                         <td>Abc</td>
                         <td>225</td>
-                        <td>    
-                           
-                            <span class="rounded h-50  d-flex justify-center align-center" style=" background-color: rgba(var(--v-theme-background));">10:00</span></td>
+                        <td>
+
+                            <span class="rounded h-50 pa-2 pa-lg-0 d-flex justify-center align-center"
+                                style=" background-color: rgba(var(--v-theme-background));">10:00</span>
+                        </td>
                         <td>
                             <div class="rounded h-50  d-flex justify-center align-center"
                                 style="width:100px ; background-color: rgba(var(--v-theme-primary),0.10);">
                                 In Progress
                             </div>
                         </td>
-                      
+
                     </tr>
 
                 </tbody>
             </v-table>
         </div>
     </v-container>
-   
+
 
 
 </template>
@@ -127,9 +129,9 @@ export default {
     data() {
         return {
             center: null,
-               platforms: [],
+            platforms: [],
             dropdown: null,
-                  days: {
+            days: {
                 today: {
                     auction: 0,
                     car: 10,
@@ -160,7 +162,7 @@ export default {
                 },
 
             },
-                             options: {
+            options: {
                 length: 10,
                 page: 1,
                 last_page: 1,
@@ -170,13 +172,13 @@ export default {
                 day: 'today',
                 enableCurrent: false,
                 date: '',
-             data: [],
-             total:0,
-             loading: false,
+                data: [],
+                total: 0,
+                loading: false,
             },
         }
     },
-     methods: {
+    methods: {
         async handleInput(value, field) {
 
             switch (field) {
@@ -244,4 +246,28 @@ export default {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
 
+.day-card {
+    width: 80%;
+}
+
+@media (min-width: 600px) {
+    .day-card {
+        width: calc(50% - 12px);
+    }
+}
+
+/* MD → 3 cards per row */
+@media (min-width: 960px) {
+    .day-card {
+        width: calc(33.333% - 12px);
+    }
+}
+
+/* LG → all in one line */
+@media (min-width: 1280px) {
+    .day-card {
+        width: calc(14.28% - 12px);
+        /* 7 days */
+    }
+}
 </style>

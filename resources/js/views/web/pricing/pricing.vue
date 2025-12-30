@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        <main style="max-width: 1400px; height: 1000px; padding: 100px 0 100px 0;" class="mx-auto">
-            <div class="d-flex text-center items-center justify-center py-16">
+        <main style="max-width: 1400px;  padding: 100px 0 140px 0;" class="mx-auto h-100">
+            <div class="d-flex  text-center items-center justify-center py-16">
                 <h1 class="text-h2 font-weight-bold">Pricing</h1>
             </div>
-            <v-row>
+            <v-row class="d-flex flex-column flex-lg-row flex-md-row ">
                 <v-col>
                     <div class="d-flex flex-column justify-center  h-100 w-75">
                         <p>Hi there!</p>
@@ -30,9 +30,9 @@
                     </div>
                 </v-col>
                 <v-col>
-                    <div class="right bg-surface border mr-lg-10 w-100 " style=" border-radius:15px; ">
+                    <div class="d-flex flex-wrap bg-surface border justify-center   w-100 " style=" border-radius:15px; ">
                         <!-- box-shadow:0px 0px 20px 0px rgb(var(--v-theme-shadow)); -->
-                        <div class="d-flex  justify-space-between pa-10 ">
+                        <div class="d-flex flex-wrap justify-space-between pa-10 ">
                             <div class="pr-2  ">
                                 <h3 class="text-lg-h5 font-weight-bold text-md-h5">Features</h3>
                                 <ul style="list-style: none ;" class="d-flex flex-column ga-2 flex-wrap my-5">
@@ -62,7 +62,7 @@
                                             data</span> </li>
                                 </ul>
                             </div>
-                            <div class=" text-center">
+                            <div class="ml-auto mr-auto text-center  ">
                                 <div class=" pt-1 d-flex flex-column justify-lg-end mb-5"
                                     style="width:240px; height:260px; border-radius:15px; border:1px solid rgb(var(--v-theme-primary)); background-color: rgb(var(--v-theme-primary),0.3);">
                                     <p class="text-center mb-2" style="font-weight: bold ;">Smart bidder</p>

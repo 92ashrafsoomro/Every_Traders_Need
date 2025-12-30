@@ -7,7 +7,7 @@
       </div>
 
       <!-- CONTENT -->
-      <div class="leftContent pl-10 pr-10 pl-lg-0 pl-md-0 text-center text-lg-start ">
+      <div class="leftContent  pl-10 pr-10 pl-lg-0 pl-md-0 text-center text-lg-start ">
         <v-chip class="mb-4 text-primary  " style="border-radius: 0px 20px 0px 0px; padding: 6px 16px;">
           Why Autoboli
         </v-chip>
@@ -26,20 +26,29 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit...
           </p>
           <div class=" justify-center justify-lg-start item-center item-lg-start text-center d-flex">
-            
-        <div class=" mt-4 ml-n10" style="width: 100px;">
-          <AppButton text="About Us" to="/about" />
 
-        </div>
+
           </div>
         </div>
+        <div class="d-flex justify-center justify-lg-start mt-4 ">
+          <div class="button d-flex justify-space-between bg-primary align-center  pa-3  "
+            style=" min-width: 150px; max-width: 200px; border-radius: 40px;">
+            <div class="text ml-2 mr-2">
+              About us
+            </div>
+            <div class="icon bg-white rounded-xl pa-1"> <v-icon>
+                mdi-arrow-top-right
+              </v-icon></div>
 
+          </div>
+
+        </div>
 
 
 
       </div>
 
-  
+
     </div>
 
   </div>
@@ -78,31 +87,36 @@ export default {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.2);
     opacity: 0.1;
   }
+
   100% {
     transform: scale(1);
     opacity: 0.16;
   }
 }
+
 .rightImage,
 .leftContent {
   flex: 1 1 100%;
 }
 
 @media (min-width: 960px) {
+
   .rightImage,
   .leftContent {
-    flex: 1 1 50%; 
+    flex: 1 1 50%;
     max-width: 700px;
   }
 }
-@media (max-width: 960px) {
-  
-  .trusted-img {
-  width: 300px;}
-}
 
+@media (max-width: 960px) {
+
+  .trusted-img {
+    width: 300px;
+  }
+}
 </style>

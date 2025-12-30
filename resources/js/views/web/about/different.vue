@@ -25,7 +25,7 @@
                                         <v-img :src="differentImage" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
-                                        <h3 class="text-h6 font-weight-bold text-white mb-2">
+                                        <h3 class="text-h6 font-weight-bold0 text-whiteLight mb-2">
                                             One Platform. Total Auction Intelligence.
                                         </h3>
                                         <p class="text-body-1">
@@ -46,7 +46,7 @@
                                         <v-img :src="differentImage" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
-                                        <h3 class="text-h6 font-weight-bold text-white mb-2">
+                                        <h3 class="text-h6 font-weight-bold text-whiteLight mb-2">
                                             Built for Dealers & Traders
                                         </h3>
                                         <p class="text-body-1">
@@ -76,7 +76,7 @@
                             </v-col>
 
                             <v-col cols="12" md="7" class="pl-md-6 d-flex flex-column justify-center">
-                                <h3 class="text-h6 font-weight-bold text-white mb-4">
+                                <h3 class="text-h6 font-weight-bold text-whiteLight mb-4">
                                     Smarter Insights, Not Just Raw Data
                                 </h3>
 
@@ -92,7 +92,7 @@
                                             <v-icon color="primary">mdi-check-circle</v-icon>
                                         </template>
 
-                                        <v-list-item-title class="text-white">
+                                        <v-list-item-title class="text-whiteLight">
                                             {{ item }}
                                         </v-list-item-title>
                                     </v-list-item>

@@ -6,7 +6,7 @@
 
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 class="text-h3 font-weight-bold text-white mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
+                        <h2 class="text-h3 font-weight-bold text-whiteLight mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
                         </h2>
                         <div>
                             <div class=" border-sm pa-5 rounded-lg"

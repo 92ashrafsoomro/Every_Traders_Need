@@ -34,12 +34,12 @@
                             <!-- FILTER BUTTON -->
                             <div>
                                 <v-btn v-if="auctionStore.sidebar" color="primary" variant="outlined"  prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
-                                    <span class="text-white text-capitalize text-body-1">Hide Filter</span>
+                                    <span class="text-whiteLightLight text-capitalize text-body-1">Hide Filter</span>
                                 </v-btn>
 
                                 <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
                                     @click="auctionStore.toggleFilter()" >
-                                  <span class="text-white text-capitalize text-body-1">Show Filter</span>
+                                  <span class="text-whiteLight text-capitalize text-body-1">Show Filter</span>
                                 </v-btn>
                             </div>
 
@@ -48,7 +48,7 @@
                                 <v-btn v-if="auctionStore.sidebar" color="danger" variant="text"
                                     :disabled="!isAnyFilterSelected" prepend-icon="mdi-delete"
                                     @click="auctionStore.ClearFilter()">
-                                    <span class="text-white text-capitalize" style="text-decoration: underline">
+                                    <span class="text-whiteLight text-capitalize" style="text-decoration: underline">
                                         Clear All
                                     </span>
                                 </v-btn>
@@ -97,7 +97,7 @@
                             <div class="mt-2">
                                 <v-btn color="danger" variant="text" prepend-icon="mdi-delete"
                                     @click="auctionStore.ClearFilter()">
-                                    <span class="text-white text-capitalize" style="text-decoration: underline">
+                                    <span class="text-whiteLight text-capitalize" style="text-decoration: underline">
                                         Clear All
                                     </span>
                                 </v-btn>

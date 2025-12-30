@@ -1,68 +1,73 @@
 <template>
 
-    <v-card title="Account Detail" class="border" >
-        <div class="border-b" ></div>
+    <v-card title="Account Detail" class="border">
+        <div class="border-b"></div>
 
         <v-card-text>
 
-        <v-container class="pa-2">
-            
-            <h2 class="text-body-1 text-light  mb-3 ">User Information</h2>
-            <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
-            <v-row>
-                <v-col cols="12" class="">
-                    <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'personal' ).filter((item) => ['firstName','phone','jobTitle','personalEmail'].includes(item.key))" :key="i" class=" d-flex align-center mb-6">
-                        <v-icon color="white" class="mr-4  ">{{ item.icon }}</v-icon>
-                        <div class="d-flex align-center flex-wrap">
-                            <div class="text-body-2 text-light  pr-2">{{ item.label }} :</div>
-                            <div  v-if="!item.download" class="text-body-2 text-white">
-                                {{userStore.user[item.key] }}
+            <v-container class="pa-2">
+
+                <h2 class="text-body-1 text-light  mb-3 ">User Information</h2>
+                <!-- <v-divider class="border-opacity-30 mb-4" color="grey" /> -->
+                <v-row>
+                    <v-col cols="12" class="">
+                        <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'personal').filter((item) => ['firstName', 'phone', 'jobTitle', 'personalEmail'].includes(item.key))"
+                            :key="i" class=" d-flex align-center mb-6">
+                            <v-icon color="white" class="mr-4  ">{{ item.icon }}</v-icon>
+                            <div class="d-flex align-center flex-wrap">
+                                <div class="text-body-2 text-light  pr-2">{{ item.label }} :</div>
+                                <div v-if="!item.download" class="text-body-2 text-white">
+                                    {{ userStore.user[item.key] }}
+                                </div>
+
                             </div>
-
                         </div>
-                    </div>
-                </v-col>
-            </v-row>
+                    </v-col>
+                </v-row>
 
-             <v-divider class="pa-2 mt-3"></v-divider>
+                <v-divider class="pa-2 mt-3"></v-divider>
 
-            <!-- Personal Information -->
-            <h2 class="text-body-1 text-light my-3 mb-3">Company Information</h2>
+                <!-- Personal Information -->
+                <h2 class="text-body-1 text-light my-3 mb-3">Company Information</h2>
 
-            <v-row>
-                <v-col cols="12">
-                    <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'bussiness' )" :key="i" class="d-flex align-center mb-6">
-                        <v-icon color="white" class="mr-4 ">{{ item.icon }}</v-icon>
-                        <div class="d-flex align-center flex-wrap">
-                            <div class="text-body-1 text-light">{{ item.label }} : </div>
-                            <div class=" text-body-2 text-white font-weight-medium"> {{userStore.user[item.key] }} </div>
-                        </div>
-                    </div>
-                </v-col>
-            </v-row>
-  <v-divider class="pa-2 mt-3"></v-divider>
-            <h2 class="text-body-1 text-light mt-3  mb-3 ">Business Proof</h2>
-            <v-row>
-                <v-col cols="12" class="">
-
-                    <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'proof' )" :key="i" class=" d-flex align-center mb-6">
-                        <v-icon color="white" class="mr-4 ">mdi-text-box-outline</v-icon>
-                        <div class="d-flex align-center">
-                            <div class="text-body-2 text-light pr-2">{{ item.label }} :</div>
-                            <div class="text-body-2">
-                                <v-btn variant="text" size="small" target="_blank" color="primary" :href="userStore.user[item.key]"
-                                    class="text-capitalize text-body-2 text-decoration-underline ">
-                                    Download
-                                </v-btn>
+                <v-row>
+                    <v-col cols="12">
+                        <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'bussiness')" :key="i"
+                            class="d-flex align-center mb-6">
+                            <v-icon color="white" class="mr-4 ">{{ item.icon }}</v-icon>
+                            <div class="d-flex align-center flex-wrap">
+                                <div class="text-body-1 text-light">{{ item.label }} : </div>
+                                <div class=" text-body-2 text-white font-weight-medium"> {{ userStore.user[item.key] }}
+                                </div>
                             </div>
-
                         </div>
-                    </div>
-                </v-col>
-            </v-row>
+                    </v-col>
+                </v-row>
+                <v-divider class="pa-2 mt-3"></v-divider>
+                <h2 class="text-body-1 text-light mt-3  mb-3 ">Business Proof</h2>
+                <v-row>
+                    <v-col cols="12" class="">
 
-        </v-container>
-          </v-card-text>
+                        <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'proof')" :key="i"
+                            class=" d-flex align-center mb-6">
+                            <v-icon color="white" class="mr-4 ">mdi-text-box-outline</v-icon>
+                            <div class="d-flex align-center">
+                                <div class="text-body-2 text-light pr-2">{{ item.label }} :</div>
+                                <div class="text-body-2">
+                                    <v-btn variant="text" size="small" target="_blank" color="primary"
+                                        :href="userStore.user[item.key]"
+                                        class="text-capitalize text-body-2 text-decoration-underline ">
+                                        Download
+                                    </v-btn>
+                                </div>
+
+                            </div>
+                        </div>
+                    </v-col>
+                </v-row>
+
+            </v-container>
+        </v-card-text>
     </v-card>
 </template>
 
@@ -76,7 +81,7 @@ export default {
     data() {
         return {
             userStore: useUserStore(),
-            UserModel:UserModel,
+            UserModel: UserModel,
         }
     },
     computed: {

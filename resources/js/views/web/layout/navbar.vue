@@ -18,7 +18,7 @@
                 <div class="d-none d-lg-flex align-center ga-7">
                     <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link exact
                         class="m-item text-h6 mx-3 mb-2 pl-0 pr-0" active-class="nav-menu-links-active">
-                        <v-list-item-title class="nav-menu-links  text-capitalize text-body-3">
+                        <v-list-item-title class="nav-menu-links  text-capitalize text-body-3 text-white_light_nav">
                             {{ item.label }}
                         </v-list-item-title>
                     </v-list-item>
@@ -156,11 +156,8 @@ export default {
 
 .my-btn:hover {
     background-color: #0056b3;
-    /* darker on hover */
     transform: scale(1.05);
-    /* subtle grow effect */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    /* optional shadow */
 }
 
 .nav-menu-links {
@@ -187,7 +184,8 @@ export default {
 }
 
 ::v-deep(.nav-menu-links-active) .nav-menu-links {
-    color: white !important;
+  
+    color: rgb(var(--v-theme-light_text_on)) !important;
 
 }
 

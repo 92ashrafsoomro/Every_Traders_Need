@@ -77,7 +77,9 @@ aside {
  background-color: rgb(var(--v-theme-background));
 }
 
-
+.v-field__overlay{ 
+    border: 2px solid rgb(var(--v-theme-border));
+}
 /* .v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single{
     background-color: aqua !important;
 }
@@ -86,6 +88,7 @@ aside {
 } */
 .v-overlay__content {
   border: 2px solid rgb(var(--v-theme-border)) !important;
+
 
 
 }

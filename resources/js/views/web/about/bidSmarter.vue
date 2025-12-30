@@ -1,12 +1,12 @@
 <template>
   <v-container class="py-16">
-    <div class="mx-auto d-flex  flex-column  align-center text-center" style="
+    <div class="mx-auto  d-flex  flex-column  align-center text-center" style="
         max-width: 1400px;
-        height: 800px;
+        max-height: 800px;
            background: linear-gradient(
       to bottom,
       rgb(var(--v-theme-primary)),
-      rgb(var(--v-theme-primaryDark))
+      #0080FF
     ); border: 1px solid rgb(var(--v-theme-border)); border-radius: 70px;">
       <!-- TOP IMAGE -->
       <!-- <img
@@ -20,8 +20,8 @@
 
       <!-- TEXT -->
       <div class="text-white mb-10 " style="margin-top: 100px;">
-        <h5 class="text-h2 font-weight-bold">Bid Smarter. Buy Better.</h5>
-        <p class="text-body-1 mt-2 font-weight-bold">
+        <h5 class="text-h2 font-weight-bold pa-1 ">Bid Smarter. Buy Better.</h5>
+        <p class="text-body-1 mt-2 font-weight-bold  ">
           Trade with Confidence. Autoboli — Turning auction data into winning decisions.
         </p>
 

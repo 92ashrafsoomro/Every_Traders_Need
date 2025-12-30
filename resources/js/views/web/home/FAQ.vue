@@ -22,7 +22,7 @@
 
           <v-expansion-panel-text>
 
-            <p class="text-body-1 text-white pa-4" style="line-height: 2;">
+            <p class="text-body-1 text-whiteLight " style="line-height: 2;">
               {{ faq.answer }}
             </p>
           </v-expansion-panel-text>

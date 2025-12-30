@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pattern-wrapper pa-0">
+  <v-container fluid class="pattern-wrapper position-relative  pa-0" style="  background-color: rgb(var(--v-theme-surface)); overflow: hidden;">
     <!-- BACKGROUND -->
     <div class="pattern-bg"></div>
 
@@ -8,67 +8,74 @@
       <v-container max-width="1400px">
         <v-row justify="center">
           <v-col cols="12" lg="10">
-            <div class="d-flex flex-column align-center justify-center">
-              <h2 class="text-h3 font-weight-bold d-flex align-center  mb-8 text-white">
-                <img :src="logo" width="300" alt="" class="mr-4"> at a Glance
+            <div class="d-flex justify-center">
+              <h2 class="text-lg-h3 text-md-h3 text-h5  font-weight-bold d-flex align-center mb-8 text-whiteLight">
+                <img :src="logo" alt="" class="mr-4" style="max-width:200px">
+                at a Glance
               </h2>
             </div>
 
 
 
+
+
             <div class="d-flex justify-center mt-10">
               <ul style="list-style:none; padding:0; gap:16px;">
-                <div class="d-flex "> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
-                    <v-icon color="primary" size="25">
-                    mdi-check-circle
-                  </v-icon>
-                 </div>
-                  <li>
-
-                    <span class="text-h6 text-white pa-4 glass-card">30+ UK auction houses covered</span>
-                  </li>
-                </div>
-
-                <div class="d-flex"> 
+               <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
                   <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
-                    mdi-check-circle
-                  </v-icon>
-                 </div>
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
                   <li>
-                    <span class="text-h6 text-white pa-4 glass-card">Live</span> <span
-                      class="text-h6 text-white pa-4 glass-card">upcoming</span> <span
-                      class="text-h6 text-white pa-4 glass-card"> and historical auction data</span>
+
+                    <span class="text-h6 text-whiteLight pa-4 glass-card">30+ UK auction houses covered</span>
                   </li>
                 </div>
-                <div class="d-flex"> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+
+              <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
-                    mdi-check-circle
-                  </v-icon>
-                 </div>
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
                   <li>
-                    <span class="text-h6 text-white pa-4 glass-card">Vehicle valuation</span> <span
-                      class="text-h6 text-white pa-4 glass-card">comparison & reauction tracking</span>
+                    <span class="text-h6 text-whiteLight pa-4 glass-card">Live</span> <span
+                      class="text-h6 text-whiteLight pa-4 glass-card">upcoming</span> <span
+                      class="text-h6 text-whiteLight pa-4 glass-card"> and historical auction data</span>
                   </li>
                 </div>
-                <div class="d-flex"> <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+              <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-flex  glass-card-icon d-flex justify-center text-center" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25" >
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
+                  <li>
+                    <span class="text-h6 text-whiteLight pa-4 glass-card">Vehicle valuation</span> <span
+                      class="text-h6 text-whiteLight pa-4 glass-card">comparison & reauction tracking</span>
+                  </li>
+                </div>
+               <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
-                    mdi-check-circle
-                  </v-icon>
-                 </div>
-                  <li> <span class="text-h6 text-white pa-4 glass-card"> VIN & registration-based vehicle
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
+                  <li> <span class="text-h6 text-whiteLight pa-4 glass-card"> VIN & registration-based vehicle
                       intelligence</span>
                   </li>
                 </div>
-                <div class="d-flex">  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
-                    mdi-check-circle
-                  </v-icon>
-                 </div>
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
                   <li>
-                    <span class="text-h6 text-white pa-4 glass-card">Built for speed</span> <span
-                      class="text-h6 text-white pa-4 glass-card">accuracy</span> <span
-                      class="text-h6 text-white pa-4 glass-card"> and profitability</span>
+                    <span class="text-h6 text-whiteLight pa-4 glass-card">Built for speed</span> <span
+                      class="text-h6 text-whiteLight pa-4 glass-card">accuracy</span> <span
+                      class="text-h6 text-whiteLight pa-4 glass-card"> and profitability</span>
                   </li>
                 </div>
               </ul>
@@ -76,6 +83,7 @@
 
           </v-col>
         </v-row>
+        
       </v-container>
     </v-container>
   </v-container>
@@ -101,16 +109,13 @@ export default {
 </script>
 
 <style scoped>
-.pattern-wrapper {
-  position: relative;
-  overflow: hidden;
-  background-color: #031428;
-}
+
 
 .pattern-bg {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+  /* background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px); */
+  background-color: rgb((var(--v-theme-surface)));
   background-size: 16px 16px;
   opacity: 0.35;
   z-index: 0;
@@ -137,13 +142,12 @@ export default {
 
 .glass-card-icon {
   display: inline-block;
-  /* padding: 10px; */
   margin-right: 20px;
-  display: flex; 
-align-items: center;      
+  display: flex;
+  align-items: center;
   justify-content: center;
   height: 66px;
-  width:  66px;
+  width: 66px;
   margin-bottom: 16px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);

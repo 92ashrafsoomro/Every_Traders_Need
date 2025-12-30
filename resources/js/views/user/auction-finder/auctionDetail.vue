@@ -19,8 +19,7 @@
                     :class="{ 'hovered-main-row': hoveredRowId === item.id }" class="main-row">
                     <td>
                         <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
-                            <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
-                                }}</span>
+                            <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{ item.variant_name}} </span>
                         </v-btn>
                     </td>
                     <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>

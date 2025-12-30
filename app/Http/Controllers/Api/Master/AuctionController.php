@@ -29,6 +29,7 @@ use App\Models\UserNotificationAlert;
 use App\Events\NotificationEvent;
 use App\Http\Requests\Api\Master\UpdateCsvAuctionRequest;
 use App\Models\Auction;
+use App\Models\ScrapedVehicle;
 use App\Services\AuctionService;
 use App\Services\SheetService;
 use Carbon\Carbon;
@@ -80,17 +81,18 @@ class AuctionController extends Controller
         
     }
 
+    
     public function store(Request $request)
     {
 
-         $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
             'id' => 'required|string|max:255|unique:auctions,table_id',
             'name' => 'required|string|max:255',
             'auction_date' => 'required|date',
             'end_date' => 'nullable|date',
             'platform_id' => 'required|exists:auction_platform,id',
             'auction_type' => 'required|exists:auction_types,id',
-            'csv_path' => 'nullable|file|mimes:csv,txt',
+            'payload' => 'nullable',
         ]);
 
         if($validator->fails()) {
@@ -110,37 +112,37 @@ class AuctionController extends Controller
         }
 
 
+        try {
 
+                // Creation Process
+                $auction = Auctions::create([
+                    'name' => $request->name,
+                    'table_id' => $request->id,
+                    'auction_date' => Carbon::parse($request->auction_date),
+                    'end_date' => $request->auction_type == 2 ? null : $request->end_date,
+                    'auction_type' => $request->auction_type,
+                    'platform_id' => $request->platform_id,
+                    'status' => 'planned',
+                ]);
 
-        // Creation Process
-        $auction = Auctions::create([
-            'name' => $request->name,
-            'table_id' => $request->id,
-            'auction_date' => Carbon::parse($request->auction_date),
-            'end_date' => $request->auction_type == 2 ? null : $request->end_date,
-            'auction_type' => $request->auction_type,
-            'platform_id' => $request->platform_id,
-            'status' => 'planned',
-        ]);
+                if($request->payload){
+                    ScrapedVehicle::create([
+                        'auction_id' => $auction->id,
+                        'payload' => $request->payload,
+                    ]);
+                }
 
-        // if($request->hasFile('csv_path')){
+                return response()->json([
+                    'data' => $auction,
+                    'message' => 'Record Created',
+                ],200);
 
-        //     $csvFile = $request->file('csv_path');
-        //     $rows = [];
-        //     if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
-        //         while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
-        //             $rows[] = $row;
-        //         }
-        //         fclose($handle);
-        //     }
-        //     new SheetService($auction,$rows);
+        } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => $th->getMessage(),
+                ],500);
+        }
 
-        // }
-
-        return response()->json([
-            'data' => $auction,
-            'message' => 'Record Created',
-        ],200);
 
     }
 
@@ -162,7 +164,7 @@ class AuctionController extends Controller
             'end_date' => 'nullable|date',
             'platform_id' => 'required|exists:auction_platform,id',
             'auction_type' => 'required|exists:auction_types,id',
-            'csv_path' => 'nullable|file|mimes:csv,txt',
+            'payload' => 'nullable',
         ]);
 
         if($validator->fails()) {
@@ -176,52 +178,48 @@ class AuctionController extends Controller
         if($request->auction_type != 2 ){
             if(empty($request->end_date)){
                 return response()->json([
-                   'message' => 'End Date Is Required',
+                    'message' => 'End Date Is Required',
                 ], 422);
             }
         }
 
 
+        try {
 
+            // Updation Process
+            $model->update([
+                'name' => $request->name,
+                'table_id' => $request->id,
+                'auction_date' => Carbon::parse($request->auction_date),
+                'end_date' => $request->auction_type == 2 ? null : $request->end_date,
+                'auction_type' => $request->auction_type,
+                'platform_id' => $request->platform_id,
+                'status' => 'planned',
+            ]);
 
-        // Updation Process
-        $model->update([
-            'name' => $request->name,
-            'table_id' => $request->id,
-            'auction_date' => Carbon::parse($request->auction_date),
-            'end_date' => $request->auction_type == 2 ? null : $request->end_date,
-            'auction_type' => $request->auction_type,
-            'platform_id' => $request->platform_id,
-            'status' => 'planned',
-        ]);
+            if($request->payload){
+                ScrapedVehicle::where(['auction_id' => $model->id])
+                ->update([
+                    'payload' => $request->payload,
+                ]);
+            }
+            
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
 
-        // if($request->hasFile('csv_path')){
-
-
-        //     Vehicle::where('auction_id',$model->id)->delete();
-        //     $csvFile = $request->file('csv_path');
-        //     $rows = [];
-        //     if (($handle = fopen($csvFile->getRealPath(), 'r')) !== false) {
-        //         while (($row = fgetcsv($handle, 0, ',', '"')) !== false) {
-        //             $rows[] = $row;
-        //         }
-        //         fclose($handle);
-        //     }
-        //     new SheetService($model,$rows);
-
-        // }
-
-        return response()->json([
-            'data' => $model,
-            'message' => 'Record Created',
-        ],200);
 
     }
+
+
 
         public function show(Request $request,$id)
     {
 
-        $model = Auctions::with(['vehicle'])->where('id',$id)->first();
+        $model = Auctions::where('id',$id)->first();
+        $model->scrap = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$id)->pluck('payload')->first());
         if(!$model){
             return response()->json([
                 'message' => 'Record Not Found',
@@ -293,75 +291,37 @@ class AuctionController extends Controller
         public function csvUpdate(UpdateCsvAuctionRequest $request,$id)
     {
 
-        $model = Auctions::where('id',$id)->first();
-        if(!$model){
-            return response()->json([
-                'message' => 'Record Not Found',
-            ], 422);
-        }
-
-        // DB::beginTransaction();
-
-        
-        // Vehicle::where('auction_id',$id)->delete();
-
-        $errors = [];
-        foreach ($request->data as $key => $item) {
+            // dd($request->all());
+            $model = Auctions::where('id',$id)->first();
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
 
 
-            dd($item);
-            // $vehicle_id = VehicleType::whereRaw('TRIM(name) = ?',[trim($item['vehicle_id'])])->first();
-            // if(!$vehicle_id){
-            //     $errors[$key]['vehicle_id'] = 'Vehcile Not Found';
-            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['vehicle_id'].' Vehcile Not Found'],500);
-            // }
+            DB::beginTransaction();
+            try {
 
-            // $body_id = BodyType::whereRaw('TRIM(name) = ?',[trim($item['body_id'])])->first();
-            // if(!$body_id){
-            //     $errors[$key]['body_id'] = 'Body Not Found';
-            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['body_id'].' Body Not Found'],500);
-            // }
+                Vehicle::where('auction_id',$id)->delete();
+                foreach ($request->data as $key => $item){
 
-            // $make_id = Make::whereRaw('TRIM(name) = ?',[trim($item['make_id'])])->first();
-            // if(!$make_id){
-            //     $errors[$key]['make_id'] = 'Make Not Found';
-            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['make_id'].' Make Not Found'],500);
-            // }
+                    $item['auction_id'] = $model->id;
+                    $item['last_bid'] = floatval($item['last_bid']);
 
-            // $model_id = VehicleModel::where('make_id',$make_id->id)->whereRaw('TRIM(name) = ?',[trim($item['model_id'])])->first();
-            // if(!$model_id){
-            //     $errors[$key]['model_id'] = 'Model Not Found';
-            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['model_id'].' Model Not Found'],500);
-            // }
+                    Vehicle::create($item);
+                }
 
-            // $variant_id = ModelVariant::where('model_id',$model_id->id)->whereRaw('TRIM(name) = ?',[trim($item['variant_id'])])->first();
-            // if(!$variant_id){
-            //     $errors[$key]['variant_id'] = 'Model Not Found';
-            //     // return response()->json(['message' => 'Row: '.$key.' '.$item['variant_id'].' Variant Not Found'],500);
-            // }
+                DB::commit();
+                return response()->json([
+                    'message' => 'Record Updated Successfully',
+                    'data' => $model
+                ],200);
 
-            // $center_id = AuctionCenter::whereRaw('TRIM(name) = ?',[trim($item['center_id'])])->first();
-            // if(!$center_id){
-            //     $errors[$key]['center_id'] = 'Model Not Found';
-            //     return response()->json(['message' => 'Row: '.$key.' '.$item['center_id'].' Center Not Found'],500);
-            // }
-
-
-            // $item['vehicle_id'] = $vehicle_id->id;
-            // $item['body_id'] = $body_id->id;
-            // $item['make_id'] = $make_id->id;
-            // $item['model_id'] = $model_id->id;
-            // $item['variant_id'] = $variant_id->id;
-            // $item['center_id'] = $center_id->id;
-            // $item['auction_id'] = $model->id;
-
-            Vehicle::create($item);
-        }
-
-        return response()->json([
-            'message' => 'Record Updated Successfully',
-            'data' => $model
-        ],200);
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                throw $e; // or handle error
+            }
 
     }
 

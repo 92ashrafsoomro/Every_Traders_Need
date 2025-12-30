@@ -38,6 +38,11 @@ class Auctions extends Model
     {
         return $this->belongsTo(AuctionType::class,'auction_type');
     }
+
+      public function scrap()
+    {
+        return $this->hasOne(ScrapedVehicle::class,'auction_id');
+    }
     
 
     

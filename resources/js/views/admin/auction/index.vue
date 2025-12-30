@@ -92,14 +92,13 @@ export default {
  
   },
   data() {
-      return {
+        return {
             filter: {
                 search: '',
                 length: 10,
                 page: 1,
                 offset: 0,
-          },
-            
+            },
             last_page: 1,
             items: [],
             total: 0,
@@ -116,7 +115,7 @@ export default {
                 { title: "Created At", value: "created_date" },
                 { title: "Action", key: "action" },
             ],
-    };
+        };
   },
   mounted() {
     this.loadItems()

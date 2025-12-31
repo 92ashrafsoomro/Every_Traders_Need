@@ -111,7 +111,7 @@ class AuctionController extends Controller
             }
         }
 
-
+        DB::beginTransaction();
         try {
 
                 // Creation Process
@@ -131,16 +131,19 @@ class AuctionController extends Controller
                         'payload' => $request->payload,
                     ]);
                 }
-
+                   DB::commit();
                 return response()->json([
                     'data' => $auction,
                     'message' => 'Record Created',
                 ],200);
 
+                
+
         } catch (\Throwable $th) {
-                return response()->json([
-                    'message' => $th->getMessage(),
-                ],500);
+               DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
         }
 
 
@@ -183,7 +186,7 @@ class AuctionController extends Controller
             }
         }
 
-
+        DB::beginTransaction();
         try {
 
             // Updation Process
@@ -203,8 +206,17 @@ class AuctionController extends Controller
                     'payload' => $request->payload,
                 ]);
             }
+               DB::commit();
+             return response()->json([
+                'message' => 'Record Updated',
+                'data' => $model
+            ],200);
+
+         
             
         } catch (\Throwable $th) {
+
+            DB::rollBack();
             return response()->json([
                 'message' => $th->getMessage(),
             ],500);
@@ -678,6 +690,8 @@ class AuctionController extends Controller
             return response()->json([
                 'message' => 'Record Deleted'
             ],200);
+
+            ScrapedVehicle::where('auction_id',$auction->id)->delete();
            
 
         } catch (\Exception $e) {

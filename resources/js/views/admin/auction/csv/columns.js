@@ -1,6 +1,7 @@
 export default [
     // { title: 'id', key: 'id' },
     // { title: 'auction_id', key: 'auction_id' },
+    { title: 'Reg', key: 'reg' ,disabled: true },
     { title: 'Title', key: 'title', disabled: true, width: '350px', },
     { title: 'Vehicle', key: 'vehicle_id' },
     { title: 'Body Type', key: 'body_id' },
@@ -58,7 +59,7 @@ export default [
 
     { title: 'DOR', key: 'dor' ,disabled: true },
 
-    { title: 'Reg', key: 'reg' ,disabled: true },
+    
 
     { title: 'Former Keepers', key: 'former_keepers' ,disabled: true },
 

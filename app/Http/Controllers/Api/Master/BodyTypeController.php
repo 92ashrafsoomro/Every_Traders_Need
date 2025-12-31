@@ -120,14 +120,11 @@ class BodyTypeController extends Controller
                 ], 422);
             }
 
-        
-
             return response()->json([
                 'message' => 'Record Updated Successfully',
                 'data' => $model
             ],200);
-
-        
+            
     }
 
 
@@ -143,7 +140,6 @@ class BodyTypeController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('body_types')->ignore($model->id)],
             'name' => 'required|string|max:255',
         ]);
          if ($validator->fails()) {
@@ -154,7 +150,6 @@ class BodyTypeController extends Controller
         }
 
         $model->where('id',$id)->update([
-            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

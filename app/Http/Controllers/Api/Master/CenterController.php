@@ -63,13 +63,10 @@ class CenterController extends Controller
                 ->get()
                 ->map(function($item){
                     if($item->image){
-                    $item->image = asset('/uploads/'.$item->image);
+                        $item->image = asset('/uploads/'.$item->image);
                     }
-
-            
+                    
                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
-
-                
                     return $item;
                 });
             
@@ -116,7 +113,6 @@ class CenterController extends Controller
 
         public function show(Request $request,$id)
     {
-
             $model = AuctionCenter::find($id);
             if(!$model){
                 return response()->json([
@@ -127,15 +123,12 @@ class CenterController extends Controller
             return response()->json([
                 'message' => 'Record Updated Successfully',
                 'data' => $model
-            ],200);
-
-        
+            ],200);   
     }
 
 
        public function update(Request $request,$id)
     {
-
         $model = AuctionCenter::find($id);
         if(!$model){
             return response()->json([
@@ -144,7 +137,6 @@ class CenterController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-             'id' => ['required',Rule::unique('auction_center')->ignore($model->id)],
             'name' => 'required|string|max:255',
         ]);
         if($validator->fails()) {
@@ -155,7 +147,6 @@ class CenterController extends Controller
         }
 
          $model->where('id',$id)->update([
-            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -164,8 +155,7 @@ class CenterController extends Controller
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model
-        ],200);
-        
+        ],200);   
     }
 
 

@@ -34,6 +34,8 @@ use App\Services\AuctionService;
 use App\Services\SheetService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 class AuctionController extends Controller
 {
@@ -41,7 +43,6 @@ class AuctionController extends Controller
 
         public function index(Request $request)
     {
-
 
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
@@ -118,33 +119,40 @@ class AuctionController extends Controller
         DB::beginTransaction();
         try {
 
-                // Creation Process
-                $auction = Auctions::create([
-                    'name' => $request->name,
-                    'table_id' => $request->id,
-                    'auction_date' => Carbon::parse($request->auction_date),
-                    'end_date' => $request->auction_type == 2 ? null : $request->end_date,
-                    'auction_type' => $request->auction_type,
-                    'platform_id' => $request->platform_id,
-                    'status' => 'planned',
+            // Creation Process
+            $auction = Auctions::create([
+                'name' => $request->name,
+                'table_id' => $request->id,
+                'auction_date' => Carbon::parse($request->auction_date),
+                'end_date' => $request->auction_type == 2 ? null : $request->end_date,
+                'auction_type' => $request->auction_type,
+                'platform_id' => $request->platform_id,
+                'status' => 'draft',
+            ]);
+
+            if($request->payload){
+                ScrapedVehicle::create([
+                    'auction_id' => $auction->id,
+                    'payload' => $request->payload,
                 ]);
+            }
 
-                if($request->payload){
-                    ScrapedVehicle::create([
-                        'auction_id' => $auction->id,
-                        'payload' => $request->payload,
-                    ]);
-                }
-                   DB::commit();
-                return response()->json([
-                    'data' => $auction,
-                    'message' => 'Record Created',
-                ],200);
-
-                
+            Log::info('Auction Added #'.$auction->id);
+            DB::commit();
+            return response()->json([
+                'data' => $auction,
+                'message' => 'Record Created',
+            ],200);
 
         } catch (\Throwable $th) {
-               DB::rollBack();
+
+            Log::error('Create Auction failed', [
+                'message' => $th->getMessage(),
+                'file' => $th->getFile(),
+                'line' => $th->getLine(),
+            ]);
+
+            DB::rollBack();
             return response()->json([
                 'message' => $th->getMessage(),
             ],500);
@@ -165,12 +173,12 @@ class AuctionController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'id' => 'required|string|max:255|unique:auctions,table_id,' . $id,
             'name' => 'required|string|max:255',
             'auction_date' => 'required|date',
             'end_date' => 'nullable|date',
             'platform_id' => 'required|exists:auction_platform,id',
             'auction_type' => 'required|exists:auction_types,id',
+            'status' => ['required',Rule::in(['draft','planned'])],
             'payload' => 'nullable',
         ]);
 
@@ -196,13 +204,14 @@ class AuctionController extends Controller
             // Updation Process
             $model->update([
                 'name' => $request->name,
-                'table_id' => $request->id,
                 'auction_date' => Carbon::parse($request->auction_date),
                 'end_date' => $request->auction_type == 2 ? null : $request->end_date,
                 'auction_type' => $request->auction_type,
                 'platform_id' => $request->platform_id,
-                'status' => 'planned',
+                'status' => $request->status,
             ]);
+
+         
 
             if($request->payload){
                 ScrapedVehicle::where(['auction_id' => $model->id])
@@ -210,8 +219,11 @@ class AuctionController extends Controller
                     'payload' => $request->payload,
                 ]);
             }
-               DB::commit();
-             return response()->json([
+            
+             Log::info('Auction Updated #'.$model->id);
+            
+            DB::commit();
+            return response()->json([
                 'message' => 'Record Updated',
                 'data' => $model
             ],200);
@@ -220,10 +232,18 @@ class AuctionController extends Controller
             
         } catch (\Throwable $th) {
 
+            Log::error('Auction Update failed', [
+                'message' => $th->getMessage(),
+                'file' => $th->getFile(),
+                'line' => $th->getLine(),
+            ]);
+
             DB::rollBack();
+
             return response()->json([
                 'message' => $th->getMessage(),
             ],500);
+
         }
 
 

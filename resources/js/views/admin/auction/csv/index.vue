@@ -180,7 +180,7 @@ export default {
                 const id = this.$route.params.id;
                 let res = await Auction.find(id, {});
                 let modified = [];
-                let data = res.data.scrap;
+                let data = res.data.scrap ?? [];
                 data.forEach(element => {
                     modified.push(ColRender(element));
                 });

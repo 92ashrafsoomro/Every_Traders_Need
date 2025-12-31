@@ -157,7 +157,7 @@ class PlatformController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('auction_platform')->ignore($model->id)],
+     
             'name' => 'required|string|max:255',
             'image' => 'nullable|image',
         ]);
@@ -170,7 +170,7 @@ class PlatformController extends Controller
         }
 
         $model->where('id',$id)->update([
-            'id' => $request->id,
+     
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

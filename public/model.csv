@@ -1,1167 +1,1168 @@
-1,124 Spider,1
-2,500,1
-3,500C,1
-4,500e,1
-5,500e C,1
-6,595,1
-7,595C,1
-8,600e,1
-9,695,1
+1,500,1
+2,595,1
+3,695,1
+4,124 Spider,1
+5,500C,1
+6,500e,1
+7,500e C,1
+8,595C,1
+9,600e,1
 10,695C,1
-12,Punto Evo,1
-17,145,4
-19,147,4
-20,156,4
-21,156 Sportwagon,4
-22,159,4
-23,159 Sportwagon,4
-24,164,4
-25,166,4
-28,4C,4
-29,75,4
-30,8C,4
-32,Brera,4
-33,Giulia,4
-34,Giulietta,4
-35,GT,4
-36,GTV,4
-37,Junior,4
-38,MiTo,4
-39,Spider,4
-40,Stelvio,4
-41,Tonale,4
-42,A110,5
-43,A290,5
-48,Cygnet,8
-49,DB11,8
-50,DB12,8
-56,DB7,8
-57,DB9,8
-59,DBS,8
-60,DBX,8
-61,Rapide,8
-62,Rapide S,8
-63,V8,8
-64,Vanquish,8
-65,Vantage,8
-66,Virage,8
-67,100,9
-68,80,9
-69,A1,9
-70,A2,9
-71,A3,9
-72,A3 Cabriolet,9
-73,A4,9
-74,A4 Allroad,9
-75,A4 Avant,9
-76,A4 Cabriolet,9
-77,A5,9
-78,A5 Avant,9
-79,A5 Cabriolet,9
-80,A6 Allroad,9
-81,A6 Avant,9
-82,A6 e-tron Avant,9
-83,A6 e-tron Sportback,9
-84,A6 Saloon,9
-86,A7,9
-87,A8,9
-88,Allroad,9
-89,Cabriolet,9
-90,Coupe,9
-91,e-tron,9
-92,e-tron GT,9
-93,e-tron S,9
-94,Q2,9
-95,Q3,9
-96,Q4 e-tron,9
-97,Q5,9
-98,Q6 e-tron,9
-99,Q7,9
-100,Q8,9
-101,Q8 e-tron,9
-103,R8,9
-104,RS3,9
-106,RS4 Avant,9
-108,RS5,9
-109,RS6,9
-110,RS6 Avant,9
-111,RS7,9
-112,RS e-tron GT,9
-113,RS Q3,9
-114,RSQ8,9
-115,S1,9
-116,S3,9
-117,S4,9
-118,S4 Avant,9
-120,S5,9
-121,S5 Avant,9
-122,S6 Avant,9
-123,S6 e-tron Avant,9
-124,S6 Saloon,9
-125,S7,9
-126,S8,9
-127,S e-tron GT,9
-128,SQ2,9
-129,SQ5,9
-130,SQ6 e-tron,9
-131,SQ7,9
-132,SQ8,9
-133,SQ8 e-tron,9
-134,TT,9
-135,TT RS,9
-136,TTS,9
-138,Ambassador,10
-140,Maestro,10
-141,Metro,10
-142,Mini,10
-151,Arnage,13
-152,Azure,13
-153,Bentayga,13
-155,Continental,13
-157,Flying Spur,13
-159,Mulsanne,13
-165,1 Series,14
-167,2 Series,14
-168,2 Series Active Tourer,14
-169,2 Series Gran Coupe,14
-170,2 Series Gran Tourer,14
-171,3 Series,14
-172,3 Series Gran Turismo,14
-173,4 Series,14
-174,4 Series Gran Coupe,14
-175,5 Series,14
-176,5 Series Gran Turismo,14
-177,6 Series,14
-178,6 Series Gran Coupe,14
-179,6 Series Gran Turismo,14
-180,7 Series,14
-181,8 Series,14
-182,8 Series Gran Coupe,14
-185,Alpina B3,14
-186,Alpina B4 Gran Coupe,14
-187,Alpina B5,14
-190,Alpina B8 Gran Coupe,14
-191,Alpina D3,14
-192,Alpina D4,14
-193,Alpina D5,14
-196,Alpina XD3,14
-198,i3,14
-199,i4,14
-200,i5,14
-201,i7,14
-202,i8,14
-204,iX,14
-205,iX1,14
-206,iX2,14
-207,iX3,14
-208,M2,14
-209,M3,14
-210,M4,14
-211,M5,14
-212,M6,14
-213,M6 Gran Coupe,14
-214,M8,14
-215,M8 Gran Coupe,14
-216,X1,14
-217,X2,14
-218,X3,14
-219,X3 M,14
-220,X4,14
-221,X4 M,14
-222,X5,14
-223,X5 M,14
-224,X6,14
-225,X6 M,14
-226,X7,14
-227,XM,14
-229,Z3,14
-231,Z4,14
-232,Z4 M,14
-233,Z8,14
-237,Atto 3,17
-238,Dolphin,17
-239,Seal,17
-240,Sealion 7,17
-241,Seal U,17
-243,BLS,18
-246,Escalade,18
-247,SRX,18
-249,Seven,19
-255,Aveo,21
-258,Camaro,21
-259,Captiva,21
-262,Corvette Stingray,21
-263,Cruze,21
-264,Kalos,21
-265,Lacetti,21
-266,Matiz,21
-267,Orlando,21
-269,Spark,21
-272,Tacuma,21
-273,Trax,21
-274,300C,22
-275,Crossfire,22
-276,Grand Voyager,22
-277,PT Cruiser,22
-278,Sebring,22
-279,Voyager,22
-281,Ypsilon,22
-282,2 CV,23
-283,Ami,23
-284,AX,23
-285,Berlingo,23
-286,C1,23
-287,C2,23
-288,C3,23
-289,C3 Aircross,23
-290,C3 Picasso,23
-291,C3 Pluriel,23
-292,C4,23
-293,C4 Cactus,23
-294,C4 Picasso,23
-295,C4 SpaceTourer,23
-296,C4 X,23
-297,C5,23
-298,C5 Aircross,23
-299,C5 X,23
-300,C6,23
-301,C8,23
-302,C-Crosser,23
-304,Dispatch,23
-306,DS3,23
-307,DS3 Cabrio,23
-308,DS4,23
-309,DS5,23
-310,e-Berlingo,23
-311,e-C3,23
-312,e-C3 Aircross,23
-313,e-C4,23
-314,e-C4 X,23
-315,e-SpaceTourer,23
-316,Grand C4 Picasso,23
-317,Grand C4 SpaceTourer,23
-318,Holidays,23
-319,Nemo Multispace,23
-320,Relay,23
-321,Saxo,23
-322,SpaceTourer,23
-323,Xantia,23
-324,Xsara,23
-325,Xsara Picasso,23
-329,Ateca,26
-330,Born,26
-331,Formentor,26
-332,Leon,26
-333,Tavascan,26
-334,Terramar,26
-335,Bigster,27
-336,Duster,27
-337,Jogger,27
-338,Logan MCV,27
-339,Logan MCV Stepway,27
-340,Sandero,27
-341,Sandero Stepway,27
-342,Spring,27
-343,Kalos,28
-344,Matiz,28
-345,Charade,29
-346,Copen,29
-353,Sirion,29
-354,Terios,29
-359,Super Eight,30
-360,XJ Series,30
-366,Avenger,34
-367,Caliber,34
-370,Journey,34
-371,Nitro,34
-372,RAM,34
-373,Viper,34
-374,DS 3,35
-375,DS 3 CABRIO,35
-376,DS 3 CROSSBACK,35
-377,DS 4,35
-378,DS 4 CROSSBACK,35
-379,DS 5,35
-380,DS 7,35
-381,DS 7 CROSSBACK,35
-382,DS 9,35
-383,DS No8,35
-385,12Cilindri,37
-388,296 GTB,37
-389,296 GTS,37
-390,308,37
-391,328,37
-393,348,37
-395,360,37
-398,430,37
-399,456,37
-400,458,37
-401,488,37
-402,488 Pista,37
-404,550,37
-405,575M,37
-406,599,37
-408,612,37
-409,812 Competizione,37
-410,812 GTS,37
-411,812 Superfast,37
-412,California,37
-416,F12 Berlinetta,37
-417,F12 tdf,37
-418,F355,37
-420,F8 Spider,37
-421,F8 Tributo,37
-422,FF,37
-423,GTC4Lusso,37
-425,Mondial,37
-426,Portofino,37
-427,Portofino M,37
-428,Purosangue,37
-429,Roma,37
-431,SF90 Spider,37
-432,SF90 Stradale,37
-433,Superamerica,37
-435,124 Spider,38
-437,500,38
-438,500C,38
-439,500e,38
-440,500e C,38
-441,500L,38
-443,500X,38
-444,500X Dolcevita,38
-445,600,38
-446,600e,38
-447,Barchetta,38
-448,Bravo,38
-449,Cinquecento,38
-450,Coupe,38
-451,Doblo,38
-452,Ducato,38
-453,Fiorino,38
-454,Fullback,38
-455,Grande Panda,38
-456,Grande Punto,38
-457,Multipla,38
-458,Panda,38
-459,Punto,38
-460,Punto Evo,38
-461,Qubo,38
-462,Scudo,38
-463,Sedici,38
-464,Seicento,38
-467,Talento,38
-468,Tipo,38
-469,Uno,38
-470,X1/9,38
-471,Ocean,39
-473,B-Max,40
-475,Capri,40
-476,C-Max,40
-479,EcoSport,40
-480,Edge,40
-481,Escort,40
-482,E-Tourneo Custom,40
-483,E-Transit Custom,40
-485,Explorer,40
-490,Fiesta,40
-491,Fiesta Van,40
-492,Focus,40
-493,Focus CC,40
-494,Focus C-Max,40
-495,Fusion,40
-496,Galaxy,40
-497,Granada,40
-498,Grand C-Max,40
-499,Grand Tourneo Connect,40
-501,Ka,40
-502,Ka+,40
-503,Kuga,40
-504,Maverick,40
-505,Mondeo,40
-506,Mustang,40
-507,Mustang Mach-E,40
-508,Orion,40
-512,Puma,40
-513,Puma Gen-E,40
-514,Ranger,40
-515,Scorpio,40
-516,Sierra,40
-517,S-Max,40
-518,Streetka,40
-520,Tourneo,40
-521,Tourneo Connect,40
-522,Tourneo Courier,40
-523,Tourneo Custom,40
-524,Transit,40
-525,Transit Connect,40
-526,Transit Courier,40
-529,G70,42
-530,G80,42
-531,GV60,42
-532,GV70,42
-533,GV80,42
-538,Funky Cat,45
-539,Haval Jolion Pro,45
-540,ORA 03,45
-541,Accord,46
-543,Civic,46
-544,CR-V,46
-545,CR-X,46
-546,CR-Z,46
-547,e:Ny1,46
-551,FR-V,46
-552,Honda E,46
-553,HR-V,46
-554,Insight,46
-555,Integra,46
-556,Jazz,46
-557,Legend,46
-559,Logo,46
-561,NSX,46
-563,Prelude,46
-565,S2000,46
-567,Shuttle,46
-569,Stream,46
-570,ZR-V,46
-572,H2,47
-573,H3,47
-574,Accent,48
-575,Amica,48
-577,BAYON,48
-578,Coupe,48
-579,Elantra,48
-580,Genesis,48
-581,Getz,48
-582,i10,48
-583,i20,48
-584,i30,48
-585,i40,48
-586,i800,48
-587,INSTER,48
-588,IONIQ,48
-589,IONIQ 5,48
-590,IONIQ 6,48
-591,ix20,48
-592,ix35,48
-593,KONA,48
-594,Matrix,48
-595,NEXO,48
-597,Santa Fe,48
-598,Sonata,48
-599,Terracan,48
-600,Trajet,48
-601,TUCSON,48
-602,Veloster,48
-603,Grenadier,49
-604,Grenadier Quartermaster,49
-605,EX,50
-606,FX,50
-607,G,50
-608,M,50
-609,Q30,50
-610,Q50,50
-611,Q60,50
-612,Q70,50
-613,QX30,50
-614,QX50,50
-616,QX70,50
-618,D-Max,52
-620,Rodeo,52
-621,Trooper,52
-622,Daily,53
-623,JAECOO 7,54
-624,E-PACE,55
-626,F-PACE,55
-627,F-Type,55
-628,I-PACE,55
-631,S-Type,55
-632,XE,55
-633,XF,55
-634,XFR-S,55
-635,XJ,55
-636,XJR,55
-638,XJS,55
-639,XK,55
-643,XK8,55
-644,XKR,55
-645,XKR-S,55
-646,X-Type,55
-648,Avenger,57
-649,Cherokee,57
-650,Commander,57
-651,Compass,57
-653,Grand Cherokee,57
-654,Patriot,57
-655,Renegade,57
-656,Willys,57
-661,Actyon,59
-662,Korando,59
-663,Korando e-Motion,59
-664,Musso,59
-665,Rexton,59
-666,Tivoli,59
-667,Torres,59
-668,Torres EVX,59
-669,Carens,60
-670,Ceed,60
-671,Cerato,60
-672,EV3,60
-673,EV6,60
-674,EV9,60
-675,Magentis,60
-676,Niro,60
-677,Optima,60
-678,Picanto,60
-679,ProCeed,60
-680,Rio,60
-681,Sedona,60
-682,Sorento,60
-683,Soul,60
-684,Sportage,60
-685,Stinger,60
-686,Stonic,60
-687,Venga,60
-688,XCeed,60
-693,Aventador,63
-694,Countach,63
-696,Gallardo,63
-697,Huracan,63
-699,Murcielago,63
-701,Revuelto,63
-702,Urus,63
-703,Delta,64
-705,110,65
-707,Defender 110,65
-708,Defender 130,65
-709,Defender 90,65
-711,Discovery,65
-712,Discovery 3,65
-713,Discovery 4,65
-714,Discovery Sport,65
-715,Freelander,65
-716,Freelander 2,65
-717,Range Rover,65
-718,Range Rover Evoque,65
-719,Range Rover Sport,65
-720,Range Rover Velar,65
-723,Series III,65
-727,TX,68
-728,CT,69
-729,ES,69
-730,GS,69
-733,IS,69
-734,IS F,69
-735,LBX,69
-736,LC,69
-738,LM,69
-739,LS,69
-741,NX,69
-742,RC,69
-743,RC F,69
-744,RX,69
-745,RX L,69
-746,RZ,69
-747,SC,69
-748,UX,69
-753,TX4,73
-756,2-Eleven,74
-758,3-Eleven,74
-759,Elan,74
-760,Eletre,74
-761,Elise,74
-763,Emeya,74
-764,Emira,74
-765,Esprit,74
-766,Evora,74
-767,Exige,74
-768,e2o,75
-769,Indian,75
-770,3200,76
-773,Coupe,76
-774,Ghibli,76
-775,GranCabrio,76
-777,Granturismo,76
-778,Grecale,76
-779,Levante,76
-780,MC20,76
-781,Quattroporte,76
-782,Spyder,76
-783,eTERRON 9,77
-784,Mifa 7,77
-785,Mifa 9,77
-786,T60 MAX,77
-787,T90EV,77
-790,323,79
-791,626,79
-794,CX-3,79
-795,CX-30,79
-796,CX-5,79
-797,CX-60,79
-798,CX-7,79
-799,CX-80,79
-802,2,79
-803,2 HYBRID,79
-804,3,79
-805,5,79
-806,6,79
-809,MX-30,79
-810,MX-5,79
-811,MX-5 RF,79
-812,MX-6,79
-813,RX-7,79
-814,RX-8,79
-815,12C,80
-816,540C,80
-817,570GT,80
-818,570S,80
-819,600LT,80
-821,650S,80
-822,675LT,80
-823,720S,80
-824,750S,80
-825,765LT,80
-826,Artura,80
-827,GT,80
-828,MP4,80
-829,P1,80
-831,190,81
-835,230,81
-837,240,81
-841,260,81
-842,280,81
-845,300,81
-846,320,81
-849,380,81
-852,500,81
-854,560,81
-856,600,81
-857,A Class,81
-858,AMG,81
-859,AMG GT,81
-861,B Class,81
-862,C Class,81
-864,Citan,81
-865,CL,81
-866,CLA,81
-867,CLC Class,81
-868,CLE,81
-869,CLK,81
-870,CLS,81
-871,E Class,81
-872,EQA,81
-873,EQB,81
-874,EQC,81
-875,EQE,81
-876,EQS,81
-877,EQV,81
-878,eVito,81
-879,G Class,81
-880,GLA,81
-881,GLB,81
-882,GLC,81
-883,GL Class,81
-884,GLE,81
-885,GLS,81
-886,Maybach GLS,81
-887,Maybach S Class,81
-888,M Class,81
-889,R Class,81
-890,S Class,81
-893,SL,81
-894,SLC,81
-895,SLK,81
-896,SLR McLaren,81
-897,SLS,81
-898,Sprinter,81
-899,Traveliner,81
-900,Vaneo,81
-901,V Class,81
-902,Viano,81
-903,Vito,81
-904,X Class,81
-907,Cyberster,84
-908,GS,84
-909,Metro,84
-910,MG3,84
-911,MG4,84
-912,MG5,84
-913,MG6,84
-915,MGB,84
-916,MGB GT,84
-918,MGF,84
-919,MG HS,84
-920,MGS5,84
-921,MG ZS,84
-927,TF,84
-928,ZR,84
-929,ZT,84
-930,ZT-T,84
-931,Microlino,85
-933,Aceman,87
-934,Clubman,87
-935,Clubvan,87
-936,Convertible,87
-937,Cooper,87
-938,Cooper Convertible,87
-939,Countryman,87
-940,Coupe,87
-941,Electric Convertible,87
-942,Electric Cooper,87
-943,Electric Countryman,87
-944,Electric Hatch,87
-945,Hatch,87
-946,Paceman,87
-947,Roadster,87
-949,ASX,88
-950,Carisma,88
-951,Colt,88
-952,Colt Cabriolet,88
-953,Colt Space Star,88
-955,Eclipse Cross,88
-957,Grandis,88
-962,L200,88
-963,Lancer,88
-964,Mirage,88
-965,Outlander,88
-968,Shogun,88
-969,Shogun Pinin,88
-970,Shogun Sport,88
-971,Space Star,88
-978,45751,92
-980,Plus Eight,92
-981,Plus Four,92
-982,Plus Six,92
-991,200 SX,96
-992,300 ZX,96
-993,350 Z,96
-994,370 Z,96
-995,Almera,96
-996,Almera Tino,96
-997,ARIYA,96
-998,Bluebird,96
-999,Cube,96
-1002,e-NV200,96
-1003,eNV200 Evalia,96
-1005,GT-R,96
-1006,Juke,96
-1007,Kubistar,96
-1009,Leaf,96
-1010,Maxima QX,96
-1011,Micra,96
-1012,Micra C+C,96
-1013,Murano,96
-1014,Navara,96
-1015,Note,96
-1016,NV200,96
-1017,NV300,96
-1019,Pathfinder,96
-1020,Patrol,96
-1021,Patrol GR,96
-1022,Pickup,96
-1023,Pixo,96
-1024,Primastar,96
-1025,Primera,96
-1026,Pulsar,96
-1027,Qashqai,96
-1028,Qashqai+2,96
-1029,Serena,96
-1031,Skyline,96
-1033,Sunny,96
-1034,Terrano,96
-1035,Terrano II,96
-1036,Tiida,96
-1038,X-Trail,96
-1039,M12,97
-1041,OMODA 5,98
-1042,OMODA 9,98
-1043,OMODA E5,98
-1046,Kelisa,101
-1047,Myvi,101
-1048,1007,102
-1049,106,102
-1050,107,102
-1051,108,102
-1052,2008,102
-1053,205,102
-1054,206,102
-1055,206 CC,102
-1056,206 SW,102
-1057,207,102
-1058,207 CC,102
-1059,207 SW,102
-1060,208,102
-1061,3008,102
-1062,306,102
-1063,307,102
-1064,307 CC,102
-1065,307 SW,102
-1066,308,102
-1067,308 CC,102
-1068,308 SW,102
-1069,309,102
-1070,4007,102
-1071,406,102
-1072,407,102
-1073,407 SW,102
-1074,408,102
-1075,5008,102
-1076,508,102
-1077,508 SW,102
-1078,807,102
-1079,Bipper Tepee,102
-1080,Boxer,102
-1081,E-2008,102
-1082,E-208,102
-1083,E-3008,102
-1084,E-308,102
-1085,E-308 SW,102
-1086,E-5008,102
-1088,e-Partner,102
-1089,e-Rifter,102
-1090,e-Traveller,102
-1091,Expert,102
-1092,Expert Tepee,102
-1095,Partner,102
-1096,Partner Tepee,102
-1097,RCZ,102
-1098,Rifter,102
-1099,Traveller,102
-1105,Polestar 2,106
-1106,Polestar 3,106
-1107,Polestar 4,106
-1113,718 Boxster,108
-1114,718 Cayman,108
-1115,718 Spyder,108
-1116,911,108
-1119,924,108
-1120,928,108
-1121,944,108
-1122,968,108
-1123,Boxster,108
-1124,Cayenne,108
-1125,Cayman,108
-1126,Macan,108
-1127,Panamera,108
-1128,Taycan,108
-1129,GEN-2,109
-1130,Savvy,109
-1131,Rapture ,110
-1136,Scimitar,113
-1137,5,114
-1138,5 E-Tech electric,114
-1139,Arkana,114
-1140,Austral,114
-1141,Avantime,114
-1142,Captur,114
-1143,Clio,114
-1144,Espace,114
-1145,Grand Espace,114
-1146,Grand Modus,114
-1147,Grand Scenic,114
-1148,GTA,114
-1149,Kadjar,114
-1150,Kangoo,114
-1151,Kangoo Maxi,114
-1152,Koleos,114
-1153,Laguna,114
-1154,Master,114
-1155,Megane,114
-1156,Megane E-Tech,114
-1157,Modus,114
-1158,Rafale,114
-1159,Scenic,114
-1160,Scenic E-Tech,114
-1161,Scenic Xmod,114
-1163,Symbioz,114
-1164,Trafic,114
-1165,Twingo,114
-1166,Twizy,114
-1167,Wind,114
-1168,Zoe,114
-1173,Corniche,117
-1174,Cullinan,117
-1175,Cullinan Series II,117
-1176,Dawn,117
-1177,Ghost,117
-1178,Phantom,117
-1181,Silver Shadow,117
-1182,Silver Spirit,117
-1183,Silver Spur,117
-1185,Wraith,117
-1186,100,118
-1187,12,118
-1188,200,118
-1189,400,118
-1190,45,118
-1192,600,118
-1193,75,118
-1194,75 Tourer,118
-1196,Cabriolet,118
-1199,Metro,118
-1200,Mini,118
-1201,P6,118
-1202,900,119
-1203,45903,119
-1204,9-3X,119
-1207,Alhambra,120
-1208,Altea,120
-1209,Altea XL,120
-1210,Arona,120
-1211,Arosa,120
-1212,Ateca,120
-1213,CUPRA Ateca,120
-1214,Exeo,120
-1215,Ibiza,120
-1216,Leon,120
-1217,Mii,120
-1218,Tarraco,120
-1219,Toledo,120
-1222,Citigo,123
-1223,Elroq,123
-1224,Enyaq,123
-1225,Fabia,123
-1226,Kamiq,123
-1227,Karoq,123
-1228,Kodiaq,123
-1229,Octavia,123
-1230,Rapid,123
-1231,Rapid Spaceback,123
-1232,Roomster,123
-1233,Scala,123
-1234,Superb,123
-1235,Yeti,123
-1236,BE11,124
-1237,#1,125
-1238,#3,125
-1240,forfour,125
-1241,fortwo,125
-1242,Roadster,125
-1243,Korando,126
-1244,Korando e-Motion,126
-1245,Korando Sports,126
-1246,Kyron,126
-1247,Musso,126
-1248,Rexton,126
-1249,Rodius,126
-1250,Tivoli,126
-1251,Tivoli XLV,126
-1252,Turismo,126
-1253,BRZ,127
-1254,Crosstrek,127
-1256,Forester,127
-1257,Impreza,127
-1258,Justy,127
-1259,Legacy,127
-1260,Levorg,127
-1261,Outback,127
-1263,Solterra,127
-1265,WRX STI,127
-1267,XV,127
-1269,Alto,128
-1270,Baleno,128
-1271,Celerio,128
-1273,Grand Vitara,128
-1275,Ignis,128
-1276,Jimny,128
-1277,Kizashi,128
-1278,Liana,128
-1279,S-Cross,128
-1281,Splash,128
-1282,Swace,128
-1283,Swift,128
-1284,SX4,128
-1285,SX4 S-Cross,128
-1286,Vitara,128
-1287,Wagon R,128
-1288,Model 3,129
-1289,Model S,129
-1290,Model X,129
-1291,Model Y,129
-1292,Roadster,129
-1297,Auris,130
-1298,Avensis,130
-1299,Avensis Verso,130
-1300,AYGO,130
-1301,Aygo X,130
-1304,bZ4X,130
-1305,Camry,130
-1306,Carina E,130
-1307,Celica,130
-1310,C-HR,130
-1311,Corolla,130
-1312,Corolla Verso,130
-1313,Crown,130
-1317,GR86,130
-1319,GT86,130
-1321,HiAce,130
-1322,Highlander,130
-1323,Hilux,130
-1325,iQ,130
-1326,Land Cruiser,130
-1327,Land Cruiser Amazon,130
-1328,Land Cruiser Colorado,130
-1330,Mirai,130
-1331,MR2,130
-1335,Previa,130
-1336,Prius,130
-1337,Prius+,130
-1338,ProAce,130
-1339,PROACE CITY Verso,130
-1340,PROACE Verso,130
-1341,RAV4,130
-1344,Starlet,130
-1346,Supra,130
-1349,Urban Cruiser,130
-1351,Verso,130
-1352,Verso S,130
-1357,Yaris,130
-1358,Yaris Cross,130
-1359,Yaris Verso,130
-1361,Dolomite,132
-1372,Cerbera,133
-1373,Chimaera,133
-1374,Griffith,133
-1376,S3,133
-1379,Tuscan,133
-1382,ADAM,135
-1383,Agila,135
-1384,Ampera,135
-1385,Antara,135
-1386,Astra,135
-1387,Astra Electric,135
-1388,Astra GTC,135
-1389,Astra Van,135
-1390,Calibra,135
-1391,Carlton,135
-1392,Cascada,135
-1393,Cavalier,135
-1394,Combo,135
-1395,Combo Electric,135
-1396,Combo Life,135
-1397,Combo Life Electric,135
-1399,Corsa,135
-1400,Corsa Electric,135
-1401,Corsa Van,135
-1402,Crossland,135
-1403,Crossland X,135
-1404,Frontera,135
-1405,Frontera Electric,135
-1406,Grandland,135
-1407,Grandland Electric,135
-1408,Grandland X,135
-1409,Insignia,135
-1410,Lotus Carlton,135
-1411,Meriva,135
-1412,Mokka,135
-1413,Mokka Electric,135
-1414,Mokka X,135
-1415,Monaro,135
-1416,Movano,135
-1417,Nova,135
-1418,Omega,135
-1419,Senator,135
-1420,Signum,135
-1421,Tigra,135
-1422,Vectra,135
-1423,Viva,135
-1424,Vivaro,135
-1425,Vivaro Electric,135
-1426,Vivaro Life,135
-1427,Vivaro Life Electric,135
-1428,VX220,135
-1429,VXR8,135
-1430,Zafira,135
-1431,Zafira Tourer,135
-1432,Amarok,136
-1433,Arteon,136
-1435,Beetle,136
-1436,Bora,136
-1437,Caddy,136
-1438,Caddy California,136
-1439,Caddy California Maxi,136
-1440,Caddy Life,136
-1441,Caddy Maxi,136
-1442,Caddy Maxi Life,136
-1443,California,136
-1445,Caravelle,136
-1446,CC,136
-1447,Corrado,136
-1448,e-Golf,136
-1449,Eos,136
-1450,e-Transporter,136
-1451,e-up!,136
-1452,Fox,136
-1453,Golf,136
-1454,Golf Plus,136
-1455,Golf SV,136
-1456,Grand California,136
-1457,ID.3,136
-1458,ID.4,136
-1459,ID.5,136
-1460,ID.7,136
-1461,ID.Buzz,136
-1462,Jetta,136
-1464,Lupo,136
-1465,Multivan,136
-1466,Passat,136
-1467,Phaeton,136
-1468,Polo,136
-1469,Scirocco,136
-1470,Sharan,136
-1471,Taigo,136
-1472,Tayron,136
-1473,T-Cross,136
-1474,Tiguan,136
-1475,Tiguan Allspace,136
-1476,Touareg,136
-1477,Touran,136
-1478,Transporter,136
-1479,Transporter Shuttle,136
-1480,Transporter Sportline,136
-1481,T-Roc,136
-1482,up!,136
-1485,360,137
-1487,740,137
-1488,760,137
-1489,850,137
-1490,940,137
-1491,960,137
-1492,C30,137
-1493,C40,137
-1494,C70,137
-1495,EC40,137
-1496,EX30,137
-1497,EX30 Cross Country,137
-1498,EX40,137
-1499,EX90,137
-1501,S40,137
-1502,S60,137
-1503,S70,137
-1504,S80,137
-1505,S90,137
-1506,V40,137
-1507,V40 Cross Country,137
-1508,V50,137
-1509,V60,137
-1510,V60 Cross Country,137
-1511,V70,137
-1512,V90,137
-1513,V90 Cross Country,137
-1514,XC40,137
-1515,XC60,137
-1516,XC70,137
-1517,XC90,137
-1527,G6,140
-1528,Transit Custom,40
-1529,CRAFTER,136
-1530,ION,102
-1531,GTR,141
-1532,NINJA,141
-1533,NINJA,141
-1534,NINJA H2,141
-1535,VULCAN,141
-1536,Z,141
-1537,Z,141
-1538,Z,141
-1539,Z900,141
-1540,Z900,141
+11,Punto Evo,1
+12,75,2
+13,145,2
+14,147,2
+15,156,2
+16,159,2
+17,164,2
+18,166,2
+19,156 Sportwagon,2
+20,159 Sportwagon,2
+21,4C,2
+22,8C,2
+23,Brera,2
+24,Giulia,2
+25,Giulietta,2
+26,GT,2
+27,GTV,2
+28,Junior,2
+29,MiTo,2
+30,Spider,2
+31,Stelvio,2
+32,Tonale,2
+33,A110,3
+34,A290,3
+35,Cygnet,4
+36,DB11,4
+37,DB12,4
+38,DB7,4
+39,DB9,4
+40,DBS,4
+41,DBX,4
+42,Rapide,4
+43,Rapide S,4
+44,V8,4
+45,Vanquish,4
+46,Vantage,4
+47,Virage,4
+48,80,5
+49,100,5
+50,A1,5
+51,A2,5
+52,A3,5
+53,A3 Cabriolet,5
+54,A4,5
+55,A4 Allroad,5
+56,A4 Avant,5
+57,A4 Cabriolet,5
+58,A5,5
+59,A5 Avant,5
+60,A5 Cabriolet,5
+61,A6,5
+62,A6 Allroad,5
+63,A6 Avant,5
+64,A6 e-tron Avant,5
+65,A6 e-tron Sportback,5
+66,A6 Saloon,5
+67,A7,5
+68,A8,5
+69,Allroad,5
+70,Cabriolet,5
+71,Coupe,5
+72,e-tron,5
+73,e-tron GT,5
+74,e-tron S,5
+75,Q2,5
+76,Q3,5
+77,Q4 e-tron,5
+78,Q5,5
+79,Q6 e-tron,5
+80,Q7,5
+81,Q8,5
+82,Q8 e-tron,5
+83,R8,5
+84,RS e-tron GT,5
+85,RS Q3,5
+86,RS3,5
+87,RS4 Avant,5
+88,RS5,5
+89,RS6,5
+90,RS6 Avant,5
+91,RS7,5
+92,RSQ8,5
+93,S e-tron GT,5
+94,S1,5
+95,S3,5
+96,S4,5
+97,S4 Avant,5
+98,S5,5
+99,S5 Avant,5
+100,S6 Avant,5
+101,S6 e-tron Avant,5
+102,S6 Saloon,5
+103,S7,5
+104,S8,5
+105,SQ2,5
+106,SQ5,5
+107,SQ6 e-tron,5
+108,SQ7,5
+109,SQ8,5
+110,SQ8 e-tron,5
+111,TT,5
+112,TT RS,5
+113,TTS,5
+114,Ambassador,6
+115,Maestro,6
+116,Metro,6
+117,Mini,6
+118,Arnage,7
+119,Azure,7
+120,Bentayga,7
+121,Continental,7
+122,Flying Spur,7
+123,Mulsanne,7
+124,1 Series,8
+125,2 Series,8
+126,2 Series Active Tourer,8
+127,2 Series Gran Coupe,8
+128,2 Series Gran Tourer,8
+129,3 Series,8
+130,3 Series Gran Turismo,8
+131,4 Series,8
+132,4 Series Gran Coupe,8
+133,5 Series,8
+134,5 Series Gran Turismo,8
+135,6 Series,8
+136,6 Series Gran Coupe,8
+137,6 Series Gran Turismo,8
+138,7 Series,8
+139,8 Series,8
+140,8 Series Gran Coupe,8
+141,Alpina B3,8
+142,Alpina B4 Gran Coupe,8
+143,Alpina B5,8
+144,Alpina B8 Gran Coupe,8
+145,Alpina D3,8
+146,Alpina D4,8
+147,Alpina D5,8
+148,Alpina XD3,8
+149,i3,8
+150,i4,8
+151,i5,8
+152,i7,8
+153,i8,8
+154,iX,8
+155,iX1,8
+156,iX2,8
+157,iX3,8
+158,M2,8
+159,M3,8
+160,M4,8
+161,M5,8
+162,M6,8
+163,M6 Gran Coupe,8
+164,M8,8
+165,M8 Gran Coupe,8
+166,X1,8
+167,X2,8
+168,X3,8
+169,X3 M,8
+170,X4,8
+171,X4 M,8
+172,X5,8
+173,X5 M,8
+174,X6,8
+175,X6 M,8
+176,X7,8
+177,XM,8
+178,Z3,8
+179,Z4,8
+180,Z4 M,8
+181,Z8,8
+182,Atto 3,9
+183,Dolphin,9
+184,Seal,9
+185,Seal U,9
+186,Sealion 7,9
+187,BLS,10
+188,Escalade,10
+189,SRX,10
+190,Seven,11
+191,Aveo,12
+192,Camaro,12
+193,Captiva,12
+194,Corvette Stingray,12
+195,Cruze,12
+196,Kalos,12
+197,Lacetti,12
+198,Matiz,12
+199,Orlando,12
+200,Spark,12
+201,Tacuma,12
+202,Trax,12
+203,300C,13
+204,Crossfire,13
+205,Grand Voyager,13
+206,PT Cruiser,13
+207,Sebring,13
+208,Voyager,13
+209,Ypsilon,13
+210,2 CV,14
+211,Ami,14
+212,AX,14
+213,Berlingo,14
+214,C-Crosser,14
+215,C1,14
+216,C2,14
+217,C3,14
+218,C3 Aircross,14
+219,C3 Picasso,14
+220,C3 Pluriel,14
+221,C4,14
+222,C4 Cactus,14
+223,C4 Picasso,14
+224,C4 SpaceTourer,14
+225,C4 X,14
+226,C5,14
+227,C5 Aircross,14
+228,C5 X,14
+229,C6,14
+230,C8,14
+231,Dispatch,14
+232,DS3,14
+233,DS3 Cabrio,14
+234,DS4,14
+235,DS5,14
+236,e-Berlingo,14
+237,e-C3,14
+238,e-C3 Aircross,14
+239,e-C4,14
+240,e-C4 X,14
+241,e-SpaceTourer,14
+242,Grand C4 Picasso,14
+243,Grand C4 SpaceTourer,14
+244,Holidays,14
+245,Nemo Multispace,14
+246,Relay,14
+247,Saxo,14
+248,SpaceTourer,14
+249,Xantia,14
+250,Xsara,14
+251,Xsara Picasso,14
+252,Ateca,15
+253,Born,15
+254,Formentor,15
+255,Leon,15
+256,Tavascan,15
+257,Terramar,15
+258,Bigster,16
+259,Duster,16
+260,Jogger,16
+261,Logan MCV,16
+262,Logan MCV Stepway,16
+263,Sandero,16
+264,Sandero Stepway,16
+265,Spring,16
+266,Kalos,17
+267,Matiz,17
+268,Charade,18
+269,Copen,18
+270,Sirion,18
+271,Terios,18
+272,Super Eight,19
+273,XJ Series,19
+274,Avenger,20
+275,Caliber,20
+276,Journey,20
+277,Nitro,20
+278,RAM,20
+279,Viper,20
+280,DS 3,21
+281,DS 3 CABRIO,21
+282,DS 3 CROSSBACK,21
+283,DS 4,21
+284,DS 4 CROSSBACK,21
+285,DS 5,21
+286,DS 7,21
+287,DS 7 CROSSBACK,21
+288,DS 9,21
+289,DS No8,21
+290,308,22
+291,328,22
+292,348,22
+293,360,22
+294,430,22
+295,456,22
+296,458,22
+297,488,22
+298,550,22
+299,599,22
+300,612,22
+301,12Cilindri,22
+302,296 GTB,22
+303,296 GTS,22
+304,488 Pista,22
+305,575M,22
+306,812 Competizione,22
+307,812 GTS,22
+308,812 Superfast,22
+309,California,22
+310,F12 Berlinetta,22
+311,F12 tdf,22
+312,F355,22
+313,F8 Spider,22
+314,F8 Tributo,22
+315,FF,22
+316,GTC4Lusso,22
+317,Mondial,22
+318,Portofino,22
+319,Portofino M,22
+320,Purosangue,22
+321,Roma,22
+322,SF90 Spider,22
+323,SF90 Stradale,22
+324,Superamerica,22
+325,500,23
+326,600,23
+327,124 Spider,23
+328,500C,23
+329,500e,23
+330,500e C,23
+331,500L,23
+332,500X,23
+333,500X Dolcevita,23
+334,600e,23
+335,Barchetta,23
+336,Bravo,23
+337,Cinquecento,23
+338,Coupe,23
+339,Doblo,23
+340,Ducato,23
+341,Fiorino,23
+342,Fullback,23
+343,Grande Panda,23
+344,Grande Punto,23
+345,Multipla,23
+346,Panda,23
+347,Punto,23
+348,Punto Evo,23
+349,Qubo,23
+350,Scudo,23
+351,Sedici,23
+352,Seicento,23
+353,Talento,23
+354,Tipo,23
+355,Uno,23
+356,X1/9,23
+357,Ocean,24
+358,B-Max,25
+359,C-Max,25
+360,Capri,25
+361,E-Tourneo Custom,25
+362,E-Transit Custom,25
+363,EcoSport,25
+364,Edge,25
+365,Escort,25
+366,Explorer,25
+367,Fiesta,25
+368,Fiesta Van,25
+369,Focus,25
+370,Focus C-Max,25
+371,Focus CC,25
+372,Fusion,25
+373,Galaxy,25
+374,Granada,25
+375,Grand C-Max,25
+376,Grand Tourneo Connect,25
+377,Ka,25
+378,Ka+,25
+379,Kuga,25
+380,Maverick,25
+381,Mondeo,25
+382,Mustang,25
+383,Mustang Mach-E,25
+384,Orion,25
+385,Puma,25
+386,Puma Gen-E,25
+387,Ranger,25
+388,S-Max,25
+389,Scorpio,25
+390,Sierra,25
+391,Streetka,25
+392,Tourneo,25
+393,Tourneo Connect,25
+394,Tourneo Courier,25
+395,Tourneo Custom,25
+396,Transit,25
+397,Transit Connect,25
+398,Transit Courier,25
+399,Transit Custom,25
+400,G70,26
+401,G80,26
+402,GV60,26
+403,GV70,26
+404,GV80,26
+405,Funky Cat,27
+406,Haval Jolion Pro,27
+407,ORA 03,27
+408,Accord,28
+409,Civic,28
+410,CR-V,28
+411,CR-X,28
+412,CR-Z,28
+413,e:Ny1,28
+414,FR-V,28
+415,Honda E,28
+416,HR-V,28
+417,Insight,28
+418,Integra,28
+419,Jazz,28
+420,Legend,28
+421,Logo,28
+422,NSX,28
+423,Prelude,28
+424,S2000,28
+425,Shuttle,28
+426,Stream,28
+427,ZR-V,28
+428,H2,29
+429,H3,29
+430,Accent,30
+431,Amica,30
+432,BAYON,30
+433,Coupe,30
+434,Elantra,30
+435,Genesis,30
+436,Getz,30
+437,i10,30
+438,i20,30
+439,i30,30
+440,i40,30
+441,i800,30
+442,INSTER,30
+443,IONIQ,30
+444,IONIQ 5,30
+445,IONIQ 6,30
+446,ix20,30
+447,ix35,30
+448,KONA,30
+449,Matrix,30
+450,NEXO,30
+451,Santa Fe,30
+452,Sonata,30
+453,Terracan,30
+454,Trajet,30
+455,TUCSON,30
+456,Veloster,30
+457,Grenadier,31
+458,Grenadier Quartermaster,31
+459,EX,32
+460,FX,32
+461,G,32
+462,M,32
+463,Q30,32
+464,Q50,32
+465,Q60,32
+466,Q70,32
+467,QX30,32
+468,QX50,32
+469,QX70,32
+470,D-Max,33
+471,Rodeo,33
+472,Trooper,33
+473,Daily,34
+474,JAECOO 7,35
+475,E-PACE,36
+476,F-PACE,36
+477,F-Type,36
+478,I-PACE,36
+479,S-Type,36
+480,X-Type,36
+481,XE,36
+482,XF,36
+483,XFR-S,36
+484,XJ,36
+485,XJR,36
+486,XJS,36
+487,XK,36
+488,XK8,36
+489,XKR,36
+490,XKR-S,36
+491,Avenger,37
+492,Cherokee,37
+493,Commander,37
+494,Compass,37
+495,Grand Cherokee,37
+496,Patriot,37
+497,Renegade,37
+498,Willys,37
+499,Actyon,38
+500,Korando,38
+501,Korando e-Motion,38
+502,Musso,38
+503,Rexton,38
+504,Tivoli,38
+505,Torres,38
+506,Torres EVX,38
+507,Carens,39
+508,Ceed,39
+509,Cerato,39
+510,EV3,39
+511,EV6,39
+512,EV9,39
+513,Magentis,39
+514,Niro,39
+515,Optima,39
+516,Picanto,39
+517,ProCeed,39
+518,Rio,39
+519,Sedona,39
+520,Sorento,39
+521,Soul,39
+522,Sportage,39
+523,Stinger,39
+524,Stonic,39
+525,Venga,39
+526,XCeed,39
+527,Aventador,40
+528,Countach,40
+529,Gallardo,40
+530,Huracan,40
+531,Murcielago,40
+532,Revuelto,40
+533,Urus,40
+534,Delta,41
+535,110,42
+536,Defender 110,42
+537,Defender 130,42
+538,Defender 90,42
+539,Discovery,42
+540,Discovery 3,42
+541,Discovery 4,42
+542,Discovery Sport,42
+543,Freelander,42
+544,Freelander 2,42
+545,Range Rover,42
+546,Range Rover Evoque,42
+547,Range Rover Sport,42
+548,Range Rover Velar,42
+549,Series III,42
+550,TX,43
+551,CT,44
+552,ES,44
+553,GS,44
+554,IS,44
+555,IS F,44
+556,LBX,44
+557,LC,44
+558,LM,44
+559,LS,44
+560,NX,44
+561,RC,44
+562,RC F,44
+563,RX,44
+564,RX L,44
+565,RZ,44
+566,SC,44
+567,UX,44
+568,TX4,45
+569,2-Eleven,46
+570,3-Eleven,46
+571,Elan,46
+572,Eletre,46
+573,Elise,46
+574,Emeya,46
+575,Emira,46
+576,Esprit,46
+577,Evora,46
+578,Exige,46
+579,e2o,47
+580,Indian,47
+581,3200,48
+582,Coupe,48
+583,Ghibli,48
+584,GranCabrio,48
+585,Granturismo,48
+586,Grecale,48
+587,Levante,48
+588,MC20,48
+589,Quattroporte,48
+590,Spyder,48
+591,eTERRON 9,49
+592,Mifa 7,49
+593,Mifa 9,49
+594,T60 MAX,49
+595,T90EV,49
+596,2,50
+597,3,50
+598,5,50
+599,6,50
+600,323,50
+601,626,50
+602,2 HYBRID,50
+603,CX-3,50
+604,CX-30,50
+605,CX-5,50
+606,CX-60,50
+607,CX-7,50
+608,CX-80,50
+609,MX-30,50
+610,MX-5,50
+611,MX-5 RF,50
+612,MX-6,50
+613,RX-7,50
+614,RX-8,50
+615,12C,51
+616,540C,51
+617,570GT,51
+618,570S,51
+619,600LT,51
+620,650S,51
+621,675LT,51
+622,720S,51
+623,750S,51
+624,765LT,51
+625,Artura,51
+626,GT,51
+627,MP4,51
+628,P1,51
+629,190,52
+630,230,52
+631,240,52
+632,260,52
+633,280,52
+634,300,52
+635,320,52
+636,380,52
+637,500,52
+638,560,52
+639,600,52
+640,A Class,52
+641,AMG,52
+642,AMG GT,52
+643,B Class,52
+644,C Class,52
+645,Citan,52
+646,CL,52
+647,CLA,52
+648,CLC Class,52
+649,CLE,52
+650,CLK,52
+651,CLS,52
+652,E Class,52
+653,EQA,52
+654,EQB,52
+655,EQC,52
+656,EQE,52
+657,EQS,52
+658,EQV,52
+659,eVito,52
+660,G Class,52
+661,GL Class,52
+662,GLA,52
+663,GLB,52
+664,GLC,52
+665,GLE,52
+666,GLS,52
+667,M Class,52
+668,Maybach GLS,52
+669,Maybach S Class,52
+670,R Class,52
+671,S Class,52
+672,SL,52
+673,SLC,52
+674,SLK,52
+675,SLR McLaren,52
+676,SLS,52
+677,Sprinter,52
+678,Traveliner,52
+679,V Class,52
+680,Vaneo,52
+681,Viano,52
+682,Vito,52
+683,X Class,52
+684,Cyberster,53
+685,GS,53
+686,Metro,53
+687,MG HS,53
+688,MG ZS,53
+689,MG3,53
+690,MG4,53
+691,MG5,53
+692,MG6,53
+693,MGB,53
+694,MGB GT,53
+695,MGF,53
+696,MGS5,53
+697,TF,53
+698,ZR,53
+699,ZT,53
+700,ZT-T,53
+701,Microlino,54
+702,Aceman,55
+703,Clubman,55
+704,Clubvan,55
+705,Convertible,55
+706,Cooper,55
+707,Cooper Convertible,55
+708,Countryman,55
+709,Coupe,55
+710,Electric Convertible,55
+711,Electric Cooper,55
+712,Electric Countryman,55
+713,Electric Hatch,55
+714,Hatch,55
+715,Paceman,55
+716,Roadster,55
+717,ASX,56
+718,Carisma,56
+719,Colt,56
+720,Colt Cabriolet,56
+721,Colt Space Star,56
+722,Eclipse Cross,56
+723,Grandis,56
+724,L200,56
+725,Lancer,56
+726,Mirage,56
+727,Outlander,56
+728,Shogun,56
+729,Shogun Pinin,56
+730,Shogun Sport,56
+731,Space Star,56
+732,45751,57
+733,Plus Eight,57
+734,Plus Four,57
+735,Plus Six,57
+736,200 SX,58
+737,300 ZX,58
+738,350 Z,58
+739,370 Z,58
+740,Almera,58
+741,Almera Tino,58
+742,ARIYA,58
+743,Bluebird,58
+744,Cube,58
+745,e-NV200,58
+746,eNV200 Evalia,58
+747,GT-R,58
+748,Juke,58
+749,Kubistar,58
+750,Leaf,58
+751,Maxima QX,58
+752,Micra,58
+753,Micra C+C,58
+754,Murano,58
+755,Navara,58
+756,Note,58
+757,NV200,58
+758,NV300,58
+759,Pathfinder,58
+760,Patrol,58
+761,Patrol GR,58
+762,Pickup,58
+763,Pixo,58
+764,Primastar,58
+765,Primera,58
+766,Pulsar,58
+767,Qashqai,58
+768,Qashqai+2,58
+769,Serena,58
+770,Skyline,58
+771,Sunny,58
+772,Terrano,58
+773,Terrano II,58
+774,Tiida,58
+775,X-Trail,58
+776,M12,59
+777,OMODA 5,60
+778,OMODA 9,60
+779,OMODA E5,60
+780,Kelisa,61
+781,Myvi,61
+782,106,62
+783,107,62
+784,108,62
+785,205,62
+786,206,62
+787,207,62
+788,208,62
+789,306,62
+790,307,62
+791,308,62
+792,309,62
+793,406,62
+794,407,62
+795,408,62
+796,508,62
+797,807,62
+798,1007,62
+799,2008,62
+800,3008,62
+801,4007,62
+802,5008,62
+803,206 CC,62
+804,206 SW,62
+805,207 CC,62
+806,207 SW,62
+807,307 CC,62
+808,307 SW,62
+809,308 CC,62
+810,308 SW,62
+811,407 SW,62
+812,508 SW,62
+813,Bipper,62
+814,Bipper Tepee,62
+815,Boxer,62
+816,E-2008,62
+817,E-208,62
+818,E-3008,62
+819,E-308,62
+820,E-308 SW,62
+821,E-5008,62
+822,e-Partner,62
+823,e-Rifter,62
+824,e-Traveller,62
+825,Expert,62
+826,Expert Tepee,62
+827,Partner,62
+828,Partner Tepee,62
+829,RCZ,62
+830,Rifter,62
+831,Traveller,62
+832,Polestar 2,63
+833,Polestar 3,63
+834,Polestar 4,63
+835,911,64
+836,924,64
+837,928,64
+838,944,64
+839,968,64
+840,718 Boxster,64
+841,718 Cayman,64
+842,718 Spyder,64
+843,Boxster,64
+844,Cayenne,64
+845,Cayman,64
+846,Macan,64
+847,Panamera,64
+848,Taycan,64
+849,GEN-2,65
+850,Savvy,65
+851,Rapture,66
+852,Scimitar,67
+853,5,68
+854,5 E-Tech electric,68
+855,Arkana,68
+856,Austral,68
+857,Avantime,68
+858,Captur,68
+859,Clio,68
+860,Espace,68
+861,Grand Espace,68
+862,Grand Modus,68
+863,Grand Scenic,68
+864,GTA,68
+865,Kadjar,68
+866,Kangoo,68
+867,Kangoo Maxi,68
+868,Koleos,68
+869,Laguna,68
+870,Master,68
+871,Megane,68
+872,Megane E-Tech,68
+873,Modus,68
+874,Rafale,68
+875,Scenic,68
+876,Scenic E-Tech,68
+877,Scenic Xmod,68
+878,Symbioz,68
+879,Trafic,68
+880,Twingo,68
+881,Twizy,68
+882,Wind,68
+883,Zoe,68
+884,Corniche,69
+885,Cullinan,69
+886,Cullinan Series II,69
+887,Dawn,69
+888,Ghost,69
+889,Phantom,69
+890,Silver Shadow,69
+891,Silver Spirit,69
+892,Silver Spur,69
+893,Wraith,69
+894,12,70
+895,45,70
+896,75,70
+897,100,70
+898,200,70
+899,400,70
+900,600,70
+901,75 Tourer,70
+902,Cabriolet,70
+903,Metro,70
+904,Mini,70
+905,P6,70
+906,900,71
+907,45903,71
+908,9-3X,71
+909,Alhambra,72
+910,Altea,72
+911,Altea XL,72
+912,Arona,72
+913,Arosa,72
+914,Ateca,72
+915,CUPRA Ateca,72
+916,Exeo,72
+917,Ibiza,72
+918,Leon,72
+919,Mii,72
+920,Tarraco,72
+921,Toledo,72
+922,Citigo,73
+923,Elroq,73
+924,Enyaq,73
+925,Fabia,73
+926,Kamiq,73
+927,Karoq,73
+928,Kodiaq,73
+929,Octavia,73
+930,Rapid,73
+931,Rapid Spaceback,73
+932,Roomster,73
+933,Scala,73
+934,Superb,73
+935,Yeti,73
+936,BE11,74
+937,#1,75
+938,#3,75
+939,forfour,75
+940,fortwo,75
+941,Roadster,75
+942,Korando,76
+943,Korando e-Motion,76
+944,Korando Sports,76
+945,Kyron,76
+946,Musso,76
+947,Rexton,76
+948,Rodius,76
+949,Tivoli,76
+950,Tivoli XLV,76
+951,Turismo,76
+952,BRZ,77
+953,Crosstrek,77
+954,Forester,77
+955,Impreza,77
+956,Justy,77
+957,Legacy,77
+958,Levorg,77
+959,Outback,77
+960,Solterra,77
+961,WRX STI,77
+962,XV,77
+963,Alto,78
+964,Baleno,78
+965,Celerio,78
+966,Grand Vitara,78
+967,Ignis,78
+968,Jimny,78
+969,Kizashi,78
+970,Liana,78
+971,S-Cross,78
+972,Splash,78
+973,Swace,78
+974,Swift,78
+975,SX4,78
+976,SX4 S-Cross,78
+977,Vitara,78
+978,Wagon R,78
+979,Model 3,79
+980,Model S,79
+981,Model X,79
+982,Model Y,79
+983,Roadster,79
+984,Auris,80
+985,Avensis,80
+986,Avensis Verso,80
+987,AYGO,80
+988,Aygo X,80
+989,bZ4X,80
+990,C-HR,80
+991,Camry,80
+992,Carina E,80
+993,Celica,80
+994,Corolla,80
+995,Corolla Verso,80
+996,Crown,80
+997,GR86,80
+998,GT86,80
+999,HiAce,80
+1000,Highlander,80
+1001,Hilux,80
+1002,iQ,80
+1003,Land Cruiser,80
+1004,Land Cruiser Amazon,80
+1005,Land Cruiser Colorado,80
+1006,Mirai,80
+1007,MR2,80
+1008,Previa,80
+1009,Prius,80
+1010,Prius+,80
+1011,ProAce,80
+1012,PROACE CITY Verso,80
+1013,PROACE Verso,80
+1014,RAV4,80
+1015,Starlet,80
+1016,Supra,80
+1017,Urban Cruiser,80
+1018,Verso,80
+1019,Verso S,80
+1020,Yaris,80
+1021,Yaris Cross,80
+1022,Yaris Verso,80
+1023,Dolomite,81
+1024,Cerbera,82
+1025,Chimaera,82
+1026,Griffith,82
+1027,S3,82
+1028,Tuscan,82
+1029,ADAM,83
+1030,Agila,83
+1031,Ampera,83
+1032,Antara,83
+1033,Astra,83
+1034,Astra Electric,83
+1035,Astra GTC,83
+1036,Astra Van,83
+1037,Calibra,83
+1038,Carlton,83
+1039,Cascada,83
+1040,Cavalier,83
+1041,Combo,83
+1042,Combo Electric,83
+1043,Combo Life,83
+1044,Combo Life Electric,83
+1045,Corsa,83
+1046,Corsa Electric,83
+1047,Corsa Van,83
+1048,Crossland,83
+1049,Crossland X,83
+1050,Frontera,83
+1051,Frontera Electric,83
+1052,Grandland,83
+1053,Grandland Electric,83
+1054,Grandland X,83
+1055,Insignia,83
+1056,Lotus Carlton,83
+1057,Meriva,83
+1058,Mokka,83
+1059,Mokka Electric,83
+1060,Mokka X,83
+1061,Monaro,83
+1062,Movano,83
+1063,Nova,83
+1064,Omega,83
+1065,Senator,83
+1066,Signum,83
+1067,Tigra,83
+1068,Vectra,83
+1069,Viva,83
+1070,Vivaro,83
+1071,Vivaro Electric,83
+1072,Vivaro Life,83
+1073,Vivaro Life Electric,83
+1074,VX220,83
+1075,VXR8,83
+1076,Zafira,83
+1077,Zafira Tourer,83
+1078,Amarok,84
+1079,Arteon,84
+1080,Beetle,84
+1081,Bora,84
+1082,Caddy,84
+1083,Caddy California,84
+1084,Caddy California Maxi,84
+1085,Caddy Life,84
+1086,Caddy Maxi,84
+1087,Caddy Maxi Life,84
+1088,California,84
+1089,Caravelle,84
+1090,CC,84
+1091,Corrado,84
+1092,CRAFTER,84
+1093,e-Golf,84
+1094,e-Transporter,84
+1095,e-up!,84
+1096,Eos,84
+1097,Fox,84
+1098,Golf,84
+1099,Golf Plus,84
+1100,Golf SV,84
+1101,Grand California,84
+1102,ID.3,84
+1103,ID.4,84
+1104,ID.5,84
+1105,ID.7,84
+1106,ID.Buzz,84
+1107,Jetta,84
+1108,Lupo,84
+1109,Multivan,84
+1110,Passat,84
+1111,Phaeton,84
+1112,Polo,84
+1113,Scirocco,84
+1114,Sharan,84
+1115,T-Cross,84
+1116,T-Roc,84
+1117,Taigo,84
+1118,Tayron,84
+1119,Tiguan,84
+1120,Tiguan Allspace,84
+1121,Touareg,84
+1122,Touran,84
+1123,Transporter,84
+1124,Transporter Shuttle,84
+1125,Transporter Sportline,84
+1126,up!,84
+1127,360,85
+1128,740,85
+1129,760,85
+1130,850,85
+1131,940,85
+1132,960,85
+1133,C30,85
+1134,C40,85
+1135,C70,85
+1136,EC40,85
+1137,EX30,85
+1138,EX30 Cross Country,85
+1139,EX40,85
+1140,EX90,85
+1141,S40,85
+1142,S60,85
+1143,S70,85
+1144,S80,85
+1145,S90,85
+1146,V40,85
+1147,V40 Cross Country,85
+1148,V50,85
+1149,V60,85
+1150,V60 Cross Country,85
+1151,V70,85
+1152,V90,85
+1153,V90 Cross Country,85
+1154,XC40,85
+1155,XC60,85
+1156,XC70,85
+1157,XC90,85
+1158,G6,86
+1159,Nemo,14
+1161,Grafter,33
+1162,ESprinter,52
+1163,NV400,58
+1164,HORIZON RS,62
+1166,45905,71
+1167,S4 Cabriolet,5
+1168,Townstar,58
+1169,MOVANO 3500,83
+1170,DELIVER 9,49

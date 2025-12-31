@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -49,8 +50,111 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 // ya agar session auth use kar rahe ho to
 Broadcast::routes(['middleware' => ['auth']]);
 
+
+Route::get('/uploads/make',[UploadController::class,'make']);
+Route::get('/uploads/model',[UploadController::class,'model']);
+Route::get('/uploads/variant',[UploadController::class,'variant']);
+Route::get('/uploads/bodyType',[UploadController::class,'bodyType']);
+
+
+Route::get('/uploading1', function (Request $request) {
+
+    Vehicle::query()->delete();
+    BodyType::query()->delete();
+    VehicleType::query()->delete();
+    Color::query()->delete();
+    ModelVariant::query()->delete();
+    VehicleModel::query()->delete();
+    Make::query()->delete();
+
+
+    $path = public_path('color.csv');
+    $csv = file($path);
+    $rows = array_map('str_getcsv', $csv);
+    foreach ($rows as $value) {
+        if ($value[1]) {
+            Color::create([
+                'id' => $value[0],
+                'name' => $value[1],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+    $path = public_path('body.csv');
+    $csv = file($path);
+    $rows = array_map('str_getcsv', $csv);
+    foreach ($rows as $value) {
+        if ($value[1]) {
+            BodyType::create([
+                'id' => $value[0],
+                'name' => $value[1],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+
+    $path = public_path('vehicle.csv');
+    $csv = file($path);
+    $rows = array_map('str_getcsv', $csv);
+    foreach ($rows as $value) {
+        if ($value[1]) {
+            VehicleType::create([
+                'id' => $value[0],
+                'name' => $value[1],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+
+    //Path
+    $path = public_path('make.csv');
+    $csv = file($path);
+    $rows = array_map('str_getcsv', $csv);
+    foreach ($rows as $value) {
+        if ($value[1]) {
+            Make::create([
+                'id' => $value[0],
+                'name' => $value[1],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+
+    //Path
+    $path = public_path('model.csv');
+    $csv = file($path);
+    $rows = array_map('str_getcsv', $csv);
+    foreach ($rows as $value) {
+        if ($value[1]) {
+            VehicleModel::create([
+                'id' => $value[0],
+                'name' => $value[1],
+                'make_id' => $value[2],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+});
+
+
+
+
 Route::get('/{any?}', function () {
     return view('user.test');
 })->where('any', '.*');
+
+
+
+
 
 

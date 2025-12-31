@@ -90,7 +90,7 @@ export default [
     
     { title: 'Vin', key: 'vin' ,disabled: true },
     
-    // { title: 'color_id', key: 'color_id' },
+
 
     
     // { title: 'number_of_services_details', key: 'number_of_services_details' },
@@ -115,7 +115,9 @@ export default [
     
     { title: 'Declarations', key: 'declarations' ,disabled: true },
     
-    // { title: 'damaged_images', key: 'damaged_images' ,disabled: true},
+    { title: 'images', key: 'images', disabled: true },
+     
+    { title: 'damaged_images', key: 'damaged_images' ,disabled: true},
     
     { title: 'Damage_details', key: 'damage_details' ,disabled: true },
     

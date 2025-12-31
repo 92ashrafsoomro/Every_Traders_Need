@@ -13,7 +13,7 @@
             <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
         <AuthHeader></AuthHeader>
-        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center">
+        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center pa-4">
             <!-- <v-container fluid class="d-flex justify-center align-center" > -->
 
                         <v-card color="background" class="py-6 px-4 mx-auto border-sm" rounded="lg" style="width: 500px;">

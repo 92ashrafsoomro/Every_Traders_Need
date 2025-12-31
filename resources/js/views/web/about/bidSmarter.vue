@@ -1,33 +1,31 @@
 <template>
-  <v-container class="py-16">
-    <div class="mx-auto  d-flex  flex-column  align-center text-center" style="
+  <v-container fluid style="padding: 100px 10px 100px 10px;">
+    <div class="mx-auto overflow-hidden position-relative" style="
         max-width: 1400px;
-        max-height: 800px;
-           background: linear-gradient(
-      to bottom,
-      rgb(var(--v-theme-primary)),
+        height: 700px;
+        background: linear-gradient(
+      to top,
+      rgb(var(--v-theme-primary),0.2),
       #0080FF
-    ); border: 1px solid rgb(var(--v-theme-border)); border-radius: 70px;">
-      <!-- TOP IMAGE -->
-      <!-- <img
-        :src="heroImage"
-        class="mb-6 mt-16"
-        width="120"
-        height="120"
-        alt="Logo"
-      /> -->
+    ); border: 1px solid rgb(var(--v-theme-border)); border-radius: 70px;
+        border-radius: 40px;
+      ">
+
+      <div class="d-flex flex-column align-center text-center position-relative h-100">
 
 
-      <!-- TEXT -->
-      <div class="text-white mb-10 " style="margin-top: 100px;">
-        <h5 class="text-h2 font-weight-bold pa-1 ">Bid Smarter. Buy Better.</h5>
-        <p class="text-body-1 mt-2 font-weight-bold  ">
-          Trade with Confidence. Autoboli — Turning auction data into winning decisions.
-        </p>
+        <div class="text-white px-4 flex-grow-0" style="z-index: 2; margin-top: 80px;">
+          <h1 class="text-h3 font-weight-bold mb-4">
+            Bid Smarter. Buy Better.
+          </h1>
+          <p class="text-body-1 font-weight-medium mb-8">
+            Trade with Confidence. Autoboli — Turning auction data into winning decisions.
+          </p>
 
-        <div>
+
+
         </div>
-        <div class="d-flex justify-center mt-10 mb-2">
+        <div class="d-flex justify-center  mb-2">
 
           <router-link to="/register" style="text-decoration: none;">
             <div class="button d-flex justify-space-between bg-white align-center  pa-1  hoverEffect "
@@ -43,65 +41,54 @@
             </div>
           </router-link>
         </div>
+        <div class="flex-grow-1"></div>
 
+
+        <div class="w-100 position-relative" style="z-index: 1; ">
+
+          <div class="position-absolute w-100 h-100" style="
+              background: linear-gradient(to top, rgba(var(--v-theme-primary), 0.5) 5%, transparent 50%);
+              border-radius: 40px;
+              pointer-events: none;
+            "></div>
+
+
+          <img :src="dashboardImage" alt="Autoboli Dashboard" class="mx-auto  px-2"
+            style="overflow: hidden;  width: 100%; max-width: 1200px; display: block; height: auto; margin-top: 40px;" />
+        </div>
       </div>
-
-      <!-- BOTTOM IMAGE (FIXED WITH PADDING) -->
-      <div class="bottom-image-wrapper">
-        <div class="hero-overlay"></div>
-        <img :src="newlogo" class="responsive-img" alt="Logo" />
-      </div>
-
     </div>
   </v-container>
 </template>
-
-
 <script>
-import logo from '@/assets/images/logo/auto1.png'
-import newlogo from '@/assets/images/reauction/Reauction.png'
-import AppButton from '../component/AppButton.vue';
+import dashboardImage from '@/assets/images/reauction/Reauction.png'
+
 export default {
-  components: {
-    AppButton
-  },
+  name: 'HeroSection',
+
   data() {
     return {
-      heroImage: logo,
-      newlogo,
-      AppButton
+      dashboardImage: dashboardImage
     }
   }
 }
 </script>
-
 <style scoped>
-.bottom-image-wrapper {
-  padding-left: 10px;
-  position: relative;
-  padding-right: 10px;
-  width: 100%;
-  overflow: hidden;
+/* Hover effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(var(--v-theme-primaryDark), 0.8) 2%, transparent 70%);
-  z-index: 1;
-  border-radius: 70px;
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.responsive-img {
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 1200px;
-  height: auto;
+.cursor-pointer {
+  cursor: pointer;
 }
-.hoverEffect:hover {
-  transform: translateY(-4px);
-  transition: 0.2s ease-in-out;
+
+.h-100 {
+  height: 100%;
 }
 </style>

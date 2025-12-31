@@ -22,11 +22,11 @@
                                         <div class="text-h6 font-weight-bold ">£{{
                                             vehicleStore.vehicle.autotrader_trade_value }}</div>
                                         <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                 style="font-size: 10px; ">
-                                                <span class="text-white">↑ 5.6%</span>
+                                                <span class="text-whiteLite">↑ 5.6%</span>
                                             </v-chip>
-                                            <p class="ml-2 text-caption d-flex align-center ">From last month</p>
+                                            <p class="ml-2 text-caption d-flex align-center  ">From last month</p>
                                         </div>
                                     </v-col>
                                     <v-col cols="6">
@@ -34,9 +34,9 @@
                                         <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
                                         </div>
                                         <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                 style="font-size: 10px;">
-                                                <span class="text-white">↑ 5.6%</span>
+                                                <span class="text-whiteLite">↑ 5.6%</span>
                                             </v-chip>
                                             <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                         </div>
@@ -45,9 +45,9 @@
                                         <div class="text-h6 font-weight-bold ">£{{
                                             vehicleStore.vehicle.autotrader_trade_value }}</div>
                                         <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                 style="font-size: 10px;">
-                                                <span class="text-white">↑ 5.6%</span>
+                                                <span class="text-whiteLite">↑ 5.6%</span>
                                             </v-chip>
                                             <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                         </div>
@@ -57,9 +57,9 @@
                                         <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
                                         </div>
                                         <div class="d-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                 style="font-size: 10px;">
-                                                <span class="text-white">↑ 5.6%</span>
+                                                <span class="text-whiteLite">↑ 5.6%</span>
                                             </v-chip>
                                             <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                         </div>
@@ -78,9 +78,9 @@
                                             }}
                                             </div>
                                             <div class="d-flex mt-2">
-                                                <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                                <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                     style="font-size: 10px;">
-                                                    <span class="text-white">↑ 5.6%</span>
+                                                    <span class="text-whiteLite">↑ 5.6%</span>
                                                 </v-chip>
                                                 <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                             </div>
@@ -91,9 +91,9 @@
                                             }}
                                             </div>
                                             <div class="d-flex mt-2">
-                                                <v-chip color="danger" small label class=" text-white pa-1 py-0    "
+                                                <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                                     style="font-size: 10px;">
-                                                    <span class="text-white">↑ 5.6%</span>
+                                                    <span class="text-whiteLite">↑ 5.6%</span>
                                                 </v-chip>
                                                 <p class="ml-2 text-caption d-flex align-center ">From last month</p>
                                             </div>
@@ -275,7 +275,7 @@
                                         <tr v-for="value in [1,2,3,4]">
                                           
 
-                                            <td class="text-white pa-0"  >
+                                            <td class="text-whiteLite pa-0"  >
                                                 {{ vehicleStore.vehicle.reg }}
                                             </td>
 
@@ -285,7 +285,7 @@
                                                 </v-chip>
                                             </td>
 
-                                            <td class="text-white">
+                                            <td class="text-whiteLite">
                                                 £{{ vehicleStore.vehicle.auction_id }}
                                             </td>
                                         </tr>

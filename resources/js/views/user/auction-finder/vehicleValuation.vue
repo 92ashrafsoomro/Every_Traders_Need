@@ -1,97 +1,125 @@
 <template>
-    <div class="bg-surface rounded border ">
-          <v-data-table-server class="dataTable rounded " 
-            :headers="headers" 
-            :items="auctionStore.data"
-            :items-length="auctionStore.total" 
-            :loading="auctionStore.loading"
-            item-value="id"   
+    <div class="bg-surface rounded border">
+        <v-data-table-server class="dataTable rounded" :headers="headers" :items="auctionStore.data"
+            :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
             @update:options="auctionStore.getAuctionList">
-                <template #item.vehicle="{ item }" >
-                    <span class="ml-4 text-light_text_on text-body-2">
-                    {{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}
-                </span></template>
+            <!-- CUSTOM ROW -->
+            <template #item="{ item, columns }">
+                <!-- MAIN ROW -->
+                <tr class="main-row" @mouseenter="hoveredRowId = item.id" @mouseleave="hoveredRowId = null"
+                    :class="{ 'hovered-main-row': hoveredRowId === item.id }">
+                    <td>
+                        <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
+                            <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{ item.variant_name}} </span>
+                        </v-btn>
+                    </td>
 
-                <template #item.date="{ item }">
-                    {{ item.auction_date }} {{ item.auction_time }}
-                </template>
+                    <td>{{ item.grade }}</td>
+                    <td>{{ item.cap_clean }}</td>
+                    <td>{{ item.cap_average }}</td>
+                    <td>{{ item.cap_below }}</td>
+                    <td>{{ item.autotrader_retail_value }}</td>
 
-                 <template #item.autoboli="{ item }">
-                    
-                </template>
+                    <td>
+                        {{ item.auction_date }} <br />
+                        {{ item.auction_time }}
+                    </td>
 
-                <template v-slot:bottom>
-                     <div  class="py-2 d-flex justify-end border-t" >
-                                   
-                    <custom-pagination
-                      :loading="auctionStore.loading"
-                      v-model:page="auctionStore.filter.page" 
-                      :lastPage="auctionStore.last_page"
-                      @page-changed="auctionStore.getAuctionList"
-                      />
-                      </div>
-                </template>
+                    <td>
+                        <v-btn size="small" variant="flat" color="primary">
+                            Autoboli
+                        </v-btn>
+                    </td>
+                </tr>
+
+                <!-- DETAIL ROW (HOVER) -->
+                <tr v-if="hoveredRowId === item.id" class="detail-row"
+                    :class="{ 'hovered-detail-row': hoveredRowId === item.id }">
+                    <td :colspan="columns.length">
+                        <div class="detail-content pa-4 d-flex align-center justify-space-between"
+                            @mouseenter="hoveredRowId = item.id">
+                            <div class="d-flex ga-3">
+                                <img v-for="(img, i) in item.images?.slice(0, 4)" :key="i" :src="img" width="60"
+                                    height="60" class="rounded-lg elevation-2" />
+                            </div>
+
+                            <v-btn v-if="item.inspection_report" color="primary" size="small" variant="flat"
+                                :href="item.inspection_report" target="_blank">
+                                View Report
+                            </v-btn>
+                        </div>
+                    </td>
+                </tr>
+            </template>
+
+            <!-- PAGINATION -->
+            <template #bottom>
+                <div class="py-2 d-flex justify-end border-t">
+                    <custom-pagination :loading="auctionStore.loading" v-model:page="auctionStore.filter.page"
+                        :lastPage="auctionStore.last_page" @page-changed="auctionStore.getAuctionList" />
+                </div>
+            </template>
         </v-data-table-server>
     </div>
-
 </template>
 
-<script>
 
+<script>
 import { useAuctionStore } from "@/stores/auctionStore";
 
-
 export default {
-    components: {
-    },
     data() {
         return {
             auctionStore: useAuctionStore(),
+            hoveredRowId: null,
             headers: [
-                {
-                    title: "Vehicle",
-                    key: "vehicle",
-                    sortable: false
-                },
-                {
-                    title: "Grade",
-                    key: "grade"
-                },
-                {
-                    title: "Cap Clean",
-                    key: "cap_clean"
-                },
-                {
-                    title: "Cap Average",
-                    key: "cap_average"
-                },
-                {
-                    title: "Cap Below",
-                    key: "cap_below"
-                },
-                {
-                    title: "Autotrader Retail",
-                    key: "autotrader_retail_value"
-                },
-                {
-                    title: "Date Time",
-                    key: "date"
-                },
-                {
-                    title: "Autoboli",
-                    key: "autoboli"
-                },
+                { title: "Vehicle", key: "vehicle", sortable: false },
+                { title: "Grade", key: "grade" },
+                { title: "Cap Clean", key: "cap_clean" },
+                { title: "Cap Average", key: "cap_average" },
+                { title: "Cap Below", key: "cap_below" },
+                { title: "Autotrader Retail", key: "autotrader_retail_value" },
+                { title: "Date Time", key: "date" },
+                { title: "Autoboli", key: "autoboli" },
             ],
-         
-        }
-    },
-    methods: {
-       
-    },
-    computed: {
-      
+        };
     },
 };
-
 </script>
+<style scoped>
+.hovered-main-row,
+.hovered-detail-row {
+    background-color: rgba(var(--v-theme-background)) !important;
+    transition: background-color 0.25s ease;
+}
 
+.main-row,
+.detail-row {
+    background-color: transparent;
+    transition: background-color 0.25s ease;
+}
+
+.hovered-main-row td {
+    border-bottom: none !important;
+}
+
+.hovered-detail-row td {
+    border-top: none !important;
+}
+
+.detail-row {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>

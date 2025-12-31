@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid class="pattern-wrapper position-relative  pa-0" style="  background-color: rgb(var(--v-theme-surface)); overflow: hidden;">
+  <v-container fluid class="pattern-wrapper position-relative  pa-0"
+    style="  background-color: rgb(var(--v-theme-surface)); overflow: hidden;">
     <!-- BACKGROUND -->
     <div class="pattern-bg"></div>
 
@@ -8,11 +9,15 @@
       <v-container max-width="1400px">
         <v-row justify="center">
           <v-col cols="12" lg="10">
-            <div class="d-flex justify-center">
-              <h2 class="text-lg-h3 text-md-h3 text-h5  font-weight-bold d-flex align-center mb-8 text-whiteLight">
-                <img :src="logo" alt="" class="mr-4" style="max-width:200px">
-                at a Glance
-              </h2>
+            <div class="d-flex flex-wrap justify-center">
+
+              <div> <img :src="logo" alt="" class="mr-4" style="max-width:200px">
+              </div>
+              <div>
+                <h2 class="text-lg-h3 text-md-h3 text-h5  font-weight-bold d-flex align-center mb-8 text-whiteLight"> at
+                  a Glance</h2>
+              </div>
+
             </div>
 
 
@@ -21,61 +26,71 @@
 
             <div class="d-flex justify-center mt-10">
               <ul style="list-style:none; padding:0; gap:16px;">
-               <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
-                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                <div
+                  class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-lg-flex d-md-flex d-none  glass-card-icon" style=" background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
                       mdi-check-circle
                     </v-icon>
                   </div>
                   <li>
 
-                    <span class="text-h6 text-whiteLight pa-4 glass-card">30+ UK auction houses covered</span>
+                    <span class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">30+ UK auction houses
+                      covered</span>
                   </li>
                 </div>
 
-              <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
-                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                <div
+                  class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-lg-flex d-md-flex d-none  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
                       mdi-check-circle
                     </v-icon>
                   </div>
                   <li>
-                    <span class="text-h6 text-whiteLight pa-4 glass-card">Live</span> <span
-                      class="text-h6 text-whiteLight pa-4 glass-card">upcoming</span> <span
-                      class="text-h6 text-whiteLight pa-4 glass-card"> and historical auction data</span>
+                    <span class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">Live</span> <span
+                      class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">upcoming</span> <span
+                      class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card"> and historical auction
+                      data</span>
                   </li>
                 </div>
-              <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
-                  <div class="d-flex  glass-card-icon d-flex justify-center text-center" style="background-color: rgb(var(--v-theme-primary),0.2); ">
-                    <v-icon color="primary" size="25" >
-                      mdi-check-circle
-                    </v-icon>
-                  </div>
-                  <li>
-                    <span class="text-h6 text-whiteLight pa-4 glass-card">Vehicle valuation</span> <span
-                      class="text-h6 text-whiteLight pa-4 glass-card">comparison & reauction tracking</span>
-                  </li>
-                </div>
-               <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
-                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                <div
+                  class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-lg-flex d-md-flex d-none  glass-card-icon  justify-center text-center"
+                    style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
                       mdi-check-circle
                     </v-icon>
                   </div>
-                  <li> <span class="text-h6 text-whiteLight pa-4 glass-card"> VIN & registration-based vehicle
+                  <li>
+                    <span class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">Vehicle valuation</span> <span
+                      class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">comparison & reauction
+                      tracking</span>
+                  </li>
+                </div>
+                <div
+                  class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-lg-flex d-md-flex d-none  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                    <v-icon color="primary" size="25">
+                      mdi-check-circle
+                    </v-icon>
+                  </div>
+                  <li> <span class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card"> VIN & registration-based
+                      vehicle
                       intelligence</span>
                   </li>
                 </div>
-                <div class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
-                  <div class="d-flex  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
+                <div
+                  class="d-flex flex-column flex-sm-row align-center justify-center justify-md-start text-center mb-4">
+                  <div class="d-lg-flex d-md-flex d-none  glass-card-icon" style="background-color: rgb(var(--v-theme-primary),0.2); ">
                     <v-icon color="primary" size="25">
                       mdi-check-circle
                     </v-icon>
                   </div>
                   <li>
-                    <span class="text-h6 text-whiteLight pa-4 glass-card">Built for speed</span> <span
-                      class="text-h6 text-whiteLight pa-4 glass-card">accuracy</span> <span
-                      class="text-h6 text-whiteLight pa-4 glass-card"> and profitability</span>
+                    <span class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">Built for speed</span> <span
+                      class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card">accuracy</span> <span
+                      class="text-lg-h6 text-body-1  text-whiteLight pa-4 glass-card"> and profitability</span>
                   </li>
                 </div>
               </ul>
@@ -83,7 +98,7 @@
 
           </v-col>
         </v-row>
-        
+
       </v-container>
     </v-container>
   </v-container>
@@ -109,8 +124,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .pattern-bg {
   position: absolute;
   inset: 0;
@@ -133,7 +146,7 @@ export default {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgb(var(--v-theme-border));
   box-shadow: 0 8px 80px rgba(var(--v-theme-primary), 0.3);
   overflow: hidden;
   width: auto;
@@ -154,6 +167,6 @@ export default {
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 80px rgba(var(--v-theme-primary), 0.3);
-
 }
+
 </style>

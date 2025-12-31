@@ -21,15 +21,15 @@
         </div>
     </user-title-bar>
 
-    <v-container  style="max-width: 1400px;">
+    <v-container  >
         <v-row class="mt-1  ">
             <v-col cols="12 ">
                 <!-- ROW 1 -->
-                <div class="mb-2">
-                    <div class="d-flex flex-wrap w-100 align-center">
+                <div class="mb-2 " >
+                    <div class="d-flex flex-wrap w-100   mx-auto align-center" >
 
                         <!-- LEFT -->
-                        <div class="d-flex flex-wrap align-center ga-2 flex-grow-1">
+                        <div class="d-flex flex-wrap align-center justify-   ga-2 flex-grow-1">
 
                             <!-- FILTER BUTTON -->
                             <div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <!-- ROW 2 -->
-                <v-slide-y-transition>
+                <v-slide-y-transition >
                     <div v-if="!auctionStore.sidebar && isAnyFilterSelected" class="mb-3">
                         <div class="d-flex flex-wrap ">
 
@@ -112,12 +112,12 @@
 
                 <div :class="{ 'sidebarOpen': auctionStore.sidebar }"
                     class="main-div d-flex align-start justify-space-between flex-wrap mx-auto">
-                    <div class="sidebar">
-                        <div class=" bg-surface rounded border ">
+                    <div class="sidebar" >
+                        <div class=" bg-surface rounded border  " >
                             <auctionSidebar />
                         </div>
                     </div>
-                    <div class="transition-col">
+                    <div class="transition-col mx-auto" style="max-width: 1400px;">
                         <component :is="currentComponent" />
                     </div>
                 </div>

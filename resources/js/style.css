@@ -5,7 +5,9 @@ body,
 * {
     font-family: 'Inter', sans-serif !important;
     scrollbar-width: thin;
-  scrollbar-color: #3399ff #000E20;
+     scrollbar-color: 
+    #3399ff
+    rgba(var(--v-theme-background));
 }
 
 aside {
@@ -20,6 +22,7 @@ aside {
 .v-input__details .v-messages {
     min-height: auto !important;
 }
+
 :root {
     --primary-color: #0080ff;
     --danger-color: #b91c1c;
@@ -30,22 +33,23 @@ aside {
     --danger-color: #b91c1c;
 }
 
-.no-overlay .v-btn__overlay{
+.no-overlay .v-btn__overlay {
     display: none;
 }
-.bg-danger-lite{
-    background-color: rgba(255, 0, 0,  0.24)
+
+.bg-danger-lite {
+    background-color: rgba(255, 0, 0, 0.24)
 }
 
 /* table th bg change */
-.v-data-table__thead  th{
-    background-color: rgba(var(--v-theme-background ) ) ;
+.v-data-table__thead th {
+    background-color: rgba(var(--v-theme-background));
 }
 
 
 
 /* table tr bg change */
-.v-data-table__tbody tr:hover{
+.v-data-table__tbody tr:hover {
     background-color: rgb(var(--v-theme-background));
 }
 
@@ -62,24 +66,27 @@ aside {
     margin-top: 4px;
 }
 
-.v-expansion-panel-title__overlay:hover{
+.v-expansion-panel-title__overlay:hover {
     background-color: rgb(var(--v-theme-background));
 }
+
 /* 
 .v-list-item--active{
     
     background-color: #00;
 } */
- .register_stepper .v-avatar {
-    background-color: rgb(var(--v-theme-primary)) !important   ;
- }
- .custom-field .v-field__overlay {
- background-color: rgb(var(--v-theme-background));
+.register_stepper .v-avatar {
+    background-color: rgb(var(--v-theme-primary)) !important;
 }
 
-.v-field__overlay{ 
+.custom-field .v-field__overlay {
+    background-color: rgb(var(--v-theme-background));
+}
+
+.v-field__overlay {
     border: 2px solid rgb(var(--v-theme-border));
 }
+
 /* .v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single{
     background-color: aqua !important;
 }
@@ -87,36 +94,37 @@ aside {
     background-color: #b91c1c
 } */
 .v-overlay__content {
-  border: 2px solid rgb(var(--v-theme-border)) !important;
-
-
-
+    border: 2px solid rgb(var(--v-theme-border)) !important;
 }
 
 /* Targe/* Completely remove hover background tint */
 .v-expansion-panel-title__overlay {
-  opacity: 0 !important;
-  background-color: transparent !important;
+    opacity: 0 !important;
+    background-color: transparent !important;
 }
 
 /* Ensure no hover change at all */
 .v-expansion-panel-title:hover .v-expansion-panel-title__overlay {
-  opacity: 0 !important;
+    opacity: 0 !important;
 }
 
 /* Remove ripple/click effect (if not already disabled via prop) */
 .v-expansion-panel-title .v-ripple__container {
-  display: none !important;
+    display: none !important;
 }
 
 /* Optional: Remove any elevation shadow on the entire panel */
 .v-expansion-panel {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 /* Optional: Remove pseudo-elements if they add any overlay */
 .v-expansion-panel-title::before,
 .v-expansion-panel-title::after {
-  opacity: 0 !important;
-  background: transparent !important;
+    opacity: 0 !important;
+    background: transparent !important;
+}
+
+.v-switch__thumb {
+    background-color: rgb(var(--v-theme-primary)) !important;
 }

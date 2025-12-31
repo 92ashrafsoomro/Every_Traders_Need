@@ -29,11 +29,11 @@ export default [
     
       { label: "Facebook", url: "https://facebook.com" },
       { label: "Instagram", url: "https://instagram.com" },
-        { label: "X", url: "https://x.com" },
       { label: "LinkedIn", url: "https://linkedin.com" },
       { label: "YouTube", url: "https://youtube.com" },
-      { label: "TikTok", url: "https://tiktok.com" },
-      { label: "Pinterest", url: "https://pinterest.com" },
+      // { label: "TikTok", url: "https://tiktok.com" },
+      // { label: "Pinterest", url: "https://pinterest.com" },
+        { label: "X", url: "https://x.com" },
     ],
   },
 ];

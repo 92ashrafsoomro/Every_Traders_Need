@@ -10,7 +10,7 @@
                 <!-- Logo -->
                 <div class="d-flex align-center">
                     <v-list-item class="mt-2">
-                        <router-link to="/"> <img :src="logo" height="30px" /></router-link>
+                        <router-link to="/"> <img :src="currentLogo" height="30px" /></router-link>
                     </v-list-item>
                 </div>
 
@@ -30,13 +30,14 @@
                     <!-- Theme Toggle -->
                     <v-list-item class="px-0 text-end mr-2">
                         <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
-                            {{ isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
+                            {{ isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on' }}
                         </v-icon>
                     </v-list-item>
 
                     <!-- Login -->
                     <v-list-item v-if="userStore.user" to="/login" link class="px-0   d-none d-lg-flex">
-                        <v-btn variant="elevated" color="primary" class="text-capitalize " v-if="userStore.is_logged_in == true">
+                        <v-btn variant="elevated" color="primary" class="text-capitalize "
+                            v-if="userStore.is_logged_in == true">
                             My Account
                         </v-btn>
                         <v-btn variant="outlined" class="text-capitalize mr-2 " v-else>SignIn</v-btn>
@@ -56,26 +57,33 @@
             </nav>
 
             <!-- Mobile Drawer -->
-            <v-navigation-drawer v-model="drawer" temporary class="d-lg-none mt-14">
+            <v-navigation-drawer v-model="drawer" temporary class="d-lg-none border-t"
+                style="margin-top: 50px; height: 100vh;">
+                <!-- Navigation Menu -->
                 <v-list>
                     <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link>
                         <v-list-item-title>{{ item.label }}</v-list-item-title>
                     </v-list-item>
-
                 </v-list>
-                <div class="d-flex"><v-list-item v-if="userStore.user" to="/login" link
-                        class="pa-2 ma-0 d-lg-none d-flex">
-                        <v-btn variant="plain" class="text-capitalize">
-                            SignIn
-                        </v-btn>
-                    </v-list-item>
-                    <v-list-item v-if="userStore.user" to="/register" link class="pa-0 ma-0 d-lg-none d-flex">
-                        <v-btn variant="outlined" class="border-thin text-capitalize bg-background ">
-                            Register
-                        </v-btn>
-                    </v-list-item>
+
+                <!-- Buttons at the bottom -->
+                <div class="d-flex flex-column px-3 pa-2   ga-3" style="margin-top: 430px; border-top: 1px solid rgb(var(--v-theme-border));">
+                    <v-btn  v-if="userStore.is_logged_in" variant="outlined" color="primary"
+                        class="text-capitalize w-100" to="/login">
+                        My Account
+                    </v-btn>
+
+                    <v-btn v-else variant="outlined" class="text-capitalize w-100 mb-2" to="/login">
+                        Login
+                    </v-btn>
+
+                    <v-btn v-if="!userStore.is_logged_in" color="primary" variant="flat" class="text-capitalize w-100"
+                        to="/register">
+                        Register
+                    </v-btn>
                 </div>
             </v-navigation-drawer>
+
 
         </v-container>
 
@@ -86,6 +94,8 @@
 <script>
 import logo from '@/assets/images/logo/logo.png'
 import navbarItem from "@/enums/WebHeaderMenu"
+import darkLogo from "@/assets/images/header/darkfull.png"
+import lightLogo from "@/assets/images/header/lightfull.png"
 import { useUserStore } from '@/stores/userStore';
 import { useTheme } from "vuetify";
 
@@ -97,15 +107,25 @@ export default {
             navMenu: navbarItem,
             logo: logo,
             vuetify: useTheme(),
+
             isScrolled: false,
         }
     },
     computed: {
         isDark() {
             return this.vuetify.global.name === "adminDark"
+        }, currentLogo() {
+            if (this.isDark) {
+                return darkLogo
+            } else {
+                return lightLogo
+            }
         }
     },
     methods: {
+        images() {
+            return this.isDark ? [lightLogo] : [darkLogo]
+        },
         toggleTheme() {
             this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
         },
@@ -121,6 +141,11 @@ export default {
     },
     beforeUnmount() { // Vue 3
         window.removeEventListener('scroll', this.handleScroll)
+    },
+    watch: {
+        'theme.global.name'(newName) {
+            this.vuetify.global.name = newName
+        },
     }
 }
 
@@ -161,7 +186,9 @@ export default {
 }
 
 .nav-menu-links {
-    color: #B1BFCD;
+
+    color: rgb(var(--v-theme-light_text_on)) !important;
+
 }
 
 /* .nav-menu-links:hover {
@@ -172,7 +199,7 @@ export default {
 .m-item:hover {
     background-color: transparent !important;
     color: white;
-    border-bottom: 1px solid #0080ff;
+    border-bottom: 3px solid #0080ff;
 }
 
 ::v-deep(.nav-menu-links-active).m-item {
@@ -184,8 +211,9 @@ export default {
 }
 
 ::v-deep(.nav-menu-links-active) .nav-menu-links {
-  
-    color: rgb(var(--v-theme-light_text_on)) !important;
+
+    color: rgb(var(--v-theme-whiteLite)) !important;
+
 
 }
 
@@ -211,6 +239,4 @@ export default {
 .hover-icon:hover {
     color: #0080ff;
 }
-
-
 </style>

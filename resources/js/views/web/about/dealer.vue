@@ -7,7 +7,7 @@
         <v-row align="center" no-gutters>
           <!-- Left Content -->
           <v-col cols="12" md="6" class="pr-md-8">
-            <h2 class="text-h3 font-weight-bold mb-6" style="  line-height: 1.2;">
+            <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold mb-6" style="  line-height: 1.2;">
               The Problem We Saw in the Market
             </h2>
             <p class="text-body-1 mb-6 text-whiteLight">
@@ -30,10 +30,10 @@
                 </div>
               </div>
 
-              <p class="text-body-1 text-whiteLight font-weight-medium">Inexperience — or lack of real-time data — leads to
+              <p class="text-body-1 text-whiteLight ">Inexperience — or lack of real-time data — leads to
                 costly bidding mistakes</p>
             </div>
-            <p class="text-body-1 text-whiteLight font-weight-medium mt-4">
+            <p class="text-body-1 text-whiteLight  mt-4">
 
               We saw too many good traders losing money not because they were bad at business, but because they didn’t
               have the right information at the right time.

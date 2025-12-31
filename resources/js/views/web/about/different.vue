@@ -3,10 +3,10 @@
         <v-container max-width="1400px">
             <!-- Heading -->
             <div class="text-center mb-12">
-                <h2 class="text-h3 font-weight-bold mb-4" style="  line-height: 1.2;">
+                <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold mb-4" style="  line-height: 1.2;">
                     What Makes Autoboli Different
                 </h2>
-                <p class="text-h5 text-light_text_on">
+                <p class=" w-lg-75 w-md-75 w-100    mx-auto text-lg-h6  text-light_text_on">
                     One Platform. Total Auction Intelligence.
                 </p>
             </div>
@@ -25,10 +25,10 @@
                                         <v-img :src="differentImage" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
-                                        <h3 class="text-h6 font-weight-bold0 text-whiteLight mb-2">
+                                        <h3 class="text-lg-h6 mt-4 font-weight-bold text-whiteLight mb-2">
                                             One Platform. Total Auction Intelligence.
                                         </h3>
-                                        <p class="text-body-1">
+                                        <p class="text-lg-body-1">
                                             Autoboli brings everything together in one place — fast and structured.
                                         </p>
                                     </v-col>
@@ -46,10 +46,10 @@
                                         <v-img :src="differentImage" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
-                                        <h3 class="text-h6 font-weight-bold text-whiteLight mb-2">
+                                        <h3 class="text-lg-h6 mt-4 font-weight-bold text-whiteLight mb-2">
                                             Built for Dealers & Traders
                                         </h3>
-                                        <p class="text-body-1">
+                                        <p class="text-lg-body-1">
                                             Designed for professionals — not consumers.
                                         </p>
                                     </v-col>
@@ -76,7 +76,7 @@
                             </v-col>
 
                             <v-col cols="12" md="7" class="pl-md-6 d-flex flex-column justify-center">
-                                <h3 class="text-h6 font-weight-bold text-whiteLight mb-4">
+                                <h3 class="text-lg-h6 mt-4 font-weight-bold text-whiteLight mb-4">
                                     Smarter Insights, Not Just Raw Data
                                 </h3>
 
@@ -88,7 +88,7 @@
                                         'Reauction signals',
                                         'Demand trends'
                                     ]" :key="item">
-                                        <template #prepend>
+                                        <template #prepend >
                                             <v-icon color="primary">mdi-check-circle</v-icon>
                                         </template>
 

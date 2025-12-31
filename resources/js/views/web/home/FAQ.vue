@@ -12,7 +12,7 @@
       <!-- FAQ List -->
       <v-expansion-panels style="max-width: 800px; margin: auto; " class="my-transparent-panels">
         <v-expansion-panel v-for="(faq, index) in faqs" :key="index" elevation="0" variant="flat" class="faq-panel bg-background pa-2">
-          <v-expansion-panel-title ripple="false" class="v-theme--dark bg-transparent">
+          <v-expansion-panel-title ripple="false" class="v-theme--dark bg-transparent px-0">
             <div class="d-flex align-center justify-space-between w-100  " >
               <span class="text-body-1 font-weight-medium">
                 {{ faq.question }}

@@ -55,6 +55,10 @@ class AuctionController extends Controller
             $query->where('id',$request->id);
         }
 
+        if($request->has('table_id') && $request->table_id != '') {
+            $query->where('table_id',$request->table_id);
+        }
+
         $count = (clone $query)->count();
         $data = $query->select([
                     '*'

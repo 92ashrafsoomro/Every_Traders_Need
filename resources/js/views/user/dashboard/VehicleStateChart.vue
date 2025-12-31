@@ -9,8 +9,8 @@
 
       <!-- Center label -->
       <div class="center-text">
-        <div class="done-text">Done</div>
-        <div class="done-value">{{ doneValue }}</div>
+        <div class="done-text text-whiteLite"><span class="text-whiteLite">Done</span></div>
+        <div class="done-value "><span class="text-whiteLite">{{ doneValue }}</span></div>
       </div>
     </div>
 
@@ -95,7 +95,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
+
 }
 
 .done-text {

@@ -1,5 +1,5 @@
 <template>
-    <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute;">
+    <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute; overflow: hidden;">
         <div class="pattern-bg"></div>
         <div class="position-relative  pt-5  " style=" max-width: 1400px; z-index: 10">
 
@@ -8,25 +8,30 @@
     </div>
     <v-app>
         <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
-            style="z-index: 0; border-radius:  0 300px 0 0;">
+            style="z-index: 0; border-radius:  0 300px 0 0; ">
             <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
         <AuthHeader />
 
-        <v-main class="z-index-1">
+        <v-main class="z-index-1" style="overflow: hidden;">
             <div class="mt-4">
                 <div class="text-center ">
-                    <h1 class="text-h3 font-weight-bold ">Create your Autoboli Account</h1>
-                    <p class="text-h6 mt-2 text-light_text_on">Built for dealers & traders — fast onboarding, powerful
-                        insights.</p>
+                    <h1 class="text-h4 text-md-h3 font-weight-bold text-whiteLite mb-4 ">Create your Account
+                    </h1>
+                    <!-- <p class="text-lg-h6 text-body-1 mt-2 text-light_text_on">Built for dealers & traders — fast
+                        onboarding, powerful
+                        insights.</p> -->
                 </div>
             </div>
-            <div class="custom-stepper mx-auto  pa-4  mt-6 rounded-sm"
-                style="max-width: 800px; height: 70px; background-color: rgb(var(--v-theme-primary),0.2);">
+            <div class="stepper d-lg-flex d-md-flex d-none justify-space-between h-[200px] w- mx-auto  pa-4  mt-6 rounded-sm"
+                style="max-width: 800px;  background-color: rgb(var(--v-theme-primary),0.2);">
 
-                <div v-for="(label, index) in steps" :key="index" class="step"
+                <div v-for="(label, index) in steps" :key="index"
+                    class="step align-lg-center ga-3 d-lg-flex position-relative"
                     :class="{ active: step === index + 1, done: step > index + 1 }">
-                    <div class="circle">{{ index + 1 }}</div>
+                    <div class="circle ma-auto d-flex align-center justify-center " style="width: 36px;   
+                        height: 36px;
+                        border: 1px solid rgb(var(--v-theme-primary));">{{ index + 1 }}</div>
                     <div class=" ">
                         <div class="text-start">
                             {{ label.label }}
@@ -38,15 +43,15 @@
                 </div>
 
             </div>
-            <div class="d-flex justify-center pb-6 mt-2 ">
-                <v-progress-linear :model-value="step" :max="steps.length" height="5" style="max-width: 800px;"
-                    color="primary"></v-progress-linear>
+            <div class="d-flex justify-center pb-6 mt-2 pa-4 ">
+                <v-progress-linear class="progress" :model-value="step" :max="steps.length" height="5"
+                    style="max-width: 800px;" color="primary"></v-progress-linear>
             </div>
             <v-container fluid class="d-flex flex-column ">
 
 
 
-                <v-row justify="center " class=" ">
+                <v-row justify="center " class=" pa-4 ">
 
                     <v-col cols="12" sm="10" md="8" lg="6" xl="5" class="border bg-background position-relative"
                         style="padding: 0; z-index: 5;">
@@ -54,12 +59,12 @@
                         <!-- Step 1 -->
                         <div v-if="step === 1" class="pa-7">
                             <div class="">
-                                <h2 class="text-h4 font-weight-bold mb-n2">Company
+                                <h2 class="text-lg-h4 text-md-h4 text-h5 font-weight-bold mb-n2 ">Company
                                     Information</h2>
-                                <p class="text-medium-emphasis mt-3">
+                                <p class="text-body-2 mt-3">
                                     Provide your company details.
                                 </p>
-                                <v-container fluid class="py-6">
+                                <v-container fluid class="py-6 px-0">
                                     <v-row class="gap-4" justify="start">
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="form.companyName"
@@ -141,11 +146,11 @@
                         <!-- Step 2 -->
                         <div v-else-if="step === 2" class="pa-7">
                             <div flat>
-                                <h2 class="text-h4 font-weight-bold mb-n2">User Information</h2>
-                                <p class="text-medium-emphasis mt-3">
+                                <h2 class="text-lg-h4 text-md-h4 text-h5 font-weight-bold mb-n2">User Information</h2>
+                                <p class="text-body-2 mt-3">
                                     Add your personal details and profile image.
                                 </p>
-                                <v-container fluid class="py-6">
+                                <v-container fluid class="py-6 px-0">
                                     <v-row class="gap-4" justify="start">
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="form.firstName" :error-messages="errors?.firstName"
@@ -176,11 +181,12 @@
                                     <v-row style="width: 800px;">
                                         <v-col cols="12" sm="6" md="4">
 
-                                            <div class="text-medium-emphasis text-caption ">Upload your ID</div>
+                                            <div class=" text-caption "><span class="text-body-1">Upload your ID</span>
+                                            </div>
                                             <div class=" pt-3  ">
                                                 <!-- Custom Button -->
                                                 <v-icon class="pr-4 text-white">mdi-upload</v-icon>
-                                                <v-btn color="" class="buttonBorder text-capitalize"  variant="outlined"
+                                                <v-btn color="" class="buttonBorder text-capitalize" variant="outlined"
                                                     style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
                                                     @click="$refs.avatarInput.click()">
                                                     <span class="text-body-1">Upload</span>
@@ -209,15 +215,15 @@
                         <!-- Step 3 -->
                         <div v-else-if="step === 3" class="pa-7">
                             <div flat>
-                                <h2 class="text-h4 font-weight-bold mb-n2">Proof Documents</h2>
-                                <p class="text-medium-emphasis mt-3">
+                                <h2 class="text-lg-h4 text-md-h4 text-h5 font-weight-bold mb-n2">Proof Documents</h2>
+                                <p class="text-body-2 mt-3">
                                     Upload required proof documents.
                                 </p>
-                                <v-container fluid class="py-6">
+                                <v-container fluid class="py-6 px-0">
                                     <v-row class="gap-4 mt-6" justify="start">
                                         <v-col cols="12" sm="6">
-                                            <div class="text-medium-emphasis text-caption">
-                                                Proof of motor trade
+                                            <div class="text-body-1 text-caption">
+                                                <span class="text-body-1">Proof of motor trade</span>
                                             </div>
 
                                             <div class="pt-3">
@@ -245,8 +251,8 @@
 
 
                                         <v-col cols="12" sm="6">
-                                            <div class="text-medium-emphasis text-caption">
-                                                Proof of address
+                                            <div class="text-body-1 text-caption">
+                                                <span class="text-body-1"> Proof of address</span>
                                             </div>
 
                                             <div class="pt-3">
@@ -272,7 +278,7 @@
                                             </div>
                                         </v-col>
 
-                                      
+
                                     </v-row>
                                 </v-container>
                             </div>
@@ -281,11 +287,11 @@
                         <!-- Step 4 -->
                         <div v-else="step === 4" class="pa-7">
                             <div flat>
-                                <h2 class="text-h4 font-weight-bold mb-n2">Login Details</h2>
-                                <p class="text-medium-emphasis mt-3">
+                                <h2 class="text-lg-h4 text-md-h4 text-h5 font-weight-bold mb-n2">Login Details</h2>
+                                <p class="text-body-2 mt-3">
                                     Set your login email & password.
                                 </p>
-                                <v-container fluid class="py-6">
+                                <v-container fluid class="py-6 px-0">
                                     <v-row class="gap-4" justify="start">
                                         <v-col cols="12" sm="6">
                                             <v-text-field v-model="form.personalEmail"
@@ -305,34 +311,28 @@
 
                         <!-- Footer Actions with Login Message -->
 
-                        <v-row class="w-100 align-center px-4 pt-6 pb-4 " no-gutters>
-                            <!-- Login message only on last step -->
-                            <v-col cols="12" sm="4"
-                                class="d-flex align-center justify-center justify-sm-start mb-2 mb-sm-0">
-                                <div class="d-flex text-light_text_on text-medium-emphasis text-center text-sm-left">
-                                    Already have an account?
-                                    <div> <router-link to="/login" variant="plain" class="text-primary px-1 text-body-2"
-                                            color="primary" size="small">
-                                            Login
-                                        </router-link>
-                                    </div>
-                                </div>
-                            </v-col>
-
-                            <!-- Previous & Next/Submit Buttons -->
-                            <v-col cols="12" sm="8" class="d-flex  justify-center justify-sm-end">
-
-                                <div class="d-flex justify-space-between ga-3">
+                        <v-row class="w-100 px-4 pt-6 pb-4" no-gutters>
+                            <v-col cols="12" class="d-flex flex-column flex-md-row align-center justify-space-between">
+                                <!-- Buttons: appear first on small screens -->
+                                <div class="d-flex justify-center justify-md-end ga-3 order-1 order-md-2 mb-3 mb-md-0">
                                     <v-btn variant="tonal" color="primary" :disabled="step === 1" @click="step--">
                                         Previous
                                     </v-btn>
-
                                     <v-btn color="primary" @click="handleNext">
                                         {{ step === 4 ? 'Submit' : 'Next' }}
                                     </v-btn>
                                 </div>
 
-                               
+                                <!-- Login message: appear below on small screens -->
+                                <div class="d-flex flex-column align-center align-md-start order-2 order-md-1">
+                                    <span class="text-light_text_on text-body-1 text-center text-md-left">
+                                        Already have an account? <router-link to="/login"
+                                        class="text-primary px-1 text-body-2 text-center text-md-left">
+                                        Login
+                                    </router-link>
+                                    </span>
+                                   
+                                </div>
                             </v-col>
                         </v-row>
 
@@ -508,38 +508,25 @@ export default {
 </script>
 
 <style scoped>
-.custom-stepper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.step {
-    text-align: center;
-    gap: 10px;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.circle {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgb(var(--v-theme-primary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-}
-
 .step.active .circle {
     background: rgb(var(--v-theme-primary));
     color: white;
-   
+
 }
 
 .step.done .circle {
     background: rgb(var(--v-theme-primary));
     color: white;
- 
+
+}
+
+@media (max-width:720px) {
+    .stepper {
+        max-width: 380px !important;
+    }
+
+    .progress {
+        max-width: 380px !important;
+    }
 }
 </style>

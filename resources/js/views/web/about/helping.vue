@@ -3,10 +3,12 @@
         <v-container  fluid max-width="1400px"
             class="d-flex justify-content-center align-content-center ">
             <v-row no-gutters align="center">
-
+ <v-col cols="12" lg="6" class="mb-10 d-lg-none d-md-none d-flex">
+                    <img :src="rightImage" alt="" class="missionImage">
+                </v-col>
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 class="text-h3 font-weight-bold text-white mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
+                        <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold text-whiteLight mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
                         </h2>
                         <div>
                             <div class=" border-sm pa-5 rounded-lg"
@@ -39,7 +41,7 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col cols="12" lg="6" class="mt-lg-0 mt-10">
+                <v-col cols="12" lg="6" class="mt-lg-0 mt-10 d-lg-flex d-md-flex d-none">
                     <img :src="rightImage" alt="" class="missionImage">
                 </v-col>
 

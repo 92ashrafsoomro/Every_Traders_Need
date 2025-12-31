@@ -3,17 +3,17 @@
   <div>
     <screen />
    <div class="mt-16 mt-0"> <TrustedPartner/></div>
-    <!-- <v-divider></v-divider> -->
+    <v-divider></v-divider>
     <SmartBuyer/>
-    <!-- <BeforeAutoboli/> -->
+    <BeforeAutoboli/>
     <AfterAutoboli/>
     
     <SmarterChoice/>
     <GainAutoboli/>
     <FAQ/>
-    <!-- <vision />
+    <vision />
     <Trusted />
-    <wining/> -->
+    <wining/>
   </div>
 </template>
 

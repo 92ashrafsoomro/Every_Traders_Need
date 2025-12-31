@@ -3,8 +3,8 @@
       <div>
           <div class="text-center">
 
-            <h2 class="text-lg-h3 font-weight-bold"> Why smart dealers start with Autoboli</h2>
-            <p class="d-flex w-75    mx-auto text-lg-h6 pa-4" style="font-weight: 400; ">Autoboli gives you the
+            <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold"> Why smart dealers start with Autoboli</h2>
+            <p class="d-flex w-lg-75 w-md-75 w-100    mx-auto text-lg-h6 pa-4" style="font-weight: 400; ">Autoboli gives you the
                 clarity you need to decide what’s worth bidding on, what’s worth avoiding, and what delivers real margin
                 — before the auction hammer falls.</p>
         </div>
@@ -13,7 +13,7 @@
          align-center align-md-start"
          >
 
-            <div v-for="(item, i) in smartData" :key="i" cols="12" md="4" class="h-75 w-75 text-center">
+            <div v-for="(item, i) in smartData" :key="i" cols="12" md="4" class="h-75 w-lg-75 w-100 text-center">
                 <div rounded="xl" class="pa-8">
                     <!-- ICON -->
                     <div class="mb-6 d-flex align-center justify-center mx-auto" style="width:100px; height:100px;"
@@ -26,7 +26,8 @@
                     </h4>
 
                     <!-- DESCRIPTION -->
-                    <p class="text-body-2 text-medium-emphasis">
+                   
+                    <p class="text-body-2 text-medium-emphasis ">
                         {{ item.description }}
                     </p>
                 </div>

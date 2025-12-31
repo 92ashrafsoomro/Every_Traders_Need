@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-surface rounded border">
+    <div class="bg-surface rounded border mt-0">
         <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
             :loading="auctionStore.loading" item-value="id">
 
@@ -19,8 +19,7 @@
                     :class="{ 'hovered-main-row': hoveredRowId === item.id }" class="main-row">
                     <td>
                         <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
-                            <span style="color: white;">{{ item.make_name }} {{ item.model_name }} {{ item.variant_name
-                                }}</span>
+                            <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{ item.variant_name}} </span>
                         </v-btn>
                     </td>
                     <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
@@ -32,8 +31,9 @@
                             {{ item.grade }}
                         </span>
                     </td>
-                    <td>{{ item.auction_date }} <br> {{ item.auction_time }}</td>
-                    <td>
+                    <td>{{ item.auction_date }}</td> 
+                    <!-- {{ item.auction_time }} -->
+                    <td colspan="">
                         <span class="auction-badge">{{ item.auction_name }}</span>
                     </td>
                 </tr>

@@ -67,8 +67,8 @@
                           
                         <div class="mb-2 text-body-1">{{ value.label }}</div>
                             <v-btn  variant="outlined"  base-color="border" class="infoBtnHover text-capitalize text-body-1   w-50 h-75 d-flex " @click="this.$refs.uploadeInfo.click();"> 
-                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>   
-                                <span class="ml-2 text-white">Upload</span>
+                                <v-icon class="pr-4 text-whiteLite">mdi-upload</v-icon>   
+                                <span class="ml-2 text-whiteLite">Upload</span>
                             </v-btn>
                             <v-file-input ref="uploadeInfo"
                                 clearable class="d-none"

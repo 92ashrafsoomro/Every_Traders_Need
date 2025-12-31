@@ -21,25 +21,25 @@
         </div>
     </user-title-bar>
 
-    <v-container  style="max-width: 1400px;">
+    <v-container  >
         <v-row class="mt-1  ">
             <v-col cols="12 ">
                 <!-- ROW 1 -->
-                <div class="mb-2">
-                    <div class="d-flex flex-wrap w-100 align-center">
+                <div class="mb-2 " >
+                    <div class="d-flex flex-wrap w-100   mx-auto align-center" >
 
                         <!-- LEFT -->
-                        <div class="d-flex flex-wrap align-center ga-2 flex-grow-1">
+                        <div class="d-flex flex-wrap align-center justify-   ga-2 flex-grow-1">
 
                             <!-- FILTER BUTTON -->
                             <div>
                                 <v-btn v-if="auctionStore.sidebar" color="primary" variant="outlined"  prepend-icon="mdi-filter" @click="auctionStore.toggleFilter()">
-                                    <span class="text-white text-capitalize text-body-1">Hide Filter</span>
+                                    <span class="text-whiteLightLight text-capitalize text-body-1">Hide Filter</span>
                                 </v-btn>
 
                                 <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
                                     @click="auctionStore.toggleFilter()" >
-                                  <span class="text-white text-capitalize text-body-1">Show Filter</span>
+                                  <span class="text-whiteLight text-capitalize text-body-1">Show Filter</span>
                                 </v-btn>
                             </div>
 
@@ -48,7 +48,7 @@
                                 <v-btn v-if="auctionStore.sidebar" color="danger" variant="text"
                                     :disabled="!isAnyFilterSelected" prepend-icon="mdi-delete"
                                     @click="auctionStore.ClearFilter()">
-                                    <span class="text-white text-capitalize" style="text-decoration: underline">
+                                    <span class="text-whiteLight text-capitalize" style="text-decoration: underline">
                                         Clear All
                                     </span>
                                 </v-btn>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <!-- ROW 2 -->
-                <v-slide-y-transition>
+                <v-slide-y-transition >
                     <div v-if="!auctionStore.sidebar && isAnyFilterSelected" class="mb-3">
                         <div class="d-flex flex-wrap ">
 
@@ -97,7 +97,7 @@
                             <div class="mt-2">
                                 <v-btn color="danger" variant="text" prepend-icon="mdi-delete"
                                     @click="auctionStore.ClearFilter()">
-                                    <span class="text-white text-capitalize" style="text-decoration: underline">
+                                    <span class="text-whiteLight text-capitalize" style="text-decoration: underline">
                                         Clear All
                                     </span>
                                 </v-btn>
@@ -112,12 +112,12 @@
 
                 <div :class="{ 'sidebarOpen': auctionStore.sidebar }"
                     class="main-div d-flex align-start justify-space-between flex-wrap mx-auto">
-                    <div class="sidebar">
-                        <div class=" bg-surface rounded border ">
+                    <div class="sidebar" >
+                        <div class=" bg-surface rounded border  " >
                             <auctionSidebar />
                         </div>
                     </div>
-                    <div class="transition-col">
+                    <div class="transition-col mx-auto" style="max-width: 1400px;">
                         <component :is="currentComponent" />
                     </div>
                 </div>

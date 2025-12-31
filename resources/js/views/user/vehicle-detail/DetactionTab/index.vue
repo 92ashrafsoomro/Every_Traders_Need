@@ -5,9 +5,9 @@
         <div class="pa-4 d-flex  flex-wrap flex-wrap align-start justify-space-between">
 
             <!-- LEFT -->
-            <div class="w pr-4" style="width: 500px;">
-                <div class="mt-2">
-                    <span class="text-body-2 pa-1" style="border-left:5px solid rgb(var(--v-theme-primary));
+            <div class="pr-4" style="width: 500px;">
+                <div class="mt-2 ">
+                    <span class="text-body-2 pa-1 " style="border-left:5px solid rgb(var(--v-theme-primary));
                    border-radius:5px;
                    background:#fff;
                    color:rgb(var(--v-theme-surface));">
@@ -15,7 +15,7 @@
                     </span>
 
                     <div>
-                        <div class="text-h6  font-weight-bold">
+                        <div class="text-h6 mt-2  font-weight-bold">
                             {{ vehicleStore.vehicle?.make?.name }} {{ vehicleStore.vehicle?.model?.name }}
                             {{ vehicleStore.vehicle?.variant?.name }} <span class="text-body-2 pa-1" style="background:rgb(var(--v-theme-primary),0.3);
                      border-radius:5px;">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- RIGHT -->
-            <div class=" pl-4 bg-background pa-3"
+            <div class="mt-2 pl-4 bg-background pa-3"
                 style="width: 800px; border-left:3px solid rgb(var(--v-theme-primary));">
 
                 <div class="d-flex  flex-wrap mb-3 justify-space-between">

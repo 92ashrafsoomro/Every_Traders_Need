@@ -16,16 +16,16 @@
 
           <!-- Right content -->
           <v-col cols="12" md="6" class="pr-md-8 pl-10 ">
-            <h2 class="text-h3 font-weight-bold mb-6">
+            <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold mb-6">
               Why Autoboli Exists
             </h2>
-            <p class="text-body-1 mb-6 text-light_text_on">
+            <p class="text-lg-body-1 text-body-2 mb-6 text-light_text_on">
               Autoboli was created to give dealers and traders a clear advantage at auction.<br>
               Our goal is simple:<br>
               <strong>Turn auction data into clarity, confidence, and profit.</strong>
             </p>
 
-            <p class="text-body-1 mb-6  text-light_text_on">
+            <p class="text-lg-body-1 text-body-2 mb-6  text-light_text_on">
               We aggregate and analyze data from 30+ UK auction houses, combining:
             </p>
 
@@ -36,7 +36,7 @@
               </li>
             </ul>
 
-            <p class="text-body-1 text-light_text_on font-weight-medium">
+            <p class="text-lg-body-1 text-body-2 text-light_text_on font-weight-medium">
               So you can compare before you bid, not after you lose.
             </p>
           </v-col>

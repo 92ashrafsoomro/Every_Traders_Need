@@ -8,9 +8,9 @@
                 </v-col>
                 <v-col cols="12" lg="6">
                     <div class="pl-0 pl-md-8">
-                        <h2 class="text-h2 font-weight-bold text-white mb-8 mt-10 mt-lg-0">Our Vision</h2>
+                        <h2 class="text-lg-h3 text-md-h3 text-h4 font-weight-bold text-white mb-8 mt-10 mt-lg-0">Our Vision</h2>
                         <div>
-                            <p class="text-h6 mb-6  mr-6 ">Our vision is to become the most trusted auction intelligence
+                            <p class="text-lg-h6 text-body-1  mb-6  mr-6 ">Our vision is to become the most trusted auction intelligence
                                 platform for the automotive trade.</p>
                             <p class="text-h6 mb-6  mr-6">We believe:</p>
                             <div class="ml-2 mb-2" v-for="item in [
@@ -31,7 +31,7 @@
 
                         </div>
 
-                            <p class="text-h6 mt-10 mr-6 ">We’re not here to replace auctions — we’re here to help you
+                            <p class="text-lg-h6 text-body-1  mt-10 mr-6 ">We’re not here to replace auctions — we’re here to help you
                                 win at them.</p>
                     </div>
                 </v-col>

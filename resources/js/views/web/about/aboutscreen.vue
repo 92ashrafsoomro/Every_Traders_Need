@@ -2,22 +2,18 @@
   <main>
 
     <!-- HERO -->
-    <section 
-      class="aboutScreen py-16 d-flex align-center "
-      style="background-color: #0A70FF;"
-    >
-      <v-container style="max-width:1400px; " fluid="" class="d-flex align-center mx-auto ">
-        
+    <section class="aboutScreen py-16 d-flex align-center  " style="margin-top: 50px; background-color: rgb(var(--v-theme-primary));">
+      <v-container style="max-width:1400px;  height: 80vh;" fluid="" class=" d-flex align-center mx-auto ">
+
         <div class="hero-text" style="max-width: 900px;">
-          
+
           <!-- Small Heading -->
           <span class="hero-about-heading text-on-primary">
             About
           </span>
 
           <!-- Main Heading -->
-          <h1 class="text-white text-h2 font-weight-bold  mt-3"
-              style="line-height: 1.1; ">
+          <h1 class="text-white text-h2 font-weight-bold  mt-3" style="line-height: 1.1; ">
             Our vision is to inspire brands to thrive through exceptional content experiences
           </h1>
 
@@ -60,17 +56,17 @@ export default {
 
 @media (max-width: 900px) {
   .hero-image-area {
-    display: none; 
+    display: none;
   }
 
   h1 {
     font-size: 32px !important;
   }
 }
-
+/* 
 @media (max-width: 600px) {
   .aboutScreen {
-    height: 30vh; 
+    
   }
-}
+} */
 </style>

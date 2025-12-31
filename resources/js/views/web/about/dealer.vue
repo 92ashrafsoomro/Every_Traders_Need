@@ -1,5 +1,5 @@
 <template>
-  <v-container max-width="1400px" fluid class="bg-surface main-container mx-auto pa-0">
+  <v-container max-width="1400px" fluid class="bg-surface main-container mx-auto pa-lg-0 pa-md-0 pa-3">
     <div style="padding-top: 100px; padding-bottom: 100px;">
       <!-- Main Card -->
       <v-card class="mx-auto pa-8 pa-md-12 rounded-xl bg-background border-sm"
@@ -7,14 +7,14 @@
         <v-row align="center" no-gutters>
           <!-- Left Content -->
           <v-col cols="12" md="6" class="pr-md-8">
-            <h2 class="text-h3 font-weight-bold mb-6" style="  line-height: 1.2;">
+            <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold mb-6" style="  line-height: 1.2;">
               The Problem We Saw in the Market
             </h2>
-            <p class="text-body-1 mb-6 text-white">
+            <p class="text-body-1 mb-6 text-whiteLight">
               Vehicle auctions move fast. Prices change daily. Information is scattered.<br>
             </p>
             <div class=" px-10 py-6  rounded-xl mb-2" style="background-color: rgb(var(--v-theme-primary),0.2);">
-              <p class="text-body-1 mb-3 text-white">
+              <p class="text-body-1 mb-3 text-whiteLight">
                 Dealers and traders often face:
               </p>
 
@@ -24,16 +24,16 @@
                     mdi-check-circle
                   </v-icon>
 
-                  <span class="text-white text-body-2">
+                  <span class="text-whiteLight text-body-2">
                     {{ item }}
                   </span>
                 </div>
               </div>
 
-              <p class="text-body-1 text-white font-weight-medium">Inexperience — or lack of real-time data — leads to
+              <p class="text-body-1 text-whiteLight ">Inexperience — or lack of real-time data — leads to
                 costly bidding mistakes</p>
             </div>
-            <p class="text-body-1 text-white font-weight-medium mt-4">
+            <p class="text-body-1 text-whiteLight  mt-4">
 
               We saw too many good traders losing money not because they were bad at business, but because they didn’t
               have the right information at the right time.

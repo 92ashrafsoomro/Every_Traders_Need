@@ -13,7 +13,7 @@
             <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
         <AuthHeader></AuthHeader>
-        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center">
+        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center pa-4">
             <!-- <v-container fluid class="d-flex justify-center align-center" > -->
 
                         <v-card color="background" class="py-6 px-4 mx-auto border-sm" rounded="lg" style="width: 500px;">
@@ -24,14 +24,14 @@
                             </v-card-item>
                             <v-card-text>
                                 <v-container>
-                                    <div class="google-icon text-center mb-5 bg-white rounded-sm">
+                                    <!-- <div class="google-icon text-center mb-5 bg-white rounded-sm">
                                         <v-btn size="large" class="text-capitalize d-flex justify-space-around border-none"
                                             rounded="lg" block variant="outlined">
                                             <img src="https://imgs.search.brave.com/bdmCEEDU5vFEHnyuP6ebEB5TZx6UAjhIkxkswf1Jerg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yODc1LzI4NzU0/MDQucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs"
                                                 width="20" height="20" class="me-2" alt="">
                                             Continue with Google
                                         </v-btn>
-                                    </div>
+                                    </div> -->
                                     <div class="d-flex align-center mb-5">
                                         <v-divider></v-divider>
                                         <span class="px-4 text-medium-emphasis text-body-2">OR</span>

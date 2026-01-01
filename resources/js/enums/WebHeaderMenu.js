@@ -12,10 +12,10 @@ export default [
         label: "Pricing",
         path: "/pricing"
     },
-    {
-        label: "Auction Solution",
-        path: "/auctionsolution"
-    },
+    // {
+    //     label: "Auction Solution",
+    //     path: "/auctionsolution"
+    // },
     {
         label: "Auction Schedule",
         path: "/auctionschedule"

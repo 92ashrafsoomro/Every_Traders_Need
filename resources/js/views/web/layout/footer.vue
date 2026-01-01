@@ -48,50 +48,23 @@
                 </div>
             </div>
 
-            <div class="d-lg-none ">
-                <div class="d-flex  items-start ga-7 justify-space-between " style="width: 300px;">
-                    <div class="w-50  text-body-2 text-light_text_on">
-                        <h4 class="font-weight-bold text-h6 mb-4 text-white">Company</h4>
-                        <p>
-                            About Us
-                        </p>
-                        <p>Auction Solution</p>
-                        <p>Download</p>
-                    </div>
-                    <div class="w-50  text-body-2 text-light_text_on ">
-                        <h4 class="font-weight-bold mb-4 text-h6 text-white">Help</h4>
-                        <p>
-                            FAQs
-                        </p>
-                        <p>Pricing</p>
-                        <p>Support</p>
-                    </div>
 
-                </div>
-                <div class="d-flex items-start ga-7 justify-space-between mt-10" style="width: 300px;">
-                    <div class="text-body-2 text-light_text_on w-50">
-                        <h4 class="font-weight-bold mb-4 text-h6 text-white">Social</h4>
-                        <p>
-                            Facebook
-                        </p>
-                        <p>Instagram</p>
-                        <p>X</p>
-                        <p>LinkedIn</p>
-                        <p>YouTube</p>
-                        <p>TikTok</p>
-                        <p>Pinterest</p>
-                    </div>
-                    <div class="w-50 text-body-2 text-light_text_on ">
-                        <h4 class="font-weight-bold mb-4 text-h6 text-white">Extras</h4>
-                        <p>
-                            Privacy
-                        </p>
-                        <p>Terms</p>
-                        <p>Disclaimer</p>
-                    </div>
+            <div class="mt-10 d-lg-none w-50">
+                <v-row>
+                    <v-col cols="6" v-for="(section, i) in footerData" :key="i">
+                        <h4 class="font-weight-bold text-h6 mb-4 text-white">
+                            {{ section.title }}
+                        </h4>
 
-
-                </div>
+                        <div class="d-flex flex-column ga-2 ">
+                            <v-btn v-for="(link, j) in section.links" :key="j" variant="text"
+                                class="text-left justify-start pa-0 footerElement text-body-2 text-light_text_on"
+                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener">
+                                {{ link.label }}
+                            </v-btn>
+                        </div>
+                    </v-col>
+                </v-row>
             </div>
 
             <div class="text-light_text_on mt-10    pb-2 text-body-2"

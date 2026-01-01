@@ -1,7 +1,25 @@
 <template>
-  <div class="mainContainer   ">
-    <div class="content " style="min-height: 100vh; ">
-      <v-row align="center" justify="center">
+  <div class="mainContainer position-relative">
+
+    <!-- TOP LOGO BAR (FULL WIDTH) -->
+    <div class=" bg-transparent pt-2 d-flex align-center justify-space-between px-6">
+      <div class="bg-surface w-50">
+        <img :src="logo" height="40" alt="logo" />
+      </div>
+
+      <div>
+        <!-- <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminDark'"
+          icon="mdi-lightbulb-off" /> -->
+        <!-- <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminLight'"
+          icon="mdi-lightbulb-on" /> -->
+        <v-btn variant="tonal" size="40" to="/" class="rounded-xl" :class="scrolled ? 'bg-background' : ''">
+          <v-icon size="25">mdi-home</v-icon>
+        </v-btn>
+      </div>
+    </div>
+
+    <div class="content" style="min-height: 100vh;">
+      <v-row no-gutters>
 
         <!-- Left: Title + Form -->
         <v-col cols="12" lg="6" class="bg-surface pa-md-12  position-relative " style="min-height: 100vh;">
@@ -21,13 +39,11 @@
           </v-card>
 
 
-          <div class="logo" style="position: absolute;">
-            <img style="" height="40px" :src="logo" alt="">
-          </div>
+
           <!-- Form Content -->
           <div style=" display: flex; justify-content: center; align-items: center; height: 90vh;">
 
-            <div class="position-relative align-center justify-center " style="z-index: 2;  width: 500px;">
+            <div class="position-relative align-center justify-center pa-4 pa-lg-0" style="z-index: 2;  width: 500px;">
               <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
                 Help & Support
               </h1>
@@ -65,13 +81,13 @@
           style="min-height: 100vh;">
           <div class="w-100 " style="max-width: 560px;">
             <div v-for="(item, index) in quickLinks" :key="index" class="mb-4 px-6 py-1 border-thin rounded-sm"
-              :class="activeIndex === index ? 'active-item' : 'bg-background'">
+              :class="activeIndex === index ? 'active-item' : 'bg-background'"  @click="toggle(index)">
 
               <div class="d-flex align-center justify-space-between">
                 <span class="text-white text-body-1">{{ item.heading }}</span>
 
                 <v-btn icon variant="text">
-                  <v-icon color="white"  size="20" @click="toggle(index)">
+                  <v-icon color="white" size="20">
                     {{ activeIndex === index ? 'mdi-minus' : 'mdi-plus' }}
                   </v-icon>
                 </v-btn>
@@ -98,21 +114,27 @@ import UserModel from '@/models/user.model';
 import bgImage from "@/assets/images/reauction/Reauction.png"
 import quickLinks from "@/json/support.json"
 import logo from '@/assets/images/logo/logo.png'
+// import { useThemeStore } from "@stores/themeStore";
+// import { useTheme } from "vuetify";
 
 export default {
   name: 'support',
 
-  data: () => ({
-    logo,
-    bgImage,
-    quickLinks,
-    activeIndex: null,
-    form: {
-      name: "",
-      email: "",
-      description: ""
+  data() {
+    return {
+      // themeStore: useThemeStore(),
+      // vuetify: useTheme(),
+      logo,
+      bgImage,
+      quickLinks,
+      activeIndex: null,
+      form: {
+        name: "",
+        email: "",
+        description: ""
+      }
     }
-  }),
+  },
   methods: {
     async formSubmit() {
       try {
@@ -138,8 +160,12 @@ export default {
     toggle(index) {
       this.activeIndex = this.activeIndex === index ? null : index;
     }
-
-  }
+  },
+  // computed:{
+  //   isDark(){
+  //     return this.vuetify.global.name === "adminDark";
+  //   }
+  // }
 }
 </script>
 

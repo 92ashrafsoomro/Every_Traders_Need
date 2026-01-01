@@ -2,21 +2,21 @@
     <v-container fluid max-width="1400px" class="bg-background pa-8">
         <v-row class="mt-10 mb-10">
             <v-col cols="12 User Details">
-                <h1 class="text-h4 text-white font-weight-bold   ">Checkout</h1>
+                <h1 class="text-h4 text-whiteLiteLite font-weight-bold   ">Checkout</h1>
             </v-col>
             <v-col cols="12" lg="7">
 
-                <v-card class="pa-6 border-sm" :loading="loading">
-                    <v-card-title class="text-h5 font-weight-bold text-white mb-4">Billing Info</v-card-title>
+                <v-card class="pa-lg-6 pa-md-4 pa-2 border-sm" :loading="loading">
+                    <v-card-title class="text-h5 font-weight-bold text-whiteLiteLite mb-4">Billing Info</v-card-title>
                     <div class="border"></div>
 
                     <v-card-text class="pa-0">
                         <div class="pt-5- pb-10 mt-4">
                             <span style="padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
-                                class=" text-h6  text-white ">User Details</span>
+                                class=" text-h6  text-whiteLite ">User Details</span>
                         </div>
 
-                        <v-row>
+                        <v-row class="pa-0">
                             <v-col cols="12" sm="6">
                                 <v-text-field v-model="form.first_name" label="First Name" variant="outlined"
                                     density="comfortable" class="custom-field" />
@@ -60,7 +60,7 @@
                         <div>
                             <div class="pt-5 pb-8">
                                 <span style="padding-right: 13px;padding-bottom: 10px;border-bottom: 3px solid #0080ff;"
-                                    class=" text-h6 text-white ">Card Details</span>
+                                    class=" text-h6 text-whiteLite ">Card Details</span>
                             </div>
                             <div>
                                 <v-text-field class="custom-field" v-model="form.cardholderName" label="Name on card"
@@ -98,7 +98,7 @@
 
                         </div>
 
-                        <v-btn color="primary" class="mt-3 text-white text-capitalize" style="height: 50px;"
+                        <v-btn color="primary" class="mt-3 text-whiteLite text-capitalize" style="height: 50px;"
                             @click="submit">Submit</v-btn>
                     </v-card-text>
                 </v-card>
@@ -106,7 +106,7 @@
 
             <v-col cols="12" lg="5">
                 <div style="position: sticky; top: 70px;">
-                    <div class="d-flex mb-4  justify-space-between pa-6 rounded-sm "
+                    <div class="d-flex  mb-4  justify-space-between pa-6 rounded-sm "
                         style="background-color: rgb(var(--v-theme-primary),0.2);">
                         <div class="d-flex align-center gap-2">
                             <v-icon class="bg-primary rounded-sm" size="30">
@@ -114,7 +114,7 @@
                             </v-icon>
 
                             <div class="ml-4">
-                                <div class="text-white font-weight-bold ">
+                                <div class="text-whiteLite font-weight-bold ">
                                     {{ oldPlan?.plan?.plan_name }}
                                 </div>
                                 <div class="text-body-2">
@@ -125,7 +125,7 @@
                             </div>
                         </div>
 
-                        <div class="text-white text-right">
+                        <div class="text-whiteLite text-right">
                             <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price }}</div>
                             <div class="text-body-2">{{ oldPlan?.plan?.membership_expiry_date || 0 }}</div>
                         </div>
@@ -134,7 +134,7 @@
 
                     <v-card class="gradiantColor pa-6 bg-surface border-sm  mt-6" :loading="loading">
 
-                        <v-card-title class="text-h5 font-weight-bold text-white mb-4 ">Order Summary</v-card-title>
+                        <v-card-title class="text-h5 font-weight-bold text-whiteLite mb-4 ">Order Summary</v-card-title>
 
 
                         <div>
@@ -145,22 +145,22 @@
                                     <div class="d-flex   justify-space-between px-6 py-3 rounded-sm "
                                         style="background-color: rgb(var(--v-theme-primary));">
                                         <div class="d-flex align-center gap-2">
-                                            <v-icon class="bg-white text-primary rounded-sm" size="30">
+                                            <v-icon class="bg-white text-primary rounded-sm" size="25">
                                                 mdi-plus
                                             </v-icon>
-                                            <div class="ml-4">
-                                                <div class="text-h6 font-weight-bold">
+                                            <div class="ml-2">
+                                                <div class="text-lg-h6  text-body-1 font-weight-bold">
 
                                                     {{ item.plan_name }}
                                                 </div>
-                                                <div class="text-body-2 ">
+                                                <div class="text-body-2 d-lg-flex d-md-flex d-none">
                                                     {{ item.short_desc }}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-h6 text-white font-weight-bold ">
+                                        <div class="text-lg-h6  text-body-1  text-whiteLite font-weight-bold ">
                                             £{{ item.price }}
-                                            <div class="text-body-2 text-white ">
+                                            <div class="text-body-2 text-whiteLite ">
                                                 Per {{ item.duration_unit }}
                                             </div>
                                         </div>
@@ -184,10 +184,10 @@
                                 </template>
 
 
-                                <v-list class="v-list-rounded bg-background mt-3 " density="compact">
+                                <v-list class="v-list-rounded bg-background border-none mt-3 ml-lg-0 ml-md-0 ml-n5 " density="compact">
                                     <v-list-item v-for="item in planList" :key="item.id" @click="selectedPlan = item.id"
                                         class="pa-0 "
-                                        :class="selectedPlan === item.id ? 'bg-primary text-white rounded-t' : 'bg-background'">
+                                        :class="selectedPlan === item.id ? 'bg-primary text-whiteLite rounded-t' : 'bg-background'">
                                         <div
                                             class="d-flex justify-space-between  align-center w-100 pa-5 selectedHover">
                                             <div>
@@ -195,7 +195,7 @@
                                                     {{ item.plan_name }}
                                                 </div>
                                                 <div class="text-body-2"
-                                                    :class="selectedPlan === item.id ? 'text-white' : 'text-white'">
+                                                    :class="selectedPlan === item.id ? 'text-whiteLite' : 'text-whiteLite'">
                                                     {{ item.short_desc }}
                                                 </div>
                                             </div>
@@ -205,7 +205,7 @@
                                                     £{{ item.price }}
                                                 </div>
                                                 <div class="text-caption "
-                                                    :class="selectedPlan === item.id ? 'text-white' : ''">
+                                                    :class="selectedPlan === item.id ? 'text-whiteLite' : ''">
                                                     Per {{ item.duration_unit }}
                                                 </div>
                                             </div>
@@ -222,7 +222,7 @@
 
 
 
-                        <div class="text-white mt-7">
+                        <div class="text-whiteLite mt-7">
                             <div class="d-flex justify-space-between mb-2">
                                 <span>Base price</span>
                                 <span>£{{ currentPlan?.price }}</span>
@@ -409,7 +409,7 @@ export default {
 <style scoped>
 .text-h6,
 .text-h4,
-.text-white {
+.text-whiteLite {
     font-family: 'Inter', sans-serif !important;
 }
 
@@ -435,5 +435,9 @@ export default {
 
 .gradiantColor {
     background: linear-gradient(to top, rgb(var(--v-theme-primary), 0.2) 5%, transparent 50%);
+}
+:deep(.v-overlay__content){
+    border: none;
+    
 }
 </style>

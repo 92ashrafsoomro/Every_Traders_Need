@@ -29,7 +29,7 @@
                     <div class="d-flex flex-wrap w-100   mx-auto align-center" >
 
                         <!-- LEFT -->
-                        <div class="d-flex flex-wrap align-center justify-   ga-2 flex-grow-1">
+                        <div class="d-flex flex-wrap align-center    ga-2 flex-grow-1">
 
                             <!-- FILTER BUTTON -->
                             <div>
@@ -37,7 +37,7 @@
                                     <span class="text-whiteLightLight text-capitalize text-body-1">Hide Filter</span>
                                 </v-btn>
 
-                                <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
+                                <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off" class="" style="margin-left: 190px;"
                                     @click="auctionStore.toggleFilter()" >
                                   <span class="text-whiteLight text-capitalize text-body-1">Show Filter</span>
                                 </v-btn>
@@ -64,7 +64,7 @@
                         </div>
 
                         <!-- RIGHT -->
-                        <div class="d-flex flex-wrap align-center ga-3 ml-auto  ">
+                        <div class="d-flex flex-wrap align-center ga-3 " style="margin-right: 190px;">
 
                             <div style="width: 130px" class="mt-lg-2 mt-md-2 mt-4 ">
                                 <v-select persistent-placeholder v-model="auctionStore.filter.length"

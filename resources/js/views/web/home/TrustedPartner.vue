@@ -31,17 +31,18 @@
           </div>
         </div>
         <div class="d-flex justify-center justify-lg-start mt-4 ">
-          <div class="button d-flex justify-space-between bg-primary align-center  pa-3  "
-            style=" min-width: 150px; max-width: 200px; border-radius: 40px;">
-            <div class="text ml-2 mr-2">
-              About us
+          <router-link to="about" style="text-decoration: none;">
+            <div class="button d-flex justify-space-between bg-primary align-center  pa-3  "
+              style=" min-width: 150px; max-width: 200px; border-radius: 40px;">
+              <div class="text ml-2 mr-2">
+                About us
+              </div>
+              <div class="icon bg-white rounded-xl pa-1"> <v-icon>
+                  mdi-arrow-top-right
+                </v-icon></div>
+
             </div>
-            <div class="icon bg-white rounded-xl pa-1"> <v-icon>
-                mdi-arrow-top-right
-              </v-icon></div>
-
-          </div>
-
+          </router-link>
         </div>
 
 

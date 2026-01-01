@@ -128,3 +128,15 @@ aside {
 .v-switch__thumb {
     background-color: rgb(var(--v-theme-primary)) !important;
 }
+
+.v-expansion-panel{
+    padding-left: 20px !important;
+}
+.v-expansion-panel-text__wrapper{
+    padding-left: 0;
+}
+.v-btn--elevated{
+    box-shadow: none !important;
+    text-shadow: none !important;
+    /* border-radius: 10px !important; */
+}

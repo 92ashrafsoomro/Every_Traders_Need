@@ -1,32 +1,20 @@
 <template>
-  <v-app-bar
-    class="px-3 px-sm-5"
-    flat
-    :elevation="scrolled ? 4 : 0"
-    :class="scrolled ? 'bg-surface' : 'bg-transparent'"
-  >
-    <template v-slot:prepend>
-      <v-btn to="/">
-        <v-img width="130" :src="currentLogo"></v-img>
-      </v-btn>
-    </template>
+<div class=" pt-2  d-flex align-center position-absolute justify-space-between px-6"
+      style="z-index: 1000; width: 100%;">
+      <div class="w-50 d-flex">
+       <router-link to="/"> <img :src="currentLogo" height="30px" alt="logo" /></router-link>
+      </div>
 
-    <template v-slot:append>
-      <v-btn
-        @click="themeStore.toggleThemeMode(vuetify)"
-        v-if="vuetify.global.name === 'adminDark'"
-        icon="mdi-lightbulb-off"
-      />
-      <v-btn
-        @click="themeStore.toggleThemeMode(vuetify)"
-        v-if="vuetify.global.name === 'adminLight'"
-        icon="mdi-lightbulb-on"
-      />
-      <v-btn variant="tonal" size="40" to="/" class="rounded-xl" :class="scrolled ? 'bg-background' : ''">
-        <v-icon size="25">mdi-home</v-icon>
-      </v-btn>
-    </template>
-  </v-app-bar>
+      <div class="ga-2 d-flex">
+        <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminDark'"
+          icon="mdi-lightbulb-off" class="rounded-lg border" elevation="0" variant="text"/>
+        <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminLight'"
+          icon="mdi-lightbulb-on"  class="rounded-lg border" elevation="0" variant="text"/>
+
+                <v-btn icon="mdi-home" to="/" class="rounded-lg border " variant="text" elevation="0" />
+
+      </div>
+    </div>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
     <v-menu class="menuLabel" location="bottom" transition="fade-transition">
         <template #activator="{ props }">
-            <v-btn icon v-bind="props" class="profileBtn">
+            <v-btn icon v-bind="props" elevation="0" variant="text">
                 <div class="d-flex align-center ga-2">
                     <div class="profileImage d-flex justify-center align-center border">
-                        <img :src="userStore.user.avatar" alt="" class="rounded"
-                            style="height: 80%; width: 80%;" />
+                        <img :src="userStore.user.avatar" alt=""
+                            style="height: 50%; width: 50%;" />
                     </div>
                     <slot></slot>
                 </div>
@@ -31,6 +31,17 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
+            <v-list-item link>
+                <v-list-item-title class="profileDropDown cursor-pointer">
+                    <router-link to="/user/dashboard" class="text-decoration-none" >
+                        <div class=" d-flex align-center ga-2 wrapper">
+                          <v-icon class="icon text-light_text_on" icon="mdi-shield-crown"></v-icon>
+
+                            <p class="text text-light_text_on">Dashboard</p>
+                        </div>
+                    </router-link>
+                </v-list-item-title>
+            </v-list-item>
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/settings/profile" class="text-decoration-none" >
@@ -100,8 +111,9 @@ export default {
 </script>
 <style scoped >
 .profileImage {
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    border-radius: 7px;
+    width: 40px;
 }
 .profileDropDown:hover .text,
 .profileDropDown:hover .icon {

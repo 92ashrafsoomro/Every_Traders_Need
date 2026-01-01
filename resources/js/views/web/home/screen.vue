@@ -24,8 +24,13 @@
 
 
           <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
+            <router-link to="user/auction-finder" style="text-decoration: none ; color: white;">
             <v-btn color="primary" size="large" class="text-capitalize">Explore Auctions</v-btn>
+            </router-link>
+            
+            <router-link to="login" style="text-decoration: none ; color: white;">
             <v-btn variant="outlined" size="large" class="text-capitalize ">Start Free Trial</v-btn>
+           </router-link>
           </div>
 
           <div class="d-flex mt-8  w-75 w-lg-100 mx-auto ga-2 justify-start">

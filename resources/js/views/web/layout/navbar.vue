@@ -40,7 +40,7 @@
                             v-if="userStore.is_logged_in == true">
                             My Account
                         </v-btn>
-                        <v-btn variant="outlined" class="text-capitalize mr-2 " v-else>SignIn</v-btn>
+                        <v-btn variant="outlined" class="text-capitalize mr-2 " v-else>Login In</v-btn>
                     </v-list-item>
 
                     <!-- Dashboard -->
@@ -56,31 +56,48 @@
 
             </nav>
 
-            <!-- Mobile Drawer -->
-            <v-navigation-drawer v-model="drawer" temporary class="d-lg-none border-t"
-                style="margin-top: 50px; height: 100vh;">
-                <!-- Navigation Menu -->
-                <v-list>
-                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link>
-                        <v-list-item-title>{{ item.label }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
+            <v-navigation-drawer v-model="drawer" temporary class="d-lg-none bg-surface "
+                style="margin-top:50px; height:calc(100vh - 50px); border-right: 1px solid rgb(var(--v-theme-border));">
+                <div class="d-flex flex-column h-100">
 
-                <!-- Buttons at the bottom -->
-                <div class="d-flex flex-column px-3 pa-2   ga-3" style="margin-top: 430px; border-top: 1px solid rgb(var(--v-theme-border));">
-                    <v-btn  v-if="userStore.is_logged_in" variant="outlined" color="primary"
-                        class="text-capitalize w-100" to="/login">
-                        My Account
-                    </v-btn>
+                    <!-- Menu Items -->
+                    <v-list nav class="pt-8 pb-4">
+                        <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link
+                            class="text-white py-3">
+                            <v-list-item-title class="text-h6 font-weight-medium">
+                                {{ item.label }}
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
 
-                    <v-btn v-else variant="outlined" class="text-capitalize w-100 mb-2" to="/login">
-                        Login
-                    </v-btn>
+                 
+                    <div class="flex-grow-1"></div>
 
-                    <v-btn v-if="!userStore.is_logged_in" color="primary" variant="flat" class="text-capitalize w-100"
-                        to="/register">
-                        Register
-                    </v-btn>
+                  
+                    <div class="pa-6 d-flex flex-column ga-4">
+
+                    
+                        <v-btn v-if="userStore.is_logged_in" to="/dashboard" color="primary" variant="flat" block
+                            height="50" class="text-capitalize text-white rounded-lg">
+                            My Account
+                        </v-btn>
+
+                  
+                        <template v-else>
+                            <v-btn to="/login" variant="outlined" color="white" block height="50"
+                                class="text-capitalize text-white border-2 rounded-lg"
+                                style="background-color: transparent !important;">
+                                Login
+                            </v-btn>
+
+                            <v-btn to="/register" color="primary" variant="flat" block height="50"
+                                class="text-capitalize text-white rounded-lg">
+                                Sign Up
+                            </v-btn>
+                        </template>
+
+                    </div>
+
                 </div>
             </v-navigation-drawer>
 

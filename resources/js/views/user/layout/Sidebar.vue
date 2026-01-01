@@ -3,11 +3,8 @@
         <v-list density="compact" class="" nav>
             <v-list-item class="d-flex " style="height: 57px; ">
 
-                <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;"
-                    class="d-flex justify-center align-center" />
-
-                <img v-else :src="newLogo" style="width: 40px; height: 40px; " />
-            </v-list-item>
+                <img v-if="menuWidth == 258" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
+                <img v-else :src="smallCurrent" style="width: 40px; height: 40px;" /> </v-list-item>
 
 
 
@@ -30,10 +27,10 @@
                     </template>
 
                     <!-- TITLE -->
-                        <template #title>
-                            <span class="text-body-1 ml-10">
-                                {{ item.label }}
-                            </span>
+                    <template #title>
+                        <span class="text-body-1 ml-10">
+                            {{ item.label }}
+                        </span>
                     </template>
 
 
@@ -56,11 +53,19 @@
 </template>
 
 <script>
-import { useDisplay } from "vuetify";
+import { useDisplay, useTheme } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
 import userMenu from "./userMenu.json";
 import logo from "@assets/images/logo/logo.png"
 import newLogo from "@assets/images/logo/newLogo.png"
+import darkLogo from "@/assets/images/header/darkfull.png"
+import lightLogo from "@/assets/images/header/lightfull.png"
+
+import darkshortLogo from "@/assets/images/header/darkshort.png"
+import lightshortLogo from "@/assets/images/header/lightshort.png"
+import { useUserStore } from "@/stores/userStore";
+
+
 export default {
     data() {
         return {
@@ -68,8 +73,11 @@ export default {
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
-            newLogo
+            newLogo,
+            userStore: useUserStore(),
+            vuetify: useTheme(),
         };
+
     },
     computed: {
         menuWidth() {
@@ -81,10 +89,26 @@ export default {
                 //for: lg, xl
                 return this.themeStore.menuType == "expanded" ? "258" : "70";
             }
-
         },
+        isDark() {
+            return this.vuetify.global.name === "adminDark"
+        },
+        currentLogo() {
+            return this.isDark ? darkLogo : lightLogo
+        },
+        smallCurrent(){
+             return this.isDark ? darkshortLogo : lightshortLogo
+        }
     },
-    methods: {},
+    methods: {
+        images() {
+            return this.isDark ? darkLogo : lightLogo;
+        },
+        toggleTheme() {
+            this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
+        }
+
+    },
     mounted() { },
 };
 </script>

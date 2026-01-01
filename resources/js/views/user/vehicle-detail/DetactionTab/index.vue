@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="ma-4 ml-0 pa-4 w-75  text-h6 rounded-sm" style="background:rgb(var(--v-theme-danger),0.3);">
+                <div class="ma-4 ml-0 pa-4 w-lg-75 w-100  text-h6 rounded-sm" style="background:rgb(var(--v-theme-danger),0.3);">
                     <span class="text-h4 font-weight-bold" style="color: rgb(var(--v-theme-danger),0.6);">Not
                         Recommended</span><br />
                     <span class="text-h6 font-weight-bold"><span class="bg-danger px-4 py-1 rounded-lg">75%</span> Risk
@@ -71,7 +71,7 @@
                                 style="background-color: rgb(var(--v-theme-danger),0.2);">+216</span></div>
                     </div>
                     <div>
-                        <p class="textSizes text-capitalize">Grade</p>
+                        <p class="text-body-2 text-capitalize">Grade</p>
                         <p class="pa-2 text-dark" :style="{
                             backgroundColor:
                                 vehicleStore.vehicle.grade == 5 ? '#e51f1f' :
@@ -94,11 +94,11 @@
 
                     </div>
                     <div>
-                        <div class="">Last Service</div>
+                        <div class="text-body-2">Last Service</div>
                         <div class="">{{ vehicleStore.vehicle.lastService || "------" }}</div>
                     </div>
                     <div>
-                        <div class="">MOT Expiry</div>
+                        <div class="text-body-2">MOT Expiry</div>
                         <div class="">{{ vehicleStore.vehicle.motExpiryDate || "------" }}</div>
                     </div>
                 </div>
@@ -143,6 +143,9 @@
             <v-data-table class="rounded bg-background" striped="even" :headers="preAucHeaders" hide-default-footer
                 :items="[vehicleStore.vehicle]" item-key="id">
                 <!-- Date -->
+                  <template #item.auction_date="{ item }">
+                    {{ item.auction?.auction_date || '-' }}
+                </template>
                 <template #item.auction_house="{ item }">
                     {{ item.auction?.name || '-' }}
                 </template>

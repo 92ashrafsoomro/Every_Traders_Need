@@ -11,29 +11,49 @@
             </div>
           </div>
           <!-- User Info -->
-          <div class="py-2 flex-grow-1">
-            <div class="pl-3">
-              <h6 class="pb-3 text-h4 font-weight-bold">{{ userStore.user.firstName }}</h6>
-              <div class="d-flex align-center flex-wrap text-light ga-3">
-                <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm">
-                  <v-icon icon="mdi-equalizer" color="primary" />
-                  <span class="text-body-2 px-2">{{ userStore.user.companyName }}</span>
-                </div>
-                <div class="px-3 d-flex align-center bg-background pa-2 rounded-sm">
-                  <v-icon icon="mdi-briefcase-outline" color="primary" />
-                  <span class="text-body-2 px-2">{{ userStore.user.jobTitle }}</span>
-                </div>
-                <div v-if="userStore.user.plan" class="bg-background pa-2 rounded-sm px-3 d-flex align-center">
-                  <v-icon icon="mdi-lightning-bolt" color="primary" />
-                  <span class="text-body-2 px-2 text-capitalize">{{ userStore.user.plan.membership_type }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="profile-wrapper">
+
+  <!-- PROFILE NAME (ALWAYS TOP) -->
+  <div class=" py-2">
+    <h6 class="text-h4 font-weight-bold text-white">
+      {{ userStore.user.firstName }}
+    </h6>
+  </div>
+
+  <!-- SCROLLABLE INFO -->
+  <div class="d-flex align-center text-light ga-3 py-1 w-50 profile-scroll px-3">
+    <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
+      <v-icon icon="mdi-equalizer" color="primary" />
+      <span class="text-body-2 px-2">
+        {{ userStore.user.companyName }}
+      </span>
+    </div>
+
+    <div class="px-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
+      <v-icon icon="mdi-briefcase-outline" color="primary" />
+      <span class="text-body-2 px-2">
+        {{ userStore.user.jobTitle }}
+      </span>
+    </div>
+
+    <div
+      v-if="userStore.user.plan"
+      class="bg-background pa-2 rounded-sm px-3 d-flex align-center flex-shrink-0"
+    >
+      <v-icon icon="mdi-lightning-bolt" color="primary" />
+      <span class="text-body-2 px-2 text-capitalize">
+        {{ userStore.user.plan.membership_type }}
+      </span>
+    </div>
+  </div>
+
+</div>
+
+
         </div>
 
         <!-- Responsive Tab Buttons -->
-        
+
 
       </slot>
     </div>
@@ -64,26 +84,26 @@ import { changPassword } from '@/services/authService';
 
 
 export default {
-    components: {
-        RecentDevices,
-        Sidebar
-    },
-    data() {
-        return {
-            userStore: useUserStore(),
-        };
-    },
+  components: {
+    RecentDevices,
+    Sidebar
+  },
+  data() {
+    return {
+      userStore: useUserStore(),
+    };
+  },
 
-    computed: {
+  computed: {
 
-    },
-    async mounted() {
-
-
-        //    console.log(res);
+  },
+  async mounted() {
 
 
-    }
+    //    console.log(res);
+
+
+  }
 };
 </script>
 
@@ -91,13 +111,23 @@ export default {
 
 <style>
 .pattern-bg {
-    /* position: absolute; */
-    /* inset: 0; */
-    background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
-    background-size: 16px 16px;
-    background-repeat: repeat;
-    /* opacity: 0.25; */
-    pointer-events: none;
-    /* z-index: 0; */
+  /* position: absolute; */
+  /* inset: 0; */
+  background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+  background-size: 16px 16px;
+  background-repeat: repeat;
+  /* opacity: 0.25; */
+  pointer-events: none;
+  /* z-index: 0; */
 }
+
+@media (max-width: 599px) {
+  .profile-scroll {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    margin-right  : -60px;
+    /* width: 100% !important; */
+  }
+}
+
 </style>

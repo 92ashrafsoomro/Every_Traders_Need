@@ -74,10 +74,9 @@ export default {
             return colors;
           },
           borderWidth: 3,
-          borderColor: "#0A101E",
-          hoverBorderColor: "#0A101E",
-          cutout: "70%",
-          spacing: 4,
+          borderColor: "transparent",
+          cutout: "60%",
+          spacing: 40,
         }
       ]
     };

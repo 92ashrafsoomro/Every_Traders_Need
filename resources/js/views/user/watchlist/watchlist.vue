@@ -3,8 +3,8 @@
     <v-col cols="12">
         <v-row class="mt-3">
             <v-col cols="12">
-                <div class="d-flex justify-md-space-between flex-wrap ">
-                    <div class="d-flex flex-wrap ">
+                <div class="scrollSec d-flex justify-md-space-between  h-100 pa-2" >
+                    <div class="d-flex  ">
                         <div class=" " >
                             
                             <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]" 
@@ -18,7 +18,7 @@
                                 variant="outlined" color="primary" width="150" density="compact" clearable />
                         </div>
                     </div>
-                    <div class="d-flex flex-wrap">
+                    <div class="d-flex ">
 
                         <div class="px-0">
                             <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No" v-model="filter.reg_search"
@@ -26,7 +26,7 @@
                                 density="compact" clearable />
                         </div>
 
-                        <div class="px-lg-2 px-md-2">
+                        <div class="px-lg-2 px-md-2 px-2">
                             <MakeDropdown width="200" label="Select Make" variant="outlined" color="primary"
                                 density="compact" :model-value="filter.make"
                                 @update:modelValue="handleInput($event, 'make')" clearable />
@@ -184,5 +184,12 @@ export default {
   border-radius: 6px;
   overflow: hidden; /* important: table border ko follow karega */
 }
+@media (max-width: 599px) {
+  
+.scrollSec{
+     overflow: auto;  
+  
 
+} 
+}
 </style>

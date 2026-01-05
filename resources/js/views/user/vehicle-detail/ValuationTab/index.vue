@@ -75,7 +75,7 @@
                                         <v-col cols="6">
                                             <div class="text-body-2  mb-1">Autotrader</div>
                                             <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                            }}
+                                                }}
                                             </div>
                                             <div class="d-flex mt-2">
                                                 <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
@@ -88,7 +88,7 @@
                                         <v-col cols="6">
                                             <div class="text-body-2  mb-1">Retail CAP</div>
                                             <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                            }}
+                                                }}
                                             </div>
                                             <div class="d-flex mt-2">
                                                 <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
@@ -126,7 +126,7 @@
 
                                 <!-- Car Details -->
                                 <div class="text-h6 mt-3 text-light font-weight-bold mb-4">{{ vehicleStore.vehicle.title
-                                    }}</div>
+                                }}</div>
 
                             </div>
 
@@ -166,8 +166,6 @@
                                     </v-card>
                                     <v-btn icon="mdi-close" class=" position-absolute  bg-primary ma-3"
                                         style="right:-20px; top: -70px; z-index: 1000;" @click="dialog = false" />
-
-
                                 </v-dialog>
 
 
@@ -179,9 +177,9 @@
                     </v-col>
                     <!-- third -->
                     <v-col cols="12" class="pa-0">
-                        <TradeHistory />
+                        <!-- <TradeHistory /> -->
 
-                        <!-- <custom-card>
+                        <!-- 
 
                 <Trade/>
             </custom-card> -->
@@ -251,51 +249,47 @@
                     </v-col>
                     <v-col class="bg-surface mt-4 pa-0 border rounded-lg" cols="12">
                         <custom-card title="Pre Vehicles">
-                            <v-container class=" pb-4">
+                    
 
                                 <!-- TODAY -->
-                              
-                                <v-table striped="even">
-                                    <thead >
-                                        <tr  >
-                                            <th class="text-left" style="padding: 0px;" >
-                                               Reg
-                                            </th>
-                                            
-                                            <th >
-                                                Status
-                                            </th>
-                                            
-                                            <th >
-                                                Last Bid
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="value in [1,2,3,4]">
-                                          
 
-                                            <td class="text-whiteLite pa-0"  >
-                                                {{ vehicleStore.vehicle.reg }}
-                                            </td>
+                                <v-data-table-server class="rounded" :headers="headers" :items="[vehicleStore.vehicle]"
+                                    hide-default-footer hover striped="even">
 
-                                            <td>
-                                                <v-chip size="small" color="primary" variant="tonal">
-                                                    {{ vehicleStore.vehicle.sold || 'Sold' }}
-                                                </v-chip>
-                                            </td>
+                                    <!-- Reg -->
+                                    <template #item.reg="{ item }">
+                                        <span class="font-weight-medium text-whiteLite">
+                                            {{ item.reg }}
+                                        </span>
+                                    </template>
 
-                                            <td class="text-whiteLite">
-                                                £{{ vehicleStore.vehicle.auction_id }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </v-table>
+                                    <!-- Status -->
+                                    <template #item.status="{ item }">
+                                        <v-chip size="small" color="primary" variant="tonal">
+                                            {{ item.sold || 'Sold' }}
+                                        </v-chip>
+                                    </template>
+
+                                    <!-- Last Bid -->
+                                    <template #item.last_bid="{ item }">
+                                        £{{ item.auction_id }}
+                                    </template>
+
+                                    <!-- No Data -->
+                                    <template #no-data>
+                                        <div class="text-center  text-grey">
+                                            No data available
+                                        </div>
+                                    </template>
+
+                                </v-data-table-server>
+
+
 
                                 <!-- YESTERDAY -->
-                             
-                             
-                            </v-container>
+
+
+               
                         </custom-card>
                     </v-col>
 
@@ -325,7 +319,12 @@ export default {
             vehicleStore: useVehicleStore(),
             loading: false,
             image: '',
-            dialog: false
+            dialog: false,
+            headers: [
+                { title: 'Reg', key: 'reg' },
+                { title: 'Status', key: 'status' },
+                { title: 'Last Bid', key: 'last_bid' },
+            ],
         };
     },
     mounted() {

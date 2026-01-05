@@ -2,7 +2,7 @@
     <!-- Top Navbar -->
     <v-sheet class="w-100 position-fixed top-0 bg-tra left-0  transition"
         :class="isScrolled ? 'glass' : 'bg-transparent'" style="z-index: 100;" height="50">
-        <v-container class="pa-0 h-100" style="max-width:1400px">
+        <v-container class="pa-0 " style="max-width:1400px ; height: 50px;">
             <div class="d-flex align-center justify-space-between pa-4 h-100">
 
                 <!-- Logo -->
@@ -33,13 +33,14 @@
                         <ProfileDropdown v-if="userStore.is_logged_in" />
 
 
-                        <v-btn v-else to="/login" variant="text" class="text-capitalize border">
+                        <v-btn v-else to="/login" variant="text"
+                            class="text-capitalize border d-lg-flex d-md-flex d-none">
                             Log In
                         </v-btn>
 
 
                         <v-btn v-if="!userStore.is_logged_in" to="/register" color="primary" variant="flat"
-                            class="border-thin text-capitalize">
+                            class="border-thin text-capitalize d-lg-flex d-md-flex d-none">
                             Register
                         </v-btn>
 
@@ -54,34 +55,29 @@
     </v-sheet>
 
     <!-- Mobile Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" temporary location="left" width="280" class="mt-13"
+    <v-navigation-drawer v-model="drawer" temporary location="left" width="280" style="margin-top: 50px; "
         :class="isScrolled ? 'glass' : 'bg-surface'">
         <div class="d-flex flex-column h-100">
 
-            <!-- Nav Menu -->
-            <v-list nav class="mt-6">
-                <v-list-item v-for="(item, i) in navMenu" :key="i" :to="item.path" class="text-white">
-                    <v-list-item-title class="text-h6">{{ item.label }}</v-list-item-title>
+            <v-list class="mt-6">
+                <v-list-item v-for="(item, i) in navMenu" :key="i" :to="item.path" exact class="drawerItem"
+                    active-class="drawerActive">
+                    <v-list-item-title class="text-h6">
+                        {{ item.label }}
+                    </v-list-item-title>
                 </v-list-item>
             </v-list>
 
             <div class="flex-grow-1"></div>
 
-            <!-- Login/Register for mobile -->
-            <div class="pa-6 d-flex flex-column ga-4" style="margin-bottom: 50px;">
-                <template v-if="!userStore.is_logged_in">
-                    <v-btn to="/login" variant="outlined" color="white" block height="50"
-                        class="text-capitalize text-white">
-                        Login
-                    </v-btn>
-                    <v-btn to="/register" color="primary" block height="50" class="text-capitalize text-white">
-                        Sign Up
-                    </v-btn>
-                </template>
+            <div class="pa-6 d-flex flex-column ga-4 mb-10" v-if="!userStore.is_logged_in">
+                <v-btn to="/login" variant="outlined" block height="50">Login</v-btn>
+                <v-btn to="/register" color="primary" block height="50">Sign Up</v-btn>
             </div>
 
         </div>
     </v-navigation-drawer>
+
 </template>
 
 <script>
@@ -90,7 +86,7 @@ import darkLogo from "@/assets/images/header/darkfull.png";
 import lightLogo from "@/assets/images/header/lightfull.png";
 import { useTheme } from "vuetify";
 import { useUserStore } from "@/stores/userStore";
-import ProfileDropdown from "@/views/user/layout/ProfileDropdown.vue";
+import ProfileDropdown from "./profileDropdown.vue";
 
 export default {
     name: "navbar",
@@ -133,7 +129,7 @@ export default {
 
 <style scoped>
 .glass {
-    background: rgba(var(--v-theme-surface), 0.5) !important;
+    background: rgba(var(--v-theme-surface), 0.7) !important;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid rgb(var(--v-theme-border));
@@ -145,17 +141,30 @@ export default {
 
 .navItem {
     border-bottom: 2px solid transparent;
-    transition: border-bottom 0.3s;
+    transition: border-bottom 0.3s;padding: 0 !important;
 }
 
 .navItem:hover {
     border-bottom: 2px solid rgb(var(--v-theme-primary));
+    color: white !important; 
 
 }
 
 .activeNav {
-    color: white;
+    color: white !important;
     padding: 0;
     border-bottom: 3px solid rgb(var(--v-theme-primary));
 }
+.drawerItem {
+  background: transparent !important;
+}
+
+.drawerItem:hover {
+  background: rgba(var(--v-theme-primary), 0.08);
+}
+
+.drawerActive {
+  background: rgba(var(--v-theme-primary), 0.15) !important;
+}
+
 </style>

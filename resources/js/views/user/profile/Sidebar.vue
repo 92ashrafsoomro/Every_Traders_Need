@@ -57,7 +57,7 @@
                                     <v-btn variant="text" size="small" target="_blank" color="primary"
                                         :href="userStore.user[item.key]"
                                         class="text-capitalize text-body-2 text-decoration-underline ">
-                                        Download
+                                       View
                                     </v-btn>
                                 </div>
 

@@ -70,10 +70,10 @@
                                 <div id="card-element" class="my-4 mx-2"></div>
                                 <div id="card-errors" class="text-red mx-2 text-caption"></div>
                             </div>
-                            <v-checkbox class="mt-4 w-full">
+                            <v-checkbox class="mt-4 w-full ">
                                 <template #label>
                                     <div
-                                        class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center text-sm sm:text-base">
+                                        class="flex flex-col text-body-2 items-start sm:items-center ">
                                         <span>I have read and agree to the</span>
                                         <router-link to="/terms-and-conditions" target="_blank"
                                             class="text-primary  ml-lg-2 ml-2 mr-lg-2 mr-2 underline">
@@ -348,9 +348,7 @@ export default {
 
         },
         async submit() {
-
             console.log(this.selectedPlan);
-
             this.loading = true;
 
             try {

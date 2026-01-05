@@ -2,7 +2,7 @@
     <div v-if="images">
         <v-responsive>
             <div>
-                <v-img v-if="image" :src="image" class="rounded cursor-pointer" />
+                <v-img v-if="image.length" :src="image" class="rounded cursor-pointer" />
 
                 <!-- Overlay Icon -->
                 <v-btn icon  size="small" class="d-flex position-absolute top-0 right-0 ma-2 rounded-sm  "

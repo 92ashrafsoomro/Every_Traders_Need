@@ -86,15 +86,16 @@
             </div>
 
             <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
-            <div class="pt-2 d-flex">
+            <div class="pt-2 d-flex justify-space-between">
               <div class="text-body-2 pr-2">
                 <span class="white">Inprogress Auctions: </span>
 
                 <span class=""
                   style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
                     counter.inprogress_Auctions }}</span>
+                    <span class="mr-10  ">View</span>
               </div>
-              <span class="mr-10  ">View</span>
+              
 
             </div>
 

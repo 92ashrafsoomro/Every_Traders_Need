@@ -59,39 +59,43 @@
                                                 <v-icon>mdi-menu</v-icon>
                                             </v-btn>
 
-                                            <v-btn-toggle v-model="vehicleStore.tab" class="d-flex ga-4" mandatory>
-                                                <v-btn value="details" height="50" variant="tonal"
-                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
-                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }"
-                                                    style="border-radius: 5px">
-                                                    Vehicle Details
-                                                </v-btn>
+                                            <div class="btn-scroll-wrapper">
+                                                <div class="btn-scroll-inner">
+                                                    <v-btn-toggle v-model="vehicleStore.tab"
+                                                        class="d-flex ga-4 flex-nowrap" mandatory>
+                                                        <v-btn value="details" height="50" variant="tonal"
+                                                            class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                            :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }">
+                                                            Vehicle Details
+                                                        </v-btn>
 
-                                                <v-btn value="valuation" height="50" variant="tonal"
-                                                    class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
-                                                    :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }"
-                                                    style="border-radius: 5px">
-                                                    Vehicle Valuation
-                                                </v-btn>
+                                                        <v-btn value="valuation" height="50" variant="tonal"
+                                                            class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                            :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }">
+                                                            Vehicle Valuation
+                                                        </v-btn>
+                                                    </v-btn-toggle>
+                                                </div>
+                                            </div>
 
-                                            </v-btn-toggle>
+
                                         </div>
 
                                         <!-- Right group -->
                                         <div class="d-flex ga-3">
-                                            <v-btn-toggle class="detection-toggle" v-model="vehicleStore.tab" mandatory >
-                                            <v-btn value="detection" height="50"
-                                                 class="detection buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                            <v-btn-toggle class="detection-toggle" v-model="vehicleStore.tab" mandatory>
+                                                <v-btn value="detection" height="50"
+                                                    class="detection buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
                                                     :class="{ 'bg-danger text-white': vehicleStore.tab === 'detection' }"
-                                                style="background-color: rgba(var(--v-theme-danger), 0.2);">
-                                                Reauction Detacted
-                                            </v-btn> </v-btn-toggle>
+                                                    style="background-color: rgba(var(--v-theme-danger), 0.2);">
+                                                    Reauction Detacted
+                                                </v-btn> </v-btn-toggle>
                                             <v-btn value="Reauction Detacted" height="50"
                                                 class="bell text-capitalize text-body-1 bg-background border"
                                                 style="background-color: rgba(var(--v-theme-primary), 0.2);">
                                                 <v-icon class="text-primary">mdi-bell-outline</v-icon>
                                             </v-btn>
-                                           
+
                                         </div>
                                     </v-col>
 
@@ -256,12 +260,6 @@ export default {
     width: calc(100% - 300px);
 }
 
-
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 .v-btn.bell:hover {
     background-color: rgb(var(--v-theme-primary), 0.2) !important;
 }
@@ -270,12 +268,27 @@ export default {
     background-color: rgb(var(--v-theme-primary)) !important;
     color: white !important;
 }
-.detection-toggle .v-btn--active{
-        background-color: rgb(var(--v-theme-danger)) !important;
+
+.detection-toggle .v-btn--active {
+    background-color: rgb(var(--v-theme-danger)) !important;
     color: white !important;
 
 }
-@media (max-width: 1440px) {}
 
-@media (max-width: 1440px) {}
+.btn-scroll-wrapper {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.btn-scroll-inner {
+  display: inline-flex;
+}
+
+@media (min-width: 601px) {
+  .btn-scroll-wrapper {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}
+
 </style>

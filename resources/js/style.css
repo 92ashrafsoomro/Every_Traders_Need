@@ -21,8 +21,14 @@ aside {
 
 .v-input__details .v-messages {
     min-height: auto !important;
+    /* background-color: aqua !important; */
 }
-
+/* #input-v-14-messages{
+    background-color: #b91c1c;
+}
+.v-input--density-compact .v-field--variant-outlined, .v-input--density-compact .v-field--single-line, .v-input--density-compact .v-field--no-label {
+    --v-field-padding-bottom: 10px !important;
+} */
 :root {
     --primary-color: #0080ff;
     --danger-color: #b91c1c;
@@ -43,14 +49,14 @@ aside {
 
 /* table th bg change */
 .v-data-table__thead th {
-    background-color: rgba(var(--v-theme-background));
+    background-color: rgba(var(--v-theme-primary),0.2);
 }
 
 
 
 /* table tr bg change */
 .v-data-table__tbody tr:hover {
-    background-color: rgb(var(--v-theme-background));
+    background-color: rgb(var(--v-theme-surface));
 }
 
 .v-switch__thumb {
@@ -84,7 +90,7 @@ aside {
 }
 
 .v-field__overlay {
-    border: 2px solid rgb(var(--v-theme-border));
+    border: 1px solid rgb(var(--v-theme-border));
 }
 
 /* .v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single{
@@ -94,7 +100,8 @@ aside {
     background-color: #b91c1c
 } */
 .v-overlay__content {
-    border: 2px solid rgb(var(--v-theme-border)) !important;
+    border: 1px solid rgb(var(--v-theme-border)) !important;
+    
 }
 
 /* Targe/* Completely remove hover background tint */
@@ -139,4 +146,16 @@ aside {
     box-shadow: none !important;
     text-shadow: none !important;
     /* border-radius: 10px !important; */
+}
+canvas{
+    border: none !important;
+}
+.v-navigation-drawer__scrim{
+    background: none !important;
+    opacity : 0.6 !important;
+}
+
+.v-expansion-panel__shadow{
+      box-shadow: none !important;
+      border-radius: 0px;
 }

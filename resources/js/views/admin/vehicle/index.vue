@@ -195,7 +195,6 @@
                             :items="items" 
                             :items-length="total" 
                             hover
-                           
                             item-value="id" 
                             @update:options="loadItems" >
 

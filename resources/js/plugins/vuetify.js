@@ -54,7 +54,6 @@ const vuetify = createVuetify({
                     
                     'primary-lighten-1': '#3399ff',
                     primary: "#0080FF",
-                    primaryLite :"#3399ff20",
                     primaryDark:"#0658e5ff",
                     'on-primary': '#ffffff',
                     // background: "#000f21",
@@ -129,7 +128,7 @@ const vuetify = createVuetify({
                 colors: {
                     primary: "#0080ff",
                     'primary-lighten-1': '#8579F2',
-                    primaryLight : "#0080ff20",
+                    primaryDark : "#0080ff20",
                     background: "#f4f6faff",
                     surface: "#fff",
                     whiteLight:"#000",

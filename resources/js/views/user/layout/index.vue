@@ -22,7 +22,10 @@
 
                     <v-col cols="auto">
                         <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border">
-                            <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
+                            <v-icon class="cursor-pointer" @click="toggleFullScreen">
+                                {{ isFullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}
+                            </v-icon>
+
                         </v-sheet>
                     </v-col>
 
@@ -71,9 +74,9 @@ export default {
         ThemeDropdown,
     },
     computed: {
-          pageTitle() {
-        return this.$route.meta.title || this.$route.name || 'Dashboard';
-    }
+        pageTitle() {
+            return this.$route.meta.title || this.$route.name || 'Dashboard';
+        }
     },
     data() {
         return {
@@ -81,6 +84,7 @@ export default {
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,
+            isFullScreen: false,
         };
     },
     methods: {
@@ -116,7 +120,7 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
             this.themeStore.toggleMenuType();
         },
-     
+
     },
 };
 </script>

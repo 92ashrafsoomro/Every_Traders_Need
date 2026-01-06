@@ -11,13 +11,20 @@
                     @update:modelValue="handleInput($event, 'center_id')" clearable />
             </div>
 
-            <div class="d-flex">
+         <div class="d-none d-lg-flex d-md-flex ">
                 <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
                     @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
-                <span class="mt-5 ml-3">In Progress</span>
+                <span class="mt-lg-5 mt-md-5 mt-2 ml-3">In Progress</span>
             </div>
+      
         </div>
+              <div class="d-flex d-lg-none d-md-none ">
+                <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
+                    @change="handleInput($event, 'enableCurrent')" class="ml-3" />
+
+                <span class="mt-lg-5 mt-md-5 mt-2 ml-3">In Progress</span>
+            </div>
 
         <!-- Large Devices -->
         <div class="pt-4 d-lg-flex d-md-flex  d-none align-center ga-3 ml-auto mr-auto mt-4">
@@ -166,7 +173,7 @@ export default {
     },
     data() {
         return {
-            center: null,
+          
             platforms: [],
             dropdown: null,
             carousel: 0,

@@ -6,18 +6,16 @@
       class="text-center"
     >
       <v-chip
-        class=" ma-1 ml-2 pa-4  "
+        class="ml-0  ma-1  py-4 px-4 "
         style="border: 1px solid rgb(var(--v-theme-primary));"
         size="x-small"
       >
-      <span class="text-body-2 mt-1">  {{ item.label }}</span>
+      <span class="text-body-2  ">  {{ item.label }}</span>
         <v-icon
           @click="removeValue(removeKey, item.id)"
           icon="mdi-close"
-          
-          class="crossIcon"
+          class="crossIcon mb-2"
           end
-          style="margin-left: 12px;"
         />
       </v-chip>
     </span>
@@ -78,8 +76,9 @@ export default {
 <style scoped>
     .crossIcon{
         color: rgb(var(--v-theme-danger));
-        padding: 8px ;
+        padding: 10px ;
         border-radius: 30px;
+        margin-top: 10px;
   
     }
     .crossIcon:hover{

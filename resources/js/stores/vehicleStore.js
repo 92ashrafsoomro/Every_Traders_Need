@@ -7,7 +7,7 @@ import Vehicle from '@/models/vehicle.model';
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
-        sidebar: true,
+        sidebar: false,
         isMobile: false,
         isVehicle: true,
         tab: 'details',

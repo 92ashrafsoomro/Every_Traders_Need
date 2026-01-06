@@ -1,24 +1,24 @@
 <template>
-    <div class="bg-surface border rounded-lg">
+    <div class="bg-surface border rounded-sm">
 
         <!-- Header Section -->
-        <div class="pa-4 d-flex  flex-wrap flex-wrap align-start justify-space-between">
+        <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
 
             <!-- LEFT -->
-            <div class="pr-4" style="width: 500px;">
+            <div class="pr-lg-4 " style="width: 500px;">
                 <div class="mt-2 ">
                     <span class="text-body-2 pa-1 " style="border-left:5px solid rgb(var(--v-theme-primary));
                    border-radius:5px;
                    background:#fff;
-                   color:rgb(var(--v-theme-surface));">
+                   color:rgb(var(--v-theme-light_text_on));">
                         {{ vehicleStore.vehicle.reg }}
                     </span>
 
                     <div>
                         <div class="text-h6 mt-2  font-weight-bold">
                             {{ vehicleStore.vehicle?.make?.name }} {{ vehicleStore.vehicle?.model?.name }}
-                            {{ vehicleStore.vehicle?.variant?.name }} <span class="text-body-2 pa-1" style="background:rgb(var(--v-theme-primary),0.3);
-                     border-radius:5px;">
+                            {{ vehicleStore.vehicle?.variant?.name }} <span class="text-body-2 pa-1 rounded-sm"
+                                style="background:rgb(var(--v-theme-primary));">
                                 Report
                             </span>
                         </div>
@@ -28,12 +28,10 @@
 
                 <div class="ma-4 ml-0 pa-4 w-lg-75 w-100  text-lg-h6 rounded-sm"
                     style="background:rgb(var(--v-theme-danger),0.3);">
-                    <span class="text-lg-h4 text-md-h5 text-h6 font-weight-bold"
-                        style="color: rgb(var(--v-theme-danger),0.6);">Not
-                        Recommended</span><br />
-                    <span class="text-lg-h6  text-body-2 font-weight-bold"><span
-                            class="bg-danger px-4 py-1 rounded-lg">75%</span> Risk
-                        ratio</span>
+                    <div class="text-lg-h5 text-md-h5 text-h6 text-danger font-weight-bold"
+                        style="color: rgb(var(--v-theme-danger),0.6);">Not Recommended</div>
+                    <div class=" mt-3 text-body-1 font-weight-bold"><span
+                            class="bg-danger px-4 py-1 rounded-sm ">75%</span> Risk ratio</div>
                 </div>
             </div>
 
@@ -41,23 +39,23 @@
             <div class="mt-2  pl-4 bg-background pa-3"
                 style="width: 800px; border-left:3px solid rgb(var(--v-theme-primary));">
 
-                <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mb-3 justify-space-between">
+                <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mb-6 justify-space-between">
                     <div>
                         <div class="text-body-2 text-light_text_on">Auction House</div>
-                        <v-chip label color="primary">{{
+                        <v-chip label color="primary" class="mt-2">{{
                             vehicleStore.vehicle?.auction?.name }}</v-chip>
                     </div>
                     <div>
                         <div class=" text-body-2 text-light_text_on">Date Time/ End</div>
-                        <div class="">{{ vehicleStore.vehicle.auction_date }}</div>
+                        <div class="mt-2">{{ vehicleStore.vehicle.auction_date }}</div>
                     </div>
                     <div>
                         <div class="text-body-2 text-light_text_on">Auction Status</div>
-                        <div class="">{{ vehicleStore.vehicle.auction_status || "?" }}</div>
+                        <div class="mt-2">{{ vehicleStore.vehicle.auction_status || "?" }}</div>
                     </div>
                     <div>
                         <div class="text-body-2 text-light_text_on">Previous Auction</div>
-                        <div class=""> <span
+                        <div class="mt-2"> <span
                                 style="background-color: rgb(var(--v-theme-danger),0.2); border-radius: 5px ; padding: 5px 10px 5px 10px;"
                                 class="text-body-2 ">
                                 View Detail
@@ -67,15 +65,15 @@
 
                 <v-divider />
 
-                <div class="d-lg-flex flex-lg-wrap ga-6 ga-lg-0 ga-md-0 mt-3 justify-space-between">
+                <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mt-6 justify-space-between">
                     <div class="mb-5 mb-lg-0 mb-md-0">
                         <div class="text-body-2 text-light_text_on">Mileage</div>
-                        <div class="">{{ vehicleStore.vehicle.mileage }} <span class="text-danger px-1 rounded-sm"
+                        <div class="mt-2">{{ vehicleStore.vehicle.mileage }} <span class="text-danger px-1 rounded-sm"
                                 style="background-color: rgb(var(--v-theme-danger),0.2);">+216</span></div>
                     </div>
                     <div class="mb-5 mb-lg-0 mb-md-0">
                         <p class="text-body-2 text-capitalize">Grade</p>
-                        <p class="pa-2 text-dark grade-circle" :style="getGradeStyle(vehicleStore.vehicle.grade)">
+                        <p class="pa-2 text-dark grade-circle mt-2" :style="getGradeStyle(vehicleStore.vehicle.grade)">
                             {{ vehicleStore.vehicle.grade }}
                         </p>
 
@@ -84,104 +82,112 @@
                     </div>
                     <div class="mb-5 mb-lg-0 mb-md-0">
                         <div class="text-body-2">Last Service</div>
-                        <div class="">{{ vehicleStore.vehicle.lastService || "------" }}</div>
+                        <div class="mt-2">{{ vehicleStore.vehicle.lastService || "------" }}</div>
                     </div>
                     <div>
                         <div class="text-body-2">MOT Expiry</div>
-                        <div class="">{{ vehicleStore.vehicle.motExpiryDate || "------" }}</div>
+                        <div class="mt-2">{{ vehicleStore.vehicle.motExpiryDate || "------" }}</div>
                     </div>
                 </div>
 
             </div>
         </div>
-
-        <!-- Valuation Section -->
-        <div class="pa-6 d-flex ga-lg-0 ga-4 flex-wrap justify-space-between ">
-            <div>
-                <div class="">Autotrader</div>
-                <div class="text-h5  font-weight-bold">£{{ vehicleStore.vehicle.autotrader_trade_value || "?" }}</div>
-                <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-warning d-flex  flex-wrap"><v-icon
-                            size="23">mdi-information-outline</v-icon> %5.6</span> From previous value</div>
-            </div>
-            <v-divider vertical class="d-lg-block d-md-block d-none" />
-            <v-divider horizaontal class="d-block d-lg-none d-md-none" />
-           
-            <div>
-                <div class="">CAP C</div>
-                <div class="text-h5  font-weight-bold">£{{ vehicleStore.vehicle.cap_retail }}</div>
-                <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-warning d-flex  flex-wrap"><v-icon
-                            size="23">mdi-information-outline</v-icon> %5.6</span> From previous value</div>
-            </div>
-            <v-divider vertical class="d-lg-block d-md-block d-none" />
-            <v-divider horizaontal class="d-block d-lg-none d-md-none" />
-            <div>
-                <div class="">CAP Average</div>
-                <div class="text-h5  font-weight-bold">£{{ vehicleStore.vehicle.cap_average }}</div>
-                <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-warning d-flex  flex-wrap"><v-icon
-                            size="23">mdi-information-outline</v-icon> %5.6</span> From previous value</div>
-            </div>
-            <v-divider vertical class="d-lg-block d-md-block d-none" />
-            <v-divider horizaontal class="d-block d-lg-none d-md-none" />
-           
-            <div>
-                <div class="">CAP B</div>
-                <div class="text-h5  font-weight-bold">£{{ vehicleStore.vehicle.cap_below }}</div>
-                <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-warning d-flex  flex-wrap"><v-icon
-                            size="23">mdi-information-outline</v-icon> %5.6</span> From previous value</div>
-            </div>
-        </div>
-
-        <div class="bg-background border-t">
-            <div class="text-h6 font-weight-bold pa-4">Pre Auc</div>
-
-            <v-data-table-server class="rounded bg-background" striped="even" :headers="preAucHeaders" hide-default-footer
-                :items="[vehicleStore.vehicle]" item-key="id">
-                <!-- Date -->
-                <template #item.auction_date="{ item }">
-                    {{ item.auction?.auction_date || '-' }}
-                </template>
-                <template #item.auction_house="{ item }">
-                    {{ item.auction?.name || '-' }}
-                </template>
-                <template #item.center="{ item }">
-                    {{ item.center_name }}
-                </template>
-
-                <template #item.autotrader="{ item }">
-                    {{ item.autotrader_trade_value || "?" }}
-                </template>
-
-                <template #item.cap_c="{ item }">
-                    £{{ item.cap_retail }}
-                </template>
-
-                <template #item.cap_avg="{ item }">
-                    £{{ item.cap_average }}
-                </template>
-
-                <template #item.cap_b="{ item }">
-                    £{{ item.cap_below }}
-                </template>
-
-                <template #item.status="{ item }">
-                    <v-chip size="small" :color="item.auction_status === 'Sold' ? 'red' : 'green'" variant="flat"
-                        class="text-white">
-                        {{ item.auction_status || '?' }}
-                    </v-chip>
-                </template>
-
-
-                <!-- Empty state -->
-                <template #no-data>
-                    <div class="pa-4 text-center grey--text">
-                        No Pre Auction Data Available
-                    </div>
-                </template>
-            </v-data-table-server>
-        </div>
-
-
     </div>
+    <custom-card title="Auction History" class="mt-4">
+        <div class="pa-7">
+            <h6 class="text-h6 font-weight-bold"> </h6>
+            <div class=" d-flex ga-lg-0 ga-4 flex-wrap mt-4 justify-space-between  ">
+                <div>
+                    <div class="mt-2">Autotrader Trad Value</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.autotrader_trade_value || "?" }}
+                    </div>
+                    <div class="d-flex  text-start flex-wrap mt-2"><span
+                            class="mr-2 text-danger d-flex  flex-wrap"><v-icon size="23">mdi-menu-down</v-icon>
+                            %5.6</span> <span class="text-body-2 mt-1 text-light_text_on">From previous value</span>
+                    </div>
+                </div>
+                <v-divider vertical class="d-lg-block d-md-block d-none" />
+                <v-divider horizaontal class="d-block d-lg-none d-md-none" />
+
+                <div>
+                    <div class="mt-2">CAP Clean</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_retail }}</div>
+                    <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-success  d-flex  flex-wrap"><v-icon
+                                size="23">mdi-menu-up</v-icon> %5.6</span> <span
+                            class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
+                </div>
+                <v-divider vertical class="d-lg-block d-md-block d-none" />
+                <v-divider horizaontal class="d-block d-lg-none d-md-none" />
+                <div>
+                    <div class="mt-2">CAP Average</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_average }}</div>
+                    <div class="d-flex  flex-wrap mt-2 "><span
+                            class="mr-2 text-success  d-flex text-success  flex-wrap"><v-icon
+                                size="23">mdi-menu-down</v-icon> %5.6</span> <span
+                            class="text-body-2 mt-1  text-light_text_on">From previous value</span></div>
+                </div>
+                <v-divider vertical class="d-lg-block d-md-block d-none" />
+                <v-divider horizaontal class="d-block d-lg-none d-md-none" />
+
+                <div>
+                    <div class="mt-2">CAP Blow</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_below }}</div>
+                    <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-danger d-flex  flex-wrap"><v-icon
+                                size="23">mdi-menu-down</v-icon> %5.6</span> <span
+                            class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
+                </div>
+            </div>
+        </div>
+    </custom-card>
+    <div class="bg-surface  mt-4 border ">
+        <div class="text-h6 font-weight-bold px-7 py-4"> Auction History</div>
+
+        <v-data-table-server class="rounded " striped="even" :headers="preAucHeaders" hide-default-footer
+            :items="[vehicleStore.vehicle]" item-key="id">
+            <!-- Date -->
+            <template #item.auction_date="{ item }">
+                {{ item.auction?.auction_date || '-' }}
+            </template>
+            <template #item.auction_house="{ item }">
+                {{ item.auction?.name || '-' }}
+            </template>
+            <template #item.center="{ item }">
+                {{ item.center_name }}
+            </template>
+
+            <template #item.autotrader="{ item }">
+                {{ item.autotrader_trade_value || "?" }}
+            </template>
+
+            <template #item.cap_c="{ item }">
+                £{{ item.cap_retail }}
+            </template>
+
+            <template #item.cap_avg="{ item }">
+                £{{ item.cap_average }}
+            </template>
+
+            <template #item.cap_b="{ item }">
+                £{{ item.cap_below }}
+            </template>
+
+            <template #item.status="{ item }">
+                <v-chip size="small" :color="item.auction_status === 'Sold' ? 'red' : 'green'" variant="flat"
+                    class="text-white">
+                    {{ item.auction_status || '?' }}
+                </v-chip>
+            </template>
+
+
+            <!-- Empty state -->
+            <template #no-data>
+                <div class="pa-4 text-center grey--text">
+                    No Pre Auction Data Available
+                </div>
+            </template>
+        </v-data-table-server>
+    </div>
+
 </template>
 
 
@@ -257,6 +263,4 @@ export default {
     justify-content: center;
     font-weight: 600;
 }
-
-/* No custom CSS used – only Vuetify classes */
 </style>

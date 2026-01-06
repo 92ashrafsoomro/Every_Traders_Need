@@ -1,11 +1,10 @@
 <template>
-  <v-dialog v-model="model" max-width="900" >
+  <v-dialog v-model="model" max-width="900" class="mt-lg-10" style="margin-top: 200px;">
 
       <!-- Carousel -->
       <v-carousel
         v-model="activeIndex"
         hide-delimiters
-        show-arrows="hover"
         height="500"
         
       >

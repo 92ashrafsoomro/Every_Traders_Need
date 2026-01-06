@@ -1,27 +1,28 @@
 <template>
-  <div class="w-100 h-100 bg-surface pb-8" style="position: absolute;">
-    <div class="pattern-bg"></div>
 
-    <div class="game-center position-relative">
-      <div class="page-404">
-        <h1>404</h1>
-        <canvas ref="game" width="600" height="200"></canvas>
-        <p v-if="gameOver" class="game-over">
-          Game Over – Click to Try Again
-        </p>
-      </div>
+  <div class=" w-100 h-100 bg-surface   pb-8" style="position: absolute;">
+    <div class="pattern-bg"></div>
+    <div class="position-relative  pt-5  " style=" max-width: 1400px; z-index: 10">
+      <slot> </slot>
+    </div>
+    <div class="page-404">
+      <h1>404</h1>
+      <canvas ref="game" width="600" height="200"></canvas>
+      <p v-if="gameOver" class="game-over">
+        Game Over – Click to Try Again
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-  import carImg from '@/assets/images/logo/typre.gif'
-  import stone from '@/assets/images/logo/stone.png'
+import carImg from '@/assets/images/logo/typre.gif'
+import stone from '@/assets/images/logo/stone.png'
 export default {
   data() {
     return {
       ctx: null,
-      car: { x: 50, y:    50, vy: 10 },
+      car: { x: 50, y: 50, vy: 10 },
       block: { x: 610, y: 150 },
       gravity: 0.6,
       jumping: false,
@@ -66,7 +67,7 @@ export default {
     loop() {
       if (this.gameOver) return
 
-      this.ctx.fillStyle = "#fff"
+      this.ctx.fillStyle = ""
       this.ctx.fillRect(0, 0, 600, 200)
 
       this.car.y += this.car.vy
@@ -90,7 +91,7 @@ export default {
 
       this.ctx.drawImage(this.carImage, this.car.x - 20, this.car.y - 30, 80, 50)
 
-     this.ctx.drawImage(this.blockImage, this.block.x - 10, this.block.y - 30, 40, 40)  // Ab stone bahut chota dikhega
+      this.ctx.drawImage(this.blockImage, this.block.x - 10, this.block.y - 30, 40, 40)  // Ab stone bahut chota dikhega
 
       requestAnimationFrame(this.loop)
     }
@@ -100,12 +101,10 @@ export default {
 
 <style>
 .game-center {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 20;
-  background-color: rgb(var(--v-theme-surface)) !important;
 }
 
 .page-404 {
@@ -113,7 +112,7 @@ export default {
 }
 
 canvas {
-  background-color: rgb(var(--v-theme-surface)) !important;
+  /* background-color: rgb(var(--v-theme-surface)) !important; */
   border-radius: 10px;
   border: 2px solid #ddd;
 }

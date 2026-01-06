@@ -1,9 +1,6 @@
 <template>
-    <usertitlebarauctionfinder>
-
-        <h1 class="text-h3 mb-2 font-weight-bold ">Smart Auction Search</h1>
-        <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your
-            profit goals.</p>
+    <usertitlebarauctionfinder title="Smart Auction Search"
+        subtitle="  Filter, compare, and uncover vehicles that match your profit goals.">
 
         <div class="d-flex mt-6  ga-3">
 
@@ -23,7 +20,7 @@
     </usertitlebarauctionfinder>
 
     <v-container fluid="">
-        <div class="mb-2 mx-auto ml-2 ">
+        <div class="mb-2 mx-auto ml-lg-2 ">
             <div class="d-flex flex-wrap w-100   mx-auto align-center">
 
                 <!-- LEFT -->
@@ -65,7 +62,7 @@
                 </div>
 
                 <!-- RIGHT -->
-                <div class="d-flex flex-wrap align-center ga-3 ">
+                <div class="d-flex  align-center ga-3 ">
 
                     <div style="width: 130px" class="mt-lg-2 mt-md-2 mt-4 ">
                         <v-select persistent-placeholder v-model="auctionStore.filter.length"
@@ -73,7 +70,7 @@
                             label="Length" :items="[10, 50, 100, 200, 500]" />
                     </div>
 
-                    <div style="width: 200px" class="mt-2">
+                    <div style="width: 200px" class="mt-lg-2 mt-md-2 mt-4">
                         <v-select persistent-placeholder v-model="auctionStore.filter.sort_by"
                             @update:model-value="handleInput()" color="primary" variant="outlined" density="compact"
                             item-title="name" item-value="id" label="Sort by" :items="sortingOptions" />
@@ -105,30 +102,49 @@
                 </div>
             </v-slide-y-transition>
         </div>
-             <v-row class="mt-1 " dense>
+        <v-row class="mt-1 " dense>
             <!-- Desktop sidebar -->
 
-            <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="2"
-                class="d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none;">
+            <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="12" md="3" lg="2"
+                class="d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none; ">
+                <div class="d-flex align-center justify-space-between pa-3 border-b"
+                    style="background-color: rgb(var(--v-theme-primary),0.3);">
+                    <h5 class="text-h6 font-weight-bold">Auctions Filter</h5>  
+                </div>
                 <div class="bg-surface pa-0 ">
                     <auctionSidebar />
                 </div>
             </v-col>
 
-            <!-- Mobile drawer -->
-            <v-navigation-drawer v-if="!auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" 
-                left width="300" class="d-md-none d-lg-none">
+
+
+
+            <!-- OVERLAY (click outside) -->
+            <div v-if="auctionStore.sidebar" class="position-fixed  d-md-none d-lg-none" style=" inset: 0;
+                 background: rgba(0, 0, 0, 0.3);
+                 z-index: 99;" @click="auctionStore.toggleFilter()"></div>
+
+            <!-- MOBILE SIDEBAR -->
+            <div v-if="auctionStore.sidebar" class=" position-fixed  d-md-none d-lg-none bg-surface" @click.stop style="top: 60px; left: 0; width: 300px; background-origin: 0; z-index: 100;    overflow-y: auto;
+                border-right: 2px solid rgb(var(--v-theme-border));">
+                <!-- Header -->
+                <div class="d-flex align-center justify-space-between px-4 pt-2 border-b"
+                    style="background-color: rgb(var(--v-theme-primary),0.3);">
+                    <h5 class="text-h6 font-weight-bold">Filter</h5>
+                    <v-btn icon variant="text" @click="auctionStore.toggleFilter()">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </div>
+
                 <auctionSidebar />
-            </v-navigation-drawer>
+            </div>
 
 
-            <v-col style="" class="mx-auto ml-2">
-             
-
-                <div class="transition-col mx-auto">
+            <v-col :cols="auctionStore.sidebar ? 12 : 12" :md="auctionStore.sidebar ? 9 : 12"
+                :lg="auctionStore.sidebar ? 10 : 12" class="pl-md-3 pl-0 pr-0">
+                <div class="transition-col w-100">
                     <component :is="currentComponent" />
                 </div>
-          
             </v-col>
 
         </v-row>
@@ -219,17 +235,17 @@ export default {
 
 
 
-@media (max-width: 786px) { 
+@media (max-width: 786px) {
 
     .sidebarOpen .transition-col {
         width: 100% !important;
-    } 
+    }
 
-  .sidebar {
+    .sidebar {
         position: absolute;
         left: 0;
         margin-left: 0;
-    
+
         bottom: 10px;
     }
 

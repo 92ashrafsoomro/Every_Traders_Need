@@ -1,6 +1,14 @@
 <template>
 
-    <custom-card title="Auctions" class="h-100 "  >
+    <div  class="h-100 "  >
+         <div class="d-flex align-center justify-space-between px-4 pt-2 border-b" style="background-color: rgb(var(--v-theme-primary),0.3);">
+                    <h5 class="text-h6 font-weight-bold">Similar Auctions</h5>
+            
+         <v-btn value="details" height="50"  @click="vehicleStore.sidebar = !vehicleStore.sidebar"
+          variant="text"  class=" text-capitalize text-body-1"     >
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
+    </div>
         <div class="card-content " >
             <div class="py-2 px-2">
 
@@ -33,7 +41,7 @@
                 </div>
             </router-link>
         </div>
-    </custom-card>
+    </div>
 </template>
 
 <script>

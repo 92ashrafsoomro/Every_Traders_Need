@@ -46,8 +46,8 @@
             <div class="mt-2">
 
                 <span
-                    style="border-left: 5px solid rgb(var(--v-theme-primary)); border-radius: 5px; background-color: #ffff ; color: rgb(var(--v-theme-surface)) ; padding: 5px; padding-right: 5px;"
-                    class="text-body-2">
+                    style="border-left: 5px solid rgb(var(--v-theme-primary)); border-radius: 5px; background-color: #ffff ;  padding: 5px; padding-right: 5px;"
+                    class="text-body-2 text-light_text_on">
                     {{ vehicleStore.vehicle.reg }}
                 </span>
 

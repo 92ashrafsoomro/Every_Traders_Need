@@ -5,10 +5,8 @@
                 <v-img v-if="image.length" :src="image" class="rounded cursor-pointer" />
 
                 <!-- Overlay Icon -->
-                <v-btn icon  size="small" class="d-flex position-absolute top-0 right-0 ma-2 rounded-sm  "
-                style="width: 40px; height: 40px;"
-                
-                    @click.stop="openPreview">
+                <v-btn icon size="small" class="d-flex position-absolute top-0 right-0 ma-2 rounded-sm  "
+                    style="width: 40px; height: 40px;" @click.stop="openPreview">
                     <v-icon color="primary" size="30">mdi-fullscreen</v-icon>
                 </v-btn>
             </div>
@@ -17,18 +15,19 @@
 
             <image-preview-carousel v-model="showPreview" :images="images" :startIndex="currentIndex" />
 
-            <v-row class="ga-2 pa-5 align-center">
+            <v-row class="d-flex justify-space-between ga-2 pa-5 align-center">
 
-                <v-btn icon="mdi-chevron-left" variant="elevated" size="small"  color="primary" :disabled="thumbIndex === 0"
-                    @click="thumbIndex--" >
-                </v-btn>
+                <v-btn icon="mdi-chevron-left" variant="elevated" size="small" color="primary"
+                    :disabled="currentIndex === 0" @click="prevImage" />
 
-                <v-img v-for="(item, i) in visibleThumbs" :key="i" :src="item" width="90" class="rounded cursor-pointer"
-                    :class="{ 'active border': image === item }" @click="selectImage(item)" />
+                <v-img v-for="(item, i) in visibleThumbs" :key="i" :src="item" width="60"
+                    height="60"
+                    class="border-sm d-lg-block d-md-block d-none rounded cursor-pointer"
+                    @click="selectImage(item)" />
 
-             
-                <v-btn icon="mdi-chevron-right" variant="elevated" size="small"  color="primary"
-                    :disabled="thumbIndex + thumbLimit >= images.length" @click="thumbIndex++" />
+
+                <v-btn icon="mdi-chevron-right" variant="elevated" size="small" color="primary"
+                    :disabled="currentIndex === images.length - 1" @click="nextImage" />
 
             </v-row>
 
@@ -52,11 +51,11 @@ export default {
         return {
             vehicleStore: useVehicleStore(),
             image: '',
-            showLimit: 4,
+            showLimit: 6,
             showPreview: false,
             currentIndex: 0,
             thumbIndex: 0,
-            thumbLimit: 4
+            thumbLimit: 6
         };
     },
 
@@ -88,18 +87,46 @@ export default {
     },
 
     mounted() {
-        this.image = this.images[0];
+        this.image = this.images[0]
+        this.currentIndex = 0
     },
 
     methods: {
-        selectImage(item) {
-            this.image = item;
+        prevImage() {
+            if (this.currentIndex > 0) {
+                this.currentIndex--
+                this.image = this.images[this.currentIndex]
+                this.syncThumbs()
+            }
         },
+
+        nextImage() {
+            if (this.currentIndex < this.images.length - 1) {
+                this.currentIndex++
+                this.image = this.images[this.currentIndex]
+                this.syncThumbs()
+            }
+        },
+
+        selectImage(item) {
+            this.image = item
+            this.currentIndex = this.images.indexOf(item)
+        },
+
+        syncThumbs() {
+            if (
+                this.currentIndex < this.thumbIndex ||
+                this.currentIndex >= this.thumbIndex + this.thumbLimit
+            ) {
+                this.thumbIndex = this.currentIndex
+            }
+        },
+
         openPreview() {
-            this.currentIndex = this.image.indexOf(this.image);
             this.showPreview = true
         }
     }
+
 };
 </script>
 

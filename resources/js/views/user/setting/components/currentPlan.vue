@@ -25,9 +25,9 @@
                             <div class="py-5 mb-4">
                                 <div class="mb-3 ">
                                     <p class="text-body-1 mb-2">Your Current Plan is
-                                    <p class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline "> "{{
-                                        userStore.user?.plan?.plan?.plan_name }}" </p>
-                                    </p>
+                                    <span class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline "> "{{
+                                        userStore.user?.plan?.plan?.plan_name }}" </span>
+                                    </p>    
                                     <p class="text-body-2 " style="color:rgb(var(--v-theme-light))">For small dealers.
                                     </p>
                                 </div>

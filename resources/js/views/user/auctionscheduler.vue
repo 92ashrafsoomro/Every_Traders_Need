@@ -105,17 +105,36 @@
                                 <v-icon class="NotifyIcon ml-2 " size="20"> mdi-bell-outline</v-icon>
                             </div>
                         </template>
-                        <template #item.center_name="{ item }">
-                            <div class="" style="max-width: 700px; ">
-
-                                <div class="center_name_width">
-                                    <span>{{ item.center_names }}</span>
+                        <template #item.platform_name="{ item }">
+                               <div style="width: 120px;">
+                                   <span>{{ item.platform_name }}</span>
+                               </div>
+                       </template>
+                       <template #item.center_name="{ item }">
+                           <div class="" style="max-width: 700px; ">
+                               
+                               <div class="center_name_width">
+                                   <span>{{ item.center_names }}</span>
                                 </div>
-
+                                
                             </div>
-
+                            
                         </template>
-
+                        <template #item.car_count="{ item }">
+                               <div style="width: 120px;">
+                                   <span>{{ item.car_count }}</span>
+                               </div>
+                       </template>
+                         <template #item.time="{ item }">
+                                <div style="width: 100px;">
+                                    <span>{{ item.time }}</span>
+                                </div>
+                        </template>
+                         <template #item.status="{ item }">
+                                <div style="width: 100px;">
+                                    <span>{{ item.status }}</span>
+                                </div>
+                        </template>
                         <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination :loading="loading" v-model:page="options.page"

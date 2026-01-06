@@ -93,8 +93,8 @@
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
-                            item-value="id" @update:options="pageStore.getreAuctionList">
-
+                            item-value="id" @update:options="pageStore.getreAuctionList" >
+                               
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
                             </template>
@@ -162,12 +162,11 @@ export default {
 </script>
 
 <style scoped>
-    @media (max-width: 599px) {
-  
-.scrollSec{
-     overflow: auto;  
-  
+   
 
-} 
+@media (max-width: 599px) {     
+    .scrollSec{
+      overflow: auto;  
+    } 
 }
 </style>

@@ -51,7 +51,6 @@ class PrefixController extends Controller
                 $query->orWhere('prefixes.prefix_value', 'like', '%'.$request->search.'%');
         }
 
-
         if($request->has('key') && $request->key != '') {
                 $query->where('prefixes.prefix_key',$request->key);
         }
@@ -92,6 +91,7 @@ class PrefixController extends Controller
 
     }
 
+
       public function store(Request $request)
     {
 
@@ -124,6 +124,7 @@ class PrefixController extends Controller
     }
 
 
+    
     public function destroy(Request $request,$key)
     {
 

@@ -4,8 +4,8 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
-                        <div class="d-flex align-center">
+                    <div class="d-lg-flex d-md-flex py-4">
+                        <div class="d-flex align-center pb-lg-0 pb-md-0 pb-2">
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[10, 25, 50, 100]" 
@@ -19,7 +19,7 @@
 
                         <v-spacer />
 
-                      <v-text-field 
+                      <v-text-field  
                             v-model="filter.search" 
                             placeholder="Search..." 
                             variant="outlined" 
@@ -32,7 +32,7 @@
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn> -->
                         </div>
-                        <div class="pl-2" >
+                        <div class=" pt-lg-0 pt-md-0 pt-2" >
                             <v-btn to="/admin/bodyType/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
@@ -50,18 +50,17 @@
                             :items="items" 
                             :items-length="total" 
                             hover
-                           
                             item-value="id" 
                             @update:options="loadItems" >
 
                             <template #item.action="{ item }">
                                 <router-link :to="'/admin/bodyType/edit/' + item.id">
-                                    <v-icon color="light">mdi-pencil</v-icon>
+                                    <v-icon color="primary" size="20" class="editIconHover pa-4" >mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
                                 <v-icon
                                     small
-                                    class="clickable-icon"
+                                    class="clickable-icon pa-4" color="danger"
                                     @click="deleteItem(item.id)"
                                     >
                                     mdi-delete

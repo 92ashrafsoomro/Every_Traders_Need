@@ -10,7 +10,7 @@
             
         },
         {
-            "icon": "mdi-car-search-outline",
+            "icon": "mdi-star-outline",
             "label": "Master",  
             "path": "/admin/bodyType"
            
@@ -21,10 +21,12 @@
             "path": "/",
             "children":[
                 {
-                    "label" : "Auction",
+                    "icon": "mdi-star-outline",
+                    "label" : "Import Auction",
                     "path" : "/admin/auction"
                 },{
-                    "label" :"Vehicles",
+                    "icon": "mdi-star-outline",
+                    "label" :"Vehicles List",
                     "path":"/admin/vehicle"
                 }
             ]
@@ -35,13 +37,55 @@
             "path": "/",
             "children":[
                 {
+                    "icon": "mdi-star-outline",
                     "label" : "Members",
                     "path" : "/admin/members"
                 },{
-                    "label" :"Subscriptions",
-                    "path":"/admin/subscriptions"
+                    "icon": "mdi-star-outline",
+                    "label" :"Transaction",
+                    "path":"/admin/transaction"
                 }
             ]
+        },{
+            "icon": "mdi-brightness-percent",
+            "label": " System Settings",
+            "path": "/",
+            "children":[
+                {
+                    "icon": "mdi-star-outline",
+                    "label" : "Plans",
+                    "path" : "/admin/members"
+                },{
+                    "icon": "mdi-star-outline",
+                    "label" :"Marketing",
+                    "path":"/admin/transaction"
+                }
+                ,{
+                    "icon": "mdi-star-outline",
+                    "label" :"Access Control",
+                    "path":"/admin/transaction"
+                }
+            ]
+        },
+        {
+            "icon": "mdi-account-multiple-outline",
+            "label": "Admin & Staff",
+            "path": "/",
+            "children":[
+                {
+                    "icon": "mdi-star-outline",
+                    "label" : "Admin List",
+                    "path" : "/admin/members"
+                },{
+                    "icon": "mdi-star-outline",
+                    "label" :"Role",
+                    "path":"/admin/transaction"
+                },
+                {
+                    "icon": "mdi-star-outline",
+                    "label" :"Permission",
+                    "path":"/admin/transaction"
+                }                
+            ]
         }
-      
 ]

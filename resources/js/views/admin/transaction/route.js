@@ -3,7 +3,7 @@ import show from './show/index.vue'
 
 export default [
     {
-        path: "subscriptions",
+        path: "transaction",
         children: [  
             { path: '', component: index },
             { path: 'show/:id', component: show },

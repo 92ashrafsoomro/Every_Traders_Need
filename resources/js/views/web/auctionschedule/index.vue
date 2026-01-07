@@ -11,7 +11,7 @@
                     @update:modelValue="handleInput($event, 'center_id')" clearable />
             </div>
 
-         <div class="d-none d-lg-flex d-md-flex ">
+             <div class="d-none d-lg-flex d-md-flex ">
                 <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
                     @change="handleInput($event, 'enableCurrent')" class="ml-3" />
 
@@ -30,11 +30,16 @@
         <div class="pt-4 d-lg-flex d-md-flex  d-none align-center ga-3 ml-auto mr-auto mt-4">
             <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
                 class=" border rounded bg-surface-variant-1 pa-3 d-flex  flex-column mb-3 cursor-pointer"
-                @click="handleTab(key)" style=" height: 95px; width: 13.5%;">
-                <div class="text-capitalize d-flex align-center justify-center  pb-2  text-wrap"
+                @click="handleTab(key)" style=" height: 110px; width: 13.5%;">
+                <div class="text-capitalize text-center align-center justify-center  pb-2  text-wrap"
                     style="white-space: wrap !important; border-bottom: 1px solid #343E4B ;">
-                    {{ key }}
+                <div>
+                        {{ key }} 
+                
                 </div>
+                <h6 class="font-weight-light">1 - june</h6>
+                </div>
+
                 <div class="lowerSection d-flex justify-space-between mt-2">
                     <div class="d-flex align-center ">
                         <svg width="15" height="15" viewBox="0 0 512 512" class="text-primary auction-svg"
@@ -235,8 +240,15 @@ export default {
                     this.options.center_id = value;
                     break;
                 case 'enableCurrent':
-                    this.options.enableCurrent = value;
-                    if (value) this.options.day = 'today';
+                    console.log(value.target.checked);
+                    if (value.target.checked) {
+                        this.options.day = 'today';
+                    }
+                    this.options.enableCurrent = value.target.checked;
+
+                    break;
+
+                default:
                     break;
             }
             await this.getRecords();

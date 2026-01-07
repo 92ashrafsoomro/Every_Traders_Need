@@ -4,14 +4,8 @@
         <v-row align="center" >
           <!-- Left Content -->
           <v-col cols="12" md="6" class="mt-8 mt-md-0 ">
-            <div color="primary" class="imageDiv bg-primary rounded-xl" height="520" max-width="520" elevation="10">
-              <v-row class="fill-height ma-0" align="center" justify="end">
-                <v-col cols="12" class=" pr-0">
                   <v-img :src="dashboardImage" alt="Autoboli dashboard showing organized vehicle auction data"
-                    class="imageExist rounded-lg ml-3" height="500" contain></v-img>
-                </v-col>
-              </v-row>
-            </div>
+                    class="imageExist rounded-lg ml-3 border" style="box-shadow: -10px 0px 90px 0px rgb(var(--v-theme-primary),0.5);" contain></v-img>
           </v-col>
 
           <!-- Right content -->
@@ -49,7 +43,7 @@
 </template>
 
 <script>
-import dashboardImage from '@/assets/images/reauction/reauction.png'
+import dashboardImage from '@/assets/images/about/Exists.png'
 
 export default {
   data() {

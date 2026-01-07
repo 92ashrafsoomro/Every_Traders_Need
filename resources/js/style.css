@@ -175,7 +175,7 @@ min-height:40px;
 
 }
 .v-overlay__content {
-    border:none !important;
+    /* border:none !important; */
 }
 .v-overlay__scrim {
     background-color: #000 !important;
@@ -188,3 +188,29 @@ min-height:40px;
 .v-data-table__td {
     padding-left : 2px !important;
 } */
+
+    @media (max-width: 599px) {
+  .content-scroll {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+}
+
+.editIconHover{
+      width: 30px;
+    height: 30px;
+}
+.editIconHover:hover{
+    background-color: rgb(var(--v-theme-primary),0.2);
+    border-radius: 20px;
+}
+.clickable-icon{
+    
+    width: 30px;
+    height: 30px;
+}
+
+.clickable-icon:hover{
+    background-color: rgb(var(--v-theme-danger),0.2);
+    border-radius: 20px;
+}

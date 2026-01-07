@@ -1,7 +1,6 @@
   <template>
-    <user-title-bar>
+    <user-title-bar title="Subscriptions">
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Subscriptions </h1>
             <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
        
                 <v-card-title
@@ -98,7 +97,7 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
+                    <div class="d-lg-flex d-md-flex py-4">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
@@ -112,19 +111,21 @@
 
                         <v-spacer />
 
-                        <v-text-field 
-                            v-model="filter.search" 
-                        
-                            placeholder="Search..." 
-                            variant="outlined" 
-                            density="compact"
-                            max-width="300px" 
-                            clearable />
+                        <div class="w-lg-75 mt-2 mt-lg-0 mt-md-0 d-flex justify-end">
+                            <v-text-field 
+                                v-model="filter.search" 
+                            
+                                placeholder="Search..." 
+                                variant="outlined" 
+                                density="compact"
+                                max-width="400px" 
+                                clearable />
 
                         <div class="pl-2" >
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                            <v-btn base-color="#bdbdbd" style="height: 40px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn>
+                        </div>
                         </div>
                         <!-- <div class="pl-2" >
                             <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
@@ -347,7 +348,5 @@ export default {
 </script>
 
 <style scoped>
-.widthstatic{
-    width: 10% !important;
-}
+
 </style>

@@ -145,7 +145,7 @@ export default {
 }
 
 .navItem:hover {
-    border-bottom: 2px solid rgb(var(--v-theme-primary));
+    border-bottom: 3px solid rgb(var(--v-theme-primary));
      color: rgb(var(--v-theme-whiteLight)) !important; 
 
 }

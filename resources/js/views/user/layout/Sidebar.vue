@@ -60,7 +60,6 @@ import logo from "@assets/images/logo/logo.png"
 import newLogo from "@assets/images/logo/newLogo.png"
 import darkLogo from "@/assets/images/header/darkfull.png"
 import lightLogo from "@/assets/images/header/lightfull.png"
-
 import darkshortLogo from "@/assets/images/header/darkshort.png"
 import lightshortLogo from "@/assets/images/header/lightshort.png"
 import { useUserStore } from "@/stores/userStore";

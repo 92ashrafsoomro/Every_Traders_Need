@@ -5,14 +5,14 @@
                         <h1 class=" text-h6 Sheet">CSV</h1>
                     </div>
                     <div class="mx-3 d-flex">
-                        <div class="px-2" >
-                            <v-icon @click="submit" style="padding: 20px;" class="border" >mdi-share</v-icon>
+                        <div class="px-2"  >
+                            <v-icon @click="submit" style="background-color: rgb(var(--v-theme-primary),0.3); padding: 20px;" class="border" color="primary"  >mdi-check-decagram</v-icon>
                         </div>
                         <div class="px-2" >
-                            <v-icon style="padding: 20px;" class="border" @click="handleFile()">mdi-file</v-icon>
+                            <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border" color="primary"  @click="handleFile()">mdi-database-check-outline</v-icon>
                         </div>
                         <div class="px-2" >
-                            <v-icon style="padding: 20px;" class="border" @click="loadVehicle()">mdi-reload</v-icon>
+                            <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border" color="primary"  @click="loadVehicle()">mdi-restart</v-icon>
                         </div>
                     </div>
                 </div>
@@ -254,7 +254,7 @@ td{
 }
 
 .has_error{
-        background: red;
+        background: rgb(var(--v-theme-danger),0.2);
     padding: 14px 0px;
 }
 </style>

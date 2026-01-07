@@ -1,14 +1,13 @@
   <template>
-    <user-title-bar>
+    <user-title-bar title="Members">
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Members </h1>
                 <v-expand-transition>
-                    <div >
+                    <div class="" >
                         <v-container fluid>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-row cols="12" class="mt-1 text-center">
-                                       <v-col cols="4" sm="3" class="pl-2">
+                                    <v-row cols="12" class="mt-1 text-center content-scroll">
+                                       <v-col cols="4" sm="" class="pl-2">
                                             <v-select
                                                 v-model="filter.status"
                                                 variant="outlined"
@@ -133,13 +132,13 @@
 
                             <template #item.action="{ item }">
                             <router-link :to="'/admin/members/edit/' + item.id">
-                                <v-icon color="primary">mdi-pencil</v-icon>
+                                <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                             </router-link>
 
                             <span class="px-2"></span>
                             <v-icon
                                 color="info"
-                                class="clickable-icon"
+                                class="clickable-icon pa-4" 
                                   @click="openView(item.id)"
                             >
                                 mdi-eye
@@ -148,8 +147,8 @@
                             <span class="px-2"></span>
 
                             <v-icon
-                                color="error"
-                                class="clickable-icon"
+                               
+                                class="clickable-icon pa-4" color="danger"
                                 @click="deleteItem(item.id)"
                             >
                                 mdi-delete

@@ -75,15 +75,15 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
-                <v-list-item-title class="profileDropDown">
+            <v-list-item class=" profileDropDownLogout" >
+                <v-list-item-title >
                     <!-- <v-btn @click="logOut()" size="large" class="ml-n3" prepend-icon="mdi-logout"
                         style="font-size: smaller;">
                         <p class="">Logout</p>
                     </v-btn> -->
                     <div @click="logOut()" class="d-flex align-center ga-2 cursor-pointer">
-                        <v-icon icon="mdi-logout text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">Logout</p>
+                        <v-icon icon="mdi-logout text-light_text_on" class="logoutText"></v-icon>
+                        <p class="text-light_text_on logoutText">Logout</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
@@ -120,5 +120,11 @@ export default {
 .profileDropDown:hover .icon {
   color: rgb(var(--v-theme-whiteLight)) !important;
   transition: color 0.2s ease;
+}
+.profileDropDownLogout:hover{
+    background-color: rgb(var(--v-theme-danger),0.3) !important;
+}
+.logoutText:hover{
+    color: rgb(var(--v-theme-danger)) !important;;
 }
 </style>

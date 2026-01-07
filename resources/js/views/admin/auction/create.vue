@@ -1,7 +1,6 @@
 <template>
-     <user-title-bar>
+     <user-title-bar title="Import CSV Data">
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Import CSV Data</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
         </div>
     </user-title-bar>

@@ -1,16 +1,12 @@
   <template>
-    <user-title-bar>
-        <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Import CSV Data</h1>
-            <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
-        </div>
+    <user-title-bar title="Import CSV Data" subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
     </user-title-bar>
 
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
-                        <div class="d-flex align-center">
+                    <div class="d-lg-flex d-md-flex py-4">
+                        <div class="d-flex align-center pb-2 pb-lg-0 pb-md-0">
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[10, 25, 50, 100]" 
@@ -20,20 +16,22 @@
                                 />
                                 <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
                         </div>
-                        <v-spacer />
-                        <v-text-field 
+                     
+                       <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  ">
+                         <v-text-field 
                             v-model="filter.search" 
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px" 
+                            max-width="400px" 
                             clearable />
                         <div class="pl-2" >
                             <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn>
                         </div>
-                        <div class="pl-2" >
+                    </div>
+                        <div class="pl-lg-2 pt-2  pt-lg-0 pt-md-0" >
                             <v-btn to="/admin/auction/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
@@ -54,7 +52,7 @@
 
                             <template #item.action="{ item }">
                                 <router-link :to="'/admin/auction/edit/'+item.id">
-                                    <v-icon color="light">mdi-pencil</v-icon>
+                                    <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
                                 
@@ -62,7 +60,9 @@
                                     <v-icon color="light">mdi-file</v-icon>
                                 </router-link> -->
                                 <span class="px-2" ></span>
-                                <v-icon @click="deleteItem(item.id)" color="light" >mdi-delete</v-icon>     
+                                <v-icon @click="deleteItem(item.id)"  color="danger"
+                                    small
+                                    class="clickable-icon pa-4"  >mdi-delete</v-icon>     
                             </template>
 
                             <template v-slot:bottom>

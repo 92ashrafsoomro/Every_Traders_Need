@@ -22,7 +22,7 @@
                             <div class="pa-6  rounded-xl h-100 border-sm" style="background-color: #3399ff10;">
                                 <v-row align="center" no-gutters>
                                     <v-col cols="12" md="5">
-                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
+                                        <v-img :src="different1" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
                                         <h3 class="text-lg-h6 mt-4 font-weight-bold text-whiteLight mb-2">
@@ -43,7 +43,7 @@
                             <div class="pa-6 rounded-xl h-100 border-sm" style="background-color: #3399ff10;">
                                 <v-row align="center" no-gutters>
                                     <v-col cols="12" md="5" >
-                                        <v-img :src="differentImage" height="160" contain class="rounded-lg" />
+                                        <v-img :src="different2" height="160" contain class="rounded-lg" />
                                     </v-col>
                                     <v-col cols="12" md="7" class="pl-4">
                                         <h3 class="text-lg-h6 mt-4 font-weight-bold text-whiteLight mb-2">
@@ -112,10 +112,14 @@
 </template>
 
 <script>
+import different1 from '@/assets/images/about/Different1.png';
+import different2 from '@/assets/images/about/Different2.png';
 import differentImage from '@/assets/images/reauction/differentimg.png'
 export default {
     data() {
         return {
+            different1,
+            different2,
             differentImage
         }
     }

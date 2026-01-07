@@ -5,7 +5,7 @@
     width="600px"
     >
         <v-card
-            prepend-icon="mdi-update"
+            prepend-icon="mdi-magnify"
             title="Make"
         >
         <v-card-text>

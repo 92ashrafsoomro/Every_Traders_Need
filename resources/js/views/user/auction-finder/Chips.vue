@@ -1,5 +1,5 @@
 <template>
-    <div class="chips d-flex flex-wrap w-100">
+    <div class="chips d-flex flex-wrap  w-100">
         <div class="vehicleType">
             <Chip :data="masterStore.vehicleTypes.data" :compareValue="auctionStore.filter.vehicleType"
                 removeKey="vehicleType" :removeValue="auctionStore.removeValue" />

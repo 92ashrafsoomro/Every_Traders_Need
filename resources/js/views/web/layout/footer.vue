@@ -19,7 +19,7 @@
 
         <div class="position-relative mx-auto mt-10" style="max-width: 1400px;">
 
-            <div class="w-100  justify-space-between">
+            <div class="w-100  justify-space-between ">
                 <div class="image">
                     <img :src="currentLongLogo" alt="" srcset="" width="150">
                 </div>
@@ -49,16 +49,16 @@
             </div>
 
 
-            <div class="mt-10 d-lg-none w-50">
+            <div class="mt-10 d-lg-none w-50 pl-4">
                 <v-row>
                     <v-col cols="6" v-for="(section, i) in footerData" :key="i">
-                        <h4 class="font-weight-bold text-h6 mb-4 text-white">
+                        <h4 class="font-weight-bold text-h6 mb-4 text-whiteLite">
                             {{ section.title }}
                         </h4>
 
-                        <div class="d-flex flex-column ga-2 ">
+                        <div class="d-flex flex-column  ">
                             <v-btn v-for="(link, j) in section.links" :key="j" variant="text"
-                                class="text-left justify-start pa-0 footerElement text-body-2 text-light_text_on"
+                                class="text-left justify-start pa-0  footerElement text-body-2 text-light_text_on"
                                 :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener">
                                 {{ link.label }}
                             </v-btn>
@@ -69,7 +69,7 @@
 
             <div class="text-light_text_on mt-10    pb-2 text-body-2"
                 style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
-                <div class="w-50 w-lg-100">
+                <div class="w-75 w-lg-100">
                     <p class="mt-6 mr-2">© AUTOBOLI Ltd 2025. All rights reserved.</p>
                     <p>
                         Proudly built & hosted with secure infrastructure in the UK & EU.

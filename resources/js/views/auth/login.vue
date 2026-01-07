@@ -9,11 +9,11 @@
     <v-app class="bg-surface">
         
         <div class="position-absolute bottom-0 left-0 right-0 h-50 bg-primary"
-            style="z-index: 0; border-radius:  0 300px 0 0;">
+            style="z-index: 0; border-radius:  0 300px 0 0;;">
             <!-- clip-path: polygon(0 9%, 100% 0, 100% 100%, 0% 100%); -->
         </div>
-        <AuthHeader></AuthHeader>
-        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center pa-4">
+        <AuthHeader/>
+        <v-main style="z-index: 10;" class="h-screen d-flex align-center justify-center pa-4 ">
             <!-- <v-container fluid class="d-flex justify-center align-center" > -->
 
                         <v-card color="background" class="py-6 px-4 mx-auto border-sm" rounded="lg" style="width: 500px;">

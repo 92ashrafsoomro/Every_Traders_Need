@@ -14,7 +14,7 @@
         <AuthHeader />
 
         <v-main class="z-index-1" style="overflow: hidden;">
-            <div class="mt-4">
+            <div class="mt-14">
                 <div class="text-center ">
                     <h1 class="text-h4 text-md-h3 font-weight-bold text-whiteLite mb-4 ">Create your Account
                     </h1>

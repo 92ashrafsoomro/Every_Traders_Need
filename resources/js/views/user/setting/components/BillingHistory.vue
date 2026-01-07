@@ -1,27 +1,24 @@
 <template>
     <v-card title="Billing History" class="">
             <div class="border" ></div>
-            <v-data-table-server class="pb-3" 
+              <div class="border"> 
+            <v-data-table-server  
                 :headers="headers" 
                 :items="data" 
-                hover
+                hover        
                 :items-length="data.length" 
-                 hide-default-footer
+                hide-default-footer
                 item-value="id"
-                 fixed-header
-                  height="300px"
-                >
-                    <template #item.status="{ item }">
-                        <v-btn v-if="item.status == 'Active'"   class="text-capitalize">{{ item.status }}</v-btn>
-                        <v-btn v-else-if="item.status == 'Expired'"  class="text-capitalize">{{ item.status }}</v-btn>
-                        <v-btn v-else  class="text-capitalize">{{ item.status }}</v-btn>
-                    </template>
+                height="300"
+               
+            >
 
                     <template #item.invoice="{ item }" >
                         <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>
                         <v-icon icon="mdi-download"></v-icon>
                     </template>
             </v-data-table-server>
+            </div>
         </v-card>
 </template>
 
@@ -39,6 +36,7 @@ import { useUserStore } from '@/stores/userStore';
             pageStore: usePageStore(),
             userStore: useUserStore(),
             data: [],
+              loading: true,
             headers: [
                 { title: "Id", key: "id" },
                 { title: "Date", value: "updated_at" },
@@ -68,3 +66,4 @@ import { useUserStore } from '@/stores/userStore';
     }
 };
 </script>
+

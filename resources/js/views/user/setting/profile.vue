@@ -7,13 +7,13 @@
                 <v-container fluid>
                     <v-row>
                         <v-col cols="12">
-                            <div class="d-flex align-center">
+                            <div class="d-flex flex-wrap align-center">
                                 <div class="pr-2">
                                     <img v-if="isFile(form['avatar'])" style="width:100px;height: 100px;" class="border"
                                         :src="image" />
                                     <img v-else style="width:100px;height: 100px;" class="border" :src="image" />
                                 </div>
-                                <div class="pl-3 pt-3">
+                                <div class="pl-lg-3 pt-3">
                                     <v-btn color="primary" @click="this.$refs.fileInput.click();"
                                         class="buttonBorder text-capitalize" variant="flat" style="height: 50px; "><span
                                             class="text-capitalize text-body-1">Update New Photo</span></v-btn>
@@ -58,47 +58,52 @@
                         </v-col>
                         <v-divider class="pa-2 mt-3"></v-divider>
                     </v-row>
-                    <v-row >
-                        <v-col cols="12" >
+                    <v-row>
+                        <v-col cols="12">
                             <h2 class="text-h6 font-weight-bold mb-1">Proof Information</h2>
-                            <span class="pt-3 text-light text-body-2">Upload must be in .jpg, .png, .pdf or .doc format.</span>
+                            <span class="pt-3 text-light text-body-2">Upload must be in .jpg, .png, .pdf or .doc
+                                format.</span>
                         </v-col>
-                        <v-col v-for="(value, key) in UserModel.groupByFields('proof')" cols="12" md="4">
-                          
-                        <div class="mb-2 text-body-1">{{ value.label }}</div>
-                            <v-btn  variant="outlined"  base-color="border" class="infoBtnHover text-capitalize text-body-1   w-50 h-75 d-flex " @click="this.$refs.uploadeInfo.click();"> 
-                                <v-icon class="pr-4 text-whiteLite">mdi-upload</v-icon>   
+                        <v-col v-for="(value, index) in UserModel.groupByFields('proof')" :key="value.key" cols="12"
+                            md="4" class="mb-5 mb-lg-0">
+                            <div class="mb-2 text-body-1">{{ value.label }}</div>
+
+                            <!-- Hidden input -->
+                            <input type="file" :ref="'uploadeInfo' + index" style="display: none;"
+                                @change="handleFileUpload($event, value.key)" />
+
+                            <!-- Styled button -->
+                            <v-btn variant="text" style="border: 2px solid rgb(var(--v-theme-border)); height: 50px;"
+                                class="infoBtnHover text-capitalize text-body-1 w-50 d-flex align-center justify-center"
+                                @click="openFileDialog(index)"
+                                >
+                                <v-icon class="pr-2 text-whiteLite">mdi-upload</v-icon>
                                 <span class="ml-2 text-whiteLite">Upload</span>
                             </v-btn>
-                            <v-file-input ref="uploadeInfo"
-                                clearable class="d-none"
-                                @change="onFileChange($event, value.key)" 
-                                label="File input" 
-                                density="comfortable"
-                                variant="flat" 
-                                base-color="border" accept="image/*" color="primary"
-                                prepend-icon="mdi-image" />
 
-                            <!-- <div v-if="form[value.key]" class="text-body-2 mb-2 mt-4">
-                                <div v-if="isFile(form[value.key])">
+                            <!-- File name (outside the button) -->
+                            <div v-if="form[value.key]" class="text-body-2 mt-2">
+                                <span v-if="isFile(form[value.key])">
                                     Current File: <a target="_blank">{{ form[value.key].name }}</a>
-                                </div>
-                                <div v-else>
+                                </span>
+                                <span v-else>
                                     Current File: <a :href="form[value.key]" target="_blank">{{
                                         form[value.key].split('__ff__')[1] }}</a>
-                                </div>
-                            </div> -->
+                                </span>
+                            </div>
                         </v-col>
+
                     </v-row>
-                    
+
                     <v-row class="d-flex  text-start">
-                      <v-divider class="pa-2 mt-10"></v-divider>
-                        <v-col cols="12" class=" mt-4">
+                        <v-divider class="pa-2 mt-10"></v-divider>
+                        <v-col cols="12" class="d-flex  mt-4">
                             <v-btn @click="onSubmit" class="buttonBorder bg-primary mr-2" variant="flat"
                                 style="height: 50px; "><span class="text-capitalize text-body-1">Save
                                     Changes</span></v-btn>
                             <v-btn @click="loadDataFromProfile" class="bg-background" variant="flat"
-                                style="height: 52px; "><span class="text-capitalize text-body-1">Reset All</span></v-btn>
+                                style="height: 52px; "><span class="text-capitalize text-body-1">Reset
+                                    All</span></v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -122,7 +127,7 @@ export default {
         return {
             userStore: useUserStore(),
             UserModel: UserModel,
-            loading: false,
+            loading: false, selectedFile: null,
             files: {
             },
             form: {}
@@ -148,6 +153,16 @@ export default {
 
     },
     methods: {
+        openFileDialog(index) {
+            this.$refs['uploadeInfo' + index][0].click(); // Note: Vue 3 returns an array
+        },
+        handleFileUpload(event, key) {
+            const file = event.target.files[0];
+            if (file) {
+                this.form[key] = file;
+                console.log("Selected file for", key, ":", file.name);
+            }
+        },
         isFile(value) {
             return value instanceof File;
         },
@@ -214,7 +229,8 @@ export default {
 .buttonBorder {
     border-radius: 2px;
 }
-.infoBtnHover:hover{
+
+.infoBtnHover:hover {
     background-color: #3399ff20;
 }
 </style>

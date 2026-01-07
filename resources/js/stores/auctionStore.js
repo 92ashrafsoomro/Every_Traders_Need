@@ -35,7 +35,7 @@ export const useAuctionStore = defineStore("auction", {
             page:1,
         },
         auctionTab: true,
-        sidebar: true,
+        sidebar: false,
         data: [],
         total: 0,
         last_page: 10,
@@ -47,7 +47,7 @@ export const useAuctionStore = defineStore("auction", {
     },
     actions: {
         toggleFilter() {
-            this.sidebar = !this.sidebar;
+    this.sidebar = !this.sidebar
         },
         toggleAuctionTab() {
             this.auctionTab = !this.auctionTab;

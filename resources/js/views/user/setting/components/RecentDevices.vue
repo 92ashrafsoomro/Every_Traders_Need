@@ -6,13 +6,13 @@
                 <v-data-table-server class="pb-3"   hide-default-footer :headers="headers" :items="data" :items-length="total"
                     item-value="id">
                     <template #item.platform="{ item }">
-                        <p>
+                        <p class="d-flex">
                             <v-icon class="text-primary" icon="mdi-microsoft-windows-classic" />
                             <span class="px-2 font-weight-thin"> {{ item.platform }}</span>
                         </p>
                     </template>
                     <template #item.browser="{ item }">
-                        <p>
+                           <p class="d-flex">
                             <v-icon class="text-orange" icon="mdi-google-chrome" />
                             <span class="px-2 font-weight-thin"> {{ item.browser }}</span>
                         </p>

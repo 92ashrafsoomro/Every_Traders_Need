@@ -1,259 +1,170 @@
 <template>
-    <v-container class="navbar  bg-transparent pa-0 "
-        style="max-width: 100%; height: 50px; position: fixed; z-index: 10;" :class="{ 'scrolled': isScrolled }">
-
-        <v-container class="pa-0 d-flex align-center justify-space-between" style="height: 50px; max-width: 1500px;">
-
-            <!-- NAV -->
-            <nav class="d-flex align-center justify-space-between w-100 border-none">
+    <!-- Top Navbar -->
+    <v-sheet class="w-100 position-fixed top-0 bg-tra left-0  transition"
+        :class="isScrolled ? 'glass' : 'bg-transparent'" style="z-index: 100;" height="50">
+        <v-container class="pa-0 " style="max-width:1400px ; height: 50px;">
+            <div class="d-flex align-center justify-space-between pa-4 h-100">
 
                 <!-- Logo -->
-                <div class="d-flex align-center">
-                    <v-list-item class="mt-2">
-                        <router-link to="/"> <img :src="currentLogo" height="30px" /></router-link>
-                    </v-list-item>
-                </div>
+                <router-link to="/" class="d-flex align-center">
+                    <img :src="currentLogo" height="32" />
+                </router-link>
 
-                <!-- NAV MENU (Desktop) -->
-                <div class="d-none d-lg-flex align-center ga-7">
-                    <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link exact
-                        class="m-item text-h6 mx-3 mb-2 pl-0 pr-0" active-class="nav-menu-links-active">
-                        <v-list-item-title class="nav-menu-links  text-capitalize text-body-3 text-white_light_nav">
-                            {{ item.label }}
-                        </v-list-item-title>
-                    </v-list-item>
+                <!-- Desktop Navigation Menu -->
+                <div class="d-none d-lg-flex pt-3 align-center ga-8">
+                    <v-btn v-for="(item, i) in navMenu" :key="i" :to="item.path" variant="text" rounded="sm"
+                        class="navItem pb-0 text-capitalize text-body-1 text-light_text_on pb-2 "
+                        :class="{ activeNav: $route.path === item.path }">
+                        {{ item.label }}
+                    </v-btn>
 
                 </div>
 
-                <!-- RIGHT BUTTONS -->
-                <div class="d-flex align-center">
-                    <!-- Theme Toggle -->
-                    <v-list-item class="px-0 text-end mr-2">
-                        <v-icon class="hover-icon" @click="toggleTheme" link :color="'on-primary'">
-                            {{ isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on' }}
-                        </v-icon>
-                    </v-list-item>
+                <div class="d-flex align-center ga-3">
 
-                    <!-- Login -->
-                    <v-list-item v-if="userStore.user" to="/login" link class="px-0   d-none d-lg-flex">
-                        <v-btn variant="elevated" color="primary" class="text-capitalize "
-                            v-if="userStore.is_logged_in == true">
-                            My Account
+
+                    <v-btn @click="toggleTheme" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'" size="40"
+                        class="rounded-lg border" elevation="0" variant="text" />
+
+
+                    <div class="d-flex align-center ga-2">
+
+
+                        <ProfileDropdown v-if="userStore.is_logged_in" />
+
+
+                        <v-btn v-else to="/login" variant="text"
+                            class="text-capitalize border d-lg-flex d-md-flex d-none">
+                            Log In
                         </v-btn>
-                        <v-btn variant="outlined" class="text-capitalize mr-2 " v-else>Login In</v-btn>
-                    </v-list-item>
 
-                    <!-- Dashboard -->
-                    <v-list-item v-if="!userStore.is_logged_in" to="/register" link class="px-0 d-none d-lg-flex">
-                        <v-btn color="primary" variant="flat" class="border-thin text-capitalize ">
+
+                        <v-btn v-if="!userStore.is_logged_in" to="/register" color="primary" variant="flat"
+                            class="border-thin text-capitalize d-lg-flex d-md-flex d-none">
                             Register
                         </v-btn>
-                    </v-list-item>
-
-                    <!-- Hamburger icon for mobile -->
-                    <v-app-bar-nav-icon class="d-lg-none" @click="drawer = !drawer" />
-                </div>
-
-            </nav>
-
-            <v-navigation-drawer v-model="drawer" temporary class="d-lg-none bg-surface "
-                style="margin-top:50px; height:calc(100vh - 50px); border-right: 1px solid rgb(var(--v-theme-border));">
-                <div class="d-flex flex-column h-100">
-
-                    <!-- Menu Items -->
-                    <v-list nav class="pt-8 pb-4">
-                        <v-list-item v-for="(item, index) in navMenu" :key="index" :to="item.path" link
-                            class="text-white py-3">
-                            <v-list-item-title class="text-h6 font-weight-medium">
-                                {{ item.label }}
-                            </v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-
-                 
-                    <div class="flex-grow-1"></div>
-
-                  
-                    <div class="pa-6 d-flex flex-column ga-4">
-
-                    
-                        <v-btn v-if="userStore.is_logged_in" to="/dashboard" color="primary" variant="flat" block
-                            height="50" class="text-capitalize text-white rounded-lg">
-                            My Account
-                        </v-btn>
-
-                  
-                        <template v-else>
-                            <v-btn to="/login" variant="outlined" color="white" block height="50"
-                                class="text-capitalize text-white border-2 rounded-lg"
-                                style="background-color: transparent !important;">
-                                Login
-                            </v-btn>
-
-                            <v-btn to="/register" color="primary" variant="flat" block height="50"
-                                class="text-capitalize text-white rounded-lg">
-                                Sign Up
-                            </v-btn>
-                        </template>
 
                     </div>
 
+                    <!-- Hamburger Menu for Mobile -->
+                    <v-app-bar-nav-icon class="d-lg-none" @click="drawer = !drawer" />
+
                 </div>
-            </v-navigation-drawer>
-
-
+            </div>
         </v-container>
+    </v-sheet>
 
-        <div v-if="isScrolled" class="bg-shadow mx-auto"></div>
-    </v-container>
+    <!-- Mobile Navigation Drawer -->
+    <v-navigation-drawer v-model="drawer" temporary location="left" width="280" style="margin-top: 50px; "
+        :class="isScrolled ? 'glass' : 'bg-surface'">
+        <div class="d-flex flex-column h-100">
+
+            <v-list class="mt-6">
+                <v-list-item v-for="(item, i) in navMenu" :key="i" :to="item.path" exact class="drawerItem"
+                    active-class="drawerActive">
+                    <v-list-item-title class="text-h6">
+                        {{ item.label }}
+                    </v-list-item-title>
+                </v-list-item>
+            </v-list>
+
+            <div class="flex-grow-1"></div>
+
+            <div class="pa-6 d-flex flex-column ga-4 mb-10" v-if="!userStore.is_logged_in">
+                <v-btn to="/login" variant="outlined" block height="50">Login</v-btn>
+                <v-btn to="/register" color="primary" block height="50">Sign Up</v-btn>
+            </div>
+
+        </div>
+    </v-navigation-drawer>
+
 </template>
 
 <script>
-import logo from '@/assets/images/logo/logo.png'
-import navbarItem from "@/enums/WebHeaderMenu"
-import darkLogo from "@/assets/images/header/darkfull.png"
-import lightLogo from "@/assets/images/header/lightfull.png"
-import { useUserStore } from '@/stores/userStore';
+import navbarItem from "@/enums/WebHeaderMenu";
+import darkLogo from "@/assets/images/header/darkfull.png";
+import lightLogo from "@/assets/images/header/lightfull.png";
 import { useTheme } from "vuetify";
+import { useUserStore } from "@/stores/userStore";
+import ProfileDropdown from "./profileDropdown.vue";
 
 export default {
+    name: "navbar",
+    components: {
+        ProfileDropdown,
+    },
     data() {
         return {
-            userStore: useUserStore(),
             drawer: false,
             navMenu: navbarItem,
-            logo: logo,
-            vuetify: useTheme(),
-
+            theme: useTheme(),
+            userStore: useUserStore(),
             isScrolled: false,
-        }
+        };
     },
     computed: {
         isDark() {
-            return this.vuetify.global.name === "adminDark"
-        }, currentLogo() {
-            if (this.isDark) {
-                return darkLogo
-            } else {
-                return lightLogo
-            }
-        }
+            return this.theme.global.name === "adminDark";
+        },
+        currentLogo() {
+            return this.isDark ? darkLogo : lightLogo;
+        },
     },
     methods: {
-        images() {
-            return this.isDark ? [lightLogo] : [darkLogo]
-        },
         toggleTheme() {
-            this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
+            this.theme.change(this.isDark ? "adminLight" : "adminDark");
         },
-        handleScroll() {
-            this.isScrolled = window.scrollY > 20
-        }
+        onScroll() {
+            this.isScrolled = window.scrollY > 20;
+        },
     },
     mounted() {
-        window.addEventListener('scroll', this.handleScroll)
+        window.addEventListener("scroll", this.onScroll);
     },
-    beforeDestroy() { // Vue 2
-        window.removeEventListener('scroll', this.handleScroll)
+    beforeUnmount() {
+        window.removeEventListener("scroll", this.onScroll);
     },
-    beforeUnmount() { // Vue 3
-        window.removeEventListener('scroll', this.handleScroll)
-    },
-    watch: {
-        'theme.global.name'(newName) {
-            this.vuetify.global.name = newName
-        },
-    }
-}
-
+};
 </script>
 
 <style scoped>
-.navbar {
+.glass {
+    background: rgba(var(--v-theme-surface), 0.7) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgb(var(--v-theme-border));
+}
+
+.transition {
     transition: all 0.3s ease;
 }
 
+.navItem {
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s;padding: 0 !important;
+}
 
-.navbar.scrolled {
-    box-shadow: 0 2px 6px rgba(108, 65, 65, 0.15);
-    background-color: rgb(var(--v-theme-surface), 0.6) !important;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+.navItem:hover {
+    border-bottom: 2px solid rgb(var(--v-theme-primary));
+     color: rgb(var(--v-theme-whiteLight)) !important; 
 
 }
 
-.bg-shadow {
-    height: 0.5px;
-    width: 100%;
-    background-color: #ccc;
+.activeNav {
+     color: rgb(var(--v-theme-whiteLight))  !important;
+    padding: 0;
+    border-bottom: 3px solid rgb(var(--v-theme-primary));
+}
+.drawerItem {
+  background: transparent !important;
 }
 
-.my-btn {
-    transition: all 0.3s ease;
-    /* color: white; */
-    /* background-color: #0080ff; */
+.drawerItem:hover {
+  background: rgba(var(--v-theme-primary), 0.08);
 }
 
-.my-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.drawerActive {
+  background: rgba(var(--v-theme-primary), 0.15) !important;
 }
 
-.nav-menu-links {
-
-    color: rgb(var(--v-theme-light_text_on)) !important;
-
-}
-
-/* .nav-menu-links:hover {
-    color: #B1BFCD;
-     border-bottom: 1px solid #0080ff;
-} */
-
-.m-item:hover {
-    background-color: transparent !important;
-    color: white;
-    border-bottom: 3px solid #0080ff;
-}
-
-::v-deep(.nav-menu-links-active).m-item {
-    border-bottom: 3px solid #0080ff;
-}
-
-.m-item:hover .nav-menu-links {
-    color: white;
-}
-
-::v-deep(.nav-menu-links-active) .nav-menu-links {
-
-    color: rgb(var(--v-theme-whiteLite)) !important;
-
-
-}
-
-
-
-.m-item {
-    padding-top: 20px;
-    padding-bottom: 12px;
-}
-
-.m-item:hover .nav-menu-links {
-    color: white;
-}
-
-.v-list-item {
-    --v-theme-overlay-multiplier: 0 !important;
-}
-
-.get-hover:hover {
-    background-color: #0080ff;
-}
-
-.hover-icon:hover {
-    color: #0080ff;
-}
 </style>

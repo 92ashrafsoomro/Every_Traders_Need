@@ -1,11 +1,12 @@
 <template>
-      <div  >
+   
+      <div style="box-shadow: none;" >
 
-            <v-expansion-panels>
+            <v-expansion-panels  >
 
-                <v-expansion-panel :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type" >
-                    <v-expansion-panel-text>
-                        <VehicleTypeField/>
+                <v-expansion-panel  :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type" >
+                    <v-expansion-panel-text >
+                        <VehicleTypeField />
                     </v-expansion-panel-text>
                   <Chip 
                         :data="masterStore.vehicleTypes.data" 

@@ -9,7 +9,7 @@
         </template>
 
         <!-- Main Dropdown Card -->
-        <v-card width="380" class="bg-surface text-white rounded-lg" elevation="24">
+        <v-card width="380" class="notificationCard bg-surface text-white rounded-lg" elevation="24">
             <!-- Header -->
             <div class="d-flex justify-space-between align-center pa-4">
                 <h2 class="text-h6 font-weight-medium">Notifications</h2>
@@ -118,5 +118,10 @@ export default {
 
 .max-h-96 {
     max-height: 384px;
+}
+@media (max-width: 786px) {
+    .notificationCard{
+        width: 300px !important;
+    }
 }
 </style>

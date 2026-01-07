@@ -21,8 +21,14 @@ aside {
 
 .v-input__details .v-messages {
     min-height: auto !important;
+    /* background-color: aqua !important; */
 }
-
+/* #input-v-14-messages{
+    background-color: #b91c1c;
+}
+.v-input--density-compact .v-field--variant-outlined, .v-input--density-compact .v-field--single-line, .v-input--density-compact .v-field--no-label {
+    --v-field-padding-bottom: 10px !important;
+} */
 :root {
     --primary-color: #0080ff;
     --danger-color: #b91c1c;
@@ -43,14 +49,14 @@ aside {
 
 /* table th bg change */
 .v-data-table__thead th {
-    background-color: rgba(var(--v-theme-background));
+    background-color: rgba(var(--v-theme-primary),0.2);
 }
 
 
 
 /* table tr bg change */
 .v-data-table__tbody tr:hover {
-    background-color: rgb(var(--v-theme-background));
+    background-color: rgb(var(--v-theme-surface));
 }
 
 .v-switch__thumb {
@@ -68,6 +74,7 @@ aside {
 
 .v-expansion-panel-title__overlay:hover {
     background-color: rgb(var(--v-theme-background));
+
 }
 
 /* 
@@ -84,23 +91,25 @@ aside {
 }
 
 .v-field__overlay {
-    border: 2px solid rgb(var(--v-theme-border));
+    border: 1px solid rgb(var(--v-theme-border));
 }
 
-/* .v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single{
-    background-color: aqua !important;
-}
-.v-input  .v-input--horizontal .v-input--center-affix .v-input--focused .v-input--desity-default .v-theme--adminDark .v-locale--is-ltr .v-text-field .v-select  .v-select-active-menu .v-select--single:active{
-    background-color: #b91c1c
-} */
+
 .v-overlay__content {
-    border: 2px solid rgb(var(--v-theme-border)) !important;
+    border: 1px solid rgb(var(--v-theme-border)) !important;
+    
 }
 
 /* Targe/* Completely remove hover background tint */
 .v-expansion-panel-title__overlay {
     opacity: 0 !important;
     background-color: transparent !important;
+    
+
+}
+.v-expansion-panel-title{
+        padding-left: 0px !important;
+        /* background-color: aliceblue; */
 }
 
 /* Ensure no hover change at all */
@@ -128,3 +137,54 @@ aside {
 .v-switch__thumb {
     background-color: rgb(var(--v-theme-primary)) !important;
 }
+
+.v-expansion-panel{
+    padding-left: 20px !important;
+}
+.v-expansion-panel-text__wrapper{
+    padding: 0 !important;
+}
+.v-btn--elevated{
+    box-shadow: none !important;
+    text-shadow: none !important;
+    /* border-radius: 10px !important; */
+}
+canvas{
+    border: none !important;
+}
+.v-navigation-drawer__scrim{
+    background: none !important;
+    opacity : 0.6 !important;
+}
+
+.v-expansion-panel__shadow{
+      box-shadow: none !important;
+      border-radius: 0px;
+}
+.v-selection-control{
+    display: flex;
+    gap: 10px;
+}
+.v-selection-control--density-default {
+    --v-selection-control-size: 20px;
+    padding-left: 0 !important;
+    /* background-color: #b91c1c; */
+}
+.v-checkbox .v-selection-control {
+min-height:40px;
+
+}
+.v-overlay__content {
+    border:none !important;
+}
+.v-overlay__scrim {
+    background-color: #000 !important;
+    opacity: 0.8;
+}
+
+/* .v-table .v-table__wrapper > table > tbody > tr > td {
+    padding-left: 0;
+}
+.v-data-table__td {
+    padding-left : 2px !important;
+} */

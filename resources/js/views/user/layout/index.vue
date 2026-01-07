@@ -1,26 +1,31 @@
 <template>
     <v-app>
         <Sidebar />
-        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
+        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
+            style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
-           <div class="bg-primary d-lg-flex d-md-flex d-none align-center  " style="width: 20px; height: 54px; border-radius: 0 10px 10px 0;">
-            <!-- <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border ml-2 " style="width: 30px; height: 30px;" > -->
-                <v-icon class="d-none d-lg-inline-flex justify-center align-center " size="20" :icon="isMenuOpen ? 'mdi-menu-right' : 'mdi-menu-left'" 
-                @click="toggleMenu"></v-icon>
-            <!-- </div> -->
-           </div>
+            <div class="bg-primary d-lg-flex d-md-flex d-none align-center  "
+                style="width: 20px; height: 54px; border-radius: 0 10px 10px 0;">
+                <!-- <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border ml-2 " style="width: 30px; height: 30px;" > -->
+                <v-icon class="d-none d-lg-inline-flex justify-center align-center " size="20"
+                    :icon="isMenuOpen ? 'mdi-menu-right' : 'mdi-menu-left'" @click="toggleMenu"></v-icon>
+                <!-- </div> -->
+            </div>
             <v-toolbar-title class="d-none d-sm-inline pl-1">
-                <p class="text-h6">Dashboard</p>
+                <p class="text-h6">{{ pageTitle }}</p>
             </v-toolbar-title>
-            
+
             <v-spacer></v-spacer>
 
             <v-row class="d-flex align-center justify-end" no-gutters>
                 <div class="d-flex align-center justify-space-around mr-0 mr-lg-3">
-                
+
                     <v-col cols="auto">
                         <v-sheet color="" class="d-flex align-center justify-center rounded pa-2 border">
-                            <v-icon icon="mdi-fullscreen" class="cursor-pointer" @click="toggleFullScreen"></v-icon>
+                            <v-icon class="cursor-pointer" @click="toggleFullScreen">
+                                {{ isFullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}
+                            </v-icon>
+
                         </v-sheet>
                     </v-col>
 
@@ -52,7 +57,7 @@
 </template>
 
 <script>
-    
+
 import Sidebar from "./Sidebar.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
@@ -68,13 +73,18 @@ export default {
         Notificationdropdown,
         ThemeDropdown,
     },
-    computed: {},
+    computed: {
+        pageTitle() {
+            return this.$route.meta.title || this.$route.name || 'Dashboard';
+        }
+    },
     data() {
         return {
             drawer: true,
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,
+            isFullScreen: false,
         };
     },
     methods: {
@@ -110,10 +120,11 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
             this.themeStore.toggleMenuType();
         },
+
     },
 };
 </script>
-<style scoped >
+<style scoped>
 .v-overlay__content {
     top: 75px !important;
 }

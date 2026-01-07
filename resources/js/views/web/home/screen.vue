@@ -4,7 +4,7 @@
     :style="{ backgroundImage: `url(${currentBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
     <!-- Overlay with surface color + blur -->
     <div class="hero-overlay position-absolute"
-      style="inset: 0; background: rgba(var(--v-theme-surface), 0.7); backdrop-filter: blur(2px);"></div>
+      style="inset: 0; background: rgba(var(--v-theme-surface), 0.7); backdrop-filter: blur(5px);"></div>
 
 
     <v-container fluid class="position-relative " style=" max-width: 1400px; z-index: 1; ">
@@ -24,11 +24,11 @@
 
 
           <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
-            <router-link to="user/auction-finder" style="text-decoration: none ; color: white;">
+            <router-link to="auctionschedule" style="text-decoration: none ; color: white;">
             <v-btn color="primary" size="large" class="text-capitalize">Explore Auctions</v-btn>
             </router-link>
             
-            <router-link to="login" style="text-decoration: none ; color: white;">
+            <router-link to="pricing" style="text-decoration: none ; color: white;">
             <v-btn variant="outlined" size="large" class="text-capitalize ">Start Free Trial</v-btn>
            </router-link>
           </div>

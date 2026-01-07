@@ -1,7 +1,7 @@
 <template>
     <v-row no-gutters >
-        <v-col cols="12" class="mt-3 border ">
-            <v-card>
+        <v-col cols="12" class=" border rounded-sm bg-surface">
+            
                 <div class="pa-5">
                     <v-row>
                         <v-col cols="12" lg="6" md="6" sm="12" class="d-flex flex-column justify-start">
@@ -15,7 +15,7 @@
                 <div>
                     <Counter />
                 </div>
-            </v-card>
+    
 
         </v-col>
     </v-row>

@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-surface rounded border mt-0">
+    <div class="bg-surface rounded border mt-0" style="overflow: hidden;">
         <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
-            :loading="auctionStore.loading" item-value="id">
+            :loading="auctionStore.loading" item-value="id" >
 
             <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t ma-2">
@@ -15,14 +15,15 @@
 
 
             <template #item="{ item, columns }">
-                <tr @mouseenter="hoveredRowId = item.id" @mouseleave="hoveredRowId = null"
-                    :class="{ 'hovered-main-row': hoveredRowId === item.id }" class="main-row">
+                <tr @mouseenter="hoveredRowId = item.id" :class="{ 'hovered-main-row': hoveredRowId === item.id }"
+                    class="main-row">
                     <td>
-                        <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
-                            <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{ item.variant_name}} </span>
+                        <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id" class="pa-0">
+                            <span class="text-whiteLight "> {{ item.make_name }} {{ item.model_name }} {{
+                                item.variant_name }} </span>
                         </v-btn>
                     </td>
-                    <td><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></td>
+                    <td><div style="width: 200px !important;"><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></div></td>
                     <td>{{ item.mileage }}</td>
                     <td>{{ item.transmission }}</td>
                     <td>
@@ -31,30 +32,79 @@
                             {{ item.grade }}
                         </span>
                     </td>
-                    <td>{{ item.auction_date }}</td> 
+                    <td><div style="width: 200px !important;">{{ item.auction_date }}</div></td>
                     <!-- {{ item.auction_time }} -->
-                    <td colspan="">
-                        <span class="auction-badge">{{ item.auction_name }}</span>
+                    <td class="d-lg-none d-md-none">
+                        <div class="d-flex flex-column ">
+                            <span class="auction-badge mt-1">
+                                {{ item.auction_name }}
+                            </span>
+                        </div>
                     </td>
+                    <td class="d-none d-lg-block pt-lg-4 d-md-block pt-md-4">  <span class="auction-badge">{{
+                        item.auction_name }}</span> </td>
+
                 </tr>
 
                 <tr v-if="hoveredRowId === item.id" class="detail-row"
                     :class="{ 'hovered-detail-row': hoveredRowId === item.id }">
-                    <td :colspan="columns.length">
+                    <td>
                         <div class="detail-content pa-4 d-flex align-center justify-space-between"
                             @mouseenter="hoveredRowId = item.id">
                             <div class="d-flex ga-3">
-                                <img v-for="(img, i) in item.images.slice(0, 4)" :key="i" :src="img" width="60"
-                                    height="60" class="rounded-lg cursor-pointer elevation-2"
-                                    @click.stop="openPreview(item.images, i)" />
-                            </div>
+                                <v-img v-for="(img, i) in item.images.slice(0, 4)" :key="i" :src="img" width="60"
+                                    height="60" class="rounded-lg cursor-pointer elevation-2" cover
+                                    @click="openImage(item.images, i)" />
 
-                            <v-btn color="primary" variant="flat" size="small" :href="item.inspection_report"
-                                target="_blank" @click.stop>
-                                View Report
-                            </v-btn>
+
+                                <v-dialog v-model="dialog" class=" w-lg-50 w-md-50 w-100 "  >
+                                    <v-card elevation="0"></v-card>
+                                        <!-- Close Button -->
+                                        <v-btn icon="mdi-close"  class="position-absolute "
+                                            style="top: 10px; right: 10px; z-index: 10;"    color="primary" @click="dialog = false" />
+
+                                        <!-- Left Arrow -->
+                                        <v-btn icon="mdi-chevron-left" class="position-absolute d-lg-block d-md-block d-none"
+                                            style="top: 50%; left: 10px; transform: translateY(-50%); z-index: 10"
+                                            :disabled="currentIndex === 0" @click="prevImage"  color="primary" />
+
+                                        <!-- Right Arrow -->
+                                        <v-btn icon="mdi-chevron-right" class="position-absolute d-lg-block d-md-block d-none"
+                                            style="top: 50%; right: 10px; transform: translateY(-50%); z-index: 10"
+                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" color="primary" />
+
+                                        <!-- Image -->
+                                        <v-img :src="currentImages[currentIndex]" max-height="500" cover
+                                            class="rounded" style="border: none !important;" />
+                                
+                                       <div class="d-flex mt-10 mt-lg-0 mt-md-0 justify-space-between" >
+                                         <v-btn icon="mdi-chevron-left" class="d-flex d-lg-none d-md-none" color="primary"
+                                            style="transform: translateY(-50%);"
+                                            :disabled="currentIndex === 0" @click="prevImage" />
+
+                                        <!-- Right Arrow -->
+                                        <v-btn icon="mdi-chevron-right" class="  d-flex d-lg-none d-md-none"
+                                         color="primary"
+                                            style=" transform: translateY(-50%);"
+                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" />
+                                       </div>    
+                                </v-dialog>
+                                
+
+
+                            </div>
                         </div>
                     </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
+                <td></td>
+                    <td> <v-btn color="primary" variant="flat" size="small" :href="item.inspection_report"
+                            target="_blank" @click.stop>
+                            View Report
+                        </v-btn></td>
                 </tr>
             </template>
 
@@ -78,6 +128,7 @@ export default {
             hoveredRowId: null,
             currentImages: [],
             showPreview: false,
+            dialog: false, image: '',
             currentIndex: 0,
 
             headers: [
@@ -93,6 +144,24 @@ export default {
     },
 
     methods: {
+        openImage(images, index) {
+            this.currentImages = images
+            this.currentIndex = index
+            this.dialog = true
+        },
+
+        nextImage() {
+            if (this.currentIndex < this.currentImages.length - 1) {
+                this.currentIndex++
+            }
+        },
+
+        prevImage() {
+            if (this.currentIndex > 0) {
+                this.currentIndex--
+            }
+        },
+
         handleHoverLeave() {
             this.hoverTimeout = setTimeout(() => {
                 this.hoveredRowId = null
@@ -178,6 +247,7 @@ export default {
     background-color: #0080ff50;
     padding: 6px 12px;
     border-radius: 4px;
+    width: 150px;
     font-size: 0.875rem;
 }
 </style>

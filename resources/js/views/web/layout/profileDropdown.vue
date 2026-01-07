@@ -31,20 +31,10 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
+          
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/dashboard" class="text-decoration-none" >
-                        <div class=" d-flex align-center ga-2 wrapper">
-                          <v-icon class="icon text-light_text_on" icon="mdi-shield-crown"></v-icon>
-
-                            <p class="text text-light_text_on">Dashboard</p>
-                        </div>
-                    </router-link>
-                </v-list-item-title>
-            </v-list-item>
-            <v-list-item link>
-                <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/profile" class="text-decoration-none" >
+                    <router-link to="/user/profile" class="text-decoration-none" >
                         <div class=" d-flex align-center ga-2 wrapper">
                           <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
 
@@ -54,28 +44,39 @@
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-title class="cursor-pointer">
-                    <router-link to="/user/settings/security" class="text-decoration-none" >
+                <v-list-item-title class=" profileDropDown cursor-pointer">
+                    <router-link to="/user/settings/profile" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2">
-                            <v-icon icon="mdi-cog-outline text-light_text_on"></v-icon>
-                            <p class="text-light_text_on">Settings</p>
+                            <v-icon icon="mdi-cog-outline text-light_text_on" class="icon"></v-icon>
+                            <p class="text text-light_text_on">Settings</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-title class="cursor-pointer">
+                <v-list-item-title class=" profileDropDown cursor-pointer">
                     <router-link to="/user/settings/billing" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2 ">
-                            <v-icon icon="mdi-credit-card-outline text-light_text_on"></v-icon>
-                            <p class="text-light_text_on">Billings</p>
+                            <v-icon icon="mdi-credit-card-outline text-light_text_on" class="icon"></v-icon>
+                            <p class="text text-light_text_on">Billings</p>
+                        </div>
+                    </router-link>
+                </v-list-item-title>
+            </v-list-item>
+             <v-list-item link>
+                <v-list-item-title class="profileDropDown cursor-pointer">
+                    <router-link to="/checkout" class="text-decoration-none" >
+                        <div class=" d-flex align-center ga-2 wrapper">
+                          <v-icon class="icon text-light_text_on" icon="mdi-check-circle-outline"></v-icon>
+
+                            <p class="text text-light_text_on">Check Out</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item>
-                <v-list-item-title class="">
+                <v-list-item-title class="profileDropDown">
                     <!-- <v-btn @click="logOut()" size="large" class="ml-n3" prepend-icon="mdi-logout"
                         style="font-size: smaller;">
                         <p class="">Logout</p>
@@ -117,8 +118,7 @@ export default {
 }
 .profileDropDown:hover .text,
 .profileDropDown:hover .icon {
-  color: aqua;
+  color: rgb(var(--v-theme-whiteLight)) !important;
   transition: color 0.2s ease;
 }
-
 </style>

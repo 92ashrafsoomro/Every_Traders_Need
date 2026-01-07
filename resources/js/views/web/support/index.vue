@@ -1,22 +1,7 @@
 <template>
   <div class="mainContainer position-relative">
 
-    <!-- TOP LOGO BAR (FULL WIDTH) -->
-    <div class=" bg-transparent pt-2 d-flex align-center justify-space-between px-6">
-      <div class="bg-surface w-50">
-        <img :src="logo" height="40" alt="logo" />
-      </div>
-
-      <div>
-        <!-- <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminDark'"
-          icon="mdi-lightbulb-off" /> -->
-        <!-- <v-btn @click="themeStore.toggleThemeMode(vuetify)" v-if="vuetify.global.name === 'adminLight'"
-          icon="mdi-lightbulb-on" /> -->
-        <v-btn variant="tonal" size="40" to="/" class="rounded-xl" :class="scrolled ? 'bg-background' : ''">
-          <v-icon size="25">mdi-home</v-icon>
-        </v-btn>
-      </div>
-    </div>
+         <AuthHeader />
 
     <div class="content" style="min-height: 100vh;">
       <v-row no-gutters>
@@ -32,7 +17,7 @@
             backgroundImage: `url(${bgImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.1,
+            opacity: 0.09,
             zIndex: 1
           }">
 
@@ -44,7 +29,8 @@
           <div style=" display: flex; justify-content: center; align-items: center; height: 90vh;">
 
             <div class="position-relative align-center justify-center pa-4 pa-lg-0" style="z-index: 2;  width: 500px;">
-              <h1 class="text-h6 text-lg-h4  text-md-h5 text-white font-weight-bold mb-10 text-center text-lg-start">
+              <h1
+                class="text-h6 text-lg-h4  text-md-h5 text-whiteLite font-weight-bold mb-10 text-center text-lg-start">
                 Help & Support
               </h1>
 
@@ -76,32 +62,30 @@
 
         </v-col>
 
-        <!-- Right: Quick Links -->
-        <v-col cols="12" lg="6" class=" pa-8 pa-md-12 d-flex align-center justify-center bg-background"
-          style="min-height: 100vh;">
-          <div class="w-100 " style="max-width: 560px;">
-            <div v-for="(item, index) in quickLinks" :key="index" class="mb-4 px-6 py-1 border-thin rounded-sm"
-              :class="activeIndex === index ? 'active-item' : 'bg-background'"  @click="toggle(index)">
 
-              <div class="d-flex align-center justify-space-between">
-                <span class="text-white text-body-1">{{ item.heading }}</span>
+        <v-col cols="12" lg="6" class="pa-8 pa-md-12 d-flex align-center justify-center" style="min-height: 100vh;">
+          <v-expansion-panels v-model="activeIndex" style="width: 100%; max-width: 560px; " elevation="0"
+            variant="accordion" class="my-transparent-panels">
+            <v-expansion-panel v-for="(item, index) in quickLinks" :key="index" elevation="0" variant="flat"
+              class="faq-panel bg-background pa-2 mb-3" style="border: 1px solid rgb(var(--v-theme-border));">
+              <v-expansion-panel-title class="v-theme--dark bg-transparent px-0" hide-actions>
+                <div class="d-flex align-center justify-space-between w-100">
+                   <span class="text-whiteLite text-body-1">{{ item.heading }}</span>
+                  <v-icon v-if="activeIndex === index">mdi-minus</v-icon>
+                  <v-icon v-else>mdi-plus</v-icon>
+                </div>
+              </v-expansion-panel-title>
+              
 
-                <v-btn icon variant="text">
-                  <v-icon color="white" size="20">
-                    {{ activeIndex === index ? 'mdi-minus' : 'mdi-plus' }}
-                  </v-icon>
-                </v-btn>
-
-              </div>
-
-              <v-expand-transition>
-                <div v-if="activeIndex === index" class="mt-3 text-light pb-4">
+              <v-expansion-panel-text>
+                  <div v-if="activeIndex === index" class="mt-3  text-whiteLite text-light pb-4">
                   {{ item.description }}
                 </div>
-              </v-expand-transition>
-            </div>
-          </div>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-col>
+
 
       </v-row>
     </div>
@@ -111,23 +95,29 @@
 
 <script>
 import UserModel from '@/models/user.model';
-import bgImage from "@/assets/images/reauction/Reauction.png"
+import bgImage from "@/assets/images/support/supportImage.png"
 import quickLinks from "@/json/support.json"
 import logo from '@/assets/images/logo/logo.png'
-// import { useThemeStore } from "@stores/themeStore";
-// import { useTheme } from "vuetify";
+import darkLogo from "@/assets/images/header/darkfull.png"
+import lightLogo from "@/assets/images/header/lightfull.png"
+import { useUserStore } from '@/stores/userStore';
+import { useTheme } from "vuetify";
+import AuthHeader from '@/views/auth/AuthHeader.vue';
+import { useThemeStore } from '@/stores/themeStore';
 
 export default {
   name: 'support',
-
+ components: { AuthHeader },
   data() {
     return {
-      // themeStore: useThemeStore(),
-      // vuetify: useTheme(),
+      themeStore: useThemeStore(),
+      userStore: useUserStore(),
+      vuetify: useTheme(),
       logo,
+      AuthHeader,
+      activeIndex: null,
       bgImage,
       quickLinks,
-      activeIndex: null,
       form: {
         name: "",
         email: "",
@@ -136,6 +126,12 @@ export default {
     }
   },
   methods: {
+    images() {
+      return this.isDark ? [lightLogo] : [darkLogo]
+    },
+    toggleTheme() {
+      this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
+    },
     async formSubmit() {
       try {
 
@@ -161,11 +157,22 @@ export default {
       this.activeIndex = this.activeIndex === index ? null : index;
     }
   },
-  // computed:{
-  //   isDark(){
-  //     return this.vuetify.global.name === "adminDark";
-  //   }
-  // }
+  computed: {
+    isDark() {
+      return this.vuetify.global.name === "adminDark"
+    }, currentLogo() {
+      if (this.isDark) {
+        return darkLogo
+      } else {
+        return lightLogo
+      }
+    }
+  },
+  watch: {
+    'theme.global.name'(newName) {
+      this.vuetify.global.name = newName
+    },
+  }
 }
 </script>
 
@@ -181,4 +188,21 @@ export default {
 .bg-background {
   background-color: rgb(var(--v-theme-background));
 }
+
+.v-expansion-panel--active {
+  background-color: rgb(var(--v-theme-primary), 0.1) !important; 
+}
+/* 
+.v-expansion-panel--active .v-expansion-panel-text {
+  background-color: rgb(var(--v-theme-primary), 0.15) !important; 
+} */
+
+
+/* .v-expansion-panel-title:hover {
+  background-color: rgb(var(--v-theme-primary), 0.1) !important;
+} */
+
+/* .v-expansion-panels.variant-accordion > .v-expansion-panel:not(:last-child)::after {
+  border-color: rgb(var(--v-theme-primary)) !important;
+} */
 </style>

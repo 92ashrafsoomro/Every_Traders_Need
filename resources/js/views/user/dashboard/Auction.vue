@@ -8,13 +8,12 @@
                 <p class=" text-body-2 text-light ">Today</p>
             </div>
         
-            <div class="mr-2 ml-n5 d-flex  ga-2 mt-4 mt-lg-0 mt-md-4 pl-md-4 "> 
+            <div class="mr-2 ml-n3 d-flex   ga-2 mt-4 mt-lg-0 mt-md-4 pl-md-4 "> 
                 <plateform-dropdown
                     label="Online Auction"
                     variant="outlined"
                     density="compact" 
-                    max-width="180px" 
-                    min-width="180px"
+                  style="width: 160px;" 
                     hide-details
                     v-model="auctionType"
                     :items="['Online Auction', 'Time Auction']" 
@@ -25,8 +24,7 @@
                     label="Select Platform" 
                     variant="outlined"
                     density="compact"
-                    max-width="180px"
-                    min-width="180px" 
+                    style="width: 160px;" 
                     hide-details 
                 />
             </div>

@@ -28,7 +28,7 @@
 
                     <!-- TITLE -->
                     <template #title>
-                        <span class="text-body-1 ml-10">
+                        <span class="text-body-1 ml-6   ">
                             {{ item.label }}
                         </span>
                     </template>

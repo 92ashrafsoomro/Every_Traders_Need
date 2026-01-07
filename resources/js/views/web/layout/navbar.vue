@@ -146,12 +146,12 @@ export default {
 
 .navItem:hover {
     border-bottom: 2px solid rgb(var(--v-theme-primary));
-    color: white !important; 
+     color: rgb(var(--v-theme-whiteLight)) !important; 
 
 }
 
 .activeNav {
-    color: white !important;
+     color: rgb(var(--v-theme-whiteLight))  !important;
     padding: 0;
     border-bottom: 3px solid rgb(var(--v-theme-primary));
 }

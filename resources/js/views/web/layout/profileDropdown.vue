@@ -34,7 +34,7 @@
           
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/profile" class="text-decoration-none" >
+                    <router-link to="/user/profile" class="text-decoration-none" >
                         <div class=" d-flex align-center ga-2 wrapper">
                           <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
 
@@ -45,7 +45,7 @@
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class=" profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/security" class="text-decoration-none" >
+                    <router-link to="/user/settings/profile" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2">
                             <v-icon icon="mdi-cog-outline text-light_text_on" class="icon"></v-icon>
                             <p class="text text-light_text_on">Settings</p>
@@ -65,7 +65,7 @@
             </v-list-item>
              <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/profile" class="text-decoration-none" >
+                    <router-link to="/checkout" class="text-decoration-none" >
                         <div class=" d-flex align-center ga-2 wrapper">
                           <v-icon class="icon text-light_text_on" icon="mdi-check-circle-outline"></v-icon>
 
@@ -118,7 +118,7 @@ export default {
 }
 .profileDropDown:hover .text,
 .profileDropDown:hover .icon {
-  color: white !important;
+  color: rgb(var(--v-theme-whiteLight)) !important;
   transition: color 0.2s ease;
 }
 </style>

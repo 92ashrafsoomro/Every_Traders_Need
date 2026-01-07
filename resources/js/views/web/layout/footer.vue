@@ -19,7 +19,7 @@
 
         <div class="position-relative mx-auto mt-10" style="max-width: 1400px;">
 
-            <div class="w-100  justify-space-between pl-4">
+            <div class="w-100  justify-space-between ">
                 <div class="image">
                     <img :src="currentLongLogo" alt="" srcset="" width="150">
                 </div>

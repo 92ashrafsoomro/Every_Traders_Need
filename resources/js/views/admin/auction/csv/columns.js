@@ -1,6 +1,7 @@
 export default [
     // { title: 'id', key: 'id' },
     // { title: 'auction_id', key: 'auction_id' },
+    { title: 'Reg', key: 'reg' ,disabled: true },
     { title: 'Title', key: 'title', disabled: true, width: '350px', },
     { title: 'Vehicle', key: 'vehicle_id' },
     { title: 'Body Type', key: 'body_id' },
@@ -58,7 +59,7 @@ export default [
 
     { title: 'DOR', key: 'dor' ,disabled: true },
 
-    { title: 'Reg', key: 'reg' ,disabled: true },
+    
 
     { title: 'Former Keepers', key: 'former_keepers' ,disabled: true },
 
@@ -89,7 +90,7 @@ export default [
     
     { title: 'Vin', key: 'vin' ,disabled: true },
     
-    // { title: 'color_id', key: 'color_id' },
+
 
     
     // { title: 'number_of_services_details', key: 'number_of_services_details' },
@@ -114,7 +115,9 @@ export default [
     
     { title: 'Declarations', key: 'declarations' ,disabled: true },
     
-    // { title: 'damaged_images', key: 'damaged_images' ,disabled: true},
+    { title: 'images', key: 'images', disabled: true },
+     
+    { title: 'damaged_images', key: 'damaged_images' ,disabled: true},
     
     { title: 'Damage_details', key: 'damage_details' ,disabled: true },
     

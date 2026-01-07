@@ -3,26 +3,9 @@
         <div>
             <h1 class="text-h3 mb-2 font-weight-bold">Import CSV Data</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p>
-        </div>
-    </user-title-bar>
-    <v-container max-width="1400px" class="m-auto">
-        <v-card class="border">
-            <div class="border-b d-flex align-center justify-space-between px-4 py-3">
-                <h3 class="text-h6">
-                 Edit Auction
-                </h3>
-                    <v-btn
-                    variant="text"
-                    color="primary"
-                    class="text-capitalize"
-                    to="/admin/auction">
-                    <v-icon start>mdi-arrow-left</v-icon>
-                    Back
-                    </v-btn>
-            </div>
 
-            <v-card-text>
-                <v-row>
+
+              <v-row>
                     <v-col cols="12" sm="4">  
                           <v-text-field 
                             v-model="form.id" 
@@ -75,6 +58,16 @@
                             clearable />
                     </v-col>
                     <v-col cols="12" sm="4" >
+                        <v-select
+                            :items="['draft','planned']" 
+                            v-model="form.status"
+                            label="Status"
+                            variant="outlined" 
+                            base-color="white"
+                            density="compact" 
+                            />
+                    </v-col>
+                    <v-col cols="12" sm="4" >
                         <PlateformDropdown 
                             v-model="form.platform_id"
                             label="Auction House"
@@ -88,9 +81,10 @@
                         <v-btn @click="submit()" color="primary" class="text-capitalize"  variant="flat" >Update</v-btn>
                     </v-col>
                 </v-row>
-            </v-card-text>
-        </v-card>
 
+        </div>
+    </user-title-bar>
+    <v-container  class="m-auto">
          <CSVTable   />
     </v-container>
 </template>
@@ -116,6 +110,7 @@ export default {
             form: {
                 id: '',
                 name: '',
+                status:null,
                 auction_date: '',
                 end_date: '',
                 auction_type:null,
@@ -139,6 +134,7 @@ export default {
                 this.form.id = res.data.table_id;
                 this.form.auction_date = res.data.auction_date;
                 this.form.end_date = res.data.end_date;
+                this.form.status = res.data.status;
                 this.form.auction_type = Number(res.data.auction_type);
                 this.form.platform_id = res.data.platform_id;
                 this.form.csv_path = null;

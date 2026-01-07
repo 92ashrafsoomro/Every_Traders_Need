@@ -6,10 +6,10 @@
     >
         <v-card
             prepend-icon="mdi-update"
-            title="Center"
+            title="Variant"
         >
         <v-card-text>
-            <v-text-field label="Search" v-model="search" @keyup.enter="handleSearch()"/>
+            <v-text-field v-model="search" @keyup.enter="handleSearch()"/>
                 <ul class="mt-2">
                     <li v-if="loading" >Loading...</li>
                     <li class="text-center" v-if="data.length == 0" >No Record</li>
@@ -23,14 +23,11 @@
     </v-dialog>
 </template>
 <script>
-import Center from '@/models/center.model';
-
-
-
+import Variant from '@/models/variant.model';
 
 
 export default {
-    name:"CenterModal",
+    name:"VariantModal",
     watch: {
         dailog(newVal) {
             if (newVal) {
@@ -60,7 +57,7 @@ export default {
         async handleSearch(){
             try {
                 this.loading = true;
-               let res = await Center.all({ search: this.search ,length:10});
+               let res = await Variant.all({ search: this.search ,length:10});
                 this.data = res.data;
                 this.loading = false;
             } catch (error) {
@@ -72,7 +69,7 @@ export default {
         async selectValue(item) {
 
             this.dailog = false;
-            this.$emit('update:dailog',this.row,'center_id',item.name);
+            this.$emit('update:dailog',this.row,'variant_id',item.name);
         },
         open(row,initialValue = '') {
             this.row = row;

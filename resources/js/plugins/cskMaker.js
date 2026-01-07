@@ -15,8 +15,10 @@ export const rowRender = (rows) => {
 
 export const ColRender = (row) => {
 
+
+    
     let item = {}
-    columns.forEach((col) => {
+    columns.forEach((col) => {     
         let v = row?.[col.key];
         item[col.key] = v ? String(v).trim() : null;
 

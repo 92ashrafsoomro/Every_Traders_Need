@@ -29,6 +29,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 
 class PlatformController extends Controller
 {
@@ -83,8 +84,9 @@ class PlatformController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('auction_platform')],
             'name' => 'required|string|max:255',
-            'image' => 'required|nullable|image',
+            'image' => 'nullable|image',
         ]);
 
         if($validator->fails()) {
@@ -95,6 +97,7 @@ class PlatformController extends Controller
         }
 
         $model = AuctionPlatform::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -154,6 +157,7 @@ class PlatformController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
+     
             'name' => 'required|string|max:255',
             'image' => 'nullable|image',
         ]);
@@ -165,7 +169,8 @@ class PlatformController extends Controller
             ], 422);
         }
 
-        AuctionPlatform::where('id',$id)->update([
+        $model->where('id',$id)->update([
+     
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -180,9 +185,6 @@ class PlatformController extends Controller
             $model->save();
         }
 
-
-        $model = AuctionPlatform::find($id);
-        $model->image = asset('/uploads/'.$model->image);
 
         return response()->json([
             'message' => 'Record Updated Successfully',

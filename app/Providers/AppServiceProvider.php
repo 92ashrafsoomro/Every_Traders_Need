@@ -20,40 +20,40 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         
-        View::share('_s', [
-            'primary' => '',
-        ]);
+        // View::share('_s', [
+        //     'primary' => '',
+        // ]);
 
       
-        View::composer('*', function ($view) {
-            $user = Auth::user();
+        // View::composer('*', function ($view) {
+        //     $user = Auth::user();
 
-            $isAdmin = null;
-            $permissions = [];
-            $notifications = collect(); 
+        //     $isAdmin = null;
+        //     $permissions = [];
+        //     $notifications = collect(); 
 
-            if ($user) {
+        //     if ($user) {
            
-                $roleId = $user->user_type ?? null;
-                $role = Role::find($roleId);
+        //         $roleId = $user->user_type ?? null;
+        //         $role = Role::find($roleId);
 
-                if ($role && $role->permissions) {
-                    $permissions = $role->permissions;
-                }
+        //         if ($role && $role->permissions) {
+        //             $permissions = $role->permissions;
+        //         }
 
-                $isAdmin = $roleId;
+        //         $isAdmin = $roleId;
 
           
-                $notifications = UserNotificationAlert::where('user_id', $user->id)
-                    ->where('is_read', 0)
-                    ->latest()
-                    ->take(10) 
-                    ->get();
-            }
+        //         $notifications = UserNotificationAlert::where('user_id', $user->id)
+        //             ->where('is_read', 0)
+        //             ->latest()
+        //             ->take(10) 
+        //             ->get();
+        //     }
 
-            $view->with('isAdmin', $isAdmin);
-            $view->with('Permissions', $permissions);
-            $view->with('UserNotifications', $notifications); 
-        });
+        //     $view->with('isAdmin', $isAdmin);
+        //     $view->with('Permissions', $permissions);
+        //     $view->with('UserNotifications', $notifications); 
+        // });
     }
 }

@@ -29,7 +29,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Validation\Rule;
 
 class CenterController extends Controller
 {
@@ -63,13 +63,10 @@ class CenterController extends Controller
                 ->get()
                 ->map(function($item){
                     if($item->image){
-                    $item->image = asset('/uploads/'.$item->image);
+                        $item->image = asset('/uploads/'.$item->image);
                     }
-
-            
+                    
                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
-
-                
                     return $item;
                 });
             
@@ -89,6 +86,7 @@ class CenterController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
+            'id' => ['required',Rule::unique('auction_center')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -100,6 +98,7 @@ class CenterController extends Controller
         }
 
         $model = AuctionCenter::create([
+            'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
@@ -112,9 +111,8 @@ class CenterController extends Controller
 
     }
 
-             public function show(Request $request,$id)
+        public function show(Request $request,$id)
     {
-
             $model = AuctionCenter::find($id);
             if(!$model){
                 return response()->json([
@@ -122,21 +120,15 @@ class CenterController extends Controller
                 ], 422);
             }
 
-        
-
             return response()->json([
                 'message' => 'Record Updated Successfully',
                 'data' => $model
-            ],200);
-
-        
+            ],200);   
     }
 
 
        public function update(Request $request,$id)
     {
-
-
         $model = AuctionCenter::find($id);
         if(!$model){
             return response()->json([
@@ -147,7 +139,6 @@ class CenterController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
         ]);
-
         if($validator->fails()) {
             return response()->json([
                 'message' => $validator->errors()->first(),
@@ -155,20 +146,16 @@ class CenterController extends Controller
             ], 422);
         }
 
-        AuctionCenter::where('id',$id)->update([
+         $model->where('id',$id)->update([
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
         ]);
 
-
-        $model = AuctionCenter::find($id);
-        
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model
-        ],200);
-        
+        ],200);   
     }
 
 

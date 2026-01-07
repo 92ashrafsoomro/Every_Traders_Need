@@ -55,47 +55,46 @@
 55,Luxury SUV,7
 56,Crossover (CUV),7
 57,Pickup-based SUV,7
-58,3-door 4x4,8
-59,5-door 4x4,8
-60,Agricultural tractor,9
-61,Compact tractor,9
-62,Row-crop tractor,9
-63,Orchard tractor,9
-64,Municipal tractor,9
-65,Articulated 4WD tractor,9
-66,Crawler tractor,9
-67,Panel van conversion,10
-68,Pop-top camper,10
-69,High-roof camper,10
-70,Micro camper,10
-71,Coachbuilt motorhome,11
-72,A-Class motorhome,11
-73,Camper coach conversion,11
-74,Expedition,11
-75,Box trailer,12
-76,Flatbed trailer,12
-77,Car transporter,12
-78,Plant trailer,12
-79,Horsebox trailer,12
-80,Tipper trailer,12
-81,Boat trailer,12
-82,Refrigerated trailer,12
-83,Touring caravan,13
-84,Static caravan,13
-85,Twin-axle caravan,13
-86,Pop-up caravan,13
-87,Teardrop caravan,13
-88,van,14
-89,Medium van ,14
-90,Large van,14
-91,Pick-up,14
-92,Luton,14
-93,Chassis Cab,14
-94,Dropside,14
-95,Tipper,14
-96,Box,14
-97,Recovery,14
-98,Ambulance,14
-99,Standard minibus,15
-100,Wheelchair-adapted,15
-101,Crew minibus,15
+58,SUV,7
+59,Agricultural tractor,9
+60,Compact tractor,9
+61,Row-crop tractor,9
+62,Orchard tractor,9
+63,Municipal tractor,9
+64,Articulated 4WD tractor,9
+65,Crawler tractor,9
+66,Panel van conversion,10
+67,Pop-top camper,10
+68,High-roof camper,10
+69,Micro camper,10
+70,Coachbuilt motorhome,11
+71,A-Class motorhome,11
+72,Camper coach conversion,11
+73,Expedition,11
+74,Box trailer,12
+75,Flatbed trailer,12
+76,Car transporter,12
+77,Plant trailer,12
+78,Horsebox trailer,12
+79,Tipper trailer,12
+80,Boat trailer,12
+81,Refrigerated trailer,12
+82,Touring caravan,13
+83,Static caravan,13
+84,Twin-axle caravan,13
+85,Pop-up caravan,13
+86,Teardrop caravan,13
+87,van,14
+88,Medium van ,14
+89,Large van,14
+90,Pick-up,14
+91,Luton,14
+92,Chassis Cab,14
+93,Dropside,14
+94,Tipper,14
+95,Box,14
+96,Recovery,14
+97,Ambulance,14
+98,Standard minibus,15
+99,Wheelchair-adapted,15
+100,Crew minibus,15

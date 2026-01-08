@@ -17,21 +17,7 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-
- 
-              <v-col cols="4">
-                <v-text-field
-                  v-model="id"
-                  label="ID"
-                  variant="outlined"
-                  density="compact"
-                  persistent-placeholder=""
-                  color="primary"
-                />
-              </v-col>
-
-
-              <v-col cols="4">
+                <v-col cols="4">
                 <v-text-field
                   v-model="titleInput"
                   label="Title"

@@ -24,18 +24,6 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="4" sm="4">
-                            <v-text-field
-                                v-model="id" 
-                                label="ID"
-                                variant="outlined"
-                                density="compact"
-                                color="primary"
-                                class="id-box"
-                                persistent-placeholder=""
-                                hide-details
-                            />
-                            </v-col>
                             <v-col cols="4" sm="4" class="pl-2">
                                 <MakeDropdown label="Select Make" variant="outlined" color="primary"class="id-box" v-model="makeid" 
                                   persistent-placeholder=""

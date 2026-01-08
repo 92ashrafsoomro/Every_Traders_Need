@@ -17,20 +17,6 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-
-
-              <v-col cols="4">
-                <v-text-field
-                  v-model="id"
-                  label="ID"
-                  variant="outlined"
-                  density="compact"
-                  color="primary"
-                  hide-details
-                />
-              </v-col>
-
-  
               <v-col cols="4" class="pl-2">
                 <MakeDropdown
                   label="Select Make"

@@ -3,7 +3,7 @@ import { errorHandler } from "@/services/responseHandleService";
 
 export default class Dictionary {
     static prefixName = [
-        { label: "VehicalType", value: "vehicalType" },
+        { label: "VehicleType", value: "vehicleType" },
         { label: "BodyType", value: "bodyType" },
         { label: "Center", value: "center" },
         { label: "Make", value: "make" },

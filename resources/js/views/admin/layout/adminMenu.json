@@ -20,7 +20,11 @@
             "label": "Data Management",
             "path": "/",
             "children":[
-                {
+                 {
+                    "icon": "mdi-star-outline",
+                    "label" :"Dictionary",
+                    "path":"/admin/dictionary"
+                },{
                     "icon": "mdi-star-outline",
                     "label" : "Import Auction",
                     "path" : "/admin/auction"

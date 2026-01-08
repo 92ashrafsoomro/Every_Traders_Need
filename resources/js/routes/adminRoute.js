@@ -12,6 +12,7 @@ import auction from "@/views/admin/auction/route"
 import vehicle from "@/views/admin/vehicle/route"
 import members from "@views/admin/members/route" 
 import transaction from "@views/admin/transaction/route" 
+import dictionary from "@views/admin/dictionary/route"
 export default [
     {
         path: "/admin",
@@ -30,7 +31,8 @@ export default [
             ...auction,
             ...vehicle,
             ...members,
-            ...transaction
+            ...transaction,
+            ...dictionary
             ]
     },
 ]

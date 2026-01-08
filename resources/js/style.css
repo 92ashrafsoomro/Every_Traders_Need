@@ -52,7 +52,12 @@ aside {
     background-color: rgba(var(--v-theme-primary),0.2);
 }
 
-
+thead th{
+     background-color: rgba(var(--v-theme-primary)) !important;
+}
+tbody tr:hover{
+     background-color: rgba(var(--v-theme-surfaceBright),0.4) !important;
+}
 
 /* table tr bg change */
 .v-data-table__tbody tr:hover {

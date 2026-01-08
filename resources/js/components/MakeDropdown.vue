@@ -3,7 +3,7 @@
         v-bind="$attrs"
         :model-value="modelValue"
         :items="data"
-        item-title="label"
+        item-title="name"
         item-value="id"
         :loading="loading"
         @update:model-value="handleValue($event)"
@@ -40,7 +40,7 @@ export default {
         async fetchPlatforms() {
                 this.loading = true;
                 try {
-                    const response = await Make.get({});
+                    const response = await Make.all({length:1000});
                     this.data = response.data; 
                 } catch (err) {
                     console.error("Error loading Makes:", err);

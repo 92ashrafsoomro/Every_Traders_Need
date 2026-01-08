@@ -19,7 +19,7 @@
             <v-row class="mb-6">
 
               <v-col cols="4">
-                <BaseSelect v-model="form.name" label="Prefixes Name" required :items="prefixName" />
+                <BaseSelect v-model="form.name" label="Prefixes Name" required :items="Dictionary.prefixName" />
               </v-col>
 
               <v-col cols="4">
@@ -52,6 +52,7 @@
 
 
 <script>
+import Dictionary from "@/models/dictionary";
 import api from "@/plugins/axios";
 import BaseField from "./component/BaseField.vue";
 import BaseSelect from "./component/BaseSelect.vue";
@@ -60,21 +61,12 @@ export default {
 
   data() {
     return {
+        Dictionary,
       form: {
         name: "",
         key: "",
         value: ""
       },
-      prefixName: [
-        { label: "VehicalType", value: "VehicalType" },
-        { label: "BodyType", value: "BodyType" },
-        { label: "Platform", value: "platform" },
-        { label: "Center", value: "center" },
-        { label: "Make", value: "make" },
-        { label: "Model", value: "model" },
-        { label: "Variant", value: "variant" }
-      ],
-
     };
   },
 

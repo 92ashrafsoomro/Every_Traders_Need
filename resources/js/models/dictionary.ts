@@ -1,7 +1,16 @@
 import api from "@/plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
 
-export default class Prefixes {
+export default class Dictionary {
+    static prefixName = [
+        { label: "VehicalType", value: "vehicalType" },
+        { label: "BodyType", value: "bodyType" },
+        { label: "Center", value: "center" },
+        { label: "Make", value: "make" },
+        { label: "Model", value: "model" },
+        { label: "Variant", value: "variant" },
+    ];
+
     static async all(options: {
         search?: string;
         page?: number;
@@ -16,35 +25,27 @@ export default class Prefixes {
         last_page: number;
         offset: number;
     }> {
-
         try {
             const res = await api.get("/api/cruds/prefixes", { params: options });
             return res.data;
         } catch (e) {
             throw await errorHandler(e);
         }
-
     }
-    static async delete(id :any, options:any){
-        console.log(options)
-        debugger
+
+    static async delete(id: any, options: any) {
+        console.log(options);
+        debugger;
         try {
-            const res = await api.delete(`/api/cruds/prefixes/${id}`,{params: options});
-                return res.data;
-        } catch(error) {
+            const res = await api.delete(`/api/cruds/prefixes/${id}`, { params: options });
+            return res.data;
+        } catch (error) {
             throw await errorHandler(error);
         }
     }
-    // 
-    // static async update(id: number | string, formData: FormData) {
-    //     try {
 
-
-    //         const res = await api.post(`/api/cruds/prefixes/${id}`, formData);
-    //         return res.data;
-
-    //     } catch (error) {
-    //         throw await errorHandler(error);
-    //     }
-    // }
+    // Optional: you can also make a static getter if you like
+    static getPrefixNames() {
+        return this.prefixName;
+    }
 }

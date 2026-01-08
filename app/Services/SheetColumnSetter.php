@@ -64,11 +64,39 @@ class SheetColumnSetter
         $this->item['vehicle_id'] = $value;
 
     }
+
+      public function setMakeId()
+    {
+
+        $prefixes = $this->prefixes['make'];
+        $value = strtolower($this->item['make_id']);
+    
+        $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
+    
+        $this->item['make_id'] = $value;
+
+    }
+
+        public function setModelId()
+    {
+
+        $prefixes = $this->prefixes['model'];
+        $value = strtolower($this->item['model_id']);
+    
+        $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
+    
+        $this->item['model_id'] = $value;
+
+    }
     
         public function get()
     {
         $this->setBodyId();
         $this->setVehicleId();
+        $this->setMakeId();
+        $this->setModelId();
+
+        $this->setModelId();
         return $this->item;
 
     }

@@ -1,87 +1,97 @@
 <template>
     <user-title-bar title="Dictionary">
         <!-- Toggle Filters -->
-        <v-card-title class="d-flex cursor-pointer" @click="toggleFilters">
-            <span class="text-h6 font-weight-bold">Filters</span>
-            <v-icon color="primary">
-                {{ showFilters ? "mdi-chevron-up" : "mdi-chevron-down" }}
-            </v-icon>
-        </v-card-title>
+        <div>
+            <v-card-title class="d-flex cursor-pointer" @click="showFilters = !showFilters">
+                <span class="text-h6 font-weight-bold">Filters</span>
+                <v-icon color="primary">
+                    {{ showFilters ? "mdi-chevron-up" : "mdi-chevron-down" }}
+                </v-icon>
+            </v-card-title>
 
-        <v-expand-transition>
-            <div v-show="showFilters">
-                <v-container fluid>
-                    <v-row class="mt-1 text-center content-scroll" align="center">
+            <v-expand-transition>
+                <div v-show="showFilters">
+                    <v-container fluid>
+                        <v-row class="mt-1 text-center content-scroll" align="center">
 
-                        <!-- Dictionary Name -->
-                        <v-col cols="12" sm="3">
-                            <BaseSelect v-model="filter.name" label="Prefix Name" :items="Dictionary.prefixName"
-                                item-title="label" item-value="value" />
-                        </v-col>
+                            <!-- Dictionary Name -->
+                            <v-col cols="12" sm="4">
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
+                                    label="Prefix Name" :items="Dictionary.prefixName" />
+                            </v-col>
 
-                        <!-- Dictionary Key -->
-                        <v-col cols="12" sm="3">
-                            <v-text-field v-model="filter.key" label="Dictionary Key" density="compact"
-                                clearable />
-                        </v-col>
+                            <!-- Dictionary Key -->
+                            <v-col cols="12" sm="3">
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.key"
+                                    label="Dictionary Key" />
+                            </v-col>
 
-                        <!-- Dictionary Value -->
-                        <v-col cols="12" sm="3">
-                            <v-text-field v-model="filter.value" label="Dictionary Value" density="compact"
-                                clearable />
-                        </v-col>
+                            <!-- Dictionary Value -->
+                            <v-col cols="12" sm="3">
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.value"
+                                    label="Dictionary Value" />
+                                
+                            </v-col>
+                            <v-col class="">  <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems"
+                                    class="mr-2">
+                                    <v-icon icon="mdi-magnify"></v-icon>
+                                </v-btn></v-col>
+                            <!-- <v-col cols="12" sm="5" class="d-flex">
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.search"
+                                    label="Search" />
 
-                        <v-col cols="12" sm="5" class="d-flex"> <v-text-field v-model="filter.search" label="Search"
-                                variant="outlined" density="compact" clearable />
+                                <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems"
+                                    class="mr-2">
+                                    <v-icon icon="mdi-magnify"></v-icon>
+                                </v-btn>
+                                <v-btn to="/admin/dictionary/create" color="primary" style="height: 44px;"
+                                    variant="flat">
+                                    <v-icon icon="mdi-plus"></v-icon>
+                                </v-btn>
+                            </v-col> -->
 
-                            <v-btn style="height: 40px; margin-left: 10px;" variant="outlined" @click="loadItems"
-                                class="mr-2">
-                                <v-icon icon="mdi-magnify"></v-icon> 
-                            </v-btn>
-                            <v-btn to="/admin/dictionary/create" color="primary" style="height: 40px;" variant="flat">
-                                <v-icon icon="mdi-plus"></v-icon> 
-                            </v-btn> 
-                        </v-col>
-
-                    </v-row>
-                </v-container>
-            </div>
-        </v-expand-transition>
+                        </v-row>
+                    </v-container>
+                </div>
+            </v-expand-transition>
+        </div>
     </user-title-bar>
 
 
     <v-container max-width="1400px">
-        <v-row no-gutters class="mt-3">
-            <v-col cols="12">
-                <div class="d-flex flex-wrap ">
-                    <div class="d-flex align-center">
-                        <v-select v-model="filter.length" :items="[100, 500, 1000, 2000]" density="compact"
-                            variant="outlined" max-width="150px" class="mr-2" />
-                        <div class="align-self-center pl-2">
-                            {{ filter.offset + 1 }} - {{ Math.min(filter.offset + filter.length, totalRecord) }} of {{
-                                total }} Records
-                        </div>
-
-                    </div>
-
-                    <v-spacer />
+        <div class="d-flex  justify-space-between w-100 ">
+            <div class="d-flex w-50 ">
+                <v-select v-model="filter.length" :items="[100, 500, 1000, 2000]" density="compact" variant="outlined"
+                    max-width="150px" class="mr-2" />
+                <div class="align-self-center pl-2">
+                    {{ filter.offset + 1 }} - {{ Math.min(filter.offset + filter.length, totalRecord) }} of {{
+                        total }} Records
                 </div>
-            </v-col>
+
+            </div>
+
+            <div class="w-50 d-flex">
+                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.search"
+                    label="Search" />
+
+                <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems" class="mr-2">
+                    <v-icon icon="mdi-magnify"></v-icon>
+                </v-btn>
+                <v-btn to="/admin/dictionary/create" color="primary" style="height: 44px;" variant="flat">
+                    <v-icon icon="mdi-plus"></v-icon>
+                </v-btn>
+            </div>
+
+        </div>
+        <v-row no-gutters class="mt-3">
+
+
+
             <v-col cols="12" class="mt-2">
                 <div class="border">
-                    <v-data-table-server class="" 
-                        style="height: 900px;" 
-                        :headers="headers" 
-                        :loading="loading"
-                        fixed-header 
-                        sort-asc-icon="" 
-                        :items="items"
-                        :items-length="total"
-                        hover item-value="id"
-                        
-                        :lastPage="last_page" 
-                      @update:options="loadItems" 
-                    >
+                    <v-data-table-server class="" style="height: 900px;" :headers="headers" :loading="loading"
+                        fixed-header sort-asc-icon="" :items="items" :items-length="total" hover item-value="id"
+                        :lastPage="last_page" @update:options="loadItems">
                         <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
@@ -104,7 +114,7 @@
     </v-container>
 
 
-   
+
 
 </template>
 <script>
@@ -122,11 +132,11 @@ export default {
             selectedUser: null,
             viewLoading: false,
             filter: {
-                key:"",
-                value:"",
-                name:"",
+                key: "",
+                value: "",
+                name: "",
                 search: "",
-                length: 10,
+                length: 50,
                 page: 1,
                 offset: 0,
             },
@@ -146,7 +156,7 @@ export default {
     mounted() {
         this.loadItems();
     },
-     watch: {
+    watch: {
         'filter.length'(newVal, oldVal) {
             this.filter.page = 1;
             this.loadItems()
@@ -162,7 +172,7 @@ export default {
             this.filter.variant = null
         }
 
-        
+
     },
     methods: {
         async loadItems() {

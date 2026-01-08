@@ -40,11 +40,11 @@
                                     <div class="mt-4">
                                         <v-row>
                                             <v-col cols="12">
-                                                <v-text-field clearable v-model="form.email" type="email"
+                                                <v-text-field  density="comfortable"  variant="outlined" clearable v-model="form.email" type="email"
                                                 
-                                                    prepend-inner-icon="mdi-email-outline"  variant="outlined" label="Work Email"
+                                                    prepend-inner-icon="mdi-email-outline"   label="Work Email"
                                                     :error="errors.email ? true : false" :error-messages="errors?.email"
-                                                    density="comfortable" color="primary"   />
+                                                    color="primary"   />
                                             </v-col>
 
                                             <v-col cols="12">

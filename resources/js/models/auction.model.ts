@@ -91,6 +91,20 @@ export default class Auction {
 
     }
 
+    static async getScrap(id:any,options:any) {
+
+        try {
+            const res = await api.get("/api/cruds/auctions/getScrap/"+id,{
+                params:options,
+            });
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
+
     static async csvGet(id:any,options:any) {
 
         try {

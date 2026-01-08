@@ -181,6 +181,8 @@ use App\Http\Controllers\Api\StripeController;
 
         Route::resource('auctionType',AuctionTypeController::class);
         
+        
+        Route::get('/auctions/getScrap/{id}',[AuctionController::class,'getScrap']);
         Route::get('/auctions/csvGet/{id}',[AuctionController::class,'csvGet']);
         Route::post('/auctions/csvUpdate/{id}',[AuctionController::class,'csvUpdate']);
         Route::resource('auctions',AuctionController::class);

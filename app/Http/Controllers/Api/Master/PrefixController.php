@@ -59,8 +59,8 @@ class PrefixController extends Controller
                 $query->where('prefixes.prefix_value',$request->value);
         }
 
-         if($request->has('name') && $request->name != '') {
-                $query->where('prefixes.name',$request->name);
+        if($request->has('name') && $request->name != '') {
+            $query->where('prefixes.name',$request->name);
         }
 
 

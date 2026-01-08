@@ -29,8 +29,10 @@ use App\Models\UserNotificationAlert;
 use App\Events\NotificationEvent;
 use App\Http\Requests\Api\Master\UpdateCsvAuctionRequest;
 use App\Models\Auction;
+use App\Models\Prefix;
 use App\Models\ScrapedVehicle;
 use App\Services\AuctionService;
+use App\Services\SheetColumnSetter;
 use App\Services\SheetService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -255,17 +257,55 @@ class AuctionController extends Controller
     {
 
         $model = Auctions::where('id',$id)->first();
-        $model->scrap = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$id)->pluck('payload')->first());
+  
         if(!$model){
             return response()->json([
                 'message' => 'Record Not Found',
             ], 422);
         }
-
+        
         return response()->json([
             'message' => 'Record Updated Successfully',
             'data' => $model
         ],200);
+
+    }
+
+
+
+        public function getScrap(Request $request,$id)
+    {
+
+
+            $model = Auctions::where('id',$id)->first();
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+            $prefixes = [];
+            $prefix = Prefix::orderBy('prefix_key')->get();
+            foreach ($prefix as $key => $value) {
+                $prefixes[$value->name][strtolower($value->prefix_key)] = $value->prefix_value;
+            }
+
+    
+            $data = [];
+            $scraps = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$model->id)->pluck('payload')->first());
+            foreach ($scraps  as $key => $item){
+               
+                $SheetColumnSetter = new SheetColumnSetter(json_decode(json_encode($item),true));
+                $SheetColumnSetter->prefixes = $prefixes;
+                array_push($data,$SheetColumnSetter->get());
+            }
+
+            
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $data
+            ],200);
+
 
     }
 

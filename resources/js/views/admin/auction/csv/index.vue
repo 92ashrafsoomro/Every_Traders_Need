@@ -175,12 +175,13 @@ export default {
         async handleFile() {
 
             this.loading = true;
+            this.errors = {};
             try {
 
                 const id = this.$route.params.id;
-                let res = await Auction.find(id, {});
+                let res = await Auction.getScrap(id, {});
                 let modified = [];
-                let data = res.data.scrap ?? [];
+                let data = res.data ?? [];
                 data.forEach(element => {
                     modified.push(ColRender(element));
                 });

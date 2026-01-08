@@ -130,13 +130,9 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-       
-        
     },
-    
-     methods: {
-
-    
+    methods: {
+        
         async loadItems() {
         
                 this.loading = true;
@@ -146,31 +142,30 @@ export default {
                     this.total = res.recordsTotal;
                     this.filter.page = Number(res.page);
                     this.last_page = Number(res.last_page);
-                    this.loading = false
-                   
+                    this.loading = false;        
                 } catch (error) {
                     alert(error)
                     this.loading = false
                 }
-         },
-
+        },
+         
          async deleteItem(id) {
             
-             if (!confirm("Are you sure you want to delete this item?")) return;
-            this.loading = true;
+            if (!confirm("Are you sure you want to delete this item?")) return;
+                this.loading = true;
+                
             try {
-            const res = await Auction.delete(id);
-      
-            this.$alertStore.add(res.message || "BodyType deleted", "success");
-            this.loadItems(); 
-            
-        } catch (error) {
-            console.error(error);
-            this.$alertStore.add(error.message || "Delete failed", "error");
-            // this.loadItems(); 
-            } finally {
-            this.loading = false;
-            }
+                const res = await Auction.delete(id);
+                this.$alertStore.add(res.message || "BodyType deleted", "success");
+                this.loadItems(); 
+                
+            } catch (error) {
+                console.error(error);
+                this.$alertStore.add(error.message || "Delete failed", "error");
+                // this.loadItems(); 
+                } finally {
+                this.loading = false;
+                }
         }
 
 

@@ -4,12 +4,15 @@ namespace App\Services;
 
 use App\Models\Auctions;
 use App\Models\Interest;
+use App\Models\Make;
 use App\Models\Membership;
 use App\Models\MembershipPayment;
+use App\Models\ModelVariant;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
@@ -88,6 +91,42 @@ class SheetColumnSetter
         $this->item['model_id'] = $value;
 
     }
+
+
+          public function setVariantId()
+    {
+
+            $make = Make::where('name', $this->item['make_id'])->first();
+            if($make){
+                $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
+                if($model){
+
+                   
+
+                        $variant = ModelVariant::where('model_id',$model->id)->get();
+                        //  dd($this->item);
+                        //  dd($variant->toArray());
+                        // dd($this->item['variant_id']);
+                        
+
+                }
+
+            }
+       
+
+           
+
+            
+            
+            // $prefixes = $this->prefixes['variant'];
+            // $value = strtolower($this->item['variant_id']);
+        
+            // $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
+        
+            // $this->item['variant_id'] = $value;
+
+    }
+
     
         public function get()
     {
@@ -95,10 +134,9 @@ class SheetColumnSetter
         $this->setVehicleId();
         $this->setMakeId();
         $this->setModelId();
+        $this->setVariantId();
 
-        $this->setModelId();
         return $this->item;
-
     }
 
    

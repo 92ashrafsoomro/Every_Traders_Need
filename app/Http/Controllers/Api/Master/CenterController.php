@@ -86,7 +86,7 @@ class CenterController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('auction_center')],
+            // 'id' => ['required',Rule::unique('auction_center')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -98,7 +98,7 @@ class CenterController extends Controller
         }
 
         $model = AuctionCenter::create([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

@@ -43,10 +43,10 @@ class SheetColumnSetter
         $prefixes = $this->prefixes['bodyType'];
         $value = strtolower($this->item['body_id']);
 
-        // if($value == 'PanelVan'){
-            // dd($value);
-            // dd($prefixes);
-            // dd(isset($prefixes[$value]));
+        // if($value == 'platform cab'){
+           
+        //     dd($prefixes);
+        //     dd(isset($prefixes[$value]));
         // }
 
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;

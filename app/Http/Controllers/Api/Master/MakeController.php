@@ -73,7 +73,7 @@ class MakeController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('make')],
+            // 'id' => ['required',Rule::unique('make')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -85,7 +85,7 @@ class MakeController extends Controller
         }
 
         $model = Make::create([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

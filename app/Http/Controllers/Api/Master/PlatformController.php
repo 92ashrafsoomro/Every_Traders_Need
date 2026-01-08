@@ -84,7 +84,7 @@ class PlatformController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('auction_platform')],
+            // 'id' => ['required',Rule::unique('auction_platform')],
             'name' => 'required|string|max:255',
             'image' => 'nullable|image',
         ]);
@@ -97,7 +97,7 @@ class PlatformController extends Controller
         }
 
         $model = AuctionPlatform::create([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

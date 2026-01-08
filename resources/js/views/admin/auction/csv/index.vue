@@ -21,7 +21,7 @@
         </div>
         <v-card-text>
             
-            <v-table style="table-layout: auto; width: max-content;" height="400px" fixed-header>
+            <v-table style="table-layout: auto; width: max-content;" height="700px" fixed-header>
 
                 <thead>
                     <tr>

@@ -105,7 +105,7 @@ class VehicleTypeController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer|unique:vehicle_type,id',
+            // 'id' => 'required|integer|unique:vehicle_type,id',
             'name' => 'required|string|max:255',
         ]);
 
@@ -117,7 +117,7 @@ class VehicleTypeController extends Controller
         }
 
         $model = VehicleType::create([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

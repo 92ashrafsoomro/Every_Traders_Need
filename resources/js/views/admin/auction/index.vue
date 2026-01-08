@@ -11,11 +11,11 @@
             </v-icon>
         </v-card-title>
 
-         <v-expand-transition>
-                    <div v-show="showFilters">
-                        <p>hello</p>
-                    </div>
-                    </v-expand-transition>
+        <v-expand-transition>
+            <div v-show="showFilters">
+                <p>hello</p>
+            </div>
+        </v-expand-transition>
 
     </user-title-bar>
 

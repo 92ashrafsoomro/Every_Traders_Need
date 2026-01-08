@@ -48,9 +48,10 @@ class BodyTypeController extends Controller
         if($request->has('id') && $request->id != '') {
             $query->where('body_types.id',$request->id);
         }
-         if($request->filled('search')) {
-               $query->where('body_types.name', 'like', '%'.$request->search.'%');
-                $query->orWhere('body_types.id', 'like', '%'.$request->search.'%');
+
+        if($request->filled('search')) {
+            $query->where('body_types.name', 'like', '%'.$request->search.'%');
+            $query->orWhere('body_types.id', 'like', '%'.$request->search.'%');
         }
 
         $count = (clone $query)->count();
@@ -84,7 +85,7 @@ class BodyTypeController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'id' => ['required',Rule::unique('body_types')],
+            // 'id' => ['required',Rule::unique('body_types')],
             'name' => 'required|string|max:255',
         ]);
 
@@ -96,7 +97,7 @@ class BodyTypeController extends Controller
         }
 
         $model = BodyType::create([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'name' => $request->name,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,

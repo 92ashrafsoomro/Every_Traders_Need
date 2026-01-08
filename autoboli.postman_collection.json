@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "59e7e6ac-9ecd-4043-992d-a158bfdec95b",
+		"_postman_id": "1db562ad-791a-42a7-8d0e-4284ced7a1b1",
 		"name": "autoboli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "50942393",
-		"_collection_link": "https://speeding-sunset-9077779.postman.co/workspace/DA-PP's-Workspace~08aef13c-7ee3-498d-8cdc-87a721c97d51/collection/50942393-59e7e6ac-9ecd-4043-992d-a158bfdec95b?action=share&source=collection_link&creator=50942393"
+		"_exporter_id": "49888145",
+		"_collection_link": "https://owais-dapp-6870499.postman.co/workspace/Owais-Azam's-Workspace~4bdbb424-e895-42af-8e84-18f7ddcaec3f/collection/49888145-1db562ad-791a-42a7-8d0e-4284ced7a1b1?action=share&source=collection_link&creator=49888145"
 	},
 	"item": [
 		{
@@ -69,26 +69,15 @@
 					"response": []
 				},
 				{
-					"name": "Forgot Password",
+					"name": "New Request",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/auth/forgotPassword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"forgotPassword"
-							]
-						}
+						"header": []
 					},
 					"response": []
 				},
 				{
-					"name": "Reset password",
+					"name": "New Request",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -183,7 +172,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/user/auctionList/10139",
+									"raw": "{{url}}/api/user/auctionList/8636",
 									"host": [
 										"{{url}}"
 									],
@@ -191,7 +180,7 @@
 										"api",
 										"user",
 										"auctionList",
-										"10139"
+										"8636"
 									]
 								}
 							},
@@ -705,147 +694,20 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Cruds",
 			"item": [
-				{
-					"name": "bodytype",
-					"item": [
-						{
-							"name": "list",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/bodyType",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"bodyType"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "create",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/bodyType?name=Test Body",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"bodyType"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "Test Body"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/bodyType/99?name=Test Body 2",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"bodyType",
-										"99"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "Test Body 2"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/bodyType/99",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"bodyType",
-										"99"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "vehicleType",
 					"item": [
@@ -894,7 +756,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/cruds/vehicleType?name=Test VehicleType 1",
+									"raw": "{{url}}/api/cruds/vehicleType?name=Test VehicleType 1&id=300",
 									"host": [
 										"{{url}}"
 									],
@@ -907,6 +769,10 @@
 										{
 											"key": "name",
 											"value": "Test VehicleType 1"
+										},
+										{
+											"key": "id",
+											"value": "300"
 										}
 									]
 								}
@@ -929,7 +795,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/cruds/vehicleType/21?name=Test Vehicle 2",
+									"raw": "{{url}}/api/cruds/vehicleType/300?name=Test Vehicle 2&id=500",
 									"host": [
 										"{{url}}"
 									],
@@ -937,12 +803,16 @@
 										"api",
 										"cruds",
 										"vehicleType",
-										"21"
+										"300"
 									],
 									"query": [
 										{
 											"key": "name",
 											"value": "Test Vehicle 2"
+										},
+										{
+											"key": "id",
+											"value": "500"
 										}
 									]
 								}
@@ -974,6 +844,356 @@
 										"cruds",
 										"vehicleType",
 										"21"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/vehicleType/300",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"vehicleType",
+										"300"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "bodytype",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/bodyType",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"bodyType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/bodyType/901",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"bodyType",
+										"901"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/bodyType?name=Test Body&id=901",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"bodyType"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Test Body"
+										},
+										{
+											"key": "id",
+											"value": "901"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/bodyType/901?name=Test Body 2&id=902",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"bodyType",
+										"901"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Test Body 2"
+										},
+										{
+											"key": "id",
+											"value": "902"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/bodyType/99",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"bodyType",
+										"99"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "auctionType",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/auctionType",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"auctionType"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "prefixes",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/prefixes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"prefixes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/prefixes?name=bodyType&key=test&value=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"prefixes"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "bodyType"
+										},
+										{
+											"key": "key",
+											"value": "test"
+										},
+										{
+											"key": "value",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/prefixes/Test?name=bodyType",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"prefixes",
+										"Test"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "bodyType"
+										}
 									]
 								}
 							},
@@ -1014,6 +1234,36 @@
 							"response": []
 						},
 						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/platform/48",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"platform",
+										"48"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "create",
 							"request": {
 								"auth": {
@@ -1040,6 +1290,11 @@
 											"key": "image",
 											"type": "file",
 											"src": "/C:/Users/USER/Downloads/WhatsApp Image 2025-12-03 at 8.35.54 PM (1).jpeg"
+										},
+										{
+											"key": "id",
+											"value": "900",
+											"type": "text"
 										}
 									]
 								},
@@ -1086,17 +1341,23 @@
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/C:/Users/USER/Downloads/WhatsApp Image 2025-12-03 at 8.35.54 PM (1).jpeg"
+											"src": "/C:/Users/USER/Downloads/WhatsApp Image 2025-12-03 at 8.35.54 PM (1).jpeg",
+											"disabled": true
 										},
 										{
 											"key": "_method",
 											"value": "put",
 											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "901",
+											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{url}}/api/cruds/platform/46",
+									"raw": "{{url}}/api/cruds/platform/901",
 									"host": [
 										"{{url}}"
 									],
@@ -1104,7 +1365,7 @@
 										"api",
 										"cruds",
 										"platform",
-										"46"
+										"901"
 									]
 								}
 							},
@@ -1196,6 +1457,11 @@
 											"key": "name",
 											"value": "Center 2",
 											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "400",
+											"type": "text"
 										}
 									]
 								},
@@ -1243,170 +1509,24 @@
 											"key": "_method",
 											"value": "put",
 											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/api/cruds/center/105",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"center",
-										"105"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/center/105",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"center",
-										"105"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "color",
-					"item": [
-						{
-							"name": "list",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/cruds/color",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"color"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "create",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "name",
-											"value": "Color 2",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/api/cruds/color",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"cruds",
-										"color"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"protocolProfileBehavior": {
-								"disabledSystemHeaders": {}
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "name",
-											"value": "Color 3",
-											"type": "text"
 										},
 										{
-											"key": "_method",
-											"value": "put",
+											"key": "id",
+											"value": "300",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{url}}/api/cruds/color/42",
+									"raw": "{{url}}/api/cruds/center/300",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"api",
 										"cruds",
-										"color",
-										"42"
+										"center",
+										"300"
 									]
 								}
 							},
@@ -1428,15 +1548,15 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/cruds/color/42",
+									"raw": "{{url}}/api/cruds/center/105",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"api",
 										"cruds",
-										"color",
-										"42"
+										"center",
+										"105"
 									]
 								}
 							},
@@ -1622,6 +1742,36 @@
 										"api",
 										"cruds",
 										"model"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/model/8559",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"model",
+										"8559"
 									]
 								}
 							},
@@ -3338,6 +3488,213 @@
 							"response": []
 						},
 						{
+							"name": "csvGet",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/auctions/csvGet/346",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"auctions",
+										"csvGet",
+										"346"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "test",
+											"type": "text"
+										},
+										{
+											"key": "auction_date",
+											"value": "12-12-2007",
+											"type": "text"
+										},
+										{
+											"key": "end_date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "auction_type",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "platform_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/cruds/auctions",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"auctions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Make 3",
+											"type": "text"
+										},
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/cruds/auctions/6",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"auctions",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/make/151",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"make",
+										"151"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "vehicles",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/cruds/vehicles",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"cruds",
+										"vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "create",
 							"request": {
 								"auth": {
@@ -4082,6 +4439,14 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	],
 	"event": [

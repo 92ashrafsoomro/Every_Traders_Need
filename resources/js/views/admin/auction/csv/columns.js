@@ -2,7 +2,7 @@ export default [
     // { title: 'id', key: 'id' },
     // { title: 'auction_id', key: 'auction_id' },
     { title: 'Reg', key: 'reg' ,disabled: true },
-    { title: 'Title', key: 'title', disabled: true, width: '350px', },
+    { title: 'Title', key: 'title', disabled: true,  },
     { title: 'Vehicle', key: 'vehicle_id' },
     { title: 'Body Type', key: 'body_id' },
 

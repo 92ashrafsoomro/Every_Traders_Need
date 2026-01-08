@@ -60,12 +60,12 @@
 
                             <template #item.action="{ item }">
                                  <router-link :to="'/admin/platform/edit/' + item.id">
-                                    <v-icon color="light">mdi-pencil</v-icon>
+                                    <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
                                  <v-icon
                                     small
-                                    class="clickable-icon"
+                                    class="clickable-icon pa-4" color="danger"
                                     @click="deleteItem(item.id)"
                                     >
                                     mdi-delete

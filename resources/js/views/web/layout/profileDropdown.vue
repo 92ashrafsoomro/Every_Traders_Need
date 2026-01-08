@@ -4,16 +4,15 @@
             <v-btn icon v-bind="props" elevation="0" variant="text">
                 <div class="d-flex align-center ga-2">
                     <div class="profileImage d-flex justify-center align-center border">
-                        <img :src="userStore.user.avatar" alt=""
-                            style="height: 50%; width: 50%;" />
+                        <img :src="userStore.user.avatar" alt="" style="height: 50%; width: 50%;" />
                     </div>
                     <slot></slot>
                 </div>
             </v-btn>
         </template>
-        
+
         <v-list elevation="0" class="border" style="min-width: 224px">
-            <v-list-item class=" pa-3 " >
+            <v-list-item class=" pa-3 ">
                 <v-list-item-title class="cursor-pointer">
                     <div class="d-flex justify-start align-center ps-2 ga-2">
                         <div class="profileImage d-flex justify-center align-center">
@@ -31,12 +30,12 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-          
+
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/profile" class="text-decoration-none" >
+                    <router-link to="/user/profile" class="text-decoration-none">
                         <div class=" d-flex align-center ga-2 wrapper">
-                          <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
+                            <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
 
                             <p class="text text-light_text_on">My Profile</p>
                         </div>
@@ -45,7 +44,7 @@
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class=" profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/profile" class="text-decoration-none" >
+                    <router-link to="/user/settings/profile" class="text-decoration-none">
                         <div class="d-flex align-center ga-2">
                             <v-icon icon="mdi-cog-outline text-light_text_on" class="icon"></v-icon>
                             <p class="text text-light_text_on">Settings</p>
@@ -55,7 +54,7 @@
             </v-list-item>
             <v-list-item link>
                 <v-list-item-title class=" profileDropDown cursor-pointer">
-                    <router-link to="/user/settings/billing" class="text-decoration-none" >
+                    <router-link to="/user/settings/billing" class="text-decoration-none">
                         <div class="d-flex align-center ga-2 ">
                             <v-icon icon="mdi-credit-card-outline text-light_text_on" class="icon"></v-icon>
                             <p class="text text-light_text_on">Billings</p>
@@ -63,11 +62,11 @@
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
-             <v-list-item link>
+            <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/checkout" class="text-decoration-none" >
+                    <router-link to="/checkout" class="text-decoration-none">
                         <div class=" d-flex align-center ga-2 wrapper">
-                          <v-icon class="icon text-light_text_on" icon="mdi-check-circle-outline"></v-icon>
+                            <v-icon class="icon text-light_text_on" icon="mdi-check-circle-outline"></v-icon>
 
                             <p class="text text-light_text_on">Check Out</p>
                         </div>
@@ -75,15 +74,15 @@
                 </v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
-                <v-list-item-title class="profileDropDown">
+            <v-list-item class=" profileDropDownLogout">
+                <v-list-item-title>
                     <!-- <v-btn @click="logOut()" size="large" class="ml-n3" prepend-icon="mdi-logout"
                         style="font-size: smaller;">
                         <p class="">Logout</p>
                     </v-btn> -->
-                    <div @click="logOut()" class="d-flex align-center ga-2 cursor-pointer">
-                        <v-icon icon="mdi-logout text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">Logout</p>
+                    <div @click="logOut()" class="logoutWrapper d-flex align-center ga-2 cursor-pointer">
+                        <v-icon icon="mdi-logout" class="logoutIcon"></v-icon>
+                        <p class="logoutText">Logout</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
@@ -110,15 +109,28 @@ export default {
     }
 };
 </script>
-<style scoped >
+<style scoped>
 .profileImage {
     height: 40px;
     border-radius: 7px;
     width: 40px;
 }
+
 .profileDropDown:hover .text,
 .profileDropDown:hover .icon {
-  color: rgb(var(--v-theme-whiteLight)) !important;
+    color: rgb(var(--v-theme-whiteLight)) !important;
+    transition: color 0.2s ease;
+}
+
+.profileDropDownLogout:hover {
+  background-color: rgb(var(--v-theme-danger), 0.3) !important;
+}
+
+/* parent hover → child color change */
+.profileDropDownLogout:hover .logoutIcon,
+.profileDropDownLogout:hover .logoutText {
+  color: rgb(var(--v-theme-danger)) !important;
   transition: color 0.2s ease;
 }
+
 </style>

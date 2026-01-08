@@ -1,14 +1,13 @@
   <template>
-    <user-title-bar>
+    <user-title-bar title="Vehicle">
         <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">Vehicle</h1>
             <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
        
                 <v-card-title
                     class="d-flex cursor-pointer widthstatic"
                     @click="showFilters = !showFilters"
                 >
-                    <span class="text-h6 font-weight-bold">
+                    <span class="text-h6 font-weight-bold ">
                     Filters
                     </span>
 
@@ -150,7 +149,7 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
+                    <div class="d-lg-flex d-md-flex py-4">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
@@ -164,13 +163,14 @@
 
                         <v-spacer />
 
-                        <v-text-field 
+                       <div class="d-flex w-lg-75 justify-end">
+                         <v-text-field 
                             v-model="filter.search" 
                         
                             placeholder="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px" 
+                            max-width="380px" 
                             clearable />
 
                         <div class="pl-2" >
@@ -178,6 +178,7 @@
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn>
                         </div>
+                       </div>
                         <!-- <div class="pl-2" >
                             <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
@@ -323,9 +324,3 @@ export default {
 };
 
 </script>
-
-<style scoped>
-.widthstatic{
-    width: 10% !important;
-}
-</style>

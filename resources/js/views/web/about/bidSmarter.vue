@@ -4,9 +4,8 @@
         max-width: 1400px;
         height: 700px;
         background: linear-gradient(
-      to top,
-      rgb(var(--v-theme-primary),0.2),
-      #0080FF
+      to 
+     top, rgba(var(--v-theme-primaryDark)) 5%, rgba(var(--v-theme-primary)) 80%
     ); border: 1px solid rgb(var(--v-theme-border)); border-radius: 70px;
         border-radius: 40px;
       ">

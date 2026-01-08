@@ -5,9 +5,12 @@
     width="600px"
     >
         <v-card
-            prepend-icon="mdi-update"
+            prepend-icon="mdi-magnify"
             title="Make"
         >
+         <v-card-actions class="" style="position: absolute; right: 10px; top: 8px;"> 
+           <v-icon color="primary" @click="dailog = false;">mdi-close</v-icon>
+         </v-card-actions>
         <v-card-text>
             <v-text-field v-model="search" @keyup.enter="handleSearch()"/>
                 <ul class="mt-2">
@@ -16,9 +19,6 @@
                     <li style="cursor: pointer;" v-else @click="selectValue(item)" class="py-3 px-2 mx-1 border" v-for="item in data">{{ item.id }} - {{ item.name }}</li>
                 </ul>
         </v-card-text>
-         <v-card-actions>
-            <v-btn variant="flat" color="primary" @click="dailog = false;" >Close</v-btn>
-         </v-card-actions>
         </v-card>
     </v-dialog>
 </template>

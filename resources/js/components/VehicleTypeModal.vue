@@ -5,9 +5,12 @@
     width="600px"
     >
         <v-card
-            prepend-icon="mdi-update"
+            prepend-icon="mdi-magnify"
             title="Vehicle Type"
         >
+         <v-card-actions class="" style="position: absolute; right: 10px; top: 8px;"> 
+           <v-icon color="primary" @click="dailog = false;">mdi-close</v-icon>
+         </v-card-actions>
         <v-card-text>
             <v-text-field
                 label="Search"  
@@ -15,6 +18,7 @@
                 v-model="search"
                 clearable
                 />
+                
                 <ul class="mt-2">
 
                     <li v-if="loading" >Loading...</li>
@@ -25,9 +29,7 @@
                         v-for="item in data">{{ item.id }} - {{ item.name }}</li>
                 </ul>
         </v-card-text>
-         <v-card-actions>
-            <v-btn variant="flat" color="primary" @click="dailog = false;" >Close</v-btn>
-         </v-card-actions>
+        
         </v-card>
     </v-dialog>
 </template>

@@ -11,8 +11,7 @@
                         <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold text-whiteLight mb-8" style="  line-height: 1.2;">Helping You Avoid Costly Bidding Mistakes
                         </h2>
                         <div>
-                            <div class=" border-sm pa-5 rounded-lg"
-                                style="background-color: rgb(var(--v-theme-primary), 0.1);">
+                            <div class=" border-sm pa-5 rounded-lg " style="border: 1px solid rgb(var(--v-theme-danger),0.3) !important;">
                                 <p class=" text-body-1 font-weight-bold mr-6">Many losses happen before the bid is placed:</p>
                                 <div v-for="item in [
                                     'Overestimating resale value',
@@ -20,7 +19,7 @@
                                     'Missing condition red flags',
                                     'Choosing the wrong auction house'
                                 ]" :key="item" class="d-flex align-center mb-2 mt-3">
-                                    <v-icon color="primary" class="mr-2">mdi-check-circle</v-icon>
+                                    <v-icon color="red" class="mr-2">mdi-alert-circle-outline</v-icon>
                                     <span class="text-body-2">{{ item }}</span>
                                 </div>
 
@@ -52,7 +51,7 @@
 </template>
 
 <script>
-import rightImage from '@/assets/images/tabs/mission.png'
+import rightImage from '@/assets/images/about/helping.png'
 export default {
     name: 'BiddingSection',
     data() {

@@ -11,13 +11,14 @@ import center from "@/views/admin/master/center/route"
 import auction from "@/views/admin/auction/route"
 import vehicle from "@/views/admin/vehicle/route"
 import members from "@views/admin/members/route" 
-import subscriptions from "@views/admin/subscriptions/route" 
+import transaction from "@views/admin/transaction/route" 
+import dictionary from "@views/admin/dictionary/route"
 export default [
     {
         path: "/admin",
         component : DashboardLayout,
         children: [  
-            { path: '', component: Dashboard },
+            { path: '', component: Dashboard , },
             { path: 'dashboard', component: Dashboard },
             ...bodytypes,
             ...platform,
@@ -30,7 +31,8 @@ export default [
             ...auction,
             ...vehicle,
             ...members,
-            ...subscriptions
+            ...transaction,
+            ...dictionary
             ]
     },
 ]

@@ -9,11 +9,10 @@
             </div>
         
             <div class="mr-2 ml-n3 d-flex   ga-2 mt-4 mt-lg-0 mt-md-4 pl-md-4 "> 
-                <plateform-dropdown
-                    label="Online Auction"
+                <PlateformDropdown
                     variant="outlined"
                     density="compact" 
-                  style="width: 160px;" 
+                     style="width: 160px;" 
                     hide-details
                     v-model="auctionType"
                     :items="['Online Auction', 'Time Auction']" 
@@ -38,6 +37,7 @@
             class="rounded " :headers="headers"
             :items="data"
             :items-length="data.length"
+            sort-asc-icon="false"
             :loading="isLoading" 
             item-value="auction_platform_name" 
             hide-default-footer

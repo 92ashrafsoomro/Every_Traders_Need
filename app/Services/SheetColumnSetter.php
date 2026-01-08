@@ -44,7 +44,6 @@ class SheetColumnSetter
         $value = strtolower($this->item['body_id']);
 
         // if($value == 'platform cab'){
-           
         //     dd($prefixes);
         //     dd(isset($prefixes[$value]));
         // }
@@ -56,8 +55,12 @@ class SheetColumnSetter
 
     public function setVehicleId()
     {
+
+        $prefixes = $this->prefixes['vehicleType'];
+        $value = strtolower($this->item['body_id']);
         
-        $value = $this->item['body_id'];
+        $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
+    
         $this->item['vehicle_id'] = $value;
 
     }

@@ -1,7 +1,9 @@
 <template>
     <user-title-bar title="Import CSV Data"
         subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
-        <v-card-title class="d-flex cursor-pointer widthstatic" @onclick="showFilters = !showFilters">
+        
+        <div>
+        <v-card-title class="d-flex cursor-pointer widthstatic" @click="showFilters = !showFilters">
             <span class="text-h6 font-weight-bold " >
                 Filters
             </span>
@@ -16,7 +18,7 @@
                 <p>hello</p>
             </div>
         </v-expand-transition>
-
+</div>
     </user-title-bar>
 
     <v-container max-width="1400px">

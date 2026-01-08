@@ -19,17 +19,29 @@
             <v-row class="mb-6">
 
               <v-col cols="4">
-                <BaseSelect v-model="form.name" label="Prefixes Name" required :items="Dictionary.prefixName" />
+
+                <v-select label="Select" :items="Dictionary.prefixName" item-title="label" item-value="value"
+                  v-model="form.name" />
               </v-col>
+
 
               <v-col cols="4">
-                <BaseField v-model="form.key" label="Prefixes Key" required />
+                <v-text-field v-model="form.key" label="Prefixes Key" clearable="" required />
 
               </v-col>
-
               <v-col cols="4">
-                <BaseField v-model="form.value" label="Prefixes Value" required />
+                <v-text-field v-model="form.value" label="Prefixes Value" clearable required @focus="showList = true"
+                  @keyup.enter="suggestion" />
+
+                <v-card v-if="showList" v-click-outside="closeList" style="height: 200px; overflow-y: auto;">
+                  <v-list-item v-for="item in searchItem" :key="item.id" @click="selectItem(item)"
+                    style="cursor: pointer;">
+                    {{ item.name }}
+                  </v-list-item>
+                </v-card>
               </v-col>
+
+
             </v-row>
 
           </v-card-text>
@@ -56,12 +68,23 @@ import Dictionary from "@/models/dictionary";
 import api from "@/plugins/axios";
 import BaseField from "./component/BaseField.vue";
 import BaseSelect from "./component/BaseSelect.vue";
+import BodyType from "@/models/body-type.model";
+
+import Make from "@/models/make.model";
+import Model from '@/models/vehicle-model.model';
+import Variant from "@/models/variant.model";
+import PlateformDropdown from "@/components/PlateformDropdown.vue";
+import VehicleType from "@/models/vehicle-type.model";
+
 export default {
-  components: { BaseField, BaseSelect },
+  components: { BaseField, BaseSelect, PlateformDropdown },
 
   data() {
     return {
-        Dictionary,
+      Dictionary,
+      searchItem: [
+
+      ],
       form: {
         name: "",
         key: "",
@@ -71,6 +94,44 @@ export default {
   },
 
   methods: {
+    selectItem(item) {
+      this.form.value = item.name
+    },
+    async suggestion(key) {
+      switch (this.form.name) {
+        case "vehicleType":
+          let vehiclRes = await VehicleType.all({ search: this.form.key });
+          this.searchItem = vehiclRes.data;
+          break
+        case "bodyType":
+          let bodyRes = await BodyType.all({ search: this.form.key });
+          this.searchItem = bodyRes.data;
+          break
+        case "make":
+          let makeRes = await Make.all({ search: this.form.key });
+          this.searchItem = makeRes.data;
+          break
+        case "model":
+          let modelRes = await Model.all({ search: this.form.key });
+          this.searchItem = modelRes.data;
+          break
+        case "variant":
+          let variantRes = await Variant.all({ search: this.form.key });
+          this.searchItem = variantRes.data;
+          break
+        case "center":
+          let centerRes = await Center.all({ search: this.form.key });
+          this.searchItem = centerRes.data;
+          break
+      }
+    },
+    selectItem(item) {
+      this.form.value = item.name
+      this.showList = false
+    },
+    closeList() {
+      this.showList = false
+    },
 
     async submitForm() {
       try {
@@ -81,7 +142,7 @@ export default {
         });
         this.form.name = "";
         this.form.key = "",
-        this.form.value = ""
+          this.form.value = ""
         this.$alertStore.add("Prefixes Add");
       }
       catch (error) {
@@ -93,6 +154,16 @@ export default {
     },
     goBack() {
       this.$router.back();
+    }
+  },
+  watch: {
+    'form.name'(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.form.value = ""    
+        this.form.key = ""        
+        this.searchItem = []     
+        this.showList = false    
+      }
     }
   }
 };

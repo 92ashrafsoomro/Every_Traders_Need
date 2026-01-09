@@ -48,17 +48,51 @@ aside {
 }
 
 /* table th bg change */
+
 .v-data-table__thead th {
-    /* background-color: rgba(var(--v-theme-primary),0.2) !important; */
-    /* background-color: #3399ff !important; */
-    background-color: rgb(3, 40, 85) !important;
+  position: sticky;
+  top: 0; /* stick to top */
+  background-color: rgba(var(--v-theme-primary), 0.2) !important;
+  backdrop-filter: blur(6px); 
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.3s ease;
+  z-index: 1; 
+}
+
+
+.v-data-table__thead th::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--v-theme-primary), 0.8); 
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.v-data-table__thead th.sticky-active::after {
+  opacity: 1;
+}
+
+thead th::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--v-theme-primary), 0.2); 
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 thead th{
-     background-color: rgb(3, 40, 85) !important;
+   position: sticky;
+  top: 0; /* stick to top */
+  background-color: rgba(var(--v-theme-primary), 0.2) !important;
+  backdrop-filter: blur(6px); 
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.3s ease;
+  z-index: 1; 
 }
 tbody tr:hover{
-     background-color: rgba(var(--v-theme-surfaceBright),0.4) !important;
+       background-color: rgb(var(--v-theme-surface));
 }
 
 /* table tr bg change */
@@ -212,7 +246,6 @@ min-height:40px;
     border-radius: 20px;
 }
 .clickable-icon{
-    
     width: 30px;
     height: 30px;
 }

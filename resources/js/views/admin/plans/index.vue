@@ -1,5 +1,7 @@
 <template>
-<h1>Plans Page</h1>
+    <user-title-bar title="Plans" subtitle="Plans Page">
+        
+    </user-title-bar>
 </template>
 
 <script>

@@ -54,35 +54,35 @@
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-title class="cursor-pointer">
+                  <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/settings/security" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2">
-                            <v-icon icon="mdi-cog-outline text-light_text_on"></v-icon>
-                            <p class="text-light_text_on">Settings</p>
+                            <v-icon icon="mdi-cog-outline text-light_text_on icon"></v-icon>
+                            <p class="text-light_text_on text">Settings</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
             <v-list-item link>
-                <v-list-item-title class="cursor-pointer">
+                  <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/settings/billing" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2 ">
-                            <v-icon icon="mdi-credit-card-outline text-light_text_on"></v-icon>
-                            <p class="text-light_text_on">Billings</p>
+                            <v-icon icon="mdi-credit-card-outline text-light_text_on icon"></v-icon>
+                            <p class="text-light_text_on text">Billings</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item>
-                <v-list-item-title class="">
+            <v-divider></v-divider> 
+            <v-list-item class="profileDropDownLogout">
+                <v-list-item-title class=" ">
                     <!-- <v-btn @click="logOut()" size="large" class="ml-n3" prepend-icon="mdi-logout"
                         style="font-size: smaller;">
                         <p class="">Logout</p>
                     </v-btn> -->
                     <div @click="logOut()" class="d-flex align-center ga-2 cursor-pointer">
-                        <v-icon icon="mdi-logout text-light_text_on"></v-icon>
-                        <p class="text-light_text_on">Logout</p>
+                        <v-icon icon="mdi-logout text-light_text_on logoutIcon"></v-icon>
+                        <p class="text-light_text_on logoutText">Logout</p>
                     </div>
                 </v-list-item-title>
             </v-list-item>
@@ -121,4 +121,20 @@ export default {
   transition: color 0.2s ease;
 }
 
+.profileDropDown:hover .text,
+.profileDropDown:hover .icon {
+    color: rgb(var(--v-theme-whiteLight)) !important;
+    transition: color 0.2s ease;
+}
+
+.profileDropDownLogout:hover {
+  background-color: rgb(var(--v-theme-danger), 0.3) !important;
+}
+
+/* parent hover → child color change */
+.profileDropDownLogout:hover .logoutIcon,
+.profileDropDownLogout:hover .logoutText {
+  color: rgb(var(--v-theme-danger)) !important;
+  transition: color 0.2s ease;
+}   
 </style>

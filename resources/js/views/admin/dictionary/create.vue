@@ -30,8 +30,8 @@
 
               </v-col>
               <v-col cols="4">
-                <v-text-field v-model="form.value" label="Prefixes Value" clearable required @focus="showList = true"
-                  @keyup.enter="suggestion" />
+                <v-text-field v-model="form.value" label="Prefixes Value" clearable required 
+                  @input="suggestion" />
 
                 <v-card v-if="showList" v-click-outside="closeList" style="height: 200px; overflow-y: auto;">
                   <v-list-item v-for="item in searchItem" :key="item.id" @click="selectItem(item)"
@@ -82,6 +82,7 @@ export default {
   data() {
     return {
       Dictionary,
+      showList: false,
       searchItem: [
 
       ],
@@ -98,6 +99,13 @@ export default {
       this.form.value = item.name
     },
     async suggestion(key) {
+      if (!this.form.value) {
+        this.searchItem = []
+        this.showList = false
+        return
+      }
+
+      this.showList = true
       switch (this.form.name) {
         case "vehicleType":
           let vehiclRes = await VehicleType.all({ search: this.form.key });
@@ -159,10 +167,10 @@ export default {
   watch: {
     'form.name'(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.form.value = ""    
-        this.form.key = ""        
-        this.searchItem = []     
-        this.showList = false    
+        this.form.value = ""
+        this.form.key = ""
+        this.searchItem = []
+        this.showList = false
       }
     }
   }

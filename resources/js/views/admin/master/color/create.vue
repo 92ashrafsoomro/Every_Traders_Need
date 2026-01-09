@@ -22,7 +22,7 @@
 
           <v-spacer />
 
-          <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" placeholder="Search..." density="compact"
+          <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Search..." density="compact"
             variant="solo" hide-details class="max-width-300 " clearable />
         </div>
 

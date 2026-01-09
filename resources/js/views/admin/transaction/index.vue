@@ -45,7 +45,7 @@
                                                 density="compact" 
                                                 color="primary" 
                                                 clearable
-                                                persistent-placeholder="" 
+                                                  
                                                     />
                                         </v-col>
                                         <v-col cols="6" sm="4">
@@ -115,7 +115,7 @@
                             <v-text-field 
                                 v-model="filter.search" 
                             
-                                placeholder="Search..." 
+                                label="Search..." 
                                 variant="outlined" 
                                 density="compact"
                                 max-width="400px" 

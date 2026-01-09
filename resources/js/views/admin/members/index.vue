@@ -30,7 +30,7 @@
                                                 density="compact" 
                                                 color="primary" 
                                                 clearable
-                                                persistent-placeholder="" 
+                                                  
                                                     />
                                         </v-col>
                                        <v-col cols="4" sm="4" class="pl-2">
@@ -38,7 +38,7 @@
                                                 v-model="filter.search"  
                                                  label="Search"
                                                 variant="outlined" 
-                                                persistent-placeholder="" 
+                                                  
                                                 density="compact"
                                                 clearable />
                                         </v-col>

@@ -58,16 +58,16 @@
                 {
                     "icon": "mdi-star-outline",
                     "label" : "Plans",
-                    "path" : "/admin/members"
+                    "path" : "/admin/plans"
                 },{
                     "icon": "mdi-star-outline",
                     "label" :"Marketing",
-                    "path":"/admin/transaction"
+                    "path":"/admin/marketing"
                 }
                 ,{
                     "icon": "mdi-star-outline",
                     "label" :"Access Control",
-                    "path":"/admin/transaction"
+                    "path":"/admin/access"
                 }
             ]
         },
@@ -79,16 +79,16 @@
                 {
                     "icon": "mdi-star-outline",
                     "label" : "Admin List",
-                    "path" : "/admin/members"
+                    "path" : "/admin/adminList"
                 },{
                     "icon": "mdi-star-outline",
                     "label" :"Role",
-                    "path":"/admin/transaction"
+                    "path":"/admin/role"
                 },
                 {
                     "icon": "mdi-star-outline",
                     "label" :"Permission",
-                    "path":"/admin/transaction"
+                    "path":"/admin/permission"
                 }                
             ]
         }

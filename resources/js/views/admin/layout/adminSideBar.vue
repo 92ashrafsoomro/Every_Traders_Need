@@ -20,8 +20,7 @@
 
 
                     <template #activator="{ props }">
-                        <v-list-item v-bind="props" :prepend-icon="item.icon" class="ml-1"
-                            @click="handleGroupClick(item.label)">
+                        <v-list-item :prepend-icon="item.icon" class="ml-1" @click.stop="handleGroupClick(item.label)">
                             <span class="text-body-1">{{ item.label }}</span>
                         </v-list-item>
                     </template>
@@ -123,12 +122,13 @@ export default {
 
     },
     watch: {
-        isCollapsed(val) {
-            if (val) {
+        menuWidth(newVal) {
+            if (newVal === 68) {
                 this.openGroup = null
             }
         }
     }
+
 
 };
 </script>

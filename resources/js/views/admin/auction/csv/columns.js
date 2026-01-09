@@ -8,6 +8,7 @@ export default [
 
     { title: 'Make', key: 'make_id' },
     { title: 'Model', key: 'model_id' },
+    { title: 'Derivative', key: 'derivative',disabled: true },
     { title: 'Variant', key: 'variant_id' },
     { title: 'Center', key: 'center_id' },
     

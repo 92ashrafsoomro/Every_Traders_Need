@@ -82,6 +82,8 @@
         </div>
     </user-title-bar>
     <v-container  class="m-auto">
+
+        <VariantMapping ref="VariantMapping"/>
          <CSVTable   />
     </v-container>
 </template>
@@ -91,11 +93,14 @@ import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
 import CSVTable from './Csv/index.vue';
+import VariantMapping from '@/components/VariantMapping.vue';
+
 
 
 export default {
 
     components: {
+        VariantMapping,
         PlateformDropdown,
         AuctionTypeDropdown,
         CSVTable
@@ -117,6 +122,8 @@ export default {
     },
     mounted() {
         this.loadData()
+
+        //   this.$refs.VariantMapping.open(this.$route.params.id);
     },
     methods: {
         async loadData() { 

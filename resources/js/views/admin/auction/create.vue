@@ -83,7 +83,7 @@
                             />
                     </v-col>
                
-                    <v-col cols="12" class="text-center" >
+                    <v-col cols="12" class="text-end" >
                         <v-btn @click="submit()" color="primary" class="text-capitalize"  variant="flat" >Submit</v-btn>
                     </v-col>
                 </v-row>

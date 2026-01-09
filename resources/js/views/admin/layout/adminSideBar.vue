@@ -12,43 +12,23 @@
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in userMenu" :key="index">
 
-                <v-list-item v-if="item.type == 'group'" class=" pl-n1 mt-8" title="" :subtitle="item.label">
+                <v-list-item v-if="item.type == 'group'" class="pl-n1 mt-8" title="" :subtitle="item.label">
                     <v-divider class="mt-2"></v-divider>
                 </v-list-item>
 
-                <v-list-group v-else-if="item.hasOwnProperty('children')" v-model="openGroup" :value="item.label">
-
-
-                    <template #activator="{ props }">
-                        <v-list-item :prepend-icon="item.icon" class="ml-1" @click.stop="handleGroupClick(item.label)">
-                            <span class="text-body-1">{{ item.label }}</span>
-                        </v-list-item>
-                    </template>
-
-
-                    <v-list-item v-for="child in item.children" :to="child.path" class="text-body-1"
-                        active-class="bg-primary on-primary rounded my-active-menu">
-                        <v-icon size="15">mdi-circle</v-icon> <span> {{ child.label }}</span>
-                    </v-list-item>
-                </v-list-group>
-
-                <v-list-item v-else-if="!item.hasOwnProperty('children')" :to="item.path" link :ripple="false"
-                    class="text-body-1" active-class="bg-primary on-primary rounded my-active-menu">
-
-                    <!-- Custom Icon Slot -->
+                <!-- Show only top-level items, ignore children -->
+                <v-list-item v-else :to="item.path" link :ripple="false" class="text-body-1"
+                    active-class="bg-primary on-primary rounded my-active-menu">
                     <template #prepend>
                         <v-icon size="24" class="ml-1">{{ item.icon }}</v-icon>
                     </template>
-
                     <template #title>
                         <span :ripple="false" class="text-body-1">{{ item.label }}</span>
                     </template>
                 </v-list-item>
 
-                <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
-                    <v-divider class="mt-2"></v-divider>
-                </v-list-item>
             </template>
+
 
         </v-list>
     </v-navigation-drawer>

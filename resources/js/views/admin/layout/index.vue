@@ -43,8 +43,7 @@
                     </v-col>
 
                     <v-col cols="auto" class="ml-n3">
-                        <ProfileDropdown>
-                        </ProfileDropdown>
+                        <ProfileDropdown/>
                     </v-col>
                 </div>
             </v-row>

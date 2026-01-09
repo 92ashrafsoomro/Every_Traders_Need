@@ -16,24 +16,34 @@
             <v-expand-transition>
                 <div v-show="showFilters">
                     <v-container fluid>
-                        <v-row class="mt-1 text-center content-scroll" align="center">
-
-                            <v-col>
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.id"
-                                    label="ID" />
-                            </v-col>
-                            <v-col>
+                        <v-row>
+                            <v-col class="mt-1 text-center content-scroll" align="center">
                                 <v-text-field density="comfortable" variant="outlined" clearable
                                     v-model="filter.table_id" label="Auction Id" />
                             </v-col>
                             <v-col>
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
-                                    label="Auction Name " />
+                                <PlateformDropdown v-model="filter.platform" label="Auction House" variant="outlined"
+                                    base-color="white" density="compact" />
+                                <!-- <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
+                                    label="Auction Name " /> -->
+                            </v-col>
+                            <v-col>
+
+                                <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type" variant="outlined"
+                                    base-color="white" density="compact" />
+                            </v-col>
+                        </v-row>
+                        <v-row class="mt-1 text-center content-scroll" align="center">
+
+
+                            <v-col>
+                                <v-select density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
+                                    hide-details clearable v-model="filter.status" label="Status " />
                             </v-col>
                             <v-col>
                                 <div class="d-flex">
-                                    <v-text-field density="comfortable" variant="outlined" v-model="filter.created_at"
-                                        label="Created Date" />
+                                    <v-text-field density="comfortable" variant="outlined" type="datetime-local"
+                                        v-model="filter.auction_date" label="Auction Date" />
 
 
 
@@ -62,8 +72,8 @@
                     </div>
 
                     <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  ">
-                        <v-text-field v-model="filter.search" label="Search..." variant="outlined"
-                            density="compact" max-width="400px" clearable />
+                        <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"
+                            max-width="400px" clearable />
                         <div class="pl-2">
                             <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
@@ -113,22 +123,27 @@
 
 <script>
 
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
+import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
 
 export default {
 
     components: {
-
+        PlateformDropdown,
+        AuctionTypeDropdown
     },
     data() {
         return {
             showFilters: true,
             Auction,
             filter: {
-                id: "",
                 table_id: "",
                 name: "",
-                created_at: "",
+                action_type: "",
+                platform: "",
+                status: "Draft",
+                auction_date: "",
                 search: '',
                 length: 10,
                 page: 1,
@@ -176,6 +191,7 @@ export default {
                 let res = await Auction.all(this.filter);
                 this.items = res.data;
                 this.filter.page = Number(res.page)
+                this.filter.platform = res.data.platform;
                 this.total = res.recordsTotal;
                 this.last_page = Number(res.last_page);
             } catch (error) {
@@ -206,7 +222,6 @@ export default {
 
 
 }
-
 
 </script>
 

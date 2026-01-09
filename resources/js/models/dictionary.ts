@@ -8,7 +8,7 @@ export default class Dictionary {
         { label: "Center", value: "center" },
         { label: "Make", value: "make" },
         { label: "Model", value: "model" },
-        { label: "Variant", value: "variant" },
+        // { label: "Variant", value: "variant" },
     ];
 
     static async all(options: {

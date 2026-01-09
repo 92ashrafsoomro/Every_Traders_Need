@@ -19,6 +19,7 @@ import access from "@views/admin/accessControl/route"
 import adminList from "@views/admin/adminList/route"
 import role from "@views/admin/role/route"
 import permission from "@views/admin/permission/route"
+
 export default [
     {
         path: "/admin",

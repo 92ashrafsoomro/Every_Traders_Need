@@ -13,6 +13,12 @@ import vehicle from "@/views/admin/vehicle/route"
 import members from "@views/admin/members/route" 
 import transaction from "@views/admin/transaction/route" 
 import dictionary from "@views/admin/dictionary/route"
+import plans from "@views/admin/plans/route"
+import marketing from "@views/admin/marketing/route"
+import access from "@views/admin/accessControl/route"
+import adminList from "@views/admin/adminList/route"
+import role from "@views/admin/role/route"
+import permission from "@views/admin/permission/route"
 export default [
     {
         path: "/admin",
@@ -32,7 +38,13 @@ export default [
             ...vehicle,
             ...members,
             ...transaction,
-            ...dictionary
+            ...dictionary,
+            ...plans,
+            ...marketing,
+            ...access,
+            ...adminList,
+            ...role,
+            ...permission
             ]
     },
 ]

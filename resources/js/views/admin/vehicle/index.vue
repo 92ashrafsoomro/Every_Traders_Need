@@ -23,18 +23,16 @@
                                 <v-col cols="12">
                                     <v-row cols="12" class="mt-1 text-center">
                                         <v-col cols="4" sm="4" class="pl-2">
-                                            <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform" 
-                                            persistent-placeholder=""
+                                            <PlateformDropdown label="Select Platform" variant="outlined" color="primary"class="id-box" v-model="filter.platform"
                                             hide-details
                                             clearable
-                                            density="compact"  />
+                                            density="comfortable"  />
                                         </v-col>
                                         <v-col cols="4" sm="4" class="pl-2">
-                                            <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center" 
-                                            persistent-placeholder=""
+                                            <CenterDropdown label="Select Center" variant="outlined" color="primary"class="id-box" v-model="filter.center"
                                             hide-details
                                             clearable
-                                            density="compact"  />
+                                            density="comfortable"  />
                                         </v-col>
                                         <v-col cols="4" sm="4" class="pl-2">
                                             <v-select 
@@ -43,10 +41,9 @@
                                                 label="Auction Type"
                                                 :items="['Online','Live']"
                                                 base-color="white"
-                                                density="compact" 
+                                                density="comfortable" 
                                                 color="primary" 
-                                                clearable
-                                                persistent-placeholder="" 
+                                                clearable 
                                                     />
                                         </v-col>
                                 
@@ -60,9 +57,8 @@
                                             color="primary"
                                             class="id-box"
                                             v-model="filter.make"
-                                            persistent-placeholder=""
                                             hide-details
-                                            density="compact"
+                                            density="comfortable"
                                             clearable
                                             />
                                         </v-col>
@@ -75,9 +71,8 @@
                                             class="id-box"
                                             v-model="filter.model"
                                             :make="filter.make"
-                                            persistent-placeholder=""
                                             hide-details
-                                            density="compact"
+                                            density="comfortable"
                                             clearable
                                             />
                                         </v-col>
@@ -90,9 +85,8 @@
                                                 class="id-box"
                                                 v-model="filter.variant"
                                                 :model-id="filter.model" 
-                                                persistent-placeholder
                                                 hide-details
-                                                density="compact"
+                                                density="comfortable"
                                                 clearable
                                                 />
                                         </v-col>
@@ -105,8 +99,7 @@
                                                 label="Search Registration"
                                                 variant="outlined"
                                                 color="primary"
-                                                density="compact"
-                                                persistent-placeholder=""
+                                                density="comfortable"
                                                 hide-details
                                                 clearable
                                                 />
@@ -118,8 +111,7 @@
                                                 variant="outlined"
                                                 type="number"
                                                 color="primary"
-                                                density="compact"
-                                                persistent-placeholder=""
+                                                density="comfortable"
                                                 hide-details
                                                 clearable
                                                 />
@@ -154,7 +146,7 @@
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[100, 500, 1000, 2000]" 
-                                density="compact" 
+                                density="comfortable" 
                                 variant="outlined"
                                 max-width="150px" class="mr-2" 
                                 />
@@ -167,9 +159,9 @@
                          <v-text-field 
                             v-model="filter.search" 
                         
-                            placeholder="Search..." 
+                            label="Search..." 
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             max-width="380px" 
                             clearable />
 

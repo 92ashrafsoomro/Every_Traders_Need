@@ -23,7 +23,7 @@
                         <v-text-field 
                             v-model="filter.search" 
                       
-                            placeholder="Search..." 
+                            label="Search..." 
                             variant="outlined" 
                             density="compact"
                             max-width="300px" 

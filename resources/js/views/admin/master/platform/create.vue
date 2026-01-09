@@ -23,7 +23,7 @@
                   label="Title"
                   variant="outlined"
                   density="compact"
-                  persistent-placeholder=""
+                   
                   color="primary"
                 />
               </v-col>

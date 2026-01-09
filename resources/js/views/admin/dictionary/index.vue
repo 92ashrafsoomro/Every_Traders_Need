@@ -16,8 +16,8 @@
 
                             <!-- Dictionary Name -->
                             <v-col cols="12" sm="4">
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
-                                    label="Prefix Name" :items="Dictionary.prefixName" />
+                                <v-select density="comfortable" variant="outlined" clearable v-model="filter.name"
+                                    item-title="label" label="Prefix Name" :items="Dictionary.prefixName" />
                             </v-col>
 
                             <!-- Dictionary Key -->
@@ -28,14 +28,15 @@
 
                             <!-- Dictionary Value -->
                             <v-col cols="12" sm="3">
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.value"
-                                    label="Dictionary Value" />
-                                
+                                <div class="d-flex">
+                                     <v-text-field density="comfortable" variant="outlined" clearable
+                                        v-model="filter.value" label="Dictionary Value" />
+                                    <v-btn style="height: 44px; margin-left: 10px;" variant="outlined"
+                                        @click="loadItems" class="mr-2">
+                                        <v-icon icon="mdi-magnify"></v-icon>
+                                    </v-btn>
+                                </div>
                             </v-col>
-                            <v-col class="">  <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems"
-                                    class="mr-2">
-                                    <v-icon icon="mdi-magnify"></v-icon>
-                                </v-btn></v-col>
                             <!-- <v-col cols="12" sm="5" class="d-flex">
                                 <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.search"
                                     label="Search" />

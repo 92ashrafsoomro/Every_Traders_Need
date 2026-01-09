@@ -32,7 +32,7 @@
                                 density="compact"
                                 color="primary"
                                 clearable
-                                persistent-placeholder=""
+                                 
                                 class="custom-input"
                                 
                                 hide-details

@@ -1,24 +1,53 @@
 <template>
     <user-title-bar title="Import CSV Data"
         subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
-        
+
         <div>
-        <v-card-title class="d-flex cursor-pointer widthstatic" @click="showFilters = !showFilters">
-            <span class="text-h6 font-weight-bold " >
-                Filters
-            </span>
+            <v-card-title class="d-flex cursor-pointer " @click="showFilters = !showFilters">
+                <span class="text-h6 font-weight-bold ">
+                    Filters
+                </span>
 
-            <v-icon color="primary">
-            {{ showFilters ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-            </v-icon>
-        </v-card-title>
+                <v-icon color="primary">
+                    {{ showFilters ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                </v-icon>
+            </v-card-title>
 
-        <v-expand-transition>
-            <div v-show="showFilters">
-                <p>hello</p>
-            </div>
-        </v-expand-transition>
-</div>
+            <v-expand-transition>
+                <div v-show="showFilters">
+                    <v-container fluid>
+                        <v-row class="mt-1 text-center content-scroll" align="center">
+
+                            <v-col>
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.id"
+                                    label="ID" />
+                            </v-col>
+                            <v-col>
+                                <v-text-field density="comfortable" variant="outlined" clearable
+                                    v-model="filter.table_id" label="Auction Id" />
+                            </v-col>
+                            <v-col>
+                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
+                                    label="Auction Name " />
+                            </v-col>
+                            <v-col>
+                                <div class="d-flex">
+                                    <v-text-field density="comfortable" variant="outlined" v-model="filter.created_at"
+                                        label="Created Date" />
+
+
+
+                                    <v-btn style="height: 44px; margin-left: 10px;" variant="outlined"
+                                        @click="loadItems(true)" class="mr-2">
+                                        <v-icon icon="mdi-magnify"></v-icon>
+                                    </v-btn>
+                                </div>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </div>
+            </v-expand-transition>
+        </div>
     </user-title-bar>
 
     <v-container max-width="1400px">
@@ -33,7 +62,7 @@
                     </div>
 
                     <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  ">
-                        <v-text-field v-model="filter.search" placeholder="Search..." variant="outlined"
+                        <v-text-field v-model="filter.search" label="Search..." variant="outlined"
                             density="compact" max-width="400px" clearable />
                         <div class="pl-2">
                             <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
@@ -51,8 +80,8 @@
             </v-col>
             <v-col cols="12" class="mt-2">
                 <div class="border">
-                    <v-data-table-server  :loading="loading" :headers="headers" :items="items"
-                        :items-length="total" hover item-value="id" @update:options="loadItems">
+                    <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total"
+                        hover item-value="id" @update:options="loadItems" :lastPage="last_page">
 
                         <template #item.action="{ item }">
                             <router-link :to="'/admin/auction/edit/' + item.id">
@@ -93,7 +122,13 @@ export default {
     },
     data() {
         return {
+            showFilters: true,
+            Auction,
             filter: {
+                id: "",
+                table_id: "",
+                name: "",
+                created_at: "",
                 search: '',
                 length: 10,
                 page: 1,
@@ -125,6 +160,7 @@ export default {
     },
     watch: {
         'filter.length'(newVal, oldVal) {
+            this.filter.page = 1;
             this.loadItems()
         },
         'filter.page'(newVal, oldVal) {
@@ -139,13 +175,13 @@ export default {
             try {
                 let res = await Auction.all(this.filter);
                 this.items = res.data;
+                this.filter.page = Number(res.page)
                 this.total = res.recordsTotal;
-                this.filter.page = Number(res.page);
                 this.last_page = Number(res.last_page);
-                this.loading = false;
             } catch (error) {
-                alert(error)
-                this.loading = false
+                alert(error);
+            } finally {
+                this.loading = false;
             }
         },
 

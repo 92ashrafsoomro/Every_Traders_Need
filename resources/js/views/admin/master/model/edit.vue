@@ -39,7 +39,7 @@
                   </v-col>
                   <v-col cols="4" sm="4" class="pl-2">
                       <MakeDropdown label="Select Make" variant="outlined" color="primary"class="id-box" v-model="makeid" 
-                          persistent-placeholder=""
+                           
                           hide-details
                           density="compact"  />
                   </v-col>

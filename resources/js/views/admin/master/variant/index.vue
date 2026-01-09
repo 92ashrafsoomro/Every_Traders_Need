@@ -21,7 +21,7 @@
 
                         <v-text-field 
                             v-model="filter.search" 
-                            placeholder="Search..." 
+                            label="Search..." 
                             variant="outlined" 
                             density="compact"
                             max-width="300px" 
@@ -53,6 +53,9 @@
                             item-value="id" 
                             @update:options="loadItems" >
 
+                            <template #item.variant="{item}">
+                                <span>Variant</span>
+                            </template>
                             <template #item.action="{ item }">
                                 <router-link :to="'/admin/variant/edit/' + item.id">
                                     <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
@@ -113,6 +116,8 @@ export default {
             loading: true,
             headers: [
                 { title: "ID", value: "id",sortable: false },
+                { title:"Make Name" , value :"makeName" },
+                { title:"Model Name" , value :"modelName" },
                 { title: "Title", value: "name" },
                 { title: "Created At", value: "date" },
                 { title: "Action", key: "action" },

@@ -92,23 +92,51 @@ class SheetColumnSetter
 
     }
 
+    
 
           public function setVariantId()
-    {
-
+    {       
+            $orginal = $this->item['variant_id'];
+            $value = strtolower($this->item['variant_id']);
             $make = Make::where('name', $this->item['make_id'])->first();
             if($make){
                 $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
                 if($model){
 
                    
+                        $variants = ModelVariant::where('model_id',$model->id)
+                                    ->get()
+                                    ->pluck('name')
+                                    ->map(fn ($name) => strtolower($name))
+                                    ->toArray();  
+                      
+                        if(!empty($value)){
 
-                        $variant = ModelVariant::where('model_id',$model->id)->get();
-                        //  dd($this->item);
-                        //  dd($variant->toArray());
-                        // dd($this->item['variant_id']);
+                            $words = explode(" ",$value);
+                            if(isset($words[0]) && !is_numeric($words[0])){
+                                 if(in_array($words[0],$variants)){
+                                    $this->item['variant_id'] = $words[0] .'-- '.$orginal;
+                                 }   
+                            
+
+                            }else if(isset($words[1]) && !is_numeric($words[1])){
+                                if(in_array($words[1],$variants)){
+                                    $this->item['variant_id'] = $words[1] .'-- '.$orginal;
+                                } 
+                            
+
+                            } else if(isset($words[2]) && !is_numeric($words[2])){
+                                if(in_array($words[2],$variants)){ 
+                                    $this->item['variant_id'] = $words[2] .'-- '.$orginal;
+                                }
+
+                            }
+
+                        }
+                     
                         
-
+                        
+                        
                 }
 
             }

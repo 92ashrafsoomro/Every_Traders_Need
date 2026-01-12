@@ -72,7 +72,7 @@
                             <div v-else-if="col.key === 'variant_id'">
                                 <span :class="{ has_error: errors['data.' + id + '.variant_id'] }" class="pointer"
                                     @click="OpenModal(id, 'variant_id', item[col.key])">
-                                    {{ item[col.key] ?? '' }}
+                                    {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
@@ -145,8 +145,6 @@ export default {
         }
     },
     mounted() {
-
-
         this.loadVehicle()
 
     },
@@ -215,8 +213,6 @@ export default {
                 let modified = [];
                 let data = res.data ?? [];
                 data.forEach(element => {
-                    element.derivative = element.variant_id;
-                    element.variant_id = null;
                     modified.push(ColRender(element));
                 });
 

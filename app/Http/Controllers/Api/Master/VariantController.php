@@ -42,6 +42,11 @@ class VariantController extends Controller
         if($request->has('make_id') && $request->make_id != '') {
             $query->where('model.make_id',$request->make_id);
         }
+
+        if($request->has('model_id') && $request->model_id != '') {
+            $query->where('model_variant.model_id',$request->model_id);
+        }
+
         if($request->filled('search')) {
                $query->where('model_variant.name', 'like', '%'.$request->search.'%');
                 $query->orWhere('model_variant.id', 'like', '%'.$request->search.'%');
@@ -60,6 +65,9 @@ class VariantController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+
+                     $item->full = $item->makeName.'-'.$item->modelName.'-'.$item->name;
+
                      $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
                     return $item;
                 });

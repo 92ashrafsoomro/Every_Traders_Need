@@ -6,6 +6,8 @@ use App\Models\AuctionCenter;
 use App\Models\Auctions;
 use App\Models\BodyType;
 use App\Models\Interest;
+use App\Models\Prefix;
+use App\Models\ScrapedVehicle;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -20,283 +22,175 @@ use Illuminate\Support\Facades\Hash;
 class SheetService 
 {   
 
-  
-
-    public Auctions $auction ;
-    public $data = [];
-
-
-    public function __construct(Auctions $auction,$data) 
+    
+        static  public function getScrapperDataByAuction(Request $request,Auctions $model)
     {
 
-         $this->data = $data;
-         $this->auction = $auction;
+            $prefixes = [];
+            $prefix = Prefix::orderBy('prefix_key')->get();
+            foreach ($prefix as $key => $value) {
+                $prefixes[$value->name][strtolower($value->prefix_key)] = $value->prefix_value;
+            }
 
-         $this->intilaize();
+    
+            $data = [];
+            $scraps = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$model->id)->pluck('payload')->first());
+            foreach ($scraps  as $key => $item){
+               
+                $SheetColumnSetter = new SheetColumnSetter(json_decode(json_encode($item),true));
+                $SheetColumnSetter->prefixes = $prefixes;
+                array_push($data,$SheetColumnSetter->get());
+            }
 
-            // dd($this->data); 
-
-         $this->sanitization();
-         $this->validation();
-        
-
-            // dd($this->data[400]);
             
-         $this->save();
-        
+            return $data;
+
 
     }
 
-    
-    
-    public function intilaize()
+
+    static public function getAuctionVehicle(Request $request,$auctionId)
     {
 
-            $rows = $this->data;
-            if (count($rows) < 2) {
-                return []; // No data
+            $model = Auctions::where('id',$auctionId)->first();
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
             }
 
-            $headers = array_map(function ($header) {
-                return strtolower(str_replace(' ', '_', trim($header)));
-            }, $rows[0]);
 
-            $result = [];
-            foreach (array_slice($rows, 1) as $key => $value) {
+            $data = Vehicle::where('auction_id',$auctionId)
+                    ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+                    ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+                    ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+                    ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+                    ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
+                    ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id')
+                    ->select([
+                        'vehicles.*',
+                        'auction_center.name as center_name',
+                        'make.name as make_name',
+                        'model.name as model_name',
+                        'model_variant.name as variant_name',
+                        'vehicle_type.name as vehicle_name',
+                        'body_types.name as body_name',
+                    ])
+                    ->get()
+                    ->map(function ($item, $key) {
 
-                    
-                foreach ($headers as $hk => $hval) {
-                    $result[$key][$hval] = isset($value[$hk]) ? $value[$hk] : '';
-                }
-            }
+                        $item->center_id = $item->center_name;
+                        $item->vehicle_id = $item->vehicle_name;
+                        $item->body_id = $item->body_name;
+                        $item->make_id = $item->make_name;
+                        $item->model_id = $item->model_name;
+                        $item->variant_id = $item->variant_name;
+                        
 
-            $this->data = $result;
-    }
+                        return $item;
 
+                    });
 
-    public function sanitization(){
-
-        $rows = $this->data;
-        foreach ($rows as $key => $data) {
-            $rows[$key] = $this->DataFields($data);
-        }
-
-        $this->data = $rows;
-    }
-
-
-    public function validation(){
-
-        $result = [];
-        $data = $this->data;
-        foreach ($data as $key => $row) {
-            foreach ($row as $col => $value) {
-                $result[$key][$col] =  $this->Field($col,$value);
-             
-            }
-        }
-
-        $this->data = $result;
+            return [
+                'auction'=> $model,
+                'data' => $data,
+            ];
 
     }
 
-
-    public function save(){
-
-        $data = $this->data;
-        foreach ($data as $key => $row) {
-            Vehicle::create($row);
-        }
-
-    }
 
     
-     public function DataFields($data)
-    {   
+
+    static public function sheetUpdate(Request $request,$id)
+    {
+
+            // dd($request->all());
+            $model = Auctions::where('id',$id)->first();
+            if(!$model){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ], 422);
+            }
+
+
+            DB::beginTransaction();
+            try {
+
+                Vehicle::where('auction_id',$id)->delete();
+                foreach ($request->data as $key => $item){
+
+                    $item['auction_id'] = $model->id;
+                    $item['last_bid'] = floatval($item['last_bid']);
+
+                    Vehicle::create($item);
+                }
+
+                DB::commit();
+                return response()->json([
+                    'message' => 'Record Updated Successfully',
+                    'data' => $model
+                ],200);
+
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                throw $e; // or handle error
+            }
+
+    }
+
+
+
+      static public function sheetFix(Request $request)
+    {
+
+        $prefixes = [];
+        $prefix = Prefix::orderBy('prefix_key')->get();
+        foreach ($prefix as $key => $value) {
+            $prefixes[$value->name][strtolower($value->prefix_key)] = $value->prefix_value;
+        }
+
+        $response = [];
+        foreach (ScrapedVehicle::limit(10)->get() as $key => $scrap) {
+
+                $payloads = json_decode($scrap->payload);
+             
+                foreach ($payloads  as $key => $item){
+
+                    $obj = json_decode(json_encode($item),true);
+                    $columns = ['title', 'make_id','model_id','variant_id','derivative','center_id','body_id','reg'];
+                    $filtered = array_intersect_key($obj, array_flip($columns));
+                    $filtered['auction_id'] = $scrap->auction_id;
+                    $filtered['id'] = $key;
+                    $filtered['table_id'] = $scrap->auction->table_id;
+
+
+                    $SheetColumnSetter = new SheetColumnSetter($filtered);
+                    $SheetColumnSetter->prefixes = $prefixes;
+                    $filtered = $SheetColumnSetter->get();
+
+                    if(count($filtered['errors']) > 0){
+                        array_push($response,$filtered);
+                    }
+
+                }
+
+        }
+
 
         return [
-
-            'auction_id' => $this->auction->id,
-
-            // -------------------------
-            // Basic Info
-            // -------------------------
-            'title' => $data['title'] ?? null,
-
-            'vehicle_id' => $data['vehicle_id'] ? (int) $data['vehicle_id'] : null,
-            
-            'make_id' => $data['make_id'] ? (int) $data['make_id'] : null,
-
-            'model_id' => $data['model_id'] ? (int) $data['model_id'] : null,
-            
-            'variant_id' => $data['variant_id'] ? (int) $data['variant_id'] : null,
-
-            'body_id' => $data['body_id'] ? (int) $data['body_id'] : null,
-
-            'year' => $data['year'] ?? null,
-
-            'center_id' => $data['center'] ? (int) $data['center'] : null,
-          
-            'color' => $data['colour'] ?? null,
-            
-            'vin' => $data['vin'] ?? null,
-            
-            'lot' => $data['lot'] ?? null,
-
-            
-
-            // -------------------------
-            // Vehicle Specs
-            // -------------------------
-            'doors' => $data['doors'] ? (int) $data['doors'] : null,
-            'seats' => $data['seats'] ? (int) $data['seats'] : null,
-            'fuel_type' => $data['fuel_type'] ?? null,
-            'fuel_details' => $data['fuel_details'] ?? null,
-            'transmission' => $data['transmission'] ?? null,
-            'transmission_details' => $data['transmission_details'] ?? null,
-            'cc' => $data['cc'] ? (float) $data['cc'] : null,
-            'keys' => (int) ($data['keys'] ?? 0),
-            'engine_runs' => $data['non_runner'] ?? null,
-            'mileage' => (int) ($data['keys'] ?? 0),
-            'mileage_warranted' => $data['mileage_warranted'] ?? null,
-            'former_keepers' => (int) ($data['former_keepers'] ?? 0),
-            'vat_status' => $data['vat_status'] ?? null,
-
-            // -------------------------
-            // Bidding & Pricing
-            // -------------------------
-            'bidding_history' => $data['bidding_history'] ?? null,
-            'last_bid' => (int) ($data['last_bid'] ?? 0),
-            'bidding_status' => $data['bidding_status'] ?? null,
-            'cap_new' => (int) ($data['cap_new'] ?? 0),
-            'cap_retail' => (int) ($data['cap_retail'] ?? 0),
-            'cap_clean' => (int) ($data['cap_clean'] ?? 0),
-            'cap_average' => (int) ($data['cap_average'] ?? 0),
-            'cap_below' => (int) ($data['cap_below'] ?? 0),
-            'glass_new' => (int) ($data['glass_new'] ?? 0),
-            'glass_retail' => (int) ($data['glass_retail'] ?? 0),
-            'glass_trade' => (int) ($data['glass_trade'] ?? 0),
-            'autotrader_retail_value' => (int) ($data['autotrader_retail_value'] ?? 0),
-            'autotrader_trade_value' => (int) ($data['autotrader_trade_value'] ?? 0),
-            'buy_now_price' => $data['buy_now_price'] ?? null,
-
-            // -------------------------
-            // Dates
-            // -------------------------
-            'start_date' => $data['start_date'] ?? null,
-            'end_date' => $data['end_date'] ?? null,
-            'mot_expiry_date' => $data['mot_expiry_date'] ?? null,
-            'mot_due' => $data['mot_due'] ?? null,
-            'inspection_date' => $data['inspection_date'] ?? null,
-            'dor' => $data['dor'] ?? null,
-
-            // -------------------------
-            // Documents & Reports
-            // -------------------------
-            'v5' => $data['v5'] ?? null,
-            'reg' => $data['reg'] ?? null,
-            'service_history' => $data['service_history'] ?? null,
-            'no_of_services' => (int) ($data['no_of_services'] ?? 0),
-            'number_of_services_details' => $data['number_of_services_details'] ?? null,
-            'last_service' => $data['last_service'] ?? null,
-            'last_service_mileage' => (int) ($data['last_service_mileage'] ?? 0),
-            'dvsa_mileage' => $data['dvsa_mileage'] ?? null,
-            'inspection_report' => $data['inspection_report'] ?? null,
-            'other_report' => $data['other_report'] ?? null,
-            'service_notes' => $data['service_notes'] ?? null,
-            'vendor' => $data['vendor'] ?? null,
-
-            // -------------------------
-            // Condition & Features
-            // -------------------------
-            'grade' => (int) ($data['grade'] ?? 0),
-            'tyres_condition' => $data['tyres_condition'] ?? null,
-            'brakes' => $data['brakes'] ?? null,
-            'hubs' => $data['hubs'] ?? null,
-            'features' => $data['features'] ?? null,
-            'equipment' => $data['equipment'] ?? null,
-            'additional_information' => $data['additional_information'] ?? null,
-            'imported' => (int) ($data['imported'] ?? 0),
-            'declarations' => $data['declarations'] ?? null,
-            'damaged_images' => $data['damaged_images'] ?? null,
-            'damage_details' => $data['damage_details'] ?? null,
-
-            // -------------------------
-            // Media
-            // -------------------------
-            'images' => $data['images'] ?? null,
+            'count' => count($response),
+            'data' => $response
         ];
 
-    }
-
-
-       public function Field($key, $value)
-    {
-
-        $value = is_string($value) ? trim($value) : $value;
-             
-        switch ($key) {
-
-            case 'center_id':{
-                 if($value){
-                     $model = AuctionCenter::where(['id' => $value])->first();
-                     if($model){
-                        return $model->id;
-                     }
-                }
-                return null;
-            }
-
-            case 'body_id':{
-
-                if($value){
-                     $model = BodyType::where(['id' => $value])->first();
-                     if($model){
-                        return $model->id;
-                     }
-                }
-               return null;
-            }
-
-            case 'model_id':{
-
-                if($value){
-                     $model = VehicleModel::where(['id' => $value])->first();
-                     if($model){
-                        return $model->id;
-                     }
-                }
-
-               return null;
-            }
-
-
-
-            case 'mot_expiry_date':{
-               return null;
-            }
-
-            case 'mot_due':{
-               return null;
-            }
-
-            case 'inspection_date':{
-               return null;
-            }
-
-            case 'last_service':{
-               return null;
-            }
-
-            
-
-            
-            default:
-
-            return $value;
-        }
 
     }
+
+
+    
+
+
+  
+
 
 
 

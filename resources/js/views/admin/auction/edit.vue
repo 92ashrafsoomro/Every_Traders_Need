@@ -83,7 +83,7 @@
     </user-title-bar>
     <v-container  class="m-auto">
 
-        <VariantMapping ref="VariantMapping"/>
+        <!-- <VariantMapping ref="VariantMapping"/> -->
          <CSVTable   />
     </v-container>
 </template>

@@ -65,12 +65,12 @@ class UpdateCsvAuctionRequest extends FormRequest
                         $validator->errors()->add("data.$index.model_id",'Model Invalid');
                     }
                     
-                    // $ModelVariant = ModelVariant::where('name', $row['variant_id'])->first();
-                    // if ($ModelVariant) {
-                    //     $data[$index]['variant_id'] = $ModelVariant->id;
-                    // }else{
-                    //      $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
-                    // }
+                    $ModelVariant = ModelVariant::where('name', $row['variant_id'])->first();
+                    if ($ModelVariant) {
+                        $data[$index]['variant_id'] = $ModelVariant->id;
+                    }else{
+                         $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
+                    }
 
                     $AuctionCenter = AuctionCenter::where('name', $row['center_id'])->first();
                     if ($AuctionCenter) {

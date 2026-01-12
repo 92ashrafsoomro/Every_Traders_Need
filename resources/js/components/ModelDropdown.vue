@@ -53,7 +53,7 @@ export default {
         async getData() {
                 this.loading = true;
                 try {
-                    const response = await Model.get({
+                    const response = await Model.all({
                         makes: [this.make],
                         length: 1000
                     });

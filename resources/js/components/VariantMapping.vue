@@ -2,7 +2,7 @@
     <v-dialog
     :model-value="dailog"
     @update:model-value=""
-    width="1400px"
+    width="1800px"
     >
         <v-card
             prepend-icon="mdi-magnify"
@@ -13,21 +13,24 @@
          </v-card-actions>
         <v-card-text>
             <v-btn @click="handleFile()" color="primary" variant="flat">Load</v-btn>
-            <table>
+            <v-table class="table border" >
                 <tr>
                     <th>Id</th>
                     <th>Title</th>
-                    
+                    <th>Make</th>
+                    <th>Model</th>
                     <th>Variant</th>
                 </tr>
                 <tr v-for="(item, index) in data" :key="index" >
-                    <td>{{ index }}</td>
-                    <td>{{ item.title }} | {{ item.derivative }}</td>
-                    <td>{{ item.variant_id }}
-                       <VariantDropDown modelId="1" :model-value="item.derivative" @update:modelValue="console.log($event)" />
+                    <td class="border" >{{ index }}</td>
+                    <td class="border" >{{ item.title }} | {{ item.derivative }}</td>
+                    <td class="border" >{{ item.variant_id }} </td>
+                    <td class="border" >{{ item.variant_id }} </td>
+                    <td class="border" >{{ item.variant_id }}
+                       <!-- <VariantDropDown modelId="1" item-title="full" item-value="id" :model-value="item.derivative" @update:modelValue="console.log($event)" /> -->
                     </td>
                 </tr>
-            </table>
+            </v-table>
         </v-card-text>
         </v-card>
     </v-dialog>
@@ -66,11 +69,11 @@ export default {
         }
     },
     mounted() {
-   
+
+        this.handleFile()
         
     },
     methods: {
-
         async handleFile() {
 
                 this.loading = true;
@@ -115,3 +118,17 @@ export default {
     }
 }
 </script>
+
+
+<style scoped >
+
+    th{
+        border: 1px solid;
+    }
+
+    td{
+        border: 1px solid;
+    }
+
+
+</style>

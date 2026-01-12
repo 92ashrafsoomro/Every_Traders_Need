@@ -32,6 +32,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\Master\AuctionTypeController;
 use App\Http\Controllers\Api\Master\PrefixController;
+use App\Http\Controllers\Api\Master\SheetController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
@@ -160,6 +161,19 @@ use App\Http\Controllers\Api\StripeController;
     // Master data
     Route::prefix('cruds')->middleware(['auth:sanctum'])->group(function () {
 
+
+        // Auctions
+        Route::get('/auctions/getScrap/{id}',[SheetController::class,'getScrapperDataBySheetId']);
+        Route::get('/auctions/csvGet/{id}',[SheetController::class,'getAuctionVehicle']);
+        Route::post('/auctions/csvUpdate/{id}',[SheetController::class,'sheetUpdate']);
+
+
+        Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
+
+
+
+
+
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -175,20 +189,23 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('news',NewsController::class);
         Route::resource('newsCategory',NewsCategoryController::class);
         Route::resource('blogCategory',BlogCategoryController::class);
-        
+        Route::resource('auctionType',AuctionTypeController::class);
+        Route::resource('auctions',AuctionController::class);
+        Route::resource('vehicles',VController::class);
+        Route::resource('prefixes',PrefixController::class);
+
+
+
+
+        // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
-        Route::resource('auctionType',AuctionTypeController::class);
+        
+      
         
         
-        Route::get('/auctions/getScrap/{id}',[AuctionController::class,'getScrap']);
-        Route::get('/auctions/csvGet/{id}',[AuctionController::class,'csvGet']);
-        Route::post('/auctions/csvUpdate/{id}',[AuctionController::class,'csvUpdate']);
-        Route::resource('auctions',AuctionController::class);
-        
-        Route::resource('vehicles',VController::class);
-        Route::resource('prefixes',PrefixController::class);
+       
 
         
 

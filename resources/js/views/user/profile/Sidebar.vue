@@ -13,10 +13,10 @@
                     <v-col cols="12" class="">
                         <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'personal').filter((item) => ['firstName', 'phone', 'jobTitle', 'personalEmail'].includes(item.key))"
                             :key="i" class=" d-flex align-center mb-6">
-                            <v-icon color="white" class="mr-4  ">{{ item.icon }}</v-icon>
+                            <v-icon color="whiteLite" class="mr-4  ">{{ item.icon }}</v-icon>
                             <div class="d-flex align-center flex-wrap">
                                 <div class="text-body-2 text-light  pr-2">{{ item.label }} :</div>
-                                <div v-if="!item.download" class="text-body-2 text-white">
+                                <div v-if="!item.download" class="text-body-2 text-whiteLite">
                                     {{ userStore.user[item.key] }}
                                 </div>
 
@@ -34,10 +34,10 @@
                     <v-col cols="12">
                         <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'bussiness')" :key="i"
                             class="d-flex align-center mb-6">
-                            <v-icon color="white" class="mr-4 ">{{ item.icon }}</v-icon>
+                            <v-icon color="whiteLite" class="mr-4 ">{{ item.icon }}</v-icon>
                             <div class="d-flex align-center flex-wrap">
                                 <div class="text-body-1 text-light">{{ item.label }} : </div>
-                                <div class=" text-body-2 text-white font-weight-medium"> {{ userStore.user[item.key] }}
+                                <div class=" text-body-2 text-whiteLite font-weight-medium"> {{ userStore.user[item.key] }}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
 
                         <div v-for="(item, i) in UserModel.fields.filter((item) => item.group == 'proof')" :key="i"
                             class=" d-flex align-center mb-6">
-                            <v-icon color="white" class="mr-4 ">mdi-text-box-outline</v-icon>
+                            <v-icon color="whiteLite" class="mr-4 ">mdi-text-box-outline</v-icon>
                             <div class="d-flex align-center">
                                 <div class="text-body-2 text-light pr-2">{{ item.label }} :</div>
                                 <div class="text-body-2">

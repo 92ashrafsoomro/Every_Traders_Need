@@ -11,7 +11,7 @@
           <v-col cols="12" lg="10">
             <div class="d-flex flex-wrap justify-center">
 
-              <div> <img :src="logo" alt="" class="mr-4" style="max-width:200px">
+              <div> <img :src="currentLogo" alt="" class="mr-4" style="max-width:200px">
               </div>
               <div>
                 <h2 class="text-lg-h3 text-md-h3 text-h5  font-weight-bold d-flex align-center mb-8 text-whiteLight"> at
@@ -105,19 +105,36 @@
 </template>
 
 <script>
-import logo from '@/assets/images/logo/logo.png'
+
+import darkLogo from "@/assets/images/header/darkfull.png";
+import lightLogo from "@/assets/images/header/lightfull.png";
+import { useTheme } from "vuetify";
+
 export default {
   name: "AutoboliAtGlance",
   data() {
     return {
+      theme : useTheme(),
       items: [
         "30+ UK auction houses covered", "Live",
         "upcoming", "and historical auction data",
         "Vehicle valuation ", " comparison & reauction tracking",
         "VIN & registration-based vehicle intelligence",
         "Built for speed ", " accuracy ", "and profitability"
-      ],
-      logo
+      ],  
+    }
+  },
+  computed:{
+    isDark(){
+      return this.theme.global.name === 'adminDark';
+    },
+    currentLogo(){
+      return this.isDark ? darkLogo : lightLogo
+    }
+  },
+  methods:{
+    toggleTheme(){
+      this.theme.change(this.isDark ? 'adminLight' : 'adminDark')
     }
   }
 }

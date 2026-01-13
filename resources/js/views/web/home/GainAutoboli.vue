@@ -156,11 +156,26 @@
 
 <script>
 
-import logo from '@/assets/images/logo/logo.png'
+import darkLogo from "@/assets/images/header/darkfull.png";
+import lightLogo from "@/assets/images/header/lightfull.png";
+import { useTheme } from 'vuetify';
 export default {
     data() {
         return {
-            logo
+            theme : useTheme(),
+        }
+    },
+    computed:{
+        isDark(){
+            return this.theme.global.name === 'adminDark';
+        },
+        logo(){
+            return this.isDark ? darkLogo : lightLogo
+        }
+    },
+    methods:{
+        toggleTheme(){
+            this.theme.change(this.isDark? 'adminLight' : 'adminDark')
         }
     }
 }

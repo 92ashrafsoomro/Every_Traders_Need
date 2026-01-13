@@ -1,21 +1,21 @@
 <template>
-    <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border ">
+    <v-card :loading="loading" :disabled="loading" class="my-3 border ">
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
                 <h1 class=" text-h6 Sheet">CSV</h1>
             </div>
             <div class="mx-3 d-flex">
                 <div class="px-2">
-                    <v-icon @click="CsvStore.submit" style="background-color: rgb(var(--v-theme-primary),0.3); padding: 20px;"
+                    <v-icon @click="submit" style="background-color: rgb(var(--v-theme-primary),0.3); padding: 20px;"
                         class="border" color="primary">mdi-check-decagram</v-icon>
                 </div>
                 <div class="px-2">
                     <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
-                        color="primary" @click="CsvStore.handleFile()">mdi-database-check-outline</v-icon>
+                        color="primary" @click="handleFile()">mdi-database-check-outline</v-icon>
                 </div>
                 <div class="px-2">
                     <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
-                        color="primary" @click="CsvStore.loadVehicle()">mdi-restart</v-icon>
+                        color="primary" @click="loadVehicle()">mdi-restart</v-icon>
                 </div>
             </div>
         </div>
@@ -24,15 +24,15 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">
+                        <th v-for="value in columns" :style="{ width: value?.width }" class="text-left">
                             {{ value.title }}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, id) in CsvStore.data">
+                    <tr v-for="(item, id) in data">
                         <td>{{ id }}</td>
-                        <td v-for="col in CsvStore.columns">
+                        <td v-for="col in columns">
 
                             <div v-if="col.key === 'title'">
                                 <span>{{ item[col.key] }}</span>
@@ -93,18 +93,21 @@
         </v-card-text>
     </v-card>
 
-    <VehicleTypeModal ref="vehicleTypeModalModal" @update:dailog="CsvStore.hanldeDailog" />
-    <BodyTypeModal ref="bodyTypeModal" @update:dailog="CsvStore.hanldeDailog" />
-    <MakeModal ref="makeModal" @update:dailog="CsvStore.hanldeDailog" />
-    <CenterModal ref="centerModal" @update:dailog="CsvStore.hanldeDailog" />
-    <ModelModal ref="modelModal" @update:dailog="CsvStore.hanldeDailog" />
-    <VairantModal ref="variantModal" @update:dailog="CsvStore.hanldeDailog" />
+    <VehicleTypeModal ref="vehicleTypeModalModal" @update:dailog="hanldeDailog" />
+    <BodyTypeModal ref="bodyTypeModal" @update:dailog="hanldeDailog" />
+    <MakeModal ref="makeModal" @update:dailog="hanldeDailog" />
+    <CenterModal ref="centerModal" @update:dailog="hanldeDailog" />
+
+    <ModelModal ref="modelModal" @update:dailog="hanldeDailog" />
+    <VairantModal ref="variantModal" @update:dailog="hanldeDailog" />
 
 </template>
 <script>
 
-
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
+import Auction from '@/models/auction.model';
+import columns from './columns'
+import cskMaker, { ColRender } from '@/plugins/cskMaker';
 import VehicleTypeModal from '@/components/VehicleTypeModal.vue';
 import BodyTypeModal from '@/components/BodyTypeModal.vue';
 import MakeModal from '@/components/MakeModal.vue';
@@ -112,7 +115,6 @@ import CenterModal from '@/components/CenterModal.vue';
 import ModelModal from '@/components/ModelModal.vue';
 import VairantModal from '@/components/VairantModal.vue';
 import { toRaw } from 'vue';
-import { useCsvStore } from './CsvStore';
 
 export default {
     components: {
@@ -125,19 +127,99 @@ export default {
         ModelModal
     },
     data() {
+
         return {
-            CsvStore:useCsvStore(),
+            scrap: [],
+            auction_id: this.$route.params.id,
             selectedRow: null,
+            loading: false,
+            data: [],
             errors: {},
+            columns: columns,
+            csv: null,
         }
     },
     mounted() {
+        this.loadVehicle()
 
-        this.CsvStore.id = this.$route.params.id;
-        this.CsvStore.loadVehicle()
     },
     methods: {
 
+        async loadVehicle() {
+
+            this.errors = {};
+            this.loading = true;
+            const id = this.$route.params.id;
+            try {
+
+                let res = await Auction.csvGet(id, {});
+                let data = res.data.data;
+                let modified = [];
+                data.forEach(element => {
+                    modified.push(ColRender(element));
+                });
+                this.data = modified;
+                this.loading = false;
+                this.$alertStore.add('Data Loaded', 'success');
+
+            } catch (error) {
+                this.loading = false;
+                this.data = [];
+                this.$alertStore.add(error.message, 'error');
+            }
+
+        },
+        async submit() {
+
+            this.errors = {};
+            this.loading = true;
+            try {
+
+                const id = this.$route.params.id;
+                let res = await Auction.csvUpdate(id, { data: this.data });
+                this.$alertStore.add(res.message, 'success');
+                this.loadVehicle();
+
+            } catch (error) {
+
+                this.$alertStore.add(error.message, 'error');
+                let validations = error.validation;
+                if (validations) {
+                    for (const key in validations) {
+                        if (!Object.hasOwn(validations, key)) continue;
+                        const element = validations[key];
+                        this.errors[key] = element;
+                    }
+                }
+
+            } finally {
+                this.loading = false;
+            }
+
+        },
+        async handleFile() {
+
+            this.loading = true;
+            this.errors = {};
+            try {
+
+                const id = this.$route.params.id;
+                let res = await Auction.getScrap(id, {});
+                let modified = [];
+                let data = res.data ?? [];
+                data.forEach(element => {
+                    modified.push(ColRender(element));
+                });
+
+                this.data = modified;
+                this.$alertStore.add('Loaded Data From Scrapper', 'success');
+                this.loading = false;
+
+            } catch (error) {
+                this.$alertStore.add(error.message, 'error');
+                this.loading = false;
+            }
+        },
         OpenModal(row, key, value) {
             switch (key) {
                 case 'vehicle_id':
@@ -161,7 +243,14 @@ export default {
                     break;
             }
         },
-      
+        updateCell(rowIndex, key, value) {
+            this.data[rowIndex][key] = value;
+        },
+        hanldeDailog(row, key, e) {
+            this.data[row][key] = e;
+        }
+
+
     }
 
 

@@ -1,10 +1,8 @@
 <template>
-    <v-select
+    <v-autocomplete
         v-bind="$attrs"
         :model-value="modelValue"
         :items="data"
-        item-title="label"
-        item-value="id"
         :loading="loading"
         @update:model-value="handleValue($event)"
         />  
@@ -12,8 +10,6 @@
 
 <script>
 import Model from "@/models/vehicle-model.model";
-import { debounce } from "lodash";
-
 
 export default {
     name: "ModelDropdown",
@@ -35,26 +31,22 @@ export default {
         };
     },
     mounted(){
-        // this.getData();
+      
     },
     watch: {
-        // Method 1: Simple – just name the prop
         make(newValue, oldValue) {
-            this.$emit('update:modelValue', null);
-            if (newValue) {
-                this.getData()
-            } else {
-                this.data = [];
-                this.$emit('update:modelValue', null);
-            }
+            this.getData()
         },
     },
     methods: {
         async getData() {
+                if (!this.make) {
+                    return false;    
+                }
                 this.loading = true;
                 try {
                     const response = await Model.all({
-                        makes: [this.make],
+                        make_id: this.make,
                         length: 1000
                     });
                
@@ -67,10 +59,10 @@ export default {
                 }
         },
         handleValue(value) {
-            this.$emit("update:modelValue", value);
+            this.$emit("update:value", value);
         },
     },
-    emits: ['update:modelValue']
+    emits: ['update:value']
 };
 </script>
 

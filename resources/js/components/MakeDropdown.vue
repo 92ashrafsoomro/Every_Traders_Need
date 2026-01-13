@@ -1,10 +1,8 @@
 <template>
-    <v-select
+    <v-autocomplete
         v-bind="$attrs"
         :model-value="modelValue"
         :items="data"
-        item-title="name"
-        item-value="id"
         :loading="loading"
         @update:model-value="handleValue($event)"
         />  
@@ -13,24 +11,28 @@
 <script>
 import Make from "@/models/make.model";
 
-import { debounce } from "lodash";
-
-
 export default {
     name: "MakeSelect",
     props: {
         modelValue: {
             type: [String, Number,Boolean],
             default: null
-        },
-       
+        },       
     },
     data() {
         return {
-            value:null,
             data: [],
             loading: false,
         };
+    },
+    watch:{  
+        modelValue:{
+            immediate: true,
+            handler(newValue,oldValue){
+                console.log('new',newValue);
+                
+            }
+        }
     },
     mounted(){
         this.fetchPlatforms();
@@ -50,10 +52,14 @@ export default {
                 }
         },
         handleValue(value) {
-            this.$emit("update:modelValue", value);
+            this.$emit("update:value", value);
         },
+        onEnter() {
+          
+        },
+        
     },
-    emits: ['update:modelValue']
+    emits: ['update:value']
 };
 </script>
 

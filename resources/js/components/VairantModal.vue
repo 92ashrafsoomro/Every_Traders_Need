@@ -13,24 +13,23 @@
          </v-card-actions>
         <v-card-text>
 
-            <MakeDropdown 
+            <MakeDropdown  
+               :modelValue="makeId"
+               @update:value="handleMake($event)" 
+               label="Make"
                item-title="name" 
-               item-id="id" 
-               :model-value="makeId"
-               @update:model-value="modelId = $event" 
-               label="Make" 
-               @update:modelValue="handleSearch"
-                />
+               item-value="id"
+               return-object 
+               />
 
             <ModelDropdown 
-                item-title="name" 
-                item-id="id" 
                 :make="makeId" 
                 :modelValue="modelId"
-                @update:model-value="modelId = $event" 
-                @update:modelValue="handleSearch" 
-                label="Model" />
-
+                @update:value="handleModel($event)" 
+                return-object 
+                label="Model"
+                item-title="name" 
+                item-value="id"  />
 
             <v-text-field v-model="search" @keyup.enter="handleSearch()"/>
                 <ul class="mt-2">
@@ -48,8 +47,6 @@
 import Variant from '@/models/variant.model';
 import MakeDropdown from './MakeDropdown.vue';
 import ModelDropdown from './ModelDropdown.vue';
-
-
 
 export default {
     name: "VariantModal",
@@ -84,8 +81,23 @@ export default {
         
     },
     methods: {
+        handleMake($event) {
+            this.makeId = Number($event.id);
+        },
+        handleModel($event) {
+            this.modelId = Number($event.id);
+            this.handleSearch();
+        },
+        async handleSearch() {
 
-        async handleSearch(){
+            if (!this.makeId) {
+                return false;
+            }
+
+            if (!this.modelId) {
+                return false;                
+            }
+            
             try {
                 this.loading = true;
                 let res = await Variant.all({
@@ -99,11 +111,9 @@ export default {
             } catch (error) {
                this.loading = false;
                alert(error);
-              
            }
         },
         async selectValue(item) {
-
             this.dailog = false;
             this.$emit('update:dailog',this.row,'variant_id',item.name);
         },
@@ -112,7 +122,6 @@ export default {
             this.search = initialValue;
             this.dailog = true;
             this.handleSearch();
-
         },
     }
 }

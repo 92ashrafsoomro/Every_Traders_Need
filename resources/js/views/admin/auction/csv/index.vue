@@ -20,9 +20,7 @@
             </div>
         </div>
         <v-card-text>
-            
             <v-table style="table-layout: auto; width: max-content;" height="700px" fixed-header>
-
                 <thead>
                     <tr>
                         <th>#</th>
@@ -33,7 +31,6 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, id) in data">
-
                         <td>{{ id }}</td>
                         <td v-for="col in columns">
 
@@ -89,9 +86,7 @@
                             <div v-else>
                                 <input class="border py-2 px-1" :value="item[col.key]" />
                             </div>
-
                         </td>
-
                     </tr>
                 </tbody>
             </v-table>
@@ -240,7 +235,7 @@ export default {
                     this.$refs.modelModal.open(row, value);
                     break;
                 case 'variant_id':
-                    debugger
+                    
                     this.$refs.variantModal.open(row, value);
                     break;
                 case 'center_id':

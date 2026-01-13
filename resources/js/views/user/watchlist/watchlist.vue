@@ -56,9 +56,14 @@
                         <template #item.autoboli="{ item }">
                             -
                         </template>
+
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
                         </template>
+
+                        <!-- <template #item.autotrader_retail_value="{item}">
+                            {{dateFormate(autotrader_retail_value)}}
+                        </template> -->
 
                          <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
@@ -173,6 +178,10 @@ export default {
             }
 
         },
+        // dateFormate(date){
+        //     if(!date) return ''
+        //      return date?.split('T')[0].split(' ')[0]
+        // }
 
     },
 };

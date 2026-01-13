@@ -1,33 +1,41 @@
 <template>
     <v-card title="Billing History" class="">
-            <div class="border" ></div>
-              <div class="border"> 
-            <v-data-table-server  
-                :headers="headers" 
-                :items="data" 
-                hover        
-                :items-length="data.length" 
-                hide-default-footer
-                item-value="id"
-                height="300"
-               
-            >
+        <div class="border"></div>
+        <div class="border">
+            <v-data-table-server :headers="headers" :items="data" hover :items-length="data.length" hide-default-footer
+                item-value="id" height="300">
 
-                    <template #item.invoice="{ item }" >
-                        <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>
-                        <v-icon icon="mdi-download"></v-icon>
-                    </template>
+                <template #item.invoice="{ item }">
+                    <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>
+                    <v-icon icon="mdi-download"></v-icon>
+                </template>
+
+                <template #item.updated_at="{ item }">
+                    <span class="">
+                        {{ dateFormate(item.updated_at) }}
+                    </span>
+                </template>
+                <template #item.membership_start_date="{ item }">
+                    <span class="">
+                        {{ dateFormate(item.membership_start_date) }}
+                    </span>
+                </template>
+                <template #item.membership_expiry_date="{ item }">
+                    <span class="">
+                        {{ dateFormate(item.membership_expiry_date) }}
+                    </span>
+                </template>
             </v-data-table-server>
-            </div>
-        </v-card>
+        </div>
+    </v-card>
 </template>
 
 <script>
 
- import { usePageStore } from '@/stores/pageStore';
+import { usePageStore } from '@/stores/pageStore';
 import { useUserStore } from '@/stores/userStore';
 
- export default {
+export default {
     components: {
 
     },
@@ -36,7 +44,7 @@ import { useUserStore } from '@/stores/userStore';
             pageStore: usePageStore(),
             userStore: useUserStore(),
             data: [],
-              loading: true,
+            loading: true,
             headers: [
                 { title: "Id", key: "id" },
                 { title: "Date", value: "updated_at" },
@@ -53,17 +61,23 @@ import { useUserStore } from '@/stores/userStore';
 
     },
     mounted() {
-        
-        
+
+
         // this.loadDataFromProfile();
         this.data = this.userStore.user.billingHistory
 
     },
     methods: {
         loadDataFromProfile() {
-          
+
+        },
+
+        dateFormate(date) {
+            if (!date) return ''
+            return date.split('T')[0].split(' ')[0]
         }
+
+
     }
 };
 </script>
-

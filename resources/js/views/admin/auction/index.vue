@@ -17,20 +17,20 @@
                 <div v-show="showFilters">
                     <v-container fluid>
                         <v-row>
-                            <v-col class="mt-1 text-center content-scroll" align="center">
+                            <v-col class=" text-center content-scroll" align="center">
                                 <v-text-field density="comfortable" variant="outlined" clearable
                                     v-model="filter.table_id" label="Auction Id" />
                             </v-col>
                             <v-col>
                                 <PlateformDropdown v-model="filter.platform" label="Auction House" variant="outlined"
-                                    base-color="white" density="compact" />
+                                    base-color="white" density="comfortable" />
                                 <!-- <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
                                     label="Auction Name " /> -->
                             </v-col>
                             <v-col>
 
-                                <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type" variant="outlined"
-                                    base-color="white" density="compact" />
+                                <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type"
+                                    variant="outlined" base-color="white" density="comfortable" />
                             </v-col>
                         </v-row>
                         <v-row class="mt-1 text-center content-scroll" align="center">
@@ -92,6 +92,13 @@
                 <div class="border">
                     <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total"
                         hover item-value="id" @update:options="loadItems" :lastPage="last_page">
+
+                        <template #item.auction_date="{ item }">
+                            <span >
+                                {{ formatDate(item.auction_date) }}
+                            </span>
+                        </template>
+
 
                         <template #item.action="{ item }">
                             <router-link :to="'/admin/auction/edit/' + item.id">
@@ -183,7 +190,10 @@ export default {
         },
     },
     methods: {
-
+        formatDate(date) {
+            if (!date) return ''
+            return date.split('T')[0].split(' ')[0]
+        },
         async loadItems() {
 
             this.loading = true;
@@ -192,7 +202,7 @@ export default {
                 let res = await Auction.all(this.filter);
                 this.items = res.data;
                 this.filter.page = Number(res.page)
-                
+
                 this.total = res.recordsTotal;
                 this.last_page = Number(res.last_page);
             } catch (error) {

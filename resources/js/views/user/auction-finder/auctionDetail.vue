@@ -32,7 +32,7 @@
                             {{ item.grade }}
                         </span>
                     </td>
-                    <td><div style="width: 200px !important;">{{ item.auction_date }}</div></td>
+                    <td><div style="width: 200px !important;">{{dateFormate(item.auction_date)}}</div></td>
                     <!-- {{ item.auction_time }} -->
                     <td class="d-lg-none d-md-none">
                         <div class="d-flex flex-column ">
@@ -193,6 +193,10 @@ export default {
             this.currentIndex =
                 (this.currentIndex + 1) % this.currentImages.length
         },
+          dateFormate(date) {
+            if (!date) return ""
+            return date?.split('T')[0].split(' ')[0]
+        }
     }
 }
 

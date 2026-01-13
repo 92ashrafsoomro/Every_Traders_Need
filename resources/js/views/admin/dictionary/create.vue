@@ -30,8 +30,9 @@
 
               </v-col>
               <v-col cols="4">
-                <v-text-field v-model="form.value" label="Prefixes Value" clearable required 
-                  @input="suggestion" />
+                <v-text-field v-model="form.value" label="Prefixes Value" clearable required :disabled="!form.name"
+                  @input="suggestion"  :hint="!form.name ? 'Please select prefix type first' : ''"  persistent-hint />
+
 
                 <v-card v-if="showList" v-click-outside="closeList" style="height: 200px; overflow-y: auto;">
                   <v-list-item v-for="item in searchItem" :key="item.id" @click="selectItem(item)"
@@ -100,11 +101,15 @@ export default {
     },
     async suggestion(key) {
       if (!this.form.value) {
+        this.showList = false
+        this.searchItem = []
+        return
+      }
+      if (!this.form.value) {
         this.searchItem = []
         this.showList = false
         return
       }
-
       this.showList = true
       switch (this.form.name) {
         case "vehicleType":

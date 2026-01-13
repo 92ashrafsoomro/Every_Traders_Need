@@ -108,7 +108,7 @@
             <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="12" md="3" lg="2"
                 class="d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none; ">
                 <div class="d-flex align-center justify-space-between pa-3 border-b"
-                    style="background-color: rgb(var(--v-theme-primary),0.3);">
+                    style="background-color: rgb(var(--v-theme-primary),0.2);">
                     <h5 class="text-h6 font-weight-bold">Auctions Filter</h5>  
                 </div>
                 <div class="bg-surface pa-0 ">

@@ -1,5 +1,5 @@
 <template>
-    <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border ">
+    <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border">
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
                 <h1 class=" text-h6 Sheet">CSV</h1>
@@ -24,9 +24,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">
-                            {{ value.title }}
-                        </th>
+                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">{{ value.title }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,35 +37,35 @@
                             </div>
 
                             <div v-else-if="col.key === 'vehicle_id'">
-                                <span :class="{ has_error: errors['data.' + id + '.vehicle_id'] }" class="pointer"
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.vehicle_id'] }" class="pointer"
                                     @click="OpenModal(id, 'vehicle_id', item[col.key])">
                                     {{ item[col.key] }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'body_id'">
-                                <span :class="{ has_error: errors['data.' + id + '.body_id'] }" class="pointer"
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.body_id'] }" class="pointer"
                                     @click="OpenModal(id, 'body_id', item[col.key])">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'make_id'">
-                                <span :class="{ has_error: errors['data.' + id + '.make_id'] }" class="pointer"
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.make_id'] }" class="pointer"
                                     @click="OpenModal(id, 'make_id', item[col.key])">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'model_id'">
-                                <span :class="{ has_error: errors['data.' + id + '.model_id'] }" class="pointer"
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.model_id'] }" class="pointer"
                                     @click="OpenModal(id, 'model_id', item[col.key])">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'variant_id'">
-                                <span :class="{ has_error: errors['data.' + id + '.variant_id'] }" class="pointer"
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.variant_id'] }" class="pointer"
                                     @click="OpenModal(id, 'variant_id', item[col.key])">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
@@ -86,6 +84,7 @@
                             <div v-else>
                                 <input class="border py-2 px-1" :value="item[col.key]" />
                             </div>
+
                         </td>
                     </tr>
                 </tbody>
@@ -110,7 +109,7 @@ import BodyTypeModal from '@/components/BodyTypeModal.vue';
 import MakeModal from '@/components/MakeModal.vue';
 import CenterModal from '@/components/CenterModal.vue';
 import ModelModal from '@/components/ModelModal.vue';
-import VairantModal from '@/components/VairantModal.vue';
+import VairantModal from './VariantModal.vue';
 import { toRaw } from 'vue';
 import { useCsvStore } from './CsvStore';
 
@@ -128,13 +127,13 @@ export default {
         return {
             CsvStore:useCsvStore(),
             selectedRow: null,
-            errors: {},
+          
         }
     },
     mounted() {
 
         this.CsvStore.id = this.$route.params.id;
-        this.CsvStore.loadVehicle()
+        this.CsvStore.handleFile()
     },
     methods: {
 
@@ -154,7 +153,7 @@ export default {
                     break;
                 case 'variant_id':
                     
-                    this.$refs.variantModal.open(row, value);
+                    this.$refs.variantModal.open(row);
                     break;
                 case 'center_id':
                     this.$refs.centerModal.open(row, value);

@@ -38,10 +38,14 @@ class MakeController extends Controller
             $query->where('id',$request->id);
         }
 
-        // if($request->filled('search')) {
-        //     $query->where('make.name', 'like', '%'.$request->search.'%');
-        //     $query->orWhere('make.id', 'like', '%'.$request->search.'%');
-        // }
+        if($request->filled('name')){
+            $query->whereRaw('LOWER(name) = ?',[strtolower($request->name)]);
+        }
+        
+        if($request->filled('search')) {
+            $query->where('make.name', 'like', '%'.$request->search.'%');
+            $query->orWhere('make.id', 'like', '%'.$request->search.'%');
+        }
 
         $count = (clone $query)->count();
         $data  = $query->select([

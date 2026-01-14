@@ -47,6 +47,10 @@ class VariantController extends Controller
             $query->where('model_variant.model_id',$request->model_id);
         }
 
+        if($request->filled('name')){
+            $query->whereRaw('LOWER(model_variant.name) = ?',[strtolower($request->name)]);
+        }
+
         if($request->filled('search')) {
                $query->where('model_variant.name', 'like', '%'.$request->search.'%');
                 $query->orWhere('model_variant.id', 'like', '%'.$request->search.'%');

@@ -9,62 +9,62 @@
         "path": "/admin/dashboard"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-car-search-outline",
         "label": "Master",
         "path": "/admin/bodyType"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-pencil-box",
         "label": "Dictionary",
         "path": "/admin/dictionary"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-import",
         "label": "Import Auction",
         "path": "/admin/auction"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-tire",
         "label": "Vehicles List",
         "path": "/admin/vehicle"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-account-group",
         "label": "Members",
         "path": "/admin/members"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-card-bulleted",
         "label": "Transaction",
         "path": "/admin/transaction"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-map-plus",
         "label": "Plans",
         "path": "/admin/plans"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-tune",
         "label": "Marketing",
         "path": "/admin/marketing"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-lock",
         "label": "Access Control",
         "path": "/admin/access"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-account-multiple-check",
         "label": "Admin List",
         "path": "/admin/adminList"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-polymer",
         "label": "Role",
         "path": "/admin/role"
     },
     {
-        "icon": "mdi-star-outline",
+        "icon": "mdi-key-alert",
         "label": "Permission",
         "path": "/admin/permission"
     }

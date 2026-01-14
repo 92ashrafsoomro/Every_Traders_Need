@@ -15,7 +15,7 @@
                                                 :items="statusItems"
                                                 item-title="label"
                                                 item-value="value"
-                                                 density="comfortable" 
+                                                 density="compact" 
                                                 color="primary"
                                                 clearable
                                                 />
@@ -27,7 +27,7 @@
                                                 variant="outlined" 
                                                 label="Plan Name"
                                                 base-color="white"
-                                                 density="comfortable"  
+                                                 density="compact"  
                                                 color="primary" 
                                                 clearable
                                                   
@@ -39,7 +39,7 @@
                                                  label="Search"
                                                 variant="outlined" 
                                                   
-                                                 density="comfortable" 
+                                                 density="compact" 
                                                 clearable />
                                         </v-col>
                                         <v-col cols="3" sm="2" class="pl-2 d-flex align-center">
@@ -77,7 +77,7 @@
                             <v-select 
                                 v-model="filter.length" 
                                 :items="[100, 500, 1000, 2000]" 
-                                 density="comfortable"  
+                                 density="compact"  
                                 variant="outlined"
                                 max-width="150px" class="mr-2" 
                                 />

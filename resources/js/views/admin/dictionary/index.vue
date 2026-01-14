@@ -16,20 +16,20 @@
 
                             <!-- Dictionary Name -->
                             <v-col cols="12" sm="4">
-                                <v-select density="comfortable" variant="outlined" clearable v-model="filter.name"
+                                <v-select density="compact" variant="outlined" clearable v-model="filter.name"
                                     item-title="label" label="Prefix Name" :items="Dictionary.prefixName" />
                             </v-col>
 
                             <!-- Dictionary Key -->
                             <v-col cols="12" sm="3">
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.key"
+                                <v-text-field density="compact" variant="outlined" clearable v-model="filter.key"
                                     label="Dictionary Key" />
                             </v-col>
 
                             <!-- Dictionary Value -->
                             <v-col cols="12" sm="3">
                                 <div class="d-flex">
-                                     <v-text-field density="comfortable" variant="outlined" clearable
+                                     <v-text-field density="compact" variant="outlined" clearable
                                         v-model="filter.value" label="Dictionary Value" />
                                     <v-btn style="height: 44px; margin-left: 10px;" variant="outlined"
                                         @click="loadItems" class="mr-2">
@@ -38,7 +38,7 @@
                                 </div>
                             </v-col>
                             <!-- <v-col cols="12" sm="5" class="d-flex">
-                                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.search"
+                                <v-text-field density="compact" variant="outlined" clearable v-model="filter.search"
                                     label="Search" />
 
                                 <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems"
@@ -63,7 +63,7 @@
         <div class="d-flex  justify-space-between w-100 ">
             <div class="d-flex w-50 ">
                 <v-select v-model="filter.length" :items="[100, 500, 1000, 2000]" density="compact" variant="outlined"
-                    max-width="150px" class="mr-2" />
+                    max-width="90px" class="mr-2" />
                 <div class="align-self-center pl-2">
                     {{ filter.offset + 1 }} - {{ Math.min(filter.offset + filter.length, totalRecord) }} of {{
                         total }} Records
@@ -72,7 +72,7 @@
             </div>
 
             <div class="w-50 d-flex">
-                <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.search"
+                <v-text-field density="compact" variant="outlined" clearable v-model="filter.search"
                     label="Search" />
 
                 <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems" class="mr-2">

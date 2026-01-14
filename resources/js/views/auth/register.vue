@@ -185,7 +185,7 @@
                                             </div>
                                             <div class=" pt-3  ">
                                                 <!-- Custom Button -->
-                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+                                                <v-icon class="pr-4 text-whiteLite">mdi-upload</v-icon>
                                                 <v-btn color="" class="buttonBorder text-capitalize" variant="outlined"
                                                     style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
                                                     @click="$refs.avatarInput.click()">
@@ -227,7 +227,7 @@
                                             </div>
 
                                             <div class="pt-3">
-                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+                                                <v-icon class="pr-4 text-whiteLite">mdi-upload</v-icon>
 
                                                 <v-btn class="buttonBorder text-capitalize" variant="outlined"
                                                     style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"
@@ -256,7 +256,7 @@
                                             </div>
 
                                             <div class="pt-3">
-                                                <v-icon class="pr-4 text-white">mdi-upload</v-icon>
+                                                <v-icon class="pr-4 text-whiteLite">mdi-upload</v-icon>
 
                                                 <v-btn class="buttonBorder text-capitalize" variant="outlined"
                                                     style="height: 50px; border: 1px dashed rgb(var(--v-theme-border));"

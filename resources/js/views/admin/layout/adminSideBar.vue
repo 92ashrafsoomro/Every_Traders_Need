@@ -3,7 +3,7 @@
         <v-list density="compact" class="" nav>
 
             <v-list-item class="d-flex " style="height: 57px; ">
-                <img v-if="menuWidth == 300" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
+                <img v-if="menuWidth == 258" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
                 <img v-else :src="smallCurrent" style="width: 40px; height: 40px;" />
             </v-list-item>
 
@@ -52,18 +52,20 @@ export default {
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
-            openGroup: null,
             newLogo,
             userStore: useUserStore(),
             vuetify: useTheme()
         };
     },
-    computed: {
+       computed: {
         menuWidth() {
+
+            // md, sm, xs
             if (this.display.mdAndDown) {
-                return 300
+                return "258";
             } else {
-                return this.themeStore.menuType == "expanded" ? 300 : 68
+                //for: lg, xl
+                return this.themeStore.menuType == "expanded" ? "258" : "70";
             }
         },
         isDark() {
@@ -72,44 +74,21 @@ export default {
         currentLogo() {
             return this.isDark ? darkLogo : lightLogo
         },
-        smallCurrent() {
-            return this.isDark ? darkshortLogo : lightshortLogo
-        },
-        isCollapsed() {
-            return this.menuWidth == 68
+        smallCurrent(){
+             return this.isDark ? darkshortLogo : lightshortLogo
         }
     },
     methods: {
-        handleGroupClick(label) {
-            if (this.isCollapsed) {
-                this.themeStore.menuType = "expanded"
-
-                this.$nextTick(() => {
-                    this.openGroup = label
-                })
-            } else {
-                this.openGroup = this.openGroup === label ? null : label
-            }
-        },
         images() {
             return this.isDark ? darkLogo : lightLogo;
         },
         toggleTheme() {
             this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
         }
-    },
-    mounted() {
 
     },
-    watch: {
-        menuWidth(newVal) {
-            if (newVal === 68) {
-                this.openGroup = null
-            }
-        }
-    }
-
-
+    mounted() { },
+    
 };
 </script>
 <style>

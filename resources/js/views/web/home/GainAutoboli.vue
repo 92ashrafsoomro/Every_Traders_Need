@@ -1,6 +1,6 @@
 <template>
     <div class="py-16" style="background-color:rgb(var(--v-theme-surface))">
-        <v-container style="max-width:1300px">
+        <v-container style="max-width:1400px" fluid="">
 
             <!-- Heading -->
             <div class="text-center mb-14">

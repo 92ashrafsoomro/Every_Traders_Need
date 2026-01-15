@@ -1,10 +1,15 @@
 import { defineStore } from "pinia";
 
-import { errorHandler } from "@/services/responseHandleService";
+
+
+
 import Auction from "@/models/auction.model";
 import columns from './columns'
 import { useAlertStore } from "@/stores/alertStore";
 import General from "@/models/general.model";
+
+
+
 
 export const useCsvStore = defineStore("CsvStore", {
     state: () => ({
@@ -27,6 +32,7 @@ export const useCsvStore = defineStore("CsvStore", {
            data:[]  
         },
         id: null,
+        rowId:null,
         row:null,
         data: [],
         scrap: [],
@@ -303,7 +309,7 @@ export const useCsvStore = defineStore("CsvStore", {
             this.row.make_id = this.makes.selected.name;
             this.row.model_id = this.models.selected.name;
             this.row.variant_id = this.variants.selected.name;
-            this.data[this.id] = this.row;
+            this.data[this.rowId] = this.row;
             this.closeModal();
 
         },
@@ -318,7 +324,7 @@ export const useCsvStore = defineStore("CsvStore", {
             this.makes.selected = null;
 
             this.dailog = false;
-            this.id = null;
+            this.rowId = null;
             this.row = null;
         },
         openModal(row) {
@@ -328,7 +334,7 @@ export const useCsvStore = defineStore("CsvStore", {
             if (find) {
                 
                 this.dailog = true;
-                this.id = row;
+                this.rowId = row;
                 this.row = find;
                 this.makes.search = this.row.make_id;
                 this.models.search = this.row.model_id;
@@ -338,7 +344,18 @@ export const useCsvStore = defineStore("CsvStore", {
             }
 
         },
-
+        reload() { 
+            const alertStore = useAlertStore() 
+            this.makes.search = this.row.make_id;
+            this.models.search = this.row.model_id;
+            this.variants.search = this.row.variant_id;
+            this.findMakebyName()
+            
+            alertStore.add('Reset Form', 'success');
+        },
+     
+     
+        
     },
 
 

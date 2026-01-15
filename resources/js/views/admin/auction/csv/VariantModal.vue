@@ -2,13 +2,14 @@
     <v-dialog
     :model-value="csv.dailog"
     @update:model-value=""
-    width="600px"
+    width="800px"
     >
         <v-card
             prepend-icon="mdi-magnify"
-            title="Edit"
+            :title="csv.row?.title"
         >
         <v-card-actions class="" style="position: absolute; right: 10px; top: 8px;"> 
+           <v-icon color="primary" @click="csv.reload()">mdi-reload</v-icon>
            <v-icon color="primary" @click="csv.closeModal()">mdi-close</v-icon>
         </v-card-actions>
         <v-card-text v-if="csv.row" >
@@ -37,18 +38,18 @@
             </div>
 
             <div class="">
-                <v-text-field 
-                  v-if="csv.models.selected" 
-                   readonly :model-value="csv.models.selected.name" 
-                   append-inner-icon="mdi-close"
-                   label="Model"
-                   @click:append-inner="csv.clearModel"
-                   variant="outlined"
-                  />
-                <v-text-field v-else
-                    label="Model" 
-                    v-model="csv.models.search" 
-                    @keyup.enter="csv.modelSearch"/>
+                    <v-text-field 
+                    v-if="csv.models.selected" 
+                    readonly :model-value="csv.models.selected.name" 
+                    append-inner-icon="mdi-close"
+                    label="Model"
+                    @click:append-inner="csv.clearModel"
+                    variant="outlined"
+                    />
+                    <v-text-field v-else
+                        label="Model" 
+                        v-model="csv.models.search" 
+                        @keyup.enter="csv.modelSearch"/>
                 <ul class="mt-2">
                     <li v-if="csv.models.loading" >Loading...</li>
                     <li class="text-center" v-else-if="csv.models.length == 0 && csv.models.search != null" >No Record</li>
@@ -60,6 +61,7 @@
             </div>
 
             <div class="">
+                <div>
                 <v-text-field 
                   v-if="csv.variants.selected" 
                    readonly :model-value="csv.variants.selected.name" 
@@ -69,9 +71,12 @@
                    variant="outlined"
                   />
                 <v-text-field v-else
-                    label="Variant" 
+                    label="Variant"
+                    append-inner-icon="mdi-plus"
+                    @click:append-inner="addNewVariantForm()" 
                     v-model="csv.variants.search" 
                     @keyup.enter="csv.variantSearch"/>
+                </div>
                 <ul class="mt-2">
                     <li v-if="csv.variants.loading" >Loading...</li>
                     <li class="text-center" v-else-if="csv.variants.length == 0 && csv.variants.search != null" >No Record</li>
@@ -93,6 +98,7 @@
 <script>
 
 import { useCsvStore } from './CsvStore';
+import { useRouter } from 'vue-router'
 
 
 export default {
@@ -103,6 +109,7 @@ export default {
     data() {
         return {
             csv: useCsvStore(),      
+            router: useRouter() 
         }
     },
     mounted(){
@@ -115,7 +122,14 @@ export default {
 
     },
     methods: {
-   
+        addNewVariantForm() {
+
+            const newRoute = this.router.resolve({
+                path: '/admin/variant/create'
+            });
+            window.open(newRoute.href, '_blank');
+
+        },
     }
 }
 </script>

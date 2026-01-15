@@ -310,6 +310,15 @@ export const useCsvStore = defineStore("CsvStore", {
             this.row.model_id = this.models.selected.name;
             this.row.variant_id = this.variants.selected.name;
             this.data[this.rowId] = this.row;
+
+            this.data.forEach((row,key) => {
+                if (row.make_id.toLowerCase() == this.row.make_id.toLowerCase() && row.model_id.toLowerCase() == this.row.model_id.toLowerCase() && row.derivative == this.row.derivative) {
+                    debugger
+                    this.data[key].variant_id = this.row.variant_id;  
+                }
+            })
+
+
             this.closeModal();
 
         },
@@ -353,6 +362,11 @@ export const useCsvStore = defineStore("CsvStore", {
             
             alertStore.add('Reset Form', 'success');
         },
+        updateVariant() { 
+            
+         
+
+        }
      
      
         

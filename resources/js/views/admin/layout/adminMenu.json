@@ -1,13 +1,29 @@
 [
     {
+      
+            "label": "Menu",
+            "type": "group"
+    },{
         "label": "Dashboard",
         "icon": "mdi-view-dashboard-outline",
         "path": "/admin/dashboard"
     },
-    {
-        "label": "Data Management",
-        "icon": "mdi-circle",
-        "children": [
+     {
+                "icon": "mdi-car-search-outline",
+                "label": "Master",
+                "path": "/admin/bodyType"
+            },
+            {
+                "icon": "mdi-pencil-box",
+                "label": "Dictionary",
+                "path": "/admin/dictionary"
+            },
+            {
+      
+            "label": "Data Management",
+            "type": "group"
+    },
+    
             {
                 "icon": "mdi-import",
                 "label": "Import Auction",
@@ -18,19 +34,13 @@
                 "label": "Vehicles List",
                 "path": "/admin/vehicle"
             },
-            {
-                "icon": "mdi-car-search-outline",
-                "label": "Master",
-                "path": "/admin/bodyType"
-            },
-            {
-                "icon": "mdi-pencil-box",
-                "label": "Dictionary",
-                "path": "/admin/dictionary"
-            }
-        ]
-    },
+        
+    
     {
+      
+            "label": "Other",
+            "type": "group"
+    },        {
         "label": "User Management",
         "icon": "mdi-account-multiple",
         "children": [

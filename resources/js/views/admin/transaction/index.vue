@@ -310,7 +310,7 @@ export default {
                     let res = await  Subscriptions.all(this.filter);
                     this.items = res.data;
                     this.total = res.recordsTotal;
-                    this.filter.page = Number(res.page);
+                    // this.filter.page = Number(res.page);
                     this.last_page = Number(res.last_page);
                     this.loading = false
                    

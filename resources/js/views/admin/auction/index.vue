@@ -42,7 +42,7 @@
                             </v-col>
                             <v-col>
                                 <div class="d-flex">
-                                    <v-text-field density="comfortable" variant="outlined" type="datetime-local"
+                                    <v-text-field density="comfortable" variant="outlined" type="date"
                                         v-model="filter.auction_date" label="Auction Date" />
 
 
@@ -146,7 +146,7 @@ export default {
                 table_id: "",
                 name: "",
                 action_type: "",
-                platform: "",
+                platform: null,
                 status: "Draft",
                 auction_date: "",
                 search: '',

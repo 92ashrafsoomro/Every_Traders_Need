@@ -2,12 +2,15 @@
     <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border">
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
-                <h1 class=" text-h6 Sheet">CSV</h1>
+                <h1 class=" text-h6 Sheet">CSV <span class="pointer bg-background">Id : {{ form.table_id }}</span>
+                    <span class="pointer ml-2 bg-background">{{ form.name }}</span>
+                </h1>
             </div>
             <div class="mx-3 d-flex">
                 <div class="px-2">
-                    <v-icon @click="CsvStore.submit" style="background-color: rgb(var(--v-theme-primary),0.3); padding: 20px;"
-                        class="border" color="primary">mdi-check-decagram</v-icon>
+                    <v-icon @click="CsvStore.submit"
+                        style="background-color: rgb(var(--v-theme-primary),0.3); padding: 20px;" class="border"
+                        color="primary">mdi-check-decagram</v-icon>
                 </div>
                 <div class="px-2">
                     <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
@@ -17,14 +20,22 @@
                     <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
                         color="primary" @click="CsvStore.loadVehicle()">mdi-restart</v-icon>
                 </div>
+                <div class="px-2">
+                    <v-icon class="border" color="primary"
+                        style="background-color: rgb(var(--v-theme-background)); padding: 20px;"
+                        @click="$emit('toggle')">
+                        mdi-dots-vertical
+                    </v-icon>
+                </div>
             </div>
         </div>
         <v-card-text>
-            <v-table style="table-layout: auto; width: max-content;" height="700px" fixed-header>
+            <v-table hover style="table-layout: auto; width: max-content;" height="700px" fixed-header>
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">{{ value.title }}</th>
+                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">{{
+                            value.title }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,8 +48,8 @@
                             </div>
 
                             <div v-else-if="col.key === 'vehicle_id'">
-                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.vehicle_id'] }" class="pointer"
-                                    @click="OpenModal(id, 'vehicle_id', item[col.key])">
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.vehicle_id'] }"
+                                    class="pointer" @click="OpenModal(id, 'vehicle_id', item[col.key])">
                                     {{ item[col.key] }}
                                 </span>
                             </div>
@@ -60,15 +71,15 @@
                             </div>
 
                             <div v-else-if="col.key === 'model_id'">
-                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.model_id'] }" class="pointer"
-                                    @click="CsvStore.openModal(id)">
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.model_id'] }"
+                                    class="pointer" @click="CsvStore.openModal(id)">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'variant_id'">
-                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.variant_id'] }" class="pointer"
-                                    @click="CsvStore.openModal(id)">
+                                <span :class="{ has_error: CsvStore.errors['data.' + id + '.variant_id'] }"
+                                    class="pointer" @click="CsvStore.openModal(id)">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
@@ -93,7 +104,7 @@
             </v-table>
         </v-card-text>
     </v-card>
-    
+
     <VairantModal />
     <VehicleTypeModal ref="vehicleTypeModalModal" @update:dailog="CsvStore.hanldeDailog" />
     <BodyTypeModal ref="bodyTypeModal" @update:dailog="CsvStore.hanldeDailog" />
@@ -106,14 +117,14 @@
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import VehicleTypeModal from '@/components/VehicleTypeModal.vue';
 import BodyTypeModal from '@/components/BodyTypeModal.vue';
-
 import CenterModal from '@/components/CenterModal.vue';
-
 import VairantModal from './VariantModal.vue';
 import { toRaw } from 'vue';
 import { useCsvStore } from './CsvStore';
+import Auction from '@/models/auction.model';
 
 export default {
+
     components: {
         PlateformDropdown,
         VehicleTypeModal,
@@ -123,17 +134,35 @@ export default {
     },
     data() {
         return {
-            CsvStore:useCsvStore(),
+            CsvStore: useCsvStore(),
             selectedRow: null,
-          
+            form: {
+                table_id: '',
+                name: '',
+            }
         }
     },
+    emits: ['toggle'],
     mounted() {
         this.CsvStore.id = this.$route.params.id;
         this.CsvStore.loadVehicle();
+        this.getData()
     },
     methods: {
+        async getData() {
+            const id = this.$route.params.id;
+            try {
+                let res = await Auction.find(id, {});
 
+                this.form.table_id = res.data.table_id;
+                this.form.name = res.data.name;
+                this.form.type = res.data.type
+            } catch (error) {
+                this.$alertStore.add(error.message, 'error');
+                // this.$router.push('/admin/auction');
+            }
+
+        },
         OpenModal(row, key, value) {
             switch (key) {
                 case 'vehicle_id':
@@ -147,7 +176,7 @@ export default {
                     break;
             }
         },
-      
+
     }
 
 
@@ -174,10 +203,17 @@ td {
 
 .pointer {
     cursor: pointer;
+     padding: 8px;
+     border-radius: 4px;
+}
+.pointer:hover{
+    background-color: rgb(var(--v-theme-background));
 }
 
-.has_error {
-    background: rgb(var(--v-theme-danger), 0.2);
-    padding: 14px 0px;
+.has_error{
+      background: rgb(var(--v-theme-danger), 0.2);
+      padding: 8px;
 }
+
+
 </style>

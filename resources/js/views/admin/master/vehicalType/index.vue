@@ -157,7 +157,7 @@ export default {
                     let res = await  VehicleType.all(this.filter);
                     this.items = res.data;
                     this.total = res.recordsTotal;
-                    this.filter.page = Number(res.page);
+                    // this.filter.page = Number(res.page);
                     this.loading = false
                    
                 } catch (error) {

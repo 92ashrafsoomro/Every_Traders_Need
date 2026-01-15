@@ -14,7 +14,7 @@
                 <!-- Dynamic Menu Items -->
                 <template v-for="(item, index) in userMenu" :key="index">
 
-                    <v-list-item v-if="item.type == 'group'" class="ml-n1 mt-8"  title="" :subtitle="item.label">
+                    <v-list-item v-if="item.type == 'group'" class=" ml-n1 mt-8"  title="" :subtitle="item.label">
                         <v-divider class="mt-2"></v-divider>
                     </v-list-item>
 
@@ -38,7 +38,7 @@
                         class="text-subtitle-1"
                         active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                         <template #title>
-                            <span :ripple="false" class="text-body-1 ml-6">{{ item.label }}</span>
+                            <span :ripple="false" class="text-h6 ">{{ item.label }}</span>
                         </template>
                     </v-list-item>
 

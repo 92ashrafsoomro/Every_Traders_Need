@@ -46,7 +46,7 @@
               </v-col>
 
 
-              <v-col cols="12" class="mt-3">
+              <v-col cols="4" class="">
                 <v-text-field
                   v-model="titleInput"
                   label="Title"

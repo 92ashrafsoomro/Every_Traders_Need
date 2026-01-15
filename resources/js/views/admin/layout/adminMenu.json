@@ -2,13 +2,7 @@
     {
         "label": "Dashboard",
         "icon": "mdi-view-dashboard-outline",
-        "children": [
-            {
-                "icon": "mdi-view-dashboard-outline",
-                "label": "Dashboard",
-                "path": "/admin/dashboard"
-            }
-        ]
+        "path": "/admin/dashboard"
     },
     {
         "label": "Data Management",

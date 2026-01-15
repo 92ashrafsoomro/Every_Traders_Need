@@ -38,7 +38,7 @@
                         class="text-subtitle-1"
                         active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                         <template #title>
-                            <span :ripple="false" class="text-body-1">{{ item.label }}</span>
+                            <span :ripple="false" class="text-body-1 ml-6">{{ item.label }}</span>
                         </template>
                     </v-list-item>
 

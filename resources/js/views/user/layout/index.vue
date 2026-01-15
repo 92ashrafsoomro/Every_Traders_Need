@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app style="overflow-x: hidden;">
         <Sidebar />
         <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
             style="height: 70px;">

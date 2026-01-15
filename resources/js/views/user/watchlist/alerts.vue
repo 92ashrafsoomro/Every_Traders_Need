@@ -3,7 +3,7 @@
     <v-col cols="12">
         <v-row class="mt-3">
             <v-col cols="12">
-                <div class="scrollSec d-flex justify-md-space-between  h-100 pa-2" >
+                <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2" >
                     <div class="d-flex  ">
                         <div class=" " >
                             

@@ -21,16 +21,32 @@
               <v-col cols="4">
 
                 <v-select label="Select" :items="Dictionary.prefixName" item-title="label" item-value="value"
+                 density="compact"
+                variant="outlined"
                   v-model="form.name" />
               </v-col>
 
 
               <v-col cols="4">
-                <v-text-field v-model="form.key" label="Prefixes Key" clearable="" required />
+              <v-text-field
+                v-model="form.key"
+                label="Prefixes Key"
+                density="compact"
+                variant="outlined"
+                clearable
+                required
+              />
+
 
               </v-col>
               <v-col cols="4">
-                <v-text-field v-model="form.value" label="Prefixes Value" clearable required :disabled="!form.name"
+                <v-text-field  v-model="form.value"
+                  label="Prefixes Value"
+                  clearable
+                  required
+                   density="compact"
+                variant="outlined"
+                  :disabled="!form.name"
                   @input="suggestion"  :hint="!form.name ? 'Please select prefix type first' : ''"  persistent-hint />
 
 
@@ -99,45 +115,47 @@ export default {
     selectItem(item) {
       this.form.value = item.name
     },
-    async suggestion(key) {
-      if (!this.form.value) {
-        this.showList = false
-        this.searchItem = []
-        return
-      }
-      if (!this.form.value) {
-        this.searchItem = []
-        this.showList = false
-        return
-      }
-      this.showList = true
-      switch (this.form.name) {
-        case "vehicleType":
-          let vehiclRes = await VehicleType.all({ search: this.form.key });
-          this.searchItem = vehiclRes.data;
-          break
-        case "bodyType":
-          let bodyRes = await BodyType.all({ search: this.form.key });
-          this.searchItem = bodyRes.data;
-          break
-        case "make":
-          let makeRes = await Make.all({ search: this.form.key });
-          this.searchItem = makeRes.data;
-          break
-        case "model":
-          let modelRes = await Model.all({ search: this.form.key });
-          this.searchItem = modelRes.data;
-          break
-        case "variant":
-          let variantRes = await Variant.all({ search: this.form.key });
-          this.searchItem = variantRes.data;
-          break
-        case "center":
-          let centerRes = await Center.all({ search: this.form.key });
-          this.searchItem = centerRes.data;
-          break
-      }
-    },
+   async suggestion() {
+  if (!this.form.value || !this.form.name) {
+    this.showList = false
+    this.searchItem = []
+    return
+  }
+
+  this.showList = true
+
+  switch (this.form.name) {
+    case "vehicleType":
+      this.searchItem = (await VehicleType.all({
+        search: this.form.value
+      })).data
+      break
+
+    case "bodyType":
+      this.searchItem = (await BodyType.all({
+        search: this.form.value
+      })).data
+      break
+
+    case "make":
+      this.searchItem = (await Make.all({
+        search: this.form.value
+      })).data
+      break
+
+    case "model":
+      this.searchItem = (await Model.all({
+        search: this.form.value
+      })).data
+      break
+
+    case "variant":
+      this.searchItem = (await Variant.all({
+        search: this.form.value
+      })).data
+      break
+  }
+},
     selectItem(item) {
       this.form.value = item.name
       this.showList = false

@@ -1,21 +1,19 @@
 <template>
     
-    <v-col cols="12">
+    <v-col  class="ma-0">
         <v-row class="mt-3">
             <v-col cols="12">
-                <div class="scrollSec d-flex justify-md-space-between  h-100 pa-2" >
+                <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2 " >
                     <div class="d-flex  ">
-                        <div class=" " >
-                            
+                        <div class="px-0 ">
                             <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]" 
-                                 
                                 @update:model-value="handleInput"  variant="outlined" color="primary" width="120"
-                                density="compact" />
+                                density="compact"  />
                         </div> 
                         <div class="px-2">
                             <YearDropdown label="All Years" :model-value="filter.year"
                                 @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
-                                variant="outlined" color="primary" width="150" density="compact" clearable />
+                                variant="outlined" color="primary" width="150"  density="compact"  clearable />
                         </div>
                     </div>
                     <div class="d-flex ">
@@ -193,12 +191,16 @@ export default {
   border-radius: 6px;
   overflow: hidden; /* important: table border ko follow karega */
 }
-@media (max-width: 599px) {
-  
-.scrollSec{
-     overflow: auto;  
-  
-
-} 
+.scrollSec {
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 8px;
 }
+
+@media (max-width: 599px) {
+    .scrollSec {
+      overflow-x: scroll;
+    }
+}
+
 </style>

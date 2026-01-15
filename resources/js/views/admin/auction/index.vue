@@ -1,10 +1,10 @@
 <template>
     <user-title-bar title="Import CSV Data"
-        subtitle="Filter, compare, and uncover vehicles that match your profit goals.">
+   >
 
         <div>
             <v-card-title class="d-flex cursor-pointer " @click="showFilters = !showFilters">
-                <span class="text-h6 font-weight-bold ">
+                <span class="text-h6">
                     Filters
                 </span>
 
@@ -17,9 +17,9 @@
                 <div v-show="showFilters">
                     <v-container fluid>
                         <v-row>
-                            <v-col class=" text-center content-scroll" align="center">
+                            <v-col class=" text-center content-scroll" align="center" style="max-width: 80px;">
                                 <v-text-field density="comfortable" variant="outlined" clearable
-                                    v-model="filter.table_id" label="Auction Id" />
+                                    v-model="filter.table_id" label="Id"  />
                             </v-col>
                             <v-col>
                                 <PlateformDropdown v-model="filter.platform" label="Auction House" variant="outlined"
@@ -32,8 +32,8 @@
                                 <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type"
                                     variant="outlined" base-color="white" density="comfortable" />
                             </v-col>
-                        </v-row>
-                        <v-row class="mt-1 text-center content-scroll" align="center">
+                   
+                 
 
 
                             <v-col>
@@ -104,12 +104,10 @@
                             <router-link :to="'/admin/auction/edit/' + item.id">
                                 <v-icon color="primary" class="editIconHover pa-4">mdi-pencil</v-icon>
                             </router-link>
-                            <span class="px-2"></span>
 
                             <!-- <router-link :to="'/admin/auction/csv/'+item.id">
                                     <v-icon color="light">mdi-file</v-icon>
                                 </router-link> -->
-                            <span class="px-2"></span>
                             <v-icon @click="deleteItem(item.id)" color="danger" small
                                 class="clickable-icon pa-4">mdi-delete</v-icon>
                         </template>

@@ -21,6 +21,8 @@
                 <MakeDropdown
                   label="Select Make"
                   variant="outlined"
+                  item-title="name"
+                  clearable
                   color="primary"
                   v-model="makeid"
                   density="compact"

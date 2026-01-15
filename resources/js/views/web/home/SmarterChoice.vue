@@ -1,11 +1,11 @@
 <template>
     <div class="mx-auto  d-flex align-center justify-center mt-lg-0 mt-16" style="max-width: 1400px; min-height: 800px; ">
         <div>
-            <div class="text-center ">
+            <div class="text-center pa-3 ">
 
-                <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold"> Turning auction data into smarter buying decisions
+                <h2 class="text-h4 text-md-h3 font-weight-bold text-whiteLite mb-4"> Turning auction data into smarter buying decisions
                 </h2>
-                <p class="d-flex w-lg-75 w-md-75 w-100    mx-auto text-lg-h6 pa-4" style="font-weight: 400; ">Autoboli helps UK dealers
+                <p class="text-subtitle-1 text-light_text_on mx-auto" style="max-width:800px">Autoboli helps UK dealers
                     and traders cut through auction noise and turn raw data into clear, confident decisions — every
                     single day.</p>
             </div>

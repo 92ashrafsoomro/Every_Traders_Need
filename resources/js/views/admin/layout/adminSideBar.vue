@@ -3,31 +3,31 @@
         <v-list density="compact" class="" nav>
 
             <v-list-item class="d-flex " style="height: 57px; ">
-                <img v-if="menuWidth == 300" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
+                <img v-if="menuWidth == 258" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
                 <img v-else :src="smallCurrent" style="width: 40px; height: 40px;" />
             </v-list-item>
 
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <template v-for="(item, index) in userMenu" :key="index">
-
-                <v-list-item v-if="item.type == 'group'" class="pl-n1 mt-8" title="" :subtitle="item.label">
+            <v-expansion-panels>
+                <v-expansion-panel v-for="group in userMenu" :key="group.label">
                     <v-divider class="mt-2"></v-divider>
-                </v-list-item>
+                    <v-expansion-panel-title>{{ group.label }}</v-expansion-panel-title>
 
-                <!-- Show only top-level items, ignore children -->
-                <v-list-item v-else :to="item.path" link :ripple="false" class="text-body-1"
-                    active-class="bg-primary on-primary rounded my-active-menu">
-                    <template #prepend>
-                        <v-icon size="24" class="ml-1">{{ item.icon }}</v-icon>
-                    </template>
-                    <template #title>
-                        <span :ripple="false" class="text-body-1">{{ item.label }}</span>
-                    </template>
-                </v-list-item>
+                    <v-expansion-panel-text>
+                        <!-- Loop through children only inside this panel -->
+                        <v-list-item v-for="item in group.children" :key="item.label" :to="item.path" link
+                            class="text-body-1" active-class="bg-primary on-primary rounded my-active-menu">
+                            <v-list-item-icon>
+                                <v-icon size="24" class="ml-1">{{ item.icon }}</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>{{ item.label }}</v-list-item-title>
+                        </v-list-item>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
+            </v-expansion-panels>
 
-            </template>
 
 
         </v-list>
@@ -52,7 +52,6 @@ export default {
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
-            openGroup: null,
             newLogo,
             userStore: useUserStore(),
             vuetify: useTheme()
@@ -60,10 +59,13 @@ export default {
     },
     computed: {
         menuWidth() {
+
+            // md, sm, xs
             if (this.display.mdAndDown) {
-                return 300
+                return "258";
             } else {
-                return this.themeStore.menuType == "expanded" ? 300 : 68
+                //for: lg, xl
+                return this.themeStore.menuType == "expanded" ? "258" : "70";
             }
         },
         isDark() {
@@ -74,41 +76,18 @@ export default {
         },
         smallCurrent() {
             return this.isDark ? darkshortLogo : lightshortLogo
-        },
-        isCollapsed() {
-            return this.menuWidth == 68
         }
     },
     methods: {
-        handleGroupClick(label) {
-            if (this.isCollapsed) {
-                this.themeStore.menuType = "expanded"
-
-                this.$nextTick(() => {
-                    this.openGroup = label
-                })
-            } else {
-                this.openGroup = this.openGroup === label ? null : label
-            }
-        },
         images() {
             return this.isDark ? darkLogo : lightLogo;
         },
         toggleTheme() {
             this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
         }
-    },
-    mounted() {
 
     },
-    watch: {
-        menuWidth(newVal) {
-            if (newVal === 68) {
-                this.openGroup = null
-            }
-        }
-    }
-
+    mounted() { },
 
 };
 </script>

@@ -254,3 +254,15 @@ min-height:40px;
     background-color: rgb(var(--v-theme-danger),0.2);
     border-radius: 20px;
 }
+.v-container{
+    /* background-color: aliceblue !important; */
+    padding: 10px  !important;
+}
+
+.v-input--density-compact .v-field--variant-outlined, .v-input--density-compact .v-field--single-line, .v-input--density-compact .v-field--no-label {
+    --v-field-padding-bottom: 0px;
+}
+
+.v-select .v-select__selection-text {
+    margin-top: -3px;
+}

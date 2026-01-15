@@ -19,7 +19,7 @@
 
     </usertitlebarauctionfinder>
 
-    <v-container fluid="">
+    <v-container class=" mx-0">
         <div class="mb-2 mx-auto ml-lg-2 ">
             <div class="d-flex flex-wrap w-100   mx-auto align-center">
 
@@ -28,14 +28,14 @@
 
                     <!-- FILTER BUTTON -->
                     <div>
-                        <v-btn v-if="auctionStore.sidebar" color="primary" variant="outlined" prepend-icon="mdi-filter"
+                        <v-btn v-if="!auctionStore.sidebar" color="primary" variant="outlined" prepend-icon="mdi-filter"
                             @click="auctionStore.toggleFilter()">
-                            <span class="text-whiteLightLight text-capitalize text-body-1">Hide Filter</span>
+                            <span class="text-whiteLight text-capitalize text-body-1 d-lg-flex d-md-flex d-none">Show Filter</span>
                         </v-btn>
 
                         <v-btn v-else color="primary" variant="outlined" prepend-icon="mdi-filter-off"
                             @click="auctionStore.toggleFilter()">
-                            <span class="text-whiteLight text-capitalize text-body-1">Show Filter</span>
+                            <span class="text-whiteLight text-capitalize text-body-1 d-lg-flex d-md-flex d-none">Hide Filter</span>
                         </v-btn>
 
 
@@ -50,14 +50,15 @@
                                 Clear All
                             </span>
                         </v-btn>
-                    </v-slide-x-transition>
-
-                    <!-- RECORD COUNT -->
-                    <div class="px-3 mt-1">
+                        <div class="px-3 mt-1">
                         {{ auctionStore.offset }} -
                         {{ auctionStore.offset + auctionStore.filter.length }}
                         of {{ auctionStore.total }} Vehicles
                     </div>
+                    </v-slide-x-transition>
+
+                    <!-- RECORD COUNT -->
+                    
 
                 </div>
 
@@ -104,9 +105,9 @@
         </div>
         <v-row class="mt-1 " dense>
             <!-- Desktop sidebar -->
-
+            <v-slide-x-transition>
             <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="12" md="3" lg="2"
-                class="d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none; ">
+                class="desktop-sidebar d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none; ">
                 <div class="d-flex align-center justify-space-between pa-3 border-b"
                     style="background-color: rgb(var(--v-theme-primary),0.2);">
                     <h5 class="text-h6 font-weight-bold">Auctions Filter</h5>  
@@ -114,7 +115,7 @@
                 <div class="bg-surface pa-0 ">
                     <auctionSidebar />
                 </div>
-            </v-col>
+            </v-col></v-slide-x-transition>
 
 
 
@@ -125,6 +126,7 @@
                  z-index: 99;" @click="auctionStore.toggleFilter()"></div>
 
             <!-- MOBILE SIDEBAR -->
+              <v-slide-x-transition>
             <div v-if="auctionStore.sidebar" class=" position-fixed  d-md-none d-lg-none bg-surface" @click.stop style="top: 60px; left: 0; width: 300px; background-origin: 0; z-index: 100;    overflow-y: auto;
                 border-right: 2px solid rgb(var(--v-theme-border));">
                 <!-- Header -->
@@ -137,11 +139,11 @@
                 </div>
 
                 <auctionSidebar />
-            </div>
+            </div></v-slide-x-transition>
 
 
             <v-col :cols="auctionStore.sidebar ? 12 : 12" :md="auctionStore.sidebar ? 9 : 12"
-                :lg="auctionStore.sidebar ? 10 : 12" class="pl-md-3 pl-0 pr-0">
+                :lg="auctionStore.sidebar ? 10 : 12" class="pl-md-3 pl-0 pr-0 ">
                 <div class="transition-col w-100">
                     <component :is="currentComponent" />
                 </div>
@@ -254,4 +256,23 @@ export default {
 .buttonBorder {
     border-radius: 2px;
 }
+/* Desktop Sidebar */
+.desktop-sidebar {
+    transition: width 0.3s ease;
+}
+.sidebarOpen {
+    width: 250px; /* your sidebar width */
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(-100%);
+    opacity: 0;
+}
+.mobile-sidebar.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 </style>

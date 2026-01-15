@@ -3,7 +3,9 @@
         v-bind="$attrs"
         :model-value="modelValue"
         :items="data"
-        :loading="loading"
+        :loading="loading" 
+        density="compact"
+        variant="outlined"
         @update:model-value="handleValue($event)"
         />  
 </template>

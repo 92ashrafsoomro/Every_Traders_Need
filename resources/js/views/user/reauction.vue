@@ -2,20 +2,20 @@
     <user-title-bar title="Reauction Tracker"
         subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
 
-        <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 mb-n6 mb-sm-n5"
-            style="position: relative; top: 12px;" fluid>
+        <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 pl-0 mb-n5"
+            style="position: relative; top: 20px; left:-10px; " fluid="">
             <div style="background-color: rgb(var(--v-theme-danger),0.4); " class="pb-0 text-center d-flex">
                 <div class="px-2 pb-4 pt-2 ">
                     <h3 class="text-h4 font-weight-bold ">56</h3>
                     <p class="text-body-2">Today</p>
                 </div>
             </div>
-            <div class=" w-lg-100 w-md-100 w-75">
-                <div class="d-flex">
-                    <h3 class="mb-2 text-body-1">Platform:</h3>
-                    <div class="d-flex scrollSec ">
+            <div class="w-100  ">
+                <div class="d-flex w-100" >
+                   <div style="width: 130px !important;"> <h3 class="mb-2 text-body-2 mr-1" >Auction House</h3></div>
+                    <div class="d-flex scrollSec  ">
                         <div v-for="value in ['BCA', 'CCA', 'MAG', 'CAG']" :key="value"
-                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-light_text_on ml-2 mb-2"
+                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
                             style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
                             {{ value }}
                         </div>
@@ -23,11 +23,11 @@
 
                 </div>
 
-                <div class="d-flex">
-                    <h3 class="mb-2 text-body-1">Platform:</h3>
+                <div class="d-flex mt-2 mb-0">
+                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 " >Center:</h3></div>
                     <div class="d-flex scrollSec ">
                         <div v-for="value in ['BCAedssd', 'CCAdsds', 'MAdsdsGds', 'CdsdsdsAG']" :key="value"
-                            class=" mb-2 ml-2 d-flex ml-2 align-center text-body-1 text-light_text_on">
+                            class=" mb-2 ml-2 d-flex ml-2 align-center text-body-1 text-whiteLite">
                             {{ value }}
                         </div>
                     </div>

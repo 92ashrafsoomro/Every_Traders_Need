@@ -4,7 +4,7 @@
            <v-list density="compact" class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                    <img v-if="menuWidth == 300" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
                     <img v-else :src="newLogo" 
                         style="width: 40px; height: 40px; " />
                 </v-list-item>
@@ -14,7 +14,7 @@
                 <!-- Dynamic Menu Items -->
                 <template v-for="(item, index) in userMenu" :key="index">
 
-                    <v-list-item v-if="item.type == 'group'" class=" ml-n1 mt-8"  title="" :subtitle="item.label">
+                    <v-list-item v-if="item.type == 'group'" class="ml-n1 mt-8"  title="" :subtitle="item.label">
                         <v-divider class="mt-2"></v-divider>
                     </v-list-item>
 
@@ -23,10 +23,10 @@
                             <v-list-item 
                             v-bind="props" 
                             :title="item.label" 
-                            :prepend-icon="item.icon" />
+                            :prepend-icon="item.icon"  />
                         </template>
 
-                        <v-list-item  v-for="child in item.children" :prepend-icon="child.icon"  :title="child.label" :to="child.path" ></v-list-item>
+                        <v-list-item  v-for="child in item.children" :prepend-icon="child.icon"  :title="child.label" :to="child.path" active-class="bg-primary on-primary  rounded my-active-menu hide-overlay"></v-list-item>
                     </v-list-group>
                 
                     <v-list-item v-else-if="!item.hasOwnProperty('children')"     
@@ -38,7 +38,7 @@
                         class="text-subtitle-1"
                         active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                         <template #title>
-                            <span :ripple="false" class="text-h6 ">{{ item.label }}</span>
+                            <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>
                         </template>
                     </v-list-item>
 
@@ -48,9 +48,9 @@
                 </template>
 
 
-            <div class="d-flex ga-6 ml-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
-                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1" >
-                 <router-link to="/user/dashboard" style="text-decoration: none ; color: white;"> Back To User</router-link></v-list-item>
+            <div class="d-flex ga-6 ml-2"> <v-icon size="24" class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay " >
+                 <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1"> Back To User</router-link></v-list-item>
             </div>
         </v-list>
     </v-navigation-drawer>
@@ -80,7 +80,7 @@ export default {
                 return  "258";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "258" : "68";
+                return this.themeStore.menuType == "expanded" ? "300" : "68";
             }
 
         },
@@ -99,5 +99,8 @@ export default {
   display: none !important;
 }
 
+.v-list-item--nav .v-list-item-title{
+    font-size: 16px !important;
+}
 
 </style>

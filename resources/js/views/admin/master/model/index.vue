@@ -57,7 +57,7 @@
                     <v-icon>mdi-magnify</v-icon>
                     </v-btn> 
                         <v-btn 
-                            to="/admin/variant/create"
+                            to="/admin/model/create"
                             color="primary"
                             class=""
                             style="height: 40px;"

@@ -17,7 +17,7 @@
                 <div v-show="showFilters">
                     <v-container fluid>
                         <v-row>
-                            <v-col class=" text-center content-scroll" align="center" style="max-width: 80px;">
+                            <v-col class=" text-center content-scroll" align="center" style="max-width: 150px;">
                                 <v-text-field density="comfortable" variant="outlined" clearable
                                     v-model="filter.table_id" label="Id"  />
                             </v-col>

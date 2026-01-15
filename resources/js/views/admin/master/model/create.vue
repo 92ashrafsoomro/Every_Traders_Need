@@ -24,13 +24,20 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="4" sm="4" class="pl-2">
-                                <MakeDropdown label="Select Make" variant="outlined" color="primary"class="id-box" v-model="makeid" 
-                                   
-                                  hide-details
-                                  density="compact"  />
+                            <v-col cols="6" sm="6"  class="pl-2">
+                                <MakeDropdown 
+                                label="Select Make" 
+                                variant="outlined"
+                                 color="primary"
+                                 class="id-box"
+                                 v-model="makeid" 
+                                 item-title="name"
+                                 item-value="id"
+                                 hide-details
+                                 density="compact"  
+                                />
                             </v-col>
-                            <v-col cols="4" sm="4" class="pl-2">
+                            <v-col cols="6" sm="6"  class="pl-2">
                               <v-text-field
                                   v-model="titleInput"    
                                   label="Title"

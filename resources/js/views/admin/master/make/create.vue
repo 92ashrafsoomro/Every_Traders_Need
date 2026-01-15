@@ -24,7 +24,7 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="11" sm="9" class="pl-2">
+                            <v-col cols="11" sm="12" class="pl-2">
                             <v-text-field
                                 v-model="titleInput"    
                                 label="Title"

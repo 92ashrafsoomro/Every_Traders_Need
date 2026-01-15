@@ -1,7 +1,8 @@
 [
     {
-        "label": "Menu",
+        "label": "Dashboard",
         "type": "group",
+        "icon": "mdi-view-dashboard-outline",
         "children": [
             {
                 "icon": "mdi-view-dashboard-outline",
@@ -13,6 +14,7 @@
     {
         "label": "Data Management",
         "type": "group",
+        "icon": "mdi-circle",
         "children": [
             {
                 "icon": "mdi-import",
@@ -39,6 +41,7 @@
     {
         "label": "User Management",
         "type": "group",
+        "icon": "mdi-account-multiple",
         "children": [
             {
                 "icon": "mdi-account-group",
@@ -60,6 +63,7 @@
     {
         "label": "Access Control",
         "type": "group",
+        "icon": "mdi-key",
         "children": [
             {
                 "icon": "mdi-lock",
@@ -86,6 +90,7 @@
     {
         "label": "Marketing",
         "type": "group",
+        "icon": "mdi-view-dashboard-outline",
         "children": [
             {
                 "icon": "mdi-tune",

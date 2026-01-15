@@ -22,7 +22,7 @@
                                     v-model="filter.table_id" label="Id"  />
                             </v-col>
                             <v-col>
-                                <PlateformDropdown v-model="filter.platform" label="Auction House" variant="outlined"
+                                <PlateformDropdown v-model="filter.platform" label="Auction House" clearable variant="outlined"
                                     base-color="white" density="comfortable" />
                                 <!-- <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
                                     label="Auction Name " /> -->
@@ -30,7 +30,7 @@
                             <v-col>
 
                                 <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type"
-                                    variant="outlined" base-color="white" density="comfortable" />
+                                    variant="outlined" base-color="white" clearable density="comfortable" />
                             </v-col>
                    
                  

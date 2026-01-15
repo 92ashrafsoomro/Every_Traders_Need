@@ -41,6 +41,7 @@ export default {
                 try {
                     const response = await Platform.all({});
                     this.data = response.data; 
+                    this.data.sort((a,b)=>a.name.localeCompare(b.name));
                 } catch (err) {
                     console.error("Error loading platforms:", err);
                     this.data = [];

@@ -10,19 +10,23 @@
             <v-divider class="ps-0 pe-0"></v-divider>
 
             <!-- Dynamic Menu Items -->
-            <v-expansion-panels>
-                <v-expansion-panel v-for="group in userMenu" :key="group.label">
-                    <v-divider class="mt-2"></v-divider>
-                    <v-expansion-panel-title>{{ group.label }}</v-expansion-panel-title>
+            <v-expansion-panels  style="width: 250px; ">
+                <v-expansion-panel v-for="group in userMenu" :key="group.label" class="pt-2 pr-2">
+                  
+                    <v-expansion-panel-title class="pa-2" style="background-color: rgb(var(--v-theme-primary),0.1);" >
+                         <v-icon size="25" class="ml-3">{{ group.icon }}</v-icon> 
+                    <span class="ml-8">{{ group.label }}</span>
+                    </v-expansion-panel-title>
+                    
 
-                    <v-expansion-panel-text>
+                    <v-expansion-panel-text  >
                         <!-- Loop through children only inside this panel -->
                         <v-list-item v-for="item in group.children" :key="item.label" :to="item.path" link
-                            class="text-body-1" active-class="bg-primary on-primary rounded my-active-menu">
-                            <v-list-item-icon>
-                                <v-icon size="24" class="ml-1">{{ item.icon }}</v-icon>
+                            class="text-body-1 pa-0 mt-2" active-class="bg-primary on-primary rounded my-active-menu">
+                           <div class="d-flex align-center ml-3  "> <v-list-item-icon>
+                                <v-icon size="25">{{ item.icon }}</v-icon>
                             </v-list-item-icon>
-                            <v-list-item-title>{{ item.label }}</v-list-item-title>
+                            <v-list-item-title class="text-body-1 ml-8">{{ item.label }}</v-list-item-title></div>
                         </v-list-item>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
@@ -95,4 +99,5 @@ export default {
 .my-active-menu .v-list-item__overlay {
     display: none !important;
 }
+
 </style>

@@ -1,102 +1,47 @@
 [
-    {
-        "label": "Dashboard",
-        "type": "group",
-        "icon": "mdi-view-dashboard-outline",
-        "children": [
-            {
-                "icon": "mdi-view-dashboard-outline",
-                "label": "Dashboard",
-                "path": "/admin/dashboard"
-            }
-        ]
-    },
-    {
-        "label": "Data Management",
-        "type": "group",
-        "icon": "mdi-circle",
-        "children": [
-            {
-                "icon": "mdi-import",
-                "label": "Import Auction",
-                "path": "/admin/auction"
-            },
-            {
-                "icon": "mdi-tire",
-                "label": "Vehicles List",
-                "path": "/admin/vehicle"
-            },
-            {
-                "icon": "mdi-car-search-outline",
-                "label": "Master",
-                "path": "/admin/bodyType"
-            },
-            {
-                "icon": "mdi-pencil-box",
-                "label": "Dictionary",
-                "path": "/admin/dictionary"
-            }
-        ]
-    },
-    {
-        "label": "User Management",
-        "type": "group",
-        "icon": "mdi-account-multiple",
-        "children": [
-            {
-                "icon": "mdi-account-group",
-                "label": "Members",
-                "path": "/admin/members"
-            },
-            {
-                "icon": "mdi-card-bulleted",
-                "label": "Transaction",
-                "path": "/admin/transaction"
-            },
-            {
-                "icon": "mdi-map-plus",
-                "label": "Plans",
-                "path": "/admin/plans"
-            }
-        ]
-    },
-    {
-        "label": "Access Control",
-        "type": "group",
-        "icon": "mdi-key",
-        "children": [
-            {
-                "icon": "mdi-lock",
-                "label": "Access Control",
-                "path": "/admin/access"
-            },
-            {
-                "icon": "mdi-account-multiple-check",
-                "label": "Admin List",
-                "path": "/admin/adminList"
-            },
-            {
-                "icon": "mdi-polymer",
-                "label": "Role",
-                "path": "/admin/role"
-            },
-            {
-                "icon": "mdi-key-alert",
-                "label": "Permission",
-                "path": "/admin/permission"
-            }
-        ]
-    },
-    {
-        "label": "Marketing",
-        "type": "group",
-        "icon": "mdi-view-dashboard-outline",
-        "children": [
-            {
-                "icon": "mdi-tune",
-                "label": "Marketing",
-                "path": "/admin/marketing"
-            }
-        ]
-    }
+        {
+            "label": "Menu",
+            "type": "group"
+        },
+        {
+            "icon": "mdi-view-dashboard-outline",
+            "label": "Dashboard",
+            "path": "/admin/dashboard"
+            
+        },
+        {
+            "icon": "mdi-car-search-outline",
+            "label": "Master",  
+            "path": "/admin/bodyType"
+           
+        },
+        {
+            "icon": "mdi-history",
+            "label": "Data Management",
+            "path": "/",
+            "children":[
+                {
+                    "label" : "Auction",
+                    "path" : "/admin/auction"
+                },{
+                    "label" :"Vehicles",
+                    "path":"/admin/vehicle"
+                }
+            ]
+        },
+        {
+            "icon": "mdi-account-multiple",
+            "label": "User Management",
+            "path": "/",
+            "children":[
+                {
+                    "label" : "Members",
+                    "path" : "/admin/members"
+                },{
+                    "label" :"Subscriptions",
+                    "path":"/admin/subscriptions"
+                }
+            ]
+        }
+      
 ]

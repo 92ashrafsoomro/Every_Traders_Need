@@ -129,9 +129,8 @@ export default {
         }
     },
     mounted() {
-
         this.CsvStore.id = this.$route.params.id;
-        this.CsvStore.handleFile()
+        this.CsvStore.loadVehicle();
     },
     methods: {
 

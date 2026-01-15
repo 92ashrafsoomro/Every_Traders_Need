@@ -50,23 +50,25 @@
                                 </span>
                             </div>
 
+
+
                             <div v-else-if="col.key === 'make_id'">
                                 <span :class="{ has_error: CsvStore.errors['data.' + id + '.make_id'] }" class="pointer"
-                                    @click="OpenModal(id, 'make_id', item[col.key])">
+                                    @click="CsvStore.openModal(id)">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'model_id'">
                                 <span :class="{ has_error: CsvStore.errors['data.' + id + '.model_id'] }" class="pointer"
-                                    @click="OpenModal(id, 'model_id', item[col.key])">
+                                    @click="CsvStore.openModal(id)">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
 
                             <div v-else-if="col.key === 'variant_id'">
                                 <span :class="{ has_error: CsvStore.errors['data.' + id + '.variant_id'] }" class="pointer"
-                                    @click="OpenModal(id, 'variant_id', item[col.key])">
+                                    @click="CsvStore.openModal(id)">
                                     {{ item[col.key] ?? 'None' }}
                                 </span>
                             </div>
@@ -91,13 +93,11 @@
             </v-table>
         </v-card-text>
     </v-card>
-
+    
+    <VairantModal />
     <VehicleTypeModal ref="vehicleTypeModalModal" @update:dailog="CsvStore.hanldeDailog" />
     <BodyTypeModal ref="bodyTypeModal" @update:dailog="CsvStore.hanldeDailog" />
-    <MakeModal ref="makeModal" @update:dailog="CsvStore.hanldeDailog" />
     <CenterModal ref="centerModal" @update:dailog="CsvStore.hanldeDailog" />
-    <ModelModal ref="modelModal" @update:dailog="CsvStore.hanldeDailog" />
-    <VairantModal ref="variantModal" @update:dailog="CsvStore.hanldeDailog" />
 
 </template>
 <script>
@@ -106,9 +106,9 @@
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import VehicleTypeModal from '@/components/VehicleTypeModal.vue';
 import BodyTypeModal from '@/components/BodyTypeModal.vue';
-import MakeModal from '@/components/MakeModal.vue';
+
 import CenterModal from '@/components/CenterModal.vue';
-import ModelModal from '@/components/ModelModal.vue';
+
 import VairantModal from './VariantModal.vue';
 import { toRaw } from 'vue';
 import { useCsvStore } from './CsvStore';
@@ -118,10 +118,8 @@ export default {
         PlateformDropdown,
         VehicleTypeModal,
         BodyTypeModal,
-        MakeModal,
         CenterModal,
         VairantModal,
-        ModelModal
     },
     data() {
         return {
@@ -144,16 +142,6 @@ export default {
                     break;
                 case 'body_id':
                     this.$refs.bodyTypeModal.open(row, value);
-                    break;
-                case 'make_id':
-                    this.$refs.makeModal.open(row, value);
-                    break;
-                case 'model_id':
-                    this.$refs.modelModal.open(row, value);
-                    break;
-                case 'variant_id':
-                    
-                    this.$refs.variantModal.open(row);
                     break;
                 case 'center_id':
                     this.$refs.centerModal.open(row, value);

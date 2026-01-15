@@ -31,7 +31,8 @@ export const useCsvStore = defineStore("CsvStore", {
         data: [],
         scrap: [],
         columns: columns,
-        errors:{},
+        errors: {},
+        dailog:false,
       
     }),
     getters:{
@@ -134,12 +135,6 @@ export const useCsvStore = defineStore("CsvStore", {
             return item;
             
         },
-        openRow(row) {   
-
-            let find = this.data[row];
-            this.row = find ? find : null;
-            
-        },
         async makeSearch() {
             this.makes.loading = true;
             try {
@@ -221,7 +216,7 @@ export const useCsvStore = defineStore("CsvStore", {
 
             this.variants.loading = true;
             try {
-                let res = await General.get('/api/cruds/model', {
+                let res = await General.get('/api/cruds/variant', {
                     search: this.variants.search,
                     make_id: this.makes.selected.id,
                     model_id:this.models.selected.id,
@@ -244,10 +239,105 @@ export const useCsvStore = defineStore("CsvStore", {
             this.variants.search = null;
             this.variants.data = [];
             this.variants.loading = false;
-        }
+        },
+        async findMakebyName() {
+
+            let res = await General.get('/api/cruds/make', { name: this.row.make_id });
+            if(res.data && res.data.length > 0) {
+                this.makes.selected = {
+                    name: res.data[0].name,
+                    id:res.data[0].id,
+                }
+                this.findModelName(res.data[0].id);
+            } else {
+                this.makes.search = this.row.make_id;
+            }
+
+        },
+        async findModelName(make_id) {
+
+            let res = await General.get('/api/cruds/model', { name: this.row.model_id,make_id:make_id });
+            if(res.data && res.data.length > 0) {
+                this.models.selected = {
+                    name: res.data[0].name,
+                    id:res.data[0].id,
+                }
+                this.findVariantName(res.data[0].id);
+            } else {
+                this.models.search = this.row.model_id;
+            }
+        },
+        async findVariantName(model_id) {
+
+            let res = await General.get('/api/cruds/variant', { name: this.row.variant_id,model_id:model_id });
+            if(res.data && res.data.length > 0) {
+                this.variants.selected = {
+                    name: res.data[0].name,
+                    id:res.data[0].id,
+                }
+            } else {
+                this.variants.search = this.row.variant_id;
+            }
+        },
+        async saveRecord() {
+
+            const alertStore = useAlertStore()    
+            
+            if (!this.makes.selected?.name) {
+                alertStore.add('Make Not Found', 'error');
+                return false;
+            }
+
+            if (!this.models.selected?.name) {
+                alertStore.add('Model Not Found', 'error');
+                return false;
+            }
 
 
+            if (!this.variants.selected?.name) {
+                alertStore.add('Variant Not Found', 'error');
+                return false;
+            }
 
+
+            this.row.make_id = this.makes.selected.name;
+            this.row.model_id = this.models.selected.name;
+            this.row.variant_id = this.variants.selected.name;
+            this.data[this.id] = this.row;
+            this.closeModal();
+
+        },
+        closeModal() {  
+
+            this.models.search = null;
+            this.variants.search = null;
+            this.makes.search = null;
+
+            this.models.selected = null;
+            this.variants.selected = null;
+            this.makes.selected = null;
+
+            this.dailog = false;
+            this.id = null;
+            this.row = null;
+        },
+        openModal(row) {
+           
+
+            let find = this.data[row];
+            if (find) {
+                
+                this.dailog = true;
+                this.id = row;
+                this.row = find;
+                this.makes.search = this.row.make_id;
+                this.models.search = this.row.model_id;
+                this.variants.search = this.row.variant_id;
+                this.findMakebyName()
+                  
+            }
+
+        },
 
     },
 

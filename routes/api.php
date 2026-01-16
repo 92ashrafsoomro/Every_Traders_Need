@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+use App\Http\Controllers\Api\Master\AuctionStatusController;
 use App\Http\Controllers\Api\Master\AuctionTypeController;
 use App\Http\Controllers\Api\Master\PrefixController;
 use App\Http\Controllers\Api\Master\SheetController;
@@ -193,6 +194,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('auctions',AuctionController::class);
         Route::resource('vehicles',VController::class);
         Route::resource('prefixes',PrefixController::class);
+        Route::resource('auctionStatus',AuctionStatusController::class);
 
 
 

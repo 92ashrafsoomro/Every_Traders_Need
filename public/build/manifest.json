@@ -109,15 +109,58 @@
     "isEntry": true
   },
   "resources/js/app.js": {
+<<<<<<< HEAD
     "file": "assets/app-B3oTdooz.js",
+=======
+<<<<<<< HEAD
+    "file": "assets/app-D9VXG_Ya.js",
+=======
+    "file": "assets/app-B3oTdooz.js",
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
+>>>>>>> 97a494a3945fdf4d7aee2447df7f0f61bb01d320
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      "assets/app-2v9HMERc.css"
+    ],
+    "assets": [
+      "assets/logo-DpZ5Ok-7.png",
+      "assets/newLogo-B4aftMUZ.png",
+      "assets/lightfull-Brk1alwe.png",
+      "assets/lightshort-DQfsj8p_.png",
+      "assets/user-BO2XbLa6.png",
+      "assets/bg-NSSFVeCQ.png",
+      "assets/darkBg-CvuQXcLG.png",
+      "assets/darkLeft-Bc51BgBP.png",
+      "assets/lightBg-DJruBfXL.png",
+      "assets/lightLeft-y33nC5mr.png",
+      "assets/HomepageImageTrusted-4k027a8y.png",
+      "assets/heroAutoboliSmart-Dj5fiDH6.png",
+      "assets/smarter1-CPEmrKHF.png",
+      "assets/about2-DIGgdF41.png",
+      "assets/Exists-GwQSYy8h.png",
+      "assets/Different1-Bu2k_8QW.png",
+      "assets/Different2-MYYaXsWR.png",
+      "assets/differentimg-BfukXemL.png",
+      "assets/helping-DFRTUvcg.png",
+      "assets/mission-BVQCleya.png",
+      "assets/Reauction-tP7Tm7wy.png",
+      "assets/supportImage-C5pGktL4.png",
+      "assets/mslogo-jZzES09S.png",
+=======
+>>>>>>> 97a494a3945fdf4d7aee2447df7f0f61bb01d320
       "assets/app-Djjw3QQy.css"
     ],
     "assets": [
       "assets/logo-DYL3VdM3.png",
+<<<<<<< HEAD
+=======
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
+>>>>>>> 97a494a3945fdf4d7aee2447df7f0f61bb01d320
       "assets/inter-cyrillic-ext-400-normal-BQZuk6qB.woff2",
       "assets/inter-cyrillic-ext-400-normal-DQukG94-.woff",
       "assets/inter-cyrillic-400-normal-obahsSVq.woff2",
@@ -146,8 +189,116 @@
       "assets/MaterialIcons-Regular-DEUTIz1o.ttf"
     ]
   },
+<<<<<<< HEAD
   "resources/js/assets/images/logo/logo.png": {
     "file": "assets/logo-DYL3VdM3.png",
     "src": "resources/js/assets/images/logo/logo.png"
+=======
+<<<<<<< HEAD
+  "resources/js/assets/images/about/Different1.png": {
+    "file": "assets/Different1-Bu2k_8QW.png",
+    "src": "resources/js/assets/images/about/Different1.png"
+  },
+  "resources/js/assets/images/about/Different2.png": {
+    "file": "assets/Different2-MYYaXsWR.png",
+    "src": "resources/js/assets/images/about/Different2.png"
+  },
+  "resources/js/assets/images/about/Exists.png": {
+    "file": "assets/Exists-GwQSYy8h.png",
+    "src": "resources/js/assets/images/about/Exists.png"
+  },
+  "resources/js/assets/images/about/helping.png": {
+    "file": "assets/helping-DFRTUvcg.png",
+    "src": "resources/js/assets/images/about/helping.png"
+  },
+  "resources/js/assets/images/avatar/user.png": {
+    "file": "assets/user-BO2XbLa6.png",
+    "src": "resources/js/assets/images/avatar/user.png"
+  },
+  "resources/js/assets/images/billiing/bg.png": {
+    "file": "assets/bg-NSSFVeCQ.png",
+    "src": "resources/js/assets/images/billiing/bg.png"
+  },
+  "resources/js/assets/images/header/darkfull.png": {
+    "file": "assets/logo-DpZ5Ok-7.png",
+    "src": "resources/js/assets/images/header/darkfull.png"
+  },
+  "resources/js/assets/images/header/darkshort.png": {
+    "file": "assets/newLogo-B4aftMUZ.png",
+    "src": "resources/js/assets/images/header/darkshort.png"
+  },
+  "resources/js/assets/images/header/lightfull.png": {
+    "file": "assets/lightfull-Brk1alwe.png",
+    "src": "resources/js/assets/images/header/lightfull.png"
+  },
+  "resources/js/assets/images/header/lightshort.png": {
+    "file": "assets/lightshort-DQfsj8p_.png",
+    "src": "resources/js/assets/images/header/lightshort.png"
+  },
+  "resources/js/assets/images/hero/HomepageImageTrusted.png": {
+    "file": "assets/HomepageImageTrusted-4k027a8y.png",
+    "src": "resources/js/assets/images/hero/HomepageImageTrusted.png"
+  },
+  "resources/js/assets/images/hero/heroAutoboliSmart.png": {
+    "file": "assets/heroAutoboliSmart-Dj5fiDH6.png",
+    "src": "resources/js/assets/images/hero/heroAutoboliSmart.png"
+  },
+  "resources/js/assets/images/logo/logo.png": {
+    "file": "assets/logo-DpZ5Ok-7.png",
+    "src": "resources/js/assets/images/header/darkfull.png"
+  },
+  "resources/js/assets/images/logo/mslogo.png": {
+    "file": "assets/mslogo-jZzES09S.png",
+    "src": "resources/js/assets/images/logo/mslogo.png"
+  },
+  "resources/js/assets/images/logo/newLogo.png": {
+    "file": "assets/newLogo-B4aftMUZ.png",
+    "src": "resources/js/assets/images/header/darkshort.png"
+  },
+  "resources/js/assets/images/reauction/Reauction.png": {
+    "file": "assets/Reauction-tP7Tm7wy.png",
+    "src": "resources/js/assets/images/reauction/Reauction.png"
+  },
+  "resources/js/assets/images/reauction/differentimg.png": {
+    "file": "assets/differentimg-BfukXemL.png",
+    "src": "resources/js/assets/images/reauction/differentimg.png"
+  },
+  "resources/js/assets/images/screen/darkBg.png": {
+    "file": "assets/darkBg-CvuQXcLG.png",
+    "src": "resources/js/assets/images/screen/darkBg.png"
+  },
+  "resources/js/assets/images/screen/darkLeft.png": {
+    "file": "assets/darkLeft-Bc51BgBP.png",
+    "src": "resources/js/assets/images/screen/darkLeft.png"
+  },
+  "resources/js/assets/images/screen/lightBg.png": {
+    "file": "assets/lightBg-DJruBfXL.png",
+    "src": "resources/js/assets/images/screen/lightBg.png"
+  },
+  "resources/js/assets/images/screen/lightLeft.png": {
+    "file": "assets/lightLeft-y33nC5mr.png",
+    "src": "resources/js/assets/images/screen/lightLeft.png"
+  },
+  "resources/js/assets/images/smarter/smarter1.png": {
+    "file": "assets/smarter1-CPEmrKHF.png",
+    "src": "resources/js/assets/images/smarter/smarter1.png"
+  },
+  "resources/js/assets/images/support/supportImage.png": {
+    "file": "assets/supportImage-C5pGktL4.png",
+    "src": "resources/js/assets/images/support/supportImage.png"
+  },
+  "resources/js/assets/images/tabs/about2.png": {
+    "file": "assets/about2-DIGgdF41.png",
+    "src": "resources/js/assets/images/tabs/about2.png"
+  },
+  "resources/js/assets/images/tabs/mission.png": {
+    "file": "assets/mission-BVQCleya.png",
+    "src": "resources/js/assets/images/tabs/mission.png"
+=======
+  "resources/js/assets/images/logo/logo.png": {
+    "file": "assets/logo-DYL3VdM3.png",
+    "src": "resources/js/assets/images/logo/logo.png"
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
+>>>>>>> 97a494a3945fdf4d7aee2447df7f0f61bb01d320
   }
 }

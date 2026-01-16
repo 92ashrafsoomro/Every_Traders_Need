@@ -225,10 +225,11 @@ export default {
 
                 let res = await Auction.all(this.filter);
                 this.items = res.data;
-                this.filter.page = Number(res.page)
+                // this.filter.page = Number(res.page)
+                this.last_page = Number(res.last_page);
 
                 this.total = res.recordsTotal;
-                this.last_page = Number(res.last_page);
+                
             } catch (error) {
                 alert(error);
             } finally {

@@ -6,7 +6,6 @@ import { useAlertStore } from '@stores/alertStore';
 
 import NotFound from "@views/user/404.vue"
 
-
 import userRoutes from "./userRoutes"
 import authRoutes from "./authRoutes"
 import webRoutes from './webRoutes';
@@ -32,27 +31,22 @@ const router = createRouter({
 });
 
 
-
 router.beforeEach(async (to, from, next) => {
-
 
     const auth = useUserStore()
     const alertStore = useAlertStore()
 
     //Auth Restriction
- 
-
         try {
             
             const res = await auth.getProfile();
             console.log(res.user);
-            
             auth.user = res.user;
             auth.is_logged_in = true;
             //  alertStore.add('User Logged In','success')
             // next();
 
-        } catch (error) {
+        } catch(error){
             auth.user = {};
             auth.is_logged_in = false;
             // alertStore.add('Session Expired. Please Login Again.', 'warning')
@@ -72,8 +66,8 @@ router.beforeEach(async (to, from, next) => {
         next()
     }
 
-
-
 });
+
+
 
 export default router;

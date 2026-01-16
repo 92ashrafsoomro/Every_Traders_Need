@@ -38,6 +38,10 @@ class Auctions extends Model
     {
         return $this->belongsTo(AuctionType::class,'auction_type');
     }
+     public function auctionStatus()
+    {
+        return $this->belongsTo(AuctionStatus::class,'status');
+    }
 
       public function scrap()
     {

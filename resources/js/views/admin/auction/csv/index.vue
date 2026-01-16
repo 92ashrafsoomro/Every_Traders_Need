@@ -77,6 +77,8 @@
                                 </span>
                             </div>
 
+                       
+
                             <div v-else-if="col.key === 'variant_id'">
                                 <span :class="{ has_error: CsvStore.errors['data.' + id + '.variant_id'] }"
                                     class="pointer" @click="CsvStore.openModal(id)">

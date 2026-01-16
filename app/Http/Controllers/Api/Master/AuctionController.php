@@ -69,6 +69,14 @@ class AuctionController extends Controller
             $query->where('status',$request->status);
         }
 
+        if($request->has('auction_type') && $request->auction_type != '') {
+            $query->where('auction_type',$request->auction_type);
+        }
+
+        if($request->has('auction_date') && $request->auction_date != '') {
+            $query->whereDate('auction_date',$request->auction_date);
+        }
+
         $count = (clone $query)->count();
         $data = $query->select([
                     '*'

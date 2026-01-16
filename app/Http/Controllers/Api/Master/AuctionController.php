@@ -50,7 +50,7 @@ class AuctionController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = Auctions::with('platform','actionType');
+        $query = Auctions::with('platform','actionType','auctionStatus');
 
         //Filter
         if($request->has('id') && $request->id != '') {
@@ -63,6 +63,10 @@ class AuctionController extends Controller
 
         if($request->has('platform') && $request->platform != '') {
             $query->where('platform_id',$request->platform);
+        }
+
+        if($request->has('status') && $request->status != '') {
+            $query->where('status',$request->status);
         }
 
         $count = (clone $query)->count();
@@ -132,7 +136,7 @@ class AuctionController extends Controller
                 'end_date' => $request->auction_type == 2 ? null : $request->end_date,
                 'auction_type' => $request->auction_type,
                 'platform_id' => $request->platform_id,
-                'status' => 'draft',
+                'status' => 1,
             ]);
 
             if($request->payload){
@@ -183,7 +187,7 @@ class AuctionController extends Controller
             'end_date' => 'nullable|date',
             'platform_id' => 'required|exists:auction_platform,id',
             'auction_type' => 'required|exists:auction_types,id',
-            'status' => ['required',Rule::in(['draft','planned'])],
+            'status' => ['required','exists:auction_status,id'],
             'payload' => 'nullable',
         ]);
 

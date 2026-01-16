@@ -1,12 +1,8 @@
 /.phpunit.cache
-
-
 /public/uploads
-
 /public/build
-/public/uploads
 /node_modules
->>>>>>> 97a494a3945fdf4d7aee2447df7f0f61bb01d320
+
 /public/hot
 /public/storage
 /storage/*.key

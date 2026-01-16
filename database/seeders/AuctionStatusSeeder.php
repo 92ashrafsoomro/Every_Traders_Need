@@ -15,7 +15,7 @@ class AuctionStatusSeeder extends Seeder
     {
 
         //
-        if(AuctionStatus::exists()) {
+        if(!AuctionStatus::exists()) {
                 AuctionStatus::insert([
                     ['title' => 'Draft', 'id' => 1],
                     ['title' => 'Planned',  'id' => 2],

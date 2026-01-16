@@ -1,7 +1,7 @@
 <template>
      
    <IconMenu @toggle="toggleSidebar" />
-        <AuctionFilter :show="showSidebar" />
+        <AuctionEdit :show="showSidebar" />
     <v-container  class="m-auto">
 
         <!-- <VariantMapping ref="VariantMapping"/> -->
@@ -15,7 +15,7 @@ import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
 import CSVTable from './Csv/index.vue';
 import VariantMapping from '@/components/VariantMapping.vue';
-import AuctionFilter from '@/components/auctionfilter.vue';
+import AuctionEdit from './AuctionEdit.vue';
 
 
 export default {
@@ -25,7 +25,7 @@ export default {
         PlateformDropdown,
         AuctionTypeDropdown,    
         CSVTable,
-        AuctionFilter
+        AuctionEdit
     },
     data() {
 

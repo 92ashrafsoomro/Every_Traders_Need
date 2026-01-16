@@ -39,7 +39,7 @@
                             v-model="form.auction_date" 
                             variant="outlined" 
                             label="Auction Date"
-                            type="datetime-local"
+                            type="date"
                             density="compact"
                             base-color="white" 
                             color="primary"  
@@ -50,7 +50,7 @@
                             v-model="form.end_date" 
                             variant="outlined" 
                             label="End Date"
-                            type="datetime-local"
+                            type="date"
                             density="compact"
                             base-color="white" 
                             color="primary" 
@@ -95,7 +95,7 @@ import VariantMapping from '@/components/VariantMapping.vue';
 
 
 export default {
-    name:"AuctionFilter",
+    name:"AuctionEdit",
     components: {
         VariantMapping,
         PlateformDropdown,

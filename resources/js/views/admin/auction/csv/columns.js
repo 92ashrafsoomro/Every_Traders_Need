@@ -5,11 +5,12 @@ export default [
     { title: 'Title', key: 'title', disabled: true,  },
     { title: 'Make', key: 'make_id' },
     { title: 'Model', key: 'model_id' },
+    { title: 'Derivative', key: 'derivative',disabled: true },
     { title: 'Variant', key: 'variant_id' },
 
     { title: 'Vehicle', key: 'vehicle_id' },
     { title: 'Body Type', key: 'body_id' },
-    { title: 'Derivative', key: 'derivative',disabled: true },
+  
     { title: 'Center', key: 'center_id' },
     { title: 'FuelType', key: 'fuel_type', disabled: true },
     

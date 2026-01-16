@@ -34,7 +34,7 @@ class Auctions extends Model
         return $this->hasMany(Vehicle::class,'auction_id');
     }
 
-    public function actionType()
+    public function auctionType()
     {
         return $this->belongsTo(AuctionType::class,'auction_type');
     }

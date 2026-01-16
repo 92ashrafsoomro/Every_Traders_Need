@@ -50,7 +50,7 @@ class AuctionController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = Auctions::with('platform','actionType','auctionStatus');
+        $query = Auctions::with('platform','auctionType','auctionStatus');
 
         //Filter
         if($request->has('id') && $request->id != '') {

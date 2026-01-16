@@ -43,6 +43,7 @@
                                     v-model="filter.status"
                                     label="Status "
                                     item-title="title"
+                                    clearable
                                     item-value="id"
                                     variant="outlined"
                                     density="comfortable"

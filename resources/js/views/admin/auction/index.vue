@@ -42,6 +42,8 @@
                                     <StatusDropdown
                                     v-model="filter.status"
                                     label="Status "
+                                    item-title="title"
+                                    item-value="id"
                                     variant="outlined"
                                     density="comfortable"
                                     min-width="190px" max-width="274px" 
@@ -173,7 +175,7 @@ export default {
                 { title: "Name", value: "name" },
                 { title: "Type", value: "action_type.title" },
                 { title: "Au House", value: "platform.name" },
-                { title: "Status", value: "status" },
+                { title: "Status", value: "auction_status.title" },
                 { title: "Start Date", value: "auction_date" },
                 { title: "End Date", value: "end_date" },
                 { title: "Created At", value: "created_date" },

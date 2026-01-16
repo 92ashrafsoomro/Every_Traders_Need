@@ -1,12 +1,11 @@
 <template>
     <v-select
         v-bind="$attrs"
-        :model-value="statusValue"
         :items="data"
-        item-title="name"
+        item-title="title"
         item-value="id"
         :loading="loading"
-        @update:model-value="handleStatus($event)"
+     
     />
 </template>
 
@@ -17,14 +16,11 @@ export default {
     name:'statusDrodown',
     
     props:{
-        statusValue:{
-            type:[String , Number , Boolean],
-            default:null
-        }
+       
     },
     data(){
         return{
-            value: null,
+     
             data: [],
             loading: false
         }
@@ -38,7 +34,7 @@ export default {
             try {
                 const response = await General.get("/api/cruds/auctionStatus",{});
                 this.data = response.data;
-                console.log("Auction Status " + response.data);
+                console.log("Auction Status " + this.data);
                 
                 //  this.data.sort((a,b)=>a.name.localeCompare(b.name));
             } catch (error) {
@@ -47,10 +43,7 @@ export default {
                 this.loading = false;
             }
         },
-        handleStatus(value){
-            this.$emit("update:statusValue", value)
-        },
-        emits:['update:statusValue']
+      
     }
 
 }

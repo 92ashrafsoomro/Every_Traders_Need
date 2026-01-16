@@ -31,9 +31,12 @@
 
                                 <!-- <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
                                     label="Auction Name " /> -->
-                                <AuctionTypeDropdown min-width="190px" max-width="274px" v-model="filter.auction_type" label="Auction Type"
-                                    variant="outlined" base-color="white" clearable density="comfortable" />
+                                <AuctionTypeDropdown min-width="190px" max-width="274px" v-model="filter.auction_type"  label="Auction Type"
+                                    variant="outlined" base-color="white" clearable density="comfortable" 
+                                    />
                             
+                                    <!-- item-title="title"
+                                    item-value="id" -->
                                 
                                 <!-- <StatusDropdown label="Status "
                                     variant="outlined"   density="comfortable"
@@ -43,8 +46,8 @@
                                     v-model="filter.status"
                                     label="Status "
                                     item-title="title"
-                                    clearable
                                     item-value="id"
+                                    clearable
                                     variant="outlined"
                                     density="comfortable"
                                     min-width="190px" max-width="274px" 
@@ -157,7 +160,7 @@ export default {
             filter: {
                 table_id: "",
                 name: "",
-                action_type: "",
+                auction_type: null,
                 platform: null,
                 status: null,
                 auction_date: "",
@@ -174,7 +177,7 @@ export default {
                 { title: "ID", value: "id", sortable: false },
                 { title: "Auction Id", value: "table_id", sortable: false },
                 { title: "Name", value: "name" },
-                { title: "Type", value: "action_type.title" },
+                { title: "Type", value: "auction_type.title" },
                 { title: "Au House", value: "platform.name" },
                 { title: "Status", value: "auction_status.title" },
                 { title: "Start Date", value: "auction_date" },
@@ -203,7 +206,7 @@ export default {
         },
         'filter.name'(newVal , oldVal){
             this.loadItems()
-        },'filter.action_type'(newVal , oldVal){
+        },'filter.auction_type'(newVal , oldVal){
             this.loadItems()
         },
         'filter.platform'(newVal , oldVal){

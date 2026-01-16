@@ -1,102 +1,141 @@
 [
-    {
-      
-            "label": "Menu",
-            "type": "group"
-    },{
-        "label": "Dashboard",
-        "icon": "mdi-view-dashboard-outline",
-        "path": "/admin/dashboard"
-    },
-     {
-                "icon": "mdi-car-search-outline",
-                "label": "Master",
-                "path": "/admin/bodyType"
-            },
-            {
-                "icon": "mdi-pencil-box",
-                "label": "Dictionary",
-                "path": "/admin/dictionary"
-            },
-            {
-      
-            "label": "Data Management",
-            "type": "group"
-    },
-    
-            {
-                "icon": "mdi-import",
-                "label": "Import Auction",
-                "path": "/admin/auction"
-            },
-            {
-                "icon": "mdi-tire",
-                "label": "Vehicles List",
-                "path": "/admin/vehicle"
-            },
-        
-    
-    {
-      
-            "label": "Other",
-            "type": "group"
-    },        {
-        "label": "User Management",
-        "icon": "mdi-account-multiple",
-        "children": [
-            {
-                "icon": "mdi-account-group",
-                "label": "Members",
-                "path": "/admin/members"
-            },
-            {
-                "icon": "mdi-card-bulleted",
-                "label": "Transaction",
-                "path": "/admin/transaction"
-            },
-            {
-                "icon": "mdi-map-plus",
-                "label": "Plans",
-                "path": "/admin/plans"
-            }
-        ]
-    },
-    {
-        "label": "Access Control",
-        "icon": "mdi-key",
-        "children": [
-            {
-                "icon": "mdi-lock",
-                "label": "Access Control",
-                "path": "/admin/access"
-            },
-            {
-                "icon": "mdi-account-multiple-check",
-                "label": "Admin List",
-                "path": "/admin/adminList"
-            },
-            {
-                "icon": "mdi-polymer",
-                "label": "Role",
-                "path": "/admin/role"
-            },
-            {
-                "icon": "mdi-key-alert",
-                "label": "Permission",
-                "path": "/admin/permission"
-            }
-        ]
-    },
-    {
-        "label": "Marketing",
-        "icon": "mdi-view-dashboard-outline",
-        "children": [
-            {
-                "icon": "mdi-tune",
-                "label": "Marketing",
-                "path": "/admin/marketing"
-            }
-        ]
-    }
-      
+  {
+    "label": "Dashboard",
+    "type": "group"
+  },
+  {
+    "label": "Overview",
+    "icon": "mdi-view-dashboard-outline",
+    "path": "/admin/overview"
+  },
+  {
+    "label": "Analytics & Behavior Tracking",
+    "icon": "mdi-chart-line",
+    "path": "/admin/analytics"
+  },
+  {
+    "label": "Insights",
+    "icon": "mdi-lightbulb-outline",
+    "path": "/admin/insights"
+  },
+
+  {
+    "label": "Data Management",
+    "type": "group"
+  },
+  {
+    "label": "Import Auction",
+    "icon": "mdi-import",
+    "path": "/admin/auction"
+  },
+  {
+    "label": "Vehicle List",
+    "icon": "mdi-tire",
+    "path": "/admin/vehicle"
+  },
+
+  {
+    "label": "Ids",
+    "type": "group"
+  },
+  {
+    "label": "Master",
+    "icon": "mdi-car-search-outline",
+    "path": "/admin/bodyType"
+  },
+  {
+    "label": "Dictionary",
+    "icon": "mdi-pencil-box",
+    "path": "/admin/dictionary"
+  },
+
+  {
+    "label": "User Management",
+    "type": "group"
+  },
+  {
+    "label": "User",
+    "icon": "mdi-account",
+    "path": "/admin/members"
+  },
+  {
+    "label": "Subscription History",
+    "icon": "mdi-card-bulleted",
+    "path": "/admin/subscription-history"
+  },
+  {
+    "label": "Support & Feedback",
+    "icon": "mdi-lifebuoy",
+    "path": "/admin/support"
+  },
+  {
+    "label": "Alerts & Announcements",
+    "icon": "mdi-bell-alert-outline",
+    "path": "/admin/alerts"
+  },
+
+  {
+    "label": "Subscriptions Control",
+    "type": "group"
+  },
+  {
+    "label": "Plan",
+    "icon": "mdi-map-plus",
+    "path": "/admin/plans"
+  },
+  {
+    "label": "Discount / Coupon Code",
+    "icon": "mdi-tag-multiple",
+    "path": "/admin/coupons"
+  },
+  {
+    "label": "Restriction Control",
+    "icon": "mdi-lock",
+    "path": "/admin/restrictions"
+  },
+
+  {
+    "label": "Content Management",
+    "type": "group"
+  },
+  {
+    "label": "News & Blog",
+    "icon": "mdi-newspaper-variant-outline",
+    "path": "/admin/news"
+  },
+  {
+    "label": "Category",
+    "icon": "mdi-shape-outline",
+    "path": "/admin/category"
+  },
+  {
+    "label": "Tag",
+    "icon": "mdi-tag-outline",
+    "path": "/admin/tag"
+  },
+
+  {
+    "label": "Admin Access",
+    "type": "group"
+  },
+  {
+    "label": "User Restrictions",
+    "icon": "mdi-account-lock-outline",
+    "path": "/admin/user-restrictions"
+  },
+  {
+    "label": "Admin / Role & Position",
+    "icon": "mdi-account-multiple-check",
+    "path": "/admin/roles"
+  },
+  {
+    "label": "Create Admin",
+    "icon": "mdi-account-plus-outline",
+    "path": "/admin/create-admin"
+  },
+  {
+    "label": "Access Control",
+    "icon": "mdi-key-alert",
+    "path": "/admin/access"
+  }
 ]

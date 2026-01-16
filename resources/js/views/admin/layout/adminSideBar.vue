@@ -4,7 +4,7 @@
            <v-list density="compact" class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 300" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                    <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
                     <img v-else :src="newLogo" 
                         style="width: 40px; height: 40px; " />
                 </v-list-item>
@@ -80,7 +80,7 @@ export default {
                 return  "258";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "300" : "68";
+                return this.themeStore.menuType == "expanded" ? "258" : "68";
             }
 
         },

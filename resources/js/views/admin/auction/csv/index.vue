@@ -2,7 +2,7 @@
     <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border">
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
-                <h1 class=" text-h6 Sheet">CSV <span class="pointer bg-background">Id : {{ form.table_id }}</span>
+                <h1 class=" text-h6 Sheet"> <span class="pointer bg-background">{{ form.table_id }}</span>
                     <span class="pointer ml-2 bg-background">{{ form.name }}</span>
                 </h1>
             </div>

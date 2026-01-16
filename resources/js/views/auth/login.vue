@@ -119,8 +119,8 @@ export default {
             errors: {},
             loading: false,
             form: {
-                email: "",
-                password: "",
+                email: "man411210@gmail.com",
+                password: "12345678",
             },
         };
     },

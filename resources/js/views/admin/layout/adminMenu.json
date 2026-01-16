@@ -4,9 +4,9 @@
     "type": "group"
   },
   {
-    "label": "Overview",
+    "label": "Dashboard",
     "icon": "mdi-view-dashboard-outline",
-    "path": "/admin/overview"
+    "path": "/admin/dashboard"
   },
   {
     "label": "Analytics & Behavior Tracking",
@@ -25,12 +25,12 @@
   },
   {
     "label": "Import Auction",
-    "icon": "mdi-import",
+    "icon": "mdi-database-import-outline",
     "path": "/admin/auction"
   },
   {
     "label": "Vehicle List",
-    "icon": "mdi-tire",
+    "icon": "mdi-list-box-outline",
     "path": "/admin/vehicle"
   },
 
@@ -40,12 +40,12 @@
   },
   {
     "label": "Master",
-    "icon": "mdi-car-search-outline",
+    "icon": "mdi-star-outline",
     "path": "/admin/bodyType"
   },
   {
     "label": "Dictionary",
-    "icon": "mdi-pencil-box",
+    "icon": "mdi-information-outline",
     "path": "/admin/dictionary"
   },
 
@@ -55,17 +55,17 @@
   },
   {
     "label": "User",
-    "icon": "mdi-account",
+    "icon": "mdi-account-multiple-outline",
     "path": "/admin/members"
   },
   {
     "label": "Subscription History",
-    "icon": "mdi-card-bulleted",
+    "icon": "mdi-cash-multiple",
     "path": "/admin/subscription-history"
   },
   {
     "label": "Support & Feedback",
-    "icon": "mdi-lifebuoy",
+    "icon": "mdi-face-agent",
     "path": "/admin/support"
   },
   {
@@ -80,17 +80,17 @@
   },
   {
     "label": "Plan",
-    "icon": "mdi-map-plus",
+    "icon": "mdi-seal-variant",
     "path": "/admin/plans"
   },
   {
     "label": "Discount / Coupon Code",
-    "icon": "mdi-tag-multiple",
+    "icon": "mdi-tag-multiple-outline",
     "path": "/admin/coupons"
   },
   {
     "label": "Restriction Control",
-    "icon": "mdi-lock",
+    "icon": "mdi-lock-outline",
     "path": "/admin/restrictions"
   },
 
@@ -118,21 +118,14 @@
     "label": "Admin Access",
     "type": "group"
   },
+ 
+  
   {
-    "label": "User Restrictions",
-    "icon": "mdi-account-lock-outline",
-    "path": "/admin/user-restrictions"
-  },
-  {
-    "label": "Admin / Role & Position",
-    "icon": "mdi-account-multiple-check",
+    "label": "Admin",
+    "icon": "mdi-check-decagram",
     "path": "/admin/roles"
   },
-  {
-    "label": "Create Admin",
-    "icon": "mdi-account-plus-outline",
-    "path": "/admin/create-admin"
-  },
+
   {
     "label": "Access Control",
     "icon": "mdi-key-alert",

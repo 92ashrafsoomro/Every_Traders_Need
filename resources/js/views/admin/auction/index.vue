@@ -1,5 +1,5 @@
 <template>
-    <user-title-bar title="Import CSV Data"
+    <user-title-bar title="Auction List"
    >
 
         <div>
@@ -94,12 +94,12 @@
                             </v-btn> -->
                         <!-- </div> -->
                     <!-- </div> -->
-                    <div class="pl-lg-2 pt-lg-0 pt-md-0">
+                    <!-- <div class="pl-lg-2 pt-lg-0 pt-md-0">
                         <v-btn to="/admin/auction/create" color="primary" style="height: 44px;" variant="flat"
                             @click="loadItems">
                             <v-icon icon="mdi-plus"></v-icon>
                         </v-btn>
-                    </div>
+                    </div> -->
                 </div>
             </v-col>
             <v-col cols="12" class="mt-2">

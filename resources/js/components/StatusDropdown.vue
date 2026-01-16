@@ -17,7 +17,7 @@ export default {
     name:'statusDrodown',
     
     props:{
-        modelValue:{
+        statusValue:{
             type:[String , Number , Boolean],
             default:null
         }
@@ -38,7 +38,9 @@ export default {
             try {
                 const response = await General.get("/api/cruds/auctionStatus",{});
                 this.data = response.data;
-                // this.data.sort((a, b)=> a.name.localeCompare(b.name));
+                console.log("Auction Status " + response.data);
+                
+                //  this.data.sort((a,b)=>a.name.localeCompare(b.name));
             } catch (error) {
                 console.error("Error loading Status:", error)
             }finally{
@@ -46,9 +48,9 @@ export default {
             }
         },
         handleStatus(value){
-            this.$emit("update:modelValue", value)
+            this.$emit("update:statusValue", value)
         },
-        emits:['update:modelValue']
+        emits:['update:statusValue']
     }
 
 }

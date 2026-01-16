@@ -34,16 +34,20 @@
                                 <AuctionTypeDropdown min-width="190px" max-width="274px" v-model="filter.auction_type" label="Auction Type"
                                     variant="outlined" base-color="white" clearable density="comfortable" />
                             
-                        
-                                <StatusDropdown
+                                
+                                <!-- <StatusDropdown label="Status "
+                                    variant="outlined"   density="comfortable"
+                                    min-width="190px" max-width="274px" /> -->
+                               
+                                    <StatusDropdown
                                     v-model="filter.status"
                                     label="Status "
                                     variant="outlined"
-                                    item-title="name"
-                                    item-value="id"
                                     density="comfortable"
                                     min-width="190px" max-width="274px" 
                                     />
+                                    <!-- item-title="name"
+                                    item-value="id" -->
 
                                 <!-- <v-select min-width="190px" max-width="274px" density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
                                      clearable v-model="filter.status" label="Status " /> -->

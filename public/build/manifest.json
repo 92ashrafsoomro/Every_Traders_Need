@@ -109,11 +109,16 @@
     "isEntry": true
   },
   "resources/js/app.js": {
+<<<<<<< HEAD
     "file": "assets/app-D9VXG_Ya.js",
+=======
+    "file": "assets/app-B3oTdooz.js",
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
+<<<<<<< HEAD
       "assets/app-2v9HMERc.css"
     ],
     "assets": [
@@ -140,6 +145,12 @@
       "assets/Reauction-tP7Tm7wy.png",
       "assets/supportImage-C5pGktL4.png",
       "assets/mslogo-jZzES09S.png",
+=======
+      "assets/app-Djjw3QQy.css"
+    ],
+    "assets": [
+      "assets/logo-DYL3VdM3.png",
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
       "assets/inter-cyrillic-ext-400-normal-BQZuk6qB.woff2",
       "assets/inter-cyrillic-ext-400-normal-DQukG94-.woff",
       "assets/inter-cyrillic-400-normal-obahsSVq.woff2",
@@ -168,6 +179,7 @@
       "assets/MaterialIcons-Regular-DEUTIz1o.ttf"
     ]
   },
+<<<<<<< HEAD
   "resources/js/assets/images/about/Different1.png": {
     "file": "assets/Different1-Bu2k_8QW.png",
     "src": "resources/js/assets/images/about/Different1.png"
@@ -267,5 +279,10 @@
   "resources/js/assets/images/tabs/mission.png": {
     "file": "assets/mission-BVQCleya.png",
     "src": "resources/js/assets/images/tabs/mission.png"
+=======
+  "resources/js/assets/images/logo/logo.png": {
+    "file": "assets/logo-DYL3VdM3.png",
+    "src": "resources/js/assets/images/logo/logo.png"
+>>>>>>> 1fe78d2348777b02e79ecb45881a45a11e304dc5
   }
 }

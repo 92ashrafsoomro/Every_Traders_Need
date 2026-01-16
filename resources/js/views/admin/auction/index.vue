@@ -35,8 +35,18 @@
                                     variant="outlined" base-color="white" clearable density="comfortable" />
                             
                         
-                                <v-select min-width="190px" max-width="274px" density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
-                                     clearable v-model="filter.status" label="Status " />
+                                <StatusDropdown
+                                    v-model="filter.status"
+                                    label="Status "
+                                    variant="outlined"
+                                    item-title="name"
+                                    item-value="id"
+                                    density="comfortable"
+                                    min-width="190px" max-width="274px" 
+                                    />
+
+                                <!-- <v-select min-width="190px" max-width="274px" density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
+                                     clearable v-model="filter.status" label="Status " /> -->
                                     
                                     <v-text-field density="comfortable" variant="outlined" min-width="340px" max-width="274px" type="date"
                                         v-model="filter.auction_date" label="Auction Date" />
@@ -125,12 +135,13 @@
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
-
+import StatusDropdown from '@/components/StatusDropdown.vue';
 export default {
 
     components: {
         PlateformDropdown,
-        AuctionTypeDropdown
+        AuctionTypeDropdown,
+        StatusDropdown
     },
     data() {
         return {
@@ -141,7 +152,7 @@ export default {
                 name: "",
                 action_type: "",
                 platform: null,
-                status: "Draft",
+                status: null,
                 auction_date: "",
                 search: '',
                 length: 10,

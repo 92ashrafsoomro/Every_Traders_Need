@@ -121,6 +121,9 @@ class SheetService
 
                     $item['auction_id'] = $model->id;
                     $item['last_bid'] = floatval($item['last_bid']);
+                    $item['mot_expiry_date'] = $request->mot_expiry_date? date('Y-m-d', strtotime($request->mot_expiry_date)): null;
+                    $item['last_service'] = $request->last_service? date('Y-m-d', strtotime($request->last_service)): null;
+               
 
                     Vehicle::create($item);
                 }

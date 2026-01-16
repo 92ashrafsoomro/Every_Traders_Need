@@ -133,9 +133,9 @@ export default {
             selectedUser: null,
             viewLoading: false,
             filter: {
-                key: "",
-                value: "",
-                name: "",
+                key: null,
+                value: null,
+                name: null,
                 search: "",
                 length: 50,
                 page: 1,
@@ -183,7 +183,7 @@ export default {
                 this.items = res.data || [];
                 this.totalRecord = res.recordsTotal || this.items.length;
                 this.total = this.totalRecord;
-                this.filter.page = Number(res.page);
+                // this.filter.page = Number(res.page);
                 this.last_page = Number(res.last_page);
             } catch (error) {
                 alert(error);

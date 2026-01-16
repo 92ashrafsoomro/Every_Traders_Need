@@ -35,6 +35,8 @@
                 <MakeDropdown
                   label="Select Make"
                   variant="outlined"
+                  item-title="name"
+                  item-value="id"
                   color="primary"
                   v-model="makeid"
                   density="compact"
@@ -47,6 +49,8 @@
                   label="Select Model"
                   variant="outlined"
                   color="primary"
+                  item-title="name"
+                  item-value="id"
                   v-model="model_id"
                   :make="makeid"        
                   density="compact"

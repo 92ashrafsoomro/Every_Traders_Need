@@ -16,44 +16,38 @@
             <v-expand-transition>
                 <div v-show="showFilters">
                     <v-container fluid>
-                        <v-row>
-                            <v-col class=" text-center content-scroll" align="center" style="max-width: 150px;">
-                                <v-text-field density="comfortable" variant="outlined" clearable
-                                    v-model="filter.table_id" label="Id"  />
-                            </v-col>
-                            <v-col>
-                                <PlateformDropdown v-model="filter.platform" label="Auction House" clearable variant="outlined"
+                        <div class="d-flex flex-wrap ga-2 " >
+                                <v-text-field 
+                                 density="comfortable" 
+                                 variant="outlined" 
+                                 clearable
+                                 v-model="filter.table_id" 
+                                 label="Id" 
+                                 min-width="130px"
+                                 max-width="130px" />
+
+                                <PlateformDropdown min-width="250px" max-width="274px" v-model="filter.platform"  label="Auction House" clearable variant="outlined"
                                     base-color="white" density="comfortable" />
+
                                 <!-- <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.name"
                                     label="Auction Name " /> -->
-                            </v-col>
-                            <v-col>
-
-                                <AuctionTypeDropdown v-model="filter.auction_type" label="Auction Type"
+                                <AuctionTypeDropdown min-width="190px" max-width="274px" v-model="filter.auction_type" label="Auction Type"
                                     variant="outlined" base-color="white" clearable density="comfortable" />
-                            </v-col>
-                   
-                 
-
-
-                            <v-col>
-                                <v-select density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
-                                    hide-details clearable v-model="filter.status" label="Status " />
-                            </v-col>
-                            <v-col>
-                                <div class="d-flex">
-                                    <v-text-field density="comfortable" variant="outlined" type="datetime-local"
+                            
+                        
+                                <v-select min-width="190px" max-width="274px" density="comfortable" variant="outlined" :items="['Draft', 'Planed']"
+                                     clearable v-model="filter.status" label="Status " />
+                                    
+                                    <v-text-field density="comfortable" variant="outlined" min-width="340px" max-width="274px" type="date"
                                         v-model="filter.auction_date" label="Auction Date" />
-
-
-
-                                    <v-btn style="height: 44px; margin-left: 10px;" variant="outlined"
+                            <div class="">
+                                    <v-btn style="height: 47px; ;" variant="outlined"
                                         @click="loadItems(true)" class="mr-2">
                                         <v-icon icon="mdi-magnify"></v-icon>
                                     </v-btn>
-                                </div>
-                            </v-col>
-                        </v-row>
+                                
+                            </div>
+                        </div>
                     </v-container>
                 </div>
             </v-expand-transition>
@@ -63,7 +57,7 @@
     <v-container max-width="1400px">
         <v-row no-gutters class="mt-3">
             <v-col cols="12">
-                <div class="d-lg-flex d-md-flex py-4">
+                <div class="d-flex justify-space-between d-md-flex py-4">
                     <div class="d-flex align-center pb-2 pb-lg-0 pb-md-0">
                         <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact"
                             variant="outlined" max-width="150px" class="mr-2" />
@@ -71,16 +65,16 @@
                             of {{ total }} Records </div>
                     </div>
 
-                    <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  ">
-                        <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"
+                    <!-- <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  "> -->
+                        <!-- <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"
                             max-width="400px" clearable />
-                        <div class="pl-2">
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                        <div class="pl-2"> -->
+                            <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn>
-                        </div>
-                    </div>
-                    <div class="pl-lg-2 pt-2  pt-lg-0 pt-md-0">
+                            </v-btn> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    <div class="pl-lg-2 pt-lg-0 pt-md-0">
                         <v-btn to="/admin/auction/create" color="primary" style="height: 44px;" variant="flat"
                             @click="loadItems">
                             <v-icon icon="mdi-plus"></v-icon>
@@ -146,7 +140,7 @@ export default {
                 table_id: "",
                 name: "",
                 action_type: "",
-                platform: "",
+                platform: null,
                 status: "Draft",
                 auction_date: "",
                 search: '',
@@ -186,6 +180,23 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
+        'filter.table_id'(newVal , oldVal){
+            this.loadItems()
+        },
+        'filter.name'(newVal , oldVal){
+            this.loadItems()
+        },'filter.action_type'(newVal , oldVal){
+            this.loadItems()
+        },
+        'filter.platform'(newVal , oldVal){
+            this.loadItems()
+        },
+        'filter.status'(newVal , oldVal){
+            this.loadItems()
+        },
+        'filter.auction_date'(newVal , oldVal){
+            this.loadItems()
+        }
     },
     methods: {
         formatDate(date) {

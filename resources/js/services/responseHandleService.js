@@ -1,3 +1,6 @@
+import router from '@/routes/index'
+
+
 
     export const errorHandler = async (error) => { 
         
@@ -5,10 +8,15 @@
 
                 if(error.response?.data?.message) {
                     let err = new Error(error.response.data.message);
-                    if (error.response.data?.errors) {
+                    if (err.message == 'Unauthenticated.') {
+                        router.push('/login');
+                    }
+
+                    if(error.response.data?.errors){
                         err.validation = error.response.data?.errors;
                     }
                     throw err;
+
                 } else if(error.response?.message) {
                     throw new Error("Unexpected error occurred");
                 } else {

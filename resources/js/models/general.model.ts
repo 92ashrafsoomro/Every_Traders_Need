@@ -1,6 +1,6 @@
 import api from "@/plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
-import { toFormData } from "@/utils/helper";
+import { toFormData } from "@/plugins/helper";
 
 
 export default class General {
@@ -21,6 +21,34 @@ export default class General {
             }
 
     }
+    
+    static async put(url:any,options:any) {
+        try {
+
+           let req = await toFormData(options);
+            req.append("_method","put");
+            const res = await api.post(url, req);
+            console.log(res);
+            
+            return res.data;
+    
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+    
+    static async post(url:any,options:any) {
+        try {
+
+           let req = await toFormData(options);
+            const res = await api.post(url, req);
+            return res.data;
+    
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+
 
 
 

@@ -119,15 +119,15 @@
                             </span>
                         </template>
 
-                <template #item.auction_status.title="{item}" >
-                <v-chip
-                    :color="statusColor(item.auction_status.title)"
-                    small
-                    dark
-                >
-                    {{ item.auction_status.title }}
-                </v-chip>
-                </template>
+                        <template #item.auction_status.title="{item}" >
+                            <v-chip
+                                :color="statusColor(item.auction_status.title)"
+                                small
+                                dark
+                            >
+                                {{ item.auction_status.title }}
+                            </v-chip>
+                        </template>
 
 
 
@@ -206,6 +206,7 @@ export default {
     },
     mounted() {
         this.loadItems()
+        this.$themeStore.menuType = 'collapsed';
     },
     computed: {
 
@@ -244,13 +245,13 @@ export default {
             case 'Done':
                 return '#f2ce02';
             case 'Confirm':
-                return '#ebff0a';
+                return '#96761a';
             case 'Draft':
                 return '#ebff0a';
             case 'In Progress':
                 return '#85e62c';
             default:
-                return '#02de0a';
+                return '#fff';
         }
     },
         formatDate(date) {

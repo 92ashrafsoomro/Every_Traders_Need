@@ -99,7 +99,7 @@
 
                         <template #item.action="{ item }">
 
-                            <router-link :to="'/admin/variant/edit/' + item.id">
+                            <router-link :to="'/admin/variant/edit/' + item.id" target="_blank">
                                 <v-icon color="primary" class="editIconHover pa-4">mdi-pencil</v-icon>
                             </router-link>
                             
@@ -154,7 +154,7 @@ export default {
         return {
             filter: {
                 search: '',
-                length: 10,
+                length: 50,
                 // makeName:'',
                 // modelName :'',
                 page: 1,

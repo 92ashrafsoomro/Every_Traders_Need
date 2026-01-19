@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
-
-           <v-list density="compact" class="" nav>
+        <div class="v-navigation-drawer__content">
+           <v-list density="compact"   class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
                     <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
@@ -52,7 +52,8 @@
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay " >
                  <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1"> Back To User</router-link></v-list-item>
             </div>
-        </v-list>
+           </v-list>
+        </div>
     </v-navigation-drawer>
 </template>
 
@@ -101,6 +102,17 @@ export default {
 
 .v-list-item--nav .v-list-item-title{
     font-size: 16px !important;
+}
+.v-navigation-drawer__content {
+  overflow-y: auto;
+
+  /* hide scrollbar */
+  scrollbar-width: none;     
+  -ms-overflow-style: none; 
+}
+
+.v-navigation-drawer__content::-webkit-scrollbar {
+  display: none; 
 }
 
 </style>

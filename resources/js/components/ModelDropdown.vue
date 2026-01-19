@@ -51,8 +51,8 @@ export default {
                         make_id: this.make,
                         length: 1000
                     });
-               
-                    this.data = response.data; 
+                    this.data = response.data;
+                    this.data.sort((a,b)=>a.name.localeCompare(b.name))
                 } catch (err) {
                     console.error("Error loading Makes:", err);
                     this.data = [];

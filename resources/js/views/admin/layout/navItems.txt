@@ -1,0 +1,88 @@
+ {
+    "label": "Dashboard",
+    "icon": "mdi-view-dashboard-outline",
+    "path": "/admin/dashboard"
+  },
+  {
+    "label": "Analytics & Behavior Tracking",
+    "icon": "mdi-chart-line",
+    "path": "/admin/analytics"
+  },
+  {
+    "label": "Insights",
+    "icon": "mdi-lightbulb-outline",
+    "path": "/admin/insights"
+  },
+
+
+
+
+
+{
+    "label": "Subscription History",
+    "icon": "mdi-cash-multiple",
+    "path": "/admin/subscription-history"
+  },
+  {
+    "label": "Support & Feedback",
+    "icon": "mdi-face-agent",
+    "path": "/admin/support"
+  },
+  {
+    "label": "Alerts & Announcements",
+    "icon": "mdi-bell-alert-outline",
+    "path": "/admin/alerts"
+  },
+
+
+
+  
+  {
+    "label": "Discount / Coupon Code",
+    "icon": "mdi-tag-multiple-outline",
+    "path": "/admin/coupons"
+  },
+  {
+    "label": "Restriction Control",
+    "icon": "mdi-lock-outline",
+    "path": "/admin/restrictions"
+  },
+
+  {
+    "label": "Content Management",
+    "type": "group"
+  },
+  {
+    "label": "News & Blog",
+    "icon": "mdi-newspaper-variant-outline",
+    "path": "/admin/news"
+  },
+  {
+    "label": "Category",
+    "icon": "mdi-shape-outline",
+    "path": "/admin/category"
+  },
+  {
+    "label": "Tag",
+    "icon": "mdi-tag-outline",
+    "path": "/admin/tag"
+  },
+
+  {
+    "label": "Admin Access",
+    "type": "group"
+  },
+ 
+  
+  {
+    "label": "Admin",
+    "icon": "mdi-check-decagram",
+    "path": "/admin/roles"
+  },
+
+  {
+    "label": "Access Control",
+    "icon": "mdi-key-alert",
+    "path": "/admin/access"
+  }
+

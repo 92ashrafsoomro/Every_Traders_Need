@@ -58,8 +58,8 @@
 
 <script>
 import adminSideBar from "./adminSideBar.vue";
-import ProfileDropdown from "@/views/user/layout/ProfileDropdown.vue";
-import Notificationdropdown from "@/views/user/layout/Notificationdropdown.vue";
+import ProfileDropdown from "./ProfileDropdown.vue";
+import Notificationdropdown from "./Notificationdropdown.vue";
 
 import { mdiFullscreen } from "@mdi/js";
 import { useThemeStore } from "@stores/themeStore";

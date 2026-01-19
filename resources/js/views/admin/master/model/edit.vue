@@ -39,16 +39,14 @@
                   </v-col>
                   <v-col cols="4" sm="4" class="pl-2">
                       <MakeDropdown 
-                        label="Select Make" 
-                        variant="outlined" 
-                        color="primary"
-                        class="id-box" 
-                        item-title="name"
-                        item-value="id"
-                        v-model="makeid"    
-                        hide-details
-                        item
-                        density="compact"  />
+                        label="Select Make"
+                  variant="outlined"
+                  item-title="name"
+                  item-value="id"
+                  v-model="makeid"  
+                  color="primary"
+                  density="compact"
+                  hide-details />
                   </v-col>
                   <v-col cols="4" sm="4" class="pl-2">
                     <v-text-field

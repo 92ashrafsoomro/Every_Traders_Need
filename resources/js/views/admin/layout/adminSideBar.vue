@@ -23,10 +23,11 @@
                             <v-list-item 
                             v-bind="props" 
                             :title="item.label" 
-                            :prepend-icon="item.icon"  />
+                            :prepend-icon="item.icon" class="text-body-2" />
+                        
                         </template>
 
-                        <v-list-item  v-for="child in item.children" :prepend-icon="child.icon"  :title="child.label" :to="child.path" active-class="bg-primary on-primary  rounded my-active-menu hide-overlay"></v-list-item>
+                        <v-list-item style="margin-left: -60px;" v-for="child in item.children" :prepend-icon="child.icon"  :title="child.label" :to="child.path" active-class="bg-primary on-primary  rounded my-active-menu hide-overlay"></v-list-item>
                     </v-list-group>
                 
                     <v-list-item v-else-if="!item.hasOwnProperty('children')"     
@@ -35,14 +36,14 @@
                         :prepend-icon="item.icon" 
                         :ripple="false"
                         :hide-overlay="false"
-                        class="text-subtitle-1"
+                        class="text-subtitle-1 "
                         active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                         <template #title>
                             <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>
                         </template>
                     </v-list-item>
 
-                    <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
+                    <v-list-item class=" mt-8" v-else title="" :subtitle="item.label">
                         <v-divider class="mt-2"></v-divider>
                     </v-list-item>
                 </template>

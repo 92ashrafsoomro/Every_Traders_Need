@@ -1,59 +1,62 @@
 [
   {
     "label": "Dashboard",
-    "type": "group"
-  },
-    {
-    "label": "Dashboard",
-    "icon": "mdi-view-dashboard-outline",
-    "path": "/admin/dashboard"
+    "children": [
+      {
+        "label": "Dashboard",
+        "icon": "mdi-view-dashboard-outline",
+        "path": "/admin/dashboard"
+      }
+    ]
   },
   {
     "label": "Data Management",
-    "type": "group"
+    "children": [
+      {
+        "label": "Import Auction",
+        "icon": "mdi-database-import-outline",
+        "path": "/admin/auction"
+      },
+      {
+        "label": "Vehicle List",
+        "icon": "mdi-list-box-outline",
+        "path": "/admin/vehicle"
+      }
+    ]
   },
-  {
-    "label": "Import Auction",
-    "icon": "mdi-database-import-outline",
-    "path": "/admin/auction"
-  },
-  {
-    "label": "Vehicle List",
-    "icon": "mdi-list-box-outline",
-    "path": "/admin/vehicle"
-  },
-
   {
     "label": "Ids",
-    "type": "group"
+    "children": [
+      {
+        "label": "Master",
+        "icon": "mdi-star-outline",
+        "path": "/admin/bodyType"
+      },
+      {
+        "label": "Dictionary",
+        "icon": "mdi-information-outline",
+        "path": "/admin/dictionary"
+      }
+    ]
   },
-  {
-    "label": "Master",
-    "icon": "mdi-star-outline",
-    "path": "/admin/bodyType"
-  },
-  {
-    "label": "Dictionary",
-    "icon": "mdi-information-outline",
-    "path": "/admin/dictionary"
-  },
-
   {
     "label": "User Management",
-    "type": "group"
+    "children": [
+      {
+        "label": "User",
+        "icon": "mdi-account-multiple-outline",
+        "path": "/admin/members"
+      }
+    ]
   },
-  {
-    "label": "User",
-    "icon": "mdi-account-multiple-outline",
-    "path": "/admin/members"
-  },
-  
   {
     "label": "Subscriptions Control",
-    "type": "group"
-  },
-  {
-    "label": "Plan",
-    "icon": "mdi-seal-variant",
-    "path": "/admin/plans"
-  }]
+    "children": [
+      {
+        "label": "Plan",
+        "icon": "mdi-seal-variant",
+        "path": "/admin/plans"
+      }
+    ]
+  }
+]

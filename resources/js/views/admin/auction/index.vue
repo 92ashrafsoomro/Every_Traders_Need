@@ -119,9 +119,17 @@
                             </span>
                         </template>
 
-                        <template #item.auction_status.title="{item}" >
-                            <span  class="bg-white">{{ item.auction_status.title }}</span>
-                        </template>
+                <template #item.auction_status.title="{item}" >
+                <v-chip
+                    :color="statusColor(item.auction_status.title)"
+                    small
+                    dark
+                >
+                    {{ item.auction_status.title }}
+                </v-chip>
+                </template>
+
+
 
                         <template #item.action="{ item }">
                             <router-link :to="'/admin/auction/edit/' + item.id">
@@ -229,24 +237,22 @@ export default {
         }
     },
     methods: {
-        statusColor(){
-            switch (statusColor){
-                 case 'Cancle':
-                    return '#e51f1f'
-                case 'Done':
-                    return '#f2ce02'
-                case 'Confirm':
-                    return '#ebff0a'
-                case 'Draft':
-                    return '#85e62c'
-                case 'In Progress':
-                    return '#85e62c'
-                case 'Draft':
-                    return '#85e62c'
-                default:
-                    return '#02de0a'
-            }
-        },
+     statusColor(auction_status){
+        switch (auction_status) {
+            case 'Cancle':
+                return '#e51f1f';
+            case 'Done':
+                return '#f2ce02';
+            case 'Confirm':
+                return '#ebff0a';
+            case 'Draft':
+                return '#ebff0a';
+            case 'In Progress':
+                return '#85e62c';
+            default:
+                return '#02de0a';
+        }
+    },
         formatDate(date) {
             if (!date) return ''
             return date.split('T')[0].split(' ')[0]

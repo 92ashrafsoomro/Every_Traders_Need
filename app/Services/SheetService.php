@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Hash;
 class SheetService 
 {   
 
-    
-        static  public function getScrapperDataByAuction(Request $request,Auctions $model)
+        static public function getScrapperDataByAuction(Request $request,Auctions $model)
     {
 
             $prefixes = [];
@@ -42,9 +41,7 @@ class SheetService
                 array_push($data,$SheetColumnSetter->get());
             }
 
-            
             return $data;
-
 
     }
 
@@ -52,49 +49,49 @@ class SheetService
     static public function getAuctionVehicle(Request $request,$auctionId)
     {
 
-            $model = Auctions::where('id',$auctionId)->first();
-            if(!$model){
-                return response()->json([
-                    'message' => 'Record Not Found',
-                ], 422);
-            }
+        $model = Auctions::where('id',$auctionId)->first();
+        if(!$model){
+            return response()->json([
+                'message' => 'Record Not Found',
+            ], 422);
+        }
 
 
-            $data = Vehicle::where('auction_id',$auctionId)
-                    ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-                    ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-                    ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-                    ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-                    ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
-                    ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id')
-                    ->select([
-                        'vehicles.*',
-                        'auction_center.name as center_name',
-                        'make.name as make_name',
-                        'model.name as model_name',
-                        'model_variant.name as variant_name',
-                        'vehicle_type.name as vehicle_name',
-                        'body_types.name as body_name',
-                    ])
-                    ->get()
-                    ->map(function ($item, $key) {
+        $data = Vehicle::where('auction_id',$auctionId)
+                ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+                ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+                ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+                ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+                ->leftJoin('vehicle_type', 'vehicle_type.id', '=', 'vehicles.vehicle_id')
+                ->leftJoin('body_types', 'body_types.id', '=', 'vehicles.body_id')
+                ->select([
+                    'vehicles.*',
+                    'auction_center.name as center_name',
+                    'make.name as make_name',
+                    'model.name as model_name',
+                    'model_variant.name as variant_name',
+                    'vehicle_type.name as vehicle_name',
+                    'body_types.name as body_name',
+                ])
+                ->get()
+                ->map(function ($item, $key) {
 
-                        $item->center_id = $item->center_name;
-                        $item->vehicle_id = $item->vehicle_name;
-                        $item->body_id = $item->body_name;
-                        $item->make_id = $item->make_name;
-                        $item->model_id = $item->model_name;
-                        $item->variant_id = $item->variant_name;
-                        
+                    $item->center_id = $item->center_name;
+                    $item->vehicle_id = $item->vehicle_name;
+                    $item->body_id = $item->body_name;
+                    $item->make_id = $item->make_name;
+                    $item->model_id = $item->model_name;
+                    $item->variant_id = $item->variant_name;
+                    
 
-                        return $item;
+                    return $item;
 
-                    });
+                });
 
-            return [
-                'auction'=> $model,
-                'data' => $data,
-            ];
+        return [
+            'auction'=> $model,
+            'data' => $data,
+        ];
 
     }
 

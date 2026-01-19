@@ -60,14 +60,28 @@ class UpdateCsvAuctionRequest extends FormRequest
 
                     $VehicleModel = VehicleModel::whereRaw('TRIM(name) = ?',[trim($row['model_id'])])->first();
                     if ($VehicleModel) {
-                        $data[$index]['model_id'] = $VehicleModel->id;
+
+                        if($Make && $Make->id == $VehicleModel->make_id){
+                            $data[$index]['model_id'] = $VehicleModel->id;
+                        }else{
+                            $validator->errors()->add("data.$index.model_id",'Model Invalid');
+                        }
+
                     }else{
                         $validator->errors()->add("data.$index.model_id",'Model Invalid');
                     }
                     
+                    
                     $ModelVariant = ModelVariant::where('name', $row['variant_id'])->first();
                     if ($ModelVariant) {
-                        $data[$index]['variant_id'] = $ModelVariant->id;
+
+                        if($VehicleModel && $Make && $Make->id == $VehicleModel->make_id && $VehicleModel->id == $ModelVariant->model_id){
+                            $data[$index]['variant_id'] = $ModelVariant->id;
+                        }else{
+                            $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
+                        }
+
+                        
                     }else{
                          $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
                     }

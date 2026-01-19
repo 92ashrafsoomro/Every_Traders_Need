@@ -27,17 +27,12 @@ use Illuminate\Support\Facades\Hash;
 class SheetColumnSetter 
 {
     
-
     protected $item;
     public $prefixes;
- 
-
 
     function __construct($item) {
-
         $this->item = $item;
         $this->item['errors'] = [];
-
     }
 
     public function setBodyId()
@@ -52,12 +47,10 @@ class SheetColumnSetter
 
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['body_id'] = $value;
-
     }
 
     public function setVehicleId()
     {
-
         $prefixes = $this->prefixes['vehicleType'];
         $value = strtolower($this->item['body_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
@@ -72,12 +65,10 @@ class SheetColumnSetter
         $value = strtolower($this->item['make_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['make_id'] = $value;
-
     }
 
         public function setModelId()
     {
-
         $prefixes = $this->prefixes['model'];
         $value = strtolower($this->item['model_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
@@ -86,7 +77,7 @@ class SheetColumnSetter
     }
 
     
-          public function setVariantId()
+        public function setVariantId()
     {       
 
             $this->item['variant_id'] = $this->item['derivative'];
@@ -98,7 +89,6 @@ class SheetColumnSetter
                 $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
                 if($model){
 
-                   
                         $variants = ModelVariant::where('model_id',$model->id)
                                     ->get()
                                     ->pluck('name')
@@ -107,48 +97,52 @@ class SheetColumnSetter
                       
                         if(!empty($value)){
 
-                            $words = explode(" ",$value);
+                            // $v = Vehicle::where('make_id',$make->id)
+                            // ->where('model_id',$model->id)
+                            // ->whereRaw('LOWER(derivative) = ?', [strtolower($this->item['derivative'])])
+                            // ->first();
+                            // if($v){
+                             
+                            //      $this->item['variant_id'] = $v->variant->name;
+                            // }else{
 
-                            if(isset($words[2])){
-                                
-                                if(in_array($words[0].' '.$words[1].' '.$words[2],$variants)){ 
-                                    $this->item['variant_id'] = $words[0].' '.$words[1].' '.$words[2];
-                                
-                                }else if(in_array($words[0].' '.$words[1],$variants)){ 
-                                    $this->item['variant_id'] = $words[0].' '.$words[1];
-                                }else if(in_array($words[0],$variants)){ 
-                                    $this->item['variant_id'] = $words[0];
-                                }
+                                $words = explode(" ",$value);
 
-                            }else if(isset($words[1])){
+                                if(isset($words[2])){
+                                    
+                                    if(in_array($words[0].' '.$words[1].' '.$words[2],$variants)){ 
+                                        $this->item['variant_id'] = $words[0].' '.$words[1].' '.$words[2];
+                                    }else if(in_array($words[0].' '.$words[1],$variants)){ 
+                                        $this->item['variant_id'] = $words[0].' '.$words[1];
+                                    }else if(in_array($words[0],$variants)){ 
+                                        $this->item['variant_id'] = $words[0];
+                                    }
 
+                                }else if(isset($words[1])){
+                                    
                                     if(in_array($words[0].' '.$words[1],$variants)){ 
                                         $this->item['variant_id'] = $words[0].' '.$words[1];
                                     }else if(in_array($words[0],$variants)){ 
                                         $this->item['variant_id'] = $words[0];
                                     }
-                            
-                            }else{
 
-                                if(in_array($words[0],$variants)){ 
-                                    $this->item['variant_id'] = $words[0];
+                                }else{
+                                    if(in_array($words[0],$variants)){ 
+                                        $this->item['variant_id'] = $words[0];
+                                    }
                                 }
 
-                            }
+                            // }
 
                         }
-                     
-                        
-                               
+
                 }
 
             }
-            
+
             // $prefixes = $this->prefixes['variant'];
             // $value = strtolower($this->item['variant_id']);
-        
             // $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
-        
             // $this->item['variant_id'] = $value;
     }
 
@@ -210,9 +204,7 @@ class SheetColumnSetter
         $this->setMakeId();
         $this->setModelId();
         $this->setVariantId();
-        
         return $this->item;
-        
     }
 
    

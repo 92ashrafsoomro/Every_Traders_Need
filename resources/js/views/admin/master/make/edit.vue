@@ -26,10 +26,11 @@
                 <v-row align="center" no-gutters>
                   <v-col cols="1" sm="3">
                     <v-text-field
-                      v-model="id"
+                      v-model="form.id"
                       label="ID"
                       variant="outlined"
                       density="compact"
+                      disabled=""
                       color="primary"
                       readonly
                       class="id-box"
@@ -39,7 +40,7 @@
                   </v-col>
                   <v-col cols="11" sm="9" class="pl-2">
                     <v-text-field
-                      v-model="titleInput"
+                      v-model="form.name"
                       label="Title"
                       variant="outlined"
                       density="compact"
@@ -77,15 +78,19 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Make from '@/models/make.model';
-
+import { useMakeStore } from '@/stores/makeStore';
 export default {
   data() {
     return {
-      id: '',
-      titleInput: '',
+      makeStore : useMakeStore(),
+      form:{
+        id: '',
+        name: null,
+      },
       loading: false,
-    };
+  };
   },
   async mounted() {
     await this.fetchSingleRecord();
@@ -94,16 +99,12 @@ export default {
     async fetchSingleRecord() {
     this.loading = true;
     try {
-        const id = this.$route.params.id;
-        const res = await Make.find(id);
-        if (res.data && res.data.length > 0) {
-        const record = res.data[0];  
-        this.id = record.id;
-        this.titleInput = record.name;
-        } else {
-        this.$alertStore.add('Record not found', 'error');
-        }
-    } catch (error) {
+        // const id = this.$route.params.id;
+        const res = await this.makeStore.getSingleMake(this.form.id);
+        console.log('Make', res);
+        this.form.id = res.id;
+        this.form.name = res.name;
+      } catch (error) {
       
         this.$alertStore.add(error.message || 'Failed to fetch record', 'error');
     } finally {
@@ -113,9 +114,13 @@ export default {
     async updateBodyType() {
       this.loading = true;
       try {
-        let formData = new FormData();
-        formData.append('name', this.titleInput);
-        const res = await Make.update(this.id, formData);
+        if(!this.form.name){
+          this.$alertStore.add('Name not found' , 'error');
+          return false
+        }
+        const res = await General.put("/api/cruds/make/" + this.form.id , this.form);
+        console.log(res);
+        
         this.$alertStore.add(res.message || 'Make updated', 'success');
         this.$router.push('/admin/make');
       } catch (error) {

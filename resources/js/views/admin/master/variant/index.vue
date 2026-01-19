@@ -104,10 +104,10 @@
                             </router-link>
                             
                             <span class="px-2"></span>
-                            
+<!--                             
                             <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItem(item.id)">
                                 mdi-delete
-                            </v-icon>
+                            </v-icon> -->
                         
                         </template>
 

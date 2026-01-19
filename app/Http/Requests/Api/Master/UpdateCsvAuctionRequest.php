@@ -50,7 +50,9 @@ class UpdateCsvAuctionRequest extends FormRequest
                     }else{
                         $validator->errors()->add("data.$index.body_id",'Body Invalid');
                     }
+                    
 
+                    // Make Find
                     $Make = Make::whereRaw('TRIM(name) = ?',[trim($row['make_id'])])->first();
                     if ($Make) {
                         $data[$index]['make_id'] = $Make->id;
@@ -58,33 +60,38 @@ class UpdateCsvAuctionRequest extends FormRequest
                         $validator->errors()->add("data.$index.make_id",'Make Invalid');
                     }
 
-                    $VehicleModel = VehicleModel::whereRaw('TRIM(name) = ?',[trim($row['model_id'])])->first();
-                    if ($VehicleModel) {
 
-                        if($Make && $Make->id == $VehicleModel->make_id){
-                            $data[$index]['model_id'] = $VehicleModel->id;
-                        }else{
-                            $validator->errors()->add("data.$index.model_id",'Model Invalid');
-                        }
+                    $model = null;
+                    // Find Model
+                    if ($Make) {
+                            $model = VehicleModel::where('make_id',$Make->id)->whereRaw('TRIM(name) = ?',[trim($row['model_id'])])->first();
+                            if($model){
+                                $data[$index]['model_id'] = $model->id;
+                            }else{
+                                $validator->errors()->add("data.$index.model_id",'Model Invalid');
+                            }
 
                     }else{
                         $validator->errors()->add("data.$index.model_id",'Model Invalid');
                     }
                     
-                    
-                    $ModelVariant = ModelVariant::where('name', $row['variant_id'])->first();
-                    if ($ModelVariant) {
 
-                        if($VehicleModel && $Make && $Make->id == $VehicleModel->make_id && $VehicleModel->id == $ModelVariant->model_id){
-                            $data[$index]['variant_id'] = $ModelVariant->id;
+                    // Finding Variant
+                    if($Make && $model) {
+
+                        $variant = ModelVariant::where('model_id',$model->id)->where('name', $row['variant_id'])->first();
+                        if($variant){
+                            $data[$index]['variant_id'] = $variant->id;
                         }else{
                             $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
                         }
 
-                        
                     }else{
-                         $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
+                        $validator->errors()->add("data.$index.variant_id",'Variant Invalid');
                     }
+
+
+
 
                     $AuctionCenter = AuctionCenter::where('name', $row['center_id'])->first();
                     if ($AuctionCenter) {

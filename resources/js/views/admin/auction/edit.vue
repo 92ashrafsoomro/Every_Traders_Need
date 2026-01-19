@@ -1,6 +1,6 @@
 <template>
      
-   <IconMenu @toggle="toggleSidebar" />
+   <!-- <IconMenu @toggle="toggleSidebar" /> -->
         <AuctionEdit :show="showSidebar" />
     <v-container  class="m-auto">
 

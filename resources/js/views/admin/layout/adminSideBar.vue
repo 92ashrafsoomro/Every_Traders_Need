@@ -1,10 +1,10 @@
 <template>
     <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
-
-           <v-list density="compact" class="" nav>
+        <div class="v-navigation-drawer__content">
+           <v-list density="compact"   class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 300" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                    <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
                     <img v-else :src="newLogo" 
                         style="width: 40px; height: 40px; " />
                 </v-list-item>
@@ -52,7 +52,8 @@
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay " >
                  <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1"> Back To User</router-link></v-list-item>
             </div>
-        </v-list>
+           </v-list>
+        </div>
     </v-navigation-drawer>
 </template>
 
@@ -80,7 +81,7 @@ export default {
                 return  "258";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "300" : "68";
+                return this.themeStore.menuType == "expanded" ? "258" : "68";
             }
 
         },
@@ -101,6 +102,17 @@ export default {
 
 .v-list-item--nav .v-list-item-title{
     font-size: 16px !important;
+}
+.v-navigation-drawer__content {
+  overflow-y: auto;
+
+  /* hide scrollbar */
+  scrollbar-width: none;     
+  -ms-overflow-style: none; 
+}
+
+.v-navigation-drawer__content::-webkit-scrollbar {
+  display: none; 
 }
 
 </style>

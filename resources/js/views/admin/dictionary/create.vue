@@ -20,7 +20,10 @@
 
               <v-col cols="4">
 
-                <v-select label="Select" :items="Dictionary.prefixName" item-title="label" item-value="value"
+                <v-select label="Select" 
+                :items="Dictionary.prefixName"
+                 item-title="label" 
+                 item-value="value"
                  density="compact"
                 variant="outlined"
                   v-model="form.name" />

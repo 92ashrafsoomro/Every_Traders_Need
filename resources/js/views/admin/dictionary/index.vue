@@ -1,66 +1,25 @@
 <template>
     <user-title-bar title="Dictionary">
+         <div class="d-flex ga-3 mb-4 mt-6">
+                                <v-btn
+                                    v-for="item in Dictionary.prefixName"
+                                    :key="item.value"
+                                    class="mx-1 text-none px-5 py-2 mb-3 master-btn text-capitalize"
+                                    style="height: 50px"
+                                    :color="filter.name === item.value ? 'primary' : undefined"
+                                    :variant="filter.name === item.value ? 'flat' : 'tonal'"
+                                    @click="selectPrefix(item.value)"
+                                >
+                                    {{ item.label }}
+                                </v-btn>
+                            </div>
         <!-- Toggle Filters -->
-        <div>
-            <v-card-title class="d-flex cursor-pointer" @click="showFilters = !showFilters">
-                <span class="text-h6 font-weight-bold">Filters</span>
-                <v-icon color="primary">
-                    {{ showFilters ? "mdi-chevron-up" : "mdi-chevron-down" }}
-                </v-icon>
-            </v-card-title>
-
-            <v-expand-transition>
-                <div v-show="showFilters">
-                    <v-container fluid>
-                        <v-row class="mt-1 text-center content-scroll" align="center">
-
-                            <!-- Dictionary Name -->
-                            <v-col cols="12" sm="4">
-                                <v-select density="compact" variant="outlined" clearable v-model="filter.name"
-                                    item-title="label" label="Prefix Name" :items="Dictionary.prefixName" />
-                            </v-col>
-
-                            <!-- Dictionary Key -->
-                            <v-col cols="12" sm="3">
-                                <v-text-field density="compact" variant="outlined" clearable v-model="filter.key"
-                                    label="Dictionary Key" />
-                            </v-col>
-
-                            <!-- Dictionary Value -->
-                            <v-col cols="12" sm="3">
-                                <div class="d-flex">
-                                     <v-text-field density="compact" variant="outlined" clearable
-                                        v-model="filter.value" label="Dictionary Value" />
-                                    <v-btn style="height: 44px; margin-left: 10px;" variant="outlined"
-                                        @click="loadItems" class="mr-2">
-                                        <v-icon icon="mdi-magnify"></v-icon>
-                                    </v-btn>
-                                </div>
-                            </v-col>
-                            <!-- <v-col cols="12" sm="5" class="d-flex">
-                                <v-text-field density="compact" variant="outlined" clearable v-model="filter.search"
-                                    label="Search" />
-
-                                <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems"
-                                    class="mr-2">
-                                    <v-icon icon="mdi-magnify"></v-icon>
-                                </v-btn>
-                                <v-btn to="/admin/dictionary/create" color="primary" style="height: 44px;"
-                                    variant="flat">
-                                    <v-icon icon="mdi-plus"></v-icon>
-                                </v-btn>
-                            </v-col> -->
-
-                        </v-row>
-                    </v-container>
-                </div>
-            </v-expand-transition>
-        </div>
+        
     </user-title-bar>
 
 
     <v-container max-width="1400px">
-        <div class="d-flex  justify-space-between w-100 ">
+        <div class="d-flex  justify-space-between w-100 mt-4">
             <div class="d-flex w-50 ">
                 <v-select v-model="filter.length" :items="[100, 500, 1000, 2000]" density="compact" variant="outlined"
                     max-width="90px" class="mr-2" />
@@ -89,8 +48,8 @@
 
 
             <v-col cols="12" class="mt-2">
-                <div class="border">
-                    <v-data-table-server class="" style="height: 900px;" :headers="headers" :loading="loading"
+                 <div class="border table-scroll-wrapper">
+                    <v-data-table-server class="table-scroll" :headers="headers" :loading="loading"
                         fixed-header sort-asc-icon="" :items="items" :items-length="total" hover item-value="id"
                         :lastPage="last_page" @update:options="loadItems">
                         <template v-slot:bottom>
@@ -105,9 +64,6 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-
-
-
                     </v-data-table-server>
                 </div>
             </v-col>
@@ -147,7 +103,7 @@ export default {
             loading: true,
             headers: [
                 { title: "Id", value: "id" },
-                { title: "Name", value: "name" },
+                // { title: "Name", value: "name" },
                 { title: "Key", value: "prefix_key" },
                 { title: "Value", value: "prefix_value" },
                 { title: "Action", value: "action", sortable: false },
@@ -176,21 +132,24 @@ export default {
 
     },
     methods: {
-        async loadItems() {
-            this.loading = true;
-            try {
-                const res = await Dictionary.all(this.filter);
-                this.items = res.data || [];
-                this.totalRecord = res.recordsTotal || this.items.length;
-                this.total = this.totalRecord;
-                // this.filter.page = Number(res.page);
-                this.last_page = Number(res.last_page);
-            } catch (error) {
-                alert(error);
-            } finally {
-                this.loading = false;
-            }
-        },
+       selectPrefix(value) {
+    this.filter.name = value
+    this.filter.page = 1
+    this.loadItems()
+  },
+
+  async loadItems() {
+    this.loading = true
+    try {
+      const res = await Dictionary.all(this.filter)
+      this.items = res.data || []
+      this.totalRecord = res.recordsTotal || this.items.length
+      this.total = this.totalRecord
+      this.last_page = Number(res.last_page)
+    } finally {
+      this.loading = false
+    }
+  },
         async deleteItem(item) {
             if (!confirm("Are you sure you want to delete this item?")) return;
             this.loading = true;
@@ -225,4 +184,28 @@ export default {
     cursor: pointer;
     border-radius: 20px;
 }
+.master-btn {
+  transition: background-color 0.2s ease;
+}
+
+/* vertical scroll hide */
+.table-scroll-wrapper .v-table__wrapper {
+  overflow-y: auto;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Edge */
+  -ms-overflow-style: none;
+}
+
+/* Chrome / Safari */
+.table-scroll-wrapper .v-table__wrapper::-webkit-scrollbar {
+  display: none;
+}
+.table-scroll-wrapper {
+  height: 400px; /* ya calc(100vh - 250px) */
+}
+
+
 </style>

@@ -10,6 +10,7 @@
                             v-model="form.id" 
                             variant="outlined" 
                             label="ID"
+                            disabled=""
                             base-color="white" 
                             color="primary"
                             density="compact" 
@@ -140,7 +141,7 @@ export default {
                 this.form.id = res.data.table_id;
                 this.form.auction_date = res.data.auction_date;
                 this.form.end_date = res.data.end_date;
-                this.form.status = res.data.auction_status.title;
+                this.form.status = res.data.auction_status;
                 this.form.auction_type = Number(res.data.auction_type);
                 this.form.platform_id = res.data.platform_id;
                 this.form.csv_path = null;

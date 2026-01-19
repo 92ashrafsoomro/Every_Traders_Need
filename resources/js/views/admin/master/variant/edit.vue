@@ -38,7 +38,7 @@
                   item-title="name"
                   item-value="id"
                   color="primary"
-                  v-model="makeid"
+                  v-model="make_Id"
                   density="compact"
                   hide-details
                 />
@@ -52,7 +52,7 @@
                   item-title="name"
                   item-value="id"
                   v-model="model_id"
-                  :make="makeid"        
+                  :make="make_Id"        
                   density="compact"
                   hide-details
                 />
@@ -104,7 +104,7 @@ export default {
     return {
       id: '',
       titleInput: '',
-      makeid: null,
+      make_Id: null,
       model_id: null,
       loading: false,
     };
@@ -126,9 +126,9 @@ export default {
 
           this.id = record.id;
           this.titleInput = record.name;
-          this.makeid = record.make_id;
+          this.make_Id = record.make_id;
           await this.$nextTick();
-          this.model_id = record.modelId;
+          this.model_id = record.model_id;
         } else {
           this.$alertStore.add('Record not found', 'error');
         }

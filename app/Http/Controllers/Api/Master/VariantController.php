@@ -36,7 +36,7 @@ class VariantController extends Controller
 
         //Filter
         if($request->has('id') && $request->id != '') {
-            $query->where('id',$request->id);
+            $query->where('model_variant.id',$request->id);
         }
 
         if($request->has('make_id') && $request->make_id != '') {

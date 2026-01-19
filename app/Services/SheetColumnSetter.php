@@ -81,7 +81,6 @@ class SheetColumnSetter
     {       
 
             $this->item['variant_id'] = $this->item['derivative'];
-
             $value = strtolower($this->item['variant_id']);
 
             $make = Make::where('name', $this->item['make_id'])->first();

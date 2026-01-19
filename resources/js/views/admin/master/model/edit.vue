@@ -26,7 +26,7 @@
                 <v-row align="center" no-gutters>
                   <v-col cols="4" sm="4">
                     <v-text-field
-                      v-model="id"
+                      v-model="form.id"
                       label="ID"
                       variant="outlined"
                       density="compact"
@@ -43,14 +43,14 @@
                   variant="outlined"
                   item-title="name"
                   item-value="id"
-                  v-model="makeid"  
+                  v-model="form.make_id"  
                   color="primary"
                   density="compact"
                   hide-details />
                   </v-col>
                   <v-col cols="4" sm="4" class="pl-2">
                     <v-text-field
-                      v-model="titleInput"
+                      v-model="form.name"
                       label="Title"
                       variant="outlined"
                       density="compact"
@@ -88,7 +88,9 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Model from '@/models/vehicle-model.model';
+import { useModelStore } from '@/stores/modelStore';
 import MakeDropdown from "@components/MakeDropdown.vue"
 
 export default {
@@ -97,9 +99,12 @@ export default {
   },
   data() {
     return {
-      id: '',
-      titleInput: '',
-      makeid:"", 
+      modelStore : useModelStore(),
+      form:{
+        id: '',
+        name: '',
+        make_id:"",
+      }, 
       loading: false,
     };
   },
@@ -110,17 +115,11 @@ export default {
     async fetchSingleRecord() {
     this.loading = true;
     try {
-        const id = this.$route.params.id;
-        const res = await Model.find(id);
-        console.log(res.data); 
-        if (res.message && res.message.length > 0) {
-        const record = res.data;
-        this.makeid = record.make_id;
-        this.id = record.id;
-        this.titleInput = record.name;
-        } else {
-        this.$alertStore.add('Record not found', 'error');
-        }
+        // const id = this.$route.params.id;
+        const data = await this.modelStore.getSingleVariant(this.form.id);
+        this.form.make_id = data.make_id;
+        this.form.id = data.id;
+        this.form.name = data.name;
     } catch (error) {
       
         this.$alertStore.add(error.message || 'Failed to fetch record', 'error');
@@ -131,12 +130,13 @@ export default {
     async updateBodyType() {
       this.loading = true;
       try {
-        let formData = new FormData();
-        formData.append('name', this.titleInput);
-        formData.append('make_id', this.makeid);
-        const res = await Model.update(this.id, formData);
+        if (!this.form.id) {
+          this.$alertStore.add('Id not found' , 'error');
+          return false
+        }      
+        const res = await General.put("/api/cruds/model/"+this.form.id , this.form);
         this.$alertStore.add(res.message || 'Model updated', 'success');
-        // this.$router.push('/admin/model');
+        this.$router.push('/admin/model');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {

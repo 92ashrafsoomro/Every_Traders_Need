@@ -114,7 +114,7 @@ export default {
 
         const res = await Variant.create(formData);
         this.$alertStore.add(res.message, 'success');
-        // this.$router.push('/admin/variant');
+        this.$router.push('/admin/variant');
       } catch (err) {
         this.$alertStore.add(err.message || 'Failed', 'error');
       } finally {

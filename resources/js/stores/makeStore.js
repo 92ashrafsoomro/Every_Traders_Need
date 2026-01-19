@@ -1,38 +1,27 @@
 import { defineStore } from "pinia";
-
-import { errorHandler } from "@/services/responseHandleService";
-import { useAlertStore } from "@/stores/alertStore";
 import General from "@/models/general.model";
 
 export const useMakeStore = defineStore("makeStore", {
     state: () => ({
-        params: {
-            
-        },
-        search:'',
-        selected:null,
-        loading:false,
-        data:[]  
+
     }),
     getters:{
 
     },
     actions: {
-        async searching() {
-            try {
-
-                this.loading = true;
-                let res = await General.get('/api/cruds/make',params);
-
-                this.data = res.data;
-                this.loading = false;
-                
-            } catch (error) {
-                
-                this.data = [];
-                this.loading = false;
-            }
-        },
-
+         // ==============================
+        // Single Make 
+        // ==============================
+        async getSingleMake(modelId) {
+                   try {
+                       const res = await General.get('/api/cruds/make', {id:modelId })
+                       const data = res.data[0];
+                    //    console.log("make ", data);
+                       
+                       return data
+                   } catch (error) {
+                       return error
+                   } 
+               },
     },
 });

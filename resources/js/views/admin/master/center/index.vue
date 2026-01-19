@@ -56,7 +56,7 @@
                             @update:options="loadItems" >
 
                             <template #item.action="{ item }">
-                                <router-link :to="'/admin/center/edit/' + item.id">
+                                <router-link :to="'/admin/center/edit/' + item.id" target="_blank">
                                     <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>

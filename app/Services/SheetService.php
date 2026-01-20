@@ -52,7 +52,7 @@ class SheetService
     static public function getAuctionVehicle(Request $request,$auctionId)
     {
 
-            $model = Auctions::where('id',$auctionId)->first();
+            $model = Auctions::with(['platform'])->where('id',$auctionId)->first();
             if(!$model){
                 return response()->json([
                     'message' => 'Record Not Found',

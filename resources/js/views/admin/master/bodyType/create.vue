@@ -24,9 +24,9 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="11" sm="9" class="pl-2">
+                            <v-col cols="12" sm="12" class="pl-2">
                             <v-text-field
-                                v-model="titleInput"    
+                                v-model="form.name"    
                                 label="Title"
                                 variant="outlined"
                                 density="compact"
@@ -43,7 +43,7 @@
                     </v-col>
                     <v-col cols="12" class="mt-3 text-center">
                     <v-btn
-                        @click="submitId"
+                        @click="submit"
                         class="buttonBorder bg-primary"
                         variant="flat"
                         style="height: 40px;"
@@ -63,6 +63,7 @@
 
 <script>
 import BodyType from '@/models/body-type.model';
+import General from '@/models/general.model';
 export default {
   props: {
     title: {   
@@ -72,20 +73,22 @@ export default {
   },
   data() {
     return {
-      id: '',      
-      titleInput: '' 
+     form:{
+        id: '',      
+        name: '' 
+     }
     }
   },
    methods: {
-    async  submitId() {
+    async  submit() {
        this.loading = true;
 
         try {
-            let formData = new FormData();
-            formData.append('id', this.id);
-            formData.append('name', this.titleInput);
+            // let formData = new FormData();
+            // formData.append('id', this.id);
+            // formData.append('name', this.name);
 
-            let res = await BodyType.create(formData);
+            let res = await General.post("/api/cruds/bodyType", this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/bodyType');
 

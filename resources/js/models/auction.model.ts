@@ -111,6 +111,8 @@ export default class Auction {
             const res = await api.get("/api/cruds/auctions/csvGet/"+id,{
                 params:options,
             });
+            console.log(res.data[0]);
+            
             return res.data;
         
         } catch (error) {

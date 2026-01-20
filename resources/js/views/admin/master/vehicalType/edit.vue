@@ -26,7 +26,7 @@
                 <v-row align="center" no-gutters>
                   <v-col cols="1" sm="3">
                     <v-text-field
-                      v-model="id"
+                      v-model="form.id"
                       label="ID"
                       variant="outlined"
                       density="compact"
@@ -39,7 +39,7 @@
                   </v-col>
                   <v-col cols="11" sm="9" class="pl-2">
                     <v-text-field
-                      v-model="titleInput"
+                      v-model="form.name"
                       label="Title"
                       variant="outlined"
                       density="compact"
@@ -77,15 +77,19 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import VehicleType from '@/models/vehicle-type.model';
-
+import { useVehicalStore } from '@/stores/vehicalTypeStore';
 export default {
   data() {
     return {
-      id: '',
-      titleInput: '',
+      vehicalStore : useVehicalStore(),
+      form:{
+        id: '',
+        name: '',
+      },
       loading: false,
-    };
+  };
   },
   async mounted() {
     await this.fetchSingleRecord();
@@ -94,15 +98,10 @@ export default {
     async fetchSingleRecord() {
     this.loading = true;
     try {
-        const id = this.$route.params.id;
-        const res = await VehicleType.find(id);
-        if (res.data && res.data.length > 0) {
-        const record = res.data[0];  
-        this.id = record.id;
-        this.titleInput = record.name;
-        } else {
-        this.$alertStore.add('Record not found', 'error');
-        }
+        // const id = this.$route.params.id;
+        const res = await this.vehicalStore.getSingleVehical(this.$route.params.id);
+        this.form.id = res.id;
+        this.form.name = res.name;
     } catch (error) {
       
         this.$alertStore.add(error.message || 'Failed to fetch record', 'error');
@@ -113,9 +112,12 @@ export default {
     async updateBodyType() {
       this.loading = true;
       try {
-        let formData = new FormData();
-        formData.append('name', this.titleInput);
-        const res = await VehicleType.update(this.id, formData);
+        if (!this.form.name) {
+            this.$alertStore.add('Title not found' , 'error');
+          return false
+        }
+        const res = await General.put('/api/cruds/vehicleType/'+this.form.id , this.form);
+        console.log(res);
         this.$alertStore.add(res.message || 'Vehicle Type updated', 'success');
         this.$router.push('/admin/vehicleType');
       } catch (error) {

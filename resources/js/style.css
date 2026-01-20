@@ -273,3 +273,6 @@ min-height:40px;
 .v-expansion-panel:not(:first-child)::after {
     border: none;
 }
+.v-application__wrap{
+    overflow-x: hidden;
+}

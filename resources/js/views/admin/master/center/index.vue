@@ -60,13 +60,13 @@
                                     <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                                 </router-link>
                                 <span class="px-2" ></span>
-                                 <v-icon
+                                 <!-- <v-icon
                                     small
                                     class="clickable-icon pa-4" color="danger"
                                     @click="deleteItem(item.id)"
                                     >
                                     mdi-delete
-                                </v-icon>
+                                </v-icon> -->
                             </template>
 
                             <template v-slot:bottom>

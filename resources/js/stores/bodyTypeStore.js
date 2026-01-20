@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { toRaw } from "vue";
 import General from "@/models/general.model";
 
-export const useModelStore = defineStore("modelStore", {
+export const useBodyTypeStore = defineStore("BodyTypeStore", {
     state: () => ({
     
     }),
@@ -14,13 +14,13 @@ export const useModelStore = defineStore("modelStore", {
 
     actions: {
         // ==============================
-        // Single Model
+        // Single BodyType
         // ==============================
-        async getSingleVariant(makeId) {
+        async getSingleBodyType(vehicleId) {
             try {
-                const res = await General.get('/api/cruds/model', {id:makeId })
+                const res = await General.get('/api/cruds/bodyType', {id:vehicleId })
                 const data = res.data[0];
-                console.log("model ", data);
+                // console.log("model ", data);
                 
                 return data
             } catch (error) {

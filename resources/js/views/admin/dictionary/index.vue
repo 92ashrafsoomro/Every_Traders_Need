@@ -51,7 +51,7 @@
                  <div class="border table-scroll-wrapper">
                     <v-data-table-server class="table-scroll" :headers="headers" :loading="loading"
                         fixed-header sort-asc-icon="" :items="items" :items-length="total" hover item-value="id"
-                        :lastPage="last_page" @update:options="loadItems">
+                        :lastPage="last_page" @update:options="loadItems" height="400px">
                         <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"

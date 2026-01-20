@@ -26,7 +26,7 @@
                         <v-row align="center" no-gutters>
                             <v-col cols="11" sm="12" class="pl-2">
                             <v-text-field
-                                v-model="titleInput"    
+                                v-model="form.name"    
                                 label="Title"
                                 variant="outlined"
                                 density="compact"
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Make from '@/models/make.model';
 export default {
   props: {
@@ -72,8 +73,10 @@ export default {
   },
   data() {
     return {
-      id: '',      
-      titleInput: '' 
+      form:{
+        id: '',      
+        name: null 
+      }
     }
   },
    methods: {
@@ -81,11 +84,11 @@ export default {
        this.loading = true;
 
         try {
-            let formData = new FormData();
-            formData.append('id', this.id);
-            formData.append('name', this.titleInput);
+            // let formData = new FormData();
+            // formData.append('id', this.id);
+            // formData.append('name', this.name);
 
-            let res = await Make.create(formData);
+            let res = await General.post("/api/cruds/make",this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/make');
 

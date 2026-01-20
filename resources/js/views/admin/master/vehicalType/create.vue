@@ -24,9 +24,9 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="11" sm="9" class="pl-2">
+                            <v-col cols="12" sm="12" class="pl-2">
                             <v-text-field
-                                v-model="titleInput"    
+                                v-model="form.name"    
                                 label="Title"
                                 variant="outlined"
                                 density="compact"
@@ -43,7 +43,7 @@
                     </v-col>
                     <v-col cols="12" class="mt-3 text-center">
                     <v-btn
-                        @click="submitId"
+                        @click="submit"
                         class="buttonBorder bg-primary"
                         variant="flat"
                         style="height: 40px;"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import VehicleType from '@/models/vehicle-type.model';
+import General from '@/models/general.model';
 export default {
   props: {
     title: {   
@@ -72,20 +72,20 @@ export default {
   },
   data() {
     return {
-      id: '',      
-      titleInput: '' 
+     form:{
+        id: '',      
+        name: ''
+     } 
     }
   },
    methods: {
-    async  submitId() {
+    async  submit() {
        this.loading = true;
 
         try {
-            let formData = new FormData();
-            formData.append('id', this.id);
-            formData.append('name', this.titleInput);
-
-            let res = await VehicleType.create(formData);
+            
+            let res = await General.post('/api/cruds/vehicleType', this.form);
+            
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/vehicleType');
 
@@ -94,7 +94,6 @@ export default {
             this.$alertStore.add(error.message, 'error');
         } finally {
             this.loading = false;
-            this.resetForm();
         }
 
     },

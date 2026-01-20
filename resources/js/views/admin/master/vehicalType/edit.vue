@@ -79,11 +79,11 @@
 <script>
 import General from '@/models/general.model';
 import VehicleType from '@/models/vehicle-type.model';
-import { useVehicalStore } from '@/stores/vehicalTypeStore';
+import { useVehicalTypeStore } from '@/stores/vehicalTypeStore';
 export default {
   data() {
     return {
-      vehicalStore : useVehicalStore(),
+      vehicalTypeStore : useVehicalTypeStore(),
       form:{
         id: '',
         name: '',
@@ -99,7 +99,7 @@ export default {
     this.loading = true;
     try {
         // const id = this.$route.params.id;
-        const res = await this.vehicalStore.getSingleVehical(this.$route.params.id);
+        const res = await this.vehicalTypeStore.getSingleVehical(this.$route.params.id);
         this.form.id = res.id;
         this.form.name = res.name;
     } catch (error) {
@@ -112,10 +112,6 @@ export default {
     async updateBodyType() {
       this.loading = true;
       try {
-        if (!this.form.name) {
-            this.$alertStore.add('Title not found' , 'error');
-          return false
-        }
         const res = await General.put('/api/cruds/vehicleType/'+this.form.id , this.form);
         console.log(res);
         this.$alertStore.add(res.message || 'Vehicle Type updated', 'success');

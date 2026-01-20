@@ -176,16 +176,6 @@ export default {
                 
         }
     },
-   watch: {
-  'csvStore.id': {
-    immediate: true,
-    handler(val) {
-      if (val) {
-        this.loadData(val)
-      }
-    }
-  }
-},
 
         computed:{
              localShow: {

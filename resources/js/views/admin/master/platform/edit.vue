@@ -168,8 +168,8 @@ export default {
         const res = await General.put("/api/cruds/platform/"+this.form.id, this.form);
         this.$alertStore.add(res.message || 'Platform updated', 'success');
         this.$router.push('/admin/platform');
-      } catch (e) {
-        this.$alertStore.add('Update failed', 'error');
+      } catch (error) {
+        this.$alertStore.add(error.message, 'error');
       } finally {
         this.loading = false;
       }

@@ -295,5 +295,44 @@ export default {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
 
+.icon {
+    font-size: 10px;
+    color: #00bad1;
+}
+
+.active {
+    border-color: rgb(var(--v-theme-primary)) !important;
+}
+
+.center_name_width {
+    max-width: 1000px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* padding: 10px;  */
+    max-height: 48px;
+    transition:
+        max-width 1s ease,
+        max-height 1s ease,
+        background-color 1s ease;
+}
+
+.center_name_width:hover {
+    max-width: 900px;
+    max-height: 200px;
+    /* background-color: ; */
+    -webkit-line-clamp: 6;
+}
+
+.eyeIcon:hover {
+    color: rgb(var(--v-theme-primary));
+    cursor: pointer;
+}
+
+.NotifyIcon:hover {
+    color: rgb(var(--v-theme-primary));
+    cursor: pointer;
+}
 
 </style>

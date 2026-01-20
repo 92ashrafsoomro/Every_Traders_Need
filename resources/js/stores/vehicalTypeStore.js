@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { toRaw } from "vue";
 import General from "@/models/general.model";
 
-export const useVehicalStore = defineStore("VehicalStore", {
+export const useVehicalTypeStore = defineStore("VehicalTypeStore", {
     state: () => ({
     
     }),

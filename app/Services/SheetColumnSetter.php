@@ -35,6 +35,7 @@ class SheetColumnSetter
         $this->item['errors'] = [];
     }
 
+
     public function setBodyId()
     {   
         $prefixes = $this->prefixes['bodyType'];
@@ -60,84 +61,128 @@ class SheetColumnSetter
 
       public function setMakeId()
     {
-
         $prefixes = $this->prefixes['make'];
         $value = strtolower($this->item['make_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['make_id'] = $value;
     }
 
-        public function setModelId()
+      public function setModelId()
     {
         $prefixes = $this->prefixes['model'];
         $value = strtolower($this->item['model_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['model_id'] = $value;
+    }
+
+
+      public function matchVariantWithOldData($make,$model)
+    {
+
+        $v = Vehicle::where('make_id',$make->id)
+                    ->where('model_id',$model->id)
+                    ->whereRaw('LOWER(derivative) = ?', [strtolower($this->item['derivative'])])
+                    ->first();
+        if($v){
+            $this->item['variant_id'] = $v->variant->name;
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
-    
-        public function setVariantId()
+
+    public function oneByOne($value,$variants){
+        
+        $words = explode(" ",$value); 
+        if(isset($words[2])){
+
+            if($this->fullMatch($words[0].' '.$words[1].' '.$words[2],$variants)){ 
+              $this->item['variant_id'] = $this-> $words[0].' '.$words[1].' '.$words[2];
+              return true;
+            }else if($this->fullMatch($words[0].' '.$words[1],$variants)){ 
+                $this->item['variant_id'] = $words[0].' '.$words[1];
+                return true;
+            }else if(in_array($words[0],$variants)){ 
+                $this->item['variant_id'] = $words[0];
+                return true;
+            }
+
+        }else if(isset($words[1])){
+            
+            if($this->fullMatch($words[0].' '.$words[1],$variants)){ 
+                $this->item['variant_id'] = $words[0].' '.$words[1];
+                return true;
+            }else if($this->fullMatch($words[0],$variants)){ 
+                $this->item['variant_id'] = $words[0];
+                return true;
+            }
+
+        }else if(isset($words[0])){
+            if($this->fullMatch($words[0],$variants)){ 
+                $this->item['variant_id'] = $words[0];
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public function matchWords($value,$variants){
+
+        $words = explode(" ",$value);
+        foreach ($words as $word){
+            if($this->fullMatch($word,$variants)){
+                return  $this->item['variant_id'] = $word;
+            }
+        }
+
+        return false;
+    }
+
+
+    public function fullMatch($value,$variants){
+        return in_array($value,$variants);
+    }
+
+
+    public function setVariantId()
     {       
 
-            $this->item['variant_id'] = $this->item['derivative'];
-            $value = strtolower($this->item['variant_id']);
+        $this->item['variant_id'] = $this->item['derivative'];
+        $value = strtolower($this->item['variant_id']);
 
-            $make = Make::where('name', $this->item['make_id'])->first();
-            if($make){
-                $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
-                if($model){
+        $make = Make::where('name', $this->item['make_id'])->first();
+        if($make){
+            $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
+            if($model){
 
-                        $variants = ModelVariant::where('model_id',$model->id)
-                                    ->get()
-                                    ->pluck('name')
-                                    ->map(fn ($name) => strtolower($name))
-                                    ->toArray();  
-                      
-                        if(!empty($value)){
+                if(!empty($value)){
+                    
+                    $words = explode(" ",$value);
+                    $variants = ModelVariant::where('model_id',$model->id)
+                    ->get()
+                    ->pluck('name')
+                    ->map(fn ($name) => strtolower($name))
+                    ->toArray();  
 
-                            // $v = Vehicle::where('make_id',$make->id)
-                            // ->where('model_id',$model->id)
-                            // ->whereRaw('LOWER(derivative) = ?', [strtolower($this->item['derivative'])])
-                            // ->first();
-                            // if($v){
-                             
-                            //      $this->item['variant_id'] = $v->variant->name;
-                            // }else{
+                    if($this->fullMatch($words,$variants)){
 
-                                $words = explode(" ",$value);
+                    }else if($this->matchVariantWithOldData($make,$model)){
 
-                                if(isset($words[2])){
-                                    
-                                    if(in_array($words[0].' '.$words[1].' '.$words[2],$variants)){ 
-                                        $this->item['variant_id'] = $words[0].' '.$words[1].' '.$words[2];
-                                    }else if(in_array($words[0].' '.$words[1],$variants)){ 
-                                        $this->item['variant_id'] = $words[0].' '.$words[1];
-                                    }else if(in_array($words[0],$variants)){ 
-                                        $this->item['variant_id'] = $words[0];
-                                    }
+                    }else if($this->oneByOne($value,$variants)){
+                    
+                    }else if($this->matchWords($value,$variants)){
 
-                                }else if(isset($words[1])){
-                                    
-                                    if(in_array($words[0].' '.$words[1],$variants)){ 
-                                        $this->item['variant_id'] = $words[0].' '.$words[1];
-                                    }else if(in_array($words[0],$variants)){ 
-                                        $this->item['variant_id'] = $words[0];
-                                    }
-
-                                }else{
-                                    if(in_array($words[0],$variants)){ 
-                                        $this->item['variant_id'] = $words[0];
-                                    }
-                                }
-
-                            // }
-
-                        }
+                    }  
 
                 }
 
             }
+
+        }
 
             // $prefixes = $this->prefixes['variant'];
             // $value = strtolower($this->item['variant_id']);
@@ -150,7 +195,7 @@ class SheetColumnSetter
         public function check()
     {
 
-               $VehicleType = VehicleType::whereRaw('TRIM(vehicle_type.name) = ?',[trim($this->item['vehicle_id'])])->first();
+        $VehicleType = VehicleType::whereRaw('TRIM(vehicle_type.name) = ?',[trim($this->item['vehicle_id'])])->first();
         if(!$VehicleType){
             array_push($this->item['errors'],'VehicleType Not Found');
             return $this->item;

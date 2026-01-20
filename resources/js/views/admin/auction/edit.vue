@@ -1,11 +1,11 @@
 <template>
      
-   <!-- <IconMenu @toggle="toggleSidebar" /> -->
-        <AuctionEdit :show="showSidebar" />
-    <v-container  class="m-auto">
+        <AuctionEdit />
 
-        <!-- <VariantMapping ref="VariantMapping"/> -->
-         <CSVTable   @toggle="toggleSidebar" />
+    <v-container  class="m-auto">
+        
+        <CSVTable  />
+    
     </v-container>
 </template>
 

@@ -1,9 +1,8 @@
 <template>
     <v-slide-y-transition>
-        <div v-if="show" >
+        <div v-if="csvStore.auctionEditFilter" >
          <user-title-bar 
-      title="Auction Detail" 
-      >
+          title="Auction Detail" >
               <v-row class="mt-2" >
                     <v-col cols="12" sm="4">  
                           <v-text-field 
@@ -90,7 +89,7 @@ import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
 // import CSVTable from './Csv/index.vue';
-import VariantMapping from '@/components/VariantMapping.vue';
+import { useCsvStore } from './Csv/CsvStore';
 import StatusDropdown from '@/components/StatusDropdown.vue';
 
 
@@ -98,7 +97,7 @@ import StatusDropdown from '@/components/StatusDropdown.vue';
 export default {
     name:"AuctionEdit",
     components: {
-        VariantMapping,
+     
         PlateformDropdown,
         AuctionTypeDropdown,
         StatusDropdown
@@ -111,6 +110,7 @@ export default {
 
         return {
             loading:true,
+            csvStore :useCsvStore(),
             // showFilters:false,
             form: {
                 id: '',
@@ -176,6 +176,7 @@ export default {
                 
         }
     },
+
         computed:{
              localShow: {
       get() {

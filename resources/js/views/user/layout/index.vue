@@ -1,5 +1,5 @@
 <template>
-    <v-app style="overflow-x: hidden;">
+    <v-app >
         <Sidebar />
         <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
             style="height: 70px;">
@@ -50,7 +50,7 @@
                 </div>
             </v-row>
         </v-app-bar>
-        <v-main class="bg-background">
+        <v-main class="bg-background" >
             <router-view></router-view>
         </v-main>
     </v-app>

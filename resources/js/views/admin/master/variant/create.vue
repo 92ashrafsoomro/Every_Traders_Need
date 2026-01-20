@@ -25,7 +25,7 @@
                   item-value="id"
                   clearable
                   color="primary"
-                  v-model="makeid"
+                  v-model="form.makeid"
                   density="compact"
                   hide-details
                 />
@@ -38,8 +38,8 @@
                   color="primary"
                   item-title="name"
                   item-value="id"
-                  v-model="model_id"
-                  :make="makeid"        
+                  v-model="form.model_id"
+                  :make="form.makeid"        
                   density="compact"
                   hide-details
                 />
@@ -48,7 +48,7 @@
 
               <v-col cols="4" class="">
                 <v-text-field
-                  v-model="titleInput"
+                  v-model="form.name"
                   label="Title"
                   variant="outlined"
                   density="compact"
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Variant from '@/models/variant.model';
 import MakeDropdown from "@components/MakeDropdown.vue";
 import ModelDropdown from "@components/ModelDropdown.vue";
@@ -90,29 +91,31 @@ export default {
 
   data() {
     return {
+    form:{
       id: '',
-      titleInput: '',
+      name: '',
       makeid: null,
       model_id: null,
+    },
       loading: false,
     };
   },
 
   methods: {
     async submitId() {
-      if (!this.makeid || !this.model_id || !this.titleInput) {
+      if (!this.form.makeid || !this.form.model_id || !this.form.name) {
         this.$alertStore.add('All fields are required', 'error');
         return;
       }
 
       this.loading = true;
       try {
-        const formData = new FormData();
-        formData.append('id', this.id);
-        formData.append('name', this.titleInput);
-        formData.append('model_id', this.model_id);
+        // const formData = new FormData();
+        // formData.append('id', this.id);
+        // formData.append('name', this.name);
+        // formData.append('model_id', this.model_id);
 
-        const res = await Variant.create(formData);
+        const res = await General.post("api/cruds/variant", this.form);
         this.$alertStore.add(res.message, 'success');
         this.$router.push('/admin/variant');
       } catch (err) {

@@ -17,9 +17,9 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-                <v-col cols="4">
+                <v-col cols="6  ">
                 <v-text-field
-                  v-model="titleInput"
+                  v-model="form.name"
                   label="Title"
                   variant="outlined"
                   density="compact"
@@ -31,7 +31,7 @@
 
 
 
-              <v-col cols="4">
+              <v-col cols="6">
                 <v-btn
                   variant="outlined"
                   class="w-100"
@@ -78,14 +78,17 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Platform from '@/models/platform.model';
 
 export default {
   data() {
     return {
-      id: '',
-      titleInput: '',
-      image: null,
+      form:{
+        id: '',
+        name: '',
+        image: null,
+      },
       imageUrl: null,
     };
   },
@@ -102,30 +105,31 @@ export default {
       if (!file) return;
 
 
-      this.image = file;
+      this.form.image = file;
 
 
-      if (this.imageUrl) {
-        URL.revokeObjectURL(this.imageUrl);
+      if (this.form.imageUrl) {
+        URL.revokeObjectURL(this.form.imageUrl);
       }
 
-      this.imageUrl = URL.createObjectURL(this.image);
+      this.form.imageUrl = URL.createObjectURL(this.form.image);
     },
 
     async submitForm() {
-      if (!this.id || !this.titleInput || !this.image) {
-        this.$alertStore.add('All fields are required', 'error');
-        return;
-      }
+      
 
-      const formData = new FormData();
-      formData.append('id', this.id);
-      formData.append('name', this.titleInput);
-      formData.append('image', this.image);
+     try {
+      //  const formData = new FormData();
+      // formData.append('id', this.id);
+      // formData.append('name', this.name);
+      // formData.append('image', this.image);
 
-      const res = await Platform.create(formData);
+      const res = await General.post("/api/cruds/platform",this.form);
       this.$alertStore.add(res.message, 'success');
       this.$router.push('/admin/platform');
+     } catch (error) {
+        this.$alertStore.add(error.message, 'error');
+     }
     },
 
     goBack() {

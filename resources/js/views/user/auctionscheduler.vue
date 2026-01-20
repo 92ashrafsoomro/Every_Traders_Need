@@ -93,8 +93,8 @@
     </user-title-bar>
 
     <v-container fluid style="max-width: 1400px;">
-        <v-row class="mt-3">
-            <v-col cols="12">
+      
+       
                 <v-card class="border-sm border-white">
                     <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading" hover
                         item-value="id" @update:options="getRecords">
@@ -144,8 +144,7 @@
 
                     </v-data-table-server>
                 </v-card>
-            </v-col>
-        </v-row>
+           
     </v-container>
 </template>
 
@@ -296,6 +295,15 @@ export default {
     border-color: rgb(var(--v-theme-primary)) !important;
 }
 
+.icon {
+    font-size: 10px;
+    color: #00bad1;
+}
+
+.active {
+    border-color: rgb(var(--v-theme-primary)) !important;
+}
+
 .center_name_width {
     max-width: 1000px;
     display: -webkit-box;
@@ -326,6 +334,5 @@ export default {
     color: rgb(var(--v-theme-primary));
     cursor: pointer;
 }
-
 
 </style>

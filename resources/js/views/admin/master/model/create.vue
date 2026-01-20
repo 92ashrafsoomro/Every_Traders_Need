@@ -30,7 +30,7 @@
                                 variant="outlined"
                                  color="primary"
                                  class="id-box"
-                                 v-model="makeid" 
+                                 v-model="form.make_id" 
                                  item-title="name"
                                  item-value="id"
                                  hide-details
@@ -39,7 +39,7 @@
                             </v-col>
                             <v-col cols="6" sm="6"  class="pl-2">
                               <v-text-field
-                                  v-model="titleInput"    
+                                  v-model="form.name"    
                                   label="Title"
                                   variant="outlined"
                                   density="compact"
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Model from '@/models/vehicle-model.model';
 import MakeDropdown from "@components/MakeDropdown.vue"
 export default {
@@ -89,9 +90,11 @@ export default {
   },
   data() {
     return {
-      id: '',      
-      titleInput: '',
-      makeid:"", 
+     form:{
+       id: '',      
+      name: null,
+      make_id: '', 
+     }
     }
   },
    methods: {
@@ -99,13 +102,13 @@ export default {
        this.loading = true;
 
         try {
-            let formData = new FormData();
-            console.log(this.makeid)
-            formData.append('id', this.id);
-            formData.append('name', this.titleInput);
-            formData.append('make_id', this.makeid);
+            // let formData = new FormData();
+            // console.log(this.makeid)
+            // formData.append('id', this.id);
+            // formData.append('name', this.name);
+            // formData.append('make_id', this.makeid);
 
-            let res = await Model.create(formData);
+            let res = await General.post("/api/cruds/model" , this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/model');
 
@@ -114,7 +117,7 @@ export default {
             this.$alertStore.add(error.message, 'error');
         } finally {
             this.loading = false;
-            this.resetForm();
+            // this.resetForm();
         }
 
     },

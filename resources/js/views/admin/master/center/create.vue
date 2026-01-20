@@ -27,7 +27,7 @@
                          
                             <v-col cols="11" sm="9" class="pl-2">
                             <v-text-field
-                                v-model="titleInput"    
+                                v-model="form.name"    
                                 label="Title"
                                 variant="outlined"
                                 density="compact"
@@ -64,6 +64,7 @@
 
 <script>
 import Center from '@/models/center.model';
+import General from '@/models/general.model';
 export default {
   props: {
     title: {   
@@ -73,8 +74,10 @@ export default {
   },
   data() {
     return {
-      id: '',      
-      titleInput: '' 
+      form:{
+        id: '',      
+        name: '' 
+      }
     }
   },
    methods: {
@@ -82,11 +85,11 @@ export default {
        this.loading = true;
 
         try {
-            let formData = new FormData();
-            formData.append('id', this.id);
-            formData.append('name', this.titleInput);
+            // let formData = new FormData();
+            // formData.append('id', this.id);
+            // formData.append('name', this.name);
 
-            let res = await Center.create(formData);
+            let res = await General.post("/api/cruds/center" , this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/center');
 

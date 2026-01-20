@@ -21,7 +21,7 @@
               <!-- ID -->
               <v-col cols="4">
                 <v-text-field
-                  v-model="id"
+                  v-model="form.id"
                   label="ID"
                   variant="outlined"
                   density="compact"
@@ -33,7 +33,7 @@
               <!-- TITLE -->
               <v-col cols="4">
                 <v-text-field
-                  v-model="titleInput"
+                  v-model="form.name"
                   label="Title"
                   variant="outlined"
                   density="compact"
@@ -93,15 +93,19 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import Platform from '@/models/platform.model';
-
+import { usePlatformStore } from '@/stores/platformStore';
 export default {
   data() {
     return {
-      id: '',
-      titleInput: '',
-      image: null,      // NEW image (File)
-      imageUrl: null,   // preview (old or new)
+      platformStore : usePlatformStore(),
+      form:{
+        id: '',
+        name: '',
+        image: null, 
+        imageUrl: null,   // preview (old or new)
+      },     // NEW image (File)
       loading: false,
     };
   },
@@ -114,17 +118,12 @@ export default {
     async fetchPlatform() {
       this.loading = true;
       try {
-        const res = await Platform.find(this.$route.params.id);
+        const res = await this.platformStore.getSinglePlatform(this.$route.params.id);
 
-        if (res.data && res.data.length) {
-          const record = res.data[0];
-
-          this.id = record.id;
-          this.titleInput = record.name;
-
+          this.form.id = res.id;
+          this.form.name = res.name;
           // OLD image preview
-          this.imageUrl = record.image_preview || null;
-        }
+          this.form.imageUrl = res.image_preview || null;
       } catch (e) {
         this.$alertStore.add('Failed to load platform', 'error');
       } finally {
@@ -143,35 +142,34 @@ export default {
 
       // remove old preview url
       if (this.imageUrl) {
-        URL.revokeObjectURL(this.imageUrl);
+        URL.revokeObjectURL(this.form.imageUrl);
       }
 
-      this.image = file;
-      this.imageUrl = URL.createObjectURL(file);
+      this.form.image = file;
+      this.form.imageUrl = URL.createObjectURL(file);
     },
 
     async updatePlatform() {
-      if (!this.titleInput) {
+      if (!this.form.name) {
         this.$alertStore.add('Title is required', 'error');
         return;
       }
 
       this.loading = true;
       try {
-        const formData = new FormData();
-        formData.append('name', this.titleInput);
+        // const formData = new FormData();
+        // formData.append('name', this.name);
 
         // image sirf jab new select ho
-        if (this.image) {
-          formData.append('image', this.image);
-        }
+        // if (this.image) {
+        //   formData.append('image', this.image);
+        // }
 
-        const res = await Platform.update(this.id, formData);
-
+        const res = await General.put("/api/cruds/platform/"+this.form.id, this.form);
         this.$alertStore.add(res.message || 'Platform updated', 'success');
         this.$router.push('/admin/platform');
-      } catch (e) {
-        this.$alertStore.add('Update failed', 'error');
+      } catch (error) {
+        this.$alertStore.add(error.message, 'error');
       } finally {
         this.loading = false;
       }

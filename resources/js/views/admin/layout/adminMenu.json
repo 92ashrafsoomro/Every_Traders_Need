@@ -1,16 +1,13 @@
 [
+ 
   {
     "label": "Dashboard",
-    "children": [
-      {
-        "label": "Dashboard",
-        "icon": "mdi-view-dashboard-outline",
-        "path": "/admin/dashboard"
-      }
-    ]
+    "icon": "mdi-view-dashboard-outline",
+    "path": "/admin/dashboard"
   },
   {
     "label": "Data Management",
+     "icon": "mdi-star-outline",
     "children": [
       {
         "label": "Import Auction",
@@ -26,6 +23,7 @@
   },
   {
     "label": "Ids",
+    "icon": "mdi-star-outline",
     "children": [
       {
         "label": "Master",
@@ -41,6 +39,7 @@
   },
   {
     "label": "User Management",
+    "icon": "mdi-star-outline",
     "children": [
       {
         "label": "User",
@@ -51,6 +50,7 @@
   },
   {
     "label": "Subscriptions Control",
+    "icon": "mdi-star-outline",
     "children": [
       {
         "label": "Plan",

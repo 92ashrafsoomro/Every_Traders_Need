@@ -22,12 +22,21 @@
                         <template #activator="{ props }">
                             <v-list-item 
                             v-bind="props" 
-                            :title="item.label" 
+                           :subtitle="item.label"
                             :prepend-icon="item.icon" class="text-body-2" />
+                              <v-divider class="mt-2"></v-divider>
                         
                         </template>
 
-                        <v-list-item style="margin-left: -60px;" v-for="child in item.children" :prepend-icon="child.icon"  :title="child.label" :to="child.path" active-class="bg-primary on-primary  rounded my-active-menu hide-overlay"></v-list-item>
+                        <v-list-item  
+                        v-for="child in item.children" 
+                        :to="child.path" 
+                        active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
+                            <div class="d-flex  position-absolute" style="top: 9px; left: 10px;">                            
+                                <v-icon>{{ child.icon }}</v-icon>
+                                <span class="ml-7">{{ child.label }}</span>
+                            </div>
+                    </v-list-item>
                     </v-list-group>
                 
                     <v-list-item v-else-if="!item.hasOwnProperty('children')"     

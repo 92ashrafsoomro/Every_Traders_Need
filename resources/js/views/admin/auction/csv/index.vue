@@ -21,12 +21,16 @@
                         color="primary" @click="CsvStore.loadVehicle()">mdi-restart</v-icon>
                 </div>
                 <div class="px-2">
-                    <v-icon class="border" color="primary"
-                        style="background-color: rgb(var(--v-theme-background)); padding: 20px;"
-                        @click="$emit('toggle')">
-                        mdi-dots-vertical
-                    </v-icon>
+                <v-icon
+                    class="border"
+                    color="primary"
+                    style="background-color: rgb(var(--v-theme-background)); padding: 20px;"
+                    @click="CsvStore.toggleSidebar($route.params.id)"
+                >
+                    {{ CsvStore.isSidebarOpen ? 'mdi-close' : 'mdi-dots-vertical' }}
+                </v-icon>
                 </div>
+
             </div>
         </div>
         <v-card-text>
@@ -155,9 +159,8 @@ export default {
             const id = this.$route.params.id;
             try {
                 let res = await Auction.find(id, {});
-
                 this.form.table_id = res.data.table_id;
-                this.form.name = res.data.name;
+                this.form.name = this.CsvStore.platformName;
                 this.form.type = res.data.type
             } catch (error) {
                 this.$alertStore.add(error.message, 'error');

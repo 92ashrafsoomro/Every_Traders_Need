@@ -10,7 +10,7 @@
             variant="text"
             color="primary"
             class="text-capitalize"
-            @click="goBack"
+          
           >
             <v-icon start>mdi-arrow-left</v-icon>
             Back
@@ -19,7 +19,7 @@
 
         <div class="border-b"></div>
 
-        <v-card-text v-if="!loading">
+        <v-card-text >
           <v-container fluid>
             <v-row>
               <v-col cols="12">
@@ -38,30 +38,26 @@
                     />
                   </v-col>
                   <v-col cols="6" sm="9" lg="6" class="pl-2">
-                    <v-text-field
-                      label="Auction Type"
-                      variant="outlined"
-                      density="compact"
-                      v-model="form.auction_type"
-                      color="primary"
-                      clearable
-                      persistent-placeholder
-                      class="custom-input"
-                      hide-details
-                    />
+                    <AuctionTypeDropdown 
+                            v-model="form.auction_type"
+                            label="Auction Type"
+                            variant="outlined" 
+                            item-title="name"
+                            item-value="id"
+                            base-color="white"
+                            density="compact" 
+                            />
                   </v-col>
                   <v-col cols="11" sm="9" lg="6" class="mt-4 ">
-                    <v-text-field
-                      label="Platform"
-                      variant="outlined"
-                      density="compact"
-                      v-model="form.platform"
-                      color="primary"
-                      clearable
-                      persistent-placeholder
-                      class="custom-input"
-                      hide-details
-                    />
+                   <PlateformDropdown 
+                            v-model="form.platform"
+                            label="Auction House"
+                              item-title="name"
+                                item-value="id"
+                            variant="outlined" 
+                            base-color="white"
+                            density="compact" 
+                            />
                   </v-col>
                   <v-col cols="11" sm="9" lg="6" class="mt-4  pl-2">
                     <v-text-field
@@ -145,17 +141,15 @@
                     />
                   </v-col>
                   <v-col cols="11" sm="9" lg="6" class="mt-4 pl-2">
-                    <v-text-field
-                      label="Status"
-                      variant="outlined"
-                      density="compact"
-                      v-model="form.status"
-                      color="primary"
-                      clearable
-                      persistent-placeholder
-                      class="custom-input"
-                      hide-details
-                    />
+                   <StatusDropdown 
+                            v-model="form.status"
+                            label="Auction House"
+                            variant="outlined" 
+                            item-title="name"
+                            item-value="id"
+                            base-color="white"
+                            density="compact" 
+                            />
                   </v-col>
                   <!-- <v-col cols="11" sm="9" lg="6" class="mt-4 ">
                     <v-text-field
@@ -197,7 +191,7 @@
               </v-col>
               <v-col cols="12" class="mt-3 text-center">
                 <v-btn
-                 
+                 @click="updateData"
                   class="buttonBorder bg-primary"
                   variant="flat"
                   style="height: 40px;"
@@ -211,18 +205,24 @@
           </v-container>
         </v-card-text>
 
-        <v-card-text v-else class="text-center">
-          Loading...
-        </v-card-text>
+      
       </v-card>
     </v-col>
   </v-container>
 </template>
 
 <script>
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import { useTaskManagementStore } from './store/taskManagementStore';
-
+import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
+import StatusDropdown from '@/components/StatusDropdown.vue';
+import General from '@/models/general.model';
 export default {
+    components:{
+        AuctionTypeDropdown,
+        PlateformDropdown,
+        StatusDropdown
+    },
     data(){
         return{
           taskManagementStore : useTaskManagementStore(),
@@ -247,18 +247,38 @@ export default {
     methods:{
         async fetchSignleRecord(){
             this.loading = true;
-
             try{
                 const res = await this.taskManagementStore.getTaskManagement(this.$route.params.id);
                 const data = res[0];
-                this.form.id = data.id
-            
-                
+                this.form.id = data.id;
+                this.form.auction_type = data.auction_type.id;
+                this.form.platform = data.auction_house.id;
+                this.form.auction_name = data.auction_name;
+                this.form.date = data.date
+                this.form.created_date = data.date
+                this.form.pak_time = data.pak_time
+                this.form.lots = data.lots;
+                this.form.src_lots = data.src_lots;
+                this.form.status = data.status;
+
             }catch (error) {
                 this.$alertStore.add(error.message || 'Failed to fetch record', 'error');
             } finally {
                 this.loading = false;
             }
+        },
+
+        async updateData(){
+            this.loading = true;
+
+            try{
+                const res = await General.put("/api/cruds/taskManagement/"+this.form.id, this.form);
+                this.$alertStore.add(res.message || "Edit SuccessFully ", "success")
+            }  catch (error) {
+        this.$alertStore.add(error.message || 'Update failed', 'error');
+      } finally {
+        this.loading = false;
+      }     
         }
     }
 }

@@ -105,8 +105,17 @@
             </v-col>
             <v-col cols="12" class="mt-2">
                 <div class="border">
-                    <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total"
-                        hover item-value="id" @update:options="loadItems" :lastPage="last_page" style="height: 500px !important;">
+                    <v-data-table-server 
+                        :loading="loading" 
+                        :headers="headers" 
+                        :items="items" 
+                        :items-length="total"
+                        hover 
+                        item-value="id" 
+                        @update:options="loadItems" 
+                        :lastPage="last_page" 
+                        
+                        style="height: 500px !important;">
                         
                         <template #item.name="{ item }" style="width: 100px; ba">
                             <span >
@@ -146,8 +155,11 @@
 
                         <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
-                                <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
-                                    @page-changed="loadItems" />
+                                <custom-pagination 
+                                   :loading="loading" 
+                                   v-model:page="filter.page" 
+                                   :lastPage="last_page"
+                                  @page-changed="loadItems" />
                             </div>
                         </template>
                     </v-data-table-server>

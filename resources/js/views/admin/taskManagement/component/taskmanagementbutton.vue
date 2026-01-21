@@ -179,20 +179,6 @@ export default {
         }
 
     },
-    computed: {
-
-    },
-    methods: {
-
-        getVariant(item) {
-
-            return this.$route.path.startsWith('/admin/bodyType') === item.path ? 'tonal' : 'outlined';
-        }
-
-    }
-
-
-
 }
 </script>
 <style scoped>

@@ -139,12 +139,13 @@ class SheetColumnSetter
 
     public function varientClean(){
         switch($this->platformId){
-           case 1 || 2 || 17 || 18 || 35 || 15  :
+           case 1 || 3 || 2 || 17 || 18 || 35 || 15  :
                 $value = strtolower($this->item['derivative'] ?? '');
                 $value = preg_replace('/\b[0-2]\.\d\b/', '', $value);
                 $value = preg_replace('/\b\d+d?r\b/', '', $value);
                 $value = preg_replace('/\s+/', ' ', trim($value));
                 $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
+                $value = preg_replace('/\b\d+\s*kwh\b/i', '', $value);
                 // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
                 // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
 

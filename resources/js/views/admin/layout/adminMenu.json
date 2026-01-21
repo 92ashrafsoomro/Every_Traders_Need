@@ -19,11 +19,6 @@
         "icon": "mdi-database-import-outline",
         "path": "/admin/auction"
       },
-       {
-        "label": "Auction Schedul",
-        "icon": "mdi-car-outline",
-        "path": "/admin/auctionSchedule"
-      },
       {
         "label": "Vehicle List",
         "icon": "mdi-list-box-outline",

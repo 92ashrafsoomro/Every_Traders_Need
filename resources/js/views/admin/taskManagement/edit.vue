@@ -42,6 +42,7 @@
                       label="Auction Type"
                       variant="outlined"
                       density="compact"
+                      v-model="form.auction_type"
                       color="primary"
                       clearable
                       persistent-placeholder
@@ -54,6 +55,7 @@
                       label="Platform"
                       variant="outlined"
                       density="compact"
+                      v-model="form.platform"
                       color="primary"
                       clearable
                       persistent-placeholder
@@ -66,6 +68,7 @@
                       label="Auction Name"
                       variant="outlined"
                       density="compact"
+                      v-model="form.auction_name"
                       color="primary"
                       clearable
                       persistent-placeholder
@@ -77,6 +80,7 @@
                     <v-text-field
                       label="Auction Date"
                       variant="outlined"
+                      v-model="form.date"
                       density="compact"
                       type="date"
                       color="primary"
@@ -90,6 +94,7 @@
                     <v-text-field
                       label="Auction Time"
                       variant="outlined"
+                      v-model="form.created_date"
                       density="compact"
                       color="primary"
                       type="time"
@@ -106,6 +111,7 @@
                       density="compact"
                       type="time"
                       color="primary"
+                      v-model="form.pak_time"
                       clearable
                       persistent-placeholder
                       class="custom-input"
@@ -118,6 +124,7 @@
                       variant="outlined"
                       density="compact"
                       color="primary"
+                      v-model="form.lots"
                       clearable
                       persistent-placeholder
                       class="custom-input"
@@ -131,6 +138,7 @@
                       density="compact"
                       color="primary"
                       clearable
+                      v-model="form.src_lots"
                       persistent-placeholder
                       class="custom-input"
                       hide-details
@@ -141,6 +149,7 @@
                       label="Status"
                       variant="outlined"
                       density="compact"
+                      v-model="form.status"
                       color="primary"
                       clearable
                       persistent-placeholder
@@ -218,7 +227,7 @@ export default {
         return{
           taskManagementStore : useTaskManagementStore(),
             form:{
-                id : null,
+                id : '',
                 auction_type : "",
                 platform : "",
                 auction_name : "",
@@ -241,8 +250,10 @@ export default {
 
             try{
                 const res = await this.taskManagementStore.getTaskManagement(this.$route.params.id);
-             
+                const data = res[0];
                 this.form.id = data.id
+            
+                
             }catch (error) {
                 this.$alertStore.add(error.message || 'Failed to fetch record', 'error');
             } finally {

@@ -19,7 +19,6 @@ import access from "@views/admin/accessControl/route"
 import adminList from "@views/admin/adminList/route"
 import role from "@views/admin/role/route"
 import permission from "@views/admin/permission/route"
-import auctionSchedule from "@views/admin/auctionSchedule/route"
 import taskManagement from "@views/admin/taskManagement/route"
 // import upComing from '@views/admin/taskManagement/upcoming/route'
 // import upGrade from '@views/admin/taskManagement/upGrade/route'
@@ -42,7 +41,6 @@ export default [
             ...model,
             ...center,
             ...auction,
-            ...auctionSchedule,
             ...vehicle,
             ...members,
             ...transaction,

@@ -4,22 +4,29 @@ import General from "@/models/general.model";
 
 export const useTaskManagementStore = defineStore("taskManagementStore", {
     state: () => ({
+        filter:{
+            page: 1,
+            length: 10,
+            offset: 0,
+            search: '',
+        },
         items: [],
         loading: false,
         total: 0,
+        last_page: 1,
     }),
 
     actions: {
-        async getTaskManagement(taskId) {
+        async getTaskManagement() {
             this.loading = true;
-            try {                           // /api/cruds/taskManagement   
-                const res = await General.get('/api/cruds/taskManagement', {id:taskId});
-                this.items = res.data.data ?? res.data;
-                this.total = res.data.total ?? this.items.length;
+            try {
+                const res = await General.get('/api/cruds/taskManagement',this.filter);
+                this.items = res.data;
+                this.total = Number(res.total);
+                this.last_page = res.last_page;
+                this.filter.offset = Number(res.offset);
 
                 return res.data;
-            } catch (error) {
-                throw error;
             } finally {
                 this.loading = false;
             }

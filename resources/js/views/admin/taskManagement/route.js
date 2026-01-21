@@ -1,4 +1,4 @@
-import index from './index.vue'
+
 import upComing from './upComing.vue'
 import upGrade from './upGrade.vue'
 import final from './final.vue'
@@ -10,7 +10,7 @@ export default [
     {
         path: "taskManagement",
         children: [
-            { path: '', component: index },
+            { path: '', component: upComing },
             { path: 'upComing', component: upComing },
             { path: 'upGrade', component: upGrade },
             { path: 'final', component: final },

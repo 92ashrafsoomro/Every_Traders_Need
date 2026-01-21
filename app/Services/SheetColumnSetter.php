@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\AuctionCenter;
 use App\Models\Auctions;
 use App\Models\BodyType;
+use App\Models\Prefix;
 use App\Models\Interest;
 use App\Models\Make;
 use App\Models\Membership;
@@ -29,7 +30,7 @@ class SheetColumnSetter
     
     protected $item;
     public $prefixes;
-
+    public $platformId;
     function __construct($item) {
         $this->item = $item;
         $this->item['errors'] = [];
@@ -59,12 +60,72 @@ class SheetColumnSetter
 
     }
 
+
+
       public function setMakeId()
     {
         $prefixes = $this->prefixes['make'];
         $value = strtolower($this->item['make_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['make_id'] = $value;
+    }
+
+    public function modelCleaning(){
+        switch($this->platformId){
+           case 2:
+                $value = strtolower($this->item['model_id'] ?? '');
+                $words = preg_split('/\s+/', trim($value));
+
+                $bodyMap = $this->prefixes['bodyType']; 
+                $fuelMap = $this->prefixes['fuelType']; 
+
+           
+                $manualFuel = ['diesel', 'petrol'];
+
+       
+                for ($i = count($words) - 1; $i >= 0; $i--) {
+
+                    $word = trim(strtolower($words[$i]));
+                    $remove = false;
+
+                    if (in_array($word, $manualFuel)) {
+                        $remove = true;
+                    }
+
+           
+                    if (!$remove) {
+                        foreach ($bodyMap as $key => $mappedValue) {
+                    
+                            if (stripos($word, strtolower($key)) !== false) {
+                                $remove = true;
+                                break;
+                            }
+                        }
+                    }
+
+   
+                    if (!$remove) {
+                        foreach ($fuelMap as  $key => $mappedValue) {
+                            if (stripos($word, strtolower($key)) !== false) {
+                                $remove = true;
+                                break;
+                            }
+                        }
+                    }
+
+               
+                    if ($remove) {
+                        array_splice($words, $i, 1);
+                    }
+                }
+
+        
+                $this->item['model_id'] = implode(' ', $words);
+
+
+         
+        }
+
     }
 
       public function setModelId()
@@ -75,6 +136,23 @@ class SheetColumnSetter
         $this->item['model_id'] = $value;
     }
 
+
+    public function varientClean(){
+        switch($this->platformId){
+           case 1 || 2 || 17 || 18 || 35 || 15  :
+                $value = strtolower($this->item['derivative'] ?? '');
+                $value = preg_replace('/\b[0-2]\.\d\b/', '', $value);
+                $value = preg_replace('/\b\d+d?r\b/', '', $value);
+                $value = preg_replace('/\s+/', ' ', trim($value));
+                $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
+                // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
+                // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
+
+                $this->item['derivative'] = $value;
+
+
+        }
+    }
 
       public function matchVariantWithOldData($make,$model)
     {
@@ -176,7 +254,7 @@ class SheetColumnSetter
                     
                     }else if($this->matchWords($value,$variants)){
 
-                    }  
+                    }
 
                 }
 
@@ -246,7 +324,9 @@ class SheetColumnSetter
         $this->setBodyId();
         $this->setVehicleId();
         $this->setMakeId();
+        $this->modelCleaning();
         $this->setModelId();
+        $this->varientClean();
         $this->setVariantId();
         return $this->item;
     }

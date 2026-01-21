@@ -38,6 +38,7 @@ class SheetService
                
                 $SheetColumnSetter = new SheetColumnSetter(json_decode(json_encode($item),true));
                 $SheetColumnSetter->prefixes = $prefixes;
+                $SheetColumnSetter->platformId = $model->platform_id;
                 array_push($data,$SheetColumnSetter->get());
             }
 

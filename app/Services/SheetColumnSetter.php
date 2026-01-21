@@ -76,41 +76,53 @@ class SheetColumnSetter
                 $value = strtolower($this->item['model_id'] ?? '');
                 $words = preg_split('/\s+/', trim($value));
 
-                $fuelTypes = Prefix::where('name', 'fuelType')
-                    ->pluck('prefix_key')
-                    ->map(fn($v) => strtolower($v))
-                    ->toArray();
+                $bodyMap = $this->prefixes['bodyType']; 
+                $fuelMap = $this->prefixes['fuelType']; 
 
-                $bodyTypes = Prefix::where('name', 'bodyType')
-                    ->pluck('prefix_key')
-                    ->map(fn($v) => strtolower($v))
-                    ->toArray();
+           
+                $manualFuel = ['diesel', 'petrol'];
 
-                $cleanWords = [];
+       
+                for ($i = count($words) - 1; $i >= 0; $i--) {
 
-                foreach ($words as $word) {
+                    $word = trim(strtolower($words[$i]));
                     $remove = false;
 
-
-                    foreach ($fuelTypes as $fuel) {
-                        $parts = preg_split('/[\/\s]+/', $fuel);
-                        if (in_array($word, $parts)) {
-                            $remove = true;
-                            break;
-                        }
-                    }
-
-
-                    if (!$remove && in_array($word, $bodyTypes)) {
+                    if (in_array($word, $manualFuel)) {
                         $remove = true;
                     }
 
+           
                     if (!$remove) {
-                        $cleanWords[] = $word;
+                        foreach ($bodyMap as $key => $mappedValue) {
+                    
+                            if (stripos($word, strtolower($key)) !== false) {
+                                $remove = true;
+                                break;
+                            }
+                        }
+                    }
+
+   
+                    if (!$remove) {
+                        foreach ($fuelMap as  $key => $mappedValue) {
+                            if (stripos($word, strtolower($key)) !== false) {
+                                $remove = true;
+                                break;
+                            }
+                        }
+                    }
+
+               
+                    if ($remove) {
+                        array_splice($words, $i, 1);
                     }
                 }
 
-                $this->item['model_id'] = implode(' ', $cleanWords);
+        
+                $this->item['model_id'] = implode(' ', $words);
+
+
          
         }
 
@@ -125,22 +137,22 @@ class SheetColumnSetter
     }
 
 
-    // public function varientClean(){
-    //     switch($this->platformId){
-    //        case 1 || 2 || 17 || 18 || 35 || 15  :
-    //             $value = strtolower($this->item['derivative'] ?? '');
-    //             $value = preg_replace('/\b[0-2]\.\d\b/', '', $value);
-    //             $value = preg_replace('/\b\d+d?r\b/', '', $value);
-    //             $value = preg_replace('/\s+/', ' ', trim($value));
-    //             $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
-    //             // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
-    //             // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
+    public function varientClean(){
+        switch($this->platformId){
+           case 1 || 2 || 17 || 18 || 35 || 15  :
+                $value = strtolower($this->item['derivative'] ?? '');
+                $value = preg_replace('/\b[0-2]\.\d\b/', '', $value);
+                $value = preg_replace('/\b\d+d?r\b/', '', $value);
+                $value = preg_replace('/\s+/', ' ', trim($value));
+                $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
+                // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
+                // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
 
-    //             $this->item['derivative'] = $value;
+                $this->item['derivative'] = $value;
 
 
-    //     }
-    // }
+        }
+    }
 
       public function matchVariantWithOldData($make,$model)
     {
@@ -314,7 +326,7 @@ class SheetColumnSetter
         $this->setMakeId();
         $this->modelCleaning();
         $this->setModelId();
-        // $this->varientClean();
+        $this->varientClean();
         $this->setVariantId();
         return $this->item;
     }

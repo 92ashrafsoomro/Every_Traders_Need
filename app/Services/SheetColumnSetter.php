@@ -99,7 +99,7 @@ class SheetColumnSetter
         if(isset($words[2])){
 
             if($this->fullMatch($words[0].' '.$words[1].' '.$words[2],$variants)){ 
-              $this->item['variant_id'] = $this-> $words[0].' '.$words[1].' '.$words[2];
+              $this->item['variant_id'] = $words[0].' '.$words[1].' '.$words[2];
               return true;
             }else if($this->fullMatch($words[0].' '.$words[1],$variants)){ 
                 $this->item['variant_id'] = $words[0].' '.$words[1];
@@ -168,7 +168,7 @@ class SheetColumnSetter
                     ->map(fn ($name) => strtolower($name))
                     ->toArray();  
 
-                    if($this->fullMatch($words,$variants)){
+                    if($this->fullMatch($value,$variants)){
 
                     }else if($this->matchVariantWithOldData($make,$model)){
 

@@ -23,6 +23,8 @@ use App\Http\Controllers\Api\Master\BlogController;
 use App\Http\Controllers\Api\Master\MembershipController;
 use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
+use App\Http\Controllers\Api\Master\TaskManagementController;
+
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
 
@@ -191,6 +193,8 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('newsCategory',NewsCategoryController::class);
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
+        
+        Route::resource('taskManagement',TaskManagementController::class);
         Route::resource('auctions',AuctionController::class);
         Route::resource('vehicles',VController::class);
         Route::resource('prefixes',PrefixController::class);

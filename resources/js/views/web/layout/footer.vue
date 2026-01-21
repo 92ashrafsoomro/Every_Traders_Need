@@ -69,7 +69,7 @@
 
             <div class="text-light_text_on mt-10    pb-2 text-body-2"
                 style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
-                <div class="w-75 w-lg-100">
+                <div class="w-50 w-lg-100">
                     <p class="mt-6 mr-2">© AUTOBOLI Ltd 2025. All rights reserved.</p>
                     <p>
                         Proudly built & hosted with secure infrastructure in the UK & EU.

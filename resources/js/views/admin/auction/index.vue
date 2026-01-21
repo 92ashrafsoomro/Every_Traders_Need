@@ -68,6 +68,7 @@
                                 
                             </div>
                         </div>
+                    <AuctionWeek/>
                     </v-container>
                 </div>
             </v-expand-transition>
@@ -163,12 +164,14 @@ import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import Auction from '@/models/auction.model';
 import StatusDropdown from '@/components/StatusDropdown.vue';
+import AuctionWeek from './auctionWeek.vue';
 export default {
 
     components: {
         PlateformDropdown,
         AuctionTypeDropdown,
-        StatusDropdown
+        StatusDropdown,
+        AuctionWeek
     },
     data() {
         return {

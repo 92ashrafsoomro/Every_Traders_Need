@@ -21,7 +21,7 @@
   </div>
 
   <!-- SCROLLABLE INFO -->
-  <div class="d-flex align-center text-light ga-3 py-1 w-50 profile-scroll px-3">
+  <div class="d-flex align-center text-light ga-3 py-1 profile-scroll px-3" style="width: 150px;">
     <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
       <v-icon icon="mdi-equalizer" color="primary" />
       <span class="text-body-2 px-2">
@@ -59,8 +59,8 @@
     </div>
   </div>
 
-  <v-container max-width="1400px" fluid>
-    <v-row>
+   <div style="max-width: 1400px" class="mx-auto py-10 px-4">
+    <v-row  no-gutters="" >
       <v-col cols="12" md="5">
         <Sidebar />
       </v-col>
@@ -73,7 +73,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div> 
 </template>
 
 <script>

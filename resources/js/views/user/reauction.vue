@@ -2,16 +2,16 @@
     <user-title-bar title="Reauction Tracker"
         subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
 
-        <v-container class="contentArea d-flex align-center justify-start pb-0 ga-6 pl-0 mb-n5"
-            style="position: relative; top: 20px; left:-10px; " fluid="">
+        <div class="contentArea d-flex align-center justify-start pb-0 ga-6 pa-3 mb-n5"
+            style="position: relative;  top: 10px; left:-10px; " fluid="">
             <div style="background-color: rgb(var(--v-theme-danger),0.4); " class="pb-0 text-center d-flex">
                 <div class="px-2 pb-4 pt-2 ">
                     <h3 class="text-h4 font-weight-bold ">56</h3>
                     <p class="text-body-2">Today</p>
                 </div>
             </div>
-            <div class="w-100  ">
-                <div class="d-flex w-100" >
+            <div class=" ">
+                <div class="d-flex " >
                    <div style="width: 130px !important;"> <h3 class="mb-2 text-body-2 mr-1" >Auction House</h3></div>
                     <div class="d-flex scrollSec  ">
                         <div v-for="value in ['BCA', 'CCA', 'MAG', 'CAG']" :key="value"
@@ -23,7 +23,7 @@
 
                 </div>
 
-                <div class="d-flex mt-2 mb-0">
+                <div class="d-flex mt-2 mb-0 ">
                      <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 " >Center:</h3></div>
                     <div class="d-flex scrollSec ">
                         <div v-for="value in ['BCAedssd', 'CCAdsds', 'MAdsdsGds', 'CdsdsdsAG']" :key="value"
@@ -60,10 +60,10 @@
                     </v-col>
                 </v-row>
             </v-card> -->
-        </v-container>
+        </div>
     </user-title-bar>
-    <v-container fluid style="max-width: 1400px;">
-        <v-row>
+    <div  style="max-width: 1400px;" class="mx-auto">
+        <v-row no-gutters="" class="pa-3">
             <v-col cols="12">
                 <div class="d-lg-none d-md-none align-self-center pl-2">
                     {{ pageStore.reauction.offset }} - {{ (pageStore.reauction.offset +
@@ -93,7 +93,7 @@
                 </div>
             </v-col>
 
-            <v-col cols="12 " class="mt-n4">
+            <v-col cols="12 " class="mt-3 ">
                 <v-card class="border-sm border-white ">
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"
@@ -121,7 +121,7 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </template>
 <script>
 
@@ -174,8 +174,9 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 599px) {
+@media (max-width: 720px) {
     .scrollSec {
+        width: 130px;
         overflow: auto;
     }
 }

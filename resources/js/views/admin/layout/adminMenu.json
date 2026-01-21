@@ -5,6 +5,11 @@
     "icon": "mdi-view-dashboard-outline",
     "path": "/admin/dashboard"
   },
+   {
+    "label": "Task Management",
+    "icon": "mdi-circle-outline",
+    "path": "/admin/taskManagement/upComing"
+  },
   {
     "label": "Data Management",
      "icon": "mdi-star-outline",

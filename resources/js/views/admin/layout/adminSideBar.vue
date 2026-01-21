@@ -24,7 +24,7 @@
                             v-bind="props" 
                            :subtitle="item.label"
                             :prepend-icon="item.icon" class="text-body-2" />
-                              <v-divider class="mt-2"></v-divider>
+                              <v-divider></v-divider>
                         
                         </template>
 

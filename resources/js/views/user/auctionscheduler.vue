@@ -170,34 +170,13 @@ export default {
             platforms: [],
             centers: [], carousel: 0,
             days: {
-                today: {
-                    auction: 0,
-                    car: 10,
-                },
-                mon: {
-                    auction: 0,
-                    car: 10,
-                },
-                tue: {
-                    auction: 6,
-                    car: 10,
-                },
-                wed: {
-                    auction: 0,
-                    car: 10,
-                },
-                thu: {
-                    auction: 9,
-                    car: 10,
-                },
-                fri: {
-                    auction: 0,
-                    car: 10,
-                },
-                sat: {
-                    auction: 10,
-                    car: 10,
-                },
+                today: { auction: 0, car: 0 },
+                monday: { auction: 0, car: 0 },
+                tuesday: { auction: 0, car: 0 },
+                wednesday: { auction: 0, car: 0 },
+                thursday: { auction: 0, car: 0 },
+                friday: { auction: 0, car: 0 },
+                saturday: { auction: 0, car: 0 },
             },
             options: {
                 length: 10,
@@ -228,6 +207,7 @@ export default {
 
     },
     methods: {
+       
         async handleInput(value, field) {
 
             switch (field) {
@@ -262,13 +242,40 @@ export default {
 
             this.getRecords();
         },
-        async getRecords() {
 
+        getDayKey(date) {
+            const d = new Date(date);
+            const today = new Date();
+
+            if (d.toDateString() === today.toDateString()) {
+                return 'today';
+            }
+
+            return d.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+        },
+
+        prepareDays(data) {
+            const days = this.days;
+
+            data.forEach(item => {
+                const dayKey = this.getDayKey(item.auction_date);
+
+                if (days[dayKey]) {
+                    days[dayKey].auction += 1;
+                    days[dayKey].car += Number(item.car_count || 0);
+                }
+            });
+
+            this.days = days;
+        },
+        
+        async getRecords() {
             try {
 
                 let res = await auctionSheldulerList(this.options);
                 this.data = res.data;
                 this.total = res.recordsTotal;
+                this.prepareDays(res.data);
                 this.options.page = Number(res.page);
                 this.options.offset = res.offset;
                 this.options.last_page = res.last_page
@@ -280,7 +287,6 @@ export default {
                 this.options.last_page = 1;
             }
         }
-
     },
 };
 </script>

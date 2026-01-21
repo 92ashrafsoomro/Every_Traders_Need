@@ -102,7 +102,139 @@ class TaskManagementController extends Controller
         
     }
 
-    
+
+       public function store(Request $request)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'auction_type' => 'required|exists:auction_types,id',
+            'platform' => 'required|exists:auction_platform,id',
+            'auction_name' => 'required|string|max:255',
+            'date' => 'nullable|date',
+            'pak_time' => 'nullable|date',
+            'lots' => 'nullable|string',
+            'scr_lots' => 'nullable|string',
+            'status' => 'nullable|string',
+            'assign_to' => 'nullable|string',
+            'final_sheet' => 'nullable|string',
+            'notes' => 'nullable|string',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        
+        DB::beginTransaction();
+        try {
+
+
+            // Creation Process
+            $auction = new TaskManagement();
+            $auction->auction_type = $auction->auction_type;
+            $auction->platform = $auction->platform;
+            $auction->auction_name = $auction->auction_name;
+            $auction->date = $auction->date;
+            $auction->pak_time = $auction->pak_time;
+            $auction->lots = $auction->lots;
+            $auction->scr_lots = $auction->scr_lots;
+            $auction->status = $auction->status;
+            $auction->assign_to = $auction->assign_to;
+            $auction->final_sheet = $auction->final_sheet;
+            $auction->notes = $auction->notes;
+            $auction->created_by = $request->user()->id;
+            $auction->created_at = Carbon::now();
+            $auction->updated_at = null;
+            $auction->save();
+
+            DB::commit();
+            return response()->json([
+                'data' => $auction,
+                'message' => 'Record Created',
+            ],200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+
+
+    }
+
+
+       public function update(Request $request,$id)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'auction_type' => 'required|exists:auction_types,id',
+            'platform' => 'required|exists:auction_platform,id',
+            'auction_name' => 'required|string|max:255',
+            'date' => 'nullable|date',
+            'pak_time' => 'nullable|date',
+            'lots' => 'nullable|string',
+            'scr_lots' => 'nullable|string',
+            'status' => 'nullable|string',
+            'assign_to' => 'nullable|string',
+            'final_sheet' => 'nullable|string',
+            'notes' => 'nullable|string',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $auction = TaskManagement::find($id);
+        if($auction == false){
+               return response()->json([
+                'message' => 'Auction Not Found',
+            ], 422);
+        }
+        
+
+        DB::beginTransaction();
+        try {
+
+            // Creation Process
+            $auction->auction_type = $auction->auction_type;
+            $auction->platform = $auction->platform;
+            $auction->auction_name = $auction->auction_name;
+            $auction->date = $auction->date;
+            $auction->pak_time = $auction->pak_time;
+            $auction->lots = $auction->lots;
+            $auction->scr_lots = $auction->scr_lots;
+            $auction->status = $auction->status;
+            $auction->assign_to = $auction->assign_to;
+            $auction->final_sheet = $auction->final_sheet;
+            $auction->notes = $auction->notes;
+            $auction->updated_at = Carbon::now();
+            $auction->save();
+
+            DB::commit();
+            return response()->json([
+                'data' => $auction,
+                'message' => 'Record Updated',
+            ],200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+
+    }
+
+
+
+
+
        public function laodSheet()
     {
 

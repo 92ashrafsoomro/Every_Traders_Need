@@ -22,7 +22,7 @@
                     <div class="text-white">
                         <h3 class="cardNumber  text-h5 font-weight-bold text-whiteLite " style="word-spacing: 10px;">123 1234 1234 1344
                         </h3>
-                        <p class="mt-6 font-weight-bold ">AutoBoli</p>
+                        <p class="mt-lg-6 mt-2 font-weight-bold ">AutoBoli</p>
                     </div>
 
 

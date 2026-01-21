@@ -13,12 +13,12 @@
         </div>
     </user-title-bar>
 
-    <v-container fluid style="max-width: 1400px;" class="mx-auto ">
-        <v-row>
+    <div fluid style="max-width: 1400px;" class="mx-auto ">
+        <v-row no-gutters="">
             <component :is="currentComponent" />
 
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>

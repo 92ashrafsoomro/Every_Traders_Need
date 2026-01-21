@@ -1,10 +1,10 @@
 <template>
-    <v-container>
+    <div>
         <main style="max-width: 1400px;  " class="mx-auto h-100 py-10">
             <div class="d-flex  text-center items-center justify-center py-16">
                 <h1 class="text-h2 font-weight-bold">Pricing</h1>
             </div>
-            <v-row class="d-flex flex-column flex-lg-row flex-md-row ">
+            <v-row class="d-flex flex-column flex-lg-row flex-md-row pa-4" no-gutters="">
                 <v-col>
                     <div class="d-flex flex-column justify-center text-body-2  h-100 w-lg-75 w-md-75 w-100">
                         <p>Hi there!</p>
@@ -30,7 +30,7 @@
                     </div>
                 </v-col>
                 <v-col>
-                    <div class="d-flex flex-lg-row flex-md-row flex-column-reverse bg-surface border justify-center pa-lg-10 pa-md-5 pa-4   w-100 " style=" border-radius:15px; ">
+                    <div class="d-flex flex-lg-row flex-md-row flex-column-reverse bg-surface border justify-center pa-lg-10 pa-md-5 pa-4  mt-10 mt-lg-0 mt-md-0 w-100 " style=" border-radius:15px; ">
                         <!-- box-shadow:0px 0px 20px 0px rgb(var(--v-theme-shadow)); -->
                    
                             <div class="pr-2  ">
@@ -93,7 +93,7 @@
                 </v-col>
             </v-row>
         </main>
-    </v-container>
+    </div>
 
     <!--<pricingplain/> -->
     <!-- <featureTable/> -->

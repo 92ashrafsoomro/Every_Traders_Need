@@ -1,7 +1,7 @@
 <template>
     
     <v-col  class="ma-0">
-        <v-row class="mt-3">
+        <v-row class="mt-3 pa-4" no-gutters="">
             <v-col cols="12">
                 <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2 " >
                     <div class="d-flex  ">
@@ -42,7 +42,7 @@
                 </div>
             </v-col>
 
-            <v-col cols="12" class="mt-n3">
+            <v-col cols="12" class="mt-3 ">
                 <div class="  border ">
                     <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
                         :loading="loading" item-value="id" @update:options="loadItems">

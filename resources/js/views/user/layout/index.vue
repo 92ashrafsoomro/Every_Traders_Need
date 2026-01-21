@@ -1,7 +1,7 @@
 <template>
     <v-app >
         <Sidebar />
-        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b"
+        <v-app-bar elevation="0"  color="" class="d-flex align-center justify-space-between elevation-3 border-b"
             style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
             <div class="bg-primary d-lg-flex d-md-flex d-none align-center cursor-pointer "

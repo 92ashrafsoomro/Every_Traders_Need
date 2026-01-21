@@ -1,7 +1,6 @@
 <template>
-    <user-title-bar title="Auction List"
+    <user-title-bar title="Auction Schedular List"
    >
-
         <div>
             <v-card-title class="d-flex cursor-pointer " @click="showFilters = !showFilters">
                 <span class="text-h6">
@@ -68,7 +67,6 @@
                                 
                             </div>
                         </div>
-                    <AuctionWeek/>
                     </v-container>
                 </div>
             </v-expand-transition>
@@ -162,21 +160,19 @@
 
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
-import Auction from '@/models/auction.model';
+import AuctionSchedule from '@/models/auctionSchedule.model';
 import StatusDropdown from '@/components/StatusDropdown.vue';
-import AuctionWeek from './auctionWeek.vue';
 export default {
 
     components: {
         PlateformDropdown,
         AuctionTypeDropdown,
-        StatusDropdown,
-        AuctionWeek
+        StatusDropdown
     },
     data() {
         return {
             showFilters: true,
-            Auction,
+            // Auction,
             filter: {
                 table_id: "",
                 name: "",
@@ -196,14 +192,18 @@ export default {
             headers: [
                 { title: "ID", value: "id", sortable: false },
                 { title: "Auction Id", value: "table_id", sortable: false },
-                { title: "Name", value: "name" },
-                { title: "Type", value: "auction_type.title" },
-                { title: "Au House", value: "platform.name" },
-                { title: "Status", value: "auction_status.title" },
-                { title: "Start Date", value: "auction_date" },
-                { title: "End Date", value: "end_date" },
+                { title: "Auction Schedular Type", value: "auctionSchedular_type.title" },
+                { title: "Auction Schedular platform", value: "auctionSchedularPlatform.name" },
+                { title: "Auction Schedular Name", value: "auctionSchedularName" },
                 { title: "Created At", value: "created_date" },
-                { title: "Action", key: "action" },
+                {title : "Auction Time", value : "auction_time"},
+                {title : "Pak Time", value : "pak_time"},
+                {title : "Lots", value : "lots"},
+                {title : "Src Lots", value : "src_lots"},
+                { title: "Status", value: "auction_schedule.title" },
+                // { title: "Start Date", value: "auction_date" },
+                // { title: "End Date", value: "end_date" },
+                // { title: "Action", key: "action" },
             ],
         };
     },
@@ -266,7 +266,7 @@ export default {
             this.loading = true;
             try {
 
-                let res = await Auction.all(this.filter);
+                let res = await AuctionSchedule.all(this.filter);
                 this.items = res.data;
                 // this.filter.page = Number(res.page)
                 this.last_page = Number(res.last_page);
@@ -286,7 +286,7 @@ export default {
             this.loading = true;
 
             try {
-                const res = await Auction.delete(id);
+                const res = await AuctionSchedule.delete(id);
                 this.$alertStore.add(res.message || "BodyType deleted", "success");
                 this.loadItems();
 

@@ -40,6 +40,7 @@ class TaskManagementController extends Controller
 {
 
 
+
         public function index(Request $request)
     {
 
@@ -48,7 +49,7 @@ class TaskManagementController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = TaskManagement::query();
+        $query = TaskManagement::with(['auctionHouse','auctionType']);
 
         //Filter
         if($request->has('id') && $request->id != '') {
@@ -101,6 +102,7 @@ class TaskManagementController extends Controller
         
     }
 
+    
        public function laodSheet()
     {
 

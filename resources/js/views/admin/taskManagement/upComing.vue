@@ -2,6 +2,18 @@
     <taskNav />
     <v-row style="max-width: 1400px;" class="mx-auto">
         <v-col cols="12" class="mt-2">
+            <div class="d-flex justify-end mb-2">
+                  <v-btn 
+                    to="/admin/taskManagement/create"
+                    color="primary"
+                    class=""
+                    style="height: 40px;"
+                    variant="flat"
+                    @click="loadItems"
+                    >
+                        <v-icon icon="mdi-plus"></v-icon>
+                    </v-btn>
+            </div>
             <div class="border">
                 <v-data-table-server height="400px" 
                     hover  
@@ -12,18 +24,18 @@
                     item-value="id"
                     :lastPage="taskManagementStore.last_page" 
                     @update:options="taskManagementStore.getTaskManagement">
+            
                     <template #item.action="{ item }">
                         <router-link :to="'/admin/taskManagement/edit/' + item.id" target="_blank">
                             <v-icon color="primary" size="20" class="editIconHover pa-4">mdi-pencil</v-icon>
                         </router-link>
                         <span class="px-2"></span>
-                        <!-- <v-icon
-                                    small
-                                    class="clickable-icon pa-4" color="danger"
-                                    @click="deleteItem(item.id)"
-                                    >
+                        <v-icon
+                            small
+                            class="clickable-icon pa-4" color="danger"
+                            @click="taskManagementStore.deleteData(item.id)">
                                     mdi-delete
-                                </v-icon> -->
+                        </v-icon>
                     </template>
 
                     <template v-slot:bottom>
@@ -51,23 +63,22 @@ export default {
     data() {
         return {
             taskManagementStore: useTaskManagementStore(),
-            header: [
-                { title: "ID", value: "id" },
-                { title: "Auction type", value: "auction_type.title" },
-                { title: "Platform", value: "auction_house.name" },
-                { title: "Auction Name", value: "auction_name" },
-                { title: "Auction Date", value: "date" },
-                { title: "Auction Time", value: "created_date" },
-                { title: "Pak Time", value: "pak_time" },
-                { title: "Lots", value: "lots" },
-                { title: "Src Lots", value: "scr_lots" },
-                { title: "Status", value: "status" },
-                { title: "Assigned To", value: "assign_to" },
-                { title: "Final Sheet", value: "final_sheet" },
-                { title: "Notes", value: "notes" },
-                { title: "Action", key: "action" },
-            ],
-     
+             header: [
+            { title: "ID", value: "id" },
+            // { title: "Auction type", value: "auction_type.title" },
+            { title: "Platform", value: "auction_house.name" },
+            { title: "Auction Name", value: "auction_name" },
+            { title:"Auction Date" , value : "date"},
+            // { title: "Auction Time", value: "created_date" },
+            { title: "Pak Time", value: "pak_time" },
+            { title: "Lots", value: "lots" },
+            // { title: "Src Lots", value: "scr_lots" },
+            { title: "Status", value: "status" },
+            { title: "Assigned To", value: "assign_to" },
+            // { title: "Final Sheet", value: "final_sheet" },
+            // { title: "Notes", value: "notes" },
+             { title: "Action", key: "action" },
+        ],
         };
     },
     mounted() {

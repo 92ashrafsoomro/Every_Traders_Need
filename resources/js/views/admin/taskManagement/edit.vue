@@ -69,8 +69,19 @@
             <!-- Auction Date & Time -->
             <v-col cols="12" md="6">
               <v-text-field
-                label="Auction Date & Time"
+                label="Auction Date "
                 v-model="form.date"
+                type="datetime-local"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+             <v-col cols="12" md="6">
+              <v-text-field
+                label="Auction Time"
+                v-model="form.created_date"
                 type="datetime-local"
                 variant="outlined"
                 density="compact"
@@ -104,20 +115,63 @@
               />
             </v-col>
 
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Src Lots"
+                v-model="form.scr_lots"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <v-col>
+              <v-text-field
+                label="Assign To"
+                v-model="form.assign_to"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Final Sheet"
+                v-model="form.final_sheet"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+             <v-col cols="12" md="6">
+              <v-text-field
+                label="Notes"
+                v-model="form.notes"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
             <!-- Status -->
             <v-col cols="12" md="6">
-              <StatusDropdown
+              <v-select
                 v-model="form.status"
                 label="Status"
+                :items="['Processing' , 'Not Scrapped' , 'Done']" 
                 variant="outlined"
                 base-color="white"
                 density="compact"
                 clearable
-                item-title="title"
-                item-value="title"
               />
             </v-col>
-
+          
             <!-- Update Button -->
             <v-col cols="12" class="text-center mt-4">
               <v-btn
@@ -142,7 +196,7 @@
 
 <script>
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
-import { useTaskManagementStore } from './store/taskManagementStore';
+import { useTaskManagementStore } from '@/stores/taskManagementStore';
 import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
 import StatusDropdown from '@/components/StatusDropdown.vue';
 import General from '@/models/general.model';
@@ -157,14 +211,18 @@ export default {
           taskManagementStore : useTaskManagementStore(),
             form:{
                 id : '',
-                auction_type : "",
-                platform : "",
+                auction_type : null,
+                platform : null,
                 auction_name : "",
                 date : "",
                 created_date : "",
                 pak_time : "",
                 lots : "",
+                scr_lots : '',
+                assign_to : '',
+                final_sheet: '',
                 status : null,
+                notes : ''
             },
             loading: false
         }
@@ -185,6 +243,10 @@ export default {
                 this.form.created_date = res.date
                 this.form.pak_time = res.pak_time
                 this.form.lots = res.lots;
+                this.form.scr_lots = res.scr_lots;
+                this.form.final_sheet = res.final_sheet;
+                this.form.notes = res.notes;
+                this.form.assign_to = res.assign_to;
                 this.form.status = res.status;
 
             }catch (error) {

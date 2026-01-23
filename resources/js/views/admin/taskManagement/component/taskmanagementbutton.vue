@@ -126,9 +126,14 @@
                     </v-container>
                 </v-card>
             </v-col></v-row>
-        <div class="content-scroll d-flex mt-6 w-100 ga-3">
-            <div v-for="item in TaskManagementStore.taskPages" :key="item.path" class="border rounded bg-surface-variant-1 pa-3 cursor-pointer"
-                style="width:13.5%"   @click="TaskManagementStore.selectTaskTab(item.value)"  :class="{ active:  TaskManagementStore.filter.name === item.value }">
+       
+       
+            <div class="content-scroll d-flex mt-6 w-100 ga-3">
+            <div v-for="item in TaskManagementStore.taskPages" :key="item.path"
+                class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:13.5%"
+                @click="TaskManagementStore.selectTaskTab(item.value)"
+                
+                :class="{ active: TaskManagementStore.filter.type === item.value }">
                 <div class="d-flex justify-space-between ">
                     <div class="d-flex align-center">
                         <small> {{ item.title }}</small>
@@ -148,19 +153,37 @@
 
         </div>
     </user-title-bar>
+    <div class="d-flex justify-space-between align-center px-4 mb-2 mx-auto mt-4 " style="max-width: 1400px;">
+        <div class="d-flex  align-center">
+             <v-select 
+                v-model="TaskManagementStore.filter.length" 
+                :items="[10, 25, 50, 100]" 
+                density="compact" 
+                variant="outlined"
+                max-width="150px" class="mr-2" 
+            />
+            {{ TaskManagementStore.filter.offset }} total {{ Math.min(TaskManagementStore.filter.length,
+                TaskManagementStore.total) }} of {{ TaskManagementStore.total }} Records 
+        </div>
+        <div>
+            <v-btn to="/admin/taskManagement/create" color="primary" class="" style="height: 40px;" variant="flat">
+                <v-icon icon="mdi-plus"></v-icon>
+            </v-btn>
+        </div>
+    </div>
 </template>
 
 <script>
-import { useTaskManagementStore } from '../store/taskManagementStore';
+import { useTaskManagementStore } from '@/stores/taskManagementStore';
 export default {
     name: 'taskNav',
     data() {
         return {
-        TaskManagementStore : useTaskManagementStore()
+            TaskManagementStore: useTaskManagementStore()
         }
     },
 
-   
+
 }
 </script>
 <style scoped>

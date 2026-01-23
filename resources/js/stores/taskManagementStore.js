@@ -10,7 +10,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             length: 10,
             offset: 0,
             search: '',
-            name:'upComing'
+            type:'upComing'
         },
         taskPages: [
             {
@@ -38,15 +38,14 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
         loading: false,
         total: 0,
         page: '',
-        length: "",
         last_page: 1,
 
     }),
 
     actions: {
-       
+      
         async selectTaskTab(value){
-            this.filter.name = value;
+            this.filter.type = value;
             this.filter.page = 1
             this.getTaskManagement()  
         },
@@ -56,7 +55,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
 
                 const res = await General.get('/api/cruds/taskManagement', this.filter );
                 this.items = res.data;
-                this.total = Number(res.total);
+                this.total = Number(res.recordsTotal);
                 this.last_page = res.last_page;
                 this.filter.offset = Number(res.offset);
 
@@ -71,7 +70,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             this.loading = true;
             try {           
                 const res = await General.get('/api/cruds/taskManagement', {id:taskId});
-              const data = res.data[0];
+                const data = res.data[0];
                 return data;
             } catch (error) {
                 throw error;

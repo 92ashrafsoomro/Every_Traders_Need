@@ -22,104 +22,158 @@
   <v-container fluid>
     <v-row>
 
-      <!-- Auction Type -->
-      <v-col cols="12" md="6">
-        <AuctionTypeDropdown
-          label="Choose Auction Type"
-          density="compact"
-          base-color="white"
-          v-model="form.auction_type"
-          variant="outlined"
-        />
-      </v-col>
+      <!-- ID -->
+        <!-- <v-col cols="12" md="6">
+              <v-text-field
+                label="ID"
+                v-model="form.id"
+                readonly
+                variant="outlined"
+                density="compact"
+                hide-details
+                class="id-box"
+              />
+            </v-col> -->
 
-      <!-- Auction House -->
-      <v-col cols="12" md="6">
-        <PlateformDropdown
-          label="Auction House"
-          density="compact"
-          base-color="white"
-          v-model="form.platform"
-          variant="outlined"
-        />
-      </v-col>
+            <!-- Auction Type -->
+            <v-col cols="12" md="6">
+              <AuctionTypeDropdown
+                v-model="form.auction_type"
+                label="Auction Type"
+                variant="outlined"
+                base-color="white"
+                density="compact"
+              />
+            </v-col>
 
-      <!-- Auction Name -->
-      <v-col cols="12" md="6">
-        <v-text-field
-          label="Auction Name"
-          variant="outlined"
-          density="compact"
-          v-model="form.auction_name"
-          clearable
-        />
-      </v-col>
+            <!-- Auction House -->
+            <v-col cols="12" md="6">
+              <PlateformDropdown
+                v-model="form.platform"
+                label="Auction House"
+                variant="outlined"
+                base-color="white"
+                density="compact"
+              />
+            </v-col>
 
-      <!-- Auction Date -->
-      <v-col cols="12" md="6">
-        <v-text-field
-          label="Auction Date"
-          variant="outlined"
-          density="compact"
-           type="datetime-local"
-          v-model="form.date"
-          clearable
-        />
-      </v-col>
+            <!-- Auction Name -->
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Auction Name"
+                v-model="form.auction_name"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
 
-      <!-- Auction Time -->
-      <v-col cols="12" md="6">
-        <v-text-field
-          label="Auction Date Time"
-          variant="outlined"
-          density="compact"
-           type="datetime-local"
-          v-model="form.created_date"
-          clearable
-        />
-      </v-col>
+            <!-- Auction Date & Time -->
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Auction Date "
+                v-model="form.date"
+                type="datetime-local"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+             <v-col cols="12" md="6">
+              <v-text-field
+                label="Auction Time"
+                v-model="form.created_date"
+                type="datetime-local"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
 
-      <!-- End Date -->
-      <v-col cols="12" md="6">
-        <v-text-field
-          label="End Date"
-          variant="outlined"
-          density="compact"
-          type="date"
-          v-model="form.end_date"
-          clearable
-        />
-      </v-col>
+            <!-- Pak Time -->
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Pak Time"
+                v-model="form.pak_time"
+                type="time"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
 
-      <!-- Status -->
-      <v-col cols="12" md="6">
-        <StatusDropdown
-          label="Status"
-          variant="outlined"
-          density="compact"
-          clearable
-          item-title="title"
-          item-value="title"
-          v-model="form.status"
-        />
-      </v-col>
-   <v-col cols="12" md="6">
-        <v-text-field
-          label="Lots"
-          variant="outlined"
-          density="compact"
-          v-model="form.lots"
-          clearable
-        />
-      </v-col> <v-col cols="12" md="6">
-        <v-text-field
-          label="Assign To"
-          variant="outlined"
-          density="compact"
-          v-model="form.assign_to"
-          clearable
-        />
-      </v-col>
+            <!-- Lots -->
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Lots"
+                v-model="form.lots"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Src Lots"
+                v-model="form.scr_lots"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <v-col>
+              <v-text-field
+                label="Assign To"
+                v-model="form.assign_to"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                label="Final Sheet"
+                v-model="form.final_sheet"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+             <v-col cols="12" md="6">
+              <v-text-field
+                label="Notes"
+                v-model="form.notes"
+                variant="outlined"
+                density="compact"
+                clearable
+                hide-details
+              />
+            </v-col>
+
+            <!-- Status -->
+            <v-col cols="12" md="6">
+              <v-select
+                v-model="form.status"
+                label="Status"
+                :items="['Processing' , 'Not Scrapped' , 'Done']" 
+                variant="outlined"
+                base-color="white"
+                density="compact"
+                clearable
+              />
+            </v-col>
 
       <!-- Button -->
       <v-col cols="12" class="text-center mt-4">
@@ -157,17 +211,19 @@ export default {
     data(){
         return{
              form:{
-               id: '',
-                auction_type : null,
-                platform :null,
+                id : '',
+                auction_type : "",
+                platform : "",
                 auction_name : "",
                 date : "",
                 created_date : "",
-                end_date : "",
                 pak_time : "",
+                lots : "",
+                scr_lots : '',
+                assign_to : '',
+                final_sheet: '',
                 status : null,
-                lots: '',
-                assign_to: ''
+                notes : ""
             },
             loading : false
         }

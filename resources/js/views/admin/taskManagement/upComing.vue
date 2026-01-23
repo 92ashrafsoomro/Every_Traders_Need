@@ -2,18 +2,8 @@
     <taskNav />
     <v-row style="max-width: 1400px;" class="mx-auto">
         <v-col cols="12" class="mt-2">
-            <div class="d-flex justify-end mb-2">
-                  <v-btn 
-                    to="/admin/taskManagement/create"
-                    color="primary"
-                    class=""
-                    style="height: 40px;"
-                    variant="flat"
-                    @click="loadItems"
-                    >
-                        <v-icon icon="mdi-plus"></v-icon>
-                    </v-btn>
-            </div>
+               
+          
             <div class="border">
                 <v-data-table-server height="400px" 
                     hover  
@@ -55,7 +45,7 @@
 </template>
 <script>
 import taskNav from "./component/taskmanagementbutton.vue";
-import { useTaskManagementStore } from "./store/taskManagementStore";
+import { useTaskManagementStore } from "@/stores/taskManagementStore";
 
 export default {
     components: { taskNav },
@@ -81,6 +71,11 @@ export default {
         ],
         };
     },
+     watch: {
+        'taskManagementStore.filter.length'(newVal, oldVal) {
+            this.taskManagementStore.filter.page = 1;
+            this.taskManagementStore.getTaskManagement()
+        }},
     mounted() {
         this.taskManagementStore.getTaskManagement();
     },

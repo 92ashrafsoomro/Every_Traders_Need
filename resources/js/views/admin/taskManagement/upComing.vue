@@ -55,7 +55,7 @@ export default {
             taskManagementStore: useTaskManagementStore(),
              header: [
             { title: "ID", value: "id" },
-            // { title: "Auction type", value: "auction_type.title" },
+            { title: "Auction type", value: "auction_type.title" },
             { title: "Platform", value: "auction_house.name" },
             { title: "Auction Name", value: "auction_name" },
             { title:"Auction Date" , value : "date"},
@@ -75,7 +75,18 @@ export default {
         'taskManagementStore.filter.length'(newVal, oldVal) {
             this.taskManagementStore.filter.page = 1;
             this.taskManagementStore.getTaskManagement()
-        }},
+        },
+        'taskManagementStore.filter.auction_type'(newVal, oldVal) {
+            this.taskManagementStore.getTaskManagement()
+        },
+        'taskManagementStore.filter.platform'(newVal, oldVal) {
+            this.taskManagementStore.getTaskManagement()
+        },
+          'taskManagementStore.filter.status'(newVal) {
+            this.taskManagementStore.filter.page = 1
+            this.taskManagementStore.getTaskManagement()
+  }
+    },
     mounted() {
         this.taskManagementStore.getTaskManagement();
     },

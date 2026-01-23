@@ -8,7 +8,7 @@
    {
     "label": "Task Management",
     "icon": "mdi-circle-outline",
-    "path": "/admin/taskManagement/upComing"
+    "path": "/admin/taskManagement"
   },
   {
     "label": "Data Management",

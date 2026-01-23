@@ -1,8 +1,8 @@
 <template>
     <user-title-bar title="Task Management">
         <v-row no-gutters="" class="ga-2">
+            <!-- Total Task -->
             <v-col cols="12" sm="6" md="3" lg="" class="">
-
                 <v-card class="border-bottom border border-sm">
                     <v-container>
 
@@ -12,22 +12,21 @@
                                 <v-icon size="22" color="primary">mdi-store-clock</v-icon>
                             </div>
 
-                            <span class="text-h4 px-3">0</span>
+                            <span class="text-h4 px-3">  {{ taskManagementStore.totalTask }}</span>
                         </div>
 
 
-                        <div class="pt-3 text-body-1 text-whiteLite ">Total Auctions</div>
+                        <div class="pt-3 text-body-1 text-whiteLite ">Total Task</div>
                         <div class="pt-2 d-flex">
                             <div class="text-body-2 pr-2">
                                 <span class="white">Live Auctions: </span>
-                                <span class=""
-                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">0</span>
-                            </div>
+                                <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                                    {{ taskManagementStore.liveAuction }}</span> </div>
                             <div class=" text-body-2 pl-2">
                                 <span class="white">Time Auctions: </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                    0</span>
+                                     {{ taskManagementStore.timeAuction }}</span>
                             </div>
                         </div>
 
@@ -35,7 +34,7 @@
                     </v-container>
                 </v-card>
             </v-col>
-            <!-- Total Auctions -->
+            <!-- Pending Task -->
             <v-col cols="12" sm="6" md="3" lg="" class="">
 
                 <v-card class="border-bottom-inprogress w-100 border border-sm">
@@ -54,25 +53,28 @@
                                 </v-icon>
                             </div>
 
-                            <span class="text-h4 px-3">0</span>
+                            <span class="text-h4 px-3">{{ taskManagementStore.inprogressAuctions }}</span>
                         </div>
 
                         <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
-                        <div class="pt-2 d-flex justify-space-between">
+                       <div class="pt-2 d-flex">
                             <div class="text-body-2 pr-2">
-                                <span class="white">Inprogress Auctions: </span>
+                                <span class="white">Live Auctions: </span>
+                                <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                                    {{ taskManagementStore.liveAuction }}</span> </div>
+                            <div class=" text-body-2 pl-2">
+                                <span class="white">Time Auctions: </span>
                                 <span class=""
-                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">0</span>
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                                     {{ taskManagementStore.timeAuction }}</span>
                             </div>
-                            <div class="text-body-2">View</div>
-
                         </div>
 
 
                     </v-container>
                 </v-card>
             </v-col>
-            <!-- Total Auctions -->
+            <!-- Confirm  Task -->
             <v-col cols="12" sm="6" md="3" lg="" class="">
 
                 <v-card class="border-bottom  border border-sm">
@@ -83,15 +85,22 @@
                                 class="circle d-flex justify-center align-center">
                                 <v-icon size="32" color="primary">mdi-bash</v-icon>
                             </div>
-                            <span class="text-h4 px-3">0</span>
+                            <span class="text-h4 px-3">{{ taskManagementStore.confirmTask }}</span>
                         </div>
 
-                        <div class="pt-3 text-body-1 text-whiteLite ">Total Vehicles</div>
+
+                        <div class="pt-3 text-body-1 text-whiteLite ">Confirm Task</div>
                         <div class="pt-2 d-flex">
                             <div class="text-body-2 pr-2">
-                                <span class="white">Total Vehicles:</span>
+                                <span class="white">Processing: </span>
                                 <span class=""
-                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">0</span>
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ taskManagementStore.processing }}</span>
+                            </div>
+                            <div class=" text-body-2 pl-2">
+                                <span class="white">Done: </span>
+                                <span class=""
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                                    {{ taskManagementStore.done }}</span>
                             </div>
                         </div>
 
@@ -99,7 +108,7 @@
                     </v-container>
                 </v-card>
             </v-col>
-
+            <!-- Publish  Task -->
             <v-col cols="12" sm="6" md="3" lg="" class="">
 
                 <v-card class="border-bottom  border border-sm">
@@ -109,31 +118,37 @@
                                 class="circle d-flex justify-center align-center">
                                 <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
                             </div>
-                            <span class="text-h4 px-3">0</span>
+                            <span class="text-h4 px-3">{{ taskManagementStore.publishAuction }}</span>
                         </div>
 
-                        <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
+                        <div class="pt-3 text-body-1 text-whiteLite ">Publish Auction</div>
                         <div class="pt-2 d-flex">
                             <div class="text-body-2 pr-2">
-                                <span class="white">Vehicles:</span>
+                                <span class="white">Total Lots : </span>
                                 <span class=""
-                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">0</span>
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ taskManagementStore.totaLots }}</span>
                             </div>
-
+                            <div class=" text-body-2 pl-2">
+                                <span class="white">Publish Lots: </span>
+                                <span class=""
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                                    {{ taskManagementStore.publishLots }}</span>
+                            </div>
                         </div>
-
 
                     </v-container>
                 </v-card>
-            </v-col></v-row>
-       
-       
-            <div class="content-scroll d-flex mt-6 w-100 ga-3">
-            <div v-for="item in TaskManagementStore.taskPages" :key="item.path"
+            </v-col>
+        </v-row>
+
+
+        <div class="content-scroll d-flex mt-6 w-100 ga-3">
+            <div v-for="item in taskManagementStore.taskPages" :key="item.path"
                 class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:13.5%"
-                @click="TaskManagementStore.selectTaskTab(item.value)"
-                
-                :class="{ active: TaskManagementStore.filter.type === item.value }">
+               @click="changeTab(item)"
+
+               :class="{ active: $route.path === item.path }"
+>
                 <div class="d-flex justify-space-between ">
                     <div class="d-flex align-center">
                         <small> {{ item.title }}</small>
@@ -153,36 +168,58 @@
 
         </div>
     </user-title-bar>
-    <div class="d-flex justify-space-between align-center px-4 mb-2 mx-auto mt-4 " style="max-width: 1400px;">
-        <div class="d-flex  align-center">
-             <v-select 
-                v-model="TaskManagementStore.filter.length" 
-                :items="[10, 25, 50, 100]" 
-                density="compact" 
-                variant="outlined"
-                max-width="150px" class="mr-2" 
-            />
-            {{ TaskManagementStore.filter.offset }} total {{ Math.min(TaskManagementStore.filter.length,
-                TaskManagementStore.total) }} of {{ TaskManagementStore.total }} Records 
-        </div>
-        <div>
-            <v-btn to="/admin/taskManagement/create" color="primary" class="" style="height: 40px;" variant="flat">
-                <v-icon icon="mdi-plus"></v-icon>
+
+    <v-row class=" mx-auto mt-2" style="max-width: 1400px;" align="center">
+
+        <!-- Left side -->
+        <v-col cols="12" md="6" lg="" class="d-flex align-center">
+            <v-select v-model="taskManagementStore.filter.length" :items="[10, 25, 50, 100]" density="compact"
+                variant="outlined" max-width="150" class="mr-2" />
+            {{ taskManagementStore.filter.offset }} total
+            {{ Math.min(taskManagementStore.filter.length, taskManagementStore.total) }}
+            of {{ taskManagementStore.total }} Records
+        </v-col>
+
+
+        <v-col cols="12" md="6" class="d-flex justify-end align-center ga-2">
+            <AuctionTypeDropdown label="Auction Type" v-model="taskManagementStore.filter.auction_type"
+                variant="outlined" clearable density="compact" />
+
+            <PlateformDropdown v-model="taskManagementStore.filter.platform" label="Auction House" variant="outlined"
+                clearable density="compact" />
+            <v-select v-model="taskManagementStore.filter.status" label="Status" :items="taskManagementStore.status"
+                item-title="title" item-value="value" variant="outlined" density="compact" clearable />
+
+            <v-btn to="/admin/taskManagement/create" color="primary" height="40" variant="flat">
+                <v-icon icon="mdi-plus" />
             </v-btn>
-        </div>
-    </div>
+        </v-col>
+
+    </v-row>
+
 </template>
 
 <script>
+import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import { useTaskManagementStore } from '@/stores/taskManagementStore';
 export default {
     name: 'taskNav',
+    components: {
+        AuctionTypeDropdown,
+        PlateformDropdown
+    },
     data() {
         return {
-            TaskManagementStore: useTaskManagementStore()
+            taskManagementStore: useTaskManagementStore()
         }
     },
-
+ methods: {
+    changeTab(item) {
+      this.taskManagementStore.selectTaskTab(item.value)
+      this.$router.push(item.path)
+    }
+  }
 
 }
 </script>

@@ -56,7 +56,7 @@
                             <span class="text-h4 px-3">{{ taskManagementStore.inprogressAuctions }}</span>
                         </div>
 
-                        <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
+                        <div class="pt-3 text-body-1 text-whiteLite ">Pending Task</div>
                        <div class="pt-2 d-flex">
                             <div class="text-body-2 pr-2">
                                 <span class="white">Live Auctions: </span>

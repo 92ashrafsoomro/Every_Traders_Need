@@ -66,7 +66,7 @@ export default class Auction {
 
         try {
             
-            let req =  toFormData(options);
+            let req = await toFormData(options);
             const res = await api.post("/api/cruds/auctions",req);
             return res.data;
         

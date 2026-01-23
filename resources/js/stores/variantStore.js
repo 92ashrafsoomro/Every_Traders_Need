@@ -19,7 +19,7 @@ export const useVariantStore = defineStore("variant", {
         async getSingleVariant(variantId) {
             try {
                 const res = await General.get('/api/cruds/variant', {id:variantId })
-             
+                const data = res.data[0];
                 return data
             } catch (error) {
                 return error

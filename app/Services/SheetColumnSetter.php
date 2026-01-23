@@ -31,6 +31,8 @@ class SheetColumnSetter
     protected $item;
     public $prefixes;
     public $platformId;
+    public $make;
+
     function __construct($item) {
         $this->item = $item;
         $this->item['errors'] = [];
@@ -68,6 +70,15 @@ class SheetColumnSetter
         $value = strtolower($this->item['make_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['make_id'] = $value;
+
+
+        $make  = Make::whereRaw('LOWER(name) = ?', [strtolower($this->item['make_id'])])->first();
+        if($make){
+            $this->make = $make;
+        }else{
+            $this->make = null;
+        }
+
     }
 
     public function modelCleaning(){
@@ -128,12 +139,52 @@ class SheetColumnSetter
 
     }
 
+    
+
+     public function findModelWordByWord($value)
+    { 
+
+        if($this->make){
+            
+            $models = VehicleModel::where('make_id',$this->make->id)->get()
+                ->pluck('name')
+                ->map(fn ($name) => strtolower($name))
+                ->toArray();
+
+            if(in_array($value,$models)){
+               $this->item['model_id'] =  $value;
+               return true;
+            }else{
+                
+                foreach (explode(' ',$value) as $v) {
+                    if(in_array($v,$models)){
+                      $this->item['model_id'] =  $v;
+                      return true;
+                    }
+                }
+            }
+
+        }
+
+        return false;
+    }
+
+
       public function setModelId()
-    {
-        $prefixes = $this->prefixes['model'];
+    {   
+
         $value = strtolower($this->item['model_id']);
-        $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
-        $this->item['model_id'] = $value;
+
+        if($this->findModelWordByWord($value)){
+
+        }else{
+
+            $prefixes = $this->prefixes['model'];
+            $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
+            $this->item['model_id'] = $value;
+        }
+    
+      
     }
 
 

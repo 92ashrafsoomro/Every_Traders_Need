@@ -16,6 +16,11 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
         },
        taskPages: [
             {
+                title: 'Up Coming',
+                value: 'upComing',
+                path: '/admin/taskManagement/upComing'
+            },
+            {
                 title: 'Update',
                 value: 'update',
                 path: '/admin/taskManagement/update'
@@ -25,11 +30,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 value: 'final',
                 path: '/admin/taskManagement/final'
             },
-            {
-                title: 'Up Coming',
-                value: 'upComing',
-                path: '/admin/taskManagement/upComing'
-            }
+            
         ],
         status: [
      

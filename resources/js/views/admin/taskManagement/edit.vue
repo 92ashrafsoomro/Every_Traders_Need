@@ -167,7 +167,7 @@
       <!-- Button -->
       <v-col cols="12" class="text-center mt-4">
         <v-btn
-          @click="createTask"
+          @click="updateData"
           color="primary"
           height="40"
         >

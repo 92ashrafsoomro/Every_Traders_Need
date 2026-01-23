@@ -129,11 +129,10 @@
        
        
             <div class="content-scroll d-flex mt-6 w-100 ga-3">
-            <div v-for="item in TaskManagementStore.taskPages" :key="item.path"
+            <div v-for="item in taskManagementStore.taskPages" :key="item.path"
                 class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:13.5%"
-                @click="TaskManagementStore.selectTaskTab(item.value)"
-                
-                :class="{ active: TaskManagementStore.filter.type === item.value }">
+                @click="taskManagementStore.selectTaskTab(item.value)"
+                :class="{ active: taskManagementStore.filter.type === item.value }">
                 <div class="d-flex justify-space-between ">
                     <div class="d-flex align-center">
                         <small> {{ item.title }}</small>
@@ -152,37 +151,82 @@
 
 
         </div>
-    </user-title-bar>
-    <div class="d-flex justify-space-between align-center px-4 mb-2 mx-auto mt-4 " style="max-width: 1400px;">
-        <div class="d-flex  align-center">
-             <v-select 
-                v-model="TaskManagementStore.filter.length" 
+         </user-title-bar>
+        <v-row class=" mx-auto mt-2" style="max-width: 1400px;" align="center" >
+            
+            <!-- Left side -->
+            <v-col cols="12" md="6" lg="" class="d-flex align-center">
+                <v-select 
+                v-model="taskManagementStore.filter.length" 
                 :items="[10, 25, 50, 100]" 
                 density="compact" 
                 variant="outlined"
-                max-width="150px" class="mr-2" 
-            />
-            {{ TaskManagementStore.filter.offset }} total {{ Math.min(TaskManagementStore.filter.length,
-                TaskManagementStore.total) }} of {{ TaskManagementStore.total }} Records 
-        </div>
-        <div>
-            <v-btn to="/admin/taskManagement/create" color="primary" class="" style="height: 40px;" variant="flat">
-                <v-icon icon="mdi-plus"></v-icon>
-            </v-btn>
-        </div>
-    </div>
+                max-width="150"
+                class="mr-2"
+                />
+                {{ taskManagementStore.filter.offset }} total
+                {{ Math.min(taskManagementStore.filter.length, taskManagementStore.total) }}
+                of {{ taskManagementStore.total }} Records
+            </v-col>
+
+           
+            <v-col cols="12" md="6"  class="d-flex justify-end align-center ga-2">
+                <AuctionTypeDropdown
+                label="Auction Type"
+                v-model="taskManagementStore.filter.auction_type"
+                variant="outlined"
+                clearable
+                density="compact"
+                />
+
+                <PlateformDropdown
+                v-model="taskManagementStore.filter.platform"
+                label="Auction House"
+                variant="outlined"
+                clearable
+                density="compact"
+                />
+               <v-select
+                v-model="taskManagementStore.filter.status"
+                label="Status"
+                :items="taskManagementStore.status"
+                item-title="title"
+                item-value="value"
+                variant="outlined"
+                density="compact"
+                clearable
+                />
+
+                <v-btn
+                to="/admin/taskManagement/create"
+                color="primary"
+                height="40"
+                variant="flat"
+                >
+                <v-icon icon="mdi-plus" />
+                </v-btn>
+            </v-col>
+
+        </v-row>
+
 </template>
 
 <script>
+import AuctionTypeDropdown from '@/components/AuctionTypeDropdown.vue';
+import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import { useTaskManagementStore } from '@/stores/taskManagementStore';
 export default {
     name: 'taskNav',
+    components:{
+        AuctionTypeDropdown,
+        PlateformDropdown
+    },
     data() {
         return {
-            TaskManagementStore: useTaskManagementStore()
+            taskManagementStore: useTaskManagementStore()
         }
     },
-
+  
 
 }
 </script>

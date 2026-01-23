@@ -15,12 +15,11 @@
       <div class="border-b"></div>
 
       <!-- Form -->
-      <v-card-text>
-        <v-container fluid>
-          <v-row dense>
+      <v-container fluid>
+    <v-row>
 
-            <!-- ID -->
-            <v-col cols="12" md="6">
+      <!-- ID -->
+        <v-col cols="12" md="6">
               <v-text-field
                 label="ID"
                 v-model="form.id"
@@ -69,7 +68,7 @@
             <!-- Auction Date & Time -->
             <v-col cols="12" md="6">
               <v-text-field
-                label="Auction Date "
+                label="Auction Date & Time"
                 v-model="form.date"
                 type="datetime-local"
                 variant="outlined"
@@ -78,10 +77,10 @@
                 hide-details
               />
             </v-col>
-             <v-col cols="12" md="6">
+            <v-col cols="12" md="6">
               <v-text-field
-                label="Auction Time"
-                v-model="form.created_date"
+                label="End Time "
+                v-model="form.end_time"
                 type="datetime-local"
                 variant="outlined"
                 density="compact"
@@ -91,7 +90,7 @@
             </v-col>
 
             <!-- Pak Time -->
-            <v-col cols="12" md="6">
+            <!-- <v-col cols="12" md="6">
               <v-text-field
                 label="Pak Time"
                 v-model="form.pak_time"
@@ -101,7 +100,7 @@
                 clearable
                 hide-details
               />
-            </v-col>
+            </v-col> -->
 
             <!-- Lots -->
             <v-col cols="12" md="6">
@@ -115,16 +114,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                label="Src Lots"
-                v-model="form.scr_lots"
-                variant="outlined"
-                density="compact"
-                clearable
-                hide-details
-              />
-            </v-col>
+        
 
             <v-col>
               <v-text-field
@@ -161,32 +151,32 @@
 
             <!-- Status -->
             <v-col cols="12" md="6">
-              <v-select
+          <v-select
                 v-model="form.status"
                 label="Status"
-                :items="['Processing' , 'Not Scrapped' , 'Done']" 
+                :items="taskManagementStore.status"
+                item-title="title"
+                 item-value="value"  
                 variant="outlined"
-                base-color="white"
                 density="compact"
                 clearable
-              />
-            </v-col>
-          
-            <!-- Update Button -->
-            <v-col cols="12" class="text-center mt-4">
-              <v-btn
-                @click="updateData"
-                color="primary"
-                height="40"
-                class="buttonBorder"
-              >
-                <span class="text-capitalize text-body-1 text-white">Update</span>
-              </v-btn>
+               />
+
             </v-col>
 
-          </v-row>
-        </v-container>
-      </v-card-text>
+      <!-- Button -->
+      <v-col cols="12" class="text-center mt-4">
+        <v-btn
+          @click="createTask"
+          color="primary"
+          height="40"
+        >
+          Update
+        </v-btn>
+      </v-col>
+
+    </v-row>
+  </v-container>
 
     </v-card>
   </v-col>
@@ -215,11 +205,12 @@ export default {
                 platform : null,
                 auction_name : "",
                 date : "",
-                created_date : "",
-                pak_time : "",
+                // created_date : "",
+                // pak_time : "",
                 lots : "",
-                scr_lots : '',
+                // scr_lots : '',
                 assign_to : '',
+                end_time : '',
                 final_sheet: '',
                 status : null,
                 notes : ''
@@ -242,6 +233,7 @@ export default {
                 this.form.date = res.date
                 this.form.created_date = res.date
                 this.form.pak_time = res.pak_time
+                this.form.end_time = res?.end_time;
                 this.form.lots = res.lots;
                 this.form.scr_lots = res.scr_lots;
                 this.form.final_sheet = res.final_sheet;

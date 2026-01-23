@@ -131,11 +131,11 @@
 
                         <template #item.auction_status.title="{item}" >
                             <v-chip
-                                :color="statusColor(item.auction_status.title)"
+                                :color="statusColor(item.auction_status?.title)"
                                 small
                                 dark
                             >
-                                {{ item.auction_status.title }}
+                                {{ item.auction_status?.title }}
                             </v-chip>
                         </template>
 

@@ -8,23 +8,21 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
         filter: {
             page: 1,
             length: 10,
+            platform: null,
+            auction_type:null,
             offset: 0,
+            status : null ,
             search: '',
-            type:'upComing'
+            type:'timeAuction'
         },
         taskPages: [
-            {
-                title: 'Up Coming',
-                value: "upComing",
-                path: '/admin/taskManagement/upComing'
-            },
             {
                 title: 'Time Auction',
                 value: 'timeAuction',
                 path: '/admin/taskManagement/timeAuction'
             },
             {
-                title: 'Up Grade',
+                title: 'Update',
                 value: 'upGrade',
                 path: '/admin/taskManagement/upGrade'
             },
@@ -33,7 +31,23 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 value: 'final',
                 path: '/admin/taskManagement/final'
             },
+            {
+                title: 'Up Coming',
+                value: "upComing",
+                path: '/admin/taskManagement/upComing'
+            }
         ],
+       status: [
+     
+            { value: 'pending', title: 'Pending' },
+            { value: 'processing', title: 'Processing' },
+            { value: 'cancel', title: 'Cancel' },
+            { value: 'scrapped', title: 'Scrapped' },
+            { value: 'confirm', title: 'Confirm' },
+            { value: 'done', title: 'Done' },
+            { value: 'import', title: 'Import' },
+            ],
+
         items: [],
         loading: false,
         total: 0,
@@ -44,6 +58,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
 
     actions: {
       
+
         async selectTaskTab(value){
             this.filter.type = value;
             this.filter.page = 1
@@ -58,7 +73,6 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 this.total = Number(res.recordsTotal);
                 this.last_page = res.last_page;
                 this.filter.offset = Number(res.offset);
-
                 return res.data;
             } finally {
                 this.loading = false;
@@ -93,5 +107,6 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
         }
     }
     },
+    
     
 });

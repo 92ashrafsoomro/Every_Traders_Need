@@ -12,7 +12,7 @@
 </template>
 <script>
 import taskNav from "./component/taskmanagementbutton.vue";
-import { useTaskManagementStore } from "./store/taskManagementStore";
+import { useTaskManagementStore } from "@/stores/taskManagementStore";
 
 export default {
     components: { taskNav },

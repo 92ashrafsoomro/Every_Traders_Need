@@ -3,16 +3,7 @@
     <v-row style="max-width: 1400px;" class="mx-auto">
         
         <v-col cols="12" class="mt-2">
-                        <v-btn 
-                            to="/admin/model/create"
-                            color="primary"
-                            class=""
-                            style="height: 40px;"
-                            variant="flat"
-                            @click="loadItems"
-                    >
-                        <v-icon icon="mdi-plus"></v-icon>
-                    </v-btn>
+                     
             <div class="border">
                 <v-data-table-server
                     hover 
@@ -42,7 +33,7 @@
 </template>
 <script>
 import taskNav from "./component/taskmanagementbutton.vue";
-import { useTaskManagementStore } from "./store/taskManagementStore";
+import { useTaskManagementStore } from "@/stores/taskManagementStore";
 
 export default {
     components: { taskNav },

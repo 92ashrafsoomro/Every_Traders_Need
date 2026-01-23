@@ -68,7 +68,7 @@
                                 
                             </div>
                         </div>
-                    <AuctionWeek/>
+                    <!-- <AuctionWeek/> -->
                     </v-container>
                 </div>
             </v-expand-transition>

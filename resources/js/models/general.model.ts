@@ -48,9 +48,15 @@ export default class General {
             throw await errorHandler(error);
         }
     }
-
-
-
+    
+    static async delete(url:any){
+        try {
+            let res = await api.delete(url)
+            return res.data;
+        } catch (error) {
+            throw await errorHandler(error)
+        }
+    }
 
     
 }

@@ -133,17 +133,17 @@ class TaskManagementController extends Controller
 
             // Creation Process
             $auction = new TaskManagement();
-            $auction->auction_type = $auction->auction_type;
-            $auction->platform = $auction->platform;
-            $auction->auction_name = $auction->auction_name;
-            $auction->date = $auction->date;
-            $auction->pak_time = $auction->pak_time;
-            $auction->lots = $auction->lots;
-            $auction->scr_lots = $auction->scr_lots;
-            $auction->status = $auction->status;
-            $auction->assign_to = $auction->assign_to;
-            $auction->final_sheet = $auction->final_sheet;
-            $auction->notes = $auction->notes;
+            $auction->auction_type = $request->auction_type;
+            $auction->platform = $request->platform;
+            $auction->auction_name = $request->auction_name;
+            $auction->date = $request->date;
+            $auction->pak_time = $request->pak_time;
+            $auction->lots = $request->lots;
+            $auction->scr_lots = $request->scr_lots;
+            $auction->status = $request->status;
+            $auction->assign_to = $request->assign_to;
+            $auction->final_sheet = $request->final_sheet;
+            $auction->notes = $request->notes;
             $auction->created_by = $request->user()->id;
             $auction->created_at = Carbon::now();
             $auction->updated_at = null;
@@ -202,17 +202,17 @@ class TaskManagementController extends Controller
         try {
 
             // Creation Process
-            $auction->auction_type = $auction->auction_type;
-            $auction->platform = $auction->platform;
-            $auction->auction_name = $auction->auction_name;
-            $auction->date = $auction->date;
-            $auction->pak_time = $auction->pak_time;
-            $auction->lots = $auction->lots;
-            $auction->scr_lots = $auction->scr_lots;
-            $auction->status = $auction->status;
-            $auction->assign_to = $auction->assign_to;
-            $auction->final_sheet = $auction->final_sheet;
-            $auction->notes = $auction->notes;
+            $auction->auction_type = $request->auction_type;
+            $auction->platform = $request->platform;
+            $auction->auction_name = $request->auction_name;
+            $auction->date = $request->date;
+            $auction->pak_time = $request->pak_time;
+            $auction->lots = $request->lots;
+            $auction->scr_lots = $request->scr_lots;
+            $auction->status = $request->status;
+            $auction->assign_to = $request->assign_to;
+            $auction->final_sheet = $request->final_sheet;
+            $auction->notes = $request->notes;
             $auction->updated_at = Carbon::now();
             $auction->save();
 
@@ -282,6 +282,19 @@ class TaskManagementController extends Controller
 
     }
 
+    public function destroy($id){
+        $model = TaskManagement::find($id);
+        if(!$model){
+            return response()->json(["message" => "Record Not Found"],400);
+        }
+
+        $model->delete();
+
+        return response()->json([
+            "message" => 'Record Deleted Successfully',
+            "data" => $model,
+        ],200);
+    }
     
 
 

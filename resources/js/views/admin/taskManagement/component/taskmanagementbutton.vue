@@ -127,8 +127,8 @@
                 </v-card>
             </v-col></v-row>
         <div class="content-scroll d-flex mt-6 w-100 ga-3">
-            <div v-for="item in items" :key="item.path" class="border rounded bg-surface-variant-1 pa-3 cursor-pointer"
-                style="width:13.5%" @click="$router.push(item.path)" :class="{ active: $route.path === item.path }">
+            <div v-for="item in TaskManagementStore.taskPages" :key="item.path" class="border rounded bg-surface-variant-1 pa-3 cursor-pointer"
+                style="width:13.5%"   @click="TaskManagementStore.selectTaskTab(item.value)"  :class="{ active:  TaskManagementStore.filter.name === item.value }">
                 <div class="d-flex justify-space-between ">
                     <div class="d-flex align-center">
                         <small> {{ item.title }}</small>
@@ -151,34 +151,16 @@
 </template>
 
 <script>
+import { useTaskManagementStore } from '../store/taskManagementStore';
 export default {
     name: 'taskNav',
     data() {
-
         return {
-
-            items: [
-                {
-                    title: 'Up Coming',
-                    path: '/admin/taskManagement/upComing'
-                },
-                {
-                    title: 'Up Grade',
-                    path: '/admin/taskManagement/upGrade'
-                },
-                {
-                    title: 'Final',
-                    path: '/admin/taskManagement/final'
-                },
-                {
-                    title: 'Time Auction',
-                    path: '/admin/taskManagement/timeAuction'
-                },
-            ]
-
+        TaskManagementStore : useTaskManagementStore()
         }
-
     },
+
+   
 }
 </script>
 <style scoped>

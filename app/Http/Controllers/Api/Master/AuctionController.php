@@ -222,7 +222,7 @@ class AuctionController extends Controller
             $model->update([
                 'name' => $request->name,
                 'auction_date' => Carbon::parse($request->auction_date),
-                'end_date' => $request->auction_type == 2 ? null : $request->end_date,
+                'end_date' => $request->auction_type == 2 ? null : Carbon::parse($request->end_date),
                 'auction_type' => $request->auction_type,
                 'platform_id' => $request->platform_id,
                 'status' => $request->status,

@@ -53,8 +53,7 @@ class AuctionFinderController extends Controller
                 'make.name as make_name',
                 'model.name as model_name',
                 'model_variant.name as variant_name'
-            )
-            ->first();
+            )->first();
 
         if (!$vehicle) {
             return response()->json(['message' => 'Vehicle not found'],400);

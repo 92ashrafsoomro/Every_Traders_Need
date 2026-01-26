@@ -205,8 +205,6 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('users',UserController::class);
 
         
-      
-        
         
        
 

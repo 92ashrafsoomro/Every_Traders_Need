@@ -72,9 +72,21 @@ class TaskManagementController extends Controller
             $query->where('auction_type',$request->auction_type);
         }
 
-        if($request->has('auction_date') && $request->auction_date != '') {
-            $query->whereDate('auction_date',$request->auction_date);
+    
+
+        if($request->has('type') && $request->type != '') {
+
+            if($request->type == 'update'){
+                $query->whereDate('date',now()->subDays(2));
+            }elseif($request->type == 'final'){
+                $query->whereDate('date',now());
+            }else{
+                // $query->whereIn('status',['pending','processing','cancel','scrapped']);
+            }
+
         }
+
+      
 
         $count = (clone $query)->count();
         $data = $query->select([

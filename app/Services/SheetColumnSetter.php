@@ -89,7 +89,7 @@ class SheetColumnSetter
       public function setModelId()
     {   
 
-        $this->item['model_id'] = HelperService::modelCleaning($this->item['model_id'], $this->platformId, $this->prefixes);
+        $this->item['model_id'] = HelperService::modelCleaning($this->item, $this->platformId, $this->prefixes);
 
         if($this->make){
 
@@ -101,8 +101,10 @@ class SheetColumnSetter
 
             if(in_array($value,$models)){
                 $this->item['model_id'] = $value;
-            }else if($model = HelperService::findWithExplode($value,$models)){
+            }else if($model = HelperService::findWithExplodeFirstWord($value,$models)){
                 $this->item['model_id'] = $model;
+            // }else if($model = HelperService::findWithExplode($value,$models)){
+            //     $this->item['model_id'] = $model;
             }else if($model = HelperService::findInPrefixes($value,$this->prefixes['model'])){
                 $this->item['model_id'] = $model;
             }
@@ -145,9 +147,7 @@ class SheetColumnSetter
 
         }
 
-
     }
-
 
 
         public function check()

@@ -83,6 +83,24 @@ class HelperService
     }
 
 
+        public static function findWithExplodeFirstWord($value,$data)
+    {
+
+        $words = explode(" ",$value);
+
+        if(isset($words[0])){
+            if(in_array($words[0],$data)){
+                return  $words[0];
+            }
+        }
+
+        return false;
+    
+    }
+
+    
+
+
     public static function varientCleanByPlatform($platformId,$derivative){
         
         switch($platformId){
@@ -114,12 +132,12 @@ class HelperService
 
 
 
-    public static function modelCleaning($value,$platformId,$prefixes){
+    public static function modelCleaning($item,$platformId,$prefixes){
 
 
         switch($platformId){
            case 2:
-
+                $value = $item['model_id'];
                 $value = strtolower($value);
                 $words = preg_split('/\s+/', trim($value));
 
@@ -160,10 +178,20 @@ class HelperService
                 }
 
                 return implode(' ', $words);
+                break;
+          
+            case 9:
 
-            //Returning The Default Value
+                $titles =  explode(' ',$item['title']);
+                $model1 = isset($titles[1]) ? $titles[1].' ' : '';
+                $model2 = isset($titles[2]) ? $titles[2] : '';
+
+                return  $model1.$model2;
+                break;
+                
+
             default:
-            return $value;
+            return $item['model_id'];
          
         }
 

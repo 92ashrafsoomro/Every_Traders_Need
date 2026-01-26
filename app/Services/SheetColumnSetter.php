@@ -37,6 +37,8 @@ class SheetColumnSetter
     function __construct($item) {
         $this->item = $item;
         $this->item['errors'] = [];
+        $this->make = null;
+        $this->model = null;
     }
 
 
@@ -105,7 +107,8 @@ class SheetColumnSetter
                 $this->item['model_id'] = $model;
             }
 
-            $this->model = VehicleModel::where('make_id',$this->make->id)->whereRaw('LOWER(name) = ?', [strtolower($this->item['make_id'])])->first();
+                                                                                                                                                                                                                                                                                                                                                                
+            $this->model = VehicleModel::where('make_id',$this->make->id)->whereRaw('LOWER(name) = ?', [strtolower($this->item['model_id'])])->first();
 
         }
 
@@ -119,7 +122,6 @@ class SheetColumnSetter
     {       
 
         $this->item['derivative'] = HelperService::varientCleanByPlatform($this->platformId,$this->item['derivative']);
-
         $this->item['variant_id'] = $this->item['derivative'];
         $value = strtolower($this->item['variant_id']);
 
@@ -135,7 +137,7 @@ class SheetColumnSetter
                 $this->item['variant_id'] = $value;
             }else if($previousData = HelperService::findVariableInPreviousData($value, $this->make, $this->model)){
                 $this->item['variant_id'] = $previousData;
-            }else if($variant = HelperService::matchVariantBySquence($value,$variants)){
+            }else if($variant = HelperService::matchVariantBySquence($value,$variants)){     
                 $this->item['variant_id'] = $variant;
             }else if($variant = HelperService::findWithExplode($value,$variants)){
                 $this->item['variant_id'] = $variant;

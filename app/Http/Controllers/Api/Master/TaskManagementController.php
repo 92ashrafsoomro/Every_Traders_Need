@@ -232,6 +232,51 @@ class TaskManagementController extends Controller
     }
 
 
+       public function changeStatus(Request $request)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|exists:task_managements,id',
+            'status' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $auction = TaskManagement::find($request->id);
+        if($auction == false){
+               return response()->json([
+                'message' => 'Auction Not Found',
+            ], 422);
+        }
+        
+
+        DB::beginTransaction();
+        try {
+            
+            $auction->status = $request->status;
+            $auction->updated_at = Carbon::now();
+            $auction->save();
+
+            DB::commit();
+            return response()->json([
+                'data' => $auction,
+                'message' => 'Record Updated',
+            ],200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+
+    }
+
 
 
 

@@ -108,8 +108,7 @@ class SheetColumnSetter
             }else if($model = HelperService::findInPrefixes($value,$this->prefixes['model'])){
                 $this->item['model_id'] = $model;
             }
-
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                         
             $this->model = VehicleModel::where('make_id',$this->make->id)->whereRaw('LOWER(name) = ?', [strtolower($this->item['model_id'])])->first();
 
         }

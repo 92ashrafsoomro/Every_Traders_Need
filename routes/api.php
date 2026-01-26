@@ -174,9 +174,6 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
 
 
-
-
-
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -194,13 +191,13 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
         
+
+        Route::post('/taskManagement/changeStatus',[TaskManagementController::class,'changeStatus']);
         Route::resource('taskManagement',TaskManagementController::class);
         Route::resource('auctions',AuctionController::class);
         Route::resource('vehicles',VController::class);
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
-
-
 
 
         // Users

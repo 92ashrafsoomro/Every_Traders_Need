@@ -129,13 +129,13 @@
               </v-col>
             </v-row>
 
-            <v-row>
+            <!-- <v-row>
               <v-col cols="12" class="text-center">
                 <v-btn color="primary" @click="submitForm">
                   {{ isEdit ? 'Update User' : 'Create User' }}
                 </v-btn>
               </v-col>
-            </v-row>
+            </v-row> -->
           </v-card-text>
         </div>
       </v-card>

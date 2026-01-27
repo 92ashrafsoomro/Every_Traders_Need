@@ -95,6 +95,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 this.loading = false;
             }
         },
+
         async editTaskData(taskId) {
             this.loading = true;
             try {           
@@ -120,6 +121,34 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             }finally {
                 this.loading = false;
             }
-    }
+        },
+        
+        async getTaskCount() {
+            this.loading = true;
+            try {
+                const res = await General.get('/api/cruds/taskManagement/counters');
+                console.log(res.data);
+                this.total;
+                
+//     "data": {
+//         "total_count": 1886,
+//         "total_live": 0,
+//         "total_timed": 0,
+//         "pending_count": 1,
+//         "pending_live": 0,
+//         "pending_timed": 0,
+//         "confirm_count": 0,
+//         "processing_count": 118,
+//         "done_count": 1307,
+//         "total_lots": 369281,
+//         "published_lots": 1886
+//     }
+// }
+                
+            } finally {
+                this.loading = false;
+            }
+        },
+
     },
 });

@@ -1,4 +1,6 @@
+
 // store/taskManagementStore.js
+import { useAlertStore } from "@/stores/alertStore";
 import { defineStore } from "pinia";
 import General from "@/models/general.model";
 
@@ -33,7 +35,6 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             
         ],
         status: [
-     
             { value: 'pending', title: 'Pending' },
             { value: 'processing', title: 'Processing' },
             { value: 'cancel', title: 'Cancel' },
@@ -42,6 +43,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             { value: 'done', title: 'Done' },
             { value: 'import', title: 'Import' },
         ],
+        alertStore:useAlertStore(),
         totalTask : 0,
         liveAuction : 0,
         timeAuction : 0,
@@ -58,13 +60,14 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
         page: '',
         last_page: 1,
     }),
-
     actions: {
+
         async selectTaskTab(value){
             this.filter.type = value;
             this.filter.page = 1
             this.getTaskManagement()  
         },
+
         async getTaskManagement() {
             this.loading = true;
             try {
@@ -73,15 +76,26 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 this.total = Number(res.recordsTotal);
                 this.last_page = res.last_page;
                 this.filter.offset = Number(res.offset);
-                this.liveAution = res.live_aution;   
+                // this.liveAution = res.live_aution;   
                 return res.data;
             } finally {
                 this.loading = false;
             }
         },
 
-
-       async editTaskData(taskId) {
+         async statusChange(id,status){
+           try {
+              this.loading = true;
+              const options = {id:id , status:status};
+              let res  = await General.post("/api/cruds/taskManagement/changeStatus", options );
+               await this.getTaskManagement();
+            } catch (error) {
+                console.error(error)
+            } finally {
+                this.loading = false;
+            }
+        },
+        async editTaskData(taskId) {
             this.loading = true;
             try {           
                 const res = await General.get('/api/cruds/taskManagement', {id:taskId});

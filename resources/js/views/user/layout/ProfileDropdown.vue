@@ -33,15 +33,16 @@
             <v-divider></v-divider>
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/user/dashboard" class="text-decoration-none" >
+                    <router-link to="/user/dashboard" target="_blank" class="text-decoration-none" >
                         <div class=" d-flex align-center ga-2 wrapper">
-                          <v-icon class="icon text-light_text_on" icon="mdi-shield-crown"></v-icon>
+                          <v-icon class="icon text-light_text_on" icon="mdi-post-outline"></v-icon>
 
-                            <p class="text text-light_text_on">Dashboard</p>
+                            <p class="text text-light_text_on">Blog</p>
                         </div>
                     </router-link>
                 </v-list-item-title>
             </v-list-item>
+           
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/settings/profile" class="text-decoration-none" >
@@ -69,6 +70,17 @@
                         <div class="d-flex align-center ga-2 ">
                             <v-icon icon="mdi-credit-card-outline text-light_text_on icon"></v-icon>
                             <p class="text-light_text_on text">Billings</p>
+                        </div>
+                    </router-link>
+                </v-list-item-title>
+            </v-list-item>
+             <v-list-item link>
+                <v-list-item-title class="profileDropDown cursor-pointer">
+                    <router-link to="/support" target="_blank" class="text-decoration-none" >
+                        <div class=" d-flex align-center ga-2 wrapper">
+                          <v-icon class="icon text-light_text_on" icon="mdi-face-agent"></v-icon>
+
+                            <p class="text text-light_text_on">Support</p>
                         </div>
                     </router-link>
                 </v-list-item-title>

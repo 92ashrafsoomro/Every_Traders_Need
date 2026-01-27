@@ -10,7 +10,7 @@ export default [
     {
         path: "taskManagement",
         children: [
-             { path: '', component: update },
+             { path: '', component: upComing },
             { path: 'upComing', component: upComing },
             { path: 'update', component: update },
             { path: 'final', component: final },

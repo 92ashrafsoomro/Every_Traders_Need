@@ -11,24 +11,25 @@
                 </div>
             </div>
             <div class=" ">
-                <div class="d-flex " >
-                   <div style="width: 130px !important;"> <h3 class="mb-2 text-body-2 mr-1" >Auction House</h3></div>
+                  <div class="d-flex mt-2 mb-0 ">
+                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 d-flex items-center align-center" >Auction house :</h3></div>
                     <div class="d-flex scrollSec  ">
-                        <div v-for="value in ['BCA', 'CCA', 'MAG', 'CAG']" :key="value"
-                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
+                        <div  v-for="(item, key) in platformName"
+                           class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
                             style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
-                            {{ value }}
+                            {{ item }}
                         </div>
                     </div>
-
                 </div>
+         
 
                 <div class="d-flex mt-2 mb-0 ">
-                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 " >Center:</h3></div>
-                    <div class="d-flex scrollSec ">
-                        <div v-for="value in ['BCAedssd', 'CCAdsds', 'MAdsdsGds', 'CdsdsdsAG']" :key="value"
-                            class=" mb-2 ml-2 d-flex ml-2 align-center text-body-1 text-whiteLite">
-                            {{ value }}
+                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2  d-flex items-center align-center" >Center:</h3></div>
+                    <div class="d-flex scrollSec  ">
+                        <div  v-for="(item, key) in centerName"
+                           class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
+                            style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
+                            {{ item }}
                         </div>
                     </div>
                 </div>
@@ -127,6 +128,7 @@
 
 
 import { usePageStore } from "@/stores/pageStore";
+import General from '@/models/general.model';
 
 export default {
     props: {},
@@ -136,7 +138,8 @@ export default {
     data() {
 
         return {
-
+            centerName: [],
+            platformName:[],
             pageStore: usePageStore(),
             headers: [
 
@@ -150,16 +153,16 @@ export default {
                 // { title: "Cap Clean", value: "cap_clean" },
                 // { title: "Cap Average", value: "cap_average" },
                 { title: "Mileage", value: "mileage" },
-                { title: "Auction Status Time", value: "auction_status_time" },
+                { title: "Auction Status Time", value: "created_at" },
                 { title: "Auction Time", value: "auction_date" },
-                { title: "Auction House", value: "auction_house" }
+                { title: "Auction House", value: "platform_name" }
                 // Vehicle(make,model,V,year), Reg, Auction Time, Auc houes, Center,        Mileage,        Auc Status, Time,        Action(basic detail, full view)
             ],
         }
     },
     async mounted() {
-
-
+        this.getCenter();
+        this.getPlatform();
     },
     methods: {
         handleInput(e) {
@@ -168,7 +171,24 @@ export default {
         dateFormate(date) {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]
+        },
+       async getCenter(){
+        try {
+            const res = await General.get("api/cruds/center");
+            this.centerName = res.data.slice(0 , 4).map(center => center.name) 
+        } catch (e) {
+            throw await errorHandler(e);
         }
+        },
+       async getPlatform(){
+        try {
+            const res = await General.get("api/cruds/platform");
+            this.platformName = res.data.slice(0 , 4).map(platform => platform.name)
+        } catch (e) {
+            throw await errorHandler(e);
+        }
+        }
+
     },
 };
 </script>

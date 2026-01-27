@@ -33,6 +33,17 @@
 
             <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
+                    <router-link to="/user/dashboard" class="text-decoration-none">
+                        <div class=" d-flex align-center ga-2 wrapper">
+                            <v-icon class="icon text-light_text_on" icon="mdi-view-dashboard-outline"></v-icon>
+
+                            <p class="text text-light_text_on">Dashboard</p>
+                        </div>
+                    </router-link>
+                </v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+                <v-list-item-title class="profileDropDown cursor-pointer">
                     <router-link to="/user/profile" class="text-decoration-none">
                         <div class=" d-flex align-center ga-2 wrapper">
                             <v-icon class="icon text-light_text_on" icon="mdi-account-outline"></v-icon>
@@ -58,17 +69,6 @@
                         <div class="d-flex align-center ga-2 ">
                             <v-icon icon="mdi-credit-card-outline text-light_text_on" class="icon"></v-icon>
                             <p class="text text-light_text_on">Billings</p>
-                        </div>
-                    </router-link>
-                </v-list-item-title>
-            </v-list-item>
-            <v-list-item link>
-                <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/checkout" class="text-decoration-none">
-                        <div class=" d-flex align-center ga-2 wrapper">
-                            <v-icon class="icon text-light_text_on" icon="mdi-check-circle-outline"></v-icon>
-
-                            <p class="text text-light_text_on">Check Out</p>
                         </div>
                     </router-link>
                 </v-list-item-title>

@@ -1,9 +1,9 @@
 <template>
     
     <v-col cols="12">
-        <v-row class="mt-3">
+        <v-row class="mt-5" no-gutters="">
             <v-col cols="12">
-                <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2" >
+                <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2" >
                     <div class="d-flex  ">
                         <div class=" " >
                             
@@ -26,8 +26,9 @@
                                 density="compact" clearable />
                         </div>
 
-                        <div class="px-lg-2 px-md-2 px-2">
-                            <MakeDropdown width="200" label="Select Make" variant="outlined" color="primary"
+                         <div class="px-lg-2 px-md-2 px-2">
+                            <MakeDropdown width="200" label="Select Make" variant="outlined" item-title="name"
+                                 item-value="id" color="primary"
                                 density="compact" :model-value="filter.make"
                                 @update:modelValue="handleInput($event, 'make')" clearable />
                         </div>
@@ -35,16 +36,18 @@
                         <div class="">
 
                             <ModelDropdown width="200" label="Select Model" variant="outlined" color="primary"
-                                :make="filter.make" :model-value="filter.model"
+                                :make="filter.make" :model-value="filter.model"item-title="name"
+                                 item-value="id"
                                 @update:modelValue="handleInput($event, 'model')" clearable density="compact" />
 
                         </div>
+
 
                     </div>
                 </div>
             </v-col>
 
-            <v-col cols="12" class="mt-n3">
+            <v-col cols="12" class="mt-3">
                 <div class="  border ">
                     <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
                         :loading="loading" item-value="id" @update:options="loadItems">

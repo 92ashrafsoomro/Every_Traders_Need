@@ -27,7 +27,7 @@
   
   
         <!-- Total Auctions -->
-        <v-col cols="12" sm="6" md="3" lg="" class="">
+        <v-col cols="12" sm="6" md="" lg="" class="">
   
           <v-card class="border-bottom border border-sm">
             <v-container>
@@ -63,7 +63,7 @@
           </v-card>
         </v-col>
         <!-- Total Auctions -->
-        <v-col cols="12" sm="6" md="3" lg="" class="">
+        <v-col cols="12" sm="6" md="" lg="" class="">
   
           <v-card class="border-bottom-inprogress w-100 border border-sm">
             <v-chip text-color="white" size="small" class="bg-danger position-absolute mt-5 right-0  "
@@ -99,7 +99,7 @@
           </v-card>
         </v-col>
         <!-- Total Auctions -->
-        <v-col cols="12" sm="6" md="3" lg="" class="">
+        <v-col cols="12" sm="6" md="" lg="" class="">
   
           <v-card class="border-bottom  border border-sm">
             <v-container>
@@ -127,7 +127,7 @@
           </v-card>
         </v-col>
   
-        <v-col cols="12" sm="6" md="3" lg="" class="">
+        <v-col cols="12" sm="6" md="" lg="" class="">
   
           <v-card class="border-bottom  border border-sm">
             <v-container>

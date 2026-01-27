@@ -38,12 +38,6 @@
             <v-col cols="12" sm="6" md="3" lg="" class="">
 
                 <v-card class="border-bottom-inprogress w-100 border border-sm">
-                    <v-chip text-color="white" size="small" class="bg-danger position-absolute mt-5 right-0  "
-                        style="border-radius: 3px 0 0 3px;" label>
-                        <v-icon size="10" color="white" class="mr-2">
-                            mdi-circle
-                        </v-icon> Live
-                    </v-chip>
                     <v-container>
                         <div class="d-flex h-6">
                             <div class=" bg-danger-lite d-flex justify-center align-center live-circle"
@@ -222,6 +216,8 @@ export default {
   }
 
 }
+
+
 </script>
 <style scoped>
 .inactive-btn {

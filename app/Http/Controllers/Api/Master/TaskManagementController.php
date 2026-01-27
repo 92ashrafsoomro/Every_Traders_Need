@@ -39,8 +39,6 @@ use Illuminate\Support\Facades\Log;
 class TaskManagementController extends Controller
 {
 
-
-
         public function index(Request $request)
     {
 
@@ -52,7 +50,7 @@ class TaskManagementController extends Controller
         $query = TaskManagement::with(['auctionHouse','auctionType']);
 
         //Filter
-        if($request->has('id') && $request->id != '') {
+        if($request->has('id') && $request->id != ''){
             $query->where('id',$request->id);
         }
 
@@ -61,7 +59,7 @@ class TaskManagementController extends Controller
         }
 
         if($request->has('platform') && $request->platform != '') {
-            $query->where('platform_id',$request->platform);
+            $query->where('platform',$request->platform);
         }
 
         if($request->has('status') && $request->status != '') {
@@ -72,10 +70,19 @@ class TaskManagementController extends Controller
             $query->where('auction_type',$request->auction_type);
         }
 
-        if($request->has('auction_date') && $request->auction_date != '') {
-            $query->whereDate('auction_date',$request->auction_date);
+        if($request->has('type') && $request->type != '') {
+
+            if($request->type == 'update'){
+                $query->whereDate('date',now()->subDays(2));
+            }elseif($request->type == 'final'){
+                $query->whereDate('date',now());
+            }else{
+                // $query->whereIn('status',['pending','processing','cancel','scrapped']);
+            }
+
         }
 
+      
         $count = (clone $query)->count();
         $data = $query->select([
                     '*'
@@ -98,6 +105,53 @@ class TaskManagementController extends Controller
             'offset' => $offset,
             'last_page' => ceil($count / $length),
             'data' => $data,
+        ],200);
+        
+    }
+
+
+
+    public function counters(Request $request)
+    {
+
+        //Query
+        $stats = TaskManagement::selectRaw("
+            COUNT(*) as total_count,
+            COUNT(CASE WHEN auction_type = 'live' THEN 1 END) as total_live,
+            COUNT(CASE WHEN auction_type = 'timed' THEN 1 END) as total_timed,
+            
+            COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending_count,
+            COUNT(CASE WHEN status = 'pending' AND auction_type = 'live' THEN 1 END) as pending_live,
+            COUNT(CASE WHEN status = 'pending' AND auction_type = 'timed' THEN 1 END) as pending_timed,
+            
+            COUNT(CASE WHEN status = 'confirmed' THEN 1 END) as confirm_count,
+            COUNT(CASE WHEN status = 'processing' THEN 1 END) as processing_count,
+            COUNT(CASE WHEN status = 'done' THEN 1 END) as done_count,
+            
+            SUM(lots) as total_lots,
+            COUNT(*) as published_lots
+        ")->first();
+
+     
+      
+        // $count = (clone $query)->count();
+        // $data = $query->select([
+        //             '*'
+        //         ])
+        //         ->skip($offset)
+        //         ->take($length)
+        //         ->orderByDesc('id')
+        //         ->get()
+        //         ->map(function($item){
+
+        //             $item->created_date = Carbon::parse($item->created_at)->format('Y-m-d');
+        //             return $item;
+
+        //         });
+        
+        
+        return response()->json([
+            'data' => $stats,
         ],200);
         
     }

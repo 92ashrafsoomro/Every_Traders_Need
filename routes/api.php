@@ -191,7 +191,8 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
         
-
+        
+        Route::get('/taskManagement/counters',[TaskManagementController::class,'counters']);
         Route::post('/taskManagement/changeStatus',[TaskManagementController::class,'changeStatus']);
         Route::resource('taskManagement',TaskManagementController::class);
         Route::resource('auctions',AuctionController::class);
@@ -204,8 +205,6 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
-        
-      
         
         
        

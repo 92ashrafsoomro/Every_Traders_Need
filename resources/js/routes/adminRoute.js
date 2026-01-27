@@ -20,11 +20,7 @@ import adminList from "@views/admin/adminList/route"
 import role from "@views/admin/role/route"
 import permission from "@views/admin/permission/route"
 import taskManagement from "@views/admin/taskManagement/route"
-// import upComing from '@views/admin/taskManagement/upcoming/route'
-// import upGrade from '@views/admin/taskManagement/upGrade/route'
-// import final from '@views/admin/taskManagement/final/route'
-// import timeAuction from '@views/admin/taskManagement/timeAuction/route'
-
+import stafUser from "@views/admin/stafUser/route"
 export default [
     {
         path: "/admin",
@@ -51,7 +47,8 @@ export default [
             ...adminList,
             ...role,
             ...permission,
-            ...taskManagement
+            ...taskManagement,
+            ...stafUser
             // ...upComing,
             // ...upGrade,
             // ...final,

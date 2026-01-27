@@ -3,10 +3,8 @@
         v-bind="$attrs"
         :model-value="modelValue"
         :items="data"
-        item-title="firstName"
-        item-value="id"
         :loading="loading"
-        @update:model-value="handleValue($event)"
+        @update:value="handleValue($event)"
         />  
 </template>
 
@@ -38,20 +36,20 @@ export default {
         async get() {
                 this.loading = true;
                 try {
-                    const response = General.get('/api/cruds/users',{search: this.search ,length:10});
+                    const response = General.get('/api/cruds/users',{});
                     this.data = response.data; 
                 } catch (err) {
-                    console.error("Error loading platforms:", err);
+                    console.error("Error loading :", err);
                     this.data = [];
                 } finally {
                     this.loading = false;
                 }
         },
         handleValue(value) {
-            this.$emit("update:modelValue", value);
+            this.$emit("update:value", value);
         },
     },
-    emits: ['update:modelValue']
+    emits: ['update:value']
 };
 </script>
 

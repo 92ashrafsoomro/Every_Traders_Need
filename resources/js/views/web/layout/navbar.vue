@@ -3,7 +3,7 @@
     <v-sheet class="w-100 position-fixed top-0 bg-tra left-0  transition"
         :class="isScrolled ? 'glass' : 'bg-transparent'" style="z-index: 100;" height="50">
         <v-container class="pa-0 " style="max-width:1400px ; height: 50px;">
-            <div class="d-flex align-center justify-space-between pa-4 h-100">
+            <div class="d-flex align-center justify-space-between px-0 py-4  h-100">
 
                 <!-- Logo -->
                 <router-link to="/" class="d-flex align-center">
@@ -20,14 +20,14 @@
 
                 </div>
 
-                <div class="d-flex align-center ga-3">
+                <div class="d-flex align-center ga-3  py-md-0 py-lg-0 py-1">
 
 
                     <v-btn @click="toggleTheme" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'" size="40"
-                        class="rounded-lg border" elevation="0" variant="text" />
+                        class="rounded-lg border mb-1" elevation="0" variant="text"  />
 
 
-                    <div class="d-flex align-center ga-2">
+                    <div class="d-flex align-center ga-2 mb-1">
 
 
                         <ProfileDropdown v-if="userStore.is_logged_in" />
@@ -47,7 +47,7 @@
                     </div>
 
                     <!-- Hamburger Menu for Mobile -->
-                    <v-app-bar-nav-icon class="d-lg-none" @click="drawer = !drawer" />
+                    <v-app-bar-nav-icon class="d-lg-none mb-1" @click="drawer = !drawer" />
 
                 </div>
             </div>

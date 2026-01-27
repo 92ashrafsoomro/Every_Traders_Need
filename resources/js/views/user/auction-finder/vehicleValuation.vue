@@ -25,12 +25,8 @@
                         {{ item.auction_date }} <br />
                         {{ item.auction_time }}
                     </td>
-
-                    <td>
-                        <v-btn size="small" variant="flat" color="primary">
-                            Autoboli
-                        </v-btn>
-                    </td>
+                        <td class="d-none d-lg-block pt-lg-4 d-md-block pt-md-4">  <span class="auction-badge">{{
+                        item.auction_name }}</span> </td>
                 </tr>
 
                 <!-- DETAIL ROW (HOVER) -->
@@ -114,7 +110,7 @@ export default {
                 { title: "Cap Below", key: "cap_below" },
                 { title: "Autotrader Retail", key: "autotrader_retail_value" },
                 { title: "Date Time", key: "date" },
-                { title: "Autoboli", key: "autoboli" },
+                 { title: "Auction House", key: "auction_name" },
             ],
         };
     },
@@ -155,5 +151,12 @@ export default {
         opacity: 1;
         transform: translateY(0);
     }
+}
+.auction-badge {
+    background-color: #0080ff50;
+    padding: 6px 12px;
+    border-radius: 4px;
+    width: 150px;
+    font-size: 0.875rem;
 }
 </style>

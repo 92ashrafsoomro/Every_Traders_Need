@@ -18,7 +18,7 @@
                 <tr @mouseenter="hoveredRowId = item.id" :class="{ 'hovered-main-row': hoveredRowId === item.id }"
                     class="main-row">
                     <td>
-                        <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id" class="pa-0">
+                        <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id" class="pa-0" target="_blank">
                             <span class="text-whiteLight "> {{ item.make_name }} {{ item.model_name }} {{
                                 item.variant_name }} </span>
                         </v-btn>
@@ -32,8 +32,8 @@
                             {{ item.grade }}
                         </span>
                     </td>
-                    <td><div style="width: 200px !important;">{{dateFormate(item.auction_date)}}</div></td>
-                    <!-- {{ item.auction_time }} -->
+                    <td><div style="width: 200px !important;">{{item.auction_date}} <br> {{ item.auction_time }}</div></td>
+                             <!-- {{ item.auction_time }} -->
                     <td class="d-lg-none d-md-none">
                         <div class="d-flex flex-column ">
                             <span class="auction-badge mt-1">
@@ -138,6 +138,7 @@ export default {
                 { title: "Transmission", key: "transmission" },
                 { title: "Grade", key: "grade" },
                 { title: "Date Time", key: "date" },
+        
                 { title: "Auction House", key: "auction_name" },
             ],
         }
@@ -193,10 +194,7 @@ export default {
             this.currentIndex =
                 (this.currentIndex + 1) % this.currentImages.length
         },
-          dateFormate(date) {
-            if (!date) return ""
-            return date?.split('T')[0].split(' ')[0]
-        }
+         
     }
 }
 

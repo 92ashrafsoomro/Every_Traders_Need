@@ -37,6 +37,7 @@
                 v-model="form.auction_type"
                 label="Auction Type"
                 variant="outlined"
+                readonly
                 base-color="white"
                 density="compact"
               />
@@ -47,6 +48,7 @@
               <PlateformDropdown
                 v-model="form.platform"
                 label="Auction House"
+                readonly
                 variant="outlined"
                 base-color="white"
                 density="compact"
@@ -114,8 +116,6 @@
               />
             </v-col>
 
-        
-
             <v-col>
               <v-text-field
                 label="Assign To"
@@ -126,32 +126,10 @@
                 hide-details
               />
             </v-col>
-
-            <v-col cols="12" md="6">
-              <v-text-field
-                label="Final Sheet"
-                v-model="form.final_sheet"
-                variant="outlined"
-                density="compact"
-                clearable
-                hide-details
-              />
-            </v-col>
-
-             <v-col cols="12" md="6">
-              <v-text-field
-                label="Notes"
-                v-model="form.notes"
-                variant="outlined"
-                density="compact"
-                clearable
-                hide-details
-              />
-            </v-col>
-
+            
             <!-- Status -->
             <v-col cols="12" md="6">
-          <v-select
+            <v-select
                 v-model="form.status"
                 label="Status"
                 :items="taskManagementStore.status"
@@ -211,9 +189,7 @@ export default {
                 // scr_lots : '',
                 assign_to : '',
                 end_time : '',
-                final_sheet: '',
                 status : null,
-                notes : ''
             },
             loading: false
         }
@@ -236,8 +212,6 @@ export default {
                 this.form.end_time = res?.end_time;
                 this.form.lots = res.lots;
                 this.form.scr_lots = res.scr_lots;
-                this.form.final_sheet = res.final_sheet;
-                this.form.notes = res.notes;
                 this.form.assign_to = res.assign_to;
                 this.form.status = res.status;
 
@@ -256,11 +230,11 @@ export default {
                 this.$alertStore.add(res.message || "Edit SuccessFully ", "success")
                  this.$router.push('/admin/taskManagement');
             }  catch (error) {
-        this.$alertStore.add(error.message || 'Update failed', 'error');
-      } finally {
-        this.loading = false;
-      }     
-        }
+              this.$alertStore.add(error.message || 'Update failed', 'error');
+            } finally {
+              this.loading = false;
+            }     
+              }
     }
 }
     

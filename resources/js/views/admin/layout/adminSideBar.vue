@@ -4,7 +4,7 @@
            <v-list density="compact"   class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 258" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                    <img v-if="menuWidth == 269" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
                     <img v-else :src="newLogo" 
                         style="width: 40px; height: 40px; " />
                 </v-list-item>
@@ -60,7 +60,7 @@
 
             <div class="d-flex ga-6 ml-2"> <v-icon size="24" class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay " >
-                 <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1"> Back To User</router-link></v-list-item>
+                 <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1 text-whiteLight"> Back To User</router-link></v-list-item>
             </div>
            </v-list>
         </div>
@@ -88,10 +88,10 @@ export default {
             
             // md, sm, xs
             if (this.display.mdAndDown) {
-                return  "258";
+                return  "269";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "258" : "68";
+                return this.themeStore.menuType == "expanded" ? "269" : "68";
             }
 
         },

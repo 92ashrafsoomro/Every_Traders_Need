@@ -140,27 +140,9 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                label="Final Sheet"
-                v-model="form.final_sheet"
-                variant="outlined"
-                density="compact"
-                clearable
-                hide-details
-              />
-            </v-col>
+            
 
-             <v-col cols="12" md="6">
-              <v-text-field
-                label="Notes"
-                v-model="form.notes"
-                variant="outlined"
-                density="compact"
-                clearable
-                hide-details
-              />
-            </v-col>
+            
 
             <!-- Status -->
             <v-col cols="12" md="6" class="d-none">
@@ -225,9 +207,9 @@ export default {
                 lots : "",
                 // scr_lots : '',
                 assign_to : '',
-                final_sheet: '',
+                // final_sheet: '',
                 status : 'pending',
-                notes : ""
+                // notes : ""
             },
             loading : false
         }
@@ -240,7 +222,16 @@ export default {
                const res = await General.post('/api/cruds/taskManagement', this.form)
                this.$alertStore.add(res.message, 'success');
                 //  this.$router.push('/admin/taskManagement')
-
+              this.form.id = "";
+              this.form.auction_type= "";
+              this.form.platform= "";
+              this.form.auction_name= "";
+              this.form.date= "";
+              this.form.created_date= "";
+              this.form.end_time= "";
+              this.form.lots= "";
+              this.form.assign_to= "";
+              this.form.status= "";
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong' , error)
             }finally {

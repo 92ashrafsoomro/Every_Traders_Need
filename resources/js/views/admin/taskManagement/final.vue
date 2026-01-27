@@ -27,6 +27,17 @@
                                     mdi-delete
                         </v-icon>
                     </template>
+                    <template #item.status="{item}">
+                        <v-select 
+                            :model-value="item.status" 
+                            :items="this.taskManagementStore.status"
+                            item-title="title"
+                            item-value="value"
+                            variant="outlined" 
+                            density="compact"  
+                            @update:model-value="this.taskManagementStore.statusChange(item.id , $event)"
+                        />
+                    </template>
 
                     <template v-slot:bottom>
                         <div class="py-2 d-flex justify-end border-t">

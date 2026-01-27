@@ -8,7 +8,7 @@
                 style="width: 20px; height: 54px; border-radius: 0 10px 10px 0;" @click="toggleMenu">
                 <!-- <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border ml-2 " style="width: 30px; height: 30px;" > -->
                 <v-icon class="d-none d-lg-inline-flex justify-center align-center " size="20"
-                    :icon="isMenuOpen ? 'mdi-menu-right' : 'mdi-menu-left'" @click="toggleMenu"></v-icon>
+                    :icon="isMenuOpen ? 'mdi-menu-right' : 'mdi-menu-left'"></v-icon>
                 <!-- </div> -->
             </div>
             <v-toolbar-title class="d-none d-sm-inline pl-1">

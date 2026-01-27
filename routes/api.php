@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\Master\MembershipController;
 use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\Master\TaskManagementController;
+use App\Http\Controllers\Api\Master\StaffController;
 
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
@@ -205,8 +206,9 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
-        
-        
+        // Staff
+        Route::get('/staffs/changeStatus',[StaffController::class,'changeStatus']);
+        Route::resource('staffs',StaffController::class);        
        
 
         

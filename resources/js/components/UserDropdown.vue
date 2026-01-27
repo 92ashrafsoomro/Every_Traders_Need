@@ -35,8 +35,9 @@ export default {
 
         async get() {
                 this.loading = true;
-                try {
-                    const response = General.get('/api/cruds/users',{});
+            try {
+                    
+                    const response = await General.get('/api/cruds/users',{});
                     this.data = response.data; 
                 } catch (err) {
                     console.error("Error loading :", err);

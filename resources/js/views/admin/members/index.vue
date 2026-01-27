@@ -7,6 +7,19 @@
                             <v-row>
                                 <v-col cols="12">
                                     <v-row cols="12" class="mt-1 text-center content-scroll">
+                                        
+                                        <v-col cols="4" sm="" class="pl-2">
+                                            <UserDropdown
+                                                v-model="filter.id"
+                                                variant="outlined"
+                                                label="User"
+                                                item-title="firstName"
+                                                item-value="id"
+                                                density="compact" 
+                                                color="primary"
+                                                clearable
+                                                />
+                                        </v-col>
                                        <v-col cols="4" sm="" class="pl-2">
                                             <v-select
                                                 v-model="filter.status"
@@ -97,7 +110,6 @@
                             :items="items" 
                             :items-length="total" 
                             hover
-                           
                             item-value="id" 
                             @update:options="loadItems" >
                             <template v-slot:bottom>
@@ -204,12 +216,15 @@
 
 import Members from '@/models/member.model';
 import PlansDropDron from "@components/PlanDropDown.vue"
-import UserDrawer  from './component/UserDrawer.vue';
+import UserDrawer from './component/UserDrawer.vue';
+import UserDropdown  from '@/components/UserDropdown.vue';
 
 export default {
 
   components: {
-   PlansDropDron,UserDrawer 
+        PlansDropDron,
+        UserDrawer,
+        UserDropdown 
   },
 
   data() {
@@ -218,10 +233,11 @@ export default {
         selectedUser: null,
         viewLoading: false,
             filter: {
-                search: '',
+                search: null,
                 length: 10,
                 page: 1,
                 offset: 0,
+                id:null,
             },
             
             last_page: 1,

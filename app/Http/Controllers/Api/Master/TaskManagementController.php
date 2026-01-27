@@ -121,10 +121,10 @@ class TaskManagementController extends Controller
             COUNT(CASE WHEN auction_type = '1' THEN 1 END) as total_timed,
             
             COUNT(CASE WHEN status = 'pending' THEN 1 END) as total_pending,
-            COUNT(CASE WHEN status = 'pending' AND auction_type = 'live' THEN 1 END) as pending_live,
-            COUNT(CASE WHEN status = 'pending' AND auction_type = 'timed' THEN 1 END) as pending_timed,
+            COUNT(CASE WHEN status = 'pending' AND auction_type = '2' THEN 1 END) as pending_live,
+            COUNT(CASE WHEN status = 'pending' AND auction_type = '1' THEN 1 END) as pending_timed,
             
-            COUNT(CASE WHEN status = 'confirmed' THEN 1 END) as total_confirm,
+            COUNT(CASE WHEN status = 'confirm' THEN 1 END) as total_confirm,
             COUNT(CASE WHEN status = 'processing' THEN 1 END) as total_processing,
             COUNT(CASE WHEN status = 'done' THEN 1 END) as total_done,
             

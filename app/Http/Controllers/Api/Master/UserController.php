@@ -57,6 +57,14 @@ class UserController extends Controller
                $query->where('users.status', $request->status);
         }
 
+        if($request->filled('id')) {
+               $query->where('users.id', $request->id);
+        }
+
+        if($request->filled('type')) {
+               $query->where('users.user_type', $request->type);
+        }
+
         // if ($request->has('plan_id') && $request->plan_id !== '') {
         //     $query->where('membership_plans.id', $request->plan_id);
         // }

@@ -41,14 +41,17 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             { value: 'scrapped', title: 'Scrapped' },
             { value: 'confirm', title: 'Confirm' },
             { value: 'done', title: 'Done' },
-            { value: 'import', title: 'Import' },
+            { value: 'publish', title: 'Publish' },
         ],
         alertStore:useAlertStore(),
         totalTask : 0,
-        liveAuction : 0,
-        timeAuction : 0,
+        totalTime : 0,
+        totalLive : 0,
+        pendingLive:0,
+        pendingTime : 0,
         inprogressAuctions : 0,
-        confirmTask : 0 ,
+        totalConfirmTask : 0 ,
+        pendingTask:0,
         publishAuction : 0,
         processing : 0,
         done : 0,
@@ -128,23 +131,35 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
             try {
                 const res = await General.get('/api/cruds/taskManagement/counters');
                 console.log(res.data);
-                this.total;
-                
+                this.totalTask = res.data.total_task;
+                this.totalLive = res.data.total_live;
+                this.totalTime = res.data.total_timed;
+                this.pendingTask = res.data.total_pending
+                this.pendingLive = res.data.pending_live
+                this.pendingTime = res.data.pending_timed
+                this.processing = res.data.total_processing
+                this.totalConfirmTask = res.data.total_confirm
+                this.done = res.data.total_done
+                this.publishAuction = res.data.total_publish
+                this.publishLots = res.data.published_lots
+                this.totaLots = res.data.total_lots
+                this.confirmTask = res.data.confirm_count
+//                 {
 //     "data": {
-//         "total_count": 1886,
-//         "total_live": 0,
-//         "total_timed": 0,
-//         "pending_count": 1,
+//         "total_task": 1886,
+//         "total_live": 1822,
+//         "total_timed": 64,
+//         "total_pending": 1,
 //         "pending_live": 0,
 //         "pending_timed": 0,
-//         "confirm_count": 0,
-//         "processing_count": 118,
-//         "done_count": 1307,
+//         "total_confirm": 0,
+//         "total_processing": 118,
+//         "total_done": 1307,
+//         "total_publish": 0,
 //         "total_lots": 369281,
-//         "published_lots": 1886
+//         "published_lots": 369281
 //     }
 // }
-                
             } finally {
                 this.loading = false;
             }

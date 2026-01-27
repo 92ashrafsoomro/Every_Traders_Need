@@ -21,12 +21,12 @@
                             <div class="text-body-2 pr-2">
                                 <span class="white">Live Auctions: </span>
                                 <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                    {{ taskManagementStore.liveAuction }}</span> </div>
+                                    {{ taskManagementStore.totalLive }}</span> </div>
                             <div class=" text-body-2 pl-2">
                                 <span class="white">Time Auctions: </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                     {{ taskManagementStore.timeAuction }}</span>
+                                     {{ taskManagementStore.totalTime }}</span>
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                                 </v-icon>
                             </div>
 
-                            <span class="text-h4 px-3">{{ taskManagementStore.inprogressAuctions }}</span>
+                            <span class="text-h4 px-3">{{ taskManagementStore.pendingTask }}</span>
                         </div>
 
                         <div class="pt-3 text-body-1 text-whiteLite ">Pending Task</div>
@@ -55,12 +55,12 @@
                             <div class="text-body-2 pr-2">
                                 <span class="white">Live Auctions: </span>
                                 <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                    {{ taskManagementStore.liveAuction }}</span> </div>
+                                    {{ taskManagementStore.pendingLive }}</span> </div>
                             <div class=" text-body-2 pl-2">
                                 <span class="white">Time Auctions: </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                     {{ taskManagementStore.timeAuction }}</span>
+                                     {{ taskManagementStore.pendingTime }}</span>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                                 class="circle d-flex justify-center align-center">
                                 <v-icon size="32" color="primary">mdi-bash</v-icon>
                             </div>
-                            <span class="text-h4 px-3">{{ taskManagementStore.confirmTask }}</span>
+                            <span class="text-h4 px-3">{{ taskManagementStore.totalConfirmTask }}</span>
                         </div>
 
 
@@ -103,7 +103,7 @@
                 </v-card>
             </v-col>
             <!-- Publish  Task -->
-            <v-col cols="12" sm="6" md="3" lg="" class="">
+            <v-col cols="12" sm="6" md="3" lg=""  class="">
 
                 <v-card class="border-bottom  border border-sm">
                     <v-container>
@@ -116,14 +116,14 @@
                         </div>
 
                         <div class="pt-3 text-body-1 text-whiteLite ">Publish Auction</div>
-                        <div class="pt-2 d-flex">
+                        <div class="pt-2 d-flex ga-3">
                             <div class="text-body-2 pr-2">
-                                <span class="white">Total Lots : </span>
+                                <span class="white">Lots : </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ taskManagementStore.totaLots }}</span>
                             </div>
                             <div class=" text-body-2 pl-2">
-                                <span class="white">Publish Lots: </span>
+                                <span class="white">Publish: </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
                                     {{ taskManagementStore.publishLots }}</span>
@@ -212,7 +212,8 @@ export default {
         changeTab(item) {
         this.taskManagementStore.selectTaskTab(item.value)
         this.$router.push(item.path)
-        }
+        },
+        
     },
     mounted(){
         this.taskManagementStore.getTaskCount()

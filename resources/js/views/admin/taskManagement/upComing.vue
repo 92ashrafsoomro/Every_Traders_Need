@@ -1,5 +1,7 @@
 <template>
+    
     <taskNav />
+    
     <v-row style="max-width: 1400px;" class="mx-auto">
         <v-col cols="12" class="mt-2">
 
@@ -28,7 +30,7 @@
                     </template>
 
                      <template #item.status="{ item }">
-                        <v-select :model-value="item.status" :items="taskManagementStore.status" item-title="title"
+                        <v-select :model-value="item.status" :items="taskManagementStore.status" item-title="title"  style="min-width: 150px;"
                             item-value="value" variant="outlined" density="compact" @update:model-value="this.taskManagementStore.statusChange(item.id,$event)" />
                     </template>
                     

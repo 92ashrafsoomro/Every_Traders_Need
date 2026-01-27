@@ -63,12 +63,12 @@
       {
         "label": "Support & Feedback",
         "icon": "mdi-account-multiple-outline",
-        "path": "/"
+        "path": ""
       },
       {
         "label": "Alerts ",
         "icon": "mdi-account-multiple-outline",
-        "path": "/"
+        "path": ""
       }
     ]
   },
@@ -84,12 +84,12 @@
       {
         "label": "Discount",
         "icon": "mdi-circle",
-        "path": "/"
+        "path": ""
       },
        {
         "label": "Restriction Control",
         "icon": "mdi-circle",
-        "path": "/"
+        "path": ""
       }
     ]
   },
@@ -100,17 +100,17 @@
       {
         "label": "News & Blog",
         "icon": "mdi-seal-variant",
-        "path": "/"
+        "path": ""
       },
       {
         "label": "Cat",
         "icon": "mdi-circle",
-        "path": "/"
+        "path": ""
       },
        {
         "label": "Tag",
         "icon": "mdi-circle",
-        "path": "/"
+        "path": ""
       }
     ]
   },
@@ -121,12 +121,12 @@
     {
         "label": "User restrictions",
         "icon": "mdi-seal-variant",
-        "path": "/"
+        "path": ""
       },
       {
         "label": "Admin",
         "icon": "mdi-seal-variant",
-        "path": "/"
+        "path": ""
       }
     ]
   }

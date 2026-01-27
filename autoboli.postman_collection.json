@@ -2821,6 +2821,271 @@
           ]
         },
         {
+          "name": "staff",
+          "item": [
+            {
+              "name": "list",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/staffs",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staffs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/staff/25",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staff",
+                    "25"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "changeStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/staff/changeStatus?user_id=54&status=1",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staff",
+                    "changeStatus"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "54"
+                    },
+                    {
+                      "key": "status",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "firstName",
+                      "value": "Owais",
+                      "type": "text"
+                    },
+                    {
+                      "key": "personalEmail",
+                      "value": "owais@gmail.com",
+                      "type": "text",
+                      "uuid": "7489b12b-7c5b-43f6-b2ee-0e8996b381bc"
+                    },
+                    {
+                      "key": "user_type",
+                      "value": "6",
+                      "type": "text",
+                      "uuid": "16274815-46e4-4ccf-a9db-fcc2ddbabf06"
+                    },
+                    {
+                      "key": "jobTitle",
+                      "value": "Admin",
+                      "type": "text",
+                      "uuid": "731c859f-49eb-4971-9353-4fb7b71887a2"
+                    },
+                    {
+                      "key": "password",
+                      "value": "owais123",
+                      "type": "text",
+                      "uuid": "43966685-2187-4159-b54c-024dcbbc6da8"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/staffs",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staffs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {}
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "put",
+                      "type": "text"
+                    },
+                    {
+                      "key": "firstName",
+                      "value": "Owais",
+                      "type": "text"
+                    },
+                    {
+                      "key": "personalEmail",
+                      "value": "owais@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "user_type",
+                      "value": "6",
+                      "type": "text"
+                    },
+                    {
+                      "key": "jobTitle",
+                      "value": "Admin",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "owais123",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/staff/11153",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staff",
+                    "11153"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/staff/53",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "staff",
+                    "53"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "newsCategory",
           "item": [
             {
@@ -3556,7 +3821,7 @@
                   "formdata": [
                     {
                       "key": "id",
-                      "value": "2",
+                      "value": "900",
                       "type": "text"
                     },
                     {
@@ -3571,12 +3836,12 @@
                     },
                     {
                       "key": "end_date",
-                      "value": "",
+                      "value": "12-12-2007",
                       "type": "text"
                     },
                     {
                       "key": "auction_type",
-                      "value": "2",
+                      "value": "1",
                       "type": "text"
                     },
                     {
@@ -3713,7 +3978,7 @@
               "response": []
             },
             {
-              "name": "create",
+              "name": "counters",
               "request": {
                 "auth": {
                   "type": "bearer",
@@ -3725,43 +3990,8 @@
                     }
                   ]
                 },
-                "method": "POST",
+                "method": "GET",
                 "header": [],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "id",
-                      "value": "2",
-                      "type": "text"
-                    },
-                    {
-                      "key": "name",
-                      "value": "test",
-                      "type": "text"
-                    },
-                    {
-                      "key": "auction_date",
-                      "value": "12-12-2007",
-                      "type": "text"
-                    },
-                    {
-                      "key": "end_date",
-                      "value": "",
-                      "type": "text"
-                    },
-                    {
-                      "key": "auction_type",
-                      "value": "2",
-                      "type": "text"
-                    },
-                    {
-                      "key": "platform_id",
-                      "value": "1",
-                      "type": "text"
-                    }
-                  ]
-                },
                 "url": {
                   "raw": "{{url}}/api/cruds/taskManagement",
                   "host": [
@@ -3771,6 +4001,43 @@
                     "api",
                     "cruds",
                     "taskManagement"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/taskManagement/counters",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "taskManagement",
+                    "counters"
                   ]
                 }
               },
@@ -3831,6 +4098,56 @@
                     "cruds",
                     "taskManagement",
                     "1890"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "changeStatus",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {}
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "id",
+                      "value": "1891",
+                      "type": "text",
+                      "uuid": "37377dc4-b720-4bf8-8ecd-ffcc86776ef5"
+                    },
+                    {
+                      "key": "status",
+                      "value": "pending",
+                      "type": "text",
+                      "uuid": "e8be80af-dbdd-411c-8ffb-2c3e3ebc1d9c"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/taskManagement/changeStatus",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "taskManagement",
+                    "changeStatus"
                   ]
                 }
               },

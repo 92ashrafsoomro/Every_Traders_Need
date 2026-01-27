@@ -200,6 +200,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('vehicles',VController::class);
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
+        Route::resource('staffs',StaffController::class);    
 
 
         // Users
@@ -207,8 +208,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('users',UserController::class);
 
         // Staff
-        Route::get('/staffs/changeStatus',[StaffController::class,'changeStatus']);
-        Route::resource('staffs',StaffController::class);        
+            
        
 
         

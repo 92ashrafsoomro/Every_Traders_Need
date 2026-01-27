@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 
 class StaffController extends Controller
 {
@@ -107,7 +108,51 @@ class StaffController extends Controller
 
      public function store(Request $request)
     {
-        dd($request->all());   
+
+        $validator = Validator::make($request->all(),[
+            'firstName' => 'required|string|max:255',
+            'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'personalEmail')],
+            'user_type' => 'required|exists:roles,id|max:255',
+            'jobTitle' => 'required|string|max:255',
+            'status' => 'required|in:0,1|max:255',
+            'password' => 'required|string|max:255',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $model = User::create([
+            'firstName' => $request->firstName,
+            'personalEmail' => $request->personalEmail,
+            'user_type' => $request->user_type,
+            'jobTitle' => $request->jobTitle,
+            'password' => Hash::make($request->password),
+            'status' => $request->status,
+            'created_at' => Carbon::now(),
+            'updated_at' => NULL,
+            'created_by' => Auth::user()->id,
+        ]);
+
+
+        if ($request->file('avatar')) {
+            if ($model->avatar && file_exists(public_path('uploads/avatar/' . $model->avatar))) {
+                unlink(public_path('uploads/avatar/' . $model->avatar));
+            }
+            $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
+            $request->file('avatar')->move(public_path('uploads/avatar'), $fileName);
+            $model->avatar = $fileName;
+        }
+
+        return response()->json([
+            "message" => 'Record Created Successfully',
+            "data" => $model,
+        ],200);
+
+      
     }
 
 
@@ -135,104 +180,49 @@ class StaffController extends Controller
             return response()->json(["message" => "Record Not Found"],400);
         }
         
+        $validator = Validator::make($request->all(),[
+            'firstName' => 'required|string|max:255',
+            'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'personalEmail')->ignore($model->id)],
+            'user_type' => 'required|exists:roles,id|max:255',
+            'jobTitle' => 'required|string|max:255',
+            'status' => 'required|in:0,1|max:255',
+            'password' => 'nullable|string|max:255',
+        ]);
 
-        $validations = [
-            'businessEmail' => 'required|email',
-            'personalEmail' => 'required|email',
-            'password' => 'nullable|string',
-            'avatar' => 'nullable|file',
-            'uploadID' => 'nullable|file',
-            'motorTradeProof' => 'nullable|file',
-            'addressProof' => 'nullable|file',
-        ];
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        $request->validate($validations);
-
-        $model->companyName = $request->companyName;
-        $model->businessType = $request->businessType;
-        $model->companyReg = $request->companyReg;
-        $model->website = $request->website;
-        $model->businessEmail = $request->businessEmail;
-        $model->motorTradeInsurance = $request->motorTradeInsurance;
-        $model->vatNumber = $request->vatNumber;
-        $model->companyAddress1 = $request->companyAddress1;
-        $model->companyAddress2 = $request->companyAddress2;
-        $model->townCity = $request->townCity;
-        $model->country = $request->country;
-        $model->postcode = $request->postcode;
-        $model->telephone = $request->telephone;
-        
         $model->firstName = $request->firstName;
-        $model->surname = $request->surname;
-       
-        $model->title = $request->title;
-        $model->jobTitle = $request->jobTitle;
-        $model->phone = $request->phone;
         $model->personalEmail = $request->personalEmail;
+        $model->user_type = $request->user_type;
         $model->status = $request->status;
-        $model->user_type = 0;
+        $model->jobTitle = $request->jobTitle;
 
-
-        if ($request->password) {
+        if($request->password){
             $model->password = Hash::make($request->password);
         }
+        
+        $model->updated_at = Carbon::now();
+        $model->created_by = Auth::user()->id;
 
         if ($request->file('avatar')) {
-            // Remove existing thumbnail if it exists
-            if ($model->avatar && file_exists(public_path('uploads/' . $model->avatar))) {
-                unlink(public_path('uploads/' . $model->avatar));
+            if ($model->avatar && file_exists(public_path('uploads/avatar/' . $model->avatar))) {
+                unlink(public_path('uploads/avatar/' . $model->avatar));
             }
             $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
-            $filePath = public_path('uploads/avatar');
-            $request->file('avatar')->move($filePath, $fileName);
+            $request->file('avatar')->move(public_path('uploads/avatar'), $fileName);
             $model->avatar = $fileName;
-            // $user->save();
         }
 
-        if ($request->file('uploadID')) {
-            // Remove existing thumbnail if it exists
-            if ($model->uploadID && file_exists(public_path('uploads/' . $model->uploadID))) {
-                unlink(public_path('uploads/' . $model->uploadID));
-            }
-            $fileName = time() . '__ff__' . $request->file('uploadID')->getClientOriginalName();
-            $filePath = public_path('uploads/uploadID');
-            $request->file('uploadID')->move($filePath, $fileName);
-            $model->uploadID = $fileName;
-            // $user->save();
-        }
-
-        if ($request->file('motorTradeProof')) {
-            // Remove existing thumbnail if it exists
-            if ($model->motorTradeProof && file_exists(public_path('uploads/' . $model->motorTradeProof))) {
-                unlink(public_path('uploads/' . $model->motorTradeProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('motorTradeProof')->getClientOriginalName();
-            $filePath = public_path('uploads/motorTradeProof');
-            $request->file('motorTradeProof')->move($filePath, $fileName);
-            $model->motorTradeProof = $fileName;
-            // $user->save();
-        }
-
-        if ($request->file('addressProof')) {
-            // Remove existing thumbnail if it exists
-            if ($model->addressProof && file_exists(public_path('uploads/' . $model->addressProof))) {
-                unlink(public_path('uploads/' . $model->addressProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('addressProof')->getClientOriginalName();
-            $filePath = public_path('uploads/addressProof');
-            $request->file('addressProof')->move($filePath, $fileName);
-            $model->addressProof = $fileName;
-            // $user->save();
-        }
-
-        $model->save();
-        
         return response()->json([
             "message" => 'Record Updated Successfully',
             "data" => $model,
         ],200);
 
-        
     }
 
 
@@ -260,32 +250,7 @@ class StaffController extends Controller
     }
 
 
-    public function changeStatus(Request $request)
-    {
-
-        $validator = Validator::make($request->all(),[
-            'user_id' => 'required|exists:users,id|max:255',
-            'status' => 'required|max:255',
-        ]);
-
-        if($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
-            ], 422);
-        }
-    
-        $model = User::find($request->user_id);
-        $model->status = $request->status;
-        $model->save();
-
-        return response()->json([
-            "message" => 'Status Changed Successfully',
-            "data" => $model,
-        ],200);
-        
-    }
-
+  
 
 
 

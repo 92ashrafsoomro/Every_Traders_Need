@@ -36,7 +36,7 @@
                     </v-col>
 
                     <!-- Notification Dropdown -->
-                    <v-col cols="auto" class="ml-n3">
+                    <!-- <v-col cols="auto" class="ml-n3">
                         <v-sheet color="" class="d-flex align-center justify-center rounded border">
                             <Notificationdropdown class="test" />
                         </v-sheet>
@@ -44,7 +44,7 @@
 
                     <v-col cols="auto" class="ml-n3">
                         <ProfileDropdown/>
-                    </v-col>
+                    </v-col> -->
                 </div>
             </v-row>
         </v-app-bar>

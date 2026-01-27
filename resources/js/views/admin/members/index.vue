@@ -49,7 +49,7 @@
                                                     </v-btn>
                                                 </div>
 
-                                                <div class="pl-2" >
+                                                <!-- <div class="pl-2" >
                                                     <v-btn to="/admin/members/create" 
                                                         color="primary" 
                                                         style="height: 
@@ -57,7 +57,7 @@
                                                     >
                                                         <v-icon icon="mdi-plus"></v-icon>
                                                     </v-btn>
-                                                </div>
+                                                </div> -->
                                             </v-col>
                                         </v-row>
                                 </v-col>
@@ -131,9 +131,9 @@
                             </template>
 
                             <template #item.action="{ item }">
-                            <router-link :to="'/admin/members/edit/' + item.id">
+                            <!-- <router-link :to="'/admin/members/edit/' + item.id">
                                 <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
-                            </router-link>
+                            </router-link> -->
 
                             <span class="px-2"></span>
                             <v-icon
@@ -146,13 +146,13 @@
 
                             <span class="px-2"></span>
 
-                            <v-icon
+                            <!-- <v-icon
                                
                                 class="clickable-icon pa-4" color="danger"
                                 @click="deleteItem(item.id)"
                             >
                                 mdi-delete
-                            </v-icon>
+                            </v-icon> -->
                             </template>
 
                             <template #item.user="{ item }">

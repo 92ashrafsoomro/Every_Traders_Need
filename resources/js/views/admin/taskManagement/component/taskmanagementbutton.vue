@@ -208,12 +208,15 @@ export default {
             taskManagementStore: useTaskManagementStore()
         }
     },
- methods: {
-    changeTab(item) {
-      this.taskManagementStore.selectTaskTab(item.value)
-      this.$router.push(item.path)
+    methods: {
+        changeTab(item) {
+        this.taskManagementStore.selectTaskTab(item.value)
+        this.$router.push(item.path)
+        }
+    },
+    mounted(){
+        this.taskManagementStore.getTaskCount()
     }
-  }
 
 }
 

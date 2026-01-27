@@ -78,13 +78,14 @@
     <v-container max-width="1400px">
         <v-row no-gutters class="mt-3">
             <v-col cols="12">
+
                 <div class="d-flex justify-space-between d-md-flex py-4">
-                    <!-- <div class="d-flex align-center pb-2 pb-lg-0 pb-md-0">
+                    <div class="d-flex align-center pb-2 pb-lg-0 pb-md-0">
                         <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact"
                             variant="outlined" max-width="150px" class="mr-2" />
                         <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }}
                             of {{ total }} Records </div>
-                    </div> -->
+                    </div>
 
                     <!-- <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  "> -->
                         <!-- <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"

@@ -226,7 +226,6 @@ class NotificationController extends Controller
     { 
 
         $validator = Validator::make($request->all(),[
-            'user_id' => 'required|exists:users,id',
             'vehicle_id' => 'required|exists:vehicles,id',
         ]);
 
@@ -257,6 +256,68 @@ class NotificationController extends Controller
         ],200);
         
     }
+
+
+    public function addInVehicleAlert(Request $request)
+    { 
+
+        $validator = Validator::make($request->all(),[
+            'vehicle_id' => 'required|exists:vehicles,id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $checkExisting = UserVehicleAlert::where(['user_id' => $request->user()->id, 'vehicle_id' => $request->vehicle_id])->first();
+        if($checkExisting){
+            return response()->json([
+                'message' => 'Success',
+                'data' => $checkExisting
+            ],200);
+        }
+
+        $query = UserVehicleAlert::create([
+            'user_id' => $request->user()->id,
+            'vehicle_id' => $request->vehicle_id,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => $query
+        ],200);
+        
+    }
+
+      public function removeInVehicleAlert(Request $request)
+    { 
+
+        $validator = Validator::make($request->all(),[
+            'vehicle_id' => 'required|exists:vehicles,id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $checkExisting = UserVehicleAlert::where(['user_id' => $request->user()->id, 'vehicle_id' => $request->vehicle_id])->delete();
+
+        return response()->json([
+            'message' => 'Record Removed',
+            'data' => $checkExisting
+        ],200);
+        
+    }
+
+
+    
 
 
     

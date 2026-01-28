@@ -29,7 +29,7 @@ class UserController extends Controller
         $page  = $request->input('page',1);
         $length = $request->input('length',100);
 
-        $query = User::query()
+        $query = User::whereIn('users.user_type',[0])
                     ->leftJoin('memberships', 'memberships.user_id', '=', 'users.id')
                     ->leftJoin('membership_plans', 'membership_plans.id', '=', 'memberships.plan_id')
                     ->leftJoin('roles','roles.id','=','users.user_type');
@@ -43,6 +43,7 @@ class UserController extends Controller
 
             $query->where(function ($q) use ($search) {
                 $q->where('users.surname', 'like', "%{$search}%")
+                ->orWhere('users.id', 'like', "%{$search}%")
                 ->orWhere('users.firstName', 'like', "%{$search}%")
                 ->orWhere('users.companyName', 'like', "%{$search}%")
                 ->orWhere('users.phone', 'like', "%{$search}%")
@@ -298,7 +299,7 @@ class UserController extends Controller
                 'message' => $th->getMessage(),
             ],500);
         }
-        
+
 
     }
 

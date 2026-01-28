@@ -159,7 +159,7 @@ use App\Http\Controllers\Api\StripeController;
 
     // Notifications
     Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function () {
-
+        
         Route::post('/addInWatchList',[NotificationController::class,'addInWatchList']);
         Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
         Route::get('/userAlertList',[NotificationController::class,'userAlertList']);

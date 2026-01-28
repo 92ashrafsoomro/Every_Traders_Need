@@ -227,7 +227,7 @@ class NotificationController extends Controller
 
         $validator = Validator::make($request->all(),[
             'user_id' => 'required|exists:users,id',
-            'vehicle_id' => 'required|exists:users,id',
+            'vehicle_id' => 'required|exists:vehicles,id',
         ]);
 
         if($validator->fails()) {

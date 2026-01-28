@@ -26,8 +26,7 @@
                         readonly
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col> -->
                     <v-col cols="12" md="6">
@@ -37,8 +36,7 @@
                         
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -48,19 +46,17 @@
                         
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col>
                     <v-col cols="12" md="6">
-                    <v-text-field
+                    <UserTypeDropDown
                         label="User Type"
                         v-model="form.user_type"
-                        
+                        item-title="name"
+                        item-value="id"
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
                     />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -70,8 +66,7 @@
                         
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -81,8 +76,7 @@
                         
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col>
                     <v-col cols="12" md="6">
@@ -92,8 +86,7 @@
                         
                         variant="outlined"
                         density="compact"
-                        hide-details
-                        class="id-box"
+                        
                     />
                     </v-col>
                       <v-col cols="12" class="text-center mt-4">
@@ -119,7 +112,11 @@
 <script>
 import General from '@/models/general.model';
 import { useUserStafStore } from './userStafStore';
+import UserTypeDropDown from '@/components/UserTypeDropDown.vue';
 export default {
+    components:{
+        UserTypeDropDown
+    },
     data(){
         return{
             stafStore : useUserStafStore(),

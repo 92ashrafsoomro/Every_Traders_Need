@@ -25,7 +25,7 @@
 
                 <!-- LEFT -->
                 <div class="d-flex flex-wrap align-center    ga-2 flex-grow-1">
-
+                    
                     <!-- FILTER BUTTON -->
                     <div>
                         <v-btn v-if="!auctionStore.sidebar" color="primary" variant="outlined" prepend-icon="mdi-filter"
@@ -50,15 +50,14 @@
                                 Clear All
                             </span>
                         </v-btn>
-                        <div class="px-3 mt-1">
+                    </v-slide-x-transition>
+
+                    <!-- RECORD COUNT -->
+                     <div class="px-3 mt-1">
                         {{ auctionStore.offset }} -
                         {{ auctionStore.offset + auctionStore.filter.length }}
                         of {{ auctionStore.total }} Vehicles
                     </div>
-                    </v-slide-x-transition>
-
-                    <!-- RECORD COUNT -->
-                    
 
                 </div>
 

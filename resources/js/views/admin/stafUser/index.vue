@@ -32,9 +32,9 @@
                   @update:options="userStaf.getUser">
 
                    <template #item.action="{ item }">
-                      <!-- <v-icon small class="clickable-icon pa-4" color="danger" @click="delete(item.id)">
-                                    mdi-delete
-                        </v-icon>    -->
+                    <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.id)">
+                            mdi-delete
+                    </v-icon>    
                     <router-link :to="'/admin/stafUser/edit/' + item.id" target="_blank">
                             <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                         </router-link>
@@ -81,18 +81,21 @@ export default {
         // this.delete()
     },
     methods:{
-    // async delete(id){
-    //     try{
-    //           if (!confirm("Are you sure you want to delete this item?")) return;
-    //         this.userStaf.loading = true;
-    //         const res = await General.delete(`/api/cruds/staffs/`+id );
-    //         this.userStaf.getUser()
-    //         return res.data;
-    //     }
-    //     catch(error){
-    //         throw await errorHandler(error);
-    //     }
-    // }
+        async deleteItems(id){
+            if (!confirm("Are you sure you want to delete this item?")) return;
+            this.loading = true;
+            try {
+                const res = await General.delete('/api/cruds/staffs/'+id);
+                this.$alertStore.add(res.message || "Make deleted", "success");
+                this.userStaf.getUser()
+            }   catch(error){
+                console.error(error);
+                this.$alertStore.add(error.message || "Delete failed", "error");
+                // this.loadItems(); 
+                } finally {
+                this.loading = false;
+                }
+        }
     }
 }
 </script>

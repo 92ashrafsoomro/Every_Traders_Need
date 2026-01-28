@@ -237,6 +237,14 @@ class NotificationController extends Controller
             ], 422);
         }
 
+        $checkExisting = RecentView::where(['user_id' => $request->user()->id, 'vehicle_id' => $request->vehicle_id])->first();
+        if($checkExisting){
+            return response()->json([
+                'message' => 'Success',
+                'data' => $checkExisting
+            ],200);
+        }
+
         $query = RecentView::create([
             'user_id' => $request->user()->id,
             'vehicle_id' => $request->vehicle_id,

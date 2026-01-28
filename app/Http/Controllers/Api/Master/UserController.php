@@ -7,6 +7,7 @@ use App\Models\Membership;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\MembershipPlan;
+use App\Models\RecentView;
 use App\Models\UserPaymentMethod;
 use App\Models\UserVehicleAlert;
 use Illuminate\Support\Facades\Hash;
@@ -267,25 +268,37 @@ class UserController extends Controller
 
 
     public function destroy($id)
-    {
+    {   
 
         $model = User::find($id);
         if(!$model){
             return response()->json(["message" => "Record Not Found"],400);
         }
 
-        UserVehicleAlert::where('user_id',$id)->delete();
-        UserPaymentMethod::where('user_id',$id)->delete();
         if(Membership::where('user_id',$id)->first()){
             return response()->json(["message" => "Cannot Delete Record Its Used In Membership"],400);
         }
 
-        $model->delete();
+        DB::beginTransaction();
+        try {
 
-        return response()->json([
-            "message" => 'Record Deleted Successfully',
-            "data" => $model,
-        ],200);
+            UserVehicleAlert::where('user_id',$id)->delete();
+            UserPaymentMethod::where('user_id',$id)->delete();
+            RecentView::where('user_id',$id)->delete();
+            $model->delete();
+            DB::commit();
+            return response()->json([
+                "message" => 'Record Deleted Successfully',
+                "data" => $model,
+            ],200);
+                
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+        
 
     }
 

@@ -224,6 +224,35 @@ class NotificationController extends Controller
     }
 
 
+        public function addInWatchList(Request $request)
+    { 
+
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required|exists:users,id',
+            'vehicle_id' => 'required|exists:users,id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $query = RecentView::create([
+            'user_id' => $request->user()->id,
+            'vehicle_id' => $request->vehicle_id,
+            'created_at' => Carbon::noew(),
+        ]);
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => $query
+        ],200);
+        
+    }
+
+
     
 
 

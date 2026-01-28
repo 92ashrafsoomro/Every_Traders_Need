@@ -106,12 +106,10 @@ use App\Http\Controllers\Api\StripeController;
         
         Route::prefix('notifications')->group(function () {
 
-            Route::get('/userNotification',[NotificationController::class,'userNotification']);
-            Route::get('/markRead/{id}',[NotificationController::class,'markRead']);
+           
 
             
-            Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
-            Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+        
             
         });
 
@@ -119,17 +117,12 @@ use App\Http\Controllers\Api\StripeController;
 
         Route::prefix('page')->group(function () {
 
-            Route::get('/userWatchList',[PageController::class,'userWatchList']);
-            Route::get('/userAlertList',[PageController::class,'userAlertList']);
             Route::get('/plansList',[PageController::class,'plansList']);
-
             Route::post('/supportForm',[PageController::class,'supportForm']);
-            
         });
 
 
-        Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
-        Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+  
 
 
 
@@ -162,6 +155,20 @@ use App\Http\Controllers\Api\StripeController;
     });
 
     
+
+
+    // Notifications
+    Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function () {
+
+        Route::post('/addInWatchList',[NotificationController::class,'addInWatchList']);
+        Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
+        Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+        Route::get('/userNotification',[NotificationController::class,'userNotification']);
+        Route::get('/markRead/{id}',[NotificationController::class,'markRead']);
+
+    });
+
+
     // Master data
     Route::prefix('cruds')->middleware(['auth:sanctum'])->group(function () {
 
@@ -206,14 +213,6 @@ use App\Http\Controllers\Api\StripeController;
         // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
-
-        // Staff
-            
-       
-
-        
-
-        // Route::resource('platform',PlatformController::class);
 
     });
     

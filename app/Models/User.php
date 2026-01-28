@@ -28,6 +28,7 @@ class User extends Authenticatable  // This should extend Authenticatable
         'firstName',
         'surname',
         'title',
+        'status',
         'jobTitle',
         'phone',
         'personalEmail',

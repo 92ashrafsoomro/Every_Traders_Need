@@ -33,8 +33,8 @@ class DashboardController extends Controller
             $now = Carbon::today();
 
             // 🔹 Base vehicle query for today and upcoming auctions
-            $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                ->whereDate('auctions.auction_date', '>=', $now);
+            $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id');
+                // ->whereDate('auctions.auction_date', '>=', $now);
 
             // 🔹 Optional filters
             if ($request->make_id) {
@@ -88,7 +88,7 @@ class DashboardController extends Controller
 
             // 🔹 Find vehicles reappearing in future auctions
             $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                ->whereDate('auctions.auction_date', '<', $now)
+                // ->whereDate('auctions.auction_date', '<', $now)
                 ->pluck('vehicles.reg')
                 ->toArray();
 
@@ -120,7 +120,7 @@ class DashboardController extends Controller
 
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 // 🟢 Only include auctions happening today or later
-                ->whereDate('auctions.auction_date', '>=', Carbon::today())
+                // ->whereDate('auctions.auction_date', '>=', Carbon::today())
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
                     DB::raw("COUNT(CASE WHEN auctions.status = 'Not sold' THEN vehicles.id END) as inprogress_vehicles"),
@@ -147,7 +147,6 @@ class DashboardController extends Controller
             $offset = ($page - 1) * $length;
     
             $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
-
                     ->when($request->type, function($q) use ($request) {
                         if($request->type == 'time auction'){
                                 $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");

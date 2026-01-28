@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "deploy": "vite build --mode production",
         "dev": "vite",
         "test": "vitest",
         "test:run": "vitest run"

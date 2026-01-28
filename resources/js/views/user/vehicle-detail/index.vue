@@ -90,6 +90,7 @@
                                                 </div>
                                                 <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2" > <v-btn value="Reauction Detacted" height="50"
                                                             class="bell text-capitalize text-body-1 bg-background border"
+                                                            @click="sendAlertdata()"
                                                             style="background-color: rgba(var(--v-theme-primary), 0.2);">
                                                             <v-icon class="text-primary">mdi-bell-outline</v-icon>
                                                         </v-btn></div>
@@ -121,6 +122,7 @@ import ValuationTab from './ValuationTab/index.vue';
 import Detaction from './DetactionTab/index.vue'
 import VehicleSidebar from './VehicleSidebar.vue';
 import Vehicle from '@/models/vehicle.model';
+import General from '@/models/general.model';
 
 
 export default {
@@ -201,7 +203,7 @@ export default {
         loadVehicle() {
 
             this.loading = true;
-            Vehicle.find(this.$route.params.id)
+Vehicle.find(this.$route.params.id)
                 .then((res) => {
 
                     this.vehicleStore.vehicle = res.data.vehicle;
@@ -217,8 +219,26 @@ export default {
 
                 });
         },
+        async sendAlertdata(){
+//             {{url}}/api/notifications/removeInVehicleAlert
+                // {{url}}/api/notifications/addInVehicleAlert
 
-    },
+            const options = {
+                vehicle_id: this.vehicleStore.vehicle.id,
+                // user_id: this.userStore.user.id
+            };
+
+            try {
+               let res = await General.post("/api/notifications/addInVehicleAlert", options);
+                console.log(res);
+                
+            } catch (e) {
+                console.error(e);
+            }
+            
+        }
+        
+    }
 };
 </script>
 

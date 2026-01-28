@@ -90,6 +90,7 @@
 import MakeDropdown from "@/components/MakeDropdown.vue";
 import ModelDropdown from "@/components/ModelDropdown.vue";
 import YearDropdown from "@/components/YearDropdown.vue";
+import General from "@/models/general.model";
 import UserModel from "@/models/user.model";
 
 export default {
@@ -118,11 +119,11 @@ export default {
                 // { title: "", key: 'view', sortable: false },
                 { title: "Vehicle", value: "vehicle" },
                 { title: "Reg", value: "reg" },
-                { title: "CC", value: "cap_clean" },
-                { title: "Milage", value: "cap_average" },
-                { title: "Year", value: "cap_below" },
-                { title: "Grad", value: "cap_below" },
-                { title: "Date Time", value: "autotrader_retail_value" },
+                { title: "CC", value: "cc" },
+                { title: "Milage", value: "mileage" },
+                { title: "Year", value: "year" },
+                { title: "Transmission", value: "transmission" },
+                { title: "Date Time", value: "auction_date" },
                 { title: "Auction House", value: "platform_title" },
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
@@ -157,10 +158,8 @@ export default {
             this.loading = true;
             try {
 
-                const res = await UserModel.getWatchList(this.filter);
+                const res = await General.get("/api/notifications/userAlertList",this.filter);
                 // console.log(res);
-                
-
                 this.items = res.data || [];
                 this.totalItems = res.recordsTotal;
                 this.filter.offset = res.offset;

@@ -149,7 +149,8 @@ export default {
     },
     data() {
         return {
-            vehicleStore: useVehicleStore(),showDisclaimer: false,
+            vehicleStore: useVehicleStore(),
+            showDisclaimer: false,
         };
     },
     mounted() {

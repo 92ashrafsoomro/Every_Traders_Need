@@ -91,7 +91,7 @@ export default {
         async notificationFetch() {
             this.isLoading = true;
             try {
-                const res = await api.get("/api/user/notifications/userNotification");
+                const res = await api.get("/api/notifications/userNotification");
                 this.notifications = res.data;
                 this.notifications.unread = res.data.data.filter(n => n.is_read === 0).length
             } catch (error) {

@@ -94,7 +94,7 @@ export default {
             this.loading = true;
             try {
                 const res = await General.delete('/api/cruds/staffs/'+id);
-                this.$alertStore.add(res.message || "Make deleted", "success");
+                this.$alertStore.add(res.message || "Staff deleted", "success");
                 this.userStaf.getUser()
             }   catch(error){
                 console.error(error);

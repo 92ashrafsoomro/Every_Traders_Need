@@ -64,7 +64,7 @@
       <v-col cols="12" md="5">
         <Sidebar />
       </v-col>
-      <v-col cols="12" md="7">
+      <v-col cols="12" md="7" class="pl-lg-4 pl-md-4 pl-0">
         <v-card title="Notification" class=" h-100 d-flex flex-column" >
           <div class="border-b"></div>
           <v-card-text class="notification-scroll h-100">
@@ -91,9 +91,15 @@
 
 
                             <div class="mt-2">
-                                <v-icon v-if="note.is_read == 0" color="primary" size="10">
-                                    mdi-circle
-                                </v-icon>
+                              <v-icon
+                                v-if="note.is_read == 0"
+                                color="primary"
+                                size="20"
+                                @click.stop="readNotification(note.id)"
+                              >
+                                mdi-read
+                              </v-icon>
+
                             </div>
                         </div>
                     </v-list-item>
@@ -140,7 +146,7 @@ export default {
      async notificationFetch() {
             this.isLoading = true;
             try {
-                const res = await General.get("/api/user/notifications/userNotification");
+                const res = await General.get("/api/notifications/userNotification");
                 this.notifications = res.data;
             } catch (error) {
                 console.error("Error fetching notifications:", error);
@@ -148,6 +154,20 @@ export default {
                 this.isLoading = false;
             }
         },
+        async readNotification(id){
+          this.isLoading = true;
+            try {
+                const res = await General.post("/api/notifications/markRead/"+id);
+                this.$alertStore.add(res.message || "Notification Read", "success");
+                this.notificationFetch();
+              
+            
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                this.isLoading = false;
+            }
+        }
   }
 };
 </script>
@@ -174,6 +194,7 @@ export default {
     /* width: 100% !important; */
   }
 }
+
 .notification-scroll {
 
   overflow-y: auto;
@@ -186,6 +207,4 @@ export default {
 .notification-scroll::-webkit-scrollbar {
   display: none;              /* Chrome / Safari */
 }
-
-
 </style>

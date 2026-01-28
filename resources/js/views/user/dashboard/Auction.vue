@@ -132,7 +132,7 @@ export default {
             try {
                 const res = await api.get('/api/user/dashboard/onlineAuctions', {
                     params: {
-                        type: this.auctionType.toLowerCase(),
+                        type: this.auctionType?.toLowerCase(),
                         platform: this.platformsId
                     }
                 })

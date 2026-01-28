@@ -118,13 +118,18 @@
     "label": "Admin Access",
     "icon": "mdi-star-outline",
     "children": [
-    {
-        "label": "User restrictions",
+      {
+        "label": "User & Staff",
         "icon": "mdi-seal-variant",
-        "path": ""
+        "path": "/admin/staffUser"
       },
       {
-        "label": "Admin",
+        "label": "Role",
+        "icon": "mdi-seal-variant",
+        "path": "/admin/role"
+      },
+      {
+        "label": "User restrictions",
         "icon": "mdi-seal-variant",
         "path": ""
       }

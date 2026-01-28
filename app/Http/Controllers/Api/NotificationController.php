@@ -81,8 +81,6 @@ class NotificationController extends Controller
             'message' => 'Success',
             'data' => $query
         ],200);
-
-
     }
 
 
@@ -118,28 +116,28 @@ class NotificationController extends Controller
             // ✅ Clone the query before using count()
             $countQuery = (clone $baseQuery)->count(DB::raw('distinct user_vehicle_alerts.id'));
             $alerts = $baseQuery->select([
-                        'user_vehicle_alerts.id as notification_id',
-                        'user_vehicle_alerts.created_at as notified_at',
-                        
-                        'vehicles.id as vehicle_id',
-                        'vehicles.title as vehicle',
-                        'vehicles.year',
-                        'vehicles.cc',
-                        'vehicles.images as image',
-                        'vehicles.reg',
-                        'vehicles.mileage',
-                        'vehicles.transmission',
-                        'vehicles.auction_id',
-                        'vehicles.last_bid',
-                        'vehicles.cap_clean',
-                        'vehicles.cap_below',
-                        'vehicles.cap_average',
-                        'vehicles.autotrader_retail_value',
+                    'user_vehicle_alerts.id as notification_id',
+                    'user_vehicle_alerts.created_at as notified_at',
+                    
+                    'vehicles.id as vehicle_id',
+                    'vehicles.title as vehicle',
+                    'vehicles.year',
+                    'vehicles.cc',
+                    'vehicles.images as image',
+                    'vehicles.reg',
+                    'vehicles.mileage',
+                    'vehicles.transmission',
+                    'vehicles.auction_id',
+                    'vehicles.last_bid',
+                    'vehicles.cap_clean',
+                    'vehicles.cap_below',
+                    'vehicles.cap_average',
+                    'vehicles.autotrader_retail_value',
 
-                        'auctions.name as auction_name',
-                        'auctions.auction_date',
-                        'auctions.auction_type',
-                        'auctions.end_date',
+                    'auctions.name as auction_name',
+                    'auctions.auction_date',
+                    'auctions.auction_type',
+                    'auctions.end_date',
                 ])
                 ->orderByDesc('user_vehicle_alerts.id')
                 ->skip($offset)

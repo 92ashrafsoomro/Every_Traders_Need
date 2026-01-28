@@ -35,7 +35,6 @@ class StaffController extends Controller
                 ->whereNotIn('users.user_type',[0,1])
                 ->leftJoin('roles','roles.id','=','users.user_type');
                   
-
         if(!empty($search)) {
 
             $query->where(function ($q) use ($search) {
@@ -44,7 +43,6 @@ class StaffController extends Controller
                 ->orWhere('users.personalEmail', 'like', "%{$search}%");
             });
         }
-
 
         if($request->filled('status')) {
                $query->where('users.status', $request->status);
@@ -135,7 +133,7 @@ class StaffController extends Controller
             'status' => $request->status,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
-            'created_by' => Auth::user()->id,
+       
         ]);
 
 
@@ -208,7 +206,7 @@ class StaffController extends Controller
         }
         
         $model->updated_at = Carbon::now();
-        $model->created_by = Auth::user()->id;
+       
 
         if ($request->file('avatar')) {
             if ($model->avatar && file_exists(public_path('uploads/avatar/' . $model->avatar))) {

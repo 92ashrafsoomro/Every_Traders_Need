@@ -248,7 +248,7 @@ class NotificationController extends Controller
         $query = RecentView::create([
             'user_id' => $request->user()->id,
             'vehicle_id' => $request->vehicle_id,
-            'created_at' => Carbon::noew(),
+            'created_at' => Carbon::now(),
         ]);
 
         return response()->json([

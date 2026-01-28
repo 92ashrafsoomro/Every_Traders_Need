@@ -138,7 +138,7 @@ class RoleController extends Controller
         }
 
         if(User::where('user_type',$id)->first()){
-            return response()->json(["message" => "Cannot Delete Record Its Used In Membership"],400);
+            return response()->json(["message" => "Cannot Delete Record Its Used In Staff"],400);
         }
 
         $model->delete();

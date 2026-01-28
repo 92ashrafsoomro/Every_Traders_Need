@@ -41,10 +41,10 @@
                             <Notificationdropdown class="test" />
                         </v-sheet>
                     </v-col>
-
+-->
                     <v-col cols="auto" class="ml-n3">
                         <ProfileDropdown/>
-                    </v-col> -->
+                    </v-col> 
                 </div>
             </v-row>
         </v-app-bar>

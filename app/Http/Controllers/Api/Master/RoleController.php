@@ -28,26 +28,21 @@ class RoleController extends Controller
             $search = $request->input('search','');
             $offset  = $request->input('offset',0);
             $page  = $request->input('page',1);
-            $length = $request->input('length',100);
+            $length = $request->input('length',10);
 
-            $query = Role::leftJoin('users','users.user_type','=','roles.id');
-             
-
+            $query = Role::whereNotIn('id',[0,1]);
+            
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('roles.name', 'like', "%{$search}%");
                 });
             }
 
-            $count = (clone $query)->groupBy('users.user_type')->count('roles.id');
+            $count = (clone $query)->count('roles.id');
 
             $data = $query->select([
                         'roles.*',
-                        DB::raw('COUNT(users.id) as users')
                     ])
-                    ->groupBy(
-                        'users.user_type',
-                    )
                     ->offset($offset)
                     ->limit($length)
                     ->get()
@@ -107,7 +102,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
 
-        $model = Role::find($id);
+        $model = Role::whereNotIn('id',[0,1])->where('id',$id)->first();
         if(!$model){
             return response()->json(["message" => "Record Not Found"],422);
         }
@@ -137,11 +132,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
 
-        $model = Role::find($id);
+        $model = Role::whereNotIn('id',[0,1])->where('id',$id)->first();
         if(!$model){
             return response()->json(["message" => "Record Not Found"],400);
         }
-        
+
         if(User::where('user_type',$id)->first()){
             return response()->json(["message" => "Cannot Delete Record Its Used In Membership"],400);
         }

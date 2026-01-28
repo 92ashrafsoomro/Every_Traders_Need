@@ -360,72 +360,6 @@
           ]
         },
         {
-          "name": "Notifications",
-          "item": [
-            {
-              "name": "userNotification",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{url}}/api/user/notifications/userNotification",
-                  "host": [
-                    "{{url}}"
-                  ],
-                  "path": [
-                    "api",
-                    "user",
-                    "notifications",
-                    "userNotification"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "markRead",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{url}}/api/user/notifications/markRead/200",
-                  "host": [
-                    "{{url}}"
-                  ],
-                  "path": [
-                    "api",
-                    "user",
-                    "notifications",
-                    "markRead",
-                    "200"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
           "name": "Page",
           "item": [
             {
@@ -2821,6 +2755,188 @@
           ]
         },
         {
+          "name": "roles",
+          "item": [
+            {
+              "name": "list",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/roles",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "roles"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/roles/1",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "roles",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "test role",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/roles",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "roles"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {}
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "put",
+                      "type": "text"
+                    },
+                    {
+                      "key": "name",
+                      "value": "testing 1",
+                      "type": "text",
+                      "uuid": "383dd200-e230-499c-a0c8-cf1009aedf1e"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{url}}/api/cruds/roles/15",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "roles",
+                    "15"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/api/cruds/roles/15",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cruds",
+                    "roles",
+                    "15"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "staff",
           "item": [
             {
@@ -4500,40 +4616,6 @@
           ]
         },
         {
-          "name": "roles",
-          "item": [
-            {
-              "name": "list",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{url}}/api/cruds/roles",
-                  "host": [
-                    "{{url}}"
-                  ],
-                  "path": [
-                    "api",
-                    "cruds",
-                    "roles"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
           "name": "New Request",
           "request": {
             "method": "GET",
@@ -5100,15 +5182,126 @@
       ]
     },
     {
-      "name": "New Request",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": ""
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "addInWatchList",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/notifications/addInWatchList",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "addInWatchList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "markRead",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/notifications/markRead/200",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "markRead",
+                "200"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "userAlertList",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/notifications/userAlertList",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "userAlertList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "userWatchList",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/notifications/userWatchList",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "userWatchList"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     }
   ],
   "event": [

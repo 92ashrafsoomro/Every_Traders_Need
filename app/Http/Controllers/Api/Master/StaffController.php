@@ -67,6 +67,7 @@ class StaffController extends Controller
                     'users.firstName',
                     'users.personalEmail',
                     'users.phone',
+                    'users.jobTitle',
                     'roles.name as role_name',
                     'users.user_type',
                     'users.status',      
@@ -217,6 +218,8 @@ class StaffController extends Controller
             $request->file('avatar')->move(public_path('uploads/avatar'), $fileName);
             $model->avatar = $fileName;
         }
+
+        $model->save();
 
         return response()->json([
             "message" => 'Record Updated Successfully',

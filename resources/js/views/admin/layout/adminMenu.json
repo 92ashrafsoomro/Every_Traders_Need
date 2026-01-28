@@ -119,9 +119,9 @@
     "icon": "mdi-star-outline",
     "children": [
       {
-        "label": "User & Staf",
+        "label": "User & Staff",
         "icon": "mdi-seal-variant",
-        "path": "/admin/stafUser"
+        "path": "/admin/staffUser"
       },
       {
         "label": "Role",

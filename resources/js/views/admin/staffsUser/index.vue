@@ -1,5 +1,5 @@
 <template>
-    <user-title-bar title="Staf"
+    <user-title-bar title="User & Staff"
         subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi a temporibus, reiciendis, voluptatibus id natus nam repudiandae delectus vitae sit officia, laboriosam dolor numquam sed minus dolores. Itaque, illum qui.">
     </user-title-bar>
 
@@ -14,7 +14,7 @@
                 of {{ userStaf.total }} Records
          </div>
         <div class="pl-2" >
-                    <v-btn to="/admin/stafUser/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                    <v-btn to="/admin/staffUser/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                         <v-icon icon="mdi-plus"></v-icon>
                     </v-btn>
         </div>
@@ -35,9 +35,18 @@
                     <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.id)">
                             mdi-delete
                     </v-icon>    
-                    <router-link :to="'/admin/stafUser/edit/' + item.id" target="_blank">
+                    <router-link :to="'/admin/staffUser/edit/' + item.id" >
                             <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
                         </router-link>
+                    </template>
+                    <template #item.status="{ item }">
+                        <v-btn
+                            :color="item.status == 0 ? 'primary':'warning'"
+                            size="small"
+                            variant="flat"
+                        >
+                         {{ item.status == 0 ?  'Active' : 'Pending'   }}
+                        </v-btn>
                     </template>
 
                 <template v-slot:bottom>
@@ -64,13 +73,12 @@ export default {
            userStaf : useUserStafStore(),
            headers:[
             { title: "ID", value: "id" },
-            { title: "FirstName", value: "firstName" },
+            { title: "Name", value: "firstName" },
             { title: "Email", value: "personalEmail" },
             { title: "Phone", value: "phone" },
             { title: "Role", value: "role_name" },
-            { title: "Create At", value: "created_at" },
-            { title: "Type Of user", value: "user_type" },
             { title: "Status", value: "status" },
+            { title: "Create At", value: "created_at" },
             {title : "Action" , value : "action" , }
             // { title: "Updated ", value: "updated_at" },
            ]

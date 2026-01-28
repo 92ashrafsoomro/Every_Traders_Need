@@ -33,7 +33,8 @@ export default {
             this.loading = true;
             try {            
                 const response = await General.get('/api/cruds/roles',{});
-                this.data = response.data; 
+                this.data = response.data.filter(item => item.id !== 0 && item.id !== 1);
+
             } catch (err) {
                 console.error("Error loading :", err);
                 this.data = [];

@@ -5,7 +5,7 @@ import edit from './edit.vue'
 
 export default [
     {
-        path: "StafUser",
+        path: "staffUser",
         children: [  
             { path: '', component: index },
             { path: 'create', component: create },

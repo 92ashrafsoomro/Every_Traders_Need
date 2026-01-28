@@ -59,15 +59,15 @@
     </div>
   </div>
 
-   <div style="max-width: 1400px" class="mx-auto py-10 px-4">
+   <div style="max-width: 1400px; max-height: 1300px;" class="mx-auto py-10 px-4">
     <v-row  no-gutters="" >
       <v-col cols="12" md="5">
         <Sidebar />
       </v-col>
       <v-col cols="12" md="7">
-        <v-card title="Notification" class="border" style="height: 1200px;">
+        <v-card title="Notification" class=" h-100 d-flex flex-column" >
           <div class="border-b"></div>
-          <v-card-text class="notification-scroll">
+          <v-card-text class="notification-scroll h-100">
          
   
                 <template v-for="(note, i) in notifications" :key="i">
@@ -99,8 +99,7 @@
                     </v-list-item>
                     <v-divider v-if="i < notifications.length - 1" />
                 </template>
-     
-              
+  
            </v-card-text>
 
         </v-card>
@@ -176,7 +175,7 @@ export default {
   }
 }
 .notification-scroll {
-  max-height: 1400px;
+
   overflow-y: auto;
 
   /* Hide scrollbar - Chrome, Edge, Safari */

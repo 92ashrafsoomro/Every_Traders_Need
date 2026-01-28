@@ -4,7 +4,7 @@
             <v-card class="border">
                 <div class="d-flex align-center justify-space-between px-4 py-3">
                     <h3 class="text-h6 font-weight-bold">
-                        Create Staf
+                        Create Staffs
                     </h3>
                     <router-link :to="'/admin/stafUser/'">
                         <v-btn variant="text" color="primary" class="text-capitalize">
@@ -44,9 +44,17 @@
                                      hide-details 
                                      class="id-box" />
                             </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Status" v-model="form.status" variant="outlined" density="compact"
-                                    hide-details class="id-box" />
+                             <v-col cols="12" md="6">
+                                <v-select
+                                    :items="statusItems"
+                                    label="Status"
+                                    v-model="form.status"
+                                    item-title="value"
+                                    item-value="id"
+                                    variant="outlined"
+                                    density="compact"
+                                    hide-details
+                                    />
                             </v-col>
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="createUser" color="primary" height="40">
@@ -73,13 +81,16 @@ export default {
     },
     data() {
         return {
+             statusItems: [
+                { value: 'Active', id: 0 },
+                { value: 'Pending', id: 1 },
+                ],
             form: {
                 id: '',
                 firstName: '',
                 personalEmail: '',
                 user_type: '',
                 jobTitle: '',
-                role_name:'',
                 password: '',
                 status: ''
             },

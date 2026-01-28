@@ -195,7 +195,7 @@ export default {
                 name: "",
                 auction_type: null,
                 platform: null,
-                status: null,
+                status: 1,
                 auction_date: "",
                 search: '',
                 length: 50,

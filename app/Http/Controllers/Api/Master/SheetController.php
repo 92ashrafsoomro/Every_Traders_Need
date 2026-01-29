@@ -97,12 +97,17 @@ class SheetController extends Controller
                 ],400);
             }
 
+            Log::info(json_encode([
+                'action' => 'updatePublishColumn' , 
+                'data' => $request->payload
+            ],true));
+
             try {
 
                     $jsons = json_decode($request->payload,true);
                     foreach ($jsons as $key => $value){
                         
-                        Log::info(json_encode(['action' => 'updatePublishColumn' , 'data' => $value],true));
+                        
 
                         Vehicle::where('auction_id',$auction->id)
                             ->where('reg',$value['reg'])

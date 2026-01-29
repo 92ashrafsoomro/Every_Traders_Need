@@ -707,7 +707,7 @@ class AuctionFinderController extends Controller
 
       
         $userId = $request->user()->id;
-        $length = $request->input('length', 50);
+        $length = $request->input('length', 1000);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
@@ -777,7 +777,11 @@ class AuctionFinderController extends Controller
             'auction_platform.id as platform_id',
             'auctions.auction_date',
             'auctions.status',
+            // DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
+             // Total vehicles
             DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
+            DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = "Sold") as sold_car_count'),
+
             DB::raw('(
                 SELECT GROUP_CONCAT(DISTINCT auction_center.name)
                 FROM vehicles
@@ -785,8 +789,8 @@ class AuctionFinderController extends Controller
                 WHERE vehicles.auction_id = auctions.id
             ) as center_names'),
         )
-        ->offset($offset)
-        ->limit($length)
+        // ->offset($offset)
+        // ->limit($length)
         ->get()
         ->map(function ($auction) {
             

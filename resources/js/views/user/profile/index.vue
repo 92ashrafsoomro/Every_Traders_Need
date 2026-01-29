@@ -65,7 +65,16 @@
         <Sidebar />
       </v-col>
       <v-col cols="12" md="7" class="pl-lg-4 pl-md-4 pl-0">
-        <v-card title="Notification" class=" h-100 d-flex flex-column" >
+        <v-card  class=" h-100 d-flex flex-column" >
+            <div class="d-flex justify-space-between align-center pa-4">
+                <h2 class="text-h6 font-weight-medium">Notifications</h2>
+                <div class="d-flex align-center ga-3">
+                    <v-chip color="primary" size="small" class="font-weight-bold text-caption">
+                        {{ notificationsUnredCount }} New
+                    </v-chip>
+                    <v-icon size="22">mdi-email-outline</v-icon>
+                </div>
+            </div>
           <div class="border-b"></div>
           <v-card-text class="notification-scroll h-100">
          
@@ -86,7 +95,9 @@
                                 <p class="text-caption text-medium-emphasis text-wrap">
                                     {{ note.message }}
                                 </p>
-
+                                <div>
+                                  {{ dateFormate(note.created_at) }}
+                                </div>
                             </div>
 
 
@@ -132,6 +143,7 @@ export default {
       userStore: useUserStore(),
       userAvatar,
      notifications: [],
+     notificationsUnredCount: 0,
       isLoading: false,
     };
   },
@@ -148,6 +160,8 @@ export default {
             try {
                 const res = await General.get("/api/notifications/userNotification");
                 this.notifications = res.data;
+                 this.notificationsUnredCount = this.notifications.filter(n => n.is_read === 0).length;
+
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             } finally {
@@ -167,7 +181,13 @@ export default {
             } finally {
                 this.isLoading = false;
             }
+        },
+        
+        dateFormate(date) {
+            if (!date) return ''
+            return date.split('T')[0].split(' ')[0]
         }
+
   }
 };
 </script>

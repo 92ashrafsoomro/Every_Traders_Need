@@ -24,15 +24,19 @@
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field label="Email" v-model="form.personalEmail" variant="outlined"
-                                    density="compact" hide-details class="id-box" />
+                                density="compact" hide-details class="id-box" />
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field label="Job Title" v-model="form.jobTitle" variant="outlined"
-                                    density="compact" hide-details class="id-box" />
+                                density="compact" hide-details class="id-box" />
                             </v-col>
                             <v-col cols="12" md="6">
+                               <v-text-field label="Phone" v-model="form.phone" variant="outlined"
+                                   density="compact" hide-details class="id-box" />
+                           </v-col>
+                            <v-col cols="12" md="6">
                                 <v-text-field label="Password" v-model="form.password" variant="outlined"
-                                    density="compact" hide-details class="id-box" />
+                                    density="compact" hide-details class="id-box" type="password" />
                             </v-col>
                             <v-col cols="12" md="6">
                                 <UserTypeDropDown label="User Role" 
@@ -91,6 +95,7 @@ export default {
                 personalEmail: '',
                 user_type: '',
                 jobTitle: '',
+                phone:'',
                 password: '',
                 status: ''
             },
@@ -108,6 +113,7 @@ export default {
                     this.form.personalEmail = '',
                     this.form.user_type = '',
                     this.form.role_name = '',
+                    this.form.phone = '',
                     this.form.jobTitle = '',
                     this.form.password = '',
                     this.form.status = ''

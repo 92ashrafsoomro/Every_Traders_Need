@@ -2,7 +2,7 @@
     <!-- SIDEBAR OVERLAY -->
     <v-navigation-drawer v-model="vehicleStore.sidebar" location="left" temporary width="300" class="bg-surface">
 
-       
+
         <VehicleSidebar />
 
     </v-navigation-drawer>
@@ -58,42 +58,46 @@
                                             </div>
                                             <div class="d-flex btn-scroll-wrapper  justify-space-between w-100">
 
-                                                    <div class="d-flex ml-2 btn-scroll-inner">
-                                                        <v-btn-toggle v-model="vehicleStore.tab" mandatory>
-                                                            <v-btn value="details" height="50" variant="tonal"
-                                                                class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
-                                                                :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }">
-                                                                Vehicle Details
-                                                            </v-btn>
+                                                <div class="d-flex ml-2 btn-scroll-inner">
+                                                    <v-btn-toggle v-model="vehicleStore.tab" mandatory>
+                                                        <v-btn value="details" height="50" variant="tonal"
+                                                            class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                            :class="{ 'bg-primary text-white': vehicleStore.tab === 'details' }">
+                                                            Vehicle Details
+                                                        </v-btn>
 
-                                                            <v-btn value="valuation" height="50" variant="tonal"
-                                                                class="buttonBorder text-none px-5 py-2 ml-2 text-capitalize text-body-1"
-                                                                :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }">
-                                                                Vehicle Valuation
-                                                            </v-btn>
-                                                        </v-btn-toggle>
-                                                    </div>
-
-
-                                                    <div class="d-flex ga-3">
-                                                        <v-btn-toggle class="detection-toggle"
-                                                            v-model="vehicleStore.tab" mandatory>
-                                                            <v-btn value="detection" height="50"
-                                                                class="detection buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
-                                                                :class="{ 'bg-danger text-white': vehicleStore.tab === 'detection' }"
-                                                                style="background-color: rgba(var(--v-theme-danger), 0.2);">
-                                                                Reauction Detacted
-                                                            </v-btn> </v-btn-toggle>
-                                                       
-
-                                                    </div>
+                                                        <v-btn value="valuation" height="50" variant="tonal"
+                                                            class="buttonBorder text-none px-5 py-2 ml-2 text-capitalize text-body-1"
+                                                            :class="{ 'bg-primary text-white': vehicleStore.tab === 'valuation' }">
+                                                            Vehicle Valuation
+                                                        </v-btn>
+                                                    </v-btn-toggle>
                                                 </div>
-                                                <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2" > <v-btn value="Reauction Detacted" height="50"
-                                                            class="bell text-capitalize text-body-1 bg-background border"
-                                                            @click="sendAlertdata()"
-                                                            style="background-color: rgba(var(--v-theme-primary), 0.2);">
-                                                            <v-icon class="text-primary">mdi-bell-outline</v-icon>
-                                                        </v-btn></div>
+
+
+                                                <div class="d-flex ga-3">
+                                                    <v-btn-toggle class="detection-toggle" v-model="vehicleStore.tab"
+                                                        mandatory>
+                                                        <v-btn value="detection" height="50"
+                                                            class="detection buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
+                                                            :class="{ 'bg-danger text-white': vehicleStore.tab === 'detection' }"
+                                                            style="background-color: rgba(var(--v-theme-danger), 0.2);">
+                                                            Reauction Detacted
+                                                        </v-btn> </v-btn-toggle>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2">
+                                                <v-btn value="Reauction Detacted" height="50"
+                                                    class="bell text-capitalize text-body-1 border"
+                                                    :disabled="alertExists" @click="sendAlertdata" :style="{
+                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary),0.2)' : 'transparent',
+                                                        cursor: alertExists ? 'not-allowed' : 'pointer'
+                                                    }"> <v-icon class="text-primary">mdi-bell-outline</v-icon>
+                                                </v-btn>
+
+                                            </div>
                                         </div>
                                     </v-col>
 
@@ -131,26 +135,30 @@ export default {
         ValuationTab,
         Detaction,
         VehicleSidebar,
+
     },
     data() {
         return {
             vehicleStore: useVehicleStore(),
             loading: false,
+            alertExists: false,
+            filter: {
+                lenght: 1
+            }
         };
     },
     async mounted() {
 
         this.loadVehicle();
+        this.alertExist();
         this.$themeStore.menuType = "collapsed";
     },
     beforeUnmount() {
 
     },
     unmounted() {
-
         this.loading = false;
         this.vehicleStore.isVehicle = false;
-
     },
     computed: {
         currentComponent() {
@@ -203,7 +211,7 @@ export default {
         loadVehicle() {
 
             this.loading = true;
-Vehicle.find(this.$route.params.id)
+            Vehicle.find(this.$route.params.id)
                 .then((res) => {
 
                     this.vehicleStore.vehicle = res.data.vehicle;
@@ -219,25 +227,35 @@ Vehicle.find(this.$route.params.id)
 
                 });
         },
-        async sendAlertdata(){
-//             {{url}}/api/notifications/removeInVehicleAlert
-                // {{url}}/api/notifications/addInVehicleAlert
-
+        async alertExist() {
             const options = {
                 vehicle_id: this.vehicleStore.vehicle.id,
-                // user_id: this.userStore.user.id
+                lenght: this.filter.lenght
             };
 
             try {
-               let res = await General.post("/api/notifications/addInVehicleAlert", options);
-                console.log(res);
-                
+                let res = await General.get("/api/notifications/userAlertList", options);
+
+                this.alertExists = res.data?.some(alert => alert.vehicle_id === this.vehicleStore.vehicle.id);
+
             } catch (e) {
                 console.error(e);
             }
-            
         }
-        
+        ,
+        async sendAlertdata() {
+            const options = { vehicle_id: this.vehicleStore.vehicle.id };
+
+            try {
+                let res = await General.post("/api/notifications/addInVehicleAlert", options);
+                this.$alertStore.add("ALert Add Successfully" , "success")
+                this.alertExists = true; 
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+
     }
 };
 </script>

@@ -74,7 +74,7 @@
                                             </v-col>
                                         </v-row>
                                 </v-col>
-                    
+                            <UserCount/>
                             </v-row>
                         </v-container>
                     </div>
@@ -218,13 +218,14 @@ import Members from '@/models/member.model';
 import PlansDropDron from "@components/PlanDropDown.vue"
 import UserDrawer from './component/UserDrawer.vue';
 import UserDropdown  from '@/components/UserDropdown.vue';
-
+import UserCount from './component/UserCount.vue';
 export default {
 
   components: {
         PlansDropDron,
         UserDrawer,
-        UserDropdown 
+        UserDropdown ,
+        UserCount
   },
 
   data() {

@@ -92,6 +92,7 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
               const options = {id:id , status:status};
               let res  = await General.post("/api/cruds/taskManagement/changeStatus", options );
                await this.getTaskManagement();
+               await this.getTaskCount()
             } catch (error) {
                 console.error(error)
             } finally {

@@ -78,7 +78,7 @@ export default {
             { title: "Phone", value: "phone" },
             { title: "Role", value: "role_name" },
             { title: "Status", value: "status" },
-            { title: "Create At", value: "created_at" },
+            { title: "Created At", value: "created_at" },
             {title : "Action" , value : "action" , }
             // { title: "Updated ", value: "updated_at" },
            ]

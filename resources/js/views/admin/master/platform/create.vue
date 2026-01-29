@@ -4,7 +4,7 @@
       <v-card class="border">
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
-          <h3 class="text-h6 font-weight-bold">{{ title }}</h3>
+          <h3 class="text-h6 font-weight-bold">Create Platform</h3>
 
           <v-btn variant="text" color="primary" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>

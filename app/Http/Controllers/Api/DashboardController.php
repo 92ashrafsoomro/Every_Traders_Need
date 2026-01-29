@@ -28,8 +28,8 @@ class DashboardController extends Controller
 
       public function counters(Request $request)
     {   
-            $id = $request->user()->id;
 
+            $id = $request->user()->id;
             $now = Carbon::today();
 
             // 🔹 Base vehicle query for today and upcoming auctions
@@ -37,18 +37,18 @@ class DashboardController extends Controller
                 // ->whereDate('auctions.auction_date', '>=', $now);
 
             // 🔹 Optional filters
-            if ($request->make_id) {
-                $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
-            }
-            if ($request->model_id) {
-                $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
-            }
-            if ($request->year) {
-                $vehicleBaseQuery->where('vehicles.year', $request->year);
-            }
-            if ($request->grade) {
-                $vehicleBaseQuery->where('vehicles.grade', $request->grade);
-            }
+            // if ($request->make_id) {
+            //     $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
+            // }
+            // if ($request->model_id) {
+            //     $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
+            // }
+            // if ($request->year) {
+            //     $vehicleBaseQuery->where('vehicles.year', $request->year);
+            // }
+            // if ($request->grade) {
+            //     $vehicleBaseQuery->where('vehicles.grade', $request->grade);
+            // }
             
 
             // 🔹 Stats

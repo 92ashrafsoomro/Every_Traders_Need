@@ -91,7 +91,7 @@ class UserController extends Controller
                         'users.phone',
                         'users.businessType',
                         'roles.name as role_name',
-                        
+
                         'users.surname',
                         'users.companyName',
                         'users.user_type',

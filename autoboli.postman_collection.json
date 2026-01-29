@@ -4614,14 +4614,6 @@
               "response": []
             }
           ]
-        },
-        {
-          "name": "New Request",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
         }
       ]
     },
@@ -5199,6 +5191,10 @@
             },
             "method": "POST",
             "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
             "url": {
               "raw": "{{url}}/api/notifications/addInWatchList",
               "host": [
@@ -5208,6 +5204,151 @@
                 "api",
                 "notifications",
                 "addInWatchList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addInUserAuction",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{url}}/api/notifications/addInUserAuction?auction_id=938",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "addInUserAuction"
+              ],
+              "query": [
+                {
+                  "key": "auction_id",
+                  "value": "938"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addInVehicleAlert",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{url}}/api/notifications/addInVehicleAlert",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "addInVehicleAlert"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "removeInVehicleAlert",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{url}}/api/notifications/removeInVehicleAlert",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "removeInVehicleAlert"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "removeInUserAuction",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "auction_id",
+                  "value": "938",
+                  "type": "text",
+                  "uuid": "3bf2708c-2388-475b-aac2-7dca600a37c1"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{url}}/api/notifications/removeInUserAuction",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "removeInUserAuction"
               ]
             }
           },
@@ -5256,17 +5397,17 @@
                 }
               ]
             },
-            "method": "GET",
+            "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{url}}/api/notifications/userAlertList",
+              "raw": "{{url}}/api/notifications/addInVehicleAlert",
               "host": [
                 "{{url}}"
               ],
               "path": [
                 "api",
                 "notifications",
-                "userAlertList"
+                "addInVehicleAlert"
               ]
             }
           },
@@ -5300,8 +5441,53 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "userAuctionsList",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/notifications/userAuctionList",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "userAuctionList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
         }
       ]
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
     }
   ],
   "event": [

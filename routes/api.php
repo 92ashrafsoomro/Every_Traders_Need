@@ -143,7 +143,7 @@ use App\Http\Controllers\Api\StripeController;
 
 
     // Notifications
-    Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function(){
         
         Route::post('/addInWatchList',[NotificationController::class,'addInWatchList']);
         Route::post('/addInVehicleAlert',[NotificationController::class,'addInVehicleAlert']);
@@ -152,7 +152,6 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/removeInVehicleAlert',[NotificationController::class,'removeInVehicleAlert']);
         Route::post('/removeInUserAuction',[NotificationController::class,'removeInUserAuction']);
         
-
         Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
         Route::get('/userAuctionList',[NotificationController::class,'userAuctionList']);
         Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
@@ -180,7 +179,6 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
         
-
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);

@@ -711,9 +711,9 @@ class AuctionFinderController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id')
-        ->whereMonth('auctions.auction_date',12)
-        ->whereYear('auctions.auction_date',2025);
+        $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id');
+        // ->whereMonth('auctions.auction_date',12)
+        // ->whereYear('auctions.auction_date',2025);
         
         if ($request->has('platform_id') && $request->platform_id != '') {
             $query->where('auctions.platform_id', $request->platform_id);

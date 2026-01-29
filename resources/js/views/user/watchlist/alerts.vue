@@ -49,18 +49,29 @@
 
             <v-col cols="12" class="mt-3">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
-                        :loading="loading" item-value="id" @update:options="loadItems">
-
-                        <template #item.view="{ item }">
-                            <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                    <v-data-table-server class="" 
+                    :headers="headers" :items="items" 
+                    :items-length=" totalItems" hover
+                    :loading="loading" item-value="id"
+                    @update:options="loadItems">
+                        
+                        <template #item.vehicle="{item}">
+                            <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.vehicle_id" target="_blank">{{ item.vehicle }}</v-btn>
                         </template>
+
 
                         <template #item.autoboli="{ item }">
                             -
                         </template>
+                        
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
+                        </template>
+
+                        <template #item.action="{item}">
+                             <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.vehicle_id)">
+                                mdi-delete
+                             </v-icon>  
                         </template>
 
                          <template v-slot:bottom>
@@ -92,6 +103,7 @@ import ModelDropdown from "@/components/ModelDropdown.vue";
 import YearDropdown from "@/components/YearDropdown.vue";
 import General from "@/models/general.model";
 import UserModel from "@/models/user.model";
+import { useVehicleStore } from "@/stores/vehicleStore";
 
 export default {
     name: "Alert",
@@ -111,20 +123,22 @@ export default {
                 page: 1,
                 offset: 0,
             },
+            vehicleStore: useVehicleStore(),
             last_page: 1,
             items: [],
             totalItems: 0,
             loading: false,
             headers: [
-                // { title: "", key: 'view', sortable: false },
-                { title: "Vehicle", value: "vehicle" },
-                { title: "Reg", value: "reg" },
+                // { title: "View", key: 'view', sortable: false },
+                { title: "Vehicle", value: "vehicle" , sortable: false},
+                { title: "Reg", value: "reg" }, 
                 { title: "CC", value: "cc" },
                 { title: "Milage", value: "mileage" },
                 { title: "Year", value: "year" },
                 { title: "Transmission", value: "transmission" },
                 { title: "Date Time", value: "auction_date" },
-                { title: "Auction House", value: "platform_title" },
+                { title: "Auction Name", value: "auction_name" },
+                { title : "Action" , value : 'action'}
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],
@@ -157,7 +171,6 @@ export default {
 
             this.loading = true;
             try {
-
                 const res = await General.get("/api/notifications/userAlertList",this.filter);
                 // console.log(res);
                 this.items = res.data || [];
@@ -175,6 +188,25 @@ export default {
             }
 
         },
+        async deleteItems(vehicle_id){
+            if(!confirm("Are you sure you want to delete this item?")) return
+            
+            this.loading = true
+             const options = {
+                vehicle_id: vehicle_id,
+            };
+            
+            try {
+                const res = await General.post("/api/notifications/removeInVehicleAlert", options);
+                this.$alertStore.add(res.message || "Alert Deleted", "success");
+                this.loadItems()
+            } catch (error) {
+                console.error(error);
+                this.$alertStore.add(error.message || "Delete failed", "error");
+            } finally{
+                this.loading = false;
+            }
+        }
 
     },
 };

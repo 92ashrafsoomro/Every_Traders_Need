@@ -81,15 +81,16 @@
                   </v-icon>
                 </div>
   
-                <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
+                <span class="text-h4 px-3">{{ counter.inprogress_Auctions }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
               <div class="pt-2 d-flex justify-space-between">
                 <div class="text-body-2 pr-2">
-                  <span class="white">Inprogress Auctions: </span>
-                  <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{counter.inprogress_Auctions }}</span>
-                </div>
+                  <span class="white">Vehicles:</span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                      counter.vehicleReauctions }}</span>   </div>
                 <div class="text-body-2">View</div>
   
               </div>
@@ -115,10 +116,10 @@
               <div class="pt-3 text-body-1 text-whiteLite ">Total Vehicles</div>
               <div class="pt-2 d-flex">
                 <div class="text-body-2 pr-2">
-                  <span class="white">Total Vehicles:</span>
+                  <span class="white">Sold:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      counter.totalVehicles }}</span>
+                      vehicelState.sold_vehicles }}</span>
                 </div>
               </div>
   
@@ -145,7 +146,7 @@
                   <span class="white">Vehicles:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      counter.vehicleReauctions }}</span>
+                      vehicelState.total_vehicles }}</span>
                 </div>
   
               </div>
@@ -294,7 +295,15 @@ export default {
         this.counter.totalVehicles = res.data.data.total_vehicles;
         this.counter.vehicleReauctions = res.data.data.vehicles_in_reauction
         this.counter.isLoading = false;
-
+        //  "total_auctions": 9,
+        // "online_auctions": 0,
+        // "offline_auctions": 0,
+        // "vehicles_in_progress_auctions": 0,
+        // "totalVehiclesInProgress": 0,
+        // "total_vehicles": 739,
+        // "sold_vehicles": 0,
+        // "unsold_vehicles": 0,
+        // "vehicles_in_reauction": 739
       } catch (error) {
         this.counter.isLoading = false;
         console.error(error.message, "counters Api error");

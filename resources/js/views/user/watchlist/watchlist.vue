@@ -46,11 +46,14 @@
 
             <v-col cols="12" class="mt-3 ">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
-                        :loading="loading" item-value="id" @update:options="loadItems">
+                    <v-data-table-server class="" 
+                    :headers="headers" :items="items" 
+                    :items-length=" totalItems" hover
+                    :loading="loading" item-value="id" 
+                    @update:options="loadItems">
 
-                        <template #item.view="{ item }">
-                            <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                        <template #item.vehicle="{item}">
+                            <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id">{{ item.vehicle }}</v-btn>
                         </template>
 
                         <template #item.autoboli="{ item }">
@@ -117,7 +120,7 @@ export default {
             totalItems: 0,
             loading: false,
             headers: [
-                // { title: "", key: 'view', sortable: false },
+                // { title: "view", key: 'view', sortable: false },
                 { title: "Auction", value: "auction_id" },
                 { title: "Vehicle", value: "vehicle" },
                 { title: "Reg", value: "reg" },

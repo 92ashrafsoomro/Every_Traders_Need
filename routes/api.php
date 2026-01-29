@@ -144,6 +144,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/addInWatchList',[NotificationController::class,'addInWatchList']);
         Route::post('/addInVehicleAlert',[NotificationController::class,'addInVehicleAlert']);
         Route::post('/addInUserAuction',[NotificationController::class,'addInUserAuction']);
+        
         Route::post('/removeInVehicleAlert',[NotificationController::class,'removeInVehicleAlert']);
         Route::post('/removeInUserAuction',[NotificationController::class,'removeInUserAuction']);
         

@@ -163,14 +163,14 @@ class NotificationController extends Controller
 
        public function userAuctionList(Request $request)
     {
-
+        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         $userId = $request->user()->id;
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
         $baseQuery = UserAuction::leftJoin('auctions','auctions.id', '=','user_auctions.auction_id')
-             ->join('vehicles','vehicles.auction_id','=','auctions.id')
+             ->leftJoin('vehicles','vehicles.auction_id','=','auctions.id')
             ->where('user_auctions.user_id', $userId);
 
             // Apply filters
@@ -199,6 +199,7 @@ class NotificationController extends Controller
             $alerts = $baseQuery->select([
                  '*'
                 ])
+                ->groupby('user_auctions.id')
                 ->orderByDesc('user_auctions.id')
                 ->skip($offset)
                 ->take($length)

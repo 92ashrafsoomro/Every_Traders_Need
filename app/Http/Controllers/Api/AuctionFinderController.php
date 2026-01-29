@@ -700,7 +700,9 @@ class AuctionFinderController extends Controller
     }
 
 
-    public function auctionShedule(Request $request){
+
+
+    public function auctionSheduler(Request $request){
 
       
                 $userId = $request->user()->id;

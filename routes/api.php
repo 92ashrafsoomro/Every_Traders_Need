@@ -122,7 +122,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
         
         Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
-        Route::get('/auctionShedule',[AuctionFinderController::class,'auctionShedule']);
+        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
 
         Route::get('/compareList',[AuctionFinderController::class,'compareList']);
         Route::prefix('interest')->group(function () {
@@ -130,6 +130,10 @@ use App\Http\Controllers\Api\StripeController;
         });
         
     });
+
+
+
+
 
     Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);

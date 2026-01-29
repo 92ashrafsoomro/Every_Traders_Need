@@ -55,11 +55,11 @@ class DashboardController extends Controller
             $totalVehicles = (clone $vehicleBaseQuery)->count();
 
             $soldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'sold')
+                ->where('bidding_status', 'Sold')
                 ->count();
 
             $unsoldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Not sold')
+                ->where('bidding_status', 'Not Sold')
                 ->count();
 
             $totalAuctions = (clone $vehicleBaseQuery)
@@ -67,12 +67,12 @@ class DashboardController extends Controller
                 ->count('auction_id');
 
             $onlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 'Online Auction')
+                ->where('auction_type', 2)
                 ->distinct('auction_id')
                 ->count('auction_id');
 
             $offlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 'Time Auction')
+                ->where('auction_type', 1)
                 ->distinct('auction_id')
                 ->count('auction_id');
 
@@ -101,6 +101,7 @@ class DashboardController extends Controller
                 'success' => true,
                 'data' => [
                     'total_auctions' => $totalAuctions,
+                 
                     'online_auctions' => $onlineAuctions,
                     'offline_auctions' => $offlineAuctions,
                     'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
@@ -123,7 +124,7 @@ class DashboardController extends Controller
                 // ->whereDate('auctions.auction_date', '>=', Carbon::today())
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
-                    DB::raw("COUNT(CASE WHEN auctions.status = 'Not sold' THEN vehicles.id END) as inprogress_vehicles"),
+                    DB::raw("COUNT(CASE WHEN auctions.status = 4 THEN vehicles.id END) as inprogress_vehicles"),
                     DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Sold' THEN vehicles.id END) as onsale_vehicles"),
                     DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
                     DB::raw("COUNT(*) - COUNT(DISTINCT vehicles.id) as duplicate_vehicles")

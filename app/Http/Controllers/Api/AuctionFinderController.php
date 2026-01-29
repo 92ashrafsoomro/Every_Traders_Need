@@ -705,9 +705,18 @@ class AuctionFinderController extends Controller
         public function auctionSheduler(Request $request)
     {
 
-      
-        $userId = $request->user()->id;
-        $length = $request->input('length', 1000);
+        $groups =  DB::table('auctions as a')
+        ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
+        ->select(
+            DB::raw('DATE(a.auction_date) as auction_day'),
+            DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
+            DB::raw('COUNT(v.id) as total_vehicles')
+        )
+        ->groupBy(DB::raw('DATE(a.auction_date)'))
+        ->orderBy('auction_day', 'ASC')
+        ->get();
+
+        $length = $request->input('length', 10);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
@@ -733,42 +742,13 @@ class AuctionFinderController extends Controller
             $query->where('auctions.status', $request->status);
         }
 
+        if ($request->has('date') && $request->date != ''){
+            $query->whereDate('auctions.auction_date',$request->date);
+        }
 
-        // if ($request->has('day') && $request->day != '') {
-
-        //     $day = $request->input('day');
-        //     $date = match (true) {
-        //         \Carbon\Carbon::parse($day)->isToday()      => 'today',
-        //         \Carbon\Carbon::parse($day)->isTomorrow()   => 'tomorrow',
-        //         \Carbon\Carbon::parse($day)->isYesterday()  => 'yesterday',
-
-            
-        //         \Carbon\Carbon::parse($day)->isSameWeek(\Carbon\Carbon::today()) 
-        //             => strtolower(\Carbon\Carbon::parse($day)->format('l')), 
-
-                
-        //         \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) === 1 
-        //             && \Carbon\Carbon::parse($day)->lessThan(\Carbon\Carbon::today())
-        //             => 'last ' . strtolower(\Carbon\Carbon::parse($day)->format('l')),
-
-                
-        //         \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) === 1 
-        //             && \Carbon\Carbon::parse($day)->greaterThan(\Carbon\Carbon::today())
-        //             => 'next ' . strtolower(\Carbon\Carbon::parse($day)->format('l')),
-
-                
-        //         default => \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) . ' week(s)',
-        //     };
-
-        //     $query = $query->whereDate('auctions.auction_date', $date);
-
-        // }
-        
-        // else {
-        //     $dateRange = date('Y-m-d'); 
-        //     $query = $query->whereDate('auctions.auction_date', $dateRange);
-        // }
-
+        if ($request->enableCurrent == 'true'){
+            $query->whereDate('auctions.status',4);
+        }
         
         $countQuery = (clone $query)->count();
         $data = $query->select(
@@ -777,11 +757,8 @@ class AuctionFinderController extends Controller
             'auction_platform.id as platform_id',
             'auctions.auction_date',
             'auctions.status',
-            // DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
-             // Total vehicles
             DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
             DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = "Sold") as sold_car_count'),
-
             DB::raw('(
                 SELECT GROUP_CONCAT(DISTINCT auction_center.name)
                 FROM vehicles
@@ -789,26 +766,25 @@ class AuctionFinderController extends Controller
                 WHERE vehicles.auction_id = auctions.id
             ) as center_names'),
         )
-        // ->offset($offset)
-        // ->limit($length)
+        ->offset($offset)
+        ->limit($length)
         ->get()
         ->map(function ($auction) {
-            
-            $today = date('Y-m-d');
-            $auctionDate = date('Y-m-d', strtotime($auction->auction_date)); 
+
+
             $auction->time = date('d-m-Y', strtotime($auction->auction_date));
             return $auction;
-
 
         });
 
         return response()->json([
+            "groups" => $groups,
             "recordsTotal" => $countQuery,
             "recordsFiltered" => $countQuery,
-            "data" => $data,
             'page' => $page,
             'offset' => $offset,
             'last_page' => ceil($countQuery / $length),
+            "data" => $data,
         ],200);
         
 

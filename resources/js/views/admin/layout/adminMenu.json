@@ -119,7 +119,7 @@
     "icon": "mdi-star-outline",
     "children": [
       {
-        "label": "User & Staff",
+        "label": "Admin & Staff",
         "icon": "mdi-seal-variant",
         "path": "/admin/staffUser"
       },

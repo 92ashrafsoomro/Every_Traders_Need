@@ -4,7 +4,7 @@
             <v-card class="border">
                 <div class="d-flex align-center justify-space-between px-4 py-3">
                     <h3 class="text-h6 font-weight-bold">
-                        Create Role
+                        Edit Role
                     </h3>
                        <router-link :to="'/admin/role/'">
                     <v-btn variant="text" color="primary" class="text-capitalize">

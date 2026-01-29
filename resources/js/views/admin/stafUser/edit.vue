@@ -4,9 +4,9 @@
             <v-card class="border">
                 <div class="d-flex align-center justify-space-between px-4 py-3">
                     <h3 class="text-h6 font-weight-bold">
-                        Create Staffs
+                        Edit Staffs
                     </h3>
-                       <router-link :to="'/admin/stafUser/'">
+                       <router-link :to="'/admin/staffUser/'">
                     <v-btn variant="text" color="primary" class="text-capitalize">
                         <v-icon start>mdi-arrow-left</v-icon>
                         Back
@@ -61,17 +61,6 @@
                         />
                     </v-col>
 
-                  
-                    <!-- <v-col cols="12" md="6">
-                    <UserTypeDropDown
-                        label="User Role"
-                        v-model="form.role_name"
-                        item-title="name"
-                        item-value="id"
-                        variant="outlined"
-                        density="compact"
-                    />
-                    </v-col> -->
                     <v-col cols="12" md="6">
                     <v-text-field
                         label="Job Title"
@@ -81,16 +70,13 @@
                         
                     />
                     </v-col>
-                    <v-col cols="12" md="6">
-                    <v-text-field
-                        label="Password"
-                        v-model="form.password"
-                        
-                        variant="outlined"
-                        density="compact"
-                        
-                    />
-                    </v-col>
+                     <v-col cols="12" md="6">
+                    <v-text-field label="Phone" 
+                            v-model="form.phone" 
+                            variant="outlined"
+                            density="compact" 
+                            hide-details class="id-box" />
+                           </v-col>
                     <v-col cols="12" md="6">
                     <v-select
                         label="Status"
@@ -143,9 +129,9 @@ export default {
                 firstName : '',
                 personalEmail : '',
                 user_type : '',
+                phone : "",
                 jobTitle : '',
                 status: '',
-                password : '',
             },
             loading : false,
         }
@@ -163,10 +149,10 @@ export default {
         this.form.id = res.id;
         this.form.firstName = res.firstName;
         this.form.personalEmail = res.personalEmail;
+        this.form.phone = res.phone
         this.form.jobTitle = res.jobTitle;
         this.form.user_type = Number(res.user_type); 
-        this.form.status = res.status; 
-        this.form.password = res.password;
+        this.form.status = res.status;
     } catch (error) {
         this.$alertStore.add(error.message || 'Some Thing went wrong' , error);
     } finally {

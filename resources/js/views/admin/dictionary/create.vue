@@ -3,19 +3,20 @@
     <v-col cols="12">
       <v-card class="border ">
         <div class="d-flex align-center justify-space-between px-4 py-3">
-          <h3 class="text-h6 font-weight-bold">Create Prefixes</h3>
+          <h3 class="text-h6 font-weight-bold">Create Dictionary</h3>
           <v-btn variant="text" color="primary" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>
         </div>
-        <div class="mx-6">
+     
 
 
           <div class="border-b"></div>
-          <v-card-text>
-            <h3 class="text-h4 font-weight-bold mb-4">Add Prefixes</h3>
-
+        
+        <v-card-text>
+          <v-container fluid="">
+     
             <v-row class="mb-6">
 
               <v-col cols="4">
@@ -63,19 +64,19 @@
 
 
             </v-row>
-
+          </v-container >
+       
           </v-card-text>
-
 
           <v-row class="mb-2">
             <v-col cols="12" class="text-end">
               <v-btn color="primary" @click="submitForm">
-                Add Prefixes
+                Add Dictionary
               </v-btn>
             </v-col>
           </v-row>
 
-        </div>
+
 
       </v-card>
     </v-col>

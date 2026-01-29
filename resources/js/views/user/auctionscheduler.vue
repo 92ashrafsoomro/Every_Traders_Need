@@ -102,7 +102,7 @@
                         <template #item.action="{ item }">
                             <div class="d-flex">
                                 <v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon>
-                                <v-icon class="NotifyIcon ml-2 " size="20"> mdi-bell-outline</v-icon>
+                                <v-icon class="NotifyIcon ml-2 " size="20"   @click="sendData(item.id)"> mdi-bell-outline</v-icon>
                             </div>
                         </template>
                         <template #item.platform_name="{ item }">
@@ -155,6 +155,7 @@ import { usePageStore } from '@/stores/pageStore';
 
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import CenterDropdown from '@/components/CenterDropdown.vue';
+import General from '@/models/general.model';
 
 export default {
     props: {
@@ -243,31 +244,7 @@ export default {
             this.getRecords();
         },
 
-        getDayKey(date) {
-            const d = new Date(date);
-            const today = new Date();
-
-            if (d.toDateString() === today.toDateString()) {
-                return 'today';
-            }
-
-            return d.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
-        },
-
-        prepareDays(data) {
-            const days = this.days;
-
-            data.forEach(item => {
-                const dayKey = this.getDayKey(item.auction_date);
-
-                if (days[dayKey]) {
-                    days[dayKey].auction += 1;
-                    days[dayKey].car += Number(item.car_count || 0);
-                }
-            });
-
-            this.days = days;
-        },
+   
         
         async getRecords() {
             try {
@@ -286,7 +263,25 @@ export default {
                 this.options.page = 1;
                 this.options.last_page = 1;
             }
+        },
+        async sendData(auction_id) {
+                this.loading = true
+                const options = {auction_id: auction_id}
+                try {
+                    let res = await General.post("/api/notifications/addInUserAuction", options );
+
+                    this.$alertStore.add("Added successfully", "success");
+                    console.log(res);
+                    
+                } catch (error) {
+                    this.$alertStore.add("Error", "error");
+                    console.error(error);
+                } finally {
+                    this.loading = false;
+                }
         }
+
+        
     },
 };
 </script>

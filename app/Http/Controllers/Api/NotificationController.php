@@ -197,7 +197,7 @@ class NotificationController extends Controller
             // ✅ Clone the query before using count()
             $countQuery = (clone $baseQuery)->count(DB::raw('distinct user_auctions.id'));
             $alerts = $baseQuery->select([
-                 '*'
+                 'auctions.*'
                 ])
                 ->groupby('user_auctions.id')
                 ->orderByDesc('user_auctions.id')

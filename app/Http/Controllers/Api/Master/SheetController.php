@@ -99,7 +99,7 @@ class SheetController extends Controller
 
             Log::info(json_encode([
                 'action' => 'updatePublishColumn' , 
-                'data' => $request->payload
+                'data' => json_decode($request->payload,true)
             ],true));
 
             try {

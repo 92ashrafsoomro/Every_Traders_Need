@@ -163,6 +163,7 @@ class NotificationController extends Controller
 
        public function userAuctionList(Request $request)
     {
+
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         $userId = $request->user()->id;
         $length = $request->input('length', 50);
@@ -202,7 +203,7 @@ class NotificationController extends Controller
                  'auctions.*',
                  'auction_platform.name as platform_name',
                  'auction_status.title as auction_status',
-                 
+                 DB::raw('COUNT(vehicles.id) as vehicles_count'),
                 ])
                 ->groupby('user_auctions.id')
                 ->orderByDesc('user_auctions.id')

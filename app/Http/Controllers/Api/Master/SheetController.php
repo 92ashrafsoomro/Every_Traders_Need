@@ -12,6 +12,7 @@ use App\Services\SheetColumnSetter;
 use App\Services\SheetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SheetController extends Controller
 {
@@ -100,6 +101,9 @@ class SheetController extends Controller
 
                     $jsons = json_decode($request->payload,true);
                     foreach ($jsons as $key => $value){
+                        
+                        Log::info(json_encode(['action' => 'updatePublishColumn' , 'data' => $value],true));
+
                         Vehicle::where('auction_id',$auction->id)
                             ->where('reg',$value['reg'])
                             ->update([

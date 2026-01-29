@@ -12,21 +12,27 @@
                                 @update:model-value="handleInput"  variant="outlined" color="primary" width="120"
                                 density="compact" />
                         </div> 
-                        <div class="px-2">
+                        <!-- <div class="px-2">
                             <YearDropdown label="All Years" :model-value="filter.year"
                                 @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
                                 variant="outlined" color="primary" width="150" density="compact" clearable />
-                        </div>
+                        </div> -->
                     </div>
                     <div class="d-flex ">
 
                         <div class="px-0">
-                            <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No" v-model="filter.reg_search"
+                            <v-text-field prepend-inner-icon="mdi-magnify" label="Reg No" v-model="filter.platform"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="200"
                                 density="compact" clearable />
                         </div>
+                        
+                        <div class="px-lg-2 px-md-2 px-2">
+                                       <PlateformDropdown min-width="250px" max-width="274px"   density="compact"  v-model="filter.platform"  label="Auction House" clearable variant="outlined"
+                                         @update:modelValue="handleInput($event, 'platform')"
+                                    base-color="white"  />
 
-                         <div class="px-lg-2 px-md-2 px-2">
+                       </div>
+                         <!-- <div class="px-lg-2 px-md-2 px-2">
                             <MakeDropdown width="200" label="Select Make" variant="outlined" item-title="name"
                                  item-value="id" color="primary"
                                 density="compact" :model-value="filter.make"
@@ -40,7 +46,7 @@
                                  item-value="id"
                                 @update:modelValue="handleInput($event, 'model')" clearable density="compact" />
 
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -51,6 +57,7 @@
                 <div class="  border ">
                     <v-data-table-server class="" 
                     :headers="headers" :items="items" 
+                     hide-default-footer
                     :items-length=" totalItems" hover
                     :loading="loading" item-value="id"
                     @update:options="loadItems">
@@ -63,6 +70,9 @@
                         <template #item.autoboli="{ item }">
                             -
                         </template>
+                        <template #item.total_vehicle="{ item }">
+                            <span>100</span>
+                        </template>
                         
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{item.platform_title }}</span>
@@ -74,7 +84,7 @@
                              </v-icon>  
                         </template>
 
-                         <template v-slot:bottom>
+                         <!-- <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination 
                                   :loading="loading" 
@@ -82,7 +92,7 @@
                                   :lastPage="last_page" 
                                   @page-changed="loadItems" />
                             </div>
-                        </template>
+                        </template> -->
 
                        
                     </v-data-table-server>
@@ -104,18 +114,19 @@ import YearDropdown from "@/components/YearDropdown.vue";
 import General from "@/models/general.model";
 import UserModel from "@/models/user.model";
 import { useVehicleStore } from "@/stores/vehicleStore";
-
+import PlateformDropdown from "@/components/PlateformDropdown.vue";
 export default {
     name: "Alert",
     components: {
         MakeDropdown,
         ModelDropdown,
-        YearDropdown
+        YearDropdown,
+        PlateformDropdown
     },
     data() {
         return {
             filter: {
-                make: null,
+                platform: null,
                 model: null,
                 reg_search: '',
                 year: null,
@@ -131,18 +142,22 @@ export default {
             headers: [
                 // { title: "View", key: 'view', sortable: false },
                 // { title: "Vehicle", value: "vehicle" , sortable: false},
-                { title: "Platform", value: "name" }, 
-                { title: "Center", value: "cc" },
-                { title: "Total Vehicle", value: "total_vehicle" },
-                { title: "Time", value: "time" },
-                { title: "Status", value: "status" },
+                { title: "ID", value: "id" },
+                { title: "Platform", value: "platform_name" }, 
+                { title: "Auction Name", value: "name" },
+                // { title: "Center", value: "cc" },
+                { title: "Total Vehicle", value: "vehicles_count" },
+                { title: "Time", value: "auction_date" },
+                { title: "Status", value: "auction_status" },
                 // { title: "Date Time", value: "auction_date" },
-                // { title: "Auction Name", value: "auction_name" },
                 // { title : "Action" , value : 'action'}
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],
         }
+    },
+    watch:{
+        
     },
     mounted() {
 
@@ -152,12 +167,10 @@ export default {
         handleInput(value, field = null) {
 
             switch (field) {
-                case 'make':
-                    this.filter.make = value;
+                case 'platform':
+                    this.filter.platform = value;
                     break;
-                case 'model':
-                    this.filter.model = value;
-                    break;
+               
                 case 'year':
                     this.filter.year = value;
                     break;

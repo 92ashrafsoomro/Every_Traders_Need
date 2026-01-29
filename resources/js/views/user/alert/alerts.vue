@@ -51,6 +51,7 @@
                 <div class="  border ">
                     <v-data-table-server class="" 
                     :headers="headers" :items="items" 
+                     hide-default-footer
                     :items-length=" totalItems" hover
                     :loading="loading" item-value="id"
                     @update:options="loadItems">

@@ -49,6 +49,7 @@
                     <v-data-table-server class="" 
                     :headers="headers" :items="items" 
                     :items-length=" totalItems" hover
+                     hide-default-footer
                     :loading="loading" item-value="id" 
                     @update:options="loadItems">
 
@@ -68,7 +69,7 @@
                             {{dateFormate(autotrader_retail_value)}}
                         </template> -->
 
-                         <template v-slot:bottom>
+                         <!-- <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination 
                                   :loading="loading" 
@@ -76,7 +77,7 @@
                                   :lastPage="last_page" 
                                   @page-changed="loadItems" />
                             </div>
-                        </template>
+                        </template> -->
 
                        
                     </v-data-table-server>

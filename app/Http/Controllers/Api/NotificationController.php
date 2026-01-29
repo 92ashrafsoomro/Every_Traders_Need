@@ -170,6 +170,8 @@ class NotificationController extends Controller
         $offset = ($page - 1) * $length;
 
         $baseQuery = UserAuction::leftJoin('auctions','auctions.id', '=','user_auctions.auction_id')
+             ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')
+             ->leftJoin('auction_status','auction_status.id','=','auctions.status')
              ->leftJoin('vehicles','vehicles.auction_id','=','auctions.id')
             ->where('user_auctions.user_id', $userId);
 
@@ -197,7 +199,10 @@ class NotificationController extends Controller
             // ✅ Clone the query before using count()
             $countQuery = (clone $baseQuery)->count(DB::raw('distinct user_auctions.id'));
             $alerts = $baseQuery->select([
-                 'auctions.*'
+                 'auctions.*',
+                 'auction_platform.name as platform_name',
+                 'auction_status.title as auction_status',
+                 
                 ])
                 ->groupby('user_auctions.id')
                 ->orderByDesc('user_auctions.id')

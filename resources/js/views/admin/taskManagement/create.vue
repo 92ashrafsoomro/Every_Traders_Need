@@ -222,16 +222,6 @@ export default {
                const res = await General.post('/api/cruds/taskManagement', this.form)
                this.$alertStore.add(res.message, 'success');
                 //  this.$router.push('/admin/taskManagement')
-              this.form.id = "";
-              this.form.auction_type= "";
-              this.form.platform= "";
-              this.form.auction_name= "";
-              this.form.date= "";
-              this.form.created_date= "";
-              this.form.end_time= "";
-              this.form.lots= "";
-              this.form.assign_to= "";
-              this.form.status= "";
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong' , error)
             }finally {

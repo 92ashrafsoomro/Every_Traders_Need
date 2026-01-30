@@ -70,7 +70,8 @@
                         </template>
 
                         <template #item.action="{item}">
-                             <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.vehicle_id)">
+                             <v-icon small class="clickable-icon pa-4" color="danger"
+                              @click="deleteItems(item.vehicle_id)">
                                 mdi-delete
                              </v-icon>  
                         </template>

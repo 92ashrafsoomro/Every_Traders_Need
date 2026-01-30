@@ -96,8 +96,8 @@
 
 
     <v-card class="border-sm border-white">
-      <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading" hover
-        hide-default-footer item-value="id" @update:options="getRecords">
+      <v-data-table-server :headers="headers" sort-asc-icon=""  :items="data" :items-length="total" :loading="loading" hover
+        hide-default-footer item-value="id" @update:options="getRecords" >
 
         <template #item.action="{ item }">
           <div class="d-flex">

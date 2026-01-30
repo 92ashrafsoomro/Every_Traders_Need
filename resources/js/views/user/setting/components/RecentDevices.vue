@@ -2,7 +2,7 @@
     <v-card title="Recent Devices" class="">
 
         <div class="border"></div>
-        <v-card-text class="ml-2">
+        <v-card-text class="" style="padding: 0px !important; ">
             <v-data-table-server class="pb-3" hide-default-footer :headers="headers" :items="data" :items-length="total"
                 item-value="id">
                 <template #item.platform="{ item }">

@@ -49,18 +49,7 @@ class DashboardController extends Controller
             // if ($request->grade) {
             //     $vehicleBaseQuery->where('vehicles.grade', $request->grade);
             // }
-            
 
-            // 🔹 Stats
-            $totalVehicles = (clone $vehicleBaseQuery)->count();
-
-            $soldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Sold')
-                ->count();
-
-            $unsoldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Not Sold')
-                ->count();
 
             $totalAuctions = (clone $vehicleBaseQuery)
                 ->distinct('auction_id')
@@ -75,6 +64,26 @@ class DashboardController extends Controller
                 ->where('auction_type', 1)
                 ->distinct('auction_id')
                 ->count('auction_id');
+
+            $inProgressAuctions = (clone $vehicleBaseQuery)
+                ->where('status', 4)
+                ->distinct('auction_id')
+                ->count('auction_id');
+
+            
+
+            // 🔹 Stats
+            $totalVehicles = (clone $vehicleBaseQuery)->count();
+            $soldVehicles = (clone $vehicleBaseQuery)
+                ->where('bidding_status', 'Sold')
+                ->count();
+            $unsoldVehicles = (clone $vehicleBaseQuery)
+                ->where('bidding_status', 'Not Sold')
+                ->count();
+
+     
+
+
 
             $totalVehiclesInProgress = (clone $vehicleBaseQuery)
                 ->where('auctions.status', 'In Progress')
@@ -101,9 +110,10 @@ class DashboardController extends Controller
                 'success' => true,
                 'data' => [
                     'total_auctions' => $totalAuctions,
-                 
                     'live_auctions' => $onlineAuctions,
                     'time_auctions' => $offlineAuctions,
+                    'in_progressAuctions' => $inProgressAuctions,
+
                     'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
                     'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
                     'total_vehicles' => $totalVehicles,

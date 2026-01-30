@@ -90,7 +90,7 @@ export default {
 
     data() {
         return {
-            auctionType: null,
+            auctionType: "Online Auction",
             platformsId: null,
             isLoading: false,
             data: [],

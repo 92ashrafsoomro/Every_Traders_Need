@@ -4,7 +4,7 @@
     </user-title-bar>
     <v-container fluid="" max-width="1500px">
         <div class="border">
-            <v-data-table-server class="" :loading="loading" :headers="headers" :items="items" :items-length="total"
+            <v-data-table-server class="" hide-default-footer="" :loading="loading" :headers="headers" :items="items" :items-length="total"
                 hover item-value="id" @update:options="getPlainData">
                 <template #item.created_at="{ item }">
                     <span>{{ item.created_at?.split('T')[0] }}</span>

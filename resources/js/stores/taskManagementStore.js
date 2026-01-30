@@ -32,6 +32,11 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
                 value: 'final',
                 path: '/admin/taskManagement/final'
             },
+             {
+                title: 'All',
+                value: 'all',
+                path: '/admin/taskManagement/all'
+            }
             
         ],
         status: [

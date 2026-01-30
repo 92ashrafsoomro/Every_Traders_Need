@@ -11,26 +11,31 @@
                 </div>
             </div>
             <div class=" ">
-                  <div class="d-flex mt-2 mb-0 ">
+   
+                <div class="d-flex mt-2 mb-0 ">
                      <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 d-flex items-center align-center" >Auction house :</h3></div>
-                    <div class="d-flex scrollSec  ">
-                        <div  v-for="(item, key) in platformName"
+                    <div class="scrollSec">
+                     <div class="d-flex">
+                        <span  v-for="(item, key) in platformName"
                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
                             style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
                             {{ item }}
-                        </div>
+                     </span></div>
                     </div>
                 </div>
          
 
                 <div class="d-flex mt-2 mb-0 ">
                      <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2  d-flex items-center align-center" >Center:</h3></div>
-                    <div class="d-flex scrollSec  ">
-                        <div  v-for="(item, key) in centerName"
-                           class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
+                    <div class="scrollSec">
+
+                        <div class="d-flex ">
+                            <div  v-for="(item, key) in centerName"
+                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
                             style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
                             {{ item }}
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -154,7 +159,7 @@ export default {
                 // { title: "Cap Average", value: "cap_average" },
                 { title: "Mileage", value: "mileage" },
                 { title: "Auction Status Time", value: "created_at" },
-                { title: "Auction Time", value: "auction_date" },
+                { title: "Auction Date", value: "auction_date" },
                 { title: "Auction House", value: "platform_name" }
                 // Vehicle(make,model,V,year), Reg, Auction Time, Auc houes, Center,        Mileage,        Auc Status, Time,        Action(basic detail, full view)
             ],
@@ -197,7 +202,7 @@ export default {
 @media (max-width: 720px) {
     .scrollSec {
         width: 130px;
-        overflow: auto;
+        overflow-x: scroll;
     }
 }
 </style>

@@ -26,10 +26,10 @@
     </div>
   </user-title-bar>
 
-  <div fluid style="max-width: 1400px;" class="mx-auto">
-    <v-row no-gutters>
+  <div style="max-width: 1400px;" class="mx-auto">
+    <div >
       <component :is="currentComponent" />
-    </v-row>
+    </div>
   </div>
 </template>
 

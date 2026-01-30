@@ -9,7 +9,8 @@
                 <tr class="main-row" @mouseenter="hoveredRowId = item.id" 
                     :class="{ 'hovered-main-row': hoveredRowId === item.id }">
                     <td>
-                        <v-btn variant="plain" :to="'/user/vehicle-detail/' + item.id">
+                        <v-btn variant="plain" :to="'/user/vehicle-detail/'
+                         + item.id" class="pa-0"  target="_blank">
                             <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{
                                 item.variant_name }} </span>
                         </v-btn>

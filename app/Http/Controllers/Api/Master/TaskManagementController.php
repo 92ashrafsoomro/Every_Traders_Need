@@ -73,7 +73,7 @@ class TaskManagementController extends Controller
         if($request->has('type') && $request->type != '') {
 
             if($request->type == 'update'){
-                $query->whereDate('date',now()->subDays(2));
+                $query->whereDate('date',now()->addDays(1));
             }elseif($request->type == 'final'){
                 $query->whereDate('date',now());
             }else{

@@ -51,6 +51,7 @@ class DashboardController extends Controller
             // }
 
 
+            // Auctions
             $totalAuctions = (clone $vehicleBaseQuery)
                 ->distinct('auction_id')
                 ->count('auction_id');
@@ -74,36 +75,30 @@ class DashboardController extends Controller
 
             // 🔹 Stats
             $totalVehicles = (clone $vehicleBaseQuery)->count();
+
             $soldVehicles = (clone $vehicleBaseQuery)
                 ->where('bidding_status', 'Sold')
                 ->count();
-            $unsoldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Not Sold')
-                ->count();
 
-     
-
+            // $unsoldVehicles = (clone $vehicleBaseQuery)
+            //     ->where('bidding_status', 'Not Sold')
+            //     ->count();
 
 
-            $totalVehiclesInProgress = (clone $vehicleBaseQuery)
-                ->where('auctions.status', 'In Progress')
-                ->count();
+            // $totalVehiclesInProgress = (clone $vehicleBaseQuery)
+            //     ->where('auctions.status', 'In Progress')
+            //     ->count();
 
-            $vehiclesInProgress = (clone $vehicleBaseQuery)
-                ->where('auctions.status', 'In Progress')
-                ->get(['vehicles.id']);
+            
+            // $vehiclesInProgress = (clone $vehicleBaseQuery)
+            //     ->where('auctions.status', 'In Progress')
+            //     ->get(['vehicles.id']);
 
-            $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
+            // $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
 
-            // 🔹 Find vehicles reappearing in future auctions
-            $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                // ->whereDate('auctions.auction_date', '<', $now)
-                ->pluck('vehicles.reg')
-                ->toArray();
+        
 
-            $vehiclesInReauction = (clone $vehicleBaseQuery)
-                ->whereIn('vehicles.reg', $pastVehicleRegs)
-                ->count();
+        
 
             // 🔹 Return final response
             return response()->json([
@@ -114,12 +109,11 @@ class DashboardController extends Controller
                     'time_auctions' => $offlineAuctions,
                     'in_progressAuctions' => $inProgressAuctions,
 
-                    'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
-                    'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
+
                     'total_vehicles' => $totalVehicles,
                     'sold_vehicles' => $soldVehicles,
-                    'unsold_vehicles' => $unsoldVehicles,
-                    'vehicles_in_reauction' => $vehiclesInReauction,
+                    'vehicles_in_reauction' => 0,
+                    'vehicles_in_remaining' => 0,
                 ],
             ], 200);
             

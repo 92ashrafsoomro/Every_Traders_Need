@@ -102,8 +102,8 @@ class DashboardController extends Controller
                 'data' => [
                     'total_auctions' => $totalAuctions,
                  
-                    'online_auctions' => $onlineAuctions,
-                    'offline_auctions' => $offlineAuctions,
+                    'live_auctions' => $onlineAuctions,
+                    'time_auctions' => $offlineAuctions,
                     'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
                     'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
                     'total_vehicles' => $totalVehicles,

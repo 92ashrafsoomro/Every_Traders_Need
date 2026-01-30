@@ -76,6 +76,8 @@ class TaskManagementController extends Controller
                 $query->whereDate('date',now()->addDays(1));
             }elseif($request->type == 'final'){
                 $query->whereDate('date',now());
+            }elseif($request->type == 'upcoming'){
+                $query->whereDate('date', '>', now());
             }else{
                 // $query->whereIn('status',['pending','processing','cancel','scrapped']);
             }

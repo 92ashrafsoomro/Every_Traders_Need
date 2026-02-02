@@ -1,5 +1,5 @@
   <template>
-    <user-title-bar title="Subscriptions">
+    <user-title-bar title="Transaction History">
         <div>
             <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
        
@@ -309,7 +309,7 @@ export default {
                 try {
                     let res = await  Subscriptions.all(this.filter);
                     this.items = res.data;
-                    this.total = res.recordsTotal;
+                    this.total = res.total;
                     // this.filter.page = Number(res.page);
                     this.last_page = Number(res.last_page);
                     this.loading = false

@@ -56,7 +56,8 @@ import AdditionalInfo from './AdditionalInfo.vue';
 import Features from './Features.vue';
 import Equipment from './Equipment.vue';
 import Service from './Service.vue';
-
+import { useUserStore } from '@/stores/userStore';
+import General from '@/models/general.model';
 
 export default {
     components: {
@@ -73,18 +74,32 @@ export default {
         return {
             vehicleStore: useVehicleStore(),
             loading: false,
+            userStore : useUserStore()
+            
         };
     },
     mounted() {
-
-
-
+        this.sendWatch()
     },
     beforeUnmount() {
 
     },
     methods: {
 
+         async sendWatch() {
+
+            const options = {
+                vehicle_id: this.vehicleStore.vehicle.id,
+            };
+
+            try {
+               let res = await General.post("/api/notifications/addInWatchList", options);
+                console.log(res);
+                
+            } catch (e) {
+                console.error(e);
+            }
+            }
 
     },
 

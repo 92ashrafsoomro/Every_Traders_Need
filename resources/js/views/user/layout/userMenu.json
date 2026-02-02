@@ -20,6 +20,11 @@
             "label": "Watchlist",
             "path": "/user/watchlist"
         },
+         {
+            "icon": "mdi-alert",
+            "label": "Alert",
+            "path": "/user/alert"
+        },
         {
             "icon": "mdi-calendar-sync-outline",
             "label": "Reauction",

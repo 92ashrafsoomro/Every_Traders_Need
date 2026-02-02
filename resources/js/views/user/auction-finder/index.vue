@@ -25,7 +25,7 @@
 
                 <!-- LEFT -->
                 <div class="d-flex flex-wrap align-center    ga-2 flex-grow-1">
-
+                    
                     <!-- FILTER BUTTON -->
                     <div>
                         <v-btn v-if="!auctionStore.sidebar" color="primary" variant="outlined" prepend-icon="mdi-filter"
@@ -50,15 +50,14 @@
                                 Clear All
                             </span>
                         </v-btn>
-                        <div class="px-3 mt-1">
+                    </v-slide-x-transition>
+
+                    <!-- RECORD COUNT -->
+                     <div class="px-3 mt-1">
                         {{ auctionStore.offset }} -
                         {{ auctionStore.offset + auctionStore.filter.length }}
                         of {{ auctionStore.total }} Vehicles
                     </div>
-                    </v-slide-x-transition>
-
-                    <!-- RECORD COUNT -->
-                    
 
                 </div>
 
@@ -107,12 +106,22 @@
             <!-- Desktop sidebar -->
             <v-slide-x-transition>
             <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="12" md="3" lg="2"
-                class="desktop-sidebar d-none d-lg-block d-md-block bg-surface pa-0 mt-1 border" style="box-shadow: none; ">
-                <div class="d-flex align-center justify-space-between pa-3 border-b"
-                    style="background-color: rgb(var(--v-theme-primary),0.2);">
-                    <h5 class="text-h6 font-weight-bold">Auctions Filter</h5>  
+            class="desktop-sidebar d-none d-md-block bg-surface pa-0 mt-1 mb-10 border"
+                  style="height: calc(100vh - 80px); "
+            >
+            
+                 <div class="d-flex    align-center justify-space-between pa-3 border-b"
+                    style=" position: sticky;
+                    top: 0; /* stick to top */
+                    background-color: rgba(var(--v-theme-primary), 0.2) !important;
+                    backdrop-filter: blur(6px); 
+                    -webkit-backdrop-filter: blur(6px);
+                    transition: background-color 0.3s ease;
+                    z-index: 100;">
+                    <h5 class="text-h6 font-weight-bold">Smart Filter</h5>  
                 </div>
-                <div class="bg-surface pa-0 ">
+           
+                <div class="bg-surface pa-4  h-100 ">
                     <auctionSidebar />
                 </div>
             </v-col></v-slide-x-transition>
@@ -137,8 +146,8 @@
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </div>
-
-                <auctionSidebar />
+                 <div class="bg-surface pa-4 " style="max-height: auto;"> <auctionSidebar /></div>
+               
             </div></v-slide-x-transition>
 
 
@@ -273,6 +282,18 @@ export default {
 .mobile-sidebar.show {
     transform: translateX(0);
     opacity: 1;
+}
+
+.desktop-sidebar {
+  overflow-y: auto;        
+  scrollbar-width: none;    
+  -ms-overflow-style: none;  
+}
+
+.desktop-sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;         
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
        <user-title-bar title="User Setting"
         subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity">
-    <v-container max-width="1400px" fluid>
-        <v-row>
+    <div max-width="1400px" fluid>
+        <v-row no-gutters="">
             <v-col cols="12" style="padding-left: 0;">
                 <div class="d-flex  ga-4 ml-0  setting-scroll">
                     <div class="py-2">
@@ -29,13 +29,13 @@
                 </div>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </user-title-bar>
-    <v-container max-width="1400px" fluid>
-        <v-row>
+    <div style="max-width: 1400px;" class="mx-auto">
+        <v-row no-gutters="" class="py-4 pa-4">
              <component :is="currentComponent" />
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>

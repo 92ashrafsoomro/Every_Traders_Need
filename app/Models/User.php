@@ -12,6 +12,7 @@ class User extends Authenticatable  // This should extend Authenticatable
 
     protected $fillable = [
         'companyName',
+        'user_type',
         'companyAddress1',
         'companyAddress2',
         'townCity',
@@ -27,6 +28,7 @@ class User extends Authenticatable  // This should extend Authenticatable
         'firstName',
         'surname',
         'title',
+        'status',
         'jobTitle',
         'phone',
         'personalEmail',

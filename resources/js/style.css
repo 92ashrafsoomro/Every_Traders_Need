@@ -276,3 +276,17 @@ min-height:40px;
 .v-application__wrap{
     /* overflow-x: hidden; */
 }
+
+/* 
+.v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
+    min-height: 0px !important;
+}
+.v-expansion-panel--active{
+        background-color: #b91c1c !important;
+    margin-top: 0px;
+} */
+
+.v-expansion-panel--active:not(:first-child), .v-expansion-panel--active + .v-expansion-panel {
+    margin-top: -10px !important;
+
+}

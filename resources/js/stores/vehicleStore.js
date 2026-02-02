@@ -4,6 +4,7 @@ import api from "../plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
 
 import Vehicle from '@/models/vehicle.model';
+import General from "@/models/general.model";
 
 export const useVehicleStore = defineStore("vehicle", {
     state: () => ({
@@ -121,6 +122,7 @@ export const useVehicleStore = defineStore("vehicle", {
                 throw await errorHandler(error);
             }
         },
+       
 
     },
 

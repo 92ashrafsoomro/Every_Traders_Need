@@ -21,156 +21,155 @@
     </div>
   </user-title-bar>
 
-  <v-container fluid class="" style="max-width: 1400px;">
-
-    <v-row style="margin-top: -60px;">
-      <!-- Total Auctions -->
-
-
-      <!-- Total Auctions -->
-      <v-col cols="12" sm="6" md="3" class="">
-
-        <v-card class="border-bottom border border-sm">
-          <v-container>
-
-            <div class="d-flex h-6">
-              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
-                class="circle d-flex justify-center align-center">
-                <v-icon size="22" color="primary">mdi-store-clock</v-icon>
+  <div style="max-width: 1400px;" class="mx-auto pa-2">
+      <v-row no-gutters="" class="ga-2" style="margin-top: -50px;">
+        <!-- Total Auctions -->
+  
+  
+        <!-- Total Auctions -->
+        <v-col cols="12" sm="6" md="" lg="" class="">
+  
+          <v-card class="border-bottom border border-sm">
+            <v-container>
+  
+              <div class="d-flex h-6">
+                <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                  class="circle d-flex justify-center align-center">
+                  <v-icon size="22" color="primary">mdi-store-clock</v-icon>
+                </div>
+  
+                <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
               </div>
-
-              <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
-            </div>
-
-
-            <div class="pt-3 text-body-1 text-whiteLite ">Total Auctions</div>
-            <div class="pt-2 d-flex">
-              <div class="text-body-2 pr-2">
-                <span class="white">Live Auctions: </span>
-                <span class=""
-                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                    counter.liveAuctions }}</span>
+  
+  
+              <div class="pt-3 text-body-1 text-whiteLite ">Total Auctions</div>
+              <div class="pt-2 d-flex">
+                <div class="text-body-2 pr-2">
+                  <span class="white">Live Auctions: </span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                      counter.liveAuctions }}</span>
+                </div>
+                <div class=" text-body-2 pl-2">
+                  <span class="white">Time Auctions: </span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; "> {{
+                      counter.timeAuctions }}</span>
+                </div>
               </div>
-              <div class=" text-body-2 pl-2">
-                <span class="white">Time Auctions: </span>
-                <span class=""
-                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; "> {{
-                    counter.timeAuctions }}</span>
+  
+  
+            </v-container>
+          </v-card>
+        </v-col>
+        <!-- Total Auctions -->
+        <v-col cols="12" sm="6" md="" lg="" class="">
+  
+          <v-card class="border-bottom-inprogress w-100 border border-sm">
+            <v-chip text-color="white" size="small" class="bg-danger position-absolute mt-5 right-0  "
+              style="border-radius: 3px 0 0 3px;" label>
+              <v-icon size="10" color="white" class="mr-2">
+                mdi-circle
+              </v-icon> Live
+            </v-chip>
+            <v-container>
+              <div class="d-flex h-6">
+                <div class=" bg-danger-lite d-flex justify-center align-center live-circle"
+                  style="border-radius: 22px; width: 40px; height: 40px;">
+                  <v-icon size="32" color="danger" class="">
+                    mdi-radiobox-marked
+                  </v-icon>
+                </div>
+  
+                <span class="text-h4 px-3">{{ counter.inprogress_Auctions }}</span>
               </div>
-            </div>
-
-
-          </v-container>
-        </v-card>
-      </v-col>
-      <!-- Total Auctions -->
-      <v-col cols="12" sm="6" md="3" class="">
-
-        <v-card class="border-bottom-inprogress w-100 border border-sm">
-          <v-chip text-color="white" size="small" class="bg-danger position-absolute mt-5 right-0  "
-            style="border-radius: 3px 0 0 3px;" label>
-            <v-icon size="10" color="white" class="mr-2">
-              mdi-circle
-            </v-icon> Live
-          </v-chip>
-          <v-container>
-            <div class="d-flex h-6">
-              <div class=" bg-danger-lite d-flex justify-center align-center live-circle"
-                style="border-radius: 22px; width: 40px; height: 40px;">
-                <v-icon size="32" color="danger" class="">
-                  mdi-radiobox-marked
-                </v-icon>
+  
+              <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
+              <div class="pt-2 d-flex justify-space-between">
+                <div class="text-body-2 pr-2">
+                  <span class="white">Vehicles:</span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                      counter.vehicleReauctions }}</span>   </div>
+                <div class="text-body-2">View</div>
+  
               </div>
-
-              <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
-            </div>
-
-            <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
-            <div class="pt-2 d-flex justify-space-between">
-              <div class="text-body-2 pr-2">
-                <span class="white">Inprogress Auctions: </span>
-                <span class="" style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{counter.inprogress_Auctions }}</span>
+  
+  
+            </v-container>
+          </v-card>
+        </v-col>
+        <!-- Total Auctions -->
+        <v-col cols="12" sm="6" md="" lg="" class="">
+  
+          <v-card class="border-bottom  border border-sm">
+            <v-container>
+  
+              <div class="d-flex h-6">
+                <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                  class="circle d-flex justify-center align-center">
+                  <v-icon size="32" color="primary">mdi-bash</v-icon>
+                </div>
+                <span class="text-h4 px-3">{{ counter.totalVehicles }}</span>
               </div>
-              <div class="text-body-2">View</div>
-
-            </div>
-
-
-          </v-container>
-        </v-card>
-      </v-col>
-      <!-- Total Auctions -->
-      <v-col cols="12" sm="6" md="3" class="">
-
-        <v-card class="border-bottom  border border-sm">
-          <v-container>
-
-            <div class="d-flex h-6">
-              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
-                class="circle d-flex justify-center align-center">
-                <v-icon size="32" color="primary">mdi-bash</v-icon>
+  
+              <div class="pt-3 text-body-1 text-whiteLite ">Total Vehicles</div>
+              <div class="pt-2 d-flex">
+                <div class="text-body-2 pr-2">
+                  <span class="white">Sold:</span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                      vehicelState.sold_vehicles }}</span>
+                </div>
               </div>
-              <span class="text-h4 px-3">{{ counter.totalVehicles }}</span>
-            </div>
-
-            <div class="pt-3 text-body-1 text-whiteLite ">Total Vehicles</div>
-            <div class="pt-2 d-flex">
-              <div class="text-body-2 pr-2">
-                <span class="white">Total Vehicles:</span>
-                <span class=""
-                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                    counter.totalVehicles }}</span>
+  
+  
+            </v-container>
+          </v-card>
+        </v-col>
+  
+        <v-col cols="12" sm="6" md="" lg="" class="">
+  
+          <v-card class="border-bottom  border border-sm">
+            <v-container>
+              <div class="d-flex h-6">
+                <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
+                  class="circle d-flex justify-center align-center">
+                  <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
+                </div>
+                <span class="text-h4 px-3">{{ counter.vehicleReauctions }}</span>
               </div>
-            </div>
-
-
-          </v-container>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" sm="6" md="3" class="">
-
-        <v-card class="border-bottom  border border-sm">
-          <v-container>
-            <div class="d-flex h-6">
-              <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
-                class="circle d-flex justify-center align-center">
-                <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
+  
+              <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
+              <div class="pt-2 d-flex">
+                <div class="text-body-2 pr-2">
+                  <span class="white">Vehicles:</span>
+                  <span class=""
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
+                      vehicelState.total_vehicles }}</span>
+                </div>
+  
               </div>
-              <span class="text-h4 px-3">{{ counter.vehicleReauctions }}</span>
-            </div>
-
-            <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
-            <div class="pt-2 d-flex">
-              <div class="text-body-2 pr-2">
-                <span class="white">Vehicles:</span>
-                <span class=""
-                  style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                    counter.vehicleReauctions }}</span>
-              </div>
-
-            </div>
+  
+  
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+      </div>
+  <v-container style="max-width: 1400px;" fluid="">
 
 
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
 
-    <v-container />
-
-
-    <v-row>
-
-      <!-- Auction Columns -->
-      <v-col>
+    <v-row no-gutters="" class="ga-2">
+      <v-col cols="12" md="6" lg="">
         <!-- <div > -->
         <Auction />
         <!-- </div> -->
       </v-col>
 
       <!-- Right Column: Vehicle Statistics -->
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" lg="">
 
         <v-card class="   border  ">
           <div class=" pa-6  ">
@@ -179,7 +178,7 @@
           </div>
           <div class=" border-b mt-2 "></div>
           <v-card-text class="d-flex flex-column h-100 justify-space-between">
-            <v-container>
+            <v-container fluid="">
 
 
               <v-row>
@@ -296,7 +295,15 @@ export default {
         this.counter.totalVehicles = res.data.data.total_vehicles;
         this.counter.vehicleReauctions = res.data.data.vehicles_in_reauction
         this.counter.isLoading = false;
-
+        //  "total_auctions": 9,
+        // "online_auctions": 0,
+        // "offline_auctions": 0,
+        // "vehicles_in_progress_auctions": 0,
+        // "totalVehiclesInProgress": 0,
+        // "total_vehicles": 739,
+        // "sold_vehicles": 0,
+        // "unsold_vehicles": 0,
+        // "vehicles_in_reauction": 739
       } catch (error) {
         this.counter.isLoading = false;
         console.error(error.message, "counters Api error");

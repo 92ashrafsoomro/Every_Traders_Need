@@ -53,8 +53,7 @@ class AuctionFinderController extends Controller
                 'make.name as make_name',
                 'model.name as model_name',
                 'model_variant.name as variant_name'
-            )
-            ->first();
+            )->first();
 
         if (!$vehicle) {
             return response()->json(['message' => 'Vehicle not found'],400);
@@ -701,162 +700,92 @@ class AuctionFinderController extends Controller
     }
 
 
-    public function auctionShedule(Request $request){
 
-      
-                $userId = $request->user()->id;
-                $length = $request->input('length', 50);
-                $page   = $request->input('page', 1);
-                $offset = ($page - 1) * $length;
 
-                $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id');
-             
-                if ($request->has('platform_id') && $request->platform_id != '') {
-                    $query->where('auctions.platform_id', $request->platform_id);
-                }
+        public function auctionSheduler(Request $request)
+    {
 
-                if ($request->has('center_id') && $request->center_id != '') {
-                    $query->whereExists(function ($sub) use ($request) {
-                        $sub->select(DB::raw(1))
-                            ->from('vehicles')
-                            ->whereColumn('vehicles.auction_id', 'auctions.id')
-                            ->where('vehicles.center_id', $request->center_id);
-                    });
-                }
+        $groups =  DB::table('auctions as a')
+        ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
+        ->select(
+            DB::raw('DATE(a.auction_date) as auction_day'),
+            DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
+            DB::raw('COUNT(v.id) as total_vehicles')
+        )
+        ->groupBy(DB::raw('DATE(a.auction_date)'))
+        ->orderBy('auction_day', 'ASC')
+        ->get();
 
-         
-                if ($request->has('status') && $request->status != '') {
-                    $query->where('auctions.status', $request->status);
-                }
+        $length = $request->input('length', 10);
+        $page   = $request->input('page', 1);
+        $offset = ($page - 1) * $length;
 
-                // if ($request->has('day') && $request->day != '') {
+        $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id');
+        // ->whereMonth('auctions.auction_date',12)
+        // ->whereYear('auctions.auction_date',2025);
+        
+        if ($request->has('platform_id') && $request->platform_id != '') {
+            $query->where('auctions.platform_id', $request->platform_id);
+        }
 
-                //     $day = $request->input('day');
-                //     $date = match (true) {
-                //         \Carbon\Carbon::parse($day)->isToday()      => 'today',
-                //         \Carbon\Carbon::parse($day)->isTomorrow()   => 'tomorrow',
-                //         \Carbon\Carbon::parse($day)->isYesterday()  => 'yesterday',
+        if ($request->has('center_id') && $request->center_id != '') {
+            $query->whereExists(function ($sub) use ($request) {
+                $sub->select(DB::raw(1))
+                    ->from('vehicles')
+                    ->whereColumn('vehicles.auction_id', 'auctions.id')
+                    ->where('vehicles.center_id', $request->center_id);
+            });
+        }
 
-                   
-                //         \Carbon\Carbon::parse($day)->isSameWeek(\Carbon\Carbon::today()) 
-                //             => strtolower(\Carbon\Carbon::parse($day)->format('l')), 
 
-                     
-                //         \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) === 1 
-                //             && \Carbon\Carbon::parse($day)->lessThan(\Carbon\Carbon::today())
-                //             => 'last ' . strtolower(\Carbon\Carbon::parse($day)->format('l')),
+        if ($request->has('status') && $request->status != ''){
+            $query->where('auctions.status', $request->status);
+        }
 
-                     
-                //         \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) === 1 
-                //             && \Carbon\Carbon::parse($day)->greaterThan(\Carbon\Carbon::today())
-                //             => 'next ' . strtolower(\Carbon\Carbon::parse($day)->format('l')),
+        if ($request->has('date') && $request->date != ''){
+            $query->whereDate('auctions.auction_date',$request->date);
+        }
 
-                       
-                //         default => \Carbon\Carbon::parse($day)->diffInWeeks(\Carbon\Carbon::today()) . ' week(s)',
-                //     };
+        if ($request->enableCurrent == 'true'){
+            $query->whereDate('auctions.status',4);
+        }
+        
+        $countQuery = (clone $query)->count();
+        $data = $query->select(
+            'auctions.id',
+            'auction_platform.name as platform_name',
+            'auction_platform.id as platform_id',
+            'auctions.auction_date',
+            'auctions.status',
+            DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
+            DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = "Sold") as sold_car_count'),
+            DB::raw('(
+                SELECT GROUP_CONCAT(DISTINCT auction_center.name)
+                FROM vehicles
+                JOIN auction_center ON auction_center.id = vehicles.center_id
+                WHERE vehicles.auction_id = auctions.id
+            ) as center_names'),
+        )
+        ->offset($offset)
+        ->limit($length)
+        ->get()
+        ->map(function ($auction) {
 
-                //     $query = $query->whereDate('auctions.auction_date', $date);
 
-                // }
-                
-                // else {
-                //     $dateRange = date('Y-m-d'); 
-                //     $query = $query->whereDate('auctions.auction_date', $dateRange);
-                // }
+            $auction->time = date('d-m-Y', strtotime($auction->auction_date));
+            return $auction;
 
-              
-                $countQuery = (clone $query)->count();
-                $data = $query->select(
-                    'auctions.id',
-                    'auction_platform.name as platform_name',
-                    'auction_platform.id as platform_id',
-                    'auctions.auction_date',
-                    'auctions.status',
-                    DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
-                    DB::raw('(
-                        SELECT GROUP_CONCAT(DISTINCT auction_center.name)
-                        FROM vehicles
-                        JOIN auction_center ON auction_center.id = vehicles.center_id
-                        WHERE vehicles.auction_id = auctions.id
-                    ) as center_names'),
-                )
-                ->offset($offset)
-                ->limit($length)
-                ->get()
-                ->map(function ($auction) {
+        });
 
-                    $auction->time = date('d-m-Y', strtotime($auction->auction_date));
-                    return $auction;
-                    $today = date('Y-m-d');
-                    $auctionDate = date('Y-m-d', strtotime($auction->auction_date)); 
-
-                    if ($auctionDate < $today) {
-                        $status_data = 'previous';
-                    } elseif ($auctionDate == $today) {
-                        $status_data = 'today';
-                    } else {
-                        $status_data = $auctionDate;
-                    }
-
-                    $view = URL::to('/auction-finder?platform='.$auction->platform_id.'&date='.$status_data);
-
-                    $statusColor = match (strtolower($auction->status)) {
-                        'planned'   => 'danger-red',
-                        'in progress' => 'warning',
-                        'update' => 'success',
-                        'cancel'    => 'primary',
-                        default     => 'secondary',
-                    };
-
-                    $statusBadge = '<span class="badge bg-' . $statusColor . '">' . ucfirst($auction->status ?? '-') . '</span>';
-
-                    $centers = "<div class='centers'>";
-                    foreach (explode(',', $auction->center_names) as $value) {
-                        $centers .= "<span>".$value."</span>";
-                    }
-                    $centers .= "</div>";
-
-                    return [
-                        "<span class='text-primary'>".$auction->platform_name ?? 'N/A'."</span>",
-                        $centers,
-                        $auction->car_count,
-                        "<span>".date('d-m-Y', strtotime($auction->auction_date))."</span><br>
-                        <span style='font-size: var(--font-p2) !important;'>".date('h:i A', strtotime($auction->auction_date))."</span>",
-                        $statusBadge ?? '-',
-                        "<div class='PreviousBtnRec d-flex justify-content-center'>
-                            <button type='button' 
-                                class='btn btn-sm btn-primary open-vehicle-modal' 
-                                data-auction-id='".$auction->id."' 
-                                data-interest-id='".$auction->interest_ids."' 
-                                data-platform='".$auction->platform_name."' 
-                                data-platform-id='".$auction->platform_id."'
-                                data-status='".$auction->status."' 
-                                data-date='".$auction->auction_date."' 
-                                data-centers='".$auction->center_names."' 
-                                data-count='".$auction->interest_count."'>
-                                ".$auction->interest_count." ↑
-                            </button>
-                        </div>"
-                        ,
-                        '
-                        <button class="btn btn-sm btn-danger alert-btn" data-auction="'.$auction->id.'" data-platform="'.$auction->platform_id.'" 
-                        style="font-size: var(--font-p2) !important; margin-left:5px;">
-                            <i class="fas fa-bell"></i> 
-                        </button>
-                        <a href="'.$view.'" target="_blank" class="btn btn-sm btn-primary" style="font-size: var(--font-p2) !important;">
-                            <i class="fas fa-eye"></i> 
-                        </a>'
-                    ];
-                });
-
-               return response()->json([
-                    "recordsTotal" => $countQuery,
-                    "recordsFiltered" => $countQuery,
-                    "data" => $data,
-                    'page' => $page,
-                    'offset' => $offset,
-                    'last_page' => ceil($countQuery / $length),
-                ],200);
+        return response()->json([
+            "groups" => $groups,
+            "recordsTotal" => $countQuery,
+            "recordsFiltered" => $countQuery,
+            'page' => $page,
+            'offset' => $offset,
+            'last_page' => ceil($countQuery / $length),
+            "data" => $data,
+        ],200);
         
 
 

@@ -5,6 +5,12 @@
     "icon": "mdi-view-dashboard-outline",
     "path": "/admin/dashboard"
   },
+
+  {
+    "label": "Task Management",
+    "icon": "mdi-circle-outline",
+    "path": "/admin/taskManagement/upComing"
+  },
   {
     "label": "Data Management",
      "icon": "mdi-star-outline",
@@ -21,6 +27,7 @@
       }
     ]
   },
+
   {
     "label": "Ids",
     "icon": "mdi-star-outline",
@@ -37,14 +44,31 @@
       }
     ]
   },
+
+
   {
     "label": "User Management",
     "icon": "mdi-star-outline",
     "children": [
       {
-        "label": "User",
+        "label": "Members",
         "icon": "mdi-account-multiple-outline",
         "path": "/admin/members"
+      },
+      {
+        "label": "Transaction history",
+        "icon": "mdi-account-multiple-outline",
+        "path": "/admin/transaction"
+      },
+      {
+        "label": "Support & Feedback",
+        "icon": "mdi-account-multiple-outline",
+        "path": ""
+      },
+      {
+        "label": "Alerts ",
+        "icon": "mdi-account-multiple-outline",
+        "path": ""
       }
     ]
   },
@@ -56,6 +80,58 @@
         "label": "Plan",
         "icon": "mdi-seal-variant",
         "path": "/admin/plans"
+      },
+      {
+        "label": "Discount",
+        "icon": "mdi-circle",
+        "path": ""
+      },
+       {
+        "label": "Restriction Control",
+        "icon": "mdi-circle",
+        "path": ""
+      }
+    ]
+  },
+  {
+    "label": "Content Management",
+    "icon": "mdi-star-outline",
+    "children": [
+      {
+        "label": "News & Blog",
+        "icon": "mdi-seal-variant",
+        "path": ""
+      },
+      {
+        "label": "Cat",
+        "icon": "mdi-circle",
+        "path": ""
+      },
+       {
+        "label": "Tag",
+        "icon": "mdi-circle",
+        "path": ""
+      }
+    ]
+  },
+  {
+    "label": "Admin Access",
+    "icon": "mdi-star-outline",
+    "children": [
+      {
+        "label": "Admin & Staff",
+        "icon": "mdi-seal-variant",
+        "path": "/admin/staffUser"
+      },
+      {
+        "label": "Role",
+        "icon": "mdi-seal-variant",
+        "path": "/admin/role"
+      },
+      {
+        "label": "User restrictions",
+        "icon": "mdi-seal-variant",
+        "path": ""
       }
     ]
   }

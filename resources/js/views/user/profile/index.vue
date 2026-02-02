@@ -21,7 +21,7 @@
   </div>
 
   <!-- SCROLLABLE INFO -->
-  <div class="d-flex align-center text-light ga-3 py-1 w-50 profile-scroll px-3">
+  <div class="d-flex align-center text-light ga-3 py-1 profile-scroll px-3" style="width: 150px;">
     <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
       <v-icon icon="mdi-equalizer" color="primary" />
       <span class="text-body-2 px-2">
@@ -59,21 +59,70 @@
     </div>
   </div>
 
-  <v-container max-width="1400px" fluid>
-    <v-row>
+   <div style="max-width: 1400px; max-height: 1300px;" class="mx-auto py-10 px-4">
+    <v-row  no-gutters="" >
       <v-col cols="12" md="5">
         <Sidebar />
       </v-col>
-      <v-col cols="12" md="7">
-        <v-card title="Notification" class="border">
+      <v-col cols="12" md="7" class="pl-lg-4 pl-md-4 pl-0">
+        <v-card  class=" h-100 d-flex flex-column" >
+            <div class="d-flex justify-space-between align-center pa-4">
+                <h2 class="text-h6 font-weight-medium">Notifications</h2>
+                <div class="d-flex align-center ga-3">
+                    <v-chip color="primary" size="small" class="font-weight-bold text-caption">
+                        {{ notificationsUnredCount }} New
+                    </v-chip>
+                    <v-icon size="22">mdi-email-outline</v-icon>
+                </div>
+            </div>
           <div class="border-b"></div>
-          <v-card-text>
-            <p>Notifications...</p>
-          </v-card-text>
+          <v-card-text class="notification-scroll h-100">
+         
+  
+                <template v-for="(note, i) in notifications" :key="i">
+                    <v-list-item class="px-4 py-4 bg-surface">
+                        <div class="d-flex align-start gap-4 w-100">
+                            <!-- Avatar -->
+                            <v-avatar size="42">
+                                <v-img :src="note.image || userAvatar" cover />
+                            </v-avatar>
+
+
+                            <div class="flex-grow-1 min-w-0 ml-2 mr-1">
+                                <p class="text-body-2 font-weight-medium mb-1 text-wrap">
+                                    {{ note.title }}
+                                </p>
+                                <p class="text-caption text-medium-emphasis text-wrap">
+                                    {{ note.message }}
+                                </p>
+                                <div>
+                                  {{ dateFormate(note.created_at) }}
+                                </div>
+                            </div>
+
+
+                            <div class="mt-2">
+                              <v-icon
+                                v-if="note.is_read == 0"
+                                color="primary"
+                                size="20"
+                                @click.stop="readNotification(note.id)"
+                              >
+                                mdi-read
+                              </v-icon>
+
+                            </div>
+                        </div>
+                    </v-list-item>
+                    <v-divider v-if="i < notifications.length - 1" />
+                </template>
+  
+           </v-card-text>
+
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div> 
 </template>
 
 <script>
@@ -81,7 +130,8 @@ import { useUserStore } from '@/stores/userStore';
 import RecentDevices from './RecentDevices.vue';
 import Sidebar from './Sidebar.vue';
 import { changPassword } from '@/services/authService';
-
+import userAvatar from "@/assets/images/avatar/user.png"
+import General from '@/models/general.model';
 
 export default {
   components: {
@@ -91,17 +141,52 @@ export default {
   data() {
     return {
       userStore: useUserStore(),
+      userAvatar,
+     notifications: [],
+     notificationsUnredCount: 0,
+      isLoading: false,
     };
   },
 
   computed: {
 
   },
-  async mounted() {
+  mounted() {
+  this.notificationFetch();
+  },
+  methods:{
+     async notificationFetch() {
+            this.isLoading = true;
+            try {
+                const res = await General.get("/api/notifications/userNotification");
+                this.notifications = res.data;
+                 this.notificationsUnredCount = this.notifications.filter(n => n.is_read === 0).length;
 
-
-    //    console.log(res);
-
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async readNotification(id){
+          this.isLoading = true;
+            try {
+                const res = await General.post("/api/notifications/markRead/"+id);
+                this.$alertStore.add(res.message || "Notification Read", "success");
+                this.notificationFetch();
+              
+            
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        
+        dateFormate(date) {
+            if (!date) return ''
+            return date.split('T')[0].split(' ')[0]
+        }
 
   }
 };
@@ -130,4 +215,16 @@ export default {
   }
 }
 
+.notification-scroll {
+
+  overflow-y: auto;
+
+  /* Hide scrollbar - Chrome, Edge, Safari */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge */
+}
+
+.notification-scroll::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari */
+}
 </style>

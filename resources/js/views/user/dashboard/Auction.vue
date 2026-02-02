@@ -12,7 +12,8 @@
                 <PlateformDropdown
                     variant="outlined"
                     density="compact" 
-                     style="width: 160px;" 
+                    label="Auction Type" 
+                    style="max-width: 150px; min-width: 200px;" 
                     hide-details
                     v-model="auctionType"
                     :items="['Online Auction', 'Time Auction']" 
@@ -23,7 +24,7 @@
                     label="Select Platform" 
                     variant="outlined"
                     density="compact"
-                    style="width: 160px;" 
+                    style="max-width: 150px; min-width: 200px;" 
                     hide-details 
                 />
             </div>
@@ -89,7 +90,7 @@ export default {
 
     data() {
         return {
-            auctionType: 'Online Auction',
+            auctionType: null,
             platformsId: null,
             isLoading: false,
             data: [],
@@ -131,7 +132,7 @@ export default {
             try {
                 const res = await api.get('/api/user/dashboard/onlineAuctions', {
                     params: {
-                        type: this.auctionType.toLowerCase(),
+                        type: this.auctionType?.toLowerCase(),
                         platform: this.platformsId
                     }
                 })

@@ -35,6 +35,7 @@ class SheetService
             $data = [];
             $scraps = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$model->id)->pluck('payload')->first());
             foreach ($scraps  as $key => $item){
+                // dd($item);
                
                 $SheetColumnSetter = new SheetColumnSetter(json_decode(json_encode($item),true));
                 $SheetColumnSetter->prefixes = $prefixes;

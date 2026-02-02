@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('auction_scheduler', function (Blueprint $table) {
+        Schema::create('task_managements', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->integer('auction_type')->nullable();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('auction_scheduler');
+        Schema::dropIfExists('task_managements');
     }
 };

@@ -31,9 +31,14 @@ class SheetColumnSetter
     protected $item;
     public $prefixes;
     public $platformId;
+    public $make;
+    public $model;
+
     function __construct($item) {
         $this->item = $item;
         $this->item['errors'] = [];
+        $this->make = null;
+        $this->model = null;
     }
 
 
@@ -68,75 +73,25 @@ class SheetColumnSetter
         $value = strtolower($this->item['make_id']);
         $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
         $this->item['make_id'] = $value;
-    }
 
-    public function modelCleaning(){
-        switch($this->platformId){
-           case 2:
-                $value = strtolower($this->item['model_id'] ?? '');
-                $words = preg_split('/\s+/', trim($value));
-
-                $bodyMap = $this->prefixes['bodyType']; 
-                $fuelMap = $this->prefixes['fuelType']; 
-
-           
-                $manualFuel = ['diesel', 'petrol'];
-
-       
-                for ($i = count($words) - 1; $i >= 0; $i--) {
-
-                    $word = trim(strtolower($words[$i]));
-                    $remove = false;
-
-                    if (in_array($word, $manualFuel)) {
-                        $remove = true;
-                    }
-
-           
-                    if (!$remove) {
-                        foreach ($bodyMap as $key => $mappedValue) {
-                    
-                            if (stripos($word, strtolower($key)) !== false) {
-                                $remove = true;
-                                break;
-                            }
-                        }
-                    }
-
-   
-                    if (!$remove) {
-                        foreach ($fuelMap as  $key => $mappedValue) {
-                            if (stripos($word, strtolower($key)) !== false) {
-                                $remove = true;
-                                break;
-                            }
-                        }
-                    }
-
-               
-                    if ($remove) {
-                        array_splice($words, $i, 1);
-                    }
-                }
-
-        
-                $this->item['model_id'] = implode(' ', $words);
-
-
-         
+        $make  = Make::whereRaw('LOWER(name) = ?', [strtolower($this->item['make_id'])])->first();
+        if($make){
+            $this->make = $make;
+        }else{
+            $this->make = null;
         }
 
     }
 
+   
+
+    
       public function setModelId()
-    {
-        $prefixes = $this->prefixes['model'];
-        $value = strtolower($this->item['model_id']);
-        $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
-        $this->item['model_id'] = $value;
-    }
+    {   
 
+        $this->item['model_id'] = HelperService::modelCleaning($this->item, $this->platformId, $this->prefixes);
 
+<<<<<<< HEAD
     public function varientClean(){
         switch($this->platformId){
            case 1 || 3 || 2 || 17 || 18 || 35 || 15  :
@@ -148,127 +103,64 @@ class SheetColumnSetter
                 $value = preg_replace('/\b\d+\s*kwh\b/i', '', $value);
                 // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
                 // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
+=======
+        if($this->make){
+>>>>>>> 45798dac67f774b73f48274160dfc1277c60b9f5
 
-                $this->item['derivative'] = $value;
+            $value  = strtolower($this->item['model_id']);
+            $models = VehicleModel::where('make_id',$this->make->id)->get()
+                    ->pluck('name')
+                    ->map(fn ($name) => strtolower($name))
+                    ->toArray();
 
+            if(in_array($value,$models)){
+                $this->item['model_id'] = $value;
+            }else if($model = HelperService::findWithExplodeFirstWord($value,$models)){
+                $this->item['model_id'] = $model;
+            // }else if($model = HelperService::findWithExplode($value,$models)){
+            //     $this->item['model_id'] = $model;
+            }else if($model = HelperService::findInPrefixes($value,$this->prefixes['model'])){
+                $this->item['model_id'] = $model;
+            }
+                                                                                                                                                         
+            $this->model = VehicleModel::where('make_id',$this->make->id)->whereRaw('LOWER(name) = ?', [strtolower($this->item['model_id'])])->first();
 
         }
-    }
 
-      public function matchVariantWithOldData($make,$model)
-    {
-
-        $v = Vehicle::where('make_id',$make->id)
-                    ->where('model_id',$model->id)
-                    ->whereRaw('LOWER(derivative) = ?', [strtolower($this->item['derivative'])])
-                    ->first();
-        if($v){
-            $this->item['variant_id'] = $v->variant->name;
-            return true;
-        }else{
-            return false;
-        }
+       
 
     }
 
 
-    public function oneByOne($value,$variants){
-        
-        $words = explode(" ",$value); 
-        if(isset($words[2])){
-
-            if($this->fullMatch($words[0].' '.$words[1].' '.$words[2],$variants)){ 
-              $this->item['variant_id'] = $this-> $words[0].' '.$words[1].' '.$words[2];
-              return true;
-            }else if($this->fullMatch($words[0].' '.$words[1],$variants)){ 
-                $this->item['variant_id'] = $words[0].' '.$words[1];
-                return true;
-            }else if(in_array($words[0],$variants)){ 
-                $this->item['variant_id'] = $words[0];
-                return true;
-            }
-
-        }else if(isset($words[1])){
-            
-            if($this->fullMatch($words[0].' '.$words[1],$variants)){ 
-                $this->item['variant_id'] = $words[0].' '.$words[1];
-                return true;
-            }else if($this->fullMatch($words[0],$variants)){ 
-                $this->item['variant_id'] = $words[0];
-                return true;
-            }
-
-        }else if(isset($words[0])){
-            if($this->fullMatch($words[0],$variants)){ 
-                $this->item['variant_id'] = $words[0];
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
-    public function matchWords($value,$variants){
-
-        $words = explode(" ",$value);
-        foreach ($words as $word){
-            if($this->fullMatch($word,$variants)){
-                return  $this->item['variant_id'] = $word;
-            }
-        }
-
-        return false;
-    }
-
-
-    public function fullMatch($value,$variants){
-        return in_array($value,$variants);
-    }
-
-
+  
     public function setVariantId()
     {       
 
+        $this->item['derivative'] = HelperService::varientCleanByPlatform($this->platformId,$this->item['derivative']);
         $this->item['variant_id'] = $this->item['derivative'];
         $value = strtolower($this->item['variant_id']);
 
-        $make = Make::where('name', $this->item['make_id'])->first();
-        if($make){
-            $model = VehicleModel::where('name', $this->item['model_id'])->where('make_id',$make->id)->first();
-            if($model){
+        if(!empty($value) && $this->make && $this->model){
+            
+            $variants = ModelVariant::where('model_id',$this->model->id)
+            ->get()
+            ->pluck('name')
+            ->map(fn ($name) => strtolower($name))
+            ->toArray();  
 
-                if(!empty($value)){
-                    
-                    $words = explode(" ",$value);
-                    $variants = ModelVariant::where('model_id',$model->id)
-                    ->get()
-                    ->pluck('name')
-                    ->map(fn ($name) => strtolower($name))
-                    ->toArray();  
-
-                    if($this->fullMatch($words,$variants)){
-
-                    }else if($this->matchVariantWithOldData($make,$model)){
-
-                    }else if($this->oneByOne($value,$variants)){
-                    
-                    }else if($this->matchWords($value,$variants)){
-
-                    }
-
-                }
-
+            if(in_array($value,$variants)){
+                $this->item['variant_id'] = $value;
+            }else if($previousData = HelperService::findVariableInPreviousData($value, $this->make, $this->model)){
+                $this->item['variant_id'] = $previousData;
+            }else if($variant = HelperService::matchVariantBySquence($value,$variants)){     
+                $this->item['variant_id'] = $variant;
+            }else if($variant = HelperService::findWithExplode($value,$variants)){
+                $this->item['variant_id'] = $variant;
             }
 
         }
 
-            // $prefixes = $this->prefixes['variant'];
-            // $value = strtolower($this->item['variant_id']);
-            // $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
-            // $this->item['variant_id'] = $value;
     }
-
 
 
         public function check()
@@ -325,9 +217,9 @@ class SheetColumnSetter
         $this->setBodyId();
         $this->setVehicleId();
         $this->setMakeId();
-        $this->modelCleaning();
+       
         $this->setModelId();
-        $this->varientClean();
+      
         $this->setVariantId();
         return $this->item;
     }

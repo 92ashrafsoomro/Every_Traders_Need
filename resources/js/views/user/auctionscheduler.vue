@@ -97,12 +97,13 @@
        
                 <v-card class="border-sm border-white">
                     <v-data-table-server :headers="headers" :items="data" :items-length="total" :loading="loading" hover
+                        hide-default-footer
                         item-value="id" @update:options="getRecords">
 
                         <template #item.action="{ item }">
                             <div class="d-flex">
-                                <v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon>
-                                <v-icon class="NotifyIcon ml-2 " size="20"> mdi-bell-outline</v-icon>
+                                <v-btn :to="'/user/auction-finder/'"><v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon></v-btn>
+                                <v-btn  @click="sendData(item.id)"><v-icon class="NotifyIcon " size="20"  > mdi-bell-outline</v-icon></v-btn>
                             </div>
                         </template>
                         <template #item.platform_name="{ item }">
@@ -135,153 +136,175 @@
                                     <span>{{ item.status }}</span>
                                 </div>
                         </template>
-                        <template v-slot:bottom>
-                            <div class="py-2 d-flex justify-end border-t">
-                                <custom-pagination :loading="loading" v-model:page="options.page"
-                                    :lastPage="options.last_page" @page-changed="getRecords" />
-                            </div>
-                        </template>
-
+               
                     </v-data-table-server>
                 </v-card>
            
     </v-container>
 </template>
-
 <script>
-
 import { auctionSheldulerList } from '@/services/pageService';
 import { usePageStore } from '@/stores/pageStore';
 
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import CenterDropdown from '@/components/CenterDropdown.vue';
+import General from '@/models/general.model';
 
 export default {
-    props: {
+  components: {
+    PlateformDropdown,
+    CenterDropdown
+  },
 
+  data() {
+    return {
+      pageStore: usePageStore(),
+
+      days: {},
+
+      options: {
+        length: 10,
+        page: 1,
+        last_page: 1,
+        offset: 0,
+        platform_id: null,
+        center_id: null,
+        day: 'today',
+        enableCurrent: false,
+        date: '',
+      },
+
+      data: [],
+      total: 0,
+      loading: false,
+
+      headers: [
+        { title: "Platform", key: "platform_name" },
+        { title: "Center", value: "center_name" },
+        { title: "Total Vehicles", value: "car_count" },
+        { title: "Date", value: "auction_date" },
+        { title: "Status", value: "status" },
+        { title: "Action", key: "action", sortable: false },
+      ],
+    };
+  },
+
+  mounted() {
+    this.nextDays();
+    this.getRecords();
+  },
+
+  methods: {
+    async handleInput(value, field) {
+      switch (field) {
+        case 'platform_id':
+          this.options.platform_id = value;
+          break;
+
+        case 'center_id':
+          this.options.center_id = value;
+          break;
+
+        case 'enableCurrent':
+          this.options.enableCurrent = value.target.checked;
+          if (value.target.checked) {
+            this.options.day = 'today';
+          }
+          break;
+      }
+
+      this.getRecords();
     },
-    components: {
-        PlateformDropdown,
-        CenterDropdown
+
+    handleTab(key) {
+      if (!this.options.enableCurrent) {
+        this.options.day = key;
+        this.getRecords();
+      }
     },
-    data() {
-        return {
-            pageStore: usePageStore(),
-            platforms: [],
-            centers: [], carousel: 0,
-            days: {
-                today: {
-                    auction: 0,
-                    car: 10,
-                },
-                mon: {
-                    auction: 0,
-                    car: 10,
-                },
-                tue: {
-                    auction: 6,
-                    car: 10,
-                },
-                wed: {
-                    auction: 0,
-                    car: 10,
-                },
-                thu: {
-                    auction: 9,
-                    car: 10,
-                },
-                fri: {
-                    auction: 0,
-                    car: 10,
-                },
-                sat: {
-                    auction: 10,
-                    car: 10,
-                },
-            },
-            options: {
-                length: 10,
-                page: 1,
-                last_page: 1,
-                offset: 0,
-                platform_id: null,
-                center_id: null,
-                day: 'today',
-                enableCurrent: false,
-                date: '',
-            },
-            data: [],
-            total: 0,
-            loading: false,
-            headers: [
-                { title: "Platform", key: "platform_name", sortable: false },
-                { title: "Center", value: "center_name" },
-                { title: "Total Vehicles", value: "car_count" },
-                { title: "Time", value: "time" },
-                { title: "Status", value: "status" },
-                { title: "Action", key: "action", sortable: false },
-            ],
+
+    async getRecords() {
+      try {
+        this.loading = true;
+
+        const res = await auctionSheldulerList(this.options);
+
+        this.data = res.data;
+        this.total = res.recordsTotal;
+
+        this.prepareDays(res.data);
+
+        this.options.page = Number(res.page);
+        this.options.offset = res.offset;
+        this.options.last_page = res.last_page;
+
+      } catch (error) {
+        this.data = [];
+        this.total = 0;
+        this.options.page = 1;
+        this.options.last_page = 1;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    prepareDays(apiData) {
+      // reset counts
+      Object.keys(this.days).forEach(key => {
+        this.days[key].auction = 0;
+        this.days[key].car = 0;
+      });
+
+      apiData.forEach(item => {
+        const itemDate = item.auction_date?.split(' ')[0];
+
+        Object.keys(this.days).forEach(dayKey => {
+          if (this.days[dayKey].date === itemDate) {
+            this.days[dayKey].auction += 1;
+            this.days[dayKey].car += Number(item.car_count || 0);
+          }
+        });
+      });
+    },
+
+    nextDays() {
+      this.days = {};
+      const today = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() + i);
+
+        const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
+        const dateLabel = d.toLocaleDateString('en-US', {
+          day: '2-digit',
+         
+        });
+
+        const label = i === 0 ? 'Today' : `${dayName}`;
+
+        this.days[label] = {
+          date: d.toISOString().split('T')[0],
+          auction: 0,
+          car: 0
         };
+      }
     },
-    async mounted() {
 
-
-    },
-    methods: {
-        async handleInput(value, field) {
-
-            switch (field) {
-                case 'platform_id':
-                    this.options.platform_id = value;
-                    break;
-                case 'center_id':
-                    this.options.center_id = value;
-                    break;
-                case 'enableCurrent':
-                    console.log(value.target.checked);
-                    if (value.target.checked) {
-                        this.options.day = 'today';
-                    }
-                    this.options.enableCurrent = value.target.checked;
-
-                    break;
-
-                default:
-                    break;
-            }
-
-            this.getRecords();
-        },
-        handleTab(key) {
-
-            if (this.options.enableCurrent) {
-
-            } else {
-                this.options.day = key;
-            }
-
-            this.getRecords();
-        },
-        async getRecords() {
-
-            try {
-
-                let res = await auctionSheldulerList(this.options);
-                this.data = res.data;
-                this.total = res.recordsTotal;
-                this.options.page = Number(res.page);
-                this.options.offset = res.offset;
-                this.options.last_page = res.last_page
-            } catch (error) {
-                this.alertStore.add(error.message, 'error');
-                this.data = [];
-                this.total = 0;
-                this.options.page = 1;
-                this.options.last_page = 1;
-            }
-        }
-
-    },
+    async sendData(auction_id) {
+      this.loading = true;
+      try {
+        await General.post("/api/notifications/addInUserAuction", {
+          auction_id
+        });
+        this.$alertStore.add("Added successfully", "success");
+      } catch (error) {
+        this.$alertStore.add("Error", "error");
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
 };
 </script>
 

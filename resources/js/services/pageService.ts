@@ -64,7 +64,7 @@ export async function reAuctionList(options: {
     }> {
 
         try {
-            const res = await api.get("/api/user/auctionShedule", { params: options });
+            const res = await api.get("/api/user/auctionSheduler", { params: options });
             return res.data;
         } catch (e) {
             throw await errorHandler(e);

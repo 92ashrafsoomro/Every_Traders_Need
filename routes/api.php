@@ -23,6 +23,9 @@ use App\Http\Controllers\Api\Master\BlogController;
 use App\Http\Controllers\Api\Master\MembershipController;
 use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
+use App\Http\Controllers\Api\Master\TaskManagementController;
+use App\Http\Controllers\Api\Master\StaffController;
+
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
 
@@ -96,38 +99,13 @@ use App\Http\Controllers\Api\StripeController;
 
 
         Route::prefix('profile')->group(function () {
-
             Route::get('/userDevices',[ProfileController::class,'userDevices']);
-            
         });
-        
-        Route::prefix('notifications')->group(function () {
-
-            Route::get('/userNotification',[NotificationController::class,'userNotification']);
-            Route::get('/markRead/{id}',[NotificationController::class,'markRead']);
-
-            
-            Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
-            Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
-            
-        });
-
-        
 
         Route::prefix('page')->group(function () {
-
-            Route::get('/userWatchList',[PageController::class,'userWatchList']);
-            Route::get('/userAlertList',[PageController::class,'userAlertList']);
             Route::get('/plansList',[PageController::class,'plansList']);
-
             Route::post('/supportForm',[PageController::class,'supportForm']);
-            
         });
-
-
-        Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
-        Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
-
 
 
         // Dashboard
@@ -144,9 +122,8 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
         
         Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
-        Route::get('/auctionShedule',[AuctionFinderController::class,'auctionShedule']);
+        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
 
-    
         Route::get('/compareList',[AuctionFinderController::class,'compareList']);
         Route::prefix('interest')->group(function () {
             Route::get('/myInterest',[InterestController::class,'myInterest']);
@@ -154,11 +131,41 @@ use App\Http\Controllers\Api\StripeController;
         
     });
 
+
+
+
+
     Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
     });
 
     
+
+
+    // Notifications
+    Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function(){
+        
+        Route::post('/addInWatchList',[NotificationController::class,'addInWatchList']);
+        Route::post('/addInVehicleAlert',[NotificationController::class,'addInVehicleAlert']);
+        Route::post('/addInUserAuction',[NotificationController::class,'addInUserAuction']);
+        
+        Route::post('/removeInVehicleAlert',[NotificationController::class,'removeInVehicleAlert']);
+        Route::post('/removeInUserAuction',[NotificationController::class,'removeInUserAuction']);
+        
+        Route::get('/userWatchList',[NotificationController::class,'userWatchList']);
+        Route::get('/userAuctionList',[NotificationController::class,'userAuctionList']);
+        Route::get('/userAlertList',[NotificationController::class,'userAlertList']);
+        Route::get('/userNotification',[NotificationController::class,'userNotification']);
+        Route::post('/markRead/{id}',[NotificationController::class,'markRead']);
+
+    });
+
+
+
+
+
+
+
     // Master data
     Route::prefix('cruds')->middleware(['auth:sanctum'])->group(function () {
 
@@ -167,14 +174,11 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/auctions/getScrap/{id}',[SheetController::class,'getScrapperDataBySheetId']);
         Route::get('/auctions/csvGet/{id}',[SheetController::class,'getAuctionVehicle']);
         Route::post('/auctions/csvUpdate/{id}',[SheetController::class,'sheetUpdate']);
-
-
         Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
 
+        Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
-
-
-
+        
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -191,12 +195,16 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('newsCategory',NewsCategoryController::class);
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
+        
+        
+        Route::get('/taskManagement/counters',[TaskManagementController::class,'counters']);
+        Route::post('/taskManagement/changeStatus',[TaskManagementController::class,'changeStatus']);
+        Route::resource('taskManagement',TaskManagementController::class);
         Route::resource('auctions',AuctionController::class);
         Route::resource('vehicles',VController::class);
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
-
-
+        Route::resource('staffs',StaffController::class);    
 
 
         // Users
@@ -204,14 +212,5 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('users',UserController::class);
 
         
-      
-        
-        
-       
-
-        
-
-        // Route::resource('platform',PlatformController::class);
-
     });
     

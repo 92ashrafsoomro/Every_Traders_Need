@@ -1,7 +1,7 @@
 <template>
     
     <v-col  class="ma-0">
-        <v-row class="mt-3">
+        <v-row class="mt-5 " no-gutters="">
             <v-col cols="12">
                 <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2 " >
                     <div class="d-flex  ">
@@ -25,7 +25,8 @@
                         </div>
 
                         <div class="px-lg-2 px-md-2 px-2">
-                            <MakeDropdown width="200" label="Select Make" variant="outlined" color="primary"
+                            <MakeDropdown width="200" label="Select Make" variant="outlined" item-title="name"
+                                 item-value="id" color="primary"
                                 density="compact" :model-value="filter.make"
                                 @update:modelValue="handleInput($event, 'make')" clearable />
                         </div>
@@ -33,7 +34,8 @@
                         <div class="">
 
                             <ModelDropdown width="200" label="Select Model" variant="outlined" color="primary"
-                                :make="filter.make" :model-value="filter.model"
+                                :make="filter.make" :model-value="filter.model"item-title="name"
+                                 item-value="id"
                                 @update:modelValue="handleInput($event, 'model')" clearable density="compact" />
 
                         </div>
@@ -42,13 +44,17 @@
                 </div>
             </v-col>
 
-            <v-col cols="12" class="mt-n3">
+            <v-col cols="12" class="mt-3 ">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="items" :items-length=" totalItems" hover
-                        :loading="loading" item-value="id" @update:options="loadItems">
+                    <v-data-table-server class="" 
+                    :headers="headers" :items="items" 
+                    :items-length=" totalItems" hover
+                     hide-default-footer
+                    :loading="loading" item-value="id" 
+                    @update:options="loadItems">
 
-                        <template #item.view="{ item }">
-                            <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
+                        <template #item.vehicle="{item}">
+                            <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id">{{ item.vehicle }}</v-btn>
                         </template>
 
                         <template #item.autoboli="{ item }">
@@ -63,7 +69,7 @@
                             {{dateFormate(autotrader_retail_value)}}
                         </template> -->
 
-                         <template v-slot:bottom>
+                         <!-- <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination 
                                   :loading="loading" 
@@ -71,7 +77,7 @@
                                   :lastPage="last_page" 
                                   @page-changed="loadItems" />
                             </div>
-                        </template>
+                        </template> -->
 
                        
                     </v-data-table-server>
@@ -115,15 +121,17 @@ export default {
             totalItems: 0,
             loading: false,
             headers: [
-                // { title: "", key: 'view', sortable: false },
+                // { title: "view", key: 'view', sortable: false },
+                { title: "Auction", value: "auction_id" },
                 { title: "Vehicle", value: "vehicle" },
                 { title: "Reg", value: "reg" },
-                { title: "CC", value: "cap_clean" },
-                { title: "Milage", value: "cap_average" },
-                { title: "Year", value: "cap_below" },
-                { title: "Grad", value: "cap_below" },
+                { title: "CC", value: "cc" },
+                { title: "Milage", value: "mileage" },
+                { title: "Year", value: "year" },
+                { title: "Transmission", value: "transmission" },
                 { title: "Date Time", value: "autotrader_retail_value" },
                 { title: "Auction House", value: "platform_title" },
+                
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],

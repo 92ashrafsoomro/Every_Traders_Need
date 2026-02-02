@@ -28,38 +28,38 @@ class DashboardController extends Controller
 
       public function counters(Request $request)
     {   
-            $id = $request->user()->id;
 
+            $id = $request->user()->id;
             $now = Carbon::today();
 
             // 🔹 Base vehicle query for today and upcoming auctions
-            $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                ->whereDate('auctions.auction_date', '>=', $now);
+            $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id');
+                // ->whereDate('auctions.auction_date', '>=', $now);
 
             // 🔹 Optional filters
-            if ($request->make_id) {
-                $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
-            }
-            if ($request->model_id) {
-                $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
-            }
-            if ($request->year) {
-                $vehicleBaseQuery->where('vehicles.year', $request->year);
-            }
-            if ($request->grade) {
-                $vehicleBaseQuery->where('vehicles.grade', $request->grade);
-            }
+            // if ($request->make_id) {
+            //     $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
+            // }
+            // if ($request->model_id) {
+            //     $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
+            // }
+            // if ($request->year) {
+            //     $vehicleBaseQuery->where('vehicles.year', $request->year);
+            // }
+            // if ($request->grade) {
+            //     $vehicleBaseQuery->where('vehicles.grade', $request->grade);
+            // }
             
 
             // 🔹 Stats
             $totalVehicles = (clone $vehicleBaseQuery)->count();
 
             $soldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'sold')
+                ->where('bidding_status', 'Sold')
                 ->count();
 
             $unsoldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Not sold')
+                ->where('bidding_status', 'Not Sold')
                 ->count();
 
             $totalAuctions = (clone $vehicleBaseQuery)
@@ -67,12 +67,12 @@ class DashboardController extends Controller
                 ->count('auction_id');
 
             $onlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 'Online Auction')
+                ->where('auction_type', 2)
                 ->distinct('auction_id')
                 ->count('auction_id');
 
             $offlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 'Time Auction')
+                ->where('auction_type', 1)
                 ->distinct('auction_id')
                 ->count('auction_id');
 
@@ -88,7 +88,7 @@ class DashboardController extends Controller
 
             // 🔹 Find vehicles reappearing in future auctions
             $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                ->whereDate('auctions.auction_date', '<', $now)
+                // ->whereDate('auctions.auction_date', '<', $now)
                 ->pluck('vehicles.reg')
                 ->toArray();
 
@@ -101,6 +101,7 @@ class DashboardController extends Controller
                 'success' => true,
                 'data' => [
                     'total_auctions' => $totalAuctions,
+                 
                     'online_auctions' => $onlineAuctions,
                     'offline_auctions' => $offlineAuctions,
                     'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
@@ -120,10 +121,10 @@ class DashboardController extends Controller
 
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 // 🟢 Only include auctions happening today or later
-                ->whereDate('auctions.auction_date', '>=', Carbon::today())
+                // ->whereDate('auctions.auction_date', '>=', Carbon::today())
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
-                    DB::raw("COUNT(CASE WHEN auctions.status = 'Not sold' THEN vehicles.id END) as inprogress_vehicles"),
+                    DB::raw("COUNT(CASE WHEN auctions.status = 4 THEN vehicles.id END) as inprogress_vehicles"),
                     DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Sold' THEN vehicles.id END) as onsale_vehicles"),
                     DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
                     DB::raw("COUNT(*) - COUNT(DISTINCT vehicles.id) as duplicate_vehicles")
@@ -147,7 +148,6 @@ class DashboardController extends Controller
             $offset = ($page - 1) * $length;
     
             $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
-
                     ->when($request->type, function($q) use ($request) {
                         if($request->type == 'time auction'){
                                 $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");

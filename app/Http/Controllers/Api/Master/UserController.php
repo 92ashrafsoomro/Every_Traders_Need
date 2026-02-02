@@ -7,6 +7,7 @@ use App\Models\Membership;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\MembershipPlan;
+use App\Models\RecentView;
 use App\Models\UserPaymentMethod;
 use App\Models\UserVehicleAlert;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,7 @@ class UserController extends Controller
         $page  = $request->input('page',1);
         $length = $request->input('length',100);
 
-        $query = User::query()
+        $query = User::whereIn('users.user_type',[0])
                     ->leftJoin('memberships', 'memberships.user_id', '=', 'users.id')
                     ->leftJoin('membership_plans', 'membership_plans.id', '=', 'memberships.plan_id')
                     ->leftJoin('roles','roles.id','=','users.user_type');
@@ -42,6 +43,7 @@ class UserController extends Controller
 
             $query->where(function ($q) use ($search) {
                 $q->where('users.surname', 'like', "%{$search}%")
+                ->orWhere('users.id', 'like', "%{$search}%")
                 ->orWhere('users.firstName', 'like', "%{$search}%")
                 ->orWhere('users.companyName', 'like', "%{$search}%")
                 ->orWhere('users.phone', 'like', "%{$search}%")
@@ -55,6 +57,14 @@ class UserController extends Controller
         }
         if($request->filled('status')) {
                $query->where('users.status', $request->status);
+        }
+
+        if($request->filled('id')) {
+               $query->where('users.id', $request->id);
+        }
+
+        if($request->filled('type')) {
+               $query->where('users.user_type', $request->type);
         }
 
         // if ($request->has('plan_id') && $request->plan_id !== '') {
@@ -81,7 +91,7 @@ class UserController extends Controller
                         'users.phone',
                         'users.businessType',
                         'roles.name as role_name',
-                        
+
                         'users.surname',
                         'users.companyName',
                         'users.user_type',
@@ -259,25 +269,37 @@ class UserController extends Controller
 
 
     public function destroy($id)
-    {
+    {   
 
         $model = User::find($id);
         if(!$model){
             return response()->json(["message" => "Record Not Found"],400);
         }
 
-        UserVehicleAlert::where('user_id',$id)->delete();
-        UserPaymentMethod::where('user_id',$id)->delete();
         if(Membership::where('user_id',$id)->first()){
             return response()->json(["message" => "Cannot Delete Record Its Used In Membership"],400);
         }
 
-        $model->delete();
+        DB::beginTransaction();
+        try {
 
-        return response()->json([
-            "message" => 'Record Deleted Successfully',
-            "data" => $model,
-        ],200);
+            UserVehicleAlert::where('user_id',$id)->delete();
+            UserPaymentMethod::where('user_id',$id)->delete();
+            RecentView::where('user_id',$id)->delete();
+            $model->delete();
+            DB::commit();
+            return response()->json([
+                "message" => 'Record Deleted Successfully',
+                "data" => $model,
+            ],200);
+                
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+
 
     }
 

@@ -7,6 +7,19 @@
                             <v-row>
                                 <v-col cols="12">
                                     <v-row cols="12" class="mt-1 text-center content-scroll">
+                                        
+                                        <v-col cols="4" sm="" class="pl-2">
+                                            <UserDropdown
+                                                v-model="filter.id"
+                                                variant="outlined"
+                                                label="User"
+                                                item-title="firstName"
+                                                item-value="id"
+                                                density="compact" 
+                                                color="primary"
+                                                clearable
+                                                />
+                                        </v-col>
                                        <v-col cols="4" sm="" class="pl-2">
                                             <v-select
                                                 v-model="filter.status"
@@ -49,7 +62,7 @@
                                                     </v-btn>
                                                 </div>
 
-                                                <div class="pl-2" >
+                                                <!-- <div class="pl-2" >
                                                     <v-btn to="/admin/members/create" 
                                                         color="primary" 
                                                         style="height: 
@@ -57,11 +70,11 @@
                                                     >
                                                         <v-icon icon="mdi-plus"></v-icon>
                                                     </v-btn>
-                                                </div>
+                                                </div> -->
                                             </v-col>
                                         </v-row>
                                 </v-col>
-                    
+                            <UserCount/>
                             </v-row>
                         </v-container>
                     </div>
@@ -97,7 +110,6 @@
                             :items="items" 
                             :items-length="total" 
                             hover
-                           
                             item-value="id" 
                             @update:options="loadItems" >
                             <template v-slot:bottom>
@@ -131,9 +143,9 @@
                             </template>
 
                             <template #item.action="{ item }">
-                            <router-link :to="'/admin/members/edit/' + item.id">
+                            <!-- <router-link :to="'/admin/members/edit/' + item.id">
                                 <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
-                            </router-link>
+                            </router-link> -->
 
                             <span class="px-2"></span>
                             <v-icon
@@ -204,12 +216,16 @@
 
 import Members from '@/models/member.model';
 import PlansDropDron from "@components/PlanDropDown.vue"
-import UserDrawer  from './component/UserDrawer.vue';
-
+import UserDrawer from './component/UserDrawer.vue';
+import UserDropdown  from '@/components/UserDropdown.vue';
+import UserCount from './component/UserCount.vue';
 export default {
 
   components: {
-   PlansDropDron,UserDrawer 
+        PlansDropDron,
+        UserDrawer,
+        UserDropdown ,
+        UserCount
   },
 
   data() {
@@ -218,10 +234,11 @@ export default {
         selectedUser: null,
         viewLoading: false,
             filter: {
-                search: '',
+                search: null,
                 length: 10,
                 page: 1,
                 offset: 0,
+                id:null,
             },
             
             last_page: 1,

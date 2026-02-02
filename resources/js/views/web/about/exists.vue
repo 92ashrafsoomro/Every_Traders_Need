@@ -1,15 +1,15 @@
 <template>
-  <v-container fluid class="bg-background main-container ">
+  <div fluid class="bg-background main-container ">
     <div class="pt-16 pb-16 mx-auto " style="max-width: 1400px;">
-        <v-row align="center" >
+        <v-row align="center" no-gutters="">
           <!-- Left Content -->
-          <v-col cols="12" md="6" class="mt-8 mt-md-0 ">
+          <v-col cols="12" md="6" class="mt-lg-8 mt-md-0 ">
                   <v-img :src="dashboardImage" alt="Autoboli dashboard showing organized vehicle auction data"
                     class="imageExist rounded-lg ml-3 border" style="box-shadow: -10px 0px 90px 0px rgb(var(--v-theme-primary),0.5);" contain></v-img>
           </v-col>
 
           <!-- Right content -->
-          <v-col cols="12" md="6" class="pr-md-8 pl-10 ">
+          <v-col cols="12" md="6" class="pr-md-8 pl-10 mt-16 mt-lg-0 mt-md-0 ">
             <h2 class="text-lg-h3 text-md-h3 text-h4  font-weight-bold mb-6">
               Why Autoboli Exists
             </h2>
@@ -39,7 +39,7 @@
         </v-row>
       </div>
 
-  </v-container>
+  </div>
 </template>
 
 <script>

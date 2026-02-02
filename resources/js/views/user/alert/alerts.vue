@@ -51,13 +51,14 @@
                 <div class="  border ">
                     <v-data-table-server class="" 
                     :headers="headers" :items="items" 
-                     hide-default-footer
+                     hide-default-footer=""
                     :items-length=" totalItems" hover
                     :loading="loading" item-value="id"
                     @update:options="loadItems">
                         
                         <template #item.vehicle="{item}">
-                            <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.vehicle_id" target="_blank">{{ item.vehicle }}</v-btn>
+                            <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.vehicle_id" target="_blank" class="pa-0">
+                                {{ item.vehicle }}</v-btn>
                         </template>
 
 
@@ -70,12 +71,13 @@
                         </template>
 
                         <template #item.action="{item}">
-                             <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.vehicle_id)">
+                             <v-icon small class="clickable-icon pa-4" color="danger"
+                              @click="deleteItems(item.vehicle_id)">
                                 mdi-delete
                              </v-icon>  
                         </template>
 
-                         <template v-slot:bottom>
+                         <!-- <template v-slot:bottom>
                             <div class="py-2 d-flex justify-end border-t">
                                 <custom-pagination 
                                   :loading="loading" 
@@ -83,7 +85,7 @@
                                   :lastPage="last_page" 
                                   @page-changed="loadItems" />
                             </div>
-                        </template>
+                        </template> -->
 
                        
                     </v-data-table-server>

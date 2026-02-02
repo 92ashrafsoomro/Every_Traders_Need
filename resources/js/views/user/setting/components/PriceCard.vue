@@ -46,6 +46,7 @@
     <v-btn v-else
         color="primary"
         variant="tonal"
+        :to="'/checkout'"
         class="mt-8 text-white font-weight-bold text-capitalize">
         Select Plan</v-btn>
 

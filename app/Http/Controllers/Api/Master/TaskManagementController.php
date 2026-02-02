@@ -46,6 +46,10 @@ class TaskManagementController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
+       
+
+
+
         //Query
         $query = TaskManagement::with(['auctionHouse','auctionType']);
 
@@ -73,9 +77,11 @@ class TaskManagementController extends Controller
         if($request->has('type') && $request->type != '') {
 
             if($request->type == 'update'){
-                $query->whereDate('date',now()->subDays(2));
+                $query->whereDate('date',now()->addDays(1));
             }elseif($request->type == 'final'){
                 $query->whereDate('date',now());
+            }elseif($request->type == 'upComing'){
+                $query->whereDate('date', '>', now());
             }else{
                 // $query->whereIn('status',['pending','processing','cancel','scrapped']);
             }
@@ -131,7 +137,15 @@ class TaskManagementController extends Controller
             COUNT(CASE WHEN status = 'publish' THEN 1 END) as total_publish,
             SUM(lots) as total_lots,
             SUM(lots) as published_lots
-        ")->first();
+
+        ")
+        ->whereDate('date',Carbon::now())
+        ->first();
+        
+        $all = TaskManagement::count('*');
+        $upcomming = TaskManagement::whereDate('date', '>', now())->count('id');
+        $update =  TaskManagement::whereDate('date',now()->addDays(1))->count('id');
+        $final = TaskManagement::whereDate('date',now())->count('id');
 
      
       
@@ -153,6 +167,12 @@ class TaskManagementController extends Controller
         
         return response()->json([
             'data' => $stats,
+            'counters' => [
+                'all' => $all,
+                'upcomming' => $upcomming,
+                'update' => $update,
+                'final' => $final,
+            ]
         ],200);
         
     }

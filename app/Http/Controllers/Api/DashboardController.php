@@ -49,19 +49,9 @@ class DashboardController extends Controller
             // if ($request->grade) {
             //     $vehicleBaseQuery->where('vehicles.grade', $request->grade);
             // }
-            
 
-            // 🔹 Stats
-            $totalVehicles = (clone $vehicleBaseQuery)->count();
 
-            $soldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Sold')
-                ->count();
-
-            $unsoldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Not Sold')
-                ->count();
-
+            // Auctions
             $totalAuctions = (clone $vehicleBaseQuery)
                 ->distinct('auction_id')
                 ->count('auction_id');
@@ -76,40 +66,54 @@ class DashboardController extends Controller
                 ->distinct('auction_id')
                 ->count('auction_id');
 
-            $totalVehiclesInProgress = (clone $vehicleBaseQuery)
-                ->where('auctions.status', 'In Progress')
+            $inProgressAuctions = (clone $vehicleBaseQuery)
+                ->where('status', 4)
+                ->distinct('auction_id')
+                ->count('auction_id');
+
+            
+
+            // 🔹 Stats
+            $totalVehicles = (clone $vehicleBaseQuery)->count();
+
+            $soldVehicles = (clone $vehicleBaseQuery)
+                ->where('bidding_status', 'Sold')
                 ->count();
 
-            $vehiclesInProgress = (clone $vehicleBaseQuery)
-                ->where('auctions.status', 'In Progress')
-                ->get(['vehicles.id']);
+            // $unsoldVehicles = (clone $vehicleBaseQuery)
+            //     ->where('bidding_status', 'Not Sold')
+            //     ->count();
 
-            $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
 
-            // 🔹 Find vehicles reappearing in future auctions
-            $pastVehicleRegs = Vehicle::join('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                // ->whereDate('auctions.auction_date', '<', $now)
-                ->pluck('vehicles.reg')
-                ->toArray();
+            // $totalVehiclesInProgress = (clone $vehicleBaseQuery)
+            //     ->where('auctions.status', 'In Progress')
+            //     ->count();
 
-            $vehiclesInReauction = (clone $vehicleBaseQuery)
-                ->whereIn('vehicles.reg', $pastVehicleRegs)
-                ->count();
+            
+            // $vehiclesInProgress = (clone $vehicleBaseQuery)
+            //     ->where('auctions.status', 'In Progress')
+            //     ->get(['vehicles.id']);
+
+            // $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
+
+        
+
+        
 
             // 🔹 Return final response
             return response()->json([
                 'success' => true,
                 'data' => [
                     'total_auctions' => $totalAuctions,
-                 
-                    'online_auctions' => $onlineAuctions,
-                    'offline_auctions' => $offlineAuctions,
-                    'vehicles_in_progress_auctions' => $totalVehiclesInProgress,
-                    'totalVehiclesInProgress' => $totalVehiclesInProgressCheck,
+                    'live_auctions' => $onlineAuctions,
+                    'time_auctions' => $offlineAuctions,
+                    'in_progressAuctions' => $inProgressAuctions,
+
+
                     'total_vehicles' => $totalVehicles,
                     'sold_vehicles' => $soldVehicles,
-                    'unsold_vehicles' => $unsoldVehicles,
-                    'vehicles_in_reauction' => $vehiclesInReauction,
+                    'vehicles_in_reauction' => 0,
+                    'vehicles_in_remaining' => 0,
                 ],
             ], 200);
             

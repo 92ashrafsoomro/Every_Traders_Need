@@ -38,7 +38,7 @@
                   <v-icon size="22" color="primary">mdi-store-clock</v-icon>
                 </div>
   
-                <span class="text-h4 px-3">{{ counter.total_Auctions }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.total_auctions }}</span>
               </div>
   
   
@@ -47,14 +47,14 @@
                 <div class="text-body-2 pr-2">
                   <span class="white">Live Auctions: </span>
                   <span class=""
-                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      counter.liveAuctions }}</span>
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                    {{auctionCounter.live_auctions }}</span>
                 </div>
                 <div class=" text-body-2 pl-2">
                   <span class="white">Time Auctions: </span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; "> {{
-                      counter.timeAuctions }}</span>
+                      auctionCounter.time_auctions }}</span>
                 </div>
               </div>
   
@@ -81,7 +81,7 @@
                   </v-icon>
                 </div>
   
-                <span class="text-h4 px-3">{{ counter.inprogress_Auctions }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.in_progressAuctions }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Inprogress Auctions</div>
@@ -89,8 +89,8 @@
                 <div class="text-body-2 pr-2">
                   <span class="white">Vehicles:</span>
                   <span class=""
-                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      counter.vehicleReauctions }}</span>   </div>
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                    {{auctionCounter.vehicles_in_progress_auctions }}</span>   </div>
                 <div class="text-body-2">View</div>
   
               </div>
@@ -110,7 +110,7 @@
                   class="circle d-flex justify-center align-center">
                   <v-icon size="32" color="primary">mdi-bash</v-icon>
                 </div>
-                <span class="text-h4 px-3">{{ counter.totalVehicles }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.total_vehicles }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Total Vehicles</div>
@@ -118,8 +118,8 @@
                 <div class="text-body-2 pr-2">
                   <span class="white">Sold:</span>
                   <span class=""
-                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      vehicelState.sold_vehicles }}</span>
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                    {{auctionCounter.sold_vehicles }}</span>
                 </div>
               </div>
   
@@ -137,16 +137,16 @@
                   class="circle d-flex justify-center align-center">
                   <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
                 </div>
-                <span class="text-h4 px-3">{{ counter.vehicleReauctions }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.vehicles_in_reauction }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
               <div class="pt-2 d-flex">
                 <div class="text-body-2 pr-2">
-                  <span class="white">Vehicles:</span>
+                  <span class="white">Remaining:</span>
                   <span class=""
-                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{
-                      vehicelState.total_vehicles }}</span>
+                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
+                    {{auctionCounter.remaining }}</span>
                 </div>
   
               </div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="pl-3 d-flex align-center">
                           <div class="text-h5 font-weight-bold">
-                            {{ vehicelState.inprogress_vehicles }}
+                            {{ auctionCounter.inprogress_vehicles }}
                           </div>
                           <div class="text-body-1 text-light_text_on ml-2 ">Provisional</div>
                         </div>
@@ -207,7 +207,7 @@
                           <v-icon size="20" color="primary">mdi-check-decagram</v-icon>
                         </div>
                         <div class="pl-3 d-flex  align-center">
-                          <div class="text-h5 font-weight-bold">{{ vehicelState.sold_vehicles }}</div>
+                          <div class="text-h5 font-weight-bold">{{ auctionCounter.sold_vehicles }}</div>
                           <div class="text-body-1 text-light_text_on ml-2 ">Sold</div>
                         </div>
                       </div>
@@ -218,7 +218,7 @@
                           <v-icon size="20" color="primary">mdi-minus-circle</v-icon>
                         </div>
                         <div class="pl-3 d-flex  align-center">
-                          <div class="text-h5 font-weight-bold">{{ vehicelState.not_sold }}</div>
+                          <div class="text-h5 font-weight-bold">{{ auctionCounter.not_sold }}</div>
                           <div class="text-body-1 text-light_text_on ml-2  ">Not Sold</div>
                         </div>
                       </div>
@@ -245,6 +245,7 @@
 import api from '@/plugins/axios';
 import VehicleStateChart from '@/views/user/dashboard/VehicleStateChart.vue';
 import Auction from './Auction.vue';
+import General from '@/models/general.model';
 export default {
   name: 'AuctionDashboard',
   components: {
@@ -258,15 +259,20 @@ export default {
       timePlatform: null,
       platforms: [],
 
-
-      counter: {
-        total_Auctions: 1,
-        liveAuctions: 2,
-        timeAuctions: 3,
-        inprogress_Auctions: 4,
-        totalVehicles: 5,
-        vehicleReauctions: 6,
-        isLoading: false
+      auctionCounter:{
+        isLoading: false,
+        total_auctions : 0,
+        live_auctions : 0,
+        time_auctions:0,
+        in_progressAuctions : 0 , 
+        vehicles_in_progress_auctions : 0,
+        totalVehiclesInProgress : 0 ,
+        remaining : 0 , 
+        total_vehicles: 0,
+        sold_vehicles : 0,
+        unsold_vehicles : 0 ,
+        vehicles_in_reauction : 0 ,
+        remaining : 0 ,
       },
       vehicelState:
       {
@@ -277,7 +283,7 @@ export default {
         not_sold: 0,
         total_vehicles: 100,
       }
-
+     
     }
   },
   computed: {
@@ -286,26 +292,22 @@ export default {
   methods: {
 
     async getCountData() {
-      this.counter.isLoading = true;
+      this.auctionCounter.isLoading = true;
       try {
+          let res = await General.get("/api/user/dashboard/counters");
 
-        let res = await api.get("/api/user/dashboard/counters");
-        this.counter.total_Auctions = res.data.data.total_auctions;
-        this.counter.inprogress_Auctions = res.data.data.vehicles_in_progress_auctions;
-        this.counter.totalVehicles = res.data.data.total_vehicles;
-        this.counter.vehicleReauctions = res.data.data.vehicles_in_reauction
-        this.counter.isLoading = false;
-        //  "total_auctions": 9,
-        // "online_auctions": 0,
-        // "offline_auctions": 0,
-        // "vehicles_in_progress_auctions": 0,
-        // "totalVehiclesInProgress": 0,
-        // "total_vehicles": 739,
-        // "sold_vehicles": 0,
-        // "unsold_vehicles": 0,
-        // "vehicles_in_reauction": 739
-      } catch (error) {
-        this.counter.isLoading = false;
+          this.auctionCounter.total_auctions = res.data.total_auctions;
+          this.auctionCounter.live_auctions = res.data.live_auctions;
+          this.auctionCounter.time_auctions = res.data.time_auctions;
+          this.auctionCounter.in_progressAuctions = res.data.in_progressAuctions;
+          this.auctionCounter.vehicles_in_progress_auctions = res.data.vehicles_in_progress_auctions;
+          this.auctionCounter.totalVehiclesInProgress = res.data.totalVehiclesInProgress;
+          this.auctionCounter.total_vehicles = res.data.total_vehicles;
+          this.auctionCounter.sold_vehicles = res.data.sold_vehicles;
+          this.auctionCounter.unsold_vehicles = res.data.unsold_vehicles;
+          this.auctionCounter.vehicles_in_reauction = res.data.vehicles_in_reauction;
+        } catch (error) {
+        this.auctionCounter.isLoading = false;
         console.error(error.message, "counters Api error");
       }
     },

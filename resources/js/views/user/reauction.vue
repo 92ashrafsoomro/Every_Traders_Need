@@ -159,7 +159,7 @@ export default {
                 // { title: "Cap Average", value: "cap_average" },
                 { title: "Mileage", value: "mileage" },
                 { title: "Auction Status Time", value: "created_at" },
-                { title: "Auction Date", value: "auction_date" },
+                { title: "Auction Date", value: "date" },
                 { title: "Auction House", value: "platform_name" }
                 // Vehicle(make,model,V,year), Reg, Auction Time, Auc houes, Center,        Mileage,        Auc Status, Time,        Action(basic detail, full view)
             ],

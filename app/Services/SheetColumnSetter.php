@@ -101,8 +101,8 @@ class SheetColumnSetter
 
             if(in_array($value,$models)){
                 $this->item['model_id'] = $value;
-            }else if($model = HelperService::findWithExplodeFirstWord($value,$models)){
-                $this->item['model_id'] = $model;
+            // }else if($model = HelperService::findWithExplodeFirstWord($value,$models)){
+            //     $this->item['model_id'] = $model;
             // }else if($model = HelperService::findWithExplode($value,$models)){
             //     $this->item['model_id'] = $model;
             }else if($model = HelperService::findInPrefixes($value,$this->prefixes['model'])){

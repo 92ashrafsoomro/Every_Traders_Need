@@ -143,7 +143,7 @@ class TaskManagementController extends Controller
         ->first();
         
         $all = TaskManagement::count('*');
-        $upcomming = TaskManagement::whereDate('date', '>', now())->count('id');
+        $upcomming = TaskManagement::whereDate('date', '>=', now())->count('id');
         $update =  TaskManagement::whereDate('date',now()->addDays(1))->count('id');
         $final = TaskManagement::whereDate('date',now())->count('id');
 

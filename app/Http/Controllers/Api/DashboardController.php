@@ -94,14 +94,21 @@ class DashboardController extends Controller
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
                     DB::raw("COUNT(CASE WHEN auctions.status = 4 THEN vehicles.id END) as inprogress_vehicles"),
-                    DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Sold' THEN vehicles.id END) as onsale_vehicles"),
+                    DB::raw("COUNT(CASE WHEN auctions.status = 5 THEN vehicles.id END) as done_vehicles"),
+
+
+                    DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Sold' THEN vehicles.id END) as sold_vehicles"),
+
+                    DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Not Sold' THEN vehicles.id END) as not_sold_vehicles"),
+
                     DB::raw("COUNT(CASE WHEN vehicles.bidding_status = 'Provisional' THEN vehicles.id END) as provisional_vehicles"),
-                    DB::raw("COUNT(*) - COUNT(DISTINCT vehicles.id) as duplicate_vehicles")
+
+                   
                 ])
                 ->first();
 
             // 🧩 Calculate sold_vehicles dynamically
-            $data->sold_vehicles = $data->onsale_vehicles + $data->provisional_vehicles;
+            // $data->sold_vehicles = $data->onsale_vehicles + $data->provisional_vehicles;
 
             return response()->json([
                 'data' => $data,

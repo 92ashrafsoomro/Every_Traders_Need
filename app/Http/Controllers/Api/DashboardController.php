@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
     
             $stats = Vehicle::when($request->start_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.auction_date','=>',$request->start_date);
+                            return $q->whereDate('auctions.auction_date','>=',$request->start_date);
                         })
                         ->when($request->end_date, function($q) use ($request) {
                             return $q->whereDate('auctions.auction_date','<=',$request->end_date);
@@ -86,7 +86,7 @@ class DashboardController extends Controller
             
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 ->when($request->start_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.auction_date','=>',$request->start_date);
+                            return $q->whereDate('auctions.auction_date','>=',$request->start_date);
                         })
                         ->when($request->end_date, function($q) use ($request) {
                             return $q->whereDate('auctions.auction_date','<=',$request->end_date);
@@ -125,7 +125,7 @@ class DashboardController extends Controller
                     }
                 })
                 ->when($request->start_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.auction_date','=>',$request->start_date);
+                            return $q->whereDate('auctions.auction_date','>=',$request->start_date);
                 })
                 ->when($request->end_date, function($q) use ($request) {
                             return $q->whereDate('auctions.auction_date','<=',$request->end_date);

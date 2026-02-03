@@ -40,11 +40,13 @@ class DashboardController extends Controller
 
                         COUNT(DISTINCT CASE WHEN auctions.auction_type = 1 THEN auctions.id END) as time_auctions,
 
-                        COUNT(DISTINCT CASE WHEN auctions.status = 4 THEN auctions.id END) as in_progress,
+                        COUNT(DISTINCT CASE WHEN auctions.status = 4 THEN auctions.id END) as in_progress_auction,
 
                         COUNT(vehicles.id) as total_vehicles,
-
+                        
                         SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
+
+                        SUM(CASE WHEN auctions.satus = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
                         
                         /* Subquery for Re-auctions */
                         (SELECT COUNT(*) FROM (

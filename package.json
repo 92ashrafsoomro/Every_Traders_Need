@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "deploy": "vite build --mode production",
+      
+        "deploy": "vite build --mode production && git add . && git commit -m \"Build and deploy\" && git push origin HEAD:owais",
         "dev": "vite",
         "test": "vitest",
         "test:run": "vitest run"

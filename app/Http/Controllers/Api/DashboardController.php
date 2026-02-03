@@ -29,42 +29,44 @@ class DashboardController extends Controller
       public function counters(Request $request)
     {   
             DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
-            $id = $request->user()->id;
-            $now = Carbon::today();
+          
+            $id  =  $request->user()->id;
+            $now =  $request->date ?? Carbon::now();
 
-            $stats = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                    ->selectRaw("
-                        COUNT(DISTINCT auctions.id) as total_auctions,
+            $stats = Vehicle::whereDate('auctions.auction_date',$now)
+                        ->leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+                        ->selectRaw("
+                            COUNT(DISTINCT auctions.id) as total_auctions,
 
-                        COUNT(DISTINCT CASE WHEN auctions.auction_type = 2 THEN auctions.id END) as live_auctions,
+                            COUNT(DISTINCT CASE WHEN auctions.auction_type = 2 THEN auctions.id END) as live_auctions,
 
-                        COUNT(DISTINCT CASE WHEN auctions.auction_type = 1 THEN auctions.id END) as time_auctions,
+                            COUNT(DISTINCT CASE WHEN auctions.auction_type = 1 THEN auctions.id END) as time_auctions,
 
-                        COUNT(DISTINCT CASE WHEN auctions.status = 4 THEN auctions.id END) as in_progress_auction,
+                            COUNT(DISTINCT CASE WHEN auctions.status = 4 THEN auctions.id END) as in_progress_auction,
 
-                        COUNT(vehicles.id) as total_vehicles,
-                        
-                        SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
+                            COUNT(vehicles.id) as total_vehicles,
+                            
+                            SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
 
-                        SUM(CASE WHEN auctions.status = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
-                        
-                        /* Subquery for Re-auctions */
-                        (SELECT COUNT(*) FROM (
-                                    SELECT reg FROM vehicles 
-                                    GROUP BY auction_id, reg 
-                                    HAVING COUNT(reg) > 1
-                                ) as re_table) as vehicles_in_reauction,
+                            SUM(CASE WHEN auctions.status = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
+                            
+                            /* Subquery for Re-auctions */
+                            (SELECT COUNT(*) FROM (
+                                        SELECT reg FROM vehicles 
+                                        GROUP BY auction_id, reg 
+                                        HAVING COUNT(reg) > 1
+                                    ) as re_table) as vehicles_in_reauction,
 
-                        /* Subquery for Remaining Re-auctions (Status 5) */
-                        (SELECT COUNT(*) FROM (
-                            SELECT v.reg FROM vehicles v
-                            JOIN auctions a ON v.auction_id = a.id
-                            WHERE a.status = 5
-                            GROUP BY v.auction_id, v.reg 
-                            HAVING COUNT(v.reg) > 1
-                        ) as rem_table) as vehicles_in_remaining
-                    ")
-                    ->first();
+                            /* Subquery for Remaining Re-auctions (Status 5) */
+                            (SELECT COUNT(*) FROM (
+                                SELECT v.reg FROM vehicles v
+                                JOIN auctions a ON v.auction_id = a.id
+                                WHERE a.status = 5
+                                GROUP BY v.auction_id, v.reg 
+                                HAVING COUNT(v.reg) > 1
+                            ) as rem_table) as vehicles_in_remaining
+                        ")
+                        ->first();
                     
             return response()->json([
                 'success' => true,
@@ -76,10 +78,11 @@ class DashboardController extends Controller
 
         public function vehicleStates()
     {
-
+            
+            $now =  $request->date ?? Carbon::now();
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 // 🟢 Only include auctions happening today or later
-                // ->whereDate('auctions.auction_date', '>=', Carbon::today())
+                ->whereDate('auctions.auction_date', '=', $now)
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
                     DB::raw("COUNT(CASE WHEN auctions.status = 4 THEN vehicles.id END) as inprogress_vehicles"),
@@ -104,8 +107,9 @@ class DashboardController extends Controller
             $length = (int) $request->input('length',1000);
             $page = (int) $request->input('page', 1);
             $offset = ($page - 1) * $length;
+            $now =  $request->date ?? Carbon::now();
     
-            $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
+            $query = AuctionPlatform::whereDate('auctions.date',$now)->leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
                     ->when($request->type, function($q) use ($request) {
                         if($request->type == 'time auction'){
                                 $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");

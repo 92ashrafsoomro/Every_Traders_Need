@@ -83,16 +83,21 @@
 
 <script>
 import PlateformDropdown from '@/components/PlateformDropdown.vue'
+import General from '@/models/general.model';
 import api from '@/plugins/axios'
-
+import { useGeneralStore } from '@/stores/generalStore';
 export default {
     components: { PlateformDropdown },
 
     data() {
         return {
+
             auctionType: "Online Auction",
             platformsId: null,
+            generalStore:useGeneralStore(),
             isLoading: false,
+            start_date : '2025-12-1',
+            end_date : '2026-1-31',
             data: [],
 
             headers: [
@@ -130,13 +135,16 @@ export default {
         async getOnlineAction() {
             this.isLoading = true
             try {
-                const res = await api.get('/api/user/dashboard/onlineAuctions', {
-                    params: {
-                        type: this.auctionType?.toLowerCase(),
+                const options={
+                     type: this.auctionType?.toLowerCase(),
+                        start_date : this.generalStore.date.start_date,
+                        end_date: this.generalStore.date.end_date,
                         platform: this.platformsId
-                    }
-                })
-                this.data = res.data.data
+                }
+                const res = await General.get('/api/user/dashboard/onlineAuctions', options)
+                this.data = res?.data?.data || []
+                this.isLoading = false
+
             } catch (e) {
                 console.error('onlineAuction API error', e)
             } finally {

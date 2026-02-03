@@ -6,7 +6,7 @@
             style="position: relative;  top: 10px; left:-10px; " fluid="">
             <div style="background-color: rgb(var(--v-theme-danger),0.4); " class="pb-0 text-center d-flex">
                 <div class="px-2 pb-4 pt-2 ">
-                    <h3 class="text-h4 font-weight-bold ">56</h3>
+                    <h3 class="text-h4 font-weight-bold ">{{ pageStore.reauction.total }}</h3>
                     <p class="text-body-2">Today</p>
                 </div>
             </div>

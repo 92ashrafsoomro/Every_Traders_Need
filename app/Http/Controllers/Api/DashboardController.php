@@ -118,7 +118,6 @@ class DashboardController extends Controller
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
     
-    
         $query = AuctionPlatform::leftjoin('auctions','auctions.platform_id','=','auction_platform.id')
                 ->leftjoin('vehicles','vehicles.auction_id','=','auctions.id')
                 ->where('auctions.auction_type',$request->type)
@@ -137,8 +136,7 @@ class DashboardController extends Controller
       
 
         $data  =  $query->select([
-                    'auction_platform.id',   
-                    'auction_platform.name',        
+                    'auction_platform.*',           
                     DB::raw('COUNT(DISTINCT auctions.id) as total_auctions'),
                     DB::raw('COUNT(vehicles.id) as total_lots'),
                     DB::raw('COUNT(CASE WHEN auctions.status != 4 THEN vehicles.id END) as remaining_lots'),

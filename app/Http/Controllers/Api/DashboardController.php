@@ -120,13 +120,7 @@ class DashboardController extends Controller
         $offset = ($page - 1) * $length;
     
         $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
-                ->when($request->type, function($q) use ($request) {
-                    if($request->type == 'time auction'){
-                            $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");
-                    }else if($request->type == 'online auction'){
-                            $q->whereRaw("LOWER(auctions.auction_type) = 'online auction'");
-                    }
-                })
+                ->where('auctions.auction_type',$request->type)
                 ->when($request->start_date, function($q) use ($request) {
                             return $q->whereDate('auctions.auction_date','>=',$request->start_date);
                 })

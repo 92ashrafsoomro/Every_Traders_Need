@@ -53,25 +53,45 @@ class DashboardController extends Controller
                             
                             SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
 
-                            SUM(CASE WHEN auctions.status = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
-                            
-                            /* Subquery for Re-auctions */
-                            (SELECT COUNT(*) FROM (
-                                        SELECT reg FROM vehicles 
-                                        GROUP BY auction_id, reg 
-                                        HAVING COUNT(reg) > 1
-                                    ) as re_table) as vehicles_in_reauction,
-
-                            /* Subquery for Remaining Re-auctions (Status 5) */
-                            (SELECT COUNT(*) FROM (
-                                SELECT v.reg FROM vehicles v
-                                JOIN auctions a ON v.auction_id = a.id
-                                WHERE a.status = 5
-                                GROUP BY v.auction_id, v.reg 
-                                HAVING COUNT(v.reg) > 1
-                            ) as rem_table) as vehicles_in_remaining
+                            SUM(CASE WHEN auctions.status = 4 THEN 1 ELSE 0 END) as in_progress_vehicle
+                      
                         ")
                         ->first();
+
+
+                $reAuctionVehicles = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+                ->select([
+                    DB::raw('COUNT(vehicles.reg) as vehicle_count')
+                ])
+                ->when($request->start_date, function($q) use ($request) {
+                    return $q->whereDate('auctions.auction_date','>=',$request->start_date);
+                })
+                ->when($request->end_date, function($q) use ($request) {
+                    return $q->whereDate('auctions.auction_date','<=',$request->end_date);
+                })       
+                ->having('vehicle_count','>',1)
+                ->groupby('vehicles.reg')
+                ->get();
+
+            
+
+                $remainingReAuctionVehicles = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+                ->select([
+                    DB::raw('COUNT(vehicles.reg) as vehicle_count')
+                ])
+                ->when($request->start_date, function($q) use ($request) {
+                    return $q->whereDate('auctions.auction_date','>=',$request->start_date);
+                })
+                ->when($request->end_date, function($q) use ($request) {
+                    return $q->whereDate('auctions.auction_date','<=',$request->end_date);
+                })
+                ->having('vehicle_count','>',1)
+                ->where('auctions.status',4)
+                ->groupby('vehicles.reg')
+                ->get();
+
+              $stats['reAuctionVehicles']          = count($reAuctionVehicles);
+              $stats['remainingReAuctionVehicles'] = count($remainingReAuctionVehicles);
                     
             return response()->json([
                 'success' => true,

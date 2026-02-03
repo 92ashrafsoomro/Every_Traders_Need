@@ -31,9 +31,14 @@ class DashboardController extends Controller
             DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
           
             $id  =  $request->user()->id;
-            $now =  $request->date ?? Carbon::now();
 
-            $stats = Vehicle::whereDate('auctions.auction_date',$now)
+    
+            $stats = Vehicle::when($request->start_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.start_date',$request->start_date);
+                        })
+                        ->when($request->end_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.end_date',$request->end_date);
+                        })
                         ->leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                         ->selectRaw("
                             COUNT(DISTINCT auctions.id) as total_auctions,
@@ -76,13 +81,16 @@ class DashboardController extends Controller
     }
 
 
-        public function vehicleStates()
+        public function vehicleStates(Request $request)
     {
             
-            $now =  $request->date ?? Carbon::now();
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
-                // 🟢 Only include auctions happening today or later
-                ->whereDate('auctions.auction_date', '=', $now)
+                ->when($request->start_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.start_date',$request->start_date);
+                        })
+                ->when($request->end_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.end_date',$request->end_date);
+                        })
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
                     DB::raw("COUNT(CASE WHEN auctions.status = 4 THEN vehicles.id END) as inprogress_vehicles"),
@@ -107,15 +115,21 @@ class DashboardController extends Controller
             $length = (int) $request->input('length',1000);
             $page = (int) $request->input('page', 1);
             $offset = ($page - 1) * $length;
-            $now =  $request->date ?? Carbon::now();
+        
     
-            $query = AuctionPlatform::whereDate('auctions.date',$now)->leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
+            $query = AuctionPlatform::leftJoin('auctions','auctions.platform_id','=','auction_platform.id')
                     ->when($request->type, function($q) use ($request) {
                         if($request->type == 'time auction'){
                                 $q->whereRaw("LOWER(auctions.auction_type) = 'time auction'");
                         }else if($request->type == 'online auction'){
                               $q->whereRaw("LOWER(auctions.auction_type) = 'online auction'");
                         }
+                    })
+                    ->when($request->start_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.start_date',$request->start_date);
+                        })
+                    ->when($request->end_date, function($q) use ($request) {
+                            return $q->whereDate('auctions.end_date',$request->end_date);
                     })
                     ->when($request->platform, function($q) use ($request) {
                         return $q->where('auction_platform.id',$request->platform);

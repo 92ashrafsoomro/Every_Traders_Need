@@ -137,7 +137,7 @@
                   class="circle d-flex justify-center align-center">
                   <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
                 </div>
-                <span class="text-h4 px-3">{{ auctionCounter.vehicles_in_reauction }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.reAuctionVehicles }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
@@ -146,7 +146,7 @@
                   <span class="white">Remaining:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                    {{auctionCounter.vehicles_in_reauction }}</span>
+                    {{auctionCounter.remainingReAuctionVehicles }}</span>
                 </div>
   
               </div>
@@ -276,8 +276,8 @@ export default {
         total_vehicles: 0,
         sold_vehicles : 0,
         unsold_vehicles : 0 ,
-        vehicles_in_reauction : 0 ,
-        vehicles_in_remaining : 0 ,
+        reAuctionVehicles : 0 ,
+        remainingReAuctionVehicles : 0 ,
         remaining : 0 ,
       },
       vehicelState:
@@ -316,8 +316,8 @@ export default {
           this.auctionCounter.total_vehicles = res.data.total_vehicles; //
           this.auctionCounter.sold_vehicles = res.data.sold_vehicles; //
           this.auctionCounter.unsold_vehicles = res.data.unsold_vehicles;
-          this.auctionCounter.vehicles_in_reauction = res.data.vehicles_in_reauction;
-          this.auctionCounter.vehicles_in_remaining = res.data.vehicles_in_remaining;
+          this.auctionCounter.reAuctionVehicles = res.data.reAuctionVehicles;
+          this.auctionCounter.remainingReAuctionVehicles = res.data.remainingReAuctionVehicles;
 
         } catch (error) {
         this.isLoading = false;

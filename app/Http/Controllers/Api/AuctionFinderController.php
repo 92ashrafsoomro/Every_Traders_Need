@@ -430,19 +430,21 @@ class AuctionFinderController extends Controller
 
             DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
+
             $today = now()->toDateString();
+
             $auctionFilter = $request->auction_date ?? $today;
 
             $auctionIds = AuctionService::getAuctionIdbyDate($auctionFilter);
             $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
             $centers = AuctionService::getCenterNamesByPlateformName($platforms);
 
+            
             $length = (int) $request->input('length', 10);
             $page = (int) $request->input('page', 1);
             $offset = ($page - 1) * $length;
             
-            $query = DB::table('vehicles')
-                ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            $query = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
                 ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
                 ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
                 ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
@@ -450,25 +452,27 @@ class AuctionFinderController extends Controller
                 ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
                 ->select([
                     'vehicles.*',
-                    'auctions.auction_date',
+                    'auctions.auction_date as date',
                     'auction_platform.name as platform_name',
                     'auction_center.name as center_name',
                     'make.name as make_name',
                     'model.name as model_name',
                     'model_variant.name as model_variant_name',
-                    DB::raw('( SELECT COUNT(DISTINCT v2.auction_id) FROM vehicles v2 WHERE v2.reg = vehicles.reg ) AS auction_count'), 
-                ]);
+                    DB::raw('COUNT(vehicles.reg) as vehicle_count')
+
+                 
+                ])->having('vehicle_count','>',1);
 
 
-                if ($request->filled('interest_id')) {
-                    $interest = Interest::find($request->interest_id);
-                    if ($interest) {
-                        $query->when($interest->make_id, fn($q) => 
-                            $q->where('vehicles.make_id', $interest->make_id))
-                               ->when($interest->model_id, fn($q) => $q->where('vehicles.model_id', $interest->model_id))
-                               ->when($interest->variant_id, fn($q) => $q->where('vehicles.variant_id', $interest->variant_id));
-                    }
-                }
+                // if ($request->filled('interest_id')) {
+                //     $interest = Interest::find($request->interest_id);
+                //     if ($interest) {
+                //         $query->when($interest->make_id, fn($q) => 
+                //             $q->where('vehicles.make_id', $interest->make_id))
+                //                ->when($interest->model_id, fn($q) => $q->where('vehicles.model_id', $interest->model_id))
+                //                ->when($interest->variant_id, fn($q) => $q->where('vehicles.variant_id', $interest->variant_id));
+                //     }
+                // }
 
                 if($request->filled('search')){
                     $search = $request->search;
@@ -482,77 +486,31 @@ class AuctionFinderController extends Controller
                     });
                 }
 
-                if($request->inprogress_check == 1){
-                    $query->where('vehicles.bidding_status', 'inprogress');
-                }
-
+              
                 $totalRecords = (clone $query)->count();
-                $data     = $query->skip($offset)
-                                ->take($length)
+                $data     = $query
+                                // skip($offset)
+                                // ->take($length)
+                                ->groupby('vehicles.reg')
                                 ->get()
                                 ->map(function($vehicle) use ($today) {
 
-                                // $bids = DB::table('vehicles')
-                                //     ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
-                                //     ->where('vehicles.reg', $vehicle->reg)
-                                //     ->orderBy('auctions.auction_date', 'asc')
-                                //     ->get(['vehicles.cap_clean', 'vehicles.cap_average']);
-
-                                // $first = $bids->first();
-                                // $last = $bids->last();
-
-                                // // CAP %
-                                // if ($first && $last) {
-                                //     $capCleanText = $capAvgText = "<span style='color:gray;'>No Data</span>";
-
-                                //     if ($first->cap_clean > 0 && $last->cap_clean > 0) {
-                                //         $capCleanChange = (($last->cap_clean - $first->cap_clean) / $first->cap_clean) * 100;
-                                //         $capCleanText = $vehicle->cap_clean . ($capCleanChange > 0 ? "<span style='color:green;'> ▲ " . number_format($capCleanChange, 2) . '%</span>' : ($capCleanChange < 0 ? "<span style='color:red;'> ▼ " . number_format(abs($capCleanChange), 2) . '%</span>' : "<span style='color:gray;'> 0 </span>"));
-                                //     }
-
-                                //     if ($first->cap_average > 0 && $last->cap_average > 0) {
-                                //         $capAvgChange = (($last->cap_average - $first->cap_average) / $first->cap_average) * 100;
-                                //         $capAvgText = $vehicle->cap_average . ($capAvgChange > 0 ? "<span style='color:green;'> ▲ " . number_format($capAvgChange, 2) . '%</span>' : ($capAvgChange < 0 ? "<span style='color:red;'> ▼ " . number_format(abs($capAvgChange), 2) . '%</span>' : "<span style='color:gray;'> 0 </span>"));
-                                //     }
-                                // }
-
-                                // $encryptedId = Crypt::encryptString($vehicle->id);
-
-                                // $previousCount = DB::table('vehicles')->join('auctions', 'auctions.id', '=', 'vehicles.auction_id')->where('vehicles.reg', $vehicle->reg)->whereDate('auctions.auction_date', '<', $today)->count();
-
-                                // $PreviousBtn ='
-                                //     <div class="PreviousBtnRec d-flex justify-content-center">
-                                //         <button type="button" class="btn btn-sm btn-primary PreviousBtnRec" 
-                                //         data-ref="' .$vehicle->reg.'" data-vehid="' .$encryptedId .'">'.$previousCount .' ↑ 
-                                //         </button>
-                                //     </div>';
-
-                                // $actions = '<a href="'.url("/auction-finder/vehicle/{$vehicle->id}?reg").'" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i>
-                                // </a>
-                                // <a class="btn btn-sm btn-danger add-notification" data-auction-id="' .$vehicle->id .'">
-                                //         <i class="fas fa-bell"></i>
-                                // </a>';
-
-                                // $auctionDateTime = \Carbon\Carbon::parse($vehicle->auction_date)->format('D, d M Y') . '<br><small class="text-muted">' . \Carbon\Carbon::parse($vehicle->auction_date)->format('h:i A') . '</small>';
-
-                                // return [strtoupper($vehicle->make_name) . ' - ' . $vehicle->model_name, $vehicle->reg ?? 'N/A', $PreviousBtn, $vehicle->platform_name ?? 'N/A', $vehicle->center_name ?? 'N/A', $capCleanText, $capAvgText, $vehicle->mileage ?? 'N/A', $vehicle->bidding_status ?? 'N/A', $auctionDateTime, $actions];
-
-
+                               
                                     return $vehicle;
                                 });
 
 
             // 🔹 Final response
             return response()->json([
-                'recordsTotal' => $totalRecords,
-                'recordsFiltered' => $totalRecords,
-                'data' => $data,
                 'platforms' => $platforms,
                 'centers' => $centers,
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords,
                 'length' =>  $length,
                 'page' => $page,
                 'offset' => $offset,
                 'last_page' => ceil($totalRecords / $length),
+                'data' => $data,
             ]);
         
     }

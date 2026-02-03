@@ -28,93 +28,45 @@ class DashboardController extends Controller
 
       public function counters(Request $request)
     {   
-
+            DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
             $id = $request->user()->id;
             $now = Carbon::today();
 
-            // 🔹 Base vehicle query for today and upcoming auctions
-            $vehicleBaseQuery = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id');
-                // ->whereDate('auctions.auction_date', '>=', $now);
+            $stats = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
+                    ->selectRaw("
+                        COUNT(DISTINCT auctions.id) as total_auctions,
 
-            // 🔹 Optional filters
-            // if ($request->make_id) {
-            //     $vehicleBaseQuery->where('vehicles.make_id', $request->make_id);
-            // }
-            // if ($request->model_id) {
-            //     $vehicleBaseQuery->where('vehicles.model_id', $request->model_id);
-            // }
-            // if ($request->year) {
-            //     $vehicleBaseQuery->where('vehicles.year', $request->year);
-            // }
-            // if ($request->grade) {
-            //     $vehicleBaseQuery->where('vehicles.grade', $request->grade);
-            // }
+                        COUNT(DISTINCT CASE WHEN auctions.auction_type = 2 THEN auctions.id END) as live_auctions,
 
+                        COUNT(DISTINCT CASE WHEN auctions.auction_type = 1 THEN auctions.id END) as time_auctions,
 
-            // Auctions
-            $totalAuctions = (clone $vehicleBaseQuery)
-                ->distinct('auction_id')
-                ->count('auction_id');
+                        COUNT(DISTINCT CASE WHEN auctions.status = 4 THEN auctions.id END) as in_progress,
 
-            $onlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 2)
-                ->distinct('auction_id')
-                ->count('auction_id');
+                        COUNT(vehicles.id) as total_vehicles,
 
-            $offlineAuctions = (clone $vehicleBaseQuery)
-                ->where('auction_type', 1)
-                ->distinct('auction_id')
-                ->count('auction_id');
+                        SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
+                        
+                        /* Subquery for Re-auctions */
+                        (SELECT COUNT(*) FROM (
+                                    SELECT reg FROM vehicles 
+                                    GROUP BY auction_id, reg 
+                                    HAVING COUNT(reg) > 1
+                                ) as re_table) as vehicles_in_reauction,
 
-            $inProgressAuctions = (clone $vehicleBaseQuery)
-                ->where('status', 4)
-                ->distinct('auction_id')
-                ->count('auction_id');
-
-            
-
-            // 🔹 Stats
-            $totalVehicles = (clone $vehicleBaseQuery)->count();
-
-            $soldVehicles = (clone $vehicleBaseQuery)
-                ->where('bidding_status', 'Sold')
-                ->count();
-
-            // $unsoldVehicles = (clone $vehicleBaseQuery)
-            //     ->where('bidding_status', 'Not Sold')
-            //     ->count();
-
-
-            // $totalVehiclesInProgress = (clone $vehicleBaseQuery)
-            //     ->where('auctions.status', 'In Progress')
-            //     ->count();
-
-            
-            // $vehiclesInProgress = (clone $vehicleBaseQuery)
-            //     ->where('auctions.status', 'In Progress')
-            //     ->get(['vehicles.id']);
-
-            // $totalVehiclesInProgressCheck = $vehiclesInProgress->count();
-
-        
-
-        
-
-            // 🔹 Return final response
+                        /* Subquery for Remaining Re-auctions (Status 5) */
+                        (SELECT COUNT(*) FROM (
+                            SELECT v.reg FROM vehicles v
+                            JOIN auctions a ON v.auction_id = a.id
+                            WHERE a.status = 5
+                            GROUP BY v.auction_id, v.reg 
+                            HAVING COUNT(v.reg) > 1
+                        ) as rem_table) as vehicles_in_remaining
+                    ")
+                    ->first();
+                    
             return response()->json([
                 'success' => true,
-                'data' => [
-                    'total_auctions' => $totalAuctions,
-                    'live_auctions' => $onlineAuctions,
-                    'time_auctions' => $offlineAuctions,
-                    'in_progressAuctions' => $inProgressAuctions,
-
-
-                    'total_vehicles' => $totalVehicles,
-                    'sold_vehicles' => $soldVehicles,
-                    'vehicles_in_reauction' => 0,
-                    'vehicles_in_remaining' => 0,
-                ],
+                'data' => $stats,
             ], 200);
             
     }

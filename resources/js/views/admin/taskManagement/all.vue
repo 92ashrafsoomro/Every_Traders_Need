@@ -54,21 +54,21 @@ import { useTaskManagementStore } from "@/stores/taskManagementStore";
 
 export default {
     components: { taskNav },
-    form: {
-        id: '',
-        auction_type: null,
-        platform: null,
-        auction_name: "",
-        date: "",
-        // created_date : "",
-        // pak_time : "",
-        lots: "",
-        // scr_lots : '',
-        assign_to: '',
-        end_time: '',
-        status: null,
+    // form: {
+    //     id: '',
+    //     auction_type: null,
+    //     platform: null,
+    //     auction_name: "",
+    //     date: "",
+    //     // created_date : "",
+    //     // pak_time : "",
+    //     lots: "",
+    //     // scr_lots : '',
+    //     assign_to: '',
+    //     end_time: '',
+    //     status: null,
 
-    },
+    // },
     data() {
         return {
             loading: false,

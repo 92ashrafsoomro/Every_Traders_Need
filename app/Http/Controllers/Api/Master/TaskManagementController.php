@@ -81,7 +81,7 @@ class TaskManagementController extends Controller
             }elseif($request->type == 'final'){
                 $query->whereDate('date',now());
             }elseif($request->type == 'upComing'){
-                $query->whereDate('date', '>', now());
+                $query->whereDate('date', '>=', now());
             }else{
                 // $query->whereIn('status',['pending','processing','cancel','scrapped']);
             }
@@ -143,7 +143,7 @@ class TaskManagementController extends Controller
         ->first();
         
         $all = TaskManagement::count('*');
-        $upcomming = TaskManagement::whereDate('date', '>', now())->count('id');
+        $upcomming = TaskManagement::whereDate('date', '>=', now())->count('id');
         $update =  TaskManagement::whereDate('date',now()->addDays(1))->count('id');
         $final = TaskManagement::whereDate('date',now())->count('id');
 
@@ -178,6 +178,7 @@ class TaskManagementController extends Controller
     }
 
 
+
        public function store(Request $request)
     {
 
@@ -204,7 +205,6 @@ class TaskManagementController extends Controller
         
         DB::beginTransaction();
         try {
-
 
             // Creation Process
             $auction = new TaskManagement();

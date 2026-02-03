@@ -486,14 +486,14 @@ class AuctionFinderController extends Controller
                     });
                 }
 
-              
+            
                 $totalRecords = (clone $query)->count();
-                $data     = $query
+                $data         =  $query
                                 // skip($offset)
                                 // ->take($length)
                                 ->groupby('vehicles.reg')
                                 ->get()
-                                ->map(function($vehicle) use ($today) {
+                                ->map(function($vehicle) use ($today){
 
                                
                                     return $vehicle;

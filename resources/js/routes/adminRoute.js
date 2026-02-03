@@ -21,6 +21,8 @@ import role from "@views/admin/role/route"
 import permission from "@views/admin/permission/route"
 import taskManagement from "@views/admin/taskManagement/route"
 import staffUser from "@/views/admin/stafUser/route"
+import newsBlog from "@/views/admin/newsBlog/route"
+import blog from "@/views/admin/blog/route"
 export default [
     {
         path: "/admin",
@@ -48,7 +50,9 @@ export default [
             ...role,
             ...permission,
             ...taskManagement,
-            ...staffUser
+            ...staffUser,
+            ...newsBlog,
+            ...blog
             // ...upComing,
             // ...upGrade,
             // ...final,

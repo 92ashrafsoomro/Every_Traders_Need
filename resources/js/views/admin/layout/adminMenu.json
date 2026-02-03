@@ -100,7 +100,12 @@
       {
         "label": "News & Blog",
         "icon": "mdi-seal-variant",
-        "path": ""
+        "path": "/admin/newsBlog"
+      },
+      {
+        "label": "Blog",
+        "icon": "mdi-seal-variant",
+        "path": "/admin/blog"
       },
       {
         "label": "Cat",

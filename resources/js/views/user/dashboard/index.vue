@@ -146,7 +146,7 @@
                   <span class="white">Remaining:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                    {{auctionCounter.remaining }}</span>
+                    {{auctionCounter.vehicles_in_reauction }}</span>
                 </div>
   
               </div>
@@ -272,6 +272,7 @@ export default {
         sold_vehicles : 0,
         unsold_vehicles : 0 ,
         vehicles_in_reauction : 0 ,
+        vehicles_in_remaining : 0 ,
         remaining : 0 ,
       },
       vehicelState:
@@ -296,16 +297,17 @@ export default {
       try {
           let res = await General.get("/api/user/dashboard/counters");
 
-          this.auctionCounter.total_auctions = res.data.total_auctions;
-          this.auctionCounter.live_auctions = res.data.live_auctions;
-          this.auctionCounter.time_auctions = res.data.time_auctions;
-          this.auctionCounter.in_progressAuctions = res.data.in_progressAuctions;
-          this.auctionCounter.vehicles_in_progress_auctions = res.data.vehicles_in_progress_auctions;
-          this.auctionCounter.totalVehiclesInProgress = res.data.totalVehiclesInProgress;
-          this.auctionCounter.total_vehicles = res.data.total_vehicles;
-          this.auctionCounter.sold_vehicles = res.data.sold_vehicles;
+          this.auctionCounter.total_auctions = res.data.total_auctions; //
+          this.auctionCounter.live_auctions = res.data.live_auctions; //
+          this.auctionCounter.time_auctions = res.data.time_auctions; //
+          this.auctionCounter.in_progressAuctions = res.data.in_progress_auction; //
+          this.auctionCounter.vehicles_in_progress_auctions = res.data.in_progress_vehicle;
+          this.auctionCounter.totalVehiclesInProgress = res.data.in_progress;
+          this.auctionCounter.total_vehicles = res.data.total_vehicles; //
+          this.auctionCounter.sold_vehicles = res.data.sold_vehicles; //
           this.auctionCounter.unsold_vehicles = res.data.unsold_vehicles;
           this.auctionCounter.vehicles_in_reauction = res.data.vehicles_in_reauction;
+          this.auctionCounter.vehicles_in_remaining = res.data.vehicles_in_remaining;
         } catch (error) {
         this.auctionCounter.isLoading = false;
         console.error(error.message, "counters Api error");

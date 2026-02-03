@@ -65,19 +65,19 @@ export default {
             headers: [
                 {
                     title: 'Auction House',
-                    value: 'auction_platform_name',
+                    value: 'name',
                 },
                 {
                     title: 'Total Auction',
-                    value: 'car_count'
+                    value: 'total_auctions'
                 },
                 {
-                    title: 'Remaining',
-                    value: 'remaining'
+                    title: 'Total Lots',
+                    value: 'total_lots'
                 },
                 {
-                    title: 'Lots',
-                    value: 'lots'
+                    title: 'Remaining Lots',
+                    value: 'remaining_lots'
                 }
             ]
         }

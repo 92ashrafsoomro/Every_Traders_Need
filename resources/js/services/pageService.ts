@@ -1,7 +1,7 @@
 import api from "@/plugins/axios";
 import _ from "lodash";
 import { errorHandler } from "@/services/responseHandleService";
-
+import { useGeneralStore } from "@/stores/generalStore";
 
 
 /**
@@ -14,6 +14,7 @@ export async function reAuctionList(options: {
     search?: string;
     page?: number;
     length?: number;
+    
 
 }): Promise<{
     data: unknown[];

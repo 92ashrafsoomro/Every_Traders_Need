@@ -52,7 +52,7 @@ use App\Http\Controllers\Api\StripeController;
 
 
 
-    Route::prefix('auth')->group(function () {
+    Route::prefix('auth')->group(function(){
 
         Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
         Route::post('/profile/{id?}',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);

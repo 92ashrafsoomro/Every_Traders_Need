@@ -10,7 +10,7 @@
 
             <div class="mr-2 ml-n3 d-flex   ga-2 mt-4 mt-lg-0 mt-md-4 pl-md-4 ">
                 <PlateformDropdown v-model="auctionType" label="Auction Type" variant="outlined" density="compact"
-                    hide-details item-title="label" item-value="id" :items="auctionTypeOptions" clearable/>
+                    hide-details item-title="label" item-value="id" :items="auctionTypeOptions" />
 
 
                 <PlateformDropdown v-model="platformsId"  label="Select Platform" variant="outlined" density="compact"
@@ -26,30 +26,7 @@
             hide-default-footer hover>
 
             <!-- Auction Name -->
-            <template #item.auction_platform_name="{ item }">
-                <span class="font-weight-medium ">
-                    {{ item.auction_platform_name }}
-                </span>
-            </template>
-
-            <!-- Total Auction -->
-            <template #item.car_count="{ item }">
-                {{ item.car_count }}
-            </template>
-
-            <!-- Remaining -->
-            <template #item.remaining="{ item }">
-                <span class=" font-weight-medium">
-                    {{ item.remaining }}
-                </span>
-            </template>
-
-            <!-- Lots -->
-            <template #item.lots="{ item }">
-                <span class=" font-weight-medium">
-                    {{ item.lots }}
-                </span>
-            </template>
+          
 
             <!-- No Data -->
             <template #no-data>
@@ -88,20 +65,19 @@ export default {
             headers: [
                 {
                     title: 'Auction House',
-                    key: 'auction_platform_name',
-                    sortable: false
+                    value: 'auction_platform_name',
                 },
                 {
                     title: 'Total Auction',
-                    key: 'car_count'
+                    value: 'car_count'
                 },
                 {
                     title: 'Remaining',
-                    key: 'remaining'
+                    value: 'remaining'
                 },
                 {
                     title: 'Lots',
-                    key: 'lots'
+                    value: 'lots'
                 }
             ]
         }
@@ -130,7 +106,7 @@ export default {
 
                 const res = await General.get('/api/user/dashboard/onlineAuctions', options)
 
-                this.data = res?.data?.data || []
+                this.data = res.data
 
             } catch (e) {
                 console.error('error', e)

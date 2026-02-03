@@ -134,7 +134,7 @@ class DashboardController extends Controller
 
         $count = (clone $query)->count();
 
-        $data =  $query->select([
+        $data  =  $query->select([
                     'auction_platform.id AS auction_platform_id',        
                     'auction_platform.name AS auction_platform_name',
                     'auctions.auction_type',
@@ -150,13 +150,13 @@ class DashboardController extends Controller
                     return $item;
                 });
 
-        return response()->json([
-            'total' => $count,
-            'page' => $page,
-            'offset' => $offset,
-            'last_page' => ceil($count / $length),
-            'data' => $data,
-        ]);
+                return response()->json([
+                    'total' => $count,
+                    'page' => $page,
+                    'offset' => $offset,
+                    'last_page' => ceil($count / $length),
+                    'data' => $data,
+                ]);
         
     }
 

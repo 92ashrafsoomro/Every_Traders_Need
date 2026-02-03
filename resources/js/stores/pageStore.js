@@ -1,22 +1,23 @@
 import { defineStore } from "pinia";
 import _ from 'lodash';
 import pageService from "@/services/pageService";
-
+import { useGeneralStore } from "./generalStore";
 
 export const usePageStore = defineStore("page", {
     state: () => ({
-        reauction: {
-            reg: '',
-            year: null,
-            length: 10,
-            page: 1,
-            offset: 0,
-            data: [],
-            total: 0,
-            offset:0,
-            last_page:1,
-            loading:false,
-        },
+    reauction: {
+        reg: '',
+        year: null,
+        length: 10,
+        page: 1,
+        offset: 0,
+        data: [],
+        total: 0,
+        last_page: 1,
+        loading: false,
+        start_date: null,
+        end_date: null
+    },
         recentDevices: {
             length: 10,
             page: 1,
@@ -115,9 +116,19 @@ export const usePageStore = defineStore("page", {
         async getreAuctionList() {
 
             try {
-
+                const generalStore = useGeneralStore()
+                
                 this.reauction.loading = true;
-                const res = await pageService.reAuctionList(_.pick(this.reauction, ['reg', 'year', 'page','length']))
+                const options={    
+                    reg: this.reauction.reg,
+                    year: this.reauction.year,
+                    page: this.reauction.page,
+                    length: this.reauction.length,
+                    start_date: generalStore.date.start_date,
+                    end_date: generalStore.date.end_date
+                }
+              
+                const res = await pageService.reAuctionList(options)
                 this.reauction.data = res.data || [];
                 this.reauction.total = res.recordsTotal;
                 this.reauction.offset = res.offset;

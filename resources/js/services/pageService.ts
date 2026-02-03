@@ -15,6 +15,7 @@ export async function reAuctionList(options: {
     page?: number;
     length?: number;
     
+    
 
 }): Promise<{
     data: unknown[];
@@ -23,9 +24,12 @@ export async function reAuctionList(options: {
     recordsFiltered: number;
     recordsTotal: number;
     page: number;
+    start_date?: string;
+    end_date?: string;
     length: number;
     last_page: number;
     offset: number;
+    
 }> {
 
     try {

@@ -46,7 +46,7 @@ class DashboardController extends Controller
                         
                         SUM(CASE WHEN vehicles.bidding_status = 'Sold' THEN 1 ELSE 0 END) as sold_vehicles,
 
-                        SUM(CASE WHEN auctions.satus = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
+                        SUM(CASE WHEN auctions.status = 4 THEN 1 ELSE 0 END) as in_progress_vehicle,
                         
                         /* Subquery for Re-auctions */
                         (SELECT COUNT(*) FROM (

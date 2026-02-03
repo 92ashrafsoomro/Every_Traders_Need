@@ -86,10 +86,10 @@ class DashboardController extends Controller
             
             $data = Vehicle::leftJoin('auctions', 'vehicles.auction_id', '=', 'auctions.id')
                 ->when($request->start_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.start_date','=>',$request->start_date);
+                            return $q->whereDate('auctions.auction_date','=>',$request->start_date);
                         })
                         ->when($request->end_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.end_date','<=',$request->end_date);
+                            return $q->whereDate('auctions.auction_date','<=',$request->end_date);
                         })
                 ->select([
                     DB::raw("COUNT(vehicles.id) as total_vehicles"),
@@ -125,10 +125,10 @@ class DashboardController extends Controller
                     }
                 })
                 ->when($request->start_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.start_date','=>',$request->start_date);
+                            return $q->whereDate('auctions.auction_date','=>',$request->start_date);
                 })
                 ->when($request->end_date, function($q) use ($request) {
-                            return $q->whereDate('auctions.end_date','<=',$request->end_date);
+                            return $q->whereDate('auctions.auction_date','<=',$request->end_date);
                 })
                 ->when($request->platform, function($q) use ($request) {
                     return $q->where('auction_platform.id',$request->platform);

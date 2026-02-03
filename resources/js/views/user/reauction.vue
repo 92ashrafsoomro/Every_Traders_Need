@@ -83,7 +83,7 @@
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
-                            item-value="id" @update:options="pageStore.getreAuctionList" hide-default-footer="">
+                            item-value="id"  hide-default-footer="">
 
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
@@ -147,11 +147,12 @@ export default {
     async mounted() {
         this.getCenter();
         this.getPlatform();
+        this.pageStore.getreAuctionList()
     },
     methods: {
-        handleInput(e) {
-            this.pageStore.getreAuctionList();
-        },
+        // handleInput(e) {
+        //     this.pageStore.getreAuctionList();
+        // },
         dateFormate(date) {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]

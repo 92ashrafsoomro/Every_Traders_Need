@@ -258,7 +258,8 @@ export default {
       onlinePlatform: null,
       timePlatform: null,
       platforms: [],
-
+      start_date : '2025-12-1',
+      end_date : '2026-1-31',
       auctionCounter:{
         isLoading: false,
         total_auctions : 0,
@@ -295,7 +296,12 @@ export default {
     async getCountData() {
       this.auctionCounter.isLoading = true;
       try {
-          let res = await General.get("/api/user/dashboard/counters");
+          const options = {
+            start_date : this.start_date,
+            end_date : this.end_date
+          }
+
+          let res = await General.get("/api/user/dashboard/counters", options);
 
           this.auctionCounter.total_auctions = res.data.total_auctions; //
           this.auctionCounter.live_auctions = res.data.live_auctions; //
@@ -308,6 +314,7 @@ export default {
           this.auctionCounter.unsold_vehicles = res.data.unsold_vehicles;
           this.auctionCounter.vehicles_in_reauction = res.data.vehicles_in_reauction;
           this.auctionCounter.vehicles_in_remaining = res.data.vehicles_in_remaining;
+
         } catch (error) {
         this.auctionCounter.isLoading = false;
         console.error(error.message, "counters Api error");
@@ -316,8 +323,13 @@ export default {
 
     async getVehicleStates() {
       this.vehicelState.isLoading = true;
+     
       try {
-        let res = await api.get("/api/user/dashboard/vehicleStates");
+      const options = {
+       start_date : this.start_date,
+       end_date : this.end_date
+      }
+        let res = await General.get("/api/user/dashboard/vehicleStates", options);
         this.vehicelState.inprogress_vehicles = res.data.data.inprogress_vehicles;
         this.vehicelState.sold_vehicles = res.data.data.sold_vehicles
 

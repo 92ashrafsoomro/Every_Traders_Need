@@ -8,6 +8,8 @@ export default class Dictionary {
         { label: "Center", value: "center" },
         { label: "Make", value: "make" },
         { label: "Model", value: "model" },
+        { label: "Transmission", value: "transmission" },
+        { label: "FuelType", value: "fuelType" },
         // { label: "Variant", value: "variant" },
     ];
 

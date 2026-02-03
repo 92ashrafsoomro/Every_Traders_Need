@@ -52,7 +52,6 @@ export const useTaskManagementStore = defineStore("taskManagementStore", {
     last_page: 1,
   }),
 
-  // ✅ GETTERS ALAG
   getters: {
     taskPages(state) {
       return [

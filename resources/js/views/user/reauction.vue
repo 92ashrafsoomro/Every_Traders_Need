@@ -12,17 +12,22 @@
             </div>
             <div class=" ">
    
-                <div class="d-flex mt-2 mb-0 ">
-                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2 d-flex items-center align-center" >Auction house :</h3></div>
+               <div class="d-flex mt-2 mb-0 align-center">
+                    <div style="min-width:120px">
+                        <h3 class="mb-2 text-body-2">Auction house :</h3>
+                    </div>
+
                     <div class="scrollSec">
-                     <div class="d-flex">
-                        <span  v-for="(item, key) in platformName"
-                           class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
-                            style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
-                            {{ item }}
-                     </span></div>
+                        <div>
+                            <span v-for="item in platformName"
+                                class="ml-2 px-2 rounded-lg text-body-1 text-whiteLite mb-2"
+                                style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
+                                {{ item }}
+                            </span>
+                        </div>
                     </div>
                 </div>
+
          
 
                 <div class="d-flex mt-2 mb-0 ">
@@ -48,28 +53,28 @@
 
             <!-- <v-card color="transparent" class="d-flex align-center justify-center flex-column ga-1" elevation="0">
 
-                <v-row class="auction-house d-flex align-baseline justify-space-around ga-1 ga-sm-3" >
+                <div class="auction-house d-flex align-baseline justify-space-around ga-1 ga-sm-3" >
                     <v-col cols="auto">
                         <p>Auction House</p>
                     </v-col>
                     <v-col cols="auto">
                         <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Platforms</div>
                     </v-col>
-                </v-row>
+                </div>
 
-                <v-row class="auction-center d-flex align-baseline justify-space-around ga-5">
+                <div class="auction-center d-flex align-baseline justify-space-around ga-5">
                     <v-col cols="auto">
                         <p>Auction Center</p>
                     </v-col>
                     <v-col cols="auto">
                         <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Centers</div>
                     </v-col>
-                </v-row>
+                </div>
             </v-card> -->
         </div>
     </user-title-bar>
     <div  style="max-width: 1400px;" class="mx-auto">
-        <v-row no-gutters="" class="pa-3">
+        <div no-gutters="" class="">
             <v-col cols="12">
                 <div class="d-lg-none d-md-none align-self-center pl-2">
                     {{ pageStore.reauction.offset }} - {{ (pageStore.reauction.offset +
@@ -126,7 +131,7 @@
                     </div>
                 </v-card>
             </v-col>
-        </v-row>
+        </div>
     </div>
 </template>
 <script>
@@ -199,10 +204,21 @@ export default {
 </script>
 
 <style scoped>
+.scrollSec {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.scrollSec > div {
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
 @media (max-width: 720px) {
     .scrollSec {
-        width: 130px;
-        overflow-x: scroll;
+        max-width: calc(100vw - 250px);
     }
 }
+
 </style>

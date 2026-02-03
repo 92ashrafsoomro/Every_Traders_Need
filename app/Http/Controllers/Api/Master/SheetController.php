@@ -96,6 +96,12 @@ class SheetController extends Controller
                     'message' => 'Record Not Found',
                 ],400);
             }
+            
+            if(Vehicle::where('auction_id',$auction->id)->count() == 0){
+                return response()->json([
+                    'message' => 'Record Not Found',
+                ],400);
+            }
 
             Log::info(json_encode([
                 'action' => 'updatePublishColumn' , 
@@ -106,16 +112,25 @@ class SheetController extends Controller
 
                     $jsons = json_decode($request->payload,true);
                     foreach ($jsons as $key => $value){
-                        
-                        
 
                         Vehicle::where('auction_id',$auction->id)
                             ->where('reg',$value['reg'])
                             ->update([
-                            'last_bid' => $value['last_bid'],
-                            'bidding_history' => $value['bidding_history'],
-                            'bidding_status' => $value['bidding_status'],
-                        ]);
+                                'last_bid' => $value['last_bid'],
+                                'bidding_history' => $value['bidding_history'],
+                                'bidding_status' => $value['bidding_status'],
+                                'cap_new' => $value['cap_new'],
+                                'cap_retail' => $value['cap_retail'],
+                                'cap_clean' => $value['cap_clean'],
+                                'cap_average' => $value['cap_average'],
+                                'cap_below'  => $value['cap_below'],
+                                'glass_new' => $value['glass_new'],
+                                'glass_retail' => $value['glass_retail'],
+                                'glass_trade' => $value['glass_trade'],
+                                'autotrader_retail_value' => $value['autotrader_retail_value'],
+                                'autotrader_trade_value' => $value['autotrader_trade_value'],
+                                'buy_now_price' => $value['buy_now_price'],
+                            ]);
                     }
 
                 return response()->json([

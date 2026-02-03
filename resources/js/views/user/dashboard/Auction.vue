@@ -21,7 +21,7 @@
         <div class="border-b"></div>
 
         <!-- Data Table -->
-        <v-data-table-server style="max-height: 450px; " class="rounded " :headers="headers" :items="data"
+        <v-data-table-server style="min-height: 410px; max-height: 450px;" class="rounded " :headers="headers" :items="data"
             :items-length="data.length" sort-asc-icon="false" :loading="isLoading" item-value="auction_platform_name"
             hide-default-footer hover>
 

@@ -225,11 +225,11 @@
                     </div>
                   </div>
                 </v-col>
-                <v-col cols="12" sm="6" class="d-flex justify-center justify-sm-start ml-lg-n5">
+                <v-col cols="12" sm="6" class="d-flex justify-center justify-sm-start ml-lg-n5" >
                  <VehicleStateChart 
-  :vehicelState="vehicelState" 
-  :doneValue="vehicelState.done_vehicles"
-/>
+                    :vehicelState="vehicelState" 
+                    :doneValue="vehicelState.done_vehicles"
+                  />
                                   </v-col>
 
               </v-row>

@@ -136,7 +136,7 @@ class DashboardController extends Controller
       
 
         $data  =  $query->select([
-                    'auction_platform.*',           
+                    'auction_platform.*',        
                     DB::raw('COUNT(DISTINCT auctions.id) as total_auctions'),
                     DB::raw('COUNT(vehicles.id) as total_lots'),
                     DB::raw('COUNT(CASE WHEN auctions.status != 4 THEN vehicles.id END) as remaining_lots'),

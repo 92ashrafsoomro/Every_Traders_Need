@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BZcymUjy.js",
+    "file": "assets/app-BjuELmpX.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-DOrg0OVa.css"
+      "assets/app-aWF_Ju3d.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -128,6 +128,12 @@
       "assets/lightBg-DJruBfXL.png",
       "assets/lightLeft-y33nC5mr.png",
       "assets/HomepageImageTrusted-4k027a8y.png",
+      "assets/Asset 9-floLAZ7Q.png",
+      "assets/Asset 10-C01HQSll.png",
+      "assets/Asset 7-B_FBjube.png",
+      "assets/Asset 8-DkJq9yyI.png",
+      "assets/Asset 11-Da2eGS1T.png",
+      "assets/Asset 12-jRMG4Vea.png",
       "assets/heroAutoboliSmart-Dj5fiDH6.png",
       "assets/smarter1-CPEmrKHF.png",
       "assets/about2-DIGgdF41.png",
@@ -215,6 +221,30 @@
   "resources/js/assets/images/hero/heroAutoboliSmart.png": {
     "file": "assets/heroAutoboliSmart-Dj5fiDH6.png",
     "src": "resources/js/assets/images/hero/heroAutoboliSmart.png"
+  },
+  "resources/js/assets/images/icons/Asset 10.png": {
+    "file": "assets/Asset 10-C01HQSll.png",
+    "src": "resources/js/assets/images/icons/Asset 10.png"
+  },
+  "resources/js/assets/images/icons/Asset 11.png": {
+    "file": "assets/Asset 11-Da2eGS1T.png",
+    "src": "resources/js/assets/images/icons/Asset 11.png"
+  },
+  "resources/js/assets/images/icons/Asset 12.png": {
+    "file": "assets/Asset 12-jRMG4Vea.png",
+    "src": "resources/js/assets/images/icons/Asset 12.png"
+  },
+  "resources/js/assets/images/icons/Asset 7.png": {
+    "file": "assets/Asset 7-B_FBjube.png",
+    "src": "resources/js/assets/images/icons/Asset 7.png"
+  },
+  "resources/js/assets/images/icons/Asset 8.png": {
+    "file": "assets/Asset 8-DkJq9yyI.png",
+    "src": "resources/js/assets/images/icons/Asset 8.png"
+  },
+  "resources/js/assets/images/icons/Asset 9.png": {
+    "file": "assets/Asset 9-floLAZ7Q.png",
+    "src": "resources/js/assets/images/icons/Asset 9.png"
   },
   "resources/js/assets/images/logo/logo.png": {
     "file": "assets/logo-DpZ5Ok-7.png",

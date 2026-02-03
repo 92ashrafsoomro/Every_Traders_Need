@@ -51,10 +51,10 @@ export default {
         return {
 
             auctionTypeOptions: [
-                { label: 'Online Auction', id: 1 },
-                { label: 'Time Auction', id: 2 }
+                { label: 'Time Auction', id: 1 },
+                { label: 'Online Auction', id: 2 }
             ],
-            auctionType: 1,
+            auctionType: 2,
             platformsId: null,
             generalStore: useGeneralStore(),
             isLoading: false,
@@ -98,7 +98,6 @@ export default {
             try {
                 const options = {
                     type: this.auctionType,
-                    // platformsId : this.platformsId,
                     start_date: this.generalStore.date.start_date,
                     end_date: this.generalStore.date.end_date,
                     platform: this.platformsId

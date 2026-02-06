@@ -2,7 +2,7 @@
     <div class="bg-surface rounded border">
         <v-data-table-server class="dataTable rounded" :headers="headers" :items="auctionStore.data"
             :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
-            @update:options="auctionStore.getAuctionList">
+            @update:options="auctionStore.getAuctionList" sort-asc-icon="">
             <!-- CUSTOM ROW -->
             <template #item="{ item, columns }">
                 <!-- MAIN ROW -->

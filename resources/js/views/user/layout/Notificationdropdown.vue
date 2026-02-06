@@ -14,20 +14,20 @@
             <!-- Header -->
             <div class="d-flex justify-space-between align-center pa-4">
                 <h2 class="text-h6 font-weight-medium">Notifications</h2>
-                <div class="d-flex align-center ga-3">
+                <!-- <div class="d-flex align-center ga-3">
                     <v-chip color="primary" size="small" class="font-weight-bold text-caption">
                         {{ notifications.unread }} New
                     </v-chip>
                     <v-icon size="22">mdi-email-outline</v-icon>
-                </div>
+                </div> -->
             </div>
 
             <v-divider />
 
             <!-- Scrollable List -->
             <div class="max-h-96 overflow-y-auto">
-                <template v-if="notifications.data.length > 0">
-                    <template v-for="(note, i) in notifications.data" :key="i">
+                <template v-if="notifications.length > 0">
+                    <template v-for="(note, i) in notifications.slice(0, 3)" :key="i">
 
                         <v-list-item class="px-4 py-4 bg-surface">
                             <div class="d-flex align-start gap-4 w-100">
@@ -38,9 +38,13 @@
 
 
                                 <div class="flex-grow-1 min-w-0 ml-2 mr-1">
-                                    <p class="text-body-2 font-weight-medium mb-1 text-wrap">
-                                        {{ note.title }}
-                                    </p>
+
+                                    <router-link :to="getNotificationLink(note)"
+                                        style="text-decoration: none; color: rgb(var(--v-theme-whiteLight));">
+                                        <p class="text-body-2 font-weight-medium mb-1 text-wrap rounded-md">
+                                            {{ note.title }}
+                                        </p>
+                                    </router-link>
                                     <p class="text-caption text-medium-emphasis text-wrap">
                                         {{ note.message }}
                                     </p>
@@ -48,16 +52,16 @@
                                 </div>
 
 
-                                <div class="mt-2">
+                                <!-- <div class="mt-2">
                                     <v-icon v-if="note.is_read == 0" color="primary" size="10">
                                         mdi-circle
                                     </v-icon>
-                                </div>
+                                </div> -->
                             </div>
                         </v-list-item>
-                        <v-divider v-if="i < notifications.data.length - 1" />
+                        <v-divider v-if="i < notifications.length - 1" />
                         <div v-else>
-                            nop
+
                         </div>
                     </template> </template>
                 <template v-else>
@@ -70,8 +74,8 @@
             <v-divider />
 
             <!-- View All Button -->
-            <div class="pa-3" v-if="notifications.data.length > 0">
-                <v-btn block color="primary" variant="flat" class="text-none rounded-lg py-3">
+            <div class="pa-3" v-if="notifications.length > 0">
+                <v-btn block color="primary" variant="flat" class="text-none rounded-lg py-3" :to="'/user/profile'">
                     View all notifications
                 </v-btn>
 
@@ -83,15 +87,17 @@
 <script>
 import api from "@/plugins/axios";
 import userAvatar from "@/assets/images/avatar/user.png"
+import General from "@/models/general.model";
 export default {
     name: "NotificationMenu",
     data() {
         return {
             userAvatar,
-            notifications: {
-                data: [],
-                unread: 0
-            },
+            notifications: [],
+            // notifications: {
+            //     data: [],
+            //     unread: 0
+            // },
             isLoading: false,
         };
     },
@@ -105,17 +111,26 @@ export default {
         async notificationFetch() {
             this.isLoading = true;
             try {
-                const res = await api.get("/api/notifications/userNotification");
-                const unreadNotes = res.data.data.filter(n => n.is_read === 0);
-                this.notifications = {
-                    data: unreadNotes,
-                    unread: unreadNotes.length
-                };
+                const res = await General.get("/api/notifications/myNotifications");
+                // const unreadNotes = res.data.data.filter(n => n.is_read === 0);
+                // this.notifications = {
+                //     data: unreadNotes,
+                //     unread: unreadNotes.length
+                // };
+                this.notifications = res
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             } finally {
                 this.isLoading = false;
             }
+        },
+        getNotificationLink(note) {
+            if (note.type === "vehicle") {
+                return `/user/vehicle-detail/${note.id}`;
+            } else if (note.type === "auction") {
+                return `/autoboli/user/reauction`;
+            }
+            return "#"; // fallback if type is unknown
         },
 
     },

@@ -1,7 +1,7 @@
 <template>
     <div class="bg-surface rounded border mt-0" style="overflow: hidden;">
         <v-data-table-server :headers="headers" :items="auctionStore.data" :items-length="auctionStore.total"
-            :loading="auctionStore.loading" item-value="id" >
+            :loading="auctionStore.loading" item-value="id" sort-asc-icon="">
 
             <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t ma-2">

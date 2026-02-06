@@ -79,7 +79,13 @@ class NotificationService
                 ->toArray();
 
 
-            return array_merge($vehicles,$auctions);
+            $data = array_merge($vehicles,$auctions);
+
+            usort($data, function ($a, $b) {
+                return strtotime($b['date']) <=> strtotime($a['date']);
+            });
+
+            return $data;
 
     }
 

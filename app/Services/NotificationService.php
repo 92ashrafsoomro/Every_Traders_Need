@@ -65,7 +65,7 @@ class NotificationService
                  ->get()
                  ->map(function ($value, $key) {
                     
-                    $image = $value->image ? asset($value->image) : null;
+                    $image = $value->image ? asset('/uploads/'.$value->image) : null;
                     return [
                         'id' => $value->id,
                         'image' => $image,

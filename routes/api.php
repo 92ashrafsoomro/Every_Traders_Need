@@ -205,7 +205,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
         Route::resource('staffs',StaffController::class);    
-
+        Route::post('/auctions/updatestatus/{id}',[AuctionController::class,"updateStatus"]);
 
         // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);

@@ -42,10 +42,10 @@
      
 
                     <div class="content-scroll d-flex mt-6 w-100 ga-3">
-                        <div v-for="item in status" :key="item.value"
+                        <div v-for="item in status" :key="item.id"
                             class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:15.5%"
-                            @click="filter.status = item.value"
-                            :class="{ 'bg-primary text-white': filter.status === item.value }">
+                            @click="filter.status = item.id"
+                            :class="{ 'bg-primary text-white': filter.status === item.id }">
                             <div class="d-flex justify-space-between ">
                                 <div class="d-flex align-center">
                                     <small> {{ item.title }}</small>
@@ -54,7 +54,7 @@
                                         class="text-primary auction-svg" xmlns="http://www.w3.org/2000/svg">
                                         <path fill="currentColor"
                                             d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z" />
-                                    </svg> <span class="ml-1"> {{ statusCounts[item.value] }}</span> </div>
+                                    </svg> <span class="ml-1"> {{ item.count ?? 0  }}</span> </div>
                             </div>
                         </div>
 
@@ -117,11 +117,38 @@
                             </span>
                         </template>
 
-                        <template #item.auction_status.title="{ item }">
+                        <!-- <template #item.auction_status.title="{ item }">
                             <v-chip :color="statusColor(item.auction_status?.title)" small dark>
                                 {{ item.auction_status?.title }}
                             </v-chip>
-                        </template>
+                        </template> -->
+                            <template #item.auction_status.title="{ item }">
+                            <v-select
+                                :items="status"
+                                item-title="title"
+                                item-value="id"
+                                :model-value="item.auction_status?.id"
+                                density="compact"
+                                variant="outlined"
+                                class="min-select"
+                                @update:model-value="onStatusChange(item.id, $event)"
+                            >
+                                <template #selection="{ item: sel }">
+                                <span
+                                    :style="{ color: statusColor(sel.raw.title), fontWeight: '600' }"
+                                >
+                                    {{ sel.raw.title }}
+                                </span>
+                                </template>
+
+                                <template #item="{ item: opt, props }">
+                                <v-list-item
+                                    v-bind="props"
+                                    :style="{ color: statusColor(opt.raw.title) }"
+                                />
+                                </template>
+                            </v-select>
+                            </template>
 
 
 
@@ -170,16 +197,7 @@ export default {
     },
     data() {
         return {
-            status: [
-                { value: '1', title: 'Draft' },
-                { value: '2', title: 'Planned' },
-                { value: '3', title: 'Confirm' },
-                { value: '4', title: 'In Progress' },
-                { value: '5', title: 'Done' },
-                { value: '6', title: 'Cancel' },
-                // { value: 'confirm', title: 'Confirm' },
-                // { value: 'done', title: 'Done' },
-            ],
+            status: [],
 
             showFilters: true,
             Auction,
@@ -230,34 +248,12 @@ export default {
     mounted() {
         this.loadItems()
         this.getCountData()
+        this.auctionStatus()
         this.$themeStore.menuType = 'collapsed';
     },
     computed: {
 
-    statusCounts() {
-        const counts = {
-        '1': 0, 
-        '2': 0, 
-        '3': 0,
-        '4': 0, 
-        '5': 0, 
-        '6': 0, 
-        }
 
-    
-        if (!Array.isArray(this.items)) {
-        return counts
-        }
-
-        this.items.forEach(item => {
-        const statusId = String(item?.auction_status?.id)
-        if (counts[statusId] !== undefined) {
-            counts[statusId]++
-        }
-        })
-
-        return counts 
-    }
 
     },
     watch: {
@@ -289,10 +285,10 @@ export default {
     methods: {
         statusColor(auction_status) {
             switch (auction_status) {
-                case 'Cancle':
-                    return '#e51f1f';
+                case 'Cancel':
+                    return '#e51f1f';  
                 case 'Done':
-                    return '#f2ce02';
+                    return '#f2ce02';  
                 case 'Confirm':
                     return '#96761a';
                 case 'Draft':
@@ -300,7 +296,7 @@ export default {
                 case 'In Progress':
                     return '#85e62c';
                 default:
-                    return '#fff';
+                    return '#ffffff';
             }
         },
         formatDate(date) {
@@ -336,6 +332,19 @@ export default {
             }
         },
 
+        async auctionStatus(){
+            try {
+            const order = [1, 2, 3, 4, 5, 6]
+            let statusData = await Auction.auctionStatus()
+
+            this.status = statusData.data.sort((a, b) => {
+                return order.indexOf(a.id) - order.indexOf(b.id)
+            })
+            } catch (error) {
+                alert(error);
+            }
+        },
+
         async deleteItem(id) {
 
             if (!confirm("Are you sure you want to delete this item?")) return;
@@ -343,7 +352,7 @@ export default {
 
             try {
                 const res = await Auction.delete(id);
-                this.$alertStore.add(res.message || "BodyType deleted", "success");
+                this.$alertStore.add(res.message || "Auction deleted", "success");
                 this.loadItems();
 
             } catch (error) {
@@ -373,6 +382,24 @@ export default {
             }
         },
 
+        async onStatusChange(auctionId, statusId) {
+            try {
+                console.log('Auction ID:', auctionId)
+                console.log('Status ID:', statusId)
+
+                const res = await Auction.UpdateStatus(auctionId, {
+                    status_id: statusId
+                })
+                this.$alertStore.add(res.message || "Auction Status Update", "success");
+                this.loadItems();
+
+            } catch (error) {
+                console.error(error)
+                this.$alertStore.add(error.message || "Delete failed", "error");
+            }
+        }
+
+
     }
 
 
@@ -384,5 +411,9 @@ export default {
 <style scoped>
 :deep(th) {
   white-space: nowrap !important;
+}
+
+.min-select {
+  min-width: 150px;
 }
 </style>

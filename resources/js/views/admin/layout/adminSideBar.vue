@@ -1,13 +1,25 @@
 <template>
-    <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
+    <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen" @mouseenter="isHovered = true"   @mouseleave="isHovered = false">
         <div class="v-navigation-drawer__content">
            <v-list density="compact"   class="" nav>
 
-                <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 269" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
-                    <img v-else :src="newLogo" 
-                        style="width: 40px; height: 40px; " />
-                </v-list-item>
+                <v-list-item class="d-flex" style="height: 57px; ">
+                        <div class="w-100 d-flex justify-space-between ga-8" >
+
+                            <img v-if="menuWidth == 269" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                            <img v-else :src="newLogo" 
+                            style="width: 40px; height: 40px; " />
+                            
+                            <v-icon
+                            color="primary"
+                            class="mr-2 cursor-pointer"
+                            @click="toggleDrawerLock"
+                            v-if="!display.mdAndDown"
+                            >
+                            {{ themeStore.menuType === 'expanded' ? 'mdi-lock-open' : 'mdi-lock' }}
+                        </v-icon>
+                    </div>
+                                </v-list-item>
                <v-divider class="ps-0 pe-0"></v-divider>
 
 
@@ -80,7 +92,8 @@ export default {
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
-            newLogo 
+            newLogo,
+            isHovered: false, 
         };
     },
     computed: {
@@ -91,12 +104,16 @@ export default {
                 return  "269";
             } else {
                 //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "269" : "68";
+                const baseWidth = this.themeStore.menuType === "expanded" ? 269 : 68;
+                return this.isHovered ? 269 : baseWidth;
             }
 
         },
     },
     methods: {
+          toggleDrawerLock() {
+                this.themeStore.menuType = this.themeStore.menuType === 'expanded' ? 'collapsed' : 'expanded';
+            }
 
     },
     mounted() { 

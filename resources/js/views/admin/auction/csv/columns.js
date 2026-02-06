@@ -3,15 +3,15 @@ export default [
     // { title: 'auction_id', key: 'auction_id' },
     { title: 'Reg', key: 'reg' ,disabled: true },
     { title: 'Title', key: 'title', disabled: true,  },
-    { title: 'Make', key: 'make_id' },
-    { title: 'Model', key: 'model_id' },
+    { title: 'Make', key: 'make_id', required:true },
+    { title: 'Model', key: 'model_id',required:true },
     { title: 'Derivative', key: 'derivative',disabled: true },
-    { title: 'Variant', key: 'variant_id' },
+    { title: 'Variant', key: 'variant_id',required:true },
 
-    { title: 'Vehicle', key: 'vehicle_id' },
-    { title: 'Body Type', key: 'body_id' },
+    { title: 'Vehicle', key: 'vehicle_id',required:true },
+    { title: 'Body Type', key: 'body_id',required:true },
   
-    { title: 'Center', key: 'center_id' },
+    { title: 'Center', key: 'center_id',required:true },
     { title: 'FuelType', key: 'fuel_type', disabled: true },
     
 

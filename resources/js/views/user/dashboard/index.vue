@@ -137,7 +137,7 @@
                   class="circle d-flex justify-center align-center">
                   <v-icon size="32" color="primary">mdi-repeat-variant</v-icon>
                 </div>
-                <span class="text-h4 px-3">{{ auctionCounter.vehicles_in_reauction }}</span>
+                <span class="text-h4 px-3">{{ auctionCounter.reAuctionVehicles }}</span>
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
@@ -146,7 +146,7 @@
                   <span class="white">Remaining:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                    {{auctionCounter.vehicles_in_reauction }}</span>
+                    {{auctionCounter.remainingReAuctionVehicles }}</span>
                 </div>
   
               </div>
@@ -185,7 +185,7 @@
                 <v-col cols="12" sm="6" class="ml-n4  ">
                   <div class="pa-3">
                     <div class="">
-                      <div class="text-h3 font-weight-bold ">254</div>
+                      <div class="text-h3 font-weight-bold ">{{vehicelState.remaining_vehicles}}</div>
                       <div class="text-subtitle-2 text-light mb-6">Remaining</div>
                     </div>
                     <div style="margin-top: 50px;" class="">
@@ -196,7 +196,7 @@
                         </div>
                         <div class="pl-3 d-flex align-center">
                           <div class="text-h5 font-weight-bold">
-                            {{ auctionCounter.inprogress_vehicles }}
+                            {{ vehicelState.inprogress_vehicles }}
                           </div>
                           <div class="text-body-1 text-light_text_on ml-2 ">Provisional</div>
                         </div>
@@ -207,7 +207,7 @@
                           <v-icon size="20" color="primary">mdi-check-decagram</v-icon>
                         </div>
                         <div class="pl-3 d-flex  align-center">
-                          <div class="text-h5 font-weight-bold">{{ auctionCounter.sold_vehicles }}</div>
+                          <div class="text-h5 font-weight-bold">{{ vehicelState.vehicelState_sold_vehicles }}</div>
                           <div class="text-body-1 text-light_text_on ml-2 ">Sold</div>
                         </div>
                       </div>
@@ -218,16 +218,19 @@
                           <v-icon size="20" color="primary">mdi-minus-circle</v-icon>
                         </div>
                         <div class="pl-3 d-flex  align-center">
-                          <div class="text-h5 font-weight-bold">{{ auctionCounter.not_sold }}</div>
+                          <div class="text-h5 font-weight-bold">{{ vehicelState.vehicelState_notsold_vehicles }}</div>
                           <div class="text-body-1 text-light_text_on ml-2  ">Not Sold</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </v-col>
-                <v-col cols="12" sm="6" class="d-flex justify-center justify-sm-start ml-lg-n5">
-                  <VehicleStateChart :vehicelState="vehicelState" />
-                </v-col>
+                <v-col cols="12" sm="6" class="d-flex justify-center justify-sm-start ml-lg-n5" >
+                 <VehicleStateChart 
+                    :vehicelState="vehicelState" 
+                    :doneValue="vehicelState.done_vehicles"
+                  />
+                                  </v-col>
 
               </v-row>
             </v-container>
@@ -246,6 +249,7 @@ import api from '@/plugins/axios';
 import VehicleStateChart from '@/views/user/dashboard/VehicleStateChart.vue';
 import Auction from './Auction.vue';
 import General from '@/models/general.model';
+import { useGeneralStore } from '@/stores/generalStore';
 export default {
   name: 'AuctionDashboard',
   components: {
@@ -255,12 +259,13 @@ export default {
 
   data() {
     return {
+      generalStore : useGeneralStore(),
       onlinePlatform: null,
       timePlatform: null,
       platforms: [],
-
+      isLoading: false,
+     
       auctionCounter:{
-        isLoading: false,
         total_auctions : 0,
         live_auctions : 0,
         time_auctions:0,
@@ -271,17 +276,20 @@ export default {
         total_vehicles: 0,
         sold_vehicles : 0,
         unsold_vehicles : 0 ,
-        vehicles_in_reauction : 0 ,
-        vehicles_in_remaining : 0 ,
+        reAuctionVehicles : 0 ,
+        remainingReAuctionVehicles : 0 ,
         remaining : 0 ,
       },
       vehicelState:
       {
-        isLoading: false,
         onsale_vehicles: 2,
         provisional_vehicles: 3,
-        sold_vehicles: 5,
+        vehicelState_sold_vehicles: 5,
+        vehicelState_notsold_vehicles: 5,
+        done_vehicles : 0,
+        inprogress_vehicles:0,
         not_sold: 0,
+        remaining_vehicles : 0,
         total_vehicles: 100,
       }
      
@@ -293,9 +301,11 @@ export default {
   methods: {
 
     async getCountData() {
-      this.auctionCounter.isLoading = true;
+      this.isLoading = true;
       try {
-          let res = await General.get("/api/user/dashboard/counters");
+         
+
+          let res = await General.get("/api/user/dashboard/counters", this.generalStore.date);
 
           this.auctionCounter.total_auctions = res.data.total_auctions; //
           this.auctionCounter.live_auctions = res.data.live_auctions; //
@@ -306,29 +316,33 @@ export default {
           this.auctionCounter.total_vehicles = res.data.total_vehicles; //
           this.auctionCounter.sold_vehicles = res.data.sold_vehicles; //
           this.auctionCounter.unsold_vehicles = res.data.unsold_vehicles;
-          this.auctionCounter.vehicles_in_reauction = res.data.vehicles_in_reauction;
-          this.auctionCounter.vehicles_in_remaining = res.data.vehicles_in_remaining;
+          this.auctionCounter.reAuctionVehicles = res.data.reAuctionVehicles;
+          this.auctionCounter.remainingReAuctionVehicles = res.data.remainingReAuctionVehicles;
+
         } catch (error) {
-        this.auctionCounter.isLoading = false;
+        this.isLoading = false;
         console.error(error.message, "counters Api error");
       }
     },
 
     async getVehicleStates() {
-      this.vehicelState.isLoading = true;
+      this.isLoading = true;
+     
       try {
-        let res = await api.get("/api/user/dashboard/vehicleStates");
-        this.vehicelState.inprogress_vehicles = res.data.data.inprogress_vehicles;
-        this.vehicelState.sold_vehicles = res.data.data.sold_vehicles
-
-
-        this.vehicelState.data = res.data.data;
-        this.vehicelState.isLoading = false;
-        this.vehicelState.total_vehicles = res.data.data.total_vehicles;
+     
+        let res = await General.get("/api/user/dashboard/vehicleStates", this.generalStore.date);
+        this.vehicelState.data = res.data;
+        this.vehicelState.inprogress_vehicles = res.data.inprogress_vehicles;
+        this.vehicelState.vehicelState_sold_vehicles = res.data.sold_vehicles
+        this.vehicelState.vehicelState_notsold_vehicles = res.data.not_sold_vehicles
+        this.vehicelState.done_vehicles = res.data.done_vehicles 
+        this.vehicelState.total_vehicles = res.data.total_vehicles;
+        this.vehicelState.remaining_vehicles = res.data.remaining_vehicles;
+        this.isLoading = false;
 
       } catch (error) {
         console.error(error.message, "vehicleStates Api error");
-        this.timeAutions.isLoading = false
+        this.isLoading = false
       }
     }
   },

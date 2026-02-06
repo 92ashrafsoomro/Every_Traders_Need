@@ -96,15 +96,23 @@
 
 
     <v-card class="border-sm border-white">
-      <v-data-table-server :headers="headers" sort-asc-icon=""  :items="data" :items-length="total" :loading="loading" hover
-        hide-default-footer item-value="id" @update:options="getRecords" >
+      <v-data-table-server :headers="headers" sort-asc-icon="" :items="data" :items-length="total" :loading="loading"
+        hover hide-default-footer item-value="id" >
 
         <template #item.action="{ item }">
           <div class="d-flex">
-            <v-btn :to="'/user/auction-finder/'"><v-icon class="eyeIcon" size="20">mdi-eye-outline</v-icon></v-btn>
-            <v-btn @click="sendData(item.id)"><v-icon class="NotifyIcon " size="20"> mdi-bell-outline</v-icon></v-btn>
+            <v-btn :to="'/user/auction-finder/'">
+              <v-icon size="20">mdi-eye-outline</v-icon>
+            </v-btn>
+            <v-icon class="bell text-capitalize text-body-1 border" :disabled="alertedAuctionIds.includes(item.id)"
+              @click="sendAlert(item.id)" :style="{
+                backgroundColor: alertedAuctionIds.includes(item.id) ? 'rgba(var(--v-theme-primary),0.2)' : 'transparent',
+                cursor: alertedAuctionIds.includes(item.id) ? 'not-allowed' : 'pointer'
+              }">mdi-bell-outline</v-icon>
+
           </div>
         </template>
+
         <template #item.platform_name="{ item }">
           <div style="width: 120px;">
             <span>{{ item.platform_name }}</span>
@@ -172,7 +180,7 @@ export default {
         enableCurrent: false,
         date: '',
       },
-
+      alertedAuctionIds: [],
       data: [],
       total: 0,
       loading: false,
@@ -192,6 +200,7 @@ export default {
     this.nextDays();
     this.options.date = this.days['Today'].date;
     this.getRecords();
+    this.existAlert()
   },
 
   methods: {
@@ -331,19 +340,35 @@ export default {
         this.loading = false;
       }
     },
-    async sendData(auction_id) {
-      this.loading = true;
+
+    async existAlert() {
+      try {
+        const res = await General.get("/api/notifications/userAuctionList")
+
+        this.alertedAuctionIds = (res.data || []).map(
+          alert => alert.auction_id
+        )
+
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async sendAlert(auction_id) {
       try {
         await General.post("/api/notifications/addInUserAuction", {
           auction_id
-        });
-        this.$alertStore.add("Added successfully", "success");
+        })
+
+        this.alertedAuctionIds.push(auction_id)
+        this.$alertStore.add("Added successfully", "success")
+
       } catch (error) {
-        this.$alertStore.add("Error", "error");
-      } finally {
-        this.loading = false;
+        this.$alertStore.add("Error", "error")
       }
     }
+
+
   }
 };
 </script>

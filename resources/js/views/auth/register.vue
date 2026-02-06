@@ -491,6 +491,7 @@ export default {
                 this.userStore.initializeUserSession(response.token, response.user);
                 this.themeStore.endLoading();
                 this.alertStore.add('Account Created Successfully', 'success');
+                this.router.push("/login")
 
             } catch (error) {
 

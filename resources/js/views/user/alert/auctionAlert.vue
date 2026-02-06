@@ -55,8 +55,7 @@
             <v-col cols="12" class="mt-3">
                 <div class="  border ">
                     <v-data-table-server class="" :headers="headers" :items="items" hide-default-footer
-                        :items-length="totalItems" hover :loading="loading" item-value="id"
-                        @update:options="loadItems">
+                        :items-length="totalItems" hover :loading="loading" item-value="id">
                         <!--
                         <template #item.vehicle="{item}">
                             <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.auction_id" target="_blank">{{ item.vehicle }}</v-btn>

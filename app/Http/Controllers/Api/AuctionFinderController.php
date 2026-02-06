@@ -428,88 +428,72 @@ class AuctionFinderController extends Controller
     public function reAuctionList(Request $request)
     {   
 
-            DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+        DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+
+        if(!$request->start_date || !$request->end_date){
+            return response()->json(['message' => 'Date Not Found'],400);
+        }
+
+     
+        
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        
+        $auctionIds = AuctionService::getAuctionIdbyDateRange($start_date,$end_date);
+        $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
+        $centers = AuctionService::getCenterNamesByPlateformName($platforms);
 
 
-            $today = now()->toDateString();
+        $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->select([
+                'vehicles.*',
+                'auctions.auction_date as date',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as model_variant_name',
+                DB::raw('COUNT(vehicles.reg) as vehicle_count')
 
-            $auctionFilter = $request->auction_date ?? $today;
+            ])
+            ->having('vehicle_count','>',1)
+            ->when($request->start_date, function($q) use ($request) {
+                $q->whereDate('auctions.auction_date','>=',$request->start_date);
+            })
+            ->when($request->end_date, function($q) use ($request) {
+                $q->whereDate('auctions.auction_date','<=',$request->end_date);
+            })
+            ->when($request->search, function($q) use ($request) {
+                $search = $request->search;
+                $q->where(function ($q) use ($search) {
+                    $q->where('vehicles.reg', 'LIKE', "%{$search}%")
+                        ->orWhere('make.name', 'LIKE', "%{$search}%")
+                        ->orWhere('model.name', 'LIKE', "%{$search}%")
+                        ->orWhere('model_variant.name', 'LIKE', "%{$search}%")
+                        ->orWhere('auction_center.name', 'LIKE', "%{$search}%")
+                        ->orWhere('auction_platform.name', 'LIKE', "%{$search}%");
+                });
+            })
+            ->groupby('vehicles.reg')
+            ->get()
+            ->map(function($vehicle){
 
-            $auctionIds = AuctionService::getAuctionIdbyDate($auctionFilter);
-            $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
-            $centers = AuctionService::getCenterNamesByPlateformName($platforms);
+                return $vehicle;
 
-            
-            $length = (int) $request->input('length', 10);
-            $page = (int) $request->input('page', 1);
-            $offset = ($page - 1) * $length;
-            
-            $query = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
-                ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
-                ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
-                ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
-                ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
-                ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
-                ->select([
-                    'vehicles.*',
-                    'auctions.auction_date as date',
-                    'auction_platform.name as platform_name',
-                    'auction_center.name as center_name',
-                    'make.name as make_name',
-                    'model.name as model_name',
-                    'model_variant.name as model_variant_name',
-                    DB::raw('COUNT(vehicles.reg) as vehicle_count')
-
-                 
-                ])->having('vehicle_count','>',1);
-
-
-                // if ($request->filled('interest_id')) {
-                //     $interest = Interest::find($request->interest_id);
-                //     if ($interest) {
-                //         $query->when($interest->make_id, fn($q) => 
-                //             $q->where('vehicles.make_id', $interest->make_id))
-                //                ->when($interest->model_id, fn($q) => $q->where('vehicles.model_id', $interest->model_id))
-                //                ->when($interest->variant_id, fn($q) => $q->where('vehicles.variant_id', $interest->variant_id));
-                //     }
-                // }
-
-                if($request->filled('search')){
-                    $search = $request->search;
-                    $query->where(function ($q) use ($search) {
-                        $q->where('vehicles.reg', 'LIKE', "%{$search}%")
-                            ->orWhere('make.name', 'LIKE', "%{$search}%")
-                            ->orWhere('model.name', 'LIKE', "%{$search}%")
-                            ->orWhere('model_variant.name', 'LIKE', "%{$search}%")
-                            ->orWhere('auction_center.name', 'LIKE', "%{$search}%")
-                            ->orWhere('auction_platform.name', 'LIKE', "%{$search}%");
-                    });
-                }
-
-            
-                $totalRecords = (clone $query)->count();
-                $data         =  $query
-                                // skip($offset)
-                                // ->take($length)
-                                ->groupby('vehicles.reg')
-                                ->get()
-                                ->map(function($vehicle) use ($today){
-
-                               
-                                    return $vehicle;
-                                });
+            });
 
 
             // 🔹 Final response
             return response()->json([
                 'platforms' => $platforms,
                 'centers' => $centers,
-                'recordsTotal' => $totalRecords,
-                'recordsFiltered' => $totalRecords,
-                'length' =>  $length,
-                'page' => $page,
-                'offset' => $offset,
-                'last_page' => ceil($totalRecords / $length),
+                'recordsTotal' => count($data),
+                'recordsFiltered' => count($data),
                 'data' => $data,
             ]);
         
@@ -678,72 +662,67 @@ class AuctionFinderController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id');
-        // ->whereMonth('auctions.auction_date',12)
-        // ->whereYear('auctions.auction_date',2025);
+        $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id')
+                ->when($request->platform_id, function($q) use ($request) {
+                    $q->where('auctions.platform_id', $request->platform_id);
+                })
+                ->when($request->center_id, function($q) use ($request){
+                    $q->whereExists(function ($sub) use ($request) {
+                        $sub->select(DB::raw(1))
+                            ->from('vehicles')
+                            ->whereColumn('vehicles.auction_id', 'auctions.id')
+                            ->where('vehicles.center_id', $request->center_id);
+                    });
+                })
+                ->when($request->center_id, function($q) use ($request) {
+                    $q->where('auctions.status', $request->status);
+                })
+                ->when($request->date, function($q) use ($request) {
+                    $q->whereDate('auctions.auction_date',$request->date);
+                })
+                ->when($request->enableCurrent, function($q) use ($request) {
+                    if ($request->enableCurrent == 'true'){
+                        $q->whereDate('auctions.status',4);
+                    }
+                });
         
-        if ($request->has('platform_id') && $request->platform_id != '') {
-            $query->where('auctions.platform_id', $request->platform_id);
-        }
-
-        if ($request->has('center_id') && $request->center_id != '') {
-            $query->whereExists(function ($sub) use ($request) {
-                $sub->select(DB::raw(1))
-                    ->from('vehicles')
-                    ->whereColumn('vehicles.auction_id', 'auctions.id')
-                    ->where('vehicles.center_id', $request->center_id);
-            });
-        }
-
-
-        if ($request->has('status') && $request->status != ''){
-            $query->where('auctions.status', $request->status);
-        }
-
-        if ($request->has('date') && $request->date != ''){
-            $query->whereDate('auctions.auction_date',$request->date);
-        }
-
-        if ($request->enableCurrent == 'true'){
-            $query->whereDate('auctions.status',4);
-        }
         
-        $countQuery = (clone $query)->count();
-        $data = $query->select(
-            'auctions.id',
-            'auction_platform.name as platform_name',
-            'auction_platform.id as platform_id',
-            'auctions.auction_date',
-            'auctions.status',
-            DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
-            DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = "Sold") as sold_car_count'),
-            DB::raw('(
-                SELECT GROUP_CONCAT(DISTINCT auction_center.name)
-                FROM vehicles
-                JOIN auction_center ON auction_center.id = vehicles.center_id
-                WHERE vehicles.auction_id = auctions.id
-            ) as center_names'),
-        )
-        ->offset($offset)
-        ->limit($length)
-        ->get()
-        ->map(function ($auction) {
+                $countQuery = (clone $query)->count();
+                $data = $query->select(
+                    'auctions.id',
+                    'auction_platform.name as platform_name',
+                    'auction_platform.id as platform_id',
+                    'auctions.auction_date',
+                    'auctions.status',
+                    DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id) as car_count'),
+                    DB::raw('(SELECT COUNT(*) FROM vehicles WHERE vehicles.auction_id = auctions.id AND vehicles.bidding_status = "Sold") as sold_car_count'),
+                    DB::raw('(
+                        SELECT GROUP_CONCAT(DISTINCT auction_center.name)
+                        FROM vehicles
+                        JOIN auction_center ON auction_center.id = vehicles.center_id
+                        WHERE vehicles.auction_id = auctions.id
+                    ) as center_names'),
+                )
+                ->offset($offset)
+                ->limit($length)
+                ->get()
+                ->map(function ($auction) {
 
 
-            $auction->time = date('d-m-Y', strtotime($auction->auction_date));
-            return $auction;
+                    $auction->time = date('d-m-Y', strtotime($auction->auction_date));
+                    return $auction;
 
-        });
+                });
 
-        return response()->json([
-            "groups" => $groups,
-            "recordsTotal" => $countQuery,
-            "recordsFiltered" => $countQuery,
-            'page' => $page,
-            'offset' => $offset,
-            'last_page' => ceil($countQuery / $length),
-            "data" => $data,
-        ],200);
+                return response()->json([
+                    "groups" => $groups,
+                    "recordsTotal" => $countQuery,
+                    "recordsFiltered" => $countQuery,
+                    'page' => $page,
+                    'offset' => $offset,
+                    'last_page' => ceil($countQuery / $length),
+                    "data" => $data,
+                ],200);
         
 
 

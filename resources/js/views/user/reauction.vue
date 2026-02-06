@@ -6,7 +6,7 @@
             style="position: relative;  top: 10px; left:-10px; " fluid="">
             <div style="background-color: rgb(var(--v-theme-danger),0.4); " class="pb-0 text-center d-flex">
                 <div class="px-2 pb-4 pt-2 ">
-                    <h3 class="text-h4 font-weight-bold ">56</h3>
+                    <h3 class="text-h4 font-weight-bold ">{{ pageStore.reauction.total }}</h3>
                     <p class="text-body-2">Today</p>
                 </div>
             </div>
@@ -44,38 +44,12 @@
                     </div>
                 </div>
             </div>
-            <!--           
-            <v-card class="redBox d-flex align-center justify-center flex-column ga-2 bg-danger  mb-n3"
-                elevation="0">
-                <v-card-title class="redBox-figure text-h2 text-white">0</v-card-title>
-                <v-card-subtitle class="redBox-date text-body-2 text-white">Today</v-card-subtitle>
-            </v-card> -->
-
-            <!-- <v-card color="transparent" class="d-flex align-center justify-center flex-column ga-1" elevation="0">
-
-                <div class="auction-house d-flex align-baseline justify-space-around ga-1 ga-sm-3" >
-                    <v-col cols="auto">
-                        <p>Auction House</p>
-                    </v-col>
-                    <v-col cols="auto">
-                        <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Platforms</div>
-                    </v-col>
-                </div>
-
-                <div class="auction-center d-flex align-baseline justify-space-around ga-5">
-                    <v-col cols="auto">
-                        <p>Auction Center</p>
-                    </v-col>
-                    <v-col cols="auto">
-                        <div class="wrapper bg-shadow pa-3 rounded flex-wrap">No Centers</div>
-                    </v-col>
-                </div>
-            </v-card> -->
+          
         </div>
     </user-title-bar>
     <div  style="max-width: 1400px;" class="mx-auto">
         <div no-gutters="" class="">
-            <v-col cols="12">
+            <!-- <v-col cols="12">
                 <div class="d-lg-none d-md-none align-self-center pl-2">
                     {{ pageStore.reauction.offset }} - {{ (pageStore.reauction.offset +
                         pageStore.reauction.length) }} of {{ pageStore.reauction.total }} Vehicles
@@ -102,14 +76,14 @@
                         </div>
                     </div>
                 </div>
-            </v-col>
+            </v-col> -->
 
             <v-col cols="12 " class="mt-3 ">
                 <v-card class="border-sm border-white ">
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
-                            item-value="id" @update:options="pageStore.getreAuctionList">
+                            item-value="id"  hide-default-footer="">
 
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
@@ -118,14 +92,14 @@
                                 <span>{{dateFormate(auction_date)}}</span>
                             </template>
 
-                            <template v-slot:bottom>
+                            <!-- <template v-slot:bottom>
                                 <div class="py-2 d-flex justify-end border-t">
                                     <custom-pagination :loading="pageStore.reauction.loading"
                                         v-model:page="pageStore.reauction.page"
                                         :lastPage="pageStore.reauction.last_page"
                                         @page-changed="pageStore.getreAuctionList" />
                                 </div>
-                            </template>
+                            </template> -->
 
                         </v-data-table-server>
                     </div>
@@ -173,11 +147,12 @@ export default {
     async mounted() {
         this.getCenter();
         this.getPlatform();
+        this.pageStore.getreAuctionList()
     },
     methods: {
-        handleInput(e) {
-            this.pageStore.getreAuctionList();
-        },
+        // handleInput(e) {
+        //     this.pageStore.getreAuctionList();
+        // },
         dateFormate(date) {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]

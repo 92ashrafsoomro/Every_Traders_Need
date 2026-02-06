@@ -30,15 +30,20 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default {
   name: "CircleStats",
   components: { Doughnut },
-  props:{
-    vehicelState:{
-      default:{}
-    }
+ props: {
+  vehicelState: {
+    type: Object,
+    default: () => ({})
   },
+  doneValue: {
+    type: Number,
+    default: 0
+  }
+},
 
   data() {
       return {
-        doneValue: 2,
+        // doneValue: 2,
         totalSegments: 30, // total circular parts
         completedSegments: 20,   // colored segments (blue)
       };

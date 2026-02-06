@@ -17,7 +17,14 @@ use Illuminate\Support\Facades\Hash;
 class AuctionService 
 {
 
-   static public function getAuctionIdbyDate($date)
+        static public function getAuctionIdbyDateRange($startDate,$endDate)
+    {
+        return Auctions::whereDate('auction_date', '>=', $startDate)
+                ->whereDate('auction_date', '<=', $endDate)
+                ->pluck('id');
+    }
+
+        static public function getAuctionIdbyDate($date)
     {
     
          return Auctions::whereDate('auction_date', '=', $date)

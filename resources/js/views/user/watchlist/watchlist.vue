@@ -51,7 +51,7 @@
                     :items-length=" totalItems" hover
                      hide-default-footer
                     :loading="loading" item-value="id" 
-                    @update:options="loadItems">
+                    >
 
                         <template #item.vehicle="{item}">
                             <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id">{{ item.vehicle }}</v-btn>

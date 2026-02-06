@@ -9,6 +9,7 @@ use App\Models\MembershipPayment;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserAuction;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Auth;
@@ -38,9 +39,10 @@ class NotificationService
             ->get()
             ->map(function ($value, $key) {
 
+                $images = explode(",",$value->images);
                 return [
                     'id' => $value->id,
-                    'image' => null,
+                    'image' => $images ? $images[0] : null,
                     'type' => 'vehicle',
                     'title' => $value->title,
                     'message' => 'Vehicle Description',
@@ -50,9 +52,44 @@ class NotificationService
             })
             ->toArray();
 
-            return array_merge($vehicles);
+
+            $auctions = UserAuction::select([
+                    'auctions.*',
+                    'auction_platform.image'
+                 ])
+                 ->leftJoin('auctions','auctions.id', '=','user_auctions.auction_id')
+                 ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')
+                //  ->leftJoin('auction_status','auction_status.id','=','auctions.status')
+                //  ->leftJoin('vehicles','vehicles.auction_id','=','auctions.id')
+                 ->where('user_auctions.user_id', $user->id)
+                 ->get()
+                 ->map(function ($value, $key) {
+                    
+                    $image = $value->image ? asset($value->image) : null;
+                    return [
+                        'id' => $value->id,
+                        'image' => $image,
+                        'type' => 'auction',
+                        'title' => $value->name,
+                        'message' => 'Auction Description',
+                        'date' => $value->auction_date
+                    ];
+
+                })
+                ->toArray();
+
+
+            return array_merge($vehicles,$auctions);
 
     }
+
+
+
+
+
+
+
+
 
 
 

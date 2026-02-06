@@ -233,5 +233,18 @@ export default class Auction {
            throw await errorHandler(e); 
         }
     }
+
+    static async getScrapSingle(id:any, options:any) {
+    try {
+        const res = await api.get(
+        `/api/cruds/auctions/getsingle/${id}`,
+        { params: options }   
+        )
+        return res.data
+    } catch (error) {
+        throw await errorHandler(error)
+    }
+    }
+
     
 }

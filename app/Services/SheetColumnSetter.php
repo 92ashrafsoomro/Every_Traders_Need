@@ -91,7 +91,7 @@ class SheetColumnSetter
 
         $this->item['model_id'] = HelperService::modelCleaning($this->item, $this->platformId, $this->prefixes);
 
-<<<<<<< HEAD
+    }
     public function varientClean(){
         switch($this->platformId){
            case 1 || 3 || 2 || 17 || 18 || 35 || 15  :
@@ -103,9 +103,7 @@ class SheetColumnSetter
                 $value = preg_replace('/\b\d+\s*kwh\b/i', '', $value);
                 // $value = preg_replace('/\b(auto|manual)\b/i', '', $value);
                 // $value = preg_replace('/\b(fwd|rwd|awd|4x4)\b/i', '', $value);
-=======
-        if($this->make){
->>>>>>> 45798dac67f774b73f48274160dfc1277c60b9f5
+
 
             $value  = strtolower($this->item['model_id']);
             $models = VehicleModel::where('make_id',$this->make->id)->get()

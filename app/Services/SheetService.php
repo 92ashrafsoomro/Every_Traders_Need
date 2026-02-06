@@ -189,7 +189,41 @@ class SheetService
 
     
 
+    static public function getScrapperDataByAuctionSingle(Request $request,Auctions $model,$reg)
+    {
 
+            $prefixes = [];
+            $prefix = Prefix::orderBy('prefix_key')->get();
+            foreach ($prefix as $key => $value) {
+                $prefixes[$value->name][strtolower($value->prefix_key)] = $value->prefix_value;
+            }
+
+    
+            $data = [];
+            $scraps = json_decode(ScrapedVehicle::select('payload')->where('auction_id',$model->id)->pluck('payload')->first());
+            // dd($scraps);
+            foreach ($scraps as $key => $item) {
+                if (
+                    !isset($item->reg) ||
+                    strtoupper(trim($item->reg)) !== strtoupper(trim($reg))
+                ) {
+                    continue; 
+                }
+                $SheetColumnSetter = new SheetColumnSetter(
+                    json_decode(json_encode($item), true)
+                );
+
+                $SheetColumnSetter->prefixes   = $prefixes;
+                $SheetColumnSetter->platformId = $model->platform_id;
+
+                array_push($data, $SheetColumnSetter->get());
+
+                break; 
+            }
+
+            return $data;
+
+    }
   
 
 

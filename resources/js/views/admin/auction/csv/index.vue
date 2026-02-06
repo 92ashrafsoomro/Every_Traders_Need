@@ -3,7 +3,8 @@
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
                 <h1 class=" text-h6 Sheet"> <span class="pointer bg-background">{{ form.table_id }}</span>
-                    <span class="pointer ml-2 bg-background">{{ form.name }}</span>
+                    <!-- <span class="pointer ml-2 bg-background">{{ form.name }}</span> -->
+                    <span class="pointer ml-2 bg-background">{{ form.auctionname }}</span>
                 </h1>
             </div>
             <div class="mx-3 d-flex">
@@ -32,7 +33,7 @@
                 </div>
 
                 <div class="px-2">
-                    <router-link :to="`/auction/vehicle/${form.table_id}`" target="_blank" rel="noopener noreferrer">
+                    <router-link :to="`/admin/auction/vehicle/${form.id}`" target="_blank" rel="noopener noreferrer">
                         <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
                         color="primary" >mdi-eye</v-icon>
                 </router-link>
@@ -161,6 +162,8 @@ export default {
             selectedRow: null,
             form: {
                 table_id: '',
+                id:'',
+                auctionname:'',
                 name: '',
             }
         }
@@ -178,6 +181,8 @@ export default {
             try {
                 let res = await Auction.find(id, {});
                 this.form.table_id = res.data.table_id;
+                this.form.id = res.data.id;
+                this.form.auctionname = res.data.name;
                 this.form.name = this.CsvStore.platformName;
                 this.form.type = res.data.type
             } catch (error) {

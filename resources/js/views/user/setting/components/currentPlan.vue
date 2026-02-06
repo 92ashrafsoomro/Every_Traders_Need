@@ -1,14 +1,9 @@
 <template>
-    <div class="d-flex flex-lg-row flex-md-row flex-column ga-4 w-100  ">
+    <div class="d-flex flex-lg-row flex-md-row flex-column ga-5 w-100  ">
         <div class="w-lg-50 w-100">
-            <v-card title="Current Plan" class="bg-surface">
+            <v-card title="Current Plan" class="bg-surface" border="">
                 <div class="border"></div>
-                <v-container fluid="">
-                    <div class="d-lg-flex d-md-flex  w-100 ">
-
-                        <div class="py-3  pr-7  border-lg-e">
-
-                            <div class="w-100 mb-4">
+                            <div class="w-75  pl-5 py-4 ">
                                 <p class="d-flex justify-space-between">
                                     <span class="text-body-1">Days</span>
                                     <span class="text-body-1">{{ usedDays }} of 30 Days</span>
@@ -21,13 +16,14 @@
                                     remaining until your plan
                                     requires update</p>
                             </div>
+                            <v-divider></v-divider>
 
-                            <div class="py-5 mb-4">
+                            <div class="py-4 pl-5  ">
                                 <div class="mb-3 ">
                                     <p class="text-body-1 mb-2">Your Current Plan is
-                                    <span class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline "> "{{
-                                        userStore.user?.plan?.plan?.plan_name }}" </span>
-                                    </p>    
+                                        <span class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline "> "{{
+                                            userStore.user?.plan?.plan?.plan_name }}" </span>
+                                    </p>
                                     <p class="text-body-2 " style="color:rgb(var(--v-theme-light))">For small dealers.
                                     </p>
                                 </div>
@@ -41,7 +37,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4">
+                            <div class="mt-4 pl-5">
                                 <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder"
                                     style="height: 50px; ">
                                     <span class="text-capitalize text-body-1">Upgrade Plain</span></v-btn>
@@ -57,18 +53,20 @@
                                     </template>
                                 </v-dialog>
                             </v-container>
-                        </div>
-                    </div>
-                </v-container>
+                    
+        
             </v-card>
         </div>
         <div class="w-lg-50 w-100">
-            <v-card title="Current Plan" class="bg-surface">
+            <v-card title="Current Plan" class="bg-surface" border="">
                 <div class="border"></div>
-                <div class="py-10 px-5 px-lg-0 px-md-0">
+
+                <v-card-text class="d-flex align-center justify-center" style="min-height: 360px;">
                     <PaymentForm />
-                </div>
+                </v-card-text>
+
             </v-card>
+
         </div>
     </div>
 </template>

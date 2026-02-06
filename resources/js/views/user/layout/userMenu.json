@@ -22,7 +22,7 @@
         },
          {
             "icon": "mdi-alert",
-            "label": "Alert",
+            "label": "Your Alert",
             "path": "/user/alert"
         },
         {

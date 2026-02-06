@@ -1,7 +1,7 @@
 <template>
-  <user-title-bar title="Auction Schedule" style="z-index: 1;"
-    subtitle="Manage and view platform auctions across all centers in one place." class="pt-16">
-    <div class="d-flex  ga-2 mt-10 ">
+  <user-title-bar title="Auction Schedule" style="z-index: 1; margin-bottom: 0 !important;"
+    subtitle="Manage and view platform auctions across all centers in one place." class="" >
+    <div class="d-flex  ga-2 mt-5 ">
       <div style="width: 200px;">
         <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
           @update:modelValue="handleInput($event, 'platform_id')" clearable />
@@ -26,10 +26,10 @@
       <span class="mt-lg-5 mt-md-5 mt-2 ml-3">In Progress</span>
     </div>
 
-    <div class="pt-4 d-lg-flex d-md-flex  d-none align-center ga-3 ml-auto mr-auto mt-4">
+    <div class=" d-lg-flex d-md-flex  d-none align-center ga-5 ml-auto mr-auto mt-5">
       <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
-        class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column mb-3 cursor-pointer"
-        style="height: 95px; width: 13.5%;" @click="handleTab(key)">
+        class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column cursor-pointer"
+        style="height: 95px; width: 13.5%;"  @click="!options.enableCurrent && handleTab(key)">
 
         <div class="text-capitalize d-flex align-center justify-center pb-2 text-wrap"
           style="white-space: wrap !important; border-bottom: 1px solid #343E4B;">
@@ -57,11 +57,11 @@
 
 
 
-    <div class="d-lg-none d-md-none d-flex mt-4 w-100 ">
+    <div class="d-lg-none d-md-none d-flex mt-4 w-100 mb-5">
       <v-slide-group hide-arrows class="pa-2 w-100 ">
         <v-slide-item v-for="(value, key, index) in days" :key="index" class="">
           <div class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" :class="{ 'active': options.day == key }"
-            style="width: 300px; min-width: 40%; height: 120px;padding-left: 20px; margin-right: 20px; ">
+            style="width: 300px; min-width: 40%; height: 120px;padding-left: 20px; margin-right: 20px; "  @click="!options.enableCurrent && handleTab(key)">
             <div class="text-capitalize d-flex align-center justify-center  pb-2 text-wrap"
               style="border-bottom: 1px solid #343E4B;">
               {{ key }}
@@ -92,10 +92,10 @@
 
   </user-title-bar>
 
-  <v-container fluid style="max-width: 1400px;">
+  <v-container fluid="" style="max-width: 1400px;">
 
 
-    <v-card class="border-sm border-white">
+    <v-card class="border-sm border-white mt-5">
       <v-data-table-server :headers="headers" sort-asc-icon="" :items="data" :items-length="total" :loading="loading"
         hover hide-default-footer item-value="id" >
 

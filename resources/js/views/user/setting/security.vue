@@ -1,7 +1,7 @@
 <template>
     <v-col cols="12">
 
-        <v-card title="Change Password" class="bg-surface">
+        <v-card title="Change Password" class="bg-surface" border="">
 
              <div class="border" ></div>
             <v-card-text class="ml-2">
@@ -59,7 +59,7 @@
         </v-card>
     </v-col>
 
-    <v-col cols="12" class="mt-4">
+    <v-col cols="12" class="mt-5">
 
         <RecentDevices/>
     </v-col>

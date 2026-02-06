@@ -9,7 +9,7 @@
         <pricePlan/>
     </v-col> -->
 
-      <v-col cols="12" class="mt-4" >
+      <v-col cols="12" >
         <BillingHistory/>
     </v-col>
 </template>

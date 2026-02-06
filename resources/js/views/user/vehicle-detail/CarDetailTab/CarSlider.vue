@@ -20,11 +20,16 @@
                 <v-btn icon="mdi-chevron-left" variant="elevated" size="small" color="primary"
                     :disabled="currentIndex === 0" @click="prevImage" />
 
-                <v-img v-for="(item, i) in visibleThumbs" :key="i" :src="item" width="60"
-                    height="60"
-                    class="border-sm d-lg-block d-md-block d-none rounded cursor-pointer"
-                    @click="selectImage(item)" />
-
+               <v-img
+  v-for="(item, i) in visibleThumbs"
+  :key="i"
+  :src="item"
+  width="60"
+  height="60"
+  class="thumb-img rounded cursor-pointer d-lg-block d-md-block d-none"
+  :class="{ active: currentIndex === images.indexOf(item) }"
+  @click="selectImage(item)"
+/>
 
                 <v-btn icon="mdi-chevron-right" variant="elevated" size="small" color="primary"
                     :disabled="currentIndex === images.length - 1" @click="nextImage" />
@@ -131,15 +136,19 @@ export default {
 </script>
 
 <style scoped>
-.active {
-    border-color: rgb(var(--v-theme-primary)) !important;
-}
-
 .cursor-pointer {
     cursor: pointer;
 }
-
-.active {
-    border: 2px solid rgb(var(--v-theme-primary));
+/* v-img ke andar actual img */
+.thumb-img :deep(img) {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
 }
+
+/* active thumbnail */
+.thumb-img.active :deep(img) {
+  border-color: rgb(var(--v-theme-primary));
+}
+
 </style>

@@ -31,8 +31,8 @@
         </v-row>
     </div>
 </user-title-bar>
-    <div style="max-width: 1400px;" class="mx-auto">
-        <v-row no-gutters="" class="py-4 pa-4">
+    <div style="max-width: 1400px;" class="mx-auto mb-5">
+        <v-row no-gutters="" class="mt-5">
              <component :is="currentComponent" />
         </v-row>
     </div>

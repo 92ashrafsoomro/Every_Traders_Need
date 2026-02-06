@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-surface border rounded-sm">
+    <div class="bg-surface border rounded-sm " >
 
         <!-- Header Section -->
         <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <custom-card title="Auction History" class="mt-4">
+    <custom-card title="Auction History" class="mt-5">
         <div class="pa-7">
             <h6 class="text-h6 font-weight-bold"> </h6>
             <div class=" d-flex ga-lg-0 ga-4 flex-wrap mt-4 justify-space-between  ">
@@ -139,7 +139,7 @@
             </div>
         </div>
     </custom-card>
-    <div class="bg-surface  mt-4 border ">
+    <div class="bg-surface  mt-5 border mb-5">
         <div class="text-h6 font-weight-bold px-7 py-4"> Auction History</div>
 
         <v-data-table-server class="rounded " striped="even" :headers="preAucHeaders" hide-default-footer

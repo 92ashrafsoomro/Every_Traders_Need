@@ -59,13 +59,10 @@
     </div>
   </div>
 
-   <div style="max-width: 1400px; max-height: 1300px;" class="mx-auto py-10 px-4">
-    <v-row  no-gutters="" >
-      <v-col cols="12" md="5">
+   <div style="max-width: 1400px;" class="mx-auto mt-5 mb-5 px-4">
+    <div class="d-flex flex-lg-row  flex-md-row flex-column ga-5">
         <Sidebar />
-      </v-col>
-      <v-col cols="12" md="7" class="pl-lg-4 pl-md-4 pl-0">
-        <v-card  class=" h-100 d-flex flex-column" >
+        <v-card  class=" d-flex flex-column border notification-card"  >
             <div class="d-flex justify-space-between align-center pa-4">
                 <h2 class="text-h6 font-weight-medium">Notifications</h2>
                 <div class="d-flex align-center ga-3">
@@ -76,9 +73,7 @@
                 </div>
             </div>
           <div class="border-b"></div>
-          <v-card-text class="notification-scroll h-100">
-         
-  
+          <v-card-text class="notification-scroll">
                 <template v-for="(note, i) in notifications" :key="i">
                     <v-list-item class="px-4 py-4 bg-surface">
                         <div class="d-flex align-start gap-4 w-100">
@@ -120,8 +115,7 @@
            </v-card-text>
 
         </v-card>
-      </v-col>
-    </v-row>
+    </div>
   </div> 
 </template>
 
@@ -214,6 +208,22 @@ export default {
     /* width: 100% !important; */
   }
 }
+.notification-card {
+  max-height: 1260px;
+  min-height: 1260px;
+  width: 100%;
+  max-width: 950px; 
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .notification-card {
+    max-width: auto;
+    min-width: auto;
+    margin: 0 auto;
+  }
+}
+
 
 .notification-scroll {
 

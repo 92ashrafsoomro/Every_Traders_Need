@@ -158,6 +158,11 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/userNotification',[NotificationController::class,'userNotification']);
         Route::post('/markRead/{id}',[NotificationController::class,'markRead']);
 
+        
+        Route::get('/myNotifications',[NotificationController::class,'myNotifications']);
+
+        
+
     });
 
 

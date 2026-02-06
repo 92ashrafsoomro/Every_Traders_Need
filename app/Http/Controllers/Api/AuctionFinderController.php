@@ -434,15 +434,12 @@ class AuctionFinderController extends Controller
             return response()->json(['message' => 'Date Not Found'],400);
         }
 
-     
-        
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         
         $auctionIds = AuctionService::getAuctionIdbyDateRange($start_date,$end_date);
         $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
         $centers = AuctionService::getCenterNamesByPlateformName($platforms);
-
 
         $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
@@ -451,6 +448,7 @@ class AuctionFinderController extends Controller
             ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
             ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
             ->select([
+
                 'vehicles.*',
                 'auctions.auction_date as date',
                 'auction_platform.name as platform_name',

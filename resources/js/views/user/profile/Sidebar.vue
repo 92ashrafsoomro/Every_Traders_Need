@@ -1,7 +1,16 @@
 <template>
 
-    <v-card title="Account Detail" class="border">
-        <div class="border-b"></div>
+    <v-card class="border" max-width="450px">
+       <div class="d-flex justify-space-between align-center pa-4">
+                <h2 class="text-h6 font-weight-medium">Account Detail</h2>
+                <div class="d-flex align-center ga-3">
+                    <v-chip :to="'/user/settings/profile'" color="primary" size="small" class="font-weight-bold text-caption">
+                        Edit   
+                    </v-chip>
+               
+                </div>
+            </div>
+          <div class="border-b"></div>
 
         <v-card-text>
 

@@ -12,7 +12,7 @@
                         :data="masterStore.vehicleTypes.data" 
                         :compareValue="auctionStore.filter.vehicleType" 
                         removeKey="vehicleType"
-                        
+                        class="pb-2"
                         :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 

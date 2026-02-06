@@ -13,7 +13,7 @@
         </div>
     </user-title-bar>
 
-    <div fluid style="max-width: 1400px;" class="mx-auto ">
+    <div fluid style="max-width: 1400px;" class="mx-auto mb-5">
         <div>
            <Watchlist/>
 

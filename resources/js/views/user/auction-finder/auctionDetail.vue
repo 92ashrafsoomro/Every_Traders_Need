@@ -18,10 +18,9 @@
                 <tr @mouseenter="hoveredRowId = item.id" :class="{ 'hovered-main-row': hoveredRowId === item.id }"
                     class="main-row">
                     <td>
-                        <v-btn variant="plain" :to="'/user/vehicle-detail/'+ item.id" class="pa-0" target="_blank">
-                            <span class="text-whiteLight "> {{ item.make_name }} {{ item.model_name }} {{
-                                item.variant_name }} </span>
-                        </v-btn>
+                        <router-link  style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); " :to="'/user/vehicle-detail/'+ item.id" class="vehicleName pa-2 rounded-sm " target="_blank">
+                            <span>   {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </span>
+                        </router-link>
                     </td>
                     <td><div style="width: 200px !important;"><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></div></td>
                     <td>{{ item.mileage }}</td>
@@ -251,5 +250,10 @@ export default {
     border-radius: 4px;
     width: 150px;
     font-size: 0.875rem;
+}
+
+.vehicleName:hover{
+    background-color: rgb(var(--v-theme-primary),0.3);
+    transition: 0.2s ease-in-out;
 }
 </style>

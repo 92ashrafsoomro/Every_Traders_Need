@@ -1,5 +1,5 @@
 <template>
-    <v-card title="Recent Devices" class="">
+    <v-card title="Recent Devices" class="" border="">
 
         <div class="border"></div>
         <v-card-text class="" style="padding: 0px !important; ">

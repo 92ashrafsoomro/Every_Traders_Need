@@ -22,7 +22,7 @@ export default [
       { path: "interest", component: Interest , meta: { requiresAuth: true, title: 'Interest' } },
       { path: "reauction", component: Reauction, meta: { requiresAuth: true, title: 'Reauction' } },
       { path: "watchlist", component: Watchlist, meta: { requiresAuth: true, title: 'Watchlist' } },
-      { path: "alert", component: Alert, meta: { requiresAuth: true, title: 'Alert' } },
+      { path: "alert", component: Alert, meta: { requiresAuth: true, title: 'Your Alert' } },
       { path: "compare", component: Compare, meta: { requiresAuth: true, title: 'Compare' } },
       { path: "profile", component: Profile, meta: { requiresAuth: true, title: 'Profile' } },
       { path: "vehicle-detail/:id", component: VehicleDetail, meta: { requiresAuth: true, title: 'Vehicle Detail' } },

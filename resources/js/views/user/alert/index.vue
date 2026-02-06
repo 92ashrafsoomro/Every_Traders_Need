@@ -1,6 +1,6 @@
 <template>
   <user-title-bar
-    title="Alert"
+    title="Your Alert"
     subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity"
   >
     <div class="d-flex align-center ga-3 mt-6">
@@ -26,7 +26,7 @@
     </div>
   </user-title-bar>
 
-  <div style="max-width: 1400px;" class="mx-auto">
+  <div style="max-width: 1400px;" class="mx-auto mb-5">
     <div >
       <component :is="currentComponent" />
     </div>

@@ -1,6 +1,6 @@
 <template>
-    <v-row no-gutters >
-        <v-col cols="12" class=" border rounded-sm bg-surface">
+    <v-row no-gutters class="" >
+        <v-col cols="12" class=" border rounded-sm bg-surface ">
             
                 <div class="pa-5">
                     <v-row>
@@ -20,12 +20,12 @@
         </v-col>
     </v-row>
 
-    <v-row class="mt-3 ">
+    <v-row class="mt-5 mb-5">
         <v-col cols="12" md="8">
             <CarOverview />
-            <div class="mt-6"></div>
+            <div class="mt-5"></div>
             <Equipment />
-            <div class="mt-6"></div>
+            <div class="mt-5"></div>
 
             <Features />
         </v-col>

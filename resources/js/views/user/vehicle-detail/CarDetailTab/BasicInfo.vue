@@ -30,7 +30,7 @@
             </v-chip>
         </v-col>
         <v-col cols="6" sm="3">
-            <p class="textSizes  text-capitalize">Reg</p>
+            <p class="textSizes  text-capitalize">Report</p>
             <div class="mt-2">
 
                 <span
@@ -47,7 +47,7 @@
 
                 <span
                     style="border-left: 5px solid rgb(var(--v-theme-primary)); border-radius: 5px; background-color: #ffff ;  padding: 5px; padding-right: 5px;"
-                    class="text-body-2 text-light_text_on">
+                    class="text-body-2 text-black font-weight-bold">
                     {{ vehicleStore.vehicle.reg }}
                 </span>
 

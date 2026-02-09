@@ -2,32 +2,48 @@
   <div class="bg-surface d-flex align-center mt-12 " style="min-height: 900px;">
     <div class="mx-auto my-auto d-flex flex-column flex-md-row ga-16 " style="max-width: 1400px;">
       <!-- IMAGE -->
-      <div class="rightImage" >
+      <div class="rightImage">
         <img :src="TrustedPartnerImage" class="trusted-img" alt="Trusted Partner" />
       </div>
 
       <!-- CONTENT -->
       <div class="leftContent  pl-10 pr-10 pl-lg-0 pl-md-0 text-center text-lg-start ">
         <v-chip class="mb-4 text-primary  " style="border-radius: 0px 20px 0px 0px; padding: 6px 16px;">
-          Why Autoboli
+          Our Vision
         </v-chip>
 
         <div>
           <h1 class="text-h5 text-md-h3 mb-6 font-weight-bold">
-            Your Trusted Partner For Smarter Vehicle <br class="d-none d-md-block" />
-            Trading
+            At Autoboli, our vision is simple
           </h1>
 
-          <p class="mb-6 text-light_text_on">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit...
+          <p class="mb-6 text-light_text_on text-body-1">
+            To empower dealers and traders with transparent, real-time auction data and insights that help them make
+            smarter, faster, and more profitable decisions.
           </p>
 
-          <p class="text-light_text_on">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit...
+          <p class="text-light_text_on text-body-1">
+            We believe in transforming the automotive trade industry with clarity, innovation, and intelligence.
           </p>
-          <div class=" justify-center justify-lg-start item-center item-lg-start text-center d-flex">
-
-
+          <div class="d-flex flex-wrap  mt-4 ga-4"  >
+                                  <div v-for="item in [
+                                    'Know the real value before bidding',
+                                    'Spot risky vehicles early',
+                                    'Compare auction houses side by side',
+                                    'Plan ahead with live auction schedules'
+                                ]" :key="item" class="d-flex align-center px-4 rounded-lg" style="background-color: rgb(var(--v-theme-primary), 0.1); height:60px; width: 280px;">
+                                    <v-icon color="primary" class="mr-2">mdi-check-circle</v-icon>
+                                    <span class="text-body-2">{{ item }}</span>
+                                </div>
+                                
+          <!-- <div class=" justify-center justify-lg-start item-center item-lg-start text-center">
+               <div class="mt-5 border-sm pa-5 rounded-lg "
+                               >
+                                <p class=" text-body-1 font-weight-bold text-start mr-6">Autoboli helps you:</p>
+                                
+                                </div>
+                            </div> -->
+  
           </div>
         </div>
         <div class="d-flex justify-center justify-lg-start mt-4 ">

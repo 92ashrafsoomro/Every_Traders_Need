@@ -10,7 +10,7 @@
         </template>
 
         <!-- Main Dropdown Card -->
-        <v-card width="380" class="notificationCard bg-surface text-white rounded-lg" >
+        <v-card width="380" class="notificationCard bg-surface text-white rounded-lg">
             <!-- Header -->
             <div class="d-flex justify-space-between align-center pa-4">
                 <h2 class="text-h6 font-weight-medium">Notifications</h2>
@@ -29,7 +29,7 @@
                 <template v-if="notifications.length > 0">
                     <template v-for="(note, i) in notifications.slice(0, 7)" :key="i">
 
-                        <v-list-item class="px-4 py-4 bg-surface border-none">
+                        <v-list-item class="px-4 py-4 bg-surface border-none hoverItems" :to="getNotificationLink(note)">
                             <div class="d-flex align-start gap-4 w-100">
                                 <!-- Avatar -->
                                 <v-avatar size="42">
@@ -42,11 +42,14 @@
                                     <router-link :to="getNotificationLink(note)"
                                         style="text-decoration: none; color: rgb(var(--v-theme-whiteLight));">
                                         <p class="text-body-2 font-weight-medium mb-1 text-wrap rounded-md">
-                                            {{ note.title }}
+                                              {{ getNotificationTitle(note) }}
                                         </p>
                                     </router-link>
                                     <p class="text-caption text-medium-emphasis text-wrap">
-                                        {{ note.message }}
+                                        {{ getNotificationDescription(note) }}
+                                    </p>
+                                    <p class="text-caption mt-2 text-wrap">
+                                        {{ note.date }}
                                     </p>
 
                                 </div>
@@ -130,9 +133,27 @@ export default {
             } else if (note.type === "auction") {
                 return `/autoboli/user/reauction`;
             }
-            return "#"; // fallback if type is unknown
+            return "#"; 
         },
-
+        getNotificationTitle(note) {
+            if (note.type === "vehicle") {
+             
+                return `${note.title}`;
+            } else if (note.type === "auction") {
+                return `${note.title} Auction starts soon`;
+            }
+            return note.title || "Notification";
+        },
+        getNotificationDescription(note) {
+            if (note.type === "vehicle") {
+                return `Your selected Vehicle's Auction is about to begin. Make sure you’re prepared to bid on the vehicles you’ve been tracking.
+      Auction Time`;
+            } else if (note.type === "auction") {
+                return `Your selected auction is about to begin. Make sure you’re prepared to bid on the vehicles you’ve been tracking.
+        Auction Time`;
+            }
+            return note.title || "Notification";
+        },
     },
 };
 </script>
@@ -156,5 +177,9 @@ export default {
     .notificationCard {
         width: 300px !important;
     }
+}
+.hoverItems:hover{
+  background-color: rgb(var(--v-theme-background));
+   transition: 0.1s ease-in-out;
 }
 </style>

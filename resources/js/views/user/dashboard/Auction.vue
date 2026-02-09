@@ -19,8 +19,8 @@
                     </v-btn>
 
                     <!-- Online Auction -->
-                    <v-btn variant="tonal" class="buttonBorder text-none px-5"
-                        :class="{ 'bg-primary text-white': auctionType === 2 }" @click="auctionType = 2"
+                    <v-btn variant="elevated" class="buttonBorder text-none px-5"
+                        :class="{ ' bg-primary on-primary my-active-menu text-white': auctionType === 2 }" @click="auctionType = 2"
                         style="height: 50px;">
                         <span class="text-capitalize text-body-1">Online Auction</span>
                     </v-btn>

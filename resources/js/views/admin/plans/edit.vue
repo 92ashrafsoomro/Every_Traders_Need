@@ -53,7 +53,7 @@
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Discount" v-model="form.renew" variant="outlined"
+                                <v-text-field label="Discount" v-model="form.discount" variant="outlined"
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
@@ -104,7 +104,7 @@ export default {
                 short_desc: '',
                 price: '',
                 status: '',
-                renew: '',
+                discount: '',
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',
@@ -129,7 +129,7 @@ export default {
                 this.form.short_desc = res.data.short_desc;
                 this.form.price = res.data.price;
                 this.form.status = res.data.status;
-                this.form.renew = res.data.renew;
+                this.form.discount = res.data.discount;
                 this.form.duration_unit = res.data.duration_unit;
                 this.form.duration_value = res.data.duration_value;
                 this.form.created_at = res.data.created_at;

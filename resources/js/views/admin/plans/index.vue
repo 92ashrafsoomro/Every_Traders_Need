@@ -87,7 +87,7 @@ export default {
                 { title: "Duration Value", key: "duration_value" },
                 { title: "Offer", key: "is_officer" },
                 { title: "Status", key: "status" },
-                { title: "Discount", key: "renew" },
+                { title: "Discount", key: "discount" },
                 { title: "Created At", key: "created_at" },
                 { title: "Update At", key: "updated_at" },
                 { title: "Action", key: 'action' }

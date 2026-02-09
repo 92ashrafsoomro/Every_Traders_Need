@@ -45,7 +45,7 @@
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Discount" type="number" v-model="form.renew" variant="outlined"
+                                <v-text-field label="Discount" type="number" v-model="form.discount" variant="outlined"
                                     density="compact" />
                             </v-col>
 
@@ -94,7 +94,7 @@ export default {
                 short_desc: '',
                 price: '',
                 status: '',
-                renew: '',
+                discount: '',
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',

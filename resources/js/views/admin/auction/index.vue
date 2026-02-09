@@ -153,13 +153,13 @@
 
 
                         <template #item.action="{ item }">
+                            <router-link :to="'/admin/auction/vehicle/'+item.id" target="_blank">
+                                <v-icon color="primary">mdi-eye</v-icon>
+                            </router-link>
+
                             <router-link :to="'/admin/auction/edit/' + item.id">
                                 <v-icon color="primary" class="editIconHover pa-4">mdi-pencil</v-icon>
                             </router-link>
-
-                            <!-- <router-link :to="'/admin/auction/csv/'+item.id">
-                                    <v-icon color="light">mdi-file</v-icon>
-                                </router-link> -->
                             <v-icon @click="deleteItem(item.id)" color="danger" small
                                 class="clickable-icon pa-4">mdi-delete</v-icon>
                         </template>

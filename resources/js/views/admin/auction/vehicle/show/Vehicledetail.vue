@@ -58,9 +58,10 @@ export default {
       const v = this.vehicle;
       return [
         { label: "Title", value: v.title || "N/A" },
-        { label: "Make", value: v.make_name || "N/A" },
-        { label: "Model", value: v.model_name || "N/A" },
-        { label: "Variant", value: v.variant_name || "N/A" },
+        { label: "Make", value: v.make_id || "N/A" },
+        { label: "Model", value: v.model_id || "N/A" },
+        { label: "Variant", value: v.variant_id || "N/A" },
+        { label: "Derivative", value: v.derivative || "N/A" },
         { label: "Make ID", value: v.make_id || "N/A" },
         { label: "Model ID", value: v.model_id || "N/A" },
         { label: "Variant ID", value: v.variant_id || "N/A" },

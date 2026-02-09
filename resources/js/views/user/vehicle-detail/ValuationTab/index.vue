@@ -1,208 +1,188 @@
 <template>
     <v-container fluid style="max-width: 1400px; " class="justify-center ">
-        <v-row dense align="stretch">
+        <v-row align="stretch" no-gutters>
 
             <!-- Left Column -->
 
-            <v-col cols="12" lg="9">
-                <v-row class="  pa-0 ga-5 ">
-                    <!-- First -->
 
-                    <v-col sm="12" md="8" lg="5" class="pa-0 rounded-lg order-2 order-lg-1">
+            <v-col cols="12" md="3" class="px-lg-2">
 
-                        <div class="bg-surface border rounded-lg " style="min-height: 625px; max-height: 625px;" >
-                            <div class="pa-4">
-                                <h3 class="text-h5 ">Trade Values</h3>
-                            </div>
-                            <v-divider></v-divider>
-                            <v-container fluid="" class="px-10 pb-0 ">
-                                <v-row class="px-4 py-3">
-                                    <v-col cols="6">
-                                        <div class="text-body-2  mb-1">Autotrader</div>
-                                        <div class="text-h6 font-weight-bold ">£{{
-                                            vehicleStore.vehicle.autotrader_trade_value }}</div>
-                                        <div class="d-lg-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                style="font-size: 10px; ">
-                                                <span class="text-whiteLite">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center  ">From last
-                                                month</p>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <div class="text-body-2  mb-1">CAP Clean</div>
-                                        <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
-                                        </div>
-                                        <div class="d-lg-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                style="font-size: 10px;">
-                                                <span class="text-whiteLite">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                                month</p>
-                                        </div>
-                                    </v-col><v-col cols="6">
-                                        <div class="text-body-2  mb-1">CAP Average</div>
-                                        <div class="text-h6 font-weight-bold ">£{{
-                                            vehicleStore.vehicle.autotrader_trade_value }}</div>
-                                        <div class="d-lg-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                style="font-size: 10px;">
-                                                <span class="text-whiteLite">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                                month</p>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <div class="text-body-2  mb-1">CAP Blow</div>
-                                        <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
-                                        </div>
-                                        <div class="d-lg-flex mt-2">
-                                            <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                style="font-size: 10px;">
-                                                <span class="text-whiteLite">↑ 5.6%</span>
-                                            </v-chip>
-                                            <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                                month</p>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-
-
-
-                            <div  title="Retail Values" class="mt-4 rounded-none">
-                                <v-container class="px-6 ">
-                                    <v-row  class="px-4 py-3">
-                                        <v-col cols="6">
-                                            <div class="text-body-2  mb-1">Autotrader</div>
-                                            <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                            }}
-                                            </div>
-                                            <div class="d-lg-flex mt-2">
-                                                <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                    style="font-size: 10px;">
-                                                    <span class="text-whiteLite">↑ 5.6%</span>
-                                                </v-chip>
-                                                <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
-                                                    last month</p>
-                                            </div>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <div class="text-body-2  mb-1">CAP</div>
-                                            <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
-                                            }}
-                                            </div>
-                                            <div class="d-lg-flex mt-2">
-                                                <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                                    style="font-size: 10px;">
-                                                    <span class="text-whiteLite">↑ 5.6%</span>
-                                                </v-chip>
-                                                <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
-                                                    last month</p>
-                                            </div>
-                                        </v-col>
-                                    </v-row></v-container>
-                            </div >
-                        </div >
-                    </v-col>
-
-
-
-                    <!-- Second -->
-                    <v-col class="border rounded-lg bg-surface order-1 order-lg-2 ">
-                        <div class="pa-4">
-
-
-                            <div class="d-flex justify-space-between">
-
-                                <div style="border-left: 5px solid rgb(var(--v-theme-primary)); border-radius: 5px; background-color: #ffff ; color: rgb(var(--v-theme-surface)) ; padding: 5px; padding-right: 5px;"
-                                    class="text-body-2">
-                                    {{ vehicleStore.vehicle.reg }}
+                <div class=" scrollbar bg-surface border rounded-lg ">
+                    <div class="pa-4">
+                        <h3 class="text-h5 ">Trade Values</h3>
+                    </div>
+                    <v-divider></v-divider>
+                    <v-container fluid="" class="px-10 pb-0 ">
+                        <v-row class="px-4 py-3">
+                            <v-col cols="6">
+                                <div class="text-body-2  mb-1">Autotrader</div>
+                                <div class="text-h6 font-weight-bold ">£{{
+                                    vehicleStore.vehicle.autotrader_trade_value }}</div>
+                                <div class="d-lg-flex mt-2">
+                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                        style="font-size: 10px; ">
+                                        <span class="text-whiteLite">↑ 5.6%</span>
+                                    </v-chip>
+                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center  ">From last
+                                        month</p>
                                 </div>
-                                <div> <v-btn color="primary" variant="flat" size="small">New Report</v-btn>
-                                </div>
-
-                            </div>
-
-                            <div class="d-flex align-center justify-space-between mt-2">
-
-
-                                <!-- Car Details -->
-                                <div class="text-h5 mt-3 font-weight-bold mb-4">{{ vehicleStore.vehicle.title
-                                    }}</div>
-
-                            </div>
-
-
-                            <div class="pa-4">
-                                <v-row class="bg-background" style="border-left: 4px solid var(--primary-color);">
-                                    <v-col cols="12" md="4">
-                                        <p class="text-capitalize text-body-2">Auction House</p>
-                                        <p class="text-body-2 mt-2 pl-3" style="background-color: rgb(var(--v-theme-primary),0.2);
-                                                border-radius: 5px;
-                                                padding: 5px 10px;">
-                                            {{ vehicleStore.vehicle?.auction?.name }}
-                                        </p>
-                                    </v-col>
-
-                                    <v-col cols="12" md="4">
-                                        <p class="text-capitalize text-body-2">Time</p>
-                                        <p class="text-body-2 mt-3">
-                                            {{ vehicleStore.vehicle.auction_date }}
-                                        </p>
-                                    </v-col>
-
-                                    <v-col cols="12" md="4">
-                                        <p class="text-capitalize text-body-2">Auction Status</p>
-                                        <p class="text-body-2 mt-3">
-                                            {{ vehicleStore.vehicle.bidding_status }}
-                                        </p>
-                                    </v-col>
-                                </v-row>
-
-                            </div>
-
-                            <v-col class="pa-1 mt-6">
-                                <v-img :src="image" class="rounded-lg h-100 cursor-pointer" @click="dialog = true"
-                                    cover />
-                                <v-dialog v-model="dialog" max-width="50%">
-                                    <v-card>
-                                        <v-img :src="image" />
-                                    </v-card>
-                                    <v-btn icon="mdi-close" class=" position-absolute  bg-primary ma-3"
-                                        style="right:-20px; top: -70px; z-index: 1000;" @click="dialog = false" />
-                                </v-dialog>
-
-
                             </v-col>
+                            <v-col cols="6">
+                                <div class="text-body-2  mb-1">CAP Clean</div>
+                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
+                                </div>
+                                <div class="d-lg-flex mt-2">
+                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                        style="font-size: 10px;">
+                                        <span class="text-whiteLite">↑ 5.6%</span>
+                                    </v-chip>
+                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
+                                        month</p>
+                                </div>
+                            </v-col><v-col cols="6">
+                                <div class="text-body-2  mb-1">CAP Average</div>
+                                <div class="text-h6 font-weight-bold ">£{{
+                                    vehicleStore.vehicle.autotrader_trade_value }}</div>
+                                <div class="d-lg-flex mt-2">
+                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                        style="font-size: 10px;">
+                                        <span class="text-whiteLite">↑ 5.6%</span>
+                                    </v-chip>
+                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
+                                        month</p>
+                                </div>
+                            </v-col>
+                            <v-col cols="6">
+                                <div class="text-body-2  mb-1">CAP Blow</div>
+                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
+                                </div>
+                                <div class="d-lg-flex mt-2">
+                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                        style="font-size: 10px;">
+                                        <span class="text-whiteLite">↑ 5.6%</span>
+                                    </v-chip>
+                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
+                                        month</p>
+                                </div>
+                            </v-col>
+                        </v-row>
+                    </v-container>
 
+
+
+                    <div title="Retail Values" class="mt-4 rounded-none">
+                        <v-container class="px-6 ">
+                            <v-row class="px-4 py-3">
+                                <v-col cols="6">
+                                    <div class="text-body-2  mb-1">Autotrader</div>
+                                    <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                        }}
+                                    </div>
+                                    <div class="d-lg-flex mt-2">
+                                        <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                            style="font-size: 10px;">
+                                            <span class="text-whiteLite">↑ 5.6%</span>
+                                        </v-chip>
+                                        <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                            last month</p>
+                                    </div>
+                                </v-col>
+                                <v-col cols="6">
+                                    <div class="text-body-2  mb-1">CAP</div>
+                                    <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                        }}
+                                    </div>
+                                    <div class="d-lg-flex mt-2">
+                                        <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
+                                            style="font-size: 10px;">
+                                            <span class="text-whiteLite">↑ 5.6%</span>
+                                        </v-chip>
+                                        <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                            last month</p>
+                                    </div>
+                                </v-col>
+                            </v-row></v-container>
+                    </div>
+                </div>
+            </v-col>
+            <!-- Second -->
+            <v-col cols="12" md="6" class="px-lg-2 pt-5 pt-lg-0">
+                <div class="scrollbar bg-surface border rounded-lg pa-4">
+
+                    <div class="d-flex justify-space-between">
+
+                        <div style="border-left: 5px solid rgb(var(--v-theme-primary)); border-radius: 5px; background-color: #ffff ; color: rgb(var(--v-theme-surface)) ; padding: 5px; padding-right: 5px;"
+                            class="text-body-2">
+                            {{ vehicleStore.vehicle.reg }}
+                        </div>
+                        <div> <v-btn color="primary" variant="flat" size="small">New Report</v-btn>
                         </div>
 
+                    </div>
+
+                    <div class="d-flex align-center justify-space-between mt-2">
+
+
+                        <!-- Car Details -->
+                        <div class="text-h5 mt-3 font-weight-bold mb-4">{{ vehicleStore.vehicle.title
+                            }}</div>
+
+                    </div>
+
+
+                    <div class="pa-4">
+                        <v-row class="bg-background" style="border-left: 4px solid var(--primary-color);">
+                            <v-col cols="12" md="4">
+                                <p class="text-capitalize text-body-2">Auction House</p>
+                                <p class="text-body-2 mt-2 pl-3" style="background-color: rgb(var(--v-theme-primary),0.2);
+                                            border-radius: 5px;
+                                            padding: 5px 10px;">
+                                    {{ vehicleStore.vehicle?.auction?.name }}
+                                </p>
+                            </v-col>
+
+                            <v-col cols="12" md="4">
+                                <p class="text-capitalize text-body-2">Time</p>
+                                <p class="text-body-2 mt-3">
+                                    {{ vehicleStore.vehicle.auction_date }}
+                                </p>
+                            </v-col>
+
+                            <v-col cols="12" md="4">
+                                <p class="text-capitalize text-body-2">Auction Status</p>
+                                <p class="text-body-2 mt-3">
+                                    {{ vehicleStore.vehicle.bidding_status }}
+                                </p>
+                            </v-col>
+                        </v-row>
+
+                    </div>
+
+                    <v-col class="pa-1 mt-6">
+                        <v-img :src="image" class="rounded-lg h-100 cursor-pointer" @click="dialog = true" cover />
+                        <v-dialog v-model="dialog" max-width="50%">
+                            <v-card>
+                                <v-img :src="image" />
+                            </v-card>
+                            <v-btn icon="mdi-close" class=" position-absolute  bg-primary ma-3"
+                                style="right:-20px; top: -70px; z-index: 1000;" @click="dialog = false" />
+                        </v-dialog>
+
 
                     </v-col>
-                    <!-- third -->
-                    <v-col cols="12" class="pa-0">
-                        <!-- <TradeHistory /> -->
 
-                        <!-- 
+                </div>
 
-                <Trade/>
-            </div > -->
-                    </v-col>
-                </v-row>
+
             </v-col>
 
-
             <!-- Right Column -->
-            <v-col cols="12" lg="3" class="mt-1" >
+            <v-col cols="12" md="3" class="px-lg-2 py-lg-0 py-5">
+                <v-row dense>
 
-                <v-row class="ml-lg-5 ml-md-3  mt-md-0">
-                    <v-col class="bg-surface   pa-0  border rounded-lg">
-                   
-                            <div class="bg-surface border rounded-lg " >
+                    <v-col cols="12" class="bg-surface   pa-0  border rounded-lg">
+
+                        <div class="bg-surface border rounded-lg ">
                             <div class="pa-4">
                                 <h3 class="text-h5 ">Accuracy %</h3>
                             </div>
@@ -226,12 +206,12 @@
                                     <v-progress-linear model-value="20" color="primary"></v-progress-linear>
                                 </div>
                             </v-container>
-                        </div >
+                        </div>
                     </v-col>
 
-                    <v-col class="bg-surface mt-4 pa-0  border rounded-lg" cols="12">
-                       
-                              <div class="bg-surface border rounded-lg " >
+                    <v-col cols="12" class="bg-surface mt-4 pa-0  border rounded-lg">
+
+                        <div class="bg-surface border rounded-lg ">
                             <div class="pa-4">
                                 <h3 class="text-h5 ">Auction Results</h3>
                             </div>
@@ -263,10 +243,11 @@
                                     <div class="text-body-2">{{ vehicleStore.vehicle.auction_status }}</div>
                                 </div>
                             </v-container>
-                        </div >
+                        </div>
                     </v-col>
-                    <v-col class="bg-surface mt-4 pa-0 border rounded-lg" cols="12">
-                        <div  title="Pre Vehicles">
+
+                    <v-col cols="12" class="bg-surface mt-4 pa-0 border rounded-lg">
+                        <div title="Pre Vehicles">
 
 
                             <!-- TODAY -->
@@ -308,9 +289,8 @@
 
 
 
-                        </div >
+                        </div>
                     </v-col>
-
 
                 </v-row>
             </v-col>
@@ -398,5 +378,15 @@ td {
 
 .border-b {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scrollbar {
+    overflow-y: auto;
+    min-height: 625px;
+    max-height: 625px;
+    /* Hide scrollbar - Chrome, Edge, Safari */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
 }
 </style>

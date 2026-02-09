@@ -92,9 +92,12 @@
                                                 <v-btn value="Reauction Detacted" height="50"
                                                     class="bell text-capitalize text-body-1 border"
                                                     :disabled="alertExists" @click="sendAlertdata" :style="{
-                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary),0.2)' : 'transparent',
+                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary))'   : 'transparent',
+                                                        
                                                         cursor: alertExists ? 'not-allowed' : 'pointer'
-                                                    }"> <v-icon class="text-primary">mdi-bell-outline</v-icon>
+                                                    }">
+  <v-icon :color="alertExists ? 'white' : 'primary'">mdi-bell-outline</v-icon>
+
                                                 </v-btn>
 
                                             </div>

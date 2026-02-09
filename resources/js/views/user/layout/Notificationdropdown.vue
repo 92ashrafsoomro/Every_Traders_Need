@@ -10,7 +10,7 @@
         </template>
 
         <!-- Main Dropdown Card -->
-        <v-card width="380" class="notificationCard bg-surface text-white rounded-lg" elevation="24">
+        <v-card width="380" class="notificationCard bg-surface text-white rounded-lg" >
             <!-- Header -->
             <div class="d-flex justify-space-between align-center pa-4">
                 <h2 class="text-h6 font-weight-medium">Notifications</h2>
@@ -25,11 +25,11 @@
             <v-divider />
 
             <!-- Scrollable List -->
-            <div class="max-h-96 overflow-y-auto">
+            <div class="max-h-96 overflow-y-auto border-none">
                 <template v-if="notifications.length > 0">
-                    <template v-for="(note, i) in notifications.slice(0, 3)" :key="i">
+                    <template v-for="(note, i) in notifications.slice(0, 7)" :key="i">
 
-                        <v-list-item class="px-4 py-4 bg-surface">
+                        <v-list-item class="px-4 py-4 bg-surface border-none">
                             <div class="d-flex align-start gap-4 w-100">
                                 <!-- Avatar -->
                                 <v-avatar size="42">

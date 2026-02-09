@@ -1,72 +1,74 @@
 <template>
   <main>
-
     <!-- HERO -->
-    <section class="aboutScreen py-16 d-flex align-center  " style="margin-top: 50px; background-color: rgb(var(--v-theme-primary));">
-      <v-container style="max-width:1400px;  height: 80vh;" fluid="" class=" d-flex align-center mx-auto ">
-
-        <div class="hero-text" style="max-width: 900px;">
-
-          <!-- Small Heading -->
-          <span class="hero-about-heading text-on-primary">
-            About
-          </span>
-
-          <!-- Main Heading -->
-          <h1 class="text-white text-h2 font-weight-bold  mt-3" style="line-height: 1.1; ">
-            Our vision is to inspire brands to thrive through exceptional content experiences
+    <section
+      class="aboutScreen d-flex"
+      style="margin-top: 50px; background-color: rgb(var(--v-theme-primary)); min-height: 80vh;"
+    >
+      <v-container
+        fluid
+        class="d-flex flex-column flex-md-row align-items-center justify-center mx-auto"
+        style="max-width: 1400px; height:80vh;"
+      >
+        <!-- TEXT -->
+        <div class="hero-text text-center text-md-left" style="max-width: 700px;">
+          <span class="hero-about-heading text-on-primary">About</span>
+          <h1
+            class="text-white text-h2 font-weight-bold mt-3"
+            style="line-height: 1.2;"
+          >
+            Our Vision
+            At Autoboli, our vision is simple:
+            To empower dealers and traders with transparent, real-time auction data and insights that help them make
+            smarter, faster, and more profitable decisions.
+            <br /><br />
+            We believe in transforming the automotive trade industry with clarity, innovation, and intelligence.
           </h1>
-
         </div>
 
-        <div class="hero-image-area">
-          <img src="" alt="">
+        <!-- IMAGE -->
+        <div
+          class="hero-image-area d-flex justify-center mt-8 mt-md-0"
+          style="max-width: 700px;"
+        >
+          <img :src="aboutImage" alt="About Autoboli" class="hero-image" />
         </div>
-
       </v-container>
     </section>
-
   </main>
 </template>
 
 <script>
+import aboutImage from '@/assets/images/about/Exists.png'
 
 export default {
   name: "AboutPage",
   data() {
     return {
-      hoverIndex: null,
-    };
+      aboutImage
+    }
   }
-};
+}
 </script>
 
 <style scoped>
-.hero-about-heading {
-  font-size: 18px;
-  font-weight: 500;
+
+
+/* HERO IMAGE */
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
-.hero-image-area {
-  width: 450px;
-  height: 300px;
-  margin-left: auto;
-  background: transparent;
-}
-
-@media (max-width: 900px) {
-  .hero-image-area {
-    display: none;
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 960px) {
+  .hero-text {
+    margin-bottom: 2rem;
   }
-
-  h1 {
-    font-size: 32px !important;
+ 
+  .text-md-left {
+    text-align: center !important;
   }
 }
-/* 
-@media (max-width: 600px) {
-  .aboutScreen {
-    
-  }
-} */
 </style>

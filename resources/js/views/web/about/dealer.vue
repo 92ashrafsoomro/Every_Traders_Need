@@ -53,7 +53,7 @@
 
 <script>
 
-import gridImage from '@assets/images/tabs/about2.png';
+import gridImage from '@assets/images/about/carAuction.png';
 import dealerContent from "@/json/dealer.json";
 
 export default {

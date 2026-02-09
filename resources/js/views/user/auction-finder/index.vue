@@ -19,9 +19,9 @@
 
     </usertitlebarauctionfinder>
 
-    <v-container class=" mx-0 mb-5" fluid="">
-        <div class=" my-5">
-            <div class="d-flex flex-wrap w-100   mx-auto align-center">
+    <v-container class=" mx-0 mb-5 mt-0 " fluid="">
+        <div class="px-5">
+            <div class="d-flex flex-wrap w-100  mb-5 mt-2  mx-auto align-center">
 
                 <!-- LEFT -->
                 <div class="d-flex flex-wrap align-center    ga-2 flex-grow-1">
@@ -104,11 +104,11 @@
                 </div>
             </v-slide-y-transition>
         </div>
-        <v-row class="mt-1 " dense>
+        <v-row no-gutters class="mt-1 px-lg-5" >
             <!-- Desktop sidebar -->
             <v-slide-x-transition>
                 <v-col v-if="auctionStore.sidebar" :class="{ 'sidebarOpen': auctionStore.sidebar }" cols="12" md="3"
-                    lg="2" class="desktop-sidebar d-none d-md-block bg-surface pa-0 mt-1  border" style="height: calc(100vh - 50px);  position: sticky;
+                    lg="2" class="desktop-sidebar d-none d-md-block bg-surface pa-0  border" style="height: calc(100vh - 50px);  position: sticky;
                     top: 75px;">
 
                     <div class="d-flex    align-center justify-space-between pa-3 border-b" style=" position: sticky;
@@ -155,12 +155,17 @@
             </v-slide-x-transition>
 
 
-            <v-col :cols="auctionStore.sidebar ? 12 : 12" :md="auctionStore.sidebar ? 9 : 12"
-                :lg="auctionStore.sidebar ? 10 : 12" class="pl-md-3 pl-0 pr-0 ">
-                <div class="transition-col w-100">
-                    <component :is="currentComponent" />
-                </div>
-            </v-col>
+          <v-col
+  :cols="12"
+  :md="auctionStore.sidebar ? 9 : 12"
+  :lg="auctionStore.sidebar ? 10 : 12"
+  :class="auctionStore.sidebar ? 'pl-md-6 pr-0' : 'pl-0 pr-0'"
+>
+  <div class="transition-col w-100">
+    <component :is="currentComponent" />
+  </div>
+</v-col>
+
 
         </v-row>
     </v-container>
@@ -285,6 +290,9 @@ export default {
     transition: transform 0.3s ease, opacity 0.3s ease;
     transform: translateX(-100%);
     opacity: 0;
+}
+.transition-col {
+  transition: padding-left 0.3s ease;
 }
 
 .mobile-sidebar.show {

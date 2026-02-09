@@ -22,11 +22,11 @@
                 <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
-                        <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                        <div >
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 
@@ -42,11 +42,11 @@
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
                         <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 
@@ -64,11 +64,11 @@
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
                         <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 
@@ -86,11 +86,11 @@
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
                         <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 
@@ -108,11 +108,11 @@
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
                         <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 
@@ -130,11 +130,11 @@
                     <v-card rounded="xl" elevation="12" color="surface" border class="pa-5 d-flex flex-column">
 
                         <!-- Image -->
-                        <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" />
+                        <!-- <v-img :src="logo" rounded="lg" height="110" class="mb-5 border" /> -->
 
                         <!-- Content -->
                         <div>
-                            <h3 class="text-body-1 font-weight-semibold text-whiteLite mb-2">
+                            <h3 class="text-body-1 font-weight-bold text-whiteLite mb-2">
                                 What Makes Autoboli Different
                             </h3>
 

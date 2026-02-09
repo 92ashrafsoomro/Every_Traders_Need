@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import image1 from "@/assets/images/icons/Asset 8.png"
-import image2 from "@/assets/images/icons/Asset 11.png"
+import image2 from "@/assets/images/icons/Asset 8.png"
+import image1 from "@/assets/images/icons/Asset 11.png"
 import image3 from "@/assets/images/icons/Asset 12.png"
 export default {
     data() {

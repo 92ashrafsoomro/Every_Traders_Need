@@ -180,7 +180,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/auctions/csvGet/{id}',[SheetController::class,'getAuctionVehicle']);
         Route::post('/auctions/csvUpdate/{id}',[SheetController::class,'sheetUpdate']);
         Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
-        Route::get('/auctions/getsingle/{id}',[SheetController::class, 'getSingleRecode']);
+
 
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 

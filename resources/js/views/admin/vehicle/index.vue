@@ -1,8 +1,13 @@
   <template>
-    <user-title-bar title="Vehicle">
+    <user-title-bar >
         <div>
-            <!-- <p class="text-subtitle-1 mb-2 font-weight-medium">Filter, compare, and uncover vehicles that match your profit goals.</p> -->
-       
+            <h1 class="text-h3 mb-2 font-weight-bold">{{ Auction.name || 'Vehicle' }}</h1>
+            <p v-if="Auction.auction_date" class="text-subtitle-1 mb-2 font-weight-medium">Auction Date <span class="text-primary"> {{ Auction.auction_date ?? "" }} </span></p>
+        </div>
+
+
+
+        <div>
                 <v-card-title
                     class="d-flex cursor-pointer widthstatic"
                     @click="showFilters = !showFilters"
@@ -35,16 +40,16 @@
                                             density="comfortable"  />
                                         </v-col>
                                         <v-col cols="4" sm="4" class="pl-2">
-                                            <v-select 
+                                            <AuctionTypeDropdown
                                                 v-model="filter.vehicleType" 
+                                                label="Select Auction Type" 
                                                 variant="outlined" 
-                                                label="Auction Type"
-                                                :items="['Online','Live']"
-                                                base-color="white"
-                                                density="comfortable" 
-                                                color="primary" 
-                                                clearable 
-                                                    />
+                                                color="primary"
+                                                class="id-box"
+                                                hide-details
+                                                clearable
+                                                density="comfortable"
+                                            />
                                         </v-col>
                                 
 
@@ -138,61 +143,38 @@
         </div>
     </user-title-bar>
 
-      <v-container max-width="1400px" >
+      <v-container max-width="1500px" >
             <v-row no-gutters class="mt-3">
-                <v-col cols="12">
-                    <div class="d-lg-flex d-md-flex py-4">
+                <v-col cols="12" v-if="!Auction.auction_date">
+                    <div class="d-flex flex-wrap ">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
-                                :items="[100, 500, 1000, 2000]" 
-                                density="comfortable" 
+                                :items="[10, 100, 500, 1000]" 
+                                 density="compact"  
                                 variant="outlined"
                                 max-width="150px" class="mr-2" 
                                 />
-                                <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
+                                <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records</div>
                         </div>
 
                         <v-spacer />
-
-                       <div class="d-flex w-lg-75 justify-end">
-                         <v-text-field 
-                            v-model="filter.search" 
-                        
-                            label="Search..." 
-                            variant="outlined" 
-                            density="comfortable"
-                            max-width="380px" 
-                            clearable />
-
-                        <div class="pl-2" >
-                            <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
-                                <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn>
-                        </div>
-                       </div>
-                        <!-- <div class="pl-2" >
-                            <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
-                                <v-icon icon="mdi-plus"></v-icon>
-                            </v-btn>
-                        </div> -->
                     </div>
                 </v-col>
 
                 <v-col cols="12" class="mt-2"  >
                     <div class="border"> 
                         <v-data-table-server 
-                            class=""
                             :loading="loading" 
-                            :headers="headers" 
-                            :items="items" 
-                            :items-length="total" 
+                            :headers="headers"
+                            :items-length="total"
+                            @update:options="loadItems" :lastPage="last_page"
+                            :items="items"
+                            item-value="reg"
                             hover
-                            item-value="id" 
-                            @update:options="loadItems" >
-
+                            v-model:expanded="expanded"
+                            >
             
-
                             <template v-slot:bottom>
                                 <div class="py-2 d-flex justify-end border-t">
                                     <custom-pagination 
@@ -202,15 +184,87 @@
                                     @page-changed="loadItems" />
                                 </div>
                             </template>
-                        <template #item.id="{ item }">
-                            <router-link
-                            :to="`vehicle/show/${item.id}`"
-                            class="text-primary font-weight-bold text-decoration-none"
+                            <template #item.title="{ item }">
+                            <div class="font-weight-medium">
+                                {{ item.make_id }}
+                                {{ item.model_id }}
+                                <span v-if="item.variant_id"> {{ item.variant_id }}</span>
+                            </div>
+                            </template>
+                            <template #item="{ item, columns }">
+                            <tr
+                                @mouseenter="onHover(item.reg)"
+                                class="hover-row"
                             >
-                            {{ item.id }}
-                            </router-link>
-                        </template>
-                        
+                                <td v-for="col in columns" :key="col.key">
+                                <template v-if="col.key === 'reg'">
+                                <router-link
+                                    :to="vehicleLink(item)"
+                                    target="_blank"
+                                    class="text-primary font-weight-bold text-decoration-none"
+                                >
+                                    {{ item.reg }}
+                                </router-link>
+                                </template>
+                                <template v-else>
+                                    {{ item[col.key] }}
+                                </template>
+                                </td>
+                            </tr>
+                            </template>
+
+                            <template #expanded-row="{ columns, item }">
+                            <tr
+                                @mouseleave="expanded = []"
+                            >
+                                <td :colspan="columns.length">
+                                <div class="expanded-box">
+
+
+                                    <div class="image-row" v-if="item.images">
+                                    <v-img
+                                        v-for="(img, i) in splitImages(item.images)"
+                                        :key="i"
+                                        :src="img"
+                                        width="140"
+                                        height="100"
+                                        cover
+                                        class="hover-img"
+                                    />
+                                    </div>
+
+                                    <div class="info-row mt-3">
+                                    <div class="info-item">
+                                        <b>Last Bid:</b> £{{ item.last_bid }}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <b>Status: </b>
+                                        <span
+                                        :class="item.bidding_status === 'Sold' ? 'text-success' : 'text-warning'"
+                                        >
+                                        {{ item.bidding_status }}
+                                        </span>
+                                    </div>
+
+                                    <div class="info-item" v-if="item.inspection_report">
+                                        <v-btn
+                                        size="small"
+                                        color="primary"
+                                        variant="outlined"
+                                        :href="item.inspection_report"
+                                        target="_blank"
+                                        >
+                                        Inspection Report
+                                        </v-btn>
+                                    </div>
+                                    </div>
+
+                                </div>
+                                </td>
+                            </tr>
+                            </template>
+                  
                         </v-data-table-server>
                     </div>
                 </v-col>
@@ -220,14 +274,14 @@
   </template>
 
 <script>
-
+import Auction from "@/models/auction.model";
 import Vehicle from '@/models/vehicle.model';
 import CenterDropdown from "@components/CenterDropdown.vue"
 import PlateformDropdown from "@components/PlateformDropdown.vue"
 import MakeDropdown from "@components/MakeDropdown.vue"
 import ModelDropdown from "@components/ModelDropdown.vue"
 import VariantDropdown from "@components/VariantDropDown.vue"
-
+import AuctionTypeDropdown from '@components/AuctionTypeDropdown.vue'
 export default {
 
   components: {
@@ -236,10 +290,13 @@ export default {
     PlateformDropdown,
     ModelDropdown,
     VariantDropdown,
+    AuctionTypeDropdown
   },
 
   data() {
       return {
+        expanded: [],
+        Auction : [],
         showFilters: false,
             filter: {
                 search: '',
@@ -250,20 +307,23 @@ export default {
             
             last_page: 1,
             items: [],
+            link:null,
             total: 0,
             loading: true,
             headers: [
-                { title: "#", value: "id", sortable: false },
                 { title: "Reg", value: "reg" },  
-                { title: "Make", value: "make_name" },
-                { title: "Model", value: "model_name" },
-                { title: "Variant", value: "variant_name" },
+                { title: "Title", value: "title" },  
+                { title: "Center", value: "center_id" },
+                { title: "Color", value: "color" },
                 { title: "Year", value: "year" },
-                { title: "Vehicle", value: "vehicle_name" },
-                { title: "Body", value: "body_name" },
-                { title: "Center", value: "center_name" },
-                { title: "Bidding Status", value: "bidding_status" },  
+                { title: "Body", value: "body_id" },
+                { title: "Fuel Type", value: "fuel_type" },
+                { title: "Transmission", value: "transmission" },
+                { title: "CC", value: "cc" },
+                { title: "Non Runner", value: "engine_runs" },
+                { title: "Grade", value: "grade" },
             ],
+            id: this.$route.params.id,
    
     };
   },
@@ -296,18 +356,67 @@ export default {
         async loadItems() {
                 this.loading = true;
                 try {
-                    let res = await  Vehicle.all(this.filter);
-                    this.items = res.data;
-                    this.total = res.recordsTotal;
-                    this.filter.page = Number(res.page);
-                    this.last_page = Number(res.last_page);
-                    this.loading = false
+                let res;
+                console.log(this.id)
+                if (this.id) {
+                    res = await Auction.csvGet(this.id, {});
+                    res = res.data;
+                } else {
+                    res = await  Vehicle.all(this.filter);
+                }
+
+                this.Auction.name = res.auction?.name ?? res.defaultName ?? 'Vehicle';
+                this.Auction.auction_date = res.auction?.auction_date ?? res.defaultDate ?? null;
+                this.Auction.auction_type = res.auction?.auction_type ?? res.defaultType ?? 'N/A';
+                this.Auction.platform_id = res.auction?.platform_id ?? res.defaultPlatform ?? 0;
+
+                if (this.id) {
+                    this.filter.platform = this.Auction.platform_id;
+                    this.filter.vehicleType = this.Auction.auction_type;
+                } 
+
+                this.items = res.data;
+                this.total = res.recordsTotal;
+                this.filter.page = Number(res.page);
+                this.last_page = Number(res.last_page);
+                this.loading = false
                    
                 } catch (error) {
                     alert(error)
                     this.loading = false
                 }
         },
+            splitImages(images) {
+        if (!images) return []
+        return images.split(',').map(i => i.trim()).slice(0, 4)
+    },
+
+      statusColor(status) {
+        switch (status) {
+            case 'Cancel':
+                return '#e51f1f';  
+            case 'Done':
+                return '#0080ff';  
+            case 'Confirm':
+                return '#96761a';
+            case 'Draft':
+                return '#ebff0a';
+            case 'In Progress':
+                return '#85e62c';
+            default:
+                return '#ffffff';
+        }
+    },
+    vehicleLink(item) {
+    if (this.auctionStatusId == 1) {
+      return `/admin/auction/vehicle/show/${this.id}?reg=${encodeURIComponent(item.reg)}`
+    } else {
+      return `/admin/vehicle/show/${item.id}`
+    }
+  },
+      onHover(reg) {
+        this.expanded = [reg]
+    }, 
 
 
 
@@ -316,3 +425,66 @@ export default {
 };
 
 </script>
+
+<style>
+.expanded-box {
+  background: #0f1c2b;
+  padding: 12px;
+  border-left: 4px solid #0080ff;
+}
+
+.image-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.hover-img {
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hover-img:hover {
+  transform: scale(1.05);
+}
+
+
+.expanded-box {
+  background: #0f1c2b;
+  padding: 12px;
+  border-left: 4px solid #0080ff;
+}
+
+.image-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.hover-img {
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hover-img:hover {
+  transform: scale(1.05);
+}
+
+.info-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  color: #ddd;
+  font-size: 14px;
+}
+
+.gapin {
+    gap:12px !important;
+}
+</style>

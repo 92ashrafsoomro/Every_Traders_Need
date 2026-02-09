@@ -146,28 +146,7 @@ class SheetController extends Controller
 
     }
 
-    public function getSingleRecode(Request $request,$id)
-    {
- 
-            $model = Auctions::where('id',$id)->first();
-            if(!$model){
-                return response()->json([
-                    'message' => 'Record Not Found',
-                ], 422);
-            }
-            if(!$request->reg){
-                return response()->json([
-                    'message' => 'Provide Reg Number',
-                ], 422);
-            }else{
-               $reg = $request->reg ;
-            }
 
-            return response()->json([
-                'message' => 'Record Updated Successfully',
-                'data' => SheetService::getScrapperDataByAuctionSingle($request,$model,$reg)
-            ],200);
-    }
     
 
 }

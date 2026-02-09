@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="px-2">
-                    <router-link :to="`/admin/auction/vehicle/${form.id}`" target="_blank" rel="noopener noreferrer">
+                    <router-link :to="`/admin/vehicle/${form.id}`" target="_blank" rel="noopener noreferrer">
                         <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
                         color="primary" >mdi-eye</v-icon>
                 </router-link>

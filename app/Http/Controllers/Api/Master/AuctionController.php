@@ -269,8 +269,7 @@ class AuctionController extends Controller
         public function show(Request $request,$id)
     {
 
-
-        $model = Auctions::with(['auctionStatus', 'platform','auctionType'])->find($id);
+        $model = Auctions::where('id',$id)->first();
   
         if(!$model){
             return response()->json([

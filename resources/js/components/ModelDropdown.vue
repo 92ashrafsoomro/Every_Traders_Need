@@ -6,12 +6,8 @@
         :loading="loading" 
         density="compact"
         variant="outlined"
-        item-title="name"
-        item-value="id"
-        :disabled="!make"
-        @update:model-value="handleValue"
-        clearable
-    />  
+        @update:model-value="handleValue($event)"
+        />  
 </template>
 
 <script>
@@ -21,13 +17,14 @@ export default {
     name: "ModelDropdown",
     props: {
         modelValue: {
-            type: [String, Number, Boolean],
+            type: [String, Number,Boolean],
             default: null
         },
         make: {
-            type: [String, Number, Boolean],
+            type: [String, Number,Boolean],
             default: null
         },
+       
     },
     data() {
         return {
@@ -35,42 +32,42 @@ export default {
             loading: false,
         };
     },
+    mounted(){
+      
+    },
     watch: {
-        make: {
-            immediate: true, 
-            handler(newValue) {
-                this.getData();
-            }
-        }
+        make(newValue, oldValue) {
+            this.getData()
+        },
     },
     methods: {
         async getData() {
-            if (!this.make) {
-                this.data = [];
-                return;
-            }
-
-            this.loading = true;
-            try {
-                const response = await Model.all({
-                    make_id: this.make,
-                    length: 1000
-                });
-                this.data = response.data.sort((a, b) => a.name.localeCompare(b.name));
-            } catch (err) {
-                console.error("Error loading Models:", err);
-                this.data = [];
-            } finally {
-                this.loading = false;
-            }
+                if (!this.make) {
+                    return false;    
+                }
+                this.loading = true;
+                try {
+                    const response = await Model.all({
+                        make_id: this.make,
+                        length: 1000
+                    });
+                    this.data = response.data;
+                    this.data.sort((a,b)=>a.name.localeCompare(b.name))
+                } catch (err) {
+                    console.error("Error loading Makes:", err);
+                    this.data = [];
+                } finally {
+                    this.loading = false;
+                }
         },
         handleValue(value) {
-            this.$emit("update:modelValue", value); 
+            this.$emit("update:value", value);
         },
     },
-    emits: ['update:modelValue']
+    emits: ['update:value']
 };
 </script>
 
 <style scoped>
+    
 </style>

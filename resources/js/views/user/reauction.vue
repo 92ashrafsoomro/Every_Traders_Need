@@ -19,7 +19,7 @@
 
                     <div class="scrollSec">
                         <div>
-                            <span v-for="item in platformName"
+                            <span v-for="item in pageStore.reauction.platform"
                                 class="ml-2 px-2 rounded-lg text-body-1 text-whiteLite mb-2"
                                 style="border: 1px solid rgba(var(--v-theme-danger),0.3);">
                                 {{ item }}
@@ -35,7 +35,7 @@
                     <div class="scrollSec">
 
                         <div class="d-flex ">
-                            <div  v-for="(item, key) in centerName"
+                            <div  v-for="(item, key) in pageStore.reauction.center"
                             class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
                             style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
                             {{ item }}
@@ -85,6 +85,7 @@
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
                             item-value="id"  hide-default-footer="">
 
+                            <template #item.title> {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </template>
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
                             </template>
@@ -127,9 +128,10 @@ export default {
             pageStore: usePageStore(),
             headers: [
 
-                // { title: "Vehical", value: "title" },
-                { title: "Make", value: "make_name" },
-                { title: "Vehicle", value: "model_name" },
+                { title: "Vehical", value: "title" },
+                // { title: "Make", value: "make_name" },
+                // { title: "Model", value: "model_name" },
+                // { title: "Variant", value: "variant_name" },
                 { title: "Reg", value: "reg" },
                 // { title: "Previous", value: "last_bid" },
                 // { title: "Platform", value: "platform_name" },
@@ -145,8 +147,8 @@ export default {
         }
     },
     async mounted() {
-        this.getCenter();
-        this.getPlatform();
+        // this.getCenter();
+        // this.getPlatform();
         this.pageStore.getreAuctionList()
     },
     methods: {
@@ -157,22 +159,22 @@ export default {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]
         },
-       async getCenter(){
-        try {
-            const res = await General.get("api/cruds/center");
-            this.centerName = res.data.slice(0 , 4).map(center => center.name) 
-        } catch (e) {
-            throw await errorHandler(e);
-        }
-        },
-       async getPlatform(){
-        try {
-            const res = await General.get("api/cruds/platform");
-            this.platformName = res.data.slice(0 , 4).map(platform => platform.name)
-        } catch (e) {
-            throw await errorHandler(e);
-        }
-        }
+    //    async getCenter(){
+    //     try {
+    //         const res = await General.get("api/cruds/center");
+    //         this.centerName = res.data.slice(0 , 4).map(center => center.name) 
+    //     } catch (e) {
+    //         throw await errorHandler(e);
+    //     }
+    //     },
+    //    async getPlatform(){
+    //     try {
+    //         const res = await General.get("api/cruds/platform");
+    //         this.platformName = res.data.slice(0 , 4).map(platform => platform.name)
+    //     } catch (e) {
+    //         throw await errorHandler(e);
+    //     }
+    //     }
 
     },
 };

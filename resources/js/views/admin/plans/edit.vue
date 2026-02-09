@@ -33,58 +33,46 @@
                                 <v-text-field label="Plan Name" v-model="form.plan_name" variant="outlined"
                                     density="compact" />
                             </v-col>
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Short Description" v-model="form.short_desc" variant="outlined"
+                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Price" v-model="form.price" variant="outlined" density="compact" />
+                                <v-select :items="['month', 'year']" label="Duration Unit"
+                                    v-model="form.duration_unit" variant="outlined" density="compact" hide-details />
                             </v-col>
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Duration Unit" v-model="form.duration_unit" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            
-                            <v-col cols="12" md="6">
-                                 <v-select
-                                    :items="statusItems"
-                                    label="Status"
-                                    v-model="form.status"
-                                    item-title="value"
-                                    item-value="id"
-                                    variant="outlined"
-                                    density="compact"
-                                    hide-details
-                                    />
-                            </v-col>
-                            
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Renew" v-model="form.renew" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Officer" v-model="form.is_officer" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Duration Value" v-model="form.duration_value" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Create At" type="datetime-local" v-model="form.created_at"
+                                <v-text-field label="Duration Value" v-model="form.duration_value" type="number"
                                     variant="outlined" density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Update " type="datetime-local" v-model="form.updated_at" variant="outlined"
+                                <v-select :items="statusItems" label="Status" v-model="form.status" item-title="value"
+                                    item-value="id" variant="outlined" density="compact" hide-details />
+                            </v-col>
+
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Renew" v-model="form.renew" variant="outlined" density="compact" />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-select :items="offer" label="offer" v-model="form.is_officer" item-title="value"
+                                    item-value="id" variant="outlined" density="compact" hide-details />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Sort By" v-model="form.sort_by" type="number" variant="outlined"
                                     density="compact" />
                             </v-col>
 
+                            <v-col cols="12" md="12">
+                                <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
+                                    density="compact" />
+                            </v-col>
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="editPlans" color="primary" height="40">
                                     Update
                                 </v-btn>
                             </v-col>
-
                         </v-row>
                     </v-container>
                 </v-card-text>
@@ -101,19 +89,23 @@ export default {
 
     data() {
         return {
-              statusItems: [
+            statusItems: [
                 { value: 'No', id: 0 },
                 { value: 'Yes', id: 1 },
-                ],
+            ],
+            offer: [
+                { value: 'No', id: 0 },
+                { value: 'Yes', id: 1 },
+            ],
             form: {
                 id: '',
                 plan_name: '',
                 short_desc: '',
                 price: '',
-                status : '',
-                renew : '',
-                is_officer : '',
-                sort_by : '',
+                status: '',
+                renew: '',
+                is_officer: '',
+                sort_by: '',
                 duration_unit: '',
                 duration_value: '',
                 created_at: '',
@@ -140,6 +132,8 @@ export default {
                 this.form.duration_unit = res.data.duration_unit;
                 this.form.duration_value = res.data.duration_value;
                 this.form.created_at = res.data.created_at;
+                this.form.sort_by = res.data.sort_by
+                this.form.is_officer = res.data.is_officer
                 this.form.updated_at = res.data.updated_at;
 
             } catch (error) {
@@ -148,11 +142,11 @@ export default {
                 this.loading = false;
             }
         },
-        
+
         async editPlans() {
             this.loading = true;
             try {
-                let res = await General.put("/api/cruds/plans/"+this.form.id, this.form);
+                let res = await General.put("/api/cruds/plans/" + this.form.id, this.form);
                 this.$alertStore.add(res.message, 'success');
                 // this.$router.push("/admin/plans")
 

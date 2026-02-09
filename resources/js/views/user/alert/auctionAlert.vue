@@ -13,7 +13,7 @@
                         </div>
                             <div class="d-flex align-center ml-2">
                                 <span>
-                                    {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ totalItems }} Auction Alert
+                                   {{ totalItems }} Auction Alert
                                 </span>
                             </div>
                     

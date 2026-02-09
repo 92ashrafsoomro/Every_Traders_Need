@@ -4,7 +4,7 @@
             <v-card class="border">
                 <div class="d-flex align-center justify-space-between px-4 py-3">
                     <h3 class="text-h6 font-weight-bold">
-                        Edit Plans
+                        Create Plans
                     </h3>
                     <router-link :to="'/admin/plans/'">
                         <v-btn variant="text" color="primary" class="text-capitalize">
@@ -18,64 +18,59 @@
                 <v-card-text>
                     <v-container fluid>
                         <v-row>
-                            <!-- 
-                    <v-col cols="12" md="6">
-                    <v-text-field
-                        label="ID"
-                        v-model="form.id"
-                        readonly
-                        variant="outlined"
-                        density="compact"
-                        
-                    />
-                    </v-col> -->
+
                             <v-col cols="12" md="6">
                                 <v-text-field label="Plan Name" v-model="form.plan_name" variant="outlined"
                                     density="compact" />
                             </v-col>
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Short Description" v-model="form.short_desc" variant="outlined"
+                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Price" v-model="form.price" variant="outlined" density="compact" />
+                                <v-select :items="[ 'month', 'year']" label="Duration Unit"
+                                    v-model="form.duration_unit" variant="outlined" density="compact" hide-details />
                             </v-col>
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Status" v-model="form.status" variant="outlined" density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="officer" v-model="form.is_officer" variant="outlined" density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Sorted by" v-model="form.sort_by" variant="outlined" density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Duration Unit" v-model="form.duration_unit" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Revenue" v-model="form.revenue" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Duration Value" v-model="form.duration_value" variant="outlined"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Create At" type="datetime-local" v-model="form.created_at"
+                                <v-text-field label="Duration Value" v-model="form.duration_value" type="number"
                                     variant="outlined" density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Update " v-model="form.updated_at" type="datetime-local" variant="outlined"
+                                <v-select :items="[
+                                { value: 'No', id: 0 },
+                                { value: 'Yes', id: 1 }]" 
+                                label="Status" v-model="form.status" item-title="value" item-value="id" variant="outlined"
+                                    density="compact" hide-details />
+                            </v-col>
+
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Renew" v-model="form.renew" variant="outlined" density="compact" />
+                            </v-col>
+
+                            <v-col cols="12" md="6">
+                                <v-select :items="[
+                                    { value: 'No', id: 0 },
+                                    { value: 'Yes', id: 1 },
+                                ]" label="offer" v-model="form.is_officer" item-title="value" item-value="id"
+                                    variant="outlined" density="compact" hide-details />
+                            </v-col>
+
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Sort By" v-model="form.sort_by" type="number" variant="outlined"
                                     density="compact" />
                             </v-col>
 
+                            <v-col cols="12" md="12">
+                                <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
+                                    density="compact" />
+                            </v-col>
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="createPlans" color="primary" height="40">
-                                    Create
+                                    create
                                 </v-btn>
                             </v-col>
-
                         </v-row>
                     </v-container>
                 </v-card-text>
@@ -98,14 +93,12 @@ export default {
                 plan_name: '',
                 short_desc: '',
                 price: '',
-                status : '',
-                renew : '',
-                is_officer : '',
-                sort_by : '',
+                status: '',
+                renew: '',
+                is_officer: '',
+                sort_by: '',
                 duration_unit: '',
                 duration_value: '',
-                created_at: '',
-                updated_at: ''
             },
             loading: false,
         }
@@ -113,20 +106,20 @@ export default {
     mounted() {
     },
     methods: {
-     
-      async createPlans() {
-  this.loading = true;
-  try {
-    const res = await General.post("/api/cruds/plans", this.form);
-    this.$alertStore.add(res.message || 'Plan Created', 'success');
-    this.$router.push("/admin/plans");
-  } catch (error) {
-    console.error(error);
-    this.$alertStore.add(error.message || 'Something went wrong', 'error');
-  } finally {
-    this.loading = false;
-  }
-}
+
+        async createPlans() {
+            this.loading = true;
+            try {
+                const res = await General.post("/api/cruds/plans", this.form);
+                this.$alertStore.add(res.message || 'Plan Created', 'success');
+                this.$router.push("/admin/plans");
+            } catch (error) {
+                console.error(error);
+                this.$alertStore.add(error.message || 'Something went wrong', 'error');
+            } finally {
+                this.loading = false;
+            }
+        }
 
     }
 }

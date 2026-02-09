@@ -7,14 +7,14 @@
                     <div class="d-flex  ">
                         <div class=" ">
 
-                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+                            <!-- <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="120"
-                                density="compact" />
+                                density="compact" /> -->
                         </div>
                             <div class="d-flex align-center ml-2">
                                 <span>
-                                   {{ totalItems }} Auction Alert
-                                </span>
+                                     Total Records  {{ totalItems }}
+                            </span>
                             </div>
                     
                     </div>

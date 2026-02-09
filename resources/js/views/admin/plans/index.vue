@@ -28,6 +28,18 @@
                 <template #item.updated_at="{ item }">
                     <span>{{ item.updated_at?.split('T')[0] }}</span>
                 </template>
+                <template #item.is_officer="{ item }">
+                    <v-btn :color="item.is_officer == 0 ? 'primary' : 'warning'" size="small" variant="flat">
+                        {{ item.is_officer == 0 ? 'Yes' : 'No' }}
+                    </v-btn>
+                </template>
+
+                <template #item.status="{item}">
+                    <v-btn :color="item.status == 0 ? 'primary':'warning'" size="small" variant="flat">
+                             {{ item.status == 0 ? 'Yes' : 'No' }}
+                    </v-btn>
+                </template>
+
                 <template #item.action="{ item }">
                     <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.id)">
                         mdi-delete
@@ -37,12 +49,12 @@
                     </router-link>
 
                 </template>
-                   <template v-slot:bottom>
-                <div class="py-2 d-flex justify-end border-t">
-                  <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
-                    @page-changed="getPlanData" />
-                </div>
-              </template>
+                <template v-slot:bottom>
+                    <div class="py-2 d-flex justify-end border-t">
+                        <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
+                            @page-changed="getPlanData" />
+                    </div>
+                </template>
             </v-data-table-server>
         </div>
     </v-container>
@@ -71,8 +83,11 @@ export default {
                 { title: "Plan Name", key: "plan_name" },
                 { title: "Short Description", key: "short_desc" },
                 { title: "Price", key: "price" },
-                { title: "Duration", key: "duration_unit" },
+                { title: "Duration Unit", key: "duration_unit" },
                 { title: "Duration Value", key: "duration_value" },
+                { title: "Offer", key: "is_officer" },
+                { title: "Status", key: "status" },
+                { title: "Discount", key: "discount" },
                 { title: "Created At", key: "created_at" },
                 { title: "Update At", key: "updated_at" },
                 { title: "Action", key: 'action' }

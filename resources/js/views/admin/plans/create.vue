@@ -24,13 +24,10 @@
                                     density="compact" />
                             </v-col>
 
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-select :items="[ 'month', 'year']" label="Duration Unit"
-                                    v-model="form.duration_unit" variant="outlined" density="compact" hide-details />
+                                <v-select :items="['month', 'year']" label="Duration Unit" v-model="form.duration_unit"
+                                    variant="outlined" density="compact" hide-details />
                             </v-col>
 
                             <v-col cols="12" md="6">
@@ -39,14 +36,17 @@
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-select :items="[
-                                { value: 'No', id: 0 },
-                                { value: 'Yes', id: 1 }]" 
-                                label="Status" v-model="form.status" item-title="value" item-value="id" variant="outlined"
-                                    density="compact" hide-details />
+                                    { value: 'No', id: 0 },
+                                    { value: 'Yes', id: 1 }]" label="Status" v-model="form.status" item-title="value"
+                                    item-value="id" variant="outlined" density="compact" hide-details />
                             </v-col>
-
                             <v-col cols="12" md="6">
-                                <v-text-field label="Renew" v-model="form.renew" variant="outlined" density="compact" />
+                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
+                                    density="compact" />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Discount" type="number" v-model="form.discount" variant="outlined"
+                                    density="compact" />
                             </v-col>
 
                             <v-col cols="12" md="6">
@@ -94,7 +94,7 @@ export default {
                 short_desc: '',
                 price: '',
                 status: '',
-                renew: '',
+                discount: '',
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',

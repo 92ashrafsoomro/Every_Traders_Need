@@ -5,14 +5,14 @@
             <v-col cols="12">
                 <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
                     <div class="d-flex  ">
-                        <div class=" ">
+                        <!-- <div class=" ">
                             <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="120"
                                 density="compact" />
-                        </div>
+                        </div> -->
                         <div class="d-flex align-center ml-2">
                             <span>
-                              {{ totalItems }} Your Alert
+                              Total Records {{ totalItems }}
                             </span>
                         </div>
                     </div>

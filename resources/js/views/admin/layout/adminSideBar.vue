@@ -116,7 +116,6 @@ export default {
 .v-navigation-drawer__content {
   overflow-y: auto;
 
-  /* hide scrollbar */
   scrollbar-width: none;     
   -ms-overflow-style: none; 
 }

@@ -324,4 +324,48 @@ class AuctionController extends Controller
 
 
 
+    public function updateStatus(Request $request,$id)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'status_id' => 'required|integer',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $auction = Auctions::find($id);
+        if($auction == false){
+               return response()->json([
+                'message' => 'Auction Not Found',
+            ], 422);
+        }
+        
+
+        DB::beginTransaction();
+        try {
+
+
+            $auction->status = $request->status_id;
+            $auction->save();
+
+            DB::commit();
+            return response()->json([
+                'data' => $auction,
+                'message' => 'Status Updated',
+            ],200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+
+    }
+
 }

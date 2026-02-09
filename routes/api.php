@@ -181,6 +181,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/auctions/csvUpdate/{id}',[SheetController::class,'sheetUpdate']);
         Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
 
+
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
         
@@ -210,7 +211,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
         Route::resource('staffs',StaffController::class);    
-
+        Route::post('/auctions/updatestatus/{id}',[AuctionController::class,"updateStatus"]);
 
         // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);

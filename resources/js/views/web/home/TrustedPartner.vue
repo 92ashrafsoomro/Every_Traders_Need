@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-background d-flex align-center" style="min-height: 800px;">
-    <div class="mx-auto d-flex flex-column flex-md-row align-center justify-center ga-16" style="max-width: 1400px;">
+  <div class="bg-surface d-flex align-center mt-12 " style="min-height: 900px;">
+    <div class="mx-auto my-auto d-flex flex-column flex-md-row ga-16 " style="max-width: 1400px;">
       <!-- IMAGE -->
-      <div class="rightImage">
+      <div class="rightImage" >
         <img :src="TrustedPartnerImage" class="trusted-img" alt="Trusted Partner" />
       </div>
 
@@ -57,7 +57,7 @@
 
 
 <script>
-import TrustedPartnerImage from '@assets/images/hero/HomepageImageTrusted.png'
+import TrustedPartnerImage from '@/assets/images/about/helping.png'
 import AppButton from '../component/AppButton.vue'
 
 export default {
@@ -76,14 +76,14 @@ export default {
 
 <style scoped>
 .trusted-img {
-  width: 500px;
+  width: 600px;
   height: auto;
   object-fit: contain;
   animation: rotateImage 2s infinite ease-in-out;
   max-width: 100%;
 }
 
-@keyframes rotateImage {
+/* @keyframes rotateImage {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -98,12 +98,9 @@ export default {
     transform: scale(1);
     opacity: 0.16;
   }
-}
+} */
 
-.rightImage,
-.leftContent {
-  flex: 1 1 100%;
-}
+
 
 @media (min-width: 960px) {
 

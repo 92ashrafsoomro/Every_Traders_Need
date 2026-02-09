@@ -2,12 +2,10 @@
 
   <div>
     <screen />
-   <div class="mt-16 mt-0"> <TrustedPartner/></div>
-    <v-divider></v-divider>
+    <TrustedPartner/>
     <SmartBuyer/>
     <BeforeAutoboli/>
     <AfterAutoboli/>
-    
     <SmarterChoice/>
     <GainAutoboli/>
     <FAQ/>

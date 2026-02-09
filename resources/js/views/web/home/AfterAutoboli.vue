@@ -3,8 +3,8 @@
         <div class="mx-auto bg-white" style="max-width: 1400px;">
             <v-sheet class="d-flex flex-column align-center justify-center" style="padding-top: 100px; padding-bottom: 100px;">
 
-                <!-- Logo -->
-                <img :src="AfterAutoboliImage" style="max-width:200px" alt="Autoboli Logo" />
+                <!-- Logo
+                <img :src="AfterAutoboliImage" style="max-width:200px" alt="Autoboli Logo" /> -->
 
                 <!-- Titles -->
                 <div class="text-center mb-10">
@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="text-white ml-4">
-                                <h6 class="text-body-2 font-weight-medium mb-2 text-whiteLight">
+                                <h6 class="text-h6 font-weight-bold mb-2 text-whiteLight">
                                     {{ item.title }}
                                 </h6>
                                 <p class="text-body-2  mb-0 text-light_text_on">
@@ -60,6 +60,13 @@
 
 <script>
 import AfterAutoboliImage from "@/assets/images/hero/heroAutoboliSmart.png"
+import image1 from "@/assets/images/homeImages/img3.png"
+import image2 from "@/assets/images/homeImages/img7.png"
+import image3 from "@/assets/images/homeImages/img1.png"
+import image4 from "@/assets/images/homeImages/img4.png"
+import image5 from "@/assets/images/homeImages/img6.png"
+import image6 from "@/assets/images/homeImages/img5.png"
+import image7 from "@/assets/images/homeImages/img2.png"
 import afterImages from "@/assets/images/smarter/smarter1.png"
 import AppButton from "../component/AppButton.vue";
 export default {
@@ -78,43 +85,43 @@ export default {
                     title: "Track live auction activity",
                     description:
                         "See today’s auctions, completed vs remaining lots, and reauction counts at a glance so you always know what’s happening right now.",
-                    image: `${afterImages}`
+                    image: `${image1}`
                 },
                 {
                     title: "Find the right vehicles faster",
                     description:
                         "Use Auction Finder with smart filters to browse last month’s and upcoming lots in a clean table view — no wasted time, no noise.",
-                    image: `${afterImages}`
+                    image: `${image2}`
                 },
                 {
                     title: "Compare prices before you bid",
                     description:
                         "Instantly view CAP, AutoTrader, trade, and retail values side by side to understand true market value before placing any bid.",
-                    image: `${afterImages}`
+                    image: `${image3}`
                 },
                 {
                     title: "See full vehicle details in one place",
                     description:
                         "Access images, inspection summaries, auction details, and complete vehicle information without switching platforms.",
-                    image: `${afterImages}`
+                    image: `${image4}`
                 },
                 {
                     title: "Identify reauction vehicles",
                     description:
                         "Spot vehicles that return to auction, review previous results, and compare past vs current data to avoid risky repeats.",
-                    image: `${afterImages}`
+                    image: `${image5}`
                 },
                 {
                     title: "Plan auctions with confidence",
                     description:
                         "View upcoming auction schedules by day, auction house, and center — with clear status indicators and personal reminders.",
-                    image: `${afterImages}`
+                    image: `${image6}`
                 },
                 {
                     title: "Stay informed, not overwhelmed",
                     description:
                         "Watch vehicles you care about, receive reauction alerts, and control notifications via email or browser — only what matters to you.",
-                    image: `${afterImages}`
+                    image: `${image7}`
                 },
                 
             ]

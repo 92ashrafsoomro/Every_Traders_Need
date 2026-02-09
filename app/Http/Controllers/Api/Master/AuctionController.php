@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Auctions;
+use App\Models\AuctionStatus;
 use App\Models\AuctionPlatform;
 use App\Models\AuctionCenter;
 use App\Models\BodyType;
@@ -77,6 +78,8 @@ class AuctionController extends Controller
             $query->whereDate('auction_date',$request->auction_date);
         }
 
+
+
         $count = (clone $query)->count();
         $data = $query->select([
                     '*'
@@ -91,6 +94,17 @@ class AuctionController extends Controller
                     return $item;
 
                 });
+
+        $statusCounts = AuctionStatus::leftJoin('auctions', 'auctions.status', '=', 'auction_status.id')
+            ->select(
+                'auction_status.id',
+                'auction_status.title as name',
+                DB::raw('COUNT(auctions.id) as count')
+            )
+            ->groupBy('auction_status.id', 'auction_status.title')
+            ->get();
+
+
             
         return response()->json([
             'recordsTotal' => $count,
@@ -99,6 +113,7 @@ class AuctionController extends Controller
             'offset' => $offset,
             'last_page' => ceil($count / $length),
             'data' => $data,
+            'status_counts' => $statusCounts
         ],200);
         
     }

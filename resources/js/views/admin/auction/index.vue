@@ -154,7 +154,7 @@
 
                         <template #item.action="{ item }">
                             <router-link :to="'/admin/vehicle/'+item.id" target="_blank">
-                                <v-icon color="primary">mdi-eye</v-icon>
+                                <v-icon class="editIconHover pa-4" color="primary">mdi-eye</v-icon>
                             </router-link>
 
                             <router-link :to="'/admin/auction/edit/' + item.id">
@@ -335,8 +335,7 @@ export default {
         async auctionStatus(){
             try {
             const order = [1, 2, 3, 4, 5, 6]
-            let statusData = await Auction.auctionStatus()
-
+            let statusData = await General.get("/api/cruds/auctionStatus");
             this.status = statusData.data.sort((a, b) => {
                 return order.indexOf(a.id) - order.indexOf(b.id)
             })
@@ -384,12 +383,12 @@ export default {
 
         async onStatusChange(auctionId, statusId) {
             try {
-                console.log('Auction ID:', auctionId)
-                console.log('Status ID:', statusId)
 
-                const res = await Auction.UpdateStatus(auctionId, {
+                const options = {
                     status_id: statusId
-                })
+                };
+
+                let res = await General.post(`/api/cruds/auctions/updatestatus/${auctionId}`, options);
                 this.$alertStore.add(res.message || "Auction Status Update", "success");
                 this.loadItems();
 

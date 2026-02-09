@@ -213,38 +213,6 @@ export default class Auction {
 
     }
 
-       static async auctionStatus(){
-
-            try {
-                const res = await api.get("/api/cruds/auctionStatus");
-                return res.data;
-            } catch (e) {
-                throw await errorHandler(e);
-            }
-
-    }
-
-    static async UpdateStatus(id,payload){
-        try{
-           const res =  await api.post(`/api/cruds/auctions/updatestatus/${id}`, payload)
-           return res.data;
-
-        }catch(e){
-           throw await errorHandler(e); 
-        }
-    }
-
-    static async getScrapSingle(id:any, options:any) {
-    try {
-        const res = await api.get(
-        `/api/cruds/auctions/getsingle/${id}`,
-        { params: options }   
-        )
-        return res.data
-    } catch (error) {
-        throw await errorHandler(error)
-    }
-    }
 
     
 }

@@ -6,8 +6,10 @@
         :loading="loading"
         density="compact"
         variant="outlined"
-        @update:model-value="handleValue($event)"
-        />  
+        item-title="name"
+        item-value="id"
+        @update:model-value="handleValue"
+    />  
 </template>
 
 <script>
@@ -17,7 +19,7 @@ export default {
     name: "MakeSelect",
     props: {
         modelValue: {
-            type: [String, Number,Boolean],
+            type: [String, Number, Boolean],
             default: null
         },       
     },
@@ -27,42 +29,27 @@ export default {
             loading: false,
         };
     },
-    watch:{  
-        modelValue:{
-            immediate: true,
-            handler(newValue,oldValue){
-                console.log('new',newValue);
-                
-            }
-        }
-    },
-    mounted(){
-        this.fetchPlatforms();
+    mounted() {
+        this.fetchMakes();
     },
     methods: {
-
-        async fetchPlatforms() {
-                this.loading = true;
-                try {
-                    const response = await Make.all({length:1000});
-                    this.data = response.data; 
-                       this.data.sort((a,b)=>a.name.localeCompare(b.name));
-                } catch (err) {
-                    console.error("Error loading Makes:", err);
-                    this.data = [];
-                } finally {
-                    this.loading = false;
-                }
+        async fetchMakes() {
+            this.loading = true;
+            try {
+                const response = await Make.all({ length: 1000 });
+                this.data = response.data.sort((a,b)=> a.name.localeCompare(b.name));
+            } catch (err) {
+                console.error("Error loading Makes:", err);
+                this.data = [];
+            } finally {
+                this.loading = false;
+            }
         },
         handleValue(value) {
-            this.$emit("update:value", value);
+            this.$emit("update:modelValue", value); // 🔹 Correct
         },
-        onEnter() {
-          
-        },
-        
     },
-    emits: ['update:value']
+    emits: ['update:modelValue'],
 };
 </script>
 

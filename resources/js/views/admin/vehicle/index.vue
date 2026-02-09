@@ -8,7 +8,7 @@
 
 
         <div>
-                <v-card-title
+                <v-card-title 
                     class="d-flex cursor-pointer widthstatic"
                     @click="showFilters = !showFilters"
                 >

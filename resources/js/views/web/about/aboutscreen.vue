@@ -1,36 +1,35 @@
 <template>
   <main>
     <!-- HERO -->
-    <section
-      class="aboutScreen d-flex"
-      style="margin-top: 50px; background-color: rgb(var(--v-theme-primary)); min-height: 80vh;"
-    >
-      <v-container
-        fluid
-        class="d-flex flex-column flex-md-row align-items-center justify-center mx-auto"
-        style="max-width: 1400px; height:80vh;"
-      >
+    <section class="aboutScreen d-flex"
+      style="margin-top: 50px; background-color: rgb(var(--v-theme-primary)); min-height: 80vh;">
+      <v-container fluid class="d-flex flex-column ga-4 flex-md-row align-items-center justify-center mx-auto"
+        style="max-width: 1400px;">
         <!-- TEXT -->
-        <div class="hero-text text-center text-md-left" style="max-width: 700px;">
+        <div class="hero-text d-flex flex-column justify-center text-start" style="max-width: 700px;">
           <span class="hero-about-heading text-on-primary">About</span>
-          <h1
-            class="text-white text-h2 font-weight-bold mt-3"
-            style="line-height: 1.2;"
-          >
-            Our Vision
-            At Autoboli, our vision is simple:
-            To empower dealers and traders with transparent, real-time auction data and insights that help them make
-            smarter, faster, and more profitable decisions.
-            <br /><br />
-            We believe in transforming the automotive trade industry with clarity, innovation, and intelligence.
+          <h1 class="text-h5 text-lg-h3   text-md-h3 font-weight-bold  mb-6">
+            Our vision is to inspire brands to thrive through exceptional content experiences
           </h1>
+
+          <p class="text-body-1  mb-8 w-100  d-flex text-center text-lg-start justify-center">
+            Stay ahead of the market with real-time UK vehicle auction data,
+            transparent valuations, and powerful tools designed for dealers.
+          </p>
+          <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
+            <router-link to="auctionschedule" style="text-decoration: none ; ">
+              <v-btn color="white" size="large" class="text-capitalize text-surface">Explore Auctions</v-btn>
+            </router-link>
+
+            <router-link to="pricing" style="text-decoration: none ;">
+              <v-btn variant="outlined" size="large" class="text-capitalize text-surface">Start Free Trial</v-btn>
+            </router-link>
+          </div>
         </div>
 
+
         <!-- IMAGE -->
-        <div
-          class="hero-image-area d-flex justify-center mt-8 mt-md-0"
-          style="max-width: 700px;"
-        >
+        <div class="hero-image-area d-flex justify-center mt-8 mt-md-0" style="max-width: 700px;">
           <img :src="aboutImage" alt="About Autoboli" class="hero-image" />
         </div>
       </v-container>
@@ -39,7 +38,7 @@
 </template>
 
 <script>
-import aboutImage from '@/assets/images/about/Exists.png'
+import aboutImage from '@/assets/images/about/AboutAutoboli.png'
 
 export default {
   name: "AboutPage",
@@ -52,8 +51,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 /* HERO IMAGE */
 .hero-image {
   max-width: 100%;
@@ -66,7 +63,7 @@ export default {
   .hero-text {
     margin-bottom: 2rem;
   }
- 
+
   .text-md-left {
     text-align: center !important;
   }

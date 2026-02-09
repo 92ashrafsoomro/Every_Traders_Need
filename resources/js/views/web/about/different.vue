@@ -70,9 +70,9 @@
                         <!-- IMPORTANT: h-100 on v-row -->
                         <v-row no-gutters class="h-100">
 
-                            <v-col cols="12" md="5" class="d-flex align-center justify-center"
+                            <v-col cols="12" md="5" class="d-flex align-center justify-center bg-white"
                                 style="min-height: 200px;">
-                                <v-img :src="differentImage" class="rounded-lg" height="100%" width="100%" cover />
+                                <!-- <v-img :src="differentImage" class="rounded-lg" height="100%" width="100%" cover /> -->
                             </v-col>
 
                             <v-col cols="12" md="7" class="pl-md-6 d-flex flex-column justify-center">

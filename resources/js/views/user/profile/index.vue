@@ -64,41 +64,45 @@
         <div class="d-flex justify-space-between align-center pa-4">
           <h2 class="text-h6 font-weight-medium">Notifications</h2>
         </div>
-        <div class="border-b"></div>
-        <v-card-text class="notification-scroll">
-          <template v-for="(note, i) in notifications" :key="i">
-            <v-list-item class="px-4 py-4 bg-surface">
-              <div class="d-flex align-start gap-4 w-100">
-                <!-- Avatar -->
-                <v-avatar size="42" class="mt-2">
-                  <v-img :src="note.image || userAvatar" cover />
-                </v-avatar>
+        <div class="border-b "></div>
+        <div  class="notification-scroll">
+        <template v-for="(note, i) in notifications" :key="i">
+          <v-list-item class="px-4 py-4  cursor-pointer hoverItems " :to="getNotificationLink(note)">
+            <div class="d-flex align-start  gap-4 w-100 ">
+            
+              <!-- Avatar -->
+              <v-avatar size="42" class="mt-2">
+                <v-img :src="note.image || userAvatar" cover />
+              </v-avatar>
 
 
-                <div class="flex-grow-1 min-w-0 ml-4 mr-1">
-                  <router-link :to="getNotificationLink(note)" style="text-decoration: none; color: rgb(var(--v-theme-whiteLight));">
-                    <p class="text-body-2 font-weight-medium mb-1 text-wrap rounded-md">
-                      {{ note.title }}
-                    </p>
-                  </router-link>
-
-                  <p class="text-caption text-medium-emphasis text-wrap">
-                    {{ note.message }}
+              <div class="flex-grow-1 min-w-0 ml-4 mr-1">
+                <router-link :to="getNotificationLink(note)"
+                  style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); display: inline-block;">
+                  <p class="text-body-2 font-weight-medium mb-1 pa-1 vehicleName text-wrap rounded-md ">
+                    {{ getNotificationTitle(note) }}
                   </p>
-                  <div>
-                    {{ dateFormate(note.date) }}
-                  </div>
+
+                </router-link>
+
+                <p class="text-caption text-medium-emphasis ">
+                {{ getNotificationDescription(note) }}
+
+                </p>
+                <div class="mt-2">
+                  {{ note.date }}
                 </div>
-
               </div>
-            </v-list-item>
-            <v-divider v-if="i < notifications.length - 1" />
-          </template>
 
-        </v-card-text>
+            </div>
+          </v-list-item>
+          <v-divider v-if="i < notifications.length - 1" />
+        </template>
+</div>
+
 
       </v-card>
-    </div>
+    </div> 
   </div>
 </template>
 
@@ -156,13 +160,32 @@ export default {
     //         this.isLoading = false;
     //     }
     // },
-     getNotificationLink(note) {
-        if (note.type === "vehicle") {
-            return `/user/vehicle-detail/${note.id}`;
-        } else if (note.type === "auction") {
-            return `/autoboli/user/reauction`;
-        }
-        return "#"; // fallback if type is unknown
+    getNotificationTitle(note) {
+      if (note.type === "vehicle") {
+        // return `${note.make} ${note.model} ${note.variant} ${note.year}`;
+        return `${note.title}`;
+      } else if (note.type === "auction") {
+        return `${note.title} Auction starts soon`;
+      }
+      return note.title || "Notification";
+    },
+    getNotificationDescription(note) {
+      if (note.type === "vehicle") {
+        return `Your selected Vehicle's Auction is about to begin. Make sure you’re prepared to bid on the vehicles you’ve been tracking.
+      Auction Time`;
+      } else if (note.type === "auction") {
+        return `Your selected auction is about to begin. Make sure you’re prepared to bid on the vehicles you’ve been tracking.
+        Auction Time`;
+      }
+      return note.title || "Notification";
+    },
+    getNotificationLink(note) {
+      if (note.type === "vehicle") {
+        return `/user/vehicle-detail/${note.id}`;
+      } else if (note.type === "auction") {
+        return `/autoboli/user/reauction`;
+      }
+      return "#"; // fallback if type is unknown
     },
     dateFormate(date) {
       if (!date) return ''
@@ -232,5 +255,10 @@ export default {
 .vehicleName:hover {
   background-color: rgb(var(--v-theme-primary), 0.3);
   transition: 0.2s ease-in-out;
+  width: auto;
+}
+.hoverItems:hover{
+  background-color: rgb(var(--v-theme-background));
+   transition: 0.1s ease-in-out;
 }
 </style>

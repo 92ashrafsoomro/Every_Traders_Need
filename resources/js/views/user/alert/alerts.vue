@@ -12,7 +12,7 @@
                         </div>
                         <div class="d-flex align-center ml-2">
                             <span>
-                                {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ totalItems }} Your Alert
+                              {{ totalItems }} Your Alert
                             </span>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
 
                         <template #item.vehicle="{ item }">
                             <router-link style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); "
-                                :to="'/user/vehicle-detail/' + item.id" class="vehicleName pa-2 rounded-sm "
+                                :to="'/user/vehicle-detail/'+item.vehicle_id" class="vehicleName pa-2 rounded-sm "
                                 target="_blank">
                                 <span> {{ item.vehicle }} </span>
                             </router-link>

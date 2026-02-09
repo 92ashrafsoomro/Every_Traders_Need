@@ -135,9 +135,9 @@ class NotificationController extends Controller
     {
 
         $userId = $request->user()->id;
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
+        // $length = $request->input('length', 50);
+        // $page   = $request->input('page', 1);
+        // $offset = ($page - 1) * $length;
 
         $baseQuery = UserVehicleAlert::join('vehicles','vehicles.id','=','user_vehicle_alerts.vehicle_id')
             ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
@@ -193,8 +193,8 @@ class NotificationController extends Controller
                     'auctions.end_date',
                 ])
                 ->orderByDesc('user_vehicle_alerts.id')
-                ->skip($offset)
-                ->take($length)
+                // ->skip($offset)
+                // ->take($length)
                 ->get();
 
             return response()->json([
@@ -212,9 +212,9 @@ class NotificationController extends Controller
 
         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         $userId = $request->user()->id;
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
+        // $length = $request->input('length', 50);
+        // $page   = $request->input('page', 1);
+        // $offset = ($page - 1) * $length;
 
         $baseQuery = UserAuction::leftJoin('auctions','auctions.id', '=','user_auctions.auction_id')
              ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')
@@ -253,8 +253,8 @@ class NotificationController extends Controller
                 ])
                 ->groupby('user_auctions.id')
                 ->orderByDesc('user_auctions.id')
-                ->skip($offset)
-                ->take($length)
+                // ->skip($offset)
+                // ->take($length)
                 ->get();
 
             return response()->json([

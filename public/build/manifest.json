@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DNtviyCe.js",
+    "file": "assets/app-CfymWatz.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-DapEv39g.css"
+      "assets/app-B2h7o-UD.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -127,7 +127,7 @@
       "assets/darkLeft-Bc51BgBP.png",
       "assets/lightBg-DJruBfXL.png",
       "assets/lightLeft-y33nC5mr.png",
-      "assets/HomepageImageTrusted-4k027a8y.png",
+      "assets/helping-DFRTUvcg.png",
       "assets/Asset 9-floLAZ7Q.png",
       "assets/Asset 10-C01HQSll.png",
       "assets/Asset 7-B_FBjube.png",
@@ -135,13 +135,18 @@
       "assets/Asset 11-Da2eGS1T.png",
       "assets/Asset 12-jRMG4Vea.png",
       "assets/heroAutoboliSmart-Dj5fiDH6.png",
-      "assets/smarter1-CPEmrKHF.png",
-      "assets/about2-DIGgdF41.png",
+      "assets/img3-phdEE23-.png",
+      "assets/img7-EQJPhHpI.png",
+      "assets/img1-Bwjhx3nI.png",
+      "assets/img4-D09hVNPw.png",
+      "assets/img6-B9NCu9jA.png",
+      "assets/img5-CKLX1V7N.png",
+      "assets/img2-DjL3MK6F.png",
       "assets/Exists-GwQSYy8h.png",
+      "assets/carAuction-Drlgd7oW.png",
       "assets/Different1-Bu2k_8QW.png",
       "assets/Different2-MYYaXsWR.png",
       "assets/differentimg-BfukXemL.png",
-      "assets/helping-DFRTUvcg.png",
       "assets/mission-BVQCleya.png",
       "assets/Reauction-tP7Tm7wy.png",
       "assets/supportImage-C5pGktL4.png",
@@ -186,6 +191,10 @@
     "file": "assets/Exists-GwQSYy8h.png",
     "src": "resources/js/assets/images/about/Exists.png"
   },
+  "resources/js/assets/images/about/carAuction.png": {
+    "file": "assets/carAuction-Drlgd7oW.png",
+    "src": "resources/js/assets/images/about/carAuction.png"
+  },
   "resources/js/assets/images/about/helping.png": {
     "file": "assets/helping-DFRTUvcg.png",
     "src": "resources/js/assets/images/about/helping.png"
@@ -214,13 +223,37 @@
     "file": "assets/lightshort-DQfsj8p_.png",
     "src": "resources/js/assets/images/header/lightshort.png"
   },
-  "resources/js/assets/images/hero/HomepageImageTrusted.png": {
-    "file": "assets/HomepageImageTrusted-4k027a8y.png",
-    "src": "resources/js/assets/images/hero/HomepageImageTrusted.png"
-  },
   "resources/js/assets/images/hero/heroAutoboliSmart.png": {
     "file": "assets/heroAutoboliSmart-Dj5fiDH6.png",
     "src": "resources/js/assets/images/hero/heroAutoboliSmart.png"
+  },
+  "resources/js/assets/images/homeImages/img1.png": {
+    "file": "assets/img1-Bwjhx3nI.png",
+    "src": "resources/js/assets/images/homeImages/img1.png"
+  },
+  "resources/js/assets/images/homeImages/img2.png": {
+    "file": "assets/img2-DjL3MK6F.png",
+    "src": "resources/js/assets/images/homeImages/img2.png"
+  },
+  "resources/js/assets/images/homeImages/img3.png": {
+    "file": "assets/img3-phdEE23-.png",
+    "src": "resources/js/assets/images/homeImages/img3.png"
+  },
+  "resources/js/assets/images/homeImages/img4.png": {
+    "file": "assets/img4-D09hVNPw.png",
+    "src": "resources/js/assets/images/homeImages/img4.png"
+  },
+  "resources/js/assets/images/homeImages/img5.png": {
+    "file": "assets/img5-CKLX1V7N.png",
+    "src": "resources/js/assets/images/homeImages/img5.png"
+  },
+  "resources/js/assets/images/homeImages/img6.png": {
+    "file": "assets/img6-B9NCu9jA.png",
+    "src": "resources/js/assets/images/homeImages/img6.png"
+  },
+  "resources/js/assets/images/homeImages/img7.png": {
+    "file": "assets/img7-EQJPhHpI.png",
+    "src": "resources/js/assets/images/homeImages/img7.png"
   },
   "resources/js/assets/images/icons/Asset 10.png": {
     "file": "assets/Asset 10-C01HQSll.png",
@@ -289,10 +322,6 @@
   "resources/js/assets/images/support/supportImage.png": {
     "file": "assets/supportImage-C5pGktL4.png",
     "src": "resources/js/assets/images/support/supportImage.png"
-  },
-  "resources/js/assets/images/tabs/about2.png": {
-    "file": "assets/about2-DIGgdF41.png",
-    "src": "resources/js/assets/images/tabs/about2.png"
   },
   "resources/js/assets/images/tabs/mission.png": {
     "file": "assets/mission-BVQCleya.png",

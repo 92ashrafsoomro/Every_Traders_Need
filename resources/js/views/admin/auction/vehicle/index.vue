@@ -94,47 +94,24 @@ export default {
   computed: {
  
     },
-    watch: {
-        'filter.length'(newVal, oldVal) {
-            this.filter.page = 1;
-            this.loadItems()
-        },
-        'filter.page'(newVal, oldVal) {
-            this.loadItems()
-        },
-        'filter.make'(val) {
-            this.filter.model = null
-            this.filter.variant = null
-        },
-        'filter.model'(val) {
-            this.filter.variant = null
-        }
 
-        
-    },
     
      methods: {         
         async loadItems() {
                 this.loading = true;
                 try {
                 let res;
-                console.log(this.id)
-                if (this.id) {
-                    res = await Auction.csvGet(this.id, {});
-                    res = res.data;
-                } else {
-                    res = await  Vehicle.all(this.filter);
-                }
+                res = await Auction.csvGet(this.id, {});
+                res = res.data;
+             
 
                 this.Auction.name = res.auction?.name ?? res.defaultName ?? 'Vehicle';
                 this.Auction.auction_date = res.auction?.auction_date ?? res.defaultDate ?? null;
                 this.Auction.auction_type = res.auction?.auction_type ?? res.defaultType ?? 'N/A';
                 this.Auction.platform_id = res.auction?.platform_id ?? res.defaultPlatform ?? 0;
+                this.filter.platform = this.Auction.platform_id;
+                this.filter.vehicleType = this.Auction.auction_type;
 
-                if (this.id) {
-                    this.filter.platform = this.Auction.platform_id;
-                    this.filter.vehicleType = this.Auction.auction_type;
-                } 
 
                 this.items = res.data;
                 this.total = res.recordsTotal;
@@ -147,10 +124,6 @@ export default {
                     this.loading = false
                 }
         },
-            splitImages(images) {
-        if (!images) return []
-        return images.split(',').map(i => i.trim()).slice(0, 4)
-    },
 
       statusColor(status) {
         switch (status) {
@@ -168,16 +141,7 @@ export default {
                 return '#ffffff';
         }
     },
-    vehicleLink(item) {
-    if (this.auctionStatusId == 1) {
-      return `/admin/auction/vehicle/show/${this.id}?reg=${encodeURIComponent(item.reg)}`
-    } else {
-      return `/admin/vehicle/show/${item.id}`
-    }
-  },
-      onHover(reg) {
-        this.expanded = [reg]
-    }, 
+
 
 
 

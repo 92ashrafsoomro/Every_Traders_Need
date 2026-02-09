@@ -11,43 +11,41 @@
             </div>
           </div>
           <!-- User Info -->
-        <div class="profile-wrapper">
+          <div class="profile-wrapper">
 
-  <!-- PROFILE NAME (ALWAYS TOP) -->
-  <div class=" py-2">
-    <h6 class="text-h4 font-weight-bold text-white">
-      {{ userStore.user.firstName }}
-    </h6>
-  </div>
+            <!-- PROFILE NAME (ALWAYS TOP) -->
+            <div class=" py-2">
+              <h6 class="text-h4 font-weight-bold text-white">
+                {{ userStore.user.firstName }}
+              </h6>
+            </div>
 
-  <!-- SCROLLABLE INFO -->
-  <div class="d-flex align-center text-light ga-3 py-1 profile-scroll px-3" style="width: 150px;">
-    <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
-      <v-icon icon="mdi-equalizer" color="primary" />
-      <span class="text-body-2 px-2">
-        {{ userStore.user.companyName }}
-      </span>
-    </div>
+            <!-- SCROLLABLE INFO -->
+            <div class="d-flex align-center text-light ga-3 py-1 profile-scroll px-3" style="width: 150px;">
+              <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
+                <v-icon icon="mdi-equalizer" color="primary" />
+                <span class="text-body-2 px-2">
+                  {{ userStore.user.companyName }}
+                </span>
+              </div>
 
-    <div class="px-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
-      <v-icon icon="mdi-briefcase-outline" color="primary" />
-      <span class="text-body-2 px-2">
-        {{ userStore.user.jobTitle }}
-      </span>
-    </div>
+              <div class="px-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
+                <v-icon icon="mdi-briefcase-outline" color="primary" />
+                <span class="text-body-2 px-2">
+                  {{ userStore.user.jobTitle }}
+                </span>
+              </div>
 
-    <div
-      v-if="userStore.user.plan"
-      class="bg-background pa-2 rounded-sm px-3 d-flex align-center flex-shrink-0"
-    >
-      <v-icon icon="mdi-lightning-bolt" color="primary" />
-      <span class="text-body-2 px-2 text-capitalize">
-        {{ userStore.user.plan.membership_type }}
-      </span>
-    </div>
-  </div>
+              <div v-if="userStore.user.plan"
+                class="bg-background pa-2 rounded-sm px-3 d-flex align-center flex-shrink-0">
+                <v-icon icon="mdi-lightning-bolt" color="primary" />
+                <span class="text-body-2 px-2 text-capitalize">
+                  {{ userStore.user.plan.membership_type }}
+                </span>
+              </div>
+            </div>
 
-</div>
+          </div>
 
 
         </div>
@@ -59,70 +57,49 @@
     </div>
   </div>
 
-   <div style="max-width: 1400px; max-height: 1300px;" class="mx-auto py-10 px-4">
-    <v-row  no-gutters="" >
-      <v-col cols="12" md="5">
-        <Sidebar />
-      </v-col>
-      <v-col cols="12" md="7" class="pl-lg-4 pl-md-4 pl-0">
-        <v-card  class=" h-100 d-flex flex-column" >
-            <div class="d-flex justify-space-between align-center pa-4">
-                <h2 class="text-h6 font-weight-medium">Notifications</h2>
-                <div class="d-flex align-center ga-3">
-                    <v-chip color="primary" size="small" class="font-weight-bold text-caption">
-                        {{ notificationsUnredCount }} New
-                    </v-chip>
-                    <v-icon size="22">mdi-email-outline</v-icon>
+  <div style="max-width: 1400px;" class="mx-auto mt-5 mb-5 px-4">
+    <div class="d-flex flex-lg-row  flex-md-row flex-column ga-5">
+      <Sidebar />
+      <v-card class=" d-flex flex-column border notification-card">
+        <div class="d-flex justify-space-between align-center pa-4">
+          <h2 class="text-h6 font-weight-medium">Notifications</h2>
+        </div>
+        <div class="border-b"></div>
+        <v-card-text class="notification-scroll">
+          <template v-for="(note, i) in notifications" :key="i">
+            <v-list-item class="px-4 py-4 bg-surface">
+              <div class="d-flex align-start gap-4 w-100">
+                <!-- Avatar -->
+                <v-avatar size="42" class="mt-2">
+                  <v-img :src="note.image || userAvatar" cover />
+                </v-avatar>
+
+
+                <div class="flex-grow-1 min-w-0 ml-4 mr-1">
+                  <router-link :to="getNotificationLink(note)" style="text-decoration: none; color: rgb(var(--v-theme-whiteLight));">
+                    <p class="text-body-2 font-weight-medium mb-1 text-wrap rounded-md">
+                      {{ note.title }}
+                    </p>
+                  </router-link>
+
+                  <p class="text-caption text-medium-emphasis text-wrap">
+                    {{ note.message }}
+                  </p>
+                  <div>
+                    {{ dateFormate(note.date) }}
+                  </div>
                 </div>
-            </div>
-          <div class="border-b"></div>
-          <v-card-text class="notification-scroll h-100">
-         
-  
-                <template v-for="(note, i) in notifications" :key="i">
-                    <v-list-item class="px-4 py-4 bg-surface">
-                        <div class="d-flex align-start gap-4 w-100">
-                            <!-- Avatar -->
-                            <v-avatar size="42">
-                                <v-img :src="note.image || userAvatar" cover />
-                            </v-avatar>
 
+              </div>
+            </v-list-item>
+            <v-divider v-if="i < notifications.length - 1" />
+          </template>
 
-                            <div class="flex-grow-1 min-w-0 ml-2 mr-1">
-                                <p class="text-body-2 font-weight-medium mb-1 text-wrap">
-                                    {{ note.title }}
-                                </p>
-                                <p class="text-caption text-medium-emphasis text-wrap">
-                                    {{ note.message }}
-                                </p>
-                                <div>
-                                  {{ dateFormate(note.created_at) }}
-                                </div>
-                            </div>
+        </v-card-text>
 
-
-                            <div class="mt-2">
-                              <v-icon
-                                v-if="note.is_read == 0"
-                                color="primary"
-                                size="20"
-                                @click.stop="readNotification(note.id)"
-                              >
-                                mdi-read
-                              </v-icon>
-
-                            </div>
-                        </div>
-                    </v-list-item>
-                    <v-divider v-if="i < notifications.length - 1" />
-                </template>
-  
-           </v-card-text>
-
-        </v-card>
-      </v-col>
-    </v-row>
-  </div> 
+      </v-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -142,8 +119,7 @@ export default {
     return {
       userStore: useUserStore(),
       userAvatar,
-     notifications: [],
-     notificationsUnredCount: 0,
+      notifications: [],
       isLoading: false,
     };
   },
@@ -152,41 +128,46 @@ export default {
 
   },
   mounted() {
-  this.notificationFetch();
+    this.notificationFetch();
   },
-  methods:{
-     async notificationFetch() {
-            this.isLoading = true;
-            try {
-                const res = await General.get("/api/notifications/userNotification");
-                this.notifications = res.data;
-                 this.notificationsUnredCount = this.notifications.filter(n => n.is_read === 0).length;
+  methods: {
+    async notificationFetch() {
+      this.isLoading = true;
+      try {
+        const res = await General.get("/api/notifications/myNotifications");
+        this.notifications = res;
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    // async readNotification(id){
+    //   this.isLoading = true;
+    //     try {
+    //         const res = await General.post("/api/notifications/markRead/"+id);
+    //         this.$alertStore.add(res.message || "Notification Read", "success");
+    //         this.notificationFetch();
 
-            } catch (error) {
-                console.error("Error fetching notifications:", error);
-            } finally {
-                this.isLoading = false;
-            }
-        },
-        async readNotification(id){
-          this.isLoading = true;
-            try {
-                const res = await General.post("/api/notifications/markRead/"+id);
-                this.$alertStore.add(res.message || "Notification Read", "success");
-                this.notificationFetch();
-              
-            
-            } catch (error) {
-                console.error("Error fetching notifications:", error);
-            } finally {
-                this.isLoading = false;
-            }
-        },
-        
-        dateFormate(date) {
-            if (!date) return ''
-            return date.split('T')[0].split(' ')[0]
+
+    //     } catch (error) {
+    //         console.error("Error fetching notifications:", error);
+    //     } finally {
+    //         this.isLoading = false;
+    //     }
+    // },
+     getNotificationLink(note) {
+        if (note.type === "vehicle") {
+            return `/user/vehicle-detail/${note.id}`;
+        } else if (note.type === "auction") {
+            return `/autoboli/user/reauction`;
         }
+        return "#"; // fallback if type is unknown
+    },
+    dateFormate(date) {
+      if (!date) return ''
+      return date.split('T')[0].split(' ')[0]
+    }
 
   }
 };
@@ -210,21 +191,46 @@ export default {
   .profile-scroll {
     overflow-x: auto;
     flex-wrap: nowrap;
-    margin-right  : -60px;
+    margin-right: -60px;
     /* width: 100% !important; */
   }
 }
+
+.notification-card {
+  max-height: 1260px;
+  min-height: 1260px;
+  width: 100%;
+  max-width: 950px;
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .notification-card {
+    max-width: auto;
+    min-width: auto;
+    margin: 0 auto;
+  }
+}
+
 
 .notification-scroll {
 
   overflow-y: auto;
 
   /* Hide scrollbar - Chrome, Edge, Safari */
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE / Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE / Edge */
 }
 
 .notification-scroll::-webkit-scrollbar {
-  display: none;              /* Chrome / Safari */
+  display: none;
+  /* Chrome / Safari */
+}
+
+.vehicleName:hover {
+  background-color: rgb(var(--v-theme-primary), 0.3);
+  transition: 0.2s ease-in-out;
 }
 </style>

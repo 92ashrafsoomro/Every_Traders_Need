@@ -1,22 +1,22 @@
 <template>
     <v-container fluid style="max-width: 1400px; " class="justify-center ">
-        <v-row>
-
-        </v-row>
-        <v-row class="">
+        <v-row dense align="stretch">
 
             <!-- Left Column -->
 
             <v-col cols="12" lg="9">
-                <v-row class="  pa-0 ga-4 ">
+                <v-row class="  pa-0 ga-5 ">
                     <!-- First -->
 
                     <v-col sm="12" md="8" lg="5" class="pa-0 rounded-lg order-2 order-lg-1">
 
-                        <custom-card title="Trade Values    ">
-
-                            <v-container class="px-6 pb-0">
-                                <v-row>
+                        <div class="bg-surface border rounded-lg " style="min-height: 625px; max-height: 625px;" >
+                            <div class="pa-4">
+                                <h3 class="text-h5 ">Trade Values</h3>
+                            </div>
+                            <v-divider></v-divider>
+                            <v-container fluid="" class="px-10 pb-0 ">
+                                <v-row class="px-4 py-3">
                                     <v-col cols="6">
                                         <div class="text-body-2  mb-1">Autotrader</div>
                                         <div class="text-h6 font-weight-bold ">£{{
@@ -73,9 +73,9 @@
 
 
 
-                            <custom-card title="Retail Values" class="mt-4 rounded-none">
+                            <div  title="Retail Values" class="mt-4 rounded-none">
                                 <v-container class="px-6 ">
-                                    <v-row>
+                                    <v-row  class="px-4 py-3">
                                         <v-col cols="6">
                                             <div class="text-body-2  mb-1">Autotrader</div>
                                             <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
@@ -105,8 +105,8 @@
                                             </div>
                                         </v-col>
                                     </v-row></v-container>
-                            </custom-card>
-                        </custom-card>
+                            </div >
+                        </div >
                     </v-col>
 
 
@@ -190,18 +190,23 @@
                         <!-- 
 
                 <Trade/>
-            </custom-card> -->
+            </div > -->
                     </v-col>
                 </v-row>
             </v-col>
 
 
             <!-- Right Column -->
-            <v-col cols="12" lg="3">
+            <v-col cols="12" lg="3" class="mt-1" >
 
-                <v-row class="ml-lg-1 ml-md-3  mt-1 mt-lg-n3 mt-md-0">
-                    <v-col class="bg-surface   pa-0  border rounded-lg" cols="12">
-                        <custom-card title="Accuracy %">
+                <v-row class="ml-lg-5 ml-md-3  mt-md-0">
+                    <v-col class="bg-surface   pa-0  border rounded-lg">
+                   
+                            <div class="bg-surface border rounded-lg " >
+                            <div class="pa-4">
+                                <h3 class="text-h5 ">Accuracy %</h3>
+                            </div>
+                            <v-divider></v-divider>
                             <v-container class="px-6 pb-6">
                                 <div class="">
 
@@ -221,11 +226,16 @@
                                     <v-progress-linear model-value="20" color="primary"></v-progress-linear>
                                 </div>
                             </v-container>
-                        </custom-card>
+                        </div >
                     </v-col>
 
                     <v-col class="bg-surface mt-4 pa-0  border rounded-lg" cols="12">
-                        <custom-card title="Auction Results">
+                       
+                              <div class="bg-surface border rounded-lg " >
+                            <div class="pa-4">
+                                <h3 class="text-h5 ">Auction Results</h3>
+                            </div>
+                            <v-divider></v-divider>
                             <v-container class="px-6 pb-6">
 
                                 <div class="">
@@ -253,10 +263,10 @@
                                     <div class="text-body-2">{{ vehicleStore.vehicle.auction_status }}</div>
                                 </div>
                             </v-container>
-                        </custom-card>
+                        </div >
                     </v-col>
                     <v-col class="bg-surface mt-4 pa-0 border rounded-lg" cols="12">
-                        <custom-card title="Pre Vehicles">
+                        <div  title="Pre Vehicles">
 
 
                             <!-- TODAY -->
@@ -298,7 +308,7 @@
 
 
 
-                        </custom-card>
+                        </div >
                     </v-col>
 
 

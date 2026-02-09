@@ -2,18 +2,16 @@
     <div class="bg-surface rounded border">
         <v-data-table-server class="dataTable rounded" :headers="headers" :items="auctionStore.data"
             :items-length="auctionStore.total" :loading="auctionStore.loading" item-value="id"
-            @update:options="auctionStore.getAuctionList">
+            @update:options="auctionStore.getAuctionList" sort-asc-icon="">
             <!-- CUSTOM ROW -->
             <template #item="{ item, columns }">
                 <!-- MAIN ROW -->
                 <tr class="main-row" @mouseenter="hoveredRowId = item.id" 
                     :class="{ 'hovered-main-row': hoveredRowId === item.id }">
                     <td>
-                        <v-btn variant="plain" :to="'/user/vehicle-detail/'
-                         + item.id" class="pa-0"  target="_blank">
-                            <span class="text-whiteLight"> {{ item.make_name }} {{ item.model_name }} {{
-                                item.variant_name }} </span>
-                        </v-btn>
+                     <router-link  style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); " :to="'/user/vehicle-detail/'+ item.id" class="vehicleName pa-2 rounded-sm " target="_blank">
+                            <span>   {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </span>
+                        </router-link>
                     </td>
 
                     <td>{{ item.grade }}</td>
@@ -42,28 +40,40 @@
                                     @click="openImage(item.images, i)" />
 
 
-                                <v-dialog v-model="dialog" max-width="60%">
-                                    <v-card class="position-relative pa-4">
-
+                                <v-dialog v-model="dialog" class=" w-lg-50 w-md-50 w-100 "  >
+                                    <v-card elevation="0"></v-card>
                                         <!-- Close Button -->
-                                        <v-btn icon="mdi-close" class="position-absolute"
-                                            style="top: 10px; right: 10px; z-index: 10" @click="dialog = false" />
+                                        <v-btn icon="mdi-close"  class="position-absolute "
+                                            style="top: 10px; right: 10px; z-index: 10;"    color="primary" @click="dialog = false" />
 
                                         <!-- Left Arrow -->
-                                        <v-btn icon="mdi-chevron-left" class="position-absolute"
+                                        <v-btn icon="mdi-chevron-left" class="position-absolute d-lg-block d-md-block d-none"
                                             style="top: 50%; left: 10px; transform: translateY(-50%); z-index: 10"
-                                            :disabled="currentIndex === 0" @click="prevImage" />
+                                            :disabled="currentIndex === 0" @click="prevImage"  color="primary" />
 
                                         <!-- Right Arrow -->
-                                        <v-btn icon="mdi-chevron-right" class="position-absolute"
+                                        <v-btn icon="mdi-chevron-right" class="position-absolute d-lg-block d-md-block d-none"
                                             style="top: 50%; right: 10px; transform: translateY(-50%); z-index: 10"
-                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" />
+                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" color="primary" />
 
                                         <!-- Image -->
                                         <v-img :src="currentImages[currentIndex]" max-height="500" cover
-                                            class="rounded" />
-                                    </v-card>
+                                            class="rounded" style="border: none !important;" />
+                                
+                                       <div class="d-flex mt-10 mt-lg-0 mt-md-0 justify-space-between" >
+                                         <v-btn icon="mdi-chevron-left" class="d-flex d-lg-none d-md-none" color="primary"
+                                            style="transform: translateY(-50%);"
+                                            :disabled="currentIndex === 0" @click="prevImage" />
+
+                                        <!-- Right Arrow -->
+                                        <v-btn icon="mdi-chevron-right" class="  d-flex d-lg-none d-md-none"
+                                         color="primary"
+                                            style=" transform: translateY(-50%);"
+                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" />
+                                       </div>    
                                 </v-dialog>
+                                
+
 
                             </div>
                         </div>
@@ -73,13 +83,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td>
-                        <v-btn color="primary" variant="flat" size="small" :href="item.inspection_report"
+                    
+                <td></td>
+                    <td> <v-btn color="primary" variant="flat" size="small" :href="item.inspection_report"
                             target="_blank" @click.stop>
                             View Report
-                        </v-btn>
-                    </td>
+                        </v-btn></td>
                 </tr>
             </template>
 
@@ -97,12 +106,20 @@
 
 <script>
 import { useAuctionStore } from "@/stores/auctionStore";
+import ImagePreviewCarousel from "./sidebar/fields/ImagePreviewCarousel.vue";
 
 export default {
+    components: {
+        ImagePreviewCarousel
+    },
     data() {
         return {
             auctionStore: useAuctionStore(),
             hoveredRowId: null,
+            currentImages: [],
+            showPreview: false,
+            dialog: false, image: '',
+            currentIndex: 0,
             headers: [
                 { title: "Vehicle", key: "vehicle", sortable: false },
                 { title: "Grade", key: "grade" },
@@ -115,6 +132,53 @@ export default {
             ],
         };
     },
+    methods:{
+        openImage(images , index){
+            this.currentImages = images
+            this.currentIndex = index
+            this.dialog = true
+        },
+        nextImage(){
+            if(this.currentIndex < this.currentImages.length -1){
+                this.currentIndex++
+            }
+        },
+        prevImage(){
+            if(this.currentIndex > 0){
+                this.currentIndex--
+            }
+        },
+         handleHoverLeave() {
+            this.hoverTimeout = setTimeout(() => {
+                this.hoveredRowId = null
+            }, 200)
+        },
+        getGradeColor(grade){
+            switch (grad) {
+                case 5:
+                    return '#e51f1f'
+                case 4:
+                    return '#f2ce02'
+                case 3:
+                    return '#ebff0a'
+                case 2:
+                    return '#85e62c'
+                default:
+                    return '#02de0a'
+            }
+        },
+        openPreview(images, index) {
+            this.currentImages = images
+            this.currentIndex = index
+            this.showPreview = true
+        },
+
+        nextImage() {
+            if (!this.currentImages.length) return
+            this.currentIndex =
+                (this.currentIndex + 1) % this.currentImages.length
+        },
+    }
 };
 </script>
 <style scoped>
@@ -159,5 +223,10 @@ export default {
     border-radius: 4px;
     width: 150px;
     font-size: 0.875rem;
+}
+
+.vehicleName:hover{
+    background-color: rgb(var(--v-theme-primary),0.3);
+    transition: 0.2s ease-in-out;
 }
 </style>

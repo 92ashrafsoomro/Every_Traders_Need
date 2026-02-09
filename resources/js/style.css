@@ -110,7 +110,7 @@ tbody tr:hover{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 4px;
+   
 }
 
 .v-expansion-panel-title__overlay:hover {
@@ -263,9 +263,6 @@ min-height:40px;
     --v-field-padding-bottom: 0px;
 }
 
-.v-select .v-select__selection-text {
-    margin-top: -3px;
-}
 .v-expansion-panel {
     padding-left: 6px !important;
     border-bottom: none !important;

@@ -1,7 +1,7 @@
 <template>
 
     <v-col cols="12">
-        <v-row class="mt-5" no-gutters="">
+        <v-row class="mt-4" no-gutters="">
             <v-col cols="12">
                 <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
                     <div class="d-flex  ">
@@ -11,11 +11,12 @@
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="120"
                                 density="compact" />
                         </div>
-                        <!-- <div class="px-2">
-                            <YearDropdown label="All Years" :model-value="filter.year"
-                                @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
-                                variant="outlined" color="primary" width="150" density="compact" clearable />
-                        </div> -->
+                            <div class="d-flex align-center ml-2">
+                                <span>
+                                    {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ totalItems }} Auction Alert
+                                </span>
+                            </div>
+                    
                     </div>
                     <div class="d-flex ">
 
@@ -31,22 +32,6 @@
                                 @update:modelValue="handleInput($event, 'platform')" base-color="white" />
 
                         </div>
-                        <!-- <div class="px-lg-2 px-md-2 px-2">
-                            <MakeDropdown width="200" label="Select Make" variant="outlined" item-title="name"
-                                 item-value="id" color="primary"
-                                density="compact" :model-value="filter.make"
-                                @update:modelValue="handleInput($event, 'make')" clearable />
-                        </div>
-
-                        <div class="">
-
-                            <ModelDropdown width="200" label="Select Model" variant="outlined" color="primary"
-                                :make="filter.make" :model-value="filter.model"item-title="name"
-                                 item-value="id"
-                                @update:modelValue="handleInput($event, 'model')" clearable density="compact" />
-
-                        </div> -->
-
 
                     </div>
                 </div>

@@ -1,9 +1,9 @@
 <template>
-    <v-card title="Billing History" class="">
+    <v-card title="Billing History" class="mt-5 " border="">
         <div class="border"></div>
         <div class="border">
-            <v-data-table-server :headers="headers" :items="data" hover :items-length="data.length" hide-default-footer
-                item-value="id" height="300">
+            <v-data-table-server sort-asc-icon=""  :headers="headers" :items="data"  hover :items-length="data.length" hide-default-footer
+                item-value="id">
 
                 <template #item.invoice="{ item }">
                     <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>

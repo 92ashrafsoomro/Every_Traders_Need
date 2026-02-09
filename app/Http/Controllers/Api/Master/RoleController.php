@@ -18,11 +18,9 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-
-
+    
     public function index(Request $request)
     {
-
             DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
 
             $search = $request->input('search','');

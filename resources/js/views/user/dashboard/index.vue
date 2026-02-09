@@ -21,15 +21,15 @@
     </div>
   </user-title-bar>
 
-  <div style="max-width: 1400px;" class="mx-auto pa-2">
-      <v-row no-gutters="" class="ga-2" style="margin-top: -50px;">
+  <div style="max-width: 1400px; " class="mx-auto mb-5 ">
+      <v-row no-gutters="" class="ga-5" style="margin-top: -50px;  padding: 0">
         <!-- Total Auctions -->
   
   
         <!-- Total Auctions -->
         <v-col cols="12" sm="6" md="" lg="" class="">
   
-          <v-card class="border-bottom border border-sm">
+          <v-card class="border-bottom border border-sm ">
             <v-container>
   
               <div class="d-flex h-6">
@@ -90,7 +90,8 @@
                   <span class="white">Vehicles:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                    {{auctionCounter.vehicles_in_progress_auctions }}</span>   </div>
+                    {{auctionCounter.vehicles_in_progress_auctions }}</span> 
+                    </div>
                 <div class="text-body-2">View</div>
   
               </div>
@@ -130,7 +131,7 @@
   
         <v-col cols="12" sm="6" md="" lg="" class="">
   
-          <v-card class="border-bottom  border border-sm">
+          <v-card class="border-bottom  border border-sm ">
             <v-container>
               <div class="d-flex h-6">
                 <div style="background: #0080ff38; border-radius: 22px; width: 40px; height: 40px;"
@@ -141,13 +142,14 @@
               </div>
   
               <div class="pt-3 text-body-1 text-whiteLite ">Vehicle in reauctions</div>
-              <div class="pt-2 d-flex">
+              <div class="pt-2 d-flex justify-space-between">
                 <div class="text-body-2 pr-2">
                   <span class="white">Remaining:</span>
                   <span class=""
                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
                     {{auctionCounter.remainingReAuctionVehicles }}</span>
-                </div>
+                  </div>
+                  <div class="text-body-2">View</div>
   
               </div>
   
@@ -157,11 +159,11 @@
         </v-col>
       </v-row>
       </div>
-  <v-container style="max-width: 1400px;" fluid="">
+  <v-container style="max-width: 1400px; padding: 0 !important;" fluid="" class="mt-5" >
 
 
 
-    <v-row no-gutters="" class="ga-2">
+    <v-row no-gutters="" class="ga-5">
       <v-col cols="12" md="6" lg="">
         <!-- <div > -->
         <Auction />
@@ -171,8 +173,8 @@
       <!-- Right Column: Vehicle Statistics -->
       <v-col cols="12" md="6" lg="">
 
-        <v-card class="   border  ">
-          <div class=" pa-6  ">
+        <v-card class="   border  " style="min-height: 490px; max-height: 490px;">
+          <div class=" px-4 py-3  ">
             <h3 class="text-h6">Vehicle Statistics</h3>
             <p class=" text-body-2 text-light  ">Today</p>
           </div>

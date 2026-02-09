@@ -78,7 +78,7 @@
                 </div>
             </v-col> -->
 
-            <v-col cols="12 " class="mt-3 ">
+            <v-col cols="12 " class="mt-4 mb-5">
                 <v-card class="border-sm border-white ">
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"

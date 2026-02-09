@@ -18,6 +18,7 @@ use App\Models\UserAuction;
 use App\Models\UserNotificationAlert;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,51 @@ use Stripe\Stripe;
 
 class NotificationController extends Controller
 {
+
+
+
+        public function myNotifications(Request $request)
+    { 
+
+
+        return response()->json(NotificationService::GetNotification($request),200);
+
+        // $perPage = (int) $request->input('length', 10);
+        // $page = (int) $request->input('page', 1);
+        // $offset = ($page - 1) * $perPage;
+        // $id = $request->user()->id;
+
+        // $query = UserNotificationAlert::query();
+
+        // $total = (clone $query)->count();
+        // $totalNew = (clone $query)->count();
+        // $results = $query->select([
+        //         'user_notifications_alert.*'
+        //     ])
+        //     ->offset($offset)
+        //     ->limit($perPage)
+            
+        //     ->get()
+        //     ->map(function ($item) {
+
+        //         $item->ago =  $item->created_at->diffForHumans();
+
+        //     return $item;
+        // });
+
+        // return response()->json([
+        //     'offset' => $offset,
+        //     'total' => $total,
+        //     'totalNew' => $totalNew,
+        //     'per_page' => $perPage,
+        //     'current_page' => $page,
+        //     'last_page' => ceil($total / $perPage),
+        //     'data' => $results,
+        // ]);
+
+    }
+
+
 
        public function userNotification(Request $request)
     { 

@@ -50,7 +50,7 @@ class NotificationService
                     'id' => $value->id,
                     'image' => $images ? $images[0] : null,
                     'type' => 'vehicle',
-                    'title' => $value->title,
+                    'title' => $value->make_name.' '.$value->model_name.' '.$value->variant_name,
                     'message' => 'Vehicle Description',
                     'date' => $value->auction_date
                 ];

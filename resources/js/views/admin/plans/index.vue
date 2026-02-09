@@ -4,13 +4,14 @@
     </user-title-bar>
     <v-container fluid="" max-width="1500px">
         <div class="d-flex align-center justify-space-between">
-            <!-- <div  class="d-flex align-center py-4">
-                <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact"
-                    variant="outlined" max-width="150" class="mr-2" />
-                {{ filter.offset }} total
-                {{ Math.min(filter.length, total) }}
+            <div class="d-flex align-center py-4">
+                <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact" variant="outlined"
+                    max-width="150" class="mr-2" />
+                {{ filter.offset + 1 }} -
+                {{ Math.min(filter.offset + filter.length, total) }}
                 of {{ total }} Records
-            </div> -->
+
+            </div>
             <div class="pl-2">
                 <v-btn to="/admin/plans/create" color="primary" style="height: 44px;" variant="flat"
                     @click="getPlanData">
@@ -29,13 +30,19 @@
                 </template>
                 <template #item.action="{ item }">
                     <v-icon small class="clickable-icon pa-4" color="danger" @click="deleteItems(item.id)">
-                            mdi-delete
-                    </v-icon>    
+                        mdi-delete
+                    </v-icon>
                     <router-link :to="'/admin/plans/edit/' + item.id">
                         <v-icon color="primary" class="editIconHover pa-4">mdi-pencil</v-icon>
                     </router-link>
 
                 </template>
+                   <template v-slot:bottom>
+                <div class="py-2 d-flex justify-end border-t">
+                  <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
+                    @page-changed="getPlanData" />
+                </div>
+              </template>
             </v-data-table-server>
         </div>
     </v-container>
@@ -51,6 +58,14 @@ export default {
             items: [],
             total: 0,
             loading: false,
+            filter: {
+                search: null,
+                length: 10,
+                page: 1,
+                offset: 0,
+            },
+            last_page: 1,
+            total: 0,
             headers: [
                 { title: "ID", key: "id" },
                 { title: "Plan Name", key: "plan_name" },
@@ -64,13 +79,27 @@ export default {
             ]
         }
     },
+    watch: {
+        'filter.length'(newVal, oldVal) {
+            this.filter.page = 1;
+            this.getPlanData()
+
+        },
+        'filter.page'(newVal, oldVal) {
+            this.getPlanData()
+        },
+
+
+    },
     methods: {
         async getPlanData() {
             this.loading = true;
             try {
-                let res = await General.get("/api/cruds/plans")
+                let res = await General.get("/api/cruds/plans", this.filter)
+                this.total = Number(res.recordsTotal)
                 this.items = res.data.data ?? res.data
-                this.total = res.data.total ?? res.data.length
+                this.last_page = Number(res.last_page)
+                this.filter.offset = res.offset
                 this.loading = false
                 // console.log("plans data"+res.data);
                 // alert("Data Fetch")
@@ -82,7 +111,7 @@ export default {
         async deleteItems(id) {
             this.loading = true;
             try {
-                let res = await General.delete('/api/cruds/plans/'+id);
+                let res = await General.delete('/api/cruds/plans/' + id);
                 this.$alertStore.add(res.message, 'success');
                 this.getPlanData()
             } catch (error) {

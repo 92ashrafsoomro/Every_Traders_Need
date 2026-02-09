@@ -5,43 +5,45 @@ import { useGeneralStore } from "./generalStore";
 
 export const usePageStore = defineStore("page", {
     state: () => ({
-    reauction: {
-        reg: '',
-        year: null,
-        length: 10,
-        page: 1,
-        offset: 0,
-        data: [],
-        total: 0,
-        last_page: 1,
-        loading: false,
-        start_date: null,
-        end_date: null
-    },
+        reauction: {
+            reg: '',
+            year: null,
+            length: 10,
+            page: 1,
+            offset: 0,
+            data: [],
+            center: [],
+            platform: [],
+            total: 0,
+            last_page: 1,
+            loading: false,
+            start_date: null,
+            end_date: null
+        },
         recentDevices: {
             length: 10,
             page: 1,
             offset: 0,
             data: [
                 {
-                 platform:'Windows',
-                 browser:'Chrome',
-                 device:'Desktop',
-                 location:'Not found',
-                 recent_activities:'21, November 2025 11:35'   
+                    platform: 'Windows',
+                    browser: 'Chrome',
+                    device: 'Desktop',
+                    location: 'Not found',
+                    recent_activities: '21, November 2025 11:35'
                 },
                 {
-                 platform:'Windows',
-                 browser:'Chrome',
-                 device:'Desktop',
-                 location:'Not found',
-                 recent_activities:'21, November 2025 11:35'   
+                    platform: 'Windows',
+                    browser: 'Chrome',
+                    device: 'Desktop',
+                    location: 'Not found',
+                    recent_activities: '21, November 2025 11:35'
                 }
             ],
             total: 0,
-            offset:0,
-            last_page:1,
-            loading:false,
+            offset: 0,
+            last_page: 1,
+            loading: false,
             headers: [
                 { title: "Platform", key: "platform" },
                 { title: "Browser", value: "browser" },
@@ -55,7 +57,7 @@ export const usePageStore = defineStore("page", {
         //  AuctionShedule__________________
         //
         auctionShedule: {
-           
+
         },
         billingHistory: {
             length: 10,
@@ -63,40 +65,40 @@ export const usePageStore = defineStore("page", {
             offset: 0,
             data: [
                 {
-                "id": 1,
-                "date": "21, November 2025",
-                "plan": "Ulta",
-                "start": "21 Nov 2025",
-                "expiry": "21 Dec 2025",
-                "amount": "$100.00",
-                "status": "Active",
-                "invoice": "Download"
+                    "id": 1,
+                    "date": "21, November 2025",
+                    "plan": "Ulta",
+                    "start": "21 Nov 2025",
+                    "expiry": "21 Dec 2025",
+                    "amount": "$100.00",
+                    "status": "Active",
+                    "invoice": "Download"
                 },
                 {
-                "id": 2,
-                "date": "15, October 2025",
-                "plan": "Plus",
-                "start": "15 Oct 2025",
-                "expiry": "15 Nov 2025",
-                "amount": "$50.00",
-                "status": "Expired",
-                "invoice": "Download"
+                    "id": 2,
+                    "date": "15, October 2025",
+                    "plan": "Plus",
+                    "start": "15 Oct 2025",
+                    "expiry": "15 Nov 2025",
+                    "amount": "$50.00",
+                    "status": "Expired",
+                    "invoice": "Download"
                 },
                 {
-                "id": 3,
-                "date": "01, September 2025",
-                "plan": "Entry",
-                "start": "01 Sep 2025",
-                "expiry": "01 Oct 2025",
-                "amount": "$30.00",
-                "status": "Cancelled",
-                "invoice": "Download"
+                    "id": 3,
+                    "date": "01, September 2025",
+                    "plan": "Entry",
+                    "start": "01 Sep 2025",
+                    "expiry": "01 Oct 2025",
+                    "amount": "$30.00",
+                    "status": "Cancelled",
+                    "invoice": "Download"
                 },
             ],
             total: 0,
-            offset:0,
-            last_page:1,
-            loading:false,
+            offset: 0,
+            last_page: 1,
+            loading: false,
             headers: [
                 { title: "Id", key: "id" },
                 { title: "Date", value: "date" },
@@ -109,7 +111,7 @@ export const usePageStore = defineStore("page", {
             ],
         },
     }),
-    getters:{
+    getters: {
 
     },
     actions: {
@@ -117,9 +119,9 @@ export const usePageStore = defineStore("page", {
 
             try {
                 const generalStore = useGeneralStore()
-                
+
                 this.reauction.loading = true;
-                const options={    
+                const options = {
                     reg: this.reauction.reg,
                     year: this.reauction.year,
                     page: this.reauction.page,
@@ -127,11 +129,13 @@ export const usePageStore = defineStore("page", {
                     start_date: generalStore.date.start_date,
                     end_date: generalStore.date.end_date
                 }
-              
+
                 const res = await pageService.reAuctionList(options)
                 this.reauction.data = res.data || [];
                 this.reauction.total = res.recordsTotal;
                 this.reauction.offset = res.offset;
+                this.reauction.center = res.data.center ||[]
+                this.reauction.platform = res.data.platform || []
                 this.reauction.page = res.page;
                 this.reauction.last_page = res.last_page;
                 this.reauction.loading = false;
@@ -139,10 +143,10 @@ export const usePageStore = defineStore("page", {
                 // return res.data;
             } catch (error) {
                 alert(error)
-                  this.reauction.loading = false;
+                this.reauction.loading = false;
             }
-        },  
-        
+        },
+
 
 
     },

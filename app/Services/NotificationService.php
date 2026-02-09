@@ -31,10 +31,16 @@ class NotificationService
 
            $vehicles = UserVehicleAlert::select([
             'vehicles.*',
-            'auctions.auction_date'
+            'auctions.auction_date',
+            'make.name as make_name', 
+            'model.name as model_name', 
+            'model_variant.name as variant_name'
             ])
             ->join('vehicles','vehicles.id','=','user_vehicle_alerts.vehicle_id')
-            ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
+            ->join('make', 'make.id', '=', 'vehicles.make_id')
+            ->join('model', 'model.id', '=', 'vehicles.model_id')
+            ->join('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->join('auctions','auctions.id', '=','vehicles.auction_id')
             ->where('user_vehicle_alerts.user_id', $user->id)
             ->get()
             ->map(function ($value, $key) {
@@ -55,7 +61,8 @@ class NotificationService
 
             $auctions = UserAuction::select([
                     'auctions.*',
-                    'auction_platform.image'
+                    'auction_platform.image',
+                    'auction_platform.name'
                  ])
                  ->leftJoin('auctions','auctions.id', '=','user_auctions.auction_id')
                  ->leftJoin('auction_platform','auction_platform.id', '=','auctions.platform_id')

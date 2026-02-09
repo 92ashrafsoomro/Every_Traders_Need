@@ -270,7 +270,15 @@ class AuctionFinderController extends Controller
         $results = (clone $query)
             ->offset($offset)
             ->limit($perPage)
-            ->select(['vehicles.*', 'auction_platform.name', 'auction_platform.image as platefrom_image', 'auctions.auction_date as auction_date', 'make.name as make_name', 'model.name as model_name', 'model_variant.name as variant_name'])
+            ->select([
+                'vehicles.*', 
+                'auction_platform.name', 
+                'auction_platform.image as platefrom_image', 
+                'auctions.auction_date as auction_date', 
+                'make.name as make_name', 
+                'model.name as model_name', 
+                'model_variant.name as variant_name'
+                ])
             ->get()
             ->map(function ($item) {
                 $images = explode(',', $item->images);

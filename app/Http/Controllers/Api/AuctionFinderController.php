@@ -445,9 +445,8 @@ class AuctionFinderController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         
-        $auctionIds = AuctionService::getAuctionIdbyDateRange($start_date,$end_date);
-        $platforms = AuctionService::getPlateformNamesByAuctionId($auctionIds);
-        $centers = AuctionService::getCenterNamesByPlateformName($platforms);
+        // $auctionIds = AuctionService::getAuctionIdbyDateRange($start_date,$end_date);
+     
 
         $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
@@ -488,10 +487,12 @@ class AuctionFinderController extends Controller
             ->groupby('vehicles.reg')
             ->get()
             ->map(function($vehicle){
-
                 return $vehicle;
-
             });
+        
+            
+            $platforms = AuctionService::getPlateformNamesByAuctionId($data->pluck('auction_id')->toArray());
+            $centers = AuctionService::getCenterNamesByPlateformName($platforms);
 
 
             // 🔹 Final response

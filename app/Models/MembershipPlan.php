@@ -20,6 +20,7 @@ class MembershipPlan extends Model
         'short_desc',
         'description',
         'price',
+        'renew',
         'duration_unit',
         'duration_value',
         'status',

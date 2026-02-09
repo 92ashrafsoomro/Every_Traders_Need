@@ -73,6 +73,7 @@ class PlanController extends Controller
         $validator = Validator::make($request->all(),[
             'plan_name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'renew' => 'required|numeric|min:0',
             'short_desc' =>  'required|string|max:255',
             'description' =>  'nullable|string|max:255',
             'duration_unit' =>  'required|in:month,week,year|max:255',
@@ -92,6 +93,7 @@ class PlanController extends Controller
         $model = MembershipPlan::create([
             'plan_name' => $request->plan_name,
             'price' => $request->price,
+            'renew' => $request->renew,
             'short_desc' => $request->short_desc,
             'description' => $request->description,
             'duration_unit' => $request->duration_unit,
@@ -124,6 +126,7 @@ class PlanController extends Controller
         $validator = Validator::make($request->all(),[
             'plan_name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'renew' => 'required|numeric|min:0',
             'short_desc' =>  'required|string|max:255',
             'description' =>  'nullable|string|max:255',
             'duration_unit' =>  'required|in:month,week,year|max:255',
@@ -143,6 +146,7 @@ class PlanController extends Controller
         $model->where('id',$id)->update([
             'plan_name' => $request->plan_name,
             'price' => $request->price,
+            'renew' => $request->renew,
             'short_desc' => $request->short_desc,
             'description' => $request->description,
             'duration_unit' => $request->duration_unit,
@@ -164,21 +168,18 @@ class PlanController extends Controller
         public function show(Request $request,$id)
     {
 
-            $model = MembershipPlan::find($id);
-            if(!$model){
-                return response()->json([
-                    'message' => 'Record Not Found',
-                ], 422);
-            }
-
-        
-
+        $model = MembershipPlan::find($id);
+        if(!$model){
             return response()->json([
-                'message' => 'Record Updated Successfully',
-                'data' => $model
-            ],200);
-
+                'message' => 'Record Not Found',
+            ], 422);
+        }
         
+        return response()->json([
+            'message' => 'Record Updated Successfully',
+            'data' => $model
+        ],200);
+
     }
 
 

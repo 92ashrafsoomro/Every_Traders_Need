@@ -27,7 +27,7 @@
         <td v-for="col in columns" :key="col.key">
           <template v-if="col.key === 'reg'">
             <router-link
-              :to="vehicleLink(item)"
+                :to="`/admin/vehicle/show/${item.id}`"
               target="_blank"
               class="text-primary font-weight-bold text-decoration-none"
             >
@@ -93,9 +93,9 @@ export default {
     total: { type: Number, default: 0 },
     loading: { type: Boolean, default: false },
     headers: { type: Array, default: () => [] },
-    filter: { type: Object, required: true }, // page, length, etc.
+    filter: { type: Object, required: true },
     last_page: { type: Number, default: 1 },
-    auctionStatus: { type: Number, default: 1 }, // for link logic
+    auctionStatus: { type: Number, default: 1 },
     auctionId: { type: Number, required: true },
   },
   data() {
@@ -111,11 +111,8 @@ export default {
       if (!images) return [];
       return images.split(',').map(img => img.trim()).slice(0, 4);
     },
-    vehicleLink(item) {
-      return this.auctionStatus == 1
-        ? `/admin/auction/vehicle/show/${this.auctionId}?reg=${encodeURIComponent(item.reg)}`
-        : `/admin/vehicle/show/${item.id}`;
-    },
+
+
   },
 };
 </script>

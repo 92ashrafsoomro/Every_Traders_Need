@@ -37,30 +37,32 @@
 
                             </div>
                         </div>
-                        <!-- <AuctionWeek/> -->
+          
                     </v-container>
      
 
                     <div class="content-scroll d-flex mt-6 w-100 ga-3">
-                        <div v-for="item in status" :key="item.id"
-                            class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:15.5%"
-                            @click="filter.status = item.id"
-                            :class="{ 'bg-primary text-white': filter.status === item.id }">
-                            <div class="d-flex justify-space-between ">
-                                <div class="d-flex align-center">
-                                    <small> {{ item.title }}</small>
-                                </div>
-                                <div class="d-flex align-center"> <svg width="15" height="15" viewBox="0 0 512 512"
-                                        class="text-primary auction-svg" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill="currentColor"
-                                            d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z" />
-                                    </svg> <span class="ml-1"> {{ item.count ?? 0  }}</span> </div>
+                    <div 
+                        v-for="item in items_status" 
+                        :key="item.id"
+                        class="status-card cursor-pointer"
+                        @click="filter.status = item.id"
+                        :class="{ 'status-selected': Number(filter.status) === item.id }"
+                    >
+                        <div class="d-flex justify-space-between">
+                            <div class="d-flex align-center">
+                                <small>{{ item.name }}</small>
+                            </div>
+                            <div class="d-flex align-center">
+                                <svg width="15" height="15" viewBox="0 0 512 512" class="text-primary auction-svg" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z"/>
+                                </svg>
+                                <span class="ml-1">{{ item.count ?? 0 }}</span>
                             </div>
                         </div>
-
-                        <!-- Optional: Clear filter -->
-
                     </div>
+                    </div>
+
 
 
                 </div>
@@ -74,30 +76,7 @@
         <v-row no-gutters class="">
             <v-col cols="12">
 
-                <!-- <div class="d-flex justify-space-between d-md-flex py-4">
-                    <div class="d-flex align-center pb-2 pb-lg-0 pb-md-0">
-                        <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact"
-                            variant="outlined" max-width="150px" class="mr-2" />
-                        <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }}
-                            of {{ total }} Records </div>
-                    </div> 
 
-                   <div class="d-flex w-lg-75 justify-end pb-2 pb-lg-0 pb-md-0  "> 
-                    <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"
-                            max-width="400px" clearable />
-                        <div class="pl-2"> 
-                     <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
-                                <v-icon icon="mdi-magnify"></v-icon>
-                            </v-btn> 
-                        </div>
-                     </div>
-                   <div class="pl-lg-2 pt-lg-0 pt-md-0">
-                        <v-btn to="/admin/auction/create" color="primary" style="height: 44px;" variant="flat"
-                            @click="loadItems">
-                            <v-icon icon="mdi-plus"></v-icon>
-                        </v-btn>
-                    </div>
-                </div> -->
             </v-col>
             <v-col cols="12" class="mt-2">
                 <div class="border">
@@ -117,11 +96,6 @@
                             </span>
                         </template>
 
-                        <!-- <template #item.auction_status.title="{ item }">
-                            <v-chip :color="statusColor(item.auction_status?.title)" small dark>
-                                {{ item.auction_status?.title }}
-                            </v-chip>
-                        </template> -->
                             <template #item.auction_status.title="{ item }">
                             <v-select
                                 :items="status"
@@ -230,6 +204,7 @@ export default {
             },
             last_page: 1,
             items: [],
+            items_status:[],
             total: 0,
             loading: true,
             headers: [
@@ -320,6 +295,8 @@ export default {
 
                 let res = await Auction.all(this.filter);
                 this.items = res.data;
+                this.items_status = res.status_counts;
+                
                 // this.filter.page = Number(res.page)
                 this.last_page = Number(res.last_page);
 
@@ -396,7 +373,8 @@ export default {
                 console.error(error)
                 this.$alertStore.add(error.message || "Delete failed", "error");
             }
-        }
+        },
+
 
 
     }
@@ -415,4 +393,22 @@ export default {
 .min-select {
   min-width: 150px;
 }
+
+.status-card {
+  border-radius: 6px;
+  padding: 12px;
+  width: 15.5%;
+  background-color:rgb(15, 28, 43);
+  transition: all 0.2s ease;
+}
+
+.status-card:hover {
+  border-color: #0080FF;
+}
+
+.status-selected {
+  border: 2px solid #0080FF;
+ 
+}
+
 </style>

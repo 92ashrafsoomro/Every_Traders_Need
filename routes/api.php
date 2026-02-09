@@ -64,7 +64,11 @@ use App\Http\Controllers\Api\StripeController;
 
     });
 
+
+
+ 
     
+
     // Master data
     Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 
@@ -116,7 +120,7 @@ use App\Http\Controllers\Api\StripeController;
             Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
         });
         
-
+        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
         Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
         Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
         Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
@@ -181,6 +185,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/auctions/csvUpdate/{id}',[SheetController::class,'sheetUpdate']);
         Route::get('/auctions/sheetFix',[SheetController::class,'sheetFix']);
 
+
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
         
@@ -210,7 +215,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::resource('prefixes',PrefixController::class);
         Route::resource('auctionStatus',AuctionStatusController::class);
         Route::resource('staffs',StaffController::class);    
-
+        Route::post('/auctions/updatestatus/{id}',[AuctionController::class,"updateStatus"]);
 
         // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);

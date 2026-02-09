@@ -3,7 +3,8 @@
         <div class="d-flex justify-space-between border-b py-3 px-4">
             <div class="align-self-center">
                 <h1 class=" text-h6 Sheet"> <span class="pointer bg-background">{{ form.table_id }}</span>
-                    <span class="pointer ml-2 bg-background">{{ form.name }}</span>
+                    <!-- <span class="pointer ml-2 bg-background">{{ form.name }}</span> -->
+                    <span class="pointer ml-2 bg-background">{{ form.auctionname }}</span>
                 </h1>
             </div>
             <div class="mx-3 d-flex">
@@ -31,6 +32,14 @@
                 </v-icon>
                 </div>
 
+                <div class="px-2">
+                    <router-link :to="`/admin/vehicle/${form.id}`" target="_blank" rel="noopener noreferrer">
+                        <v-icon style="background-color: rgb(var(--v-theme-background)); padding: 20px;" class="border"
+                        color="primary" >mdi-eye</v-icon>
+                </router-link>
+
+                </div>
+
             </div>
         </div>
         <v-card-text>
@@ -38,8 +47,17 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th v-for="value in CsvStore.columns" :style="{ width: value?.width }" class="text-left">{{
-                            value.title }}</th>
+                        <th 
+                            v-for="value in CsvStore.columns" 
+                            :key="value.title"
+                            :class="['text-left', 'nowrap-text', value.required ? 'bg-primary text-white font-weight-bold' : '']"
+                            :style="{
+                                width: value.required  ? '120px' :'10px',
+                                fontWeight: value.required ? 'bold' : 'normal'
+                            }"
+                            >
+                            {{ value.title }}
+                            </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,6 +162,8 @@ export default {
             selectedRow: null,
             form: {
                 table_id: '',
+                id:'',
+                auctionname:'',
                 name: '',
             }
         }
@@ -152,6 +172,7 @@ export default {
     mounted() {
         this.CsvStore.id = this.$route.params.id;
         this.CsvStore.loadVehicle();
+        this.$themeStore.menuType = 'collapsed';
         this.getData()
     },
     methods: {
@@ -160,6 +181,8 @@ export default {
             try {
                 let res = await Auction.find(id, {});
                 this.form.table_id = res.data.table_id;
+                this.form.id = res.data.id;
+                this.form.auctionname = res.data.name;
                 this.form.name = this.CsvStore.platformName;
                 this.form.type = res.data.type
             } catch (error) {
@@ -219,6 +242,10 @@ td {
       background: rgb(var(--v-theme-danger), 0.2);
       padding: 8px;
 }
-
+.nowrap-text {
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: ellipsis;  
+}
 
 </style>

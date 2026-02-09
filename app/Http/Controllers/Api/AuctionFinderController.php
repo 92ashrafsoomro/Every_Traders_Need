@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
+use App\Services\AuctionFinderService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
@@ -442,12 +443,6 @@ class AuctionFinderController extends Controller
             return response()->json(['message' => 'Date Not Found'],400);
         }
 
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-        
-        // $auctionIds = AuctionService::getAuctionIdbyDateRange($start_date,$end_date);
-     
-
         $data = Vehicle::join('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
             ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
@@ -490,10 +485,8 @@ class AuctionFinderController extends Controller
                 return $vehicle;
             });
         
-            
             $platforms = AuctionService::getPlateformNamesByAuctionId($data->pluck('auction_id')->toArray());
             $centers = AuctionService::getCenterNamesByPlateformName($platforms);
-
 
             // 🔹 Final response
             return response()->json([
@@ -731,11 +724,22 @@ class AuctionFinderController extends Controller
                     "data" => $data,
                 ],200);
         
-
-
     }
 
 
     
+        public function getFilter(Request $request,$id)
+    {
+        
+         DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+        $AuctionFinderService = new AuctionFinderService($request,$id);
 
+       
+        return response()->json(
+            $AuctionFinderService->response
+        ,200);
+    }
+
+
+    
 }

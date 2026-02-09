@@ -5,7 +5,7 @@ export default [
     {
         path: "vehicle",
         children: [  
-            { path: ':id?', component: index },
+            { path: '', component: index },
             { path: 'show/:id', component: show },
         ],
     },

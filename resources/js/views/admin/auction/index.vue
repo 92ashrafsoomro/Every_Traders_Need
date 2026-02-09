@@ -153,7 +153,7 @@
 
 
                         <template #item.action="{ item }">
-                            <router-link :to="'/admin/vehicle/'+item.id" target="_blank">
+                            <router-link :to="'/admin/auction/vehicle/'+item.id" target="_blank">
                                 <v-icon class="editIconHover pa-4" color="primary">mdi-eye</v-icon>
                             </router-link>
 

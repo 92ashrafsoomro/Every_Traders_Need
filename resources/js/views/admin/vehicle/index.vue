@@ -1,12 +1,5 @@
   <template>
-    <user-title-bar >
-        <div>
-            <h1 class="text-h3 mb-2 font-weight-bold">{{ Auction.name || 'Vehicle' }}</h1>
-            <p v-if="Auction.auction_date" class="text-subtitle-1 mb-2 font-weight-medium">Auction Date <span class="text-primary"> {{ Auction.auction_date ?? "" }} </span></p>
-        </div>
-
-
-
+    <user-title-bar title="Vehicle">
         <div>
                 <v-card-title 
                     class="d-flex cursor-pointer widthstatic"
@@ -57,14 +50,16 @@
                                     <v-row cols="12" class="mt-1 text-center">
                                         <v-col cols="4" sm="4" class="pl-2">
                                             <MakeDropdown
-                                            label="Select Make"
-                                            variant="outlined"
-                                            color="primary"
-                                            class="id-box"
-                                            v-model="filter.make"
-                                            hide-details
-                                            density="comfortable"
-                                            clearable
+                                                label="Select Make" 
+                                                variant="outlined"
+                                                color="primary"
+                                                class="id-box"
+                                                v-model="filter.make" 
+                                                item-title="name"
+                                                item-value="id"
+                                                hide-details
+                                                density="compact"
+                                                clearable 
                                             />
                                         </v-col>
 
@@ -72,6 +67,8 @@
                                             <ModelDropdown
                                             label="Select Model"
                                             variant="outlined"
+                                            item-title="name"
+                                            item-value="id"
                                             color="primary"
                                             class="id-box"
                                             v-model="filter.model"
@@ -164,108 +161,17 @@
 
                 <v-col cols="12" class="mt-2"  >
                     <div class="border"> 
-                        <v-data-table-server 
-                            :loading="loading" 
-                            :headers="headers"
-                            :items-length="total"
-                            @update:options="loadItems" :lastPage="last_page"
-                            :items="items"
-                            item-value="reg"
-                            hover
-                            v-model:expanded="expanded"
-                            >
-            
-                            <template v-slot:bottom>
-                                <div class="py-2 d-flex justify-end border-t">
-                                    <custom-pagination 
-                                    :loading="loading" 
-                                    v-model:page="filter.page"
-                                    :lastPage="last_page" 
-                                    @page-changed="loadItems" />
-                                </div>
-                            </template>
-                            <template #item.title="{ item }">
-                            <div class="font-weight-medium">
-                                {{ item.make_id }}
-                                {{ item.model_id }}
-                                <span v-if="item.variant_id"> {{ item.variant_id }}</span>
-                            </div>
-                            </template>
-                            <template #item="{ item, columns }">
-                            <tr
-                                @mouseenter="onHover(item.reg)"
-                                class="hover-row"
-                            >
-                                <td v-for="col in columns" :key="col.key">
-                                <template v-if="col.key === 'reg'">
-                                <router-link
-                                    :to="vehicleLink(item)"
-                                    target="_blank"
-                                    class="text-primary font-weight-bold text-decoration-none"
-                                >
-                                    {{ item.reg }}
-                                </router-link>
-                                </template>
-                                <template v-else>
-                                    {{ item[col.key] }}
-                                </template>
-                                </td>
-                            </tr>
-                            </template>
-
-                            <template #expanded-row="{ columns, item }">
-                            <tr
-                                @mouseleave="expanded = []"
-                            >
-                                <td :colspan="columns.length">
-                                <div class="expanded-box">
-
-
-                                    <div class="image-row" v-if="item.images">
-                                    <v-img
-                                        v-for="(img, i) in splitImages(item.images)"
-                                        :key="i"
-                                        :src="img"
-                                        width="140"
-                                        height="100"
-                                        cover
-                                        class="hover-img"
-                                    />
-                                    </div>
-
-                                    <div class="info-row mt-3">
-                                    <div class="info-item">
-                                        <b>Last Bid:</b> £{{ item.last_bid }}
-                                    </div>
-
-                                    <div class="info-item">
-                                        <b>Status: </b>
-                                        <span
-                                        :class="item.bidding_status === 'Sold' ? 'text-success' : 'text-warning'"
-                                        >
-                                        {{ item.bidding_status }}
-                                        </span>
-                                    </div>
-
-                                    <div class="info-item" v-if="item.inspection_report">
-                                        <v-btn
-                                        size="small"
-                                        color="primary"
-                                        variant="outlined"
-                                        :href="item.inspection_report"
-                                        target="_blank"
-                                        >
-                                        Inspection Report
-                                        </v-btn>
-                                    </div>
-                                    </div>
-
-                                </div>
-                                </td>
-                            </tr>
-                            </template>
-                  
-                        </v-data-table-server>
+                  <vehicle-list
+                        :items="items"
+                        :total="total"
+                        :loading="loading"
+                        :headers="headers"
+                        :filter="filter"
+                        :last_page="last_page"
+                        :auction-status="Auction.status"
+                        :auction-id="id"
+                        @page-changed="loadItems"
+                    />
                     </div>
                 </v-col>
             </v-row>
@@ -282,6 +188,8 @@ import MakeDropdown from "@components/MakeDropdown.vue"
 import ModelDropdown from "@components/ModelDropdown.vue"
 import VariantDropdown from "@components/VariantDropDown.vue"
 import AuctionTypeDropdown from '@components/AuctionTypeDropdown.vue'
+
+import vehicleList from "@/components/vehicleList.vue";
 export default {
 
   components: {
@@ -290,7 +198,8 @@ export default {
     PlateformDropdown,
     ModelDropdown,
     VariantDropdown,
-    AuctionTypeDropdown
+    AuctionTypeDropdown,
+    vehicleList
   },
 
   data() {
@@ -356,25 +265,8 @@ export default {
         async loadItems() {
                 this.loading = true;
                 try {
-                let res;
-                console.log(this.id)
-                if (this.id) {
-                    res = await Auction.csvGet(this.id, {});
-                    res = res.data;
-                } else {
-                    res = await  Vehicle.all(this.filter);
-                }
-
-                this.Auction.name = res.auction?.name ?? res.defaultName ?? 'Vehicle';
-                this.Auction.auction_date = res.auction?.auction_date ?? res.defaultDate ?? null;
-                this.Auction.auction_type = res.auction?.auction_type ?? res.defaultType ?? 'N/A';
-                this.Auction.platform_id = res.auction?.platform_id ?? res.defaultPlatform ?? 0;
-
-                if (this.id) {
-                    this.filter.platform = this.Auction.platform_id;
-                    this.filter.vehicleType = this.Auction.auction_type;
-                } 
-
+                let res = [];
+                res = await  Vehicle.all(this.filter);
                 this.items = res.data;
                 this.total = res.recordsTotal;
                 this.filter.page = Number(res.page);
@@ -386,105 +278,9 @@ export default {
                     this.loading = false
                 }
         },
-            splitImages(images) {
-        if (!images) return []
-        return images.split(',').map(i => i.trim()).slice(0, 4)
-    },
-
-      statusColor(status) {
-        switch (status) {
-            case 'Cancel':
-                return '#e51f1f';  
-            case 'Done':
-                return '#0080ff';  
-            case 'Confirm':
-                return '#96761a';
-            case 'Draft':
-                return '#ebff0a';
-            case 'In Progress':
-                return '#85e62c';
-            default:
-                return '#ffffff';
-        }
-    },
-    vehicleLink(item) {
-    if (this.auctionStatusId == 1) {
-      return `/admin/auction/vehicle/show/${this.id}?reg=${encodeURIComponent(item.reg)}`
-    } else {
-      return `/admin/vehicle/show/${item.id}`
-    }
-  },
-      onHover(reg) {
-        this.expanded = [reg]
-    }, 
-
-
-
     }
   
 };
 
 </script>
 
-<style>
-.expanded-box {
-  background: #0f1c2b;
-  padding: 12px;
-  border-left: 4px solid #0080ff;
-}
-
-.image-row {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-}
-
-.hover-img {
-  border-radius: 6px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.hover-img:hover {
-  transform: scale(1.05);
-}
-
-
-.expanded-box {
-  background: #0f1c2b;
-  padding: 12px;
-  border-left: 4px solid #0080ff;
-}
-
-.image-row {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-}
-
-.hover-img {
-  border-radius: 6px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.hover-img:hover {
-  transform: scale(1.05);
-}
-
-.info-row {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.info-item {
-  color: #ddd;
-  font-size: 14px;
-}
-
-.gapin {
-    gap:12px !important;
-}
-</style>

@@ -64,7 +64,11 @@ use App\Http\Controllers\Api\StripeController;
 
     });
 
+
+
+ 
     
+
     // Master data
     Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
 
@@ -116,7 +120,7 @@ use App\Http\Controllers\Api\StripeController;
             Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
         });
         
-
+        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
         Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
         Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
         Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);

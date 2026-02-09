@@ -34,13 +34,10 @@
                                     density="compact" />
                             </v-col>
 
+
                             <v-col cols="12" md="6">
-                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
-                                    density="compact" />
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-select :items="['month', 'year']" label="Duration Unit"
-                                    v-model="form.duration_unit" variant="outlined" density="compact" hide-details />
+                                <v-select :items="['month', 'year']" label="Duration Unit" v-model="form.duration_unit"
+                                    variant="outlined" density="compact" hide-details />
                             </v-col>
 
                             <v-col cols="12" md="6">
@@ -51,9 +48,13 @@
                                 <v-select :items="statusItems" label="Status" v-model="form.status" item-title="value"
                                     item-value="id" variant="outlined" density="compact" hide-details />
                             </v-col>
-
                             <v-col cols="12" md="6">
-                                <v-text-field label="Renew" v-model="form.renew" variant="outlined" density="compact" />
+                                <v-text-field label="Price" v-model="form.price" variant="outlined" type="number"
+                                    density="compact" />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Discount" v-model="form.renew" variant="outlined"
+                                    density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-select :items="offer" label="offer" v-model="form.is_officer" item-title="value"

@@ -4,7 +4,7 @@
 
             <v-expansion-panels  >
 
-                <v-expansion-panel  :disabled="masterStore.vehicleTypes.data.length ? false : true" title="Vehicle Type" >
+                 <v-expansion-panel  :disabled="masterStore.vehicleTypes.data ? false : true" title="Vehicle Type" >
                     <v-expansion-panel-text >
                         <VehicleTypeField />
                     </v-expansion-panel-text>
@@ -16,7 +16,19 @@
                         :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 
-                <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;  ">
+            <v-expansion-panel :disabled="masterStore.bodyTypes.data ? false : true" title="BodyType" style="border-bottom: none;  ">
+                    <v-expansion-panel-text >
+                        <BodyType/>
+                    </v-expansion-panel-text>
+                     <Chip 
+                        :data="masterStore.bodyTypes.data" 
+                        :compareValue="auctionStore.filter.bodyType" 
+                        removeKey="bodyType"
+                        class="pb-2"
+                        :removeValue="auctionStore.removeValue" />
+                </v-expansion-panel>
+
+                 <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;  ">
                     <v-expansion-panel-text >
                         <MakeField/>
                     </v-expansion-panel-text>
@@ -51,7 +63,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
 
-                <v-expansion-panel :disabled="masterStore.platforms.data.length ? false : true" title="Auction House" style="border-bottom: 1px solid rgb(var(--v-theme-border));">
+                <v-expansion-panel :disabled="masterStore.platforms.data ? false : true" title="Auction House" style="border-bottom: 1px solid rgb(var(--v-theme-border));">
                     <v-expansion-panel-text>
                         <PlatformField/>
                     </v-expansion-panel-text>
@@ -63,7 +75,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
 
-                <v-expansion-panel :disabled="masterStore.centers.data.length ? false : true" title="Auction Center">
+                <v-expansion-panel :disabled="masterStore.centers.data ? false : true" title="Auction Center">
                     <v-expansion-panel-text>
                         <CenterField/>
                     </v-expansion-panel-text>
@@ -73,9 +85,9 @@
                         :compareValue="auctionStore.filter.center" 
                         removeKey="center"
                         :removeValue="auctionStore.removeValue" />
-                </v-expansion-panel>
+                </v-expansion-panel> 
 
-                <v-expansion-panel :disabled="masterStore.years.data.length ? false : true" title="Years">
+                <v-expansion-panel :disabled="masterStore.years.data ? false : true" title="Years">
                     <v-expansion-panel-text>
                           <YearField/>
                     </v-expansion-panel-text>
@@ -87,7 +99,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
 
-                <v-expansion-panel title="Transmission" :disabled="masterStore.transmissions.data.length ? false : true">
+                <v-expansion-panel title="Transmission" :disabled="masterStore.transmissions.data ? false : true">
                     <v-expansion-panel-text>
                        <TransmissionField />
                     </v-expansion-panel-text>
@@ -99,7 +111,7 @@
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
 
-                <v-expansion-panel :disabled="masterStore.fuelType.data.length ? false : true" title="Fuel Type">
+                <v-expansion-panel :disabled="masterStore.fuelType.data ? false : true" title="Fuel Type">
                     <v-expansion-panel-text>
                         <FuelTypeField />
                     </v-expansion-panel-text>
@@ -110,7 +122,7 @@
                         removeKey="fuelType"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.doors.data.length ? false : true" title="Doors">
+                <v-expansion-panel :disabled="masterStore.doors.data ? false : true" title="Doors">
                     <v-expansion-panel-text>
                          <DoorField />
                     </v-expansion-panel-text>
@@ -121,7 +133,7 @@
                         removeKey="door"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.seats.data.length ? false : true" title="Seats">
+                <v-expansion-panel :disabled="masterStore.seats.data ? false : true" title="Seats">
                     <v-expansion-panel-text>
                          <SeatField />
                     </v-expansion-panel-text>
@@ -132,7 +144,7 @@
                         removeKey="seat"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.grades.data.length ? false : true" title="Grade">
+                <v-expansion-panel :disabled="masterStore.grades.data ? false : true" title="Grade">
                     <v-expansion-panel-text>
                       <GradeField />
                     </v-expansion-panel-text>
@@ -143,7 +155,7 @@
                         removeKey="grade"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.v5.data.length ? false : true" title="V5">
+                <v-expansion-panel :disabled="masterStore.v5.data ? false : true" title="V5">
                     <v-expansion-panel-text>
                         <V5Field />
                     </v-expansion-panel-text>
@@ -154,7 +166,7 @@
                         removeKey="v5"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.cc.data.length ? false : true" title="Engine Size (CC)">
+                <v-expansion-panel :disabled="masterStore.cc.data ? false : true" title="Engine Size (CC)">
                     <v-expansion-panel-text>
                        <CCField />
                     </v-expansion-panel-text>
@@ -165,7 +177,7 @@
                         removeKey="cc"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.formerKeepers.data.length ? false : true" title="Former Keepers">
+                <v-expansion-panel :disabled="masterStore.formerKeepers.data ? false : true" title="Former Keepers">
                     <v-expansion-panel-text>
                         <FormerKeeperField />
                     </v-expansion-panel-text>
@@ -176,7 +188,7 @@
                         removeKey="formerKeeper"
                         :removeValue="auctionStore.removeValue" />
                 </v-expansion-panel>
-                <v-expansion-panel :disabled="masterStore.noOfServices.data.length ? false : true" title="No. of Services">
+                <v-expansion-panel :disabled="masterStore.noOfServices.data ? false : true" title="No. of Services">
                     <v-expansion-panel-text>
                       <NoOfServices />
                     </v-expansion-panel-text>
@@ -219,7 +231,7 @@ import CCField from "./fields/CCField.vue";
 import FormerKeeperField from "./fields/FormerKeeperField.vue";
 import NoOfServices from "./fields/NoOfServices.vue";
 import MilegueField from "./fields/MilegueField.vue";
-
+import BodyType from "./fields/BodyType.vue";
 import Chip from "./fields/chip.vue";
 
 
@@ -242,7 +254,8 @@ export default {
         FormerKeeperField,
         NoOfServices,
         MilegueField,
-        Chip
+        Chip,
+        BodyType
     },
     data() {
         return {

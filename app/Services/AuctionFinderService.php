@@ -73,7 +73,7 @@ class AuctionFinderService
                 ->groupBy('auction_center.id', 'auction_center.name')
                 ->orderByDesc('count')
                 ->get();
-                
+
                 return [
                     'total' => count($data),
                     'data' => $data
@@ -98,7 +98,10 @@ class AuctionFinderService
                 ->orderByDesc('count')
                 ->get();
 
-        return response()->json(['data' => $data], 200);
+        return [
+            'total' => count($data),
+            'data' => $data
+        ];
     }
 
     public function vehicle()
@@ -117,7 +120,10 @@ class AuctionFinderService
             ->orderByDesc('count')
             ->get();
 
-        return response()->json(['data' => $data], 200);
+        return [
+            'total' => count($data),
+            'data' => $data
+        ];
     }
 
 
@@ -180,7 +186,7 @@ class AuctionFinderService
 
         $query = ModelVariant::join('model', 'model.id', '=', 'model_variant.model_id')
                 ->leftJoin('vehicles', 'vehicles.variant_id', '=', 'model_variant.id')
-                ->whereIn('model_variant.model_id',$this->request->models ?? []);
+                ->whereIn('model_variant.model_id',$this->request->model ?? []);
 
         // if ($this->request->filled('model')) {
         //     if (is_array($this->request->model_id)) {

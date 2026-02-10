@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\UserAuction;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
@@ -52,7 +53,7 @@ class NotificationService
                     'type' => 'vehicle',
                     'title' => $value->make_name.' '.$value->model_name.' '.$value->variant_name,
                     'message' => 'Vehicle Description',
-                    'date' => $value->auction_date
+                    'date' => Carbon::parse($value->auction_date)->format('F j, Y g:i A'),
                 ];
 
             })
@@ -79,7 +80,7 @@ class NotificationService
                         'type' => 'auction',
                         'title' => $value->name,
                         'message' => 'Auction Description',
-                        'date' => $value->auction_date
+                        'date' => Carbon::parse($value->auction_date)->format('F j, Y g:i A'),
                     ];
 
                 })

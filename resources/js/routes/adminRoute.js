@@ -23,6 +23,8 @@ import taskManagement from "@views/admin/taskManagement/route"
 import staffUser from "@/views/admin/stafUser/route"
 import newsBlog from "@/views/admin/newsBlog/route"
 import blog from "@/views/admin/blog/route"
+import category from "@/views/admin/category/route"
+
 export default [
     {
         path: "/admin",
@@ -52,7 +54,8 @@ export default [
             ...taskManagement,
             ...staffUser,
             ...newsBlog,
-            ...blog
+            ...blog,
+            ...category,
             // ...upComing,
             // ...upGrade,
             // ...final,

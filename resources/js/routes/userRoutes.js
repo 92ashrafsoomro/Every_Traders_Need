@@ -11,6 +11,7 @@ import VehicleDetail from "@/views/user/vehicle-detail/index.vue"
 import Setting from "@views/user/setting/index.vue"
 import navbar from "@/views/web/layout/navbar.vue" 
 import Alert from "@/views/user/alert/index.vue"
+import News from "@views/user/news/index.vue"
 export default [
     {
         path: "/user",
@@ -27,6 +28,7 @@ export default [
       { path: "profile", component: Profile, meta: { requiresAuth: true, title: 'Profile' } },
       { path: "vehicle-detail/:id", component: VehicleDetail, meta: { requiresAuth: true, title: 'Vehicle Detail' } },
       { path: "settings/:id", component: Setting, meta: { requiresAuth: true, title: 'Settings' } },
+      { path: "news/:id?", component: News, meta: { requiresAuth: true, title: 'News' } },
       { path: "web", component: navbar, meta: { requiresAuth: true, title: 'Web' } },
     ],
     },

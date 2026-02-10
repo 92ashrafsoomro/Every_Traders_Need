@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Auctions;
 use App\Models\Interest;
 use App\Models\Make;
+use App\Models\ModelVariant;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -63,8 +64,7 @@ class AuctionFinderService
     public function model()
     {
 
-        $query = DB::table('model')
-            ->join('make', 'make.id', '=', 'model.make_id')
+        $query = VehicleModel::join('make', 'make.id', '=', 'model.make_id')
             ->join('vehicles', 'vehicles.model_id', '=', 'model.id')
             ->whereIn('model.make_id',$this->request->makes ?? []);
 
@@ -93,7 +93,7 @@ class AuctionFinderService
     {
       
 
-        $query = VehicleModel::join('model', 'model.id', '=', 'model_variant.model_id')
+        $query = ModelVariant::join('model', 'model.id', '=', 'model_variant.model_id')
                 ->leftJoin('vehicles', 'vehicles.variant_id', '=', 'model_variant.id')
                 ->whereIn('model_variant.model_id',$this->request->models ?? []);
 

@@ -62,17 +62,13 @@
             </v-col>
 
             <v-col cols="12">
-              <v-textarea
-                label="Description"
-                v-model="form.description"
-                variant="outlined"
-                density="compact"
-                rows="4"
-                auto-grow
-                hide-details
-                clearable
-                class="id-box"
-              />
+              <QuillEditor
+                  v-model:content="form.description"
+                  content-type="html"
+                  :modules="editorOptions.modules"
+                  theme="snow"
+              />      
+
             </v-col>
 
             <v-col class="d-flex justify-center text-center mt-4 w-100">
@@ -105,16 +101,29 @@
 
 <script>
 import General from '@/models/general.model';
-import Blogcategory from '@/components/blogcategory.vue'
+import Blogcategory from '@/components/blogcategory.vue';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 export default {
     components: {
-      Blogcategory
+      Blogcategory,
+      QuillEditor,
     },
 
   data() {
     return {
     imageUrl: null,
+    editorOptions: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['link', 'image', 'video'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ header: [1, 2, 3, false] }],
+            [{ align: [] }],
+            ['clean']
+          ]
+        },
       form: {
         category_id: null,
         title: '',
@@ -170,3 +179,15 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+:deep(.ql-container) {
+  min-height: 300px;
+  font-size: 16px;
+}
+
+:deep(.ql-editor) {
+  min-height: 300px;
+}
+</style>

@@ -109,7 +109,7 @@
       },
       {
         "label": "Category",
-        "icon": "mdi-circle",
+        "icon": "mdi-layers",
         "path": "/admin/category"
       },
        {

@@ -36,6 +36,44 @@ class AuctionFinderService
     }
 
 
+    public function body()
+    {
+            $query = DB::table('body_types')
+                ->join('vehicles', 'vehicles.body_id', '=', 'body_types.id')
+                ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id');
+                
+            $data = $query->select(
+                'body_types.id',
+                'body_types.name as label',
+                DB::raw('COUNT(vehicles.id) as count')
+            )
+                ->groupBy('body_types.id', 'body_types.name')
+                ->orderByDesc('count')
+                ->get();
+
+        return response()->json(['data' => $data], 200);
+    }
+
+    public function vehicle()
+    {
+        $query = DB::table('vehicle_type')
+            ->join('vehicles', 'vehicles.vehicle_id', '=', 'vehicle_type.id')
+            ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id');
+
+
+        $data = $query->select(
+            'vehicle_type.id',
+            'vehicle_type.name as label',
+            DB::raw('COUNT(vehicles.id) as count')
+        )
+            ->groupBy('vehicle_type.id', 'vehicle_type.name')
+            ->orderByDesc('count')
+            ->get();
+
+        return response()->json(['data' => $data], 200);
+    }
+
+
 
     public function make()
     {
@@ -66,7 +104,7 @@ class AuctionFinderService
 
         $query = VehicleModel::join('make', 'make.id', '=', 'model.make_id')
             ->join('vehicles', 'vehicles.model_id', '=', 'model.id')
-            ->whereIn('model.make_id',$this->request->makes ?? []);
+            ->whereIn('model.make_id',$this->request->make ?? []);
 
         
             $data   = $query->select([

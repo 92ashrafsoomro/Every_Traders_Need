@@ -47,6 +47,11 @@
             "path": "/user/profile"
         },
         {
+            "icon": "mdi-post-outline",
+            "label": "News",
+            "path": "/user/news"
+        },
+        {
             "icon": "mdi-cog-outline",
             "label": "Settings",
             "path": "/user/settings/profile"

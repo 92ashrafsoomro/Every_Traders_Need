@@ -81,11 +81,6 @@
         "icon": "mdi-seal-variant",
         "path": "/admin/plans"
       },
-      {
-        "label": "Discount",
-        "icon": "mdi-circle",
-        "path": ""
-      },
        {
         "label": "Restriction Control",
         "icon": "mdi-circle",
@@ -109,13 +104,8 @@
       },
       {
         "label": "Category",
-        "icon": "mdi-circle",
+        "icon": "mdi-layers",
         "path": "/admin/category"
-      },
-       {
-        "label": "Tag",
-        "icon": "mdi-circle",
-        "path": ""
       }
     ]
   },

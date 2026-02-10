@@ -33,9 +33,12 @@ class BlogController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = Blog::query();
+        $query = Blog::query()->with('category', 'author');
 
         //Filter
+        if($request->filled('search')) {
+                $query->where('title', 'like', '%'.$request->search.'%');
+        }
         if($request->has('id') && $request->id != '') {
             $query->where('id',$request->id);
         }
@@ -72,7 +75,7 @@ class BlogController extends Controller
             'image' => 'nullable|image',
             'description' => 'required|string|max:255',
             'date' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:blog_categories,id',
+            'category_id' => 'required|exists:blog_categories,id',
         ]);
 
         if($validator->fails()) {
@@ -86,9 +89,10 @@ class BlogController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'date' => Carbon::parse($request->date),
+            'category_id' => $request->category_id,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
-            'created_by' => Auth::user()->id,
+            'author_id' => Auth::user()->id,
         ]);
 
         if ($request->file('image')) {

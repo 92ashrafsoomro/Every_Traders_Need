@@ -32,9 +32,12 @@ class NewsController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = News::query();
+        $query = News::query()->with('category','creator');
 
         //Filter
+        if($request->filled('search')) {
+                $query->where('title', 'like', '%'.$request->search.'%');
+        }
         if($request->has('id') && $request->id != '') {
             $query->where('id',$request->id);
         }
@@ -89,9 +92,9 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|image',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'date' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:news_categories,id',
+            'category_id' => 'required|exists:blog_categories,id',
         ]);
 
         if($validator->fails()) {
@@ -106,6 +109,7 @@ class NewsController extends Controller
             'description' => $request->description,
             'date' => Carbon::parse($request->date),
             'created_at' => Carbon::now(),
+            'category_id' => $request->category_id,
             'updated_at' => NULL,
             'created_by' => Auth::user()->id,
         ]);
@@ -134,9 +138,9 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'date' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:news_categories,id',
+            'category_id' => 'required|exists:blog_categories,id',
         ]);
 
         if($validator->fails()) {
@@ -158,6 +162,7 @@ class NewsController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'date' => Carbon::parse($request->date),
+            'category_id' => $request->category_id,
             'created_by' => Auth::user()->id,
             'updated_at' => Carbon::now(),
         ]);

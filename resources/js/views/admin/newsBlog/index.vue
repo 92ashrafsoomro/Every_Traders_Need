@@ -1,5 +1,5 @@
   <template>
-    <user-title-bar title="News & Blog">
+    <user-title-bar title="News">
     </user-title-bar>
     <v-container max-width="1400px" class="mx-auto">
       <v-row>
@@ -41,6 +41,14 @@
               </template>
               <template #item.updated_at="{ item }">
                <span>{{ dateFormate(item.updated_at) }}</span>
+              </template>
+              <template #item.category="{item}">
+                <span>{{ item.category.title }}</span>
+
+              </template>
+              <template #item.creator="{item}">
+                <span>{{ item.creator.firstName }} {{ item.creator.surname }}</span>
+
               </template>
 
               <template v-slot:bottom>
@@ -95,11 +103,10 @@ export default {
       viewItem: null,
       headers: [
         { title: "id", value: "id" },
-        { title: "Image Preview", key: "image_preview" },
-        { title: "Category id", value: "category_id", },
+        { title: "Image", key: "image_preview" },
+        { title: "Category", value: "category", },
         { title: "Title", value: "title" },
-        // { title: "Description", value: "description" },
-        { title: "Created by", value: "created_by" },
+        { title: "Created by", value: "creator" },
         { title: "Date", value: "date" },
         { title: "Created At", key: "created_at" },
         { title: "Updated At", key: "updated_at" },
@@ -148,7 +155,7 @@ export default {
       if (!confirm("Are you sure you want to delete this item?")) return;
       this.loading = true;
       try {
-        let res = await General.delete("/api/cruds/news/" + id);
+        let res = await General.delete("/api/cruds/news/"+id);
         this.$alertStore.add(res.message || "deleted", "success");
         this.loadItems();
       } catch (error) {

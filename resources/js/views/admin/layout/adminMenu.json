@@ -98,7 +98,7 @@
     "icon": "mdi-star-outline",
     "children": [
       {
-        "label": "News & Blog",
+        "label": "News",
         "icon": "mdi-seal-variant",
         "path": "/admin/newsBlog"
       },
@@ -108,9 +108,9 @@
         "path": "/admin/blog"
       },
       {
-        "label": "Cat",
+        "label": "Category",
         "icon": "mdi-circle",
-        "path": ""
+        "path": "/admin/category"
       },
        {
         "label": "Tag",

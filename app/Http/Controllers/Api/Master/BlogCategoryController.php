@@ -33,12 +33,13 @@ class BlogCategoryController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        //Query
+
         $query = BlogCategory::query();
 
-        //Filter
-        if($request->has('id') && $request->id != '') {
-            $query->where('id',$request->id);
+        if($request->filled('search')) {
+                $query->where('blog_categories.title', 'like', '%'.$request->search.'%');
+                $query->orWhere('blog_categories.type', 'like', '%'.$request->search.'%');
+                $query->orWhere('blog_categories.id', 'like', '%'.$request->search.'%');
         }
 
         $count = (clone $query)->count();
@@ -66,7 +67,7 @@ class BlogCategoryController extends Controller
 
     
 
-           public function show(Request $request,$id)
+    public function show(Request $request,$id)
     {
 
             $model = BlogCategory::find($id);
@@ -93,6 +94,7 @@ class BlogCategoryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
+            'type'  => 'required|in:blog,news',
         ]);
 
         if($validator->fails()) {
@@ -102,8 +104,10 @@ class BlogCategoryController extends Controller
             ], 422);
         }
 
+
         $model = BlogCategory::create([
             'title' => $request->title,
+            'type' => $request->type,
             'created_at' => Carbon::now(),
             'updated_at' => NULL,
         ]);
@@ -121,6 +125,7 @@ class BlogCategoryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
+            'type'  => 'required|in:blog,news',
         ]);
 
         if($validator->fails()) {
@@ -140,6 +145,7 @@ class BlogCategoryController extends Controller
 
         $model->where('id',$id)->update([
             'title' => $request->title,
+            'type' => $request->type,
             'updated_at' => Carbon::now(),
         ]);
              

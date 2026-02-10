@@ -111,11 +111,6 @@
         "label": "Category",
         "icon": "mdi-layers",
         "path": "/admin/category"
-      },
-       {
-        "label": "Tag",
-        "icon": "mdi-circle",
-        "path": ""
       }
     ]
   },

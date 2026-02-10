@@ -295,3 +295,6 @@ min-height:40px;
 .v-overlay__content{
     /* border: 1px solid rgb(var(--v-theme-primary)); */
 }
+.v-toolbar__content{
+    /* background-color: rgb(var(--v-theme-background),0.2) !important; */
+}

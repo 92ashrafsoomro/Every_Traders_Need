@@ -70,10 +70,9 @@
                                 <div id="card-element" class="my-4 mx-2"></div>
                                 <div id="card-errors" class="text-red mx-2 text-caption"></div>
                             </div>
-                            <v-checkbox class="mt-4 w-full ">
+                            <v-checkbox class="mt-4 w-full " v-model="agreed">
                                 <template #label>
-                                    <div
-                                        class="flex flex-col text-body-2 items-start sm:items-center ">
+                                    <div class="flex flex-col text-body-2 items-start sm:items-center ">
                                         <span>I have read and agree to the</span>
                                         <router-link to="/terms-and-conditions" target="_blank"
                                             class="text-primary  ml-lg-2 ml-2 mr-lg-2 mr-2 underline">
@@ -98,8 +97,13 @@
 
                         </div>
 
+                        <!-- <div v-if="showWarning" class="text-red-500 text-body-2 mt-1">
+                            You must agree to the terms before submitting.
+                        </div> -->
                         <v-btn color="primary" class="mt-3 text-whiteLite text-capitalize" style="height: 50px;"
-                            @click="submit">Submit</v-btn>
+                         @click="submit">
+                            Submit
+                        </v-btn>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -127,7 +131,7 @@
 
                         <div class="text-whiteLite text-right">
                             <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price }}</div>
-                            <div class="text-body-2">{{ oldPlan?.plan?.membership_expiry_date || 0 }}</div>
+                            <div class="text-body-2">{{dateFormate( oldPlan?.membership_expiry_date )}}</div>
                         </div>
                     </div>
 
@@ -184,7 +188,8 @@
                                 </template>
 
 
-                                <v-list class="v-list-rounded bg-background border-none mt-3 ml-lg-0 ml-md-0 ml-n5 " density="compact">
+                                <v-list class="v-list-rounded bg-background border-none mt-3 ml-lg-0 ml-md-0 ml-n5 "
+                                    density="compact">
                                     <v-list-item v-for="item in planList" :key="item.id" @click="selectedPlan = item.id"
                                         class="pa-0 "
                                         :class="selectedPlan === item.id ? 'bg-primary text-whiteLite rounded-t' : 'bg-background'">
@@ -267,6 +272,8 @@ export default {
             stripe: null,
             cardElement: null,
             processing: false,
+            agreed: false,
+            showWarning: false,
             loading: false,
             form: {
                 first_name: '',
@@ -323,7 +330,7 @@ export default {
         getPlans() {
             try {
                 api.get('/api/user/page/plansList').then((res) => {
-                    this.planList = res.data.data;
+                    this.planList = res.data.data.filter(plan => plan.status === 1);
 
                 }).catch((error) => {
                     alert()
@@ -347,7 +354,16 @@ export default {
             this.form.cardholderName = this.userStore.user?.firstName;
 
         },
+        dateFormate(date){
+            if(!date) return ;
+            return date?.split('T')[0].split(' ')[0]
+        },
         async submit() {
+            if (!this.agreed) {
+                this.showWarning = true;
+                   this.$alertStore.add("CLick Select", "error");
+                return;
+            }
             console.log(this.selectedPlan);
             this.loading = true;
 
@@ -384,6 +400,7 @@ export default {
                 this.$alertStore.add("Payment Success", "success");
                 this.$router.replace('/user/settings/billing')
                 this.processing = false;
+                this.showWarning = false;
 
                 this.loading = false;
                 this.getAuth();
@@ -434,8 +451,9 @@ export default {
 .gradiantColor {
     background: linear-gradient(to top, rgb(var(--v-theme-primary), 0.2) 5%, transparent 50%);
 }
-:deep(.v-overlay__content){
+
+:deep(.v-overlay__content) {
     border: none;
-    
+
 }
 </style>

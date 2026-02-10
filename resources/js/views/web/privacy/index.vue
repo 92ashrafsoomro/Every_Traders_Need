@@ -1,7 +1,7 @@
 <template>
     <v-container fluid  max-width="1500px">
 
-        <div class="mt-16 mx-auto content d-flex w-100 ga-12">
+        <div class="mx-auto content d-flex w-100 ga-12">
             <div class="d-none d-md-block position-sticky"
                 style="min-width: 200px; top: 120px; align-self: flex-start;">
                 <Sidebar />

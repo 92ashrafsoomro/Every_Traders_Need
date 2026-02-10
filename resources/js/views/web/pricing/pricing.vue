@@ -1,5 +1,56 @@
 <template>
-    <div>
+    <v-container style="max-width: 1400px ;" class="mx-auto ">
+        <div class="d-flex  text-center items-center justify-center">
+            <h1 class="text-h2 font-weight-bold">Pricing</h1>
+        </div>
+        <v-row justify="center" class="gap-5 mt-20">
+            <v-col v-for="item in data" :key="item.id" cols="12" sm="6" md="4">
+                <v-card class="border rounded-lg ma-3">
+                    <div class="rounded-lg  pa-2 shadow-lg" style="background-color: rgb(var(--v-theme-primary),0.2);
+        border-radius: 2px 2px 20px 20px !important ;  box-shadow: 0 10px 20px -4px rgba(var(--v-theme-primary),0.8);">
+                        <div class="bg-background px-2 py-4 rounded-xl">
+                            <div>
+                                <v-chip color="primary" class="mb-4 d-flex justify-center w-25" small>
+                                    {{ item.discount || 0 }} % off
+                                </v-chip>
+                            </div>
+                            <div>
+
+                                <h3 class="text-h5 font-weight-bold text-white  pt-6">${{ item.plan_name }} </h3>
+                                <h3 class="text-h5 font-weight-bold text-white  pt-2"> <span
+                                        style="text-decoration: line-through;">${{ item.price }}</span>
+                                    <span class="text-h4 font-weight-bold text-white mb-2">${{ discountPrice(item) }}
+                                        <span class="text-body-1">/{{ item.duration_unit }}</span>
+                                    </span>
+                                </h3>
+
+
+                            </div>
+
+                        </div>
+                        <div class="py-2 px-1">
+                            <p style="color:rgb(var(--v-theme-light));" class="pb-2">{{ item.short_desc }}</p>
+                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
+                                Plan</v-btn>
+                        </div>
+                    </div>
+
+                    <div class="pa-4">
+                        <div class="d-flex align-start mb-3  ">
+                            <ul v-for="plan in PricePlanDes" :key="plan.plan_name" style="list-style: none; ">
+                                <li v-for="desc in plan.plan_Description" :key="desc.id">
+                                    <v-icon size="13">mdi-circle</v-icon>
+                                    {{ desc.label }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+    <!-- <div>
         <main style="max-width: 1400px;  " class="mx-auto h-100 py-10">
             <div class="d-flex  text-center items-center justify-center py-16">
                 <h1 class="text-h2 font-weight-bold">Pricing</h1>
@@ -31,8 +82,7 @@
                 </v-col>
                 <v-col>
                     <div class="d-flex flex-lg-row flex-md-row flex-column-reverse bg-surface border justify-center pa-lg-10 pa-md-5 pa-4  mt-10 mt-lg-0 mt-md-0 w-100 " style=" border-radius:15px; ">
-                        <!-- box-shadow:0px 0px 20px 0px rgb(var(--v-theme-shadow)); -->
-                   
+                     
                             <div class="pr-2  ">
                                 <h3 class="text-lg-h5 font-weight-bold text-md-h5">Features</h3>
                                 <ul style="list-style: none ;" class="d-flex flex-column ga-2 flex-wrap my-5">
@@ -93,7 +143,7 @@
                 </v-col>
             </v-row>
         </main>
-    </div>
+    </div> -->
 
     <!--<pricingplain/> -->
     <!-- <featureTable/> -->
@@ -101,6 +151,8 @@
 
 
 <script>
+import PricePlanDes from './pricePlan.json'
+import General from '@/models/general.model';
 import api from '@/plugins/axios';
 import { useUserStore } from '@/stores/userStore';
 // import pricingplain from './pricingplain.vue';
@@ -110,6 +162,63 @@ export default {
     data() {
         return {
             userStore: useUserStore(),
+            data: [],
+            PricePlanDes,
+            loading: false,
+            price: [
+                {
+                    id: 1,
+                    planType: 'Most Popular',
+                    title: 'Free',
+                    des: 'For small dealers.',
+                    price: '0.00',
+                },
+                {
+                    id: 2,
+                    planType: 'Most Popular',
+                    title: 'Ulta',
+                    des: 'For medium-sized businesses.',
+                    price: '100.00',
+                },
+                {
+                    id: 3,
+                    planType: 'Most Popular',
+                    title: 'Plus',
+                    des: 'For larger operations.',
+                    price: '50.00',
+                },
+
+            ],
+            problemItems: [
+                'Overbidding due to incomplete market insight',
+                'Missed opportunities hidden across different auction houses',
+                'Losses caused by unseen condition issues or misleading valuations',
+                'Hours wasted switching between platforms, spreadsheets, and guesswork'
+            ]
+        }
+    },
+    mounted() {
+        this.getPlan()
+    },
+    methods: {
+        async getPlan() {
+            this.loading = false
+            try {
+                let res = await General.get("/api/cruds/plans")
+                this.data = res.data.filter(plan => plan.status === 1);
+                this.loading = true
+            } catch (error) {
+                console.error(error)
+            } finally {
+                this.loading = false
+            }
+        },
+        discountPrice(item) {
+            if (!item.discount) return item.price
+
+            return (
+                item.price - (item.price * item.discount) / 100
+            ).toFixed(2)
         }
     }
 }

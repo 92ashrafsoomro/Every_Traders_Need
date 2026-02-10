@@ -1,6 +1,8 @@
 <template>
  
-    <pricing/>
+   <div class="mt-12">
+     <pricing/>
+   </div>
 
 </template>
 

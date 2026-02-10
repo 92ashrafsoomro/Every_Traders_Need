@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="mt-4 pl-5">
-                                <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder"
+                                <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder" :to="'/checkout'"
                                     style="height: 50px; ">
                                     <span class="text-capitalize text-body-1">Upgrade Plain</span></v-btn>
 
@@ -86,7 +86,7 @@ export default {
         return {
             userStore: useUserStore(),
             pageStore: usePageStore(),
-            showDialog: false,
+            // showDialog: true,
             totalDays: 30,
         };
     },

@@ -1,0 +1,165 @@
+<template>
+    <!-- Top Navbar -->
+    <v-app-bar flat height="50" class="position-fixed  top-0 w-100 transition"
+        :class="isScrolled ? 'glass' : 'bg-transparent'" style="z-index: 100;" >
+        <v-container class="pa-0 bg-transparent" style="max-width:1400px; height:50px;">
+            <div class="d-flex align-center justify-space-between h-100 px-0 py-4">
+
+                <!-- Logo -->
+                <router-link to="/" class="d-flex align-center">
+                    <img :src="currentLogo" height="32" />
+                </router-link>
+
+                <!-- Desktop Menu -->
+                <div class="d-none d-lg-flex pt-3 align-center ga-8">
+                    <v-btn v-for="(item, i) in navMenu" :key="i" :to="item.path" variant="text" rounded="sm"
+                        class="navItem pb-0 text-capitalize text-body-1 text-light_text_on"
+                        :class="{ activeNav: $route.path === item.path }">
+                        {{ item.label }}
+                    </v-btn>
+                </div>
+
+                <!-- Right buttons / user -->
+                <div class="d-flex align-center ga-3 py-1">
+                    <v-btn @click="toggleTheme" :icon="isDark ? 'mdi-lightbulb-off' : 'mdi-lightbulb-on'" size="40"
+                        class="rounded-lg border mb-1" elevation="0" variant="text" />
+
+                    <div class="d-flex align-center ga-2 mb-1">
+                        <ProfileDropdown v-if="userStore.is_logged_in" />
+
+                        <v-btn v-else to="/login" variant="text"
+                            class="text-capitalize border d-lg-flex d-md-flex d-none">
+                            Log In
+                        </v-btn>
+
+                        <v-btn v-if="!userStore.is_logged_in" to="/register" color="primary" variant="flat"
+                            class="border-thin text-capitalize d-lg-flex d-md-flex d-none">
+                            Register
+                        </v-btn>
+                    </div>
+
+                    <v-app-bar-nav-icon class="d-lg-none mb-1" @click="drawer = !drawer" />
+                </div>
+            </div>
+        </v-container>
+    </v-app-bar>
+
+    <!-- Mobile Navigation Drawer -->
+    <v-navigation-drawer v-model="drawer" temporary location="left" width="280" style="margin-top: 50px; "
+        :class="isScrolled ? 'glass' : 'bg-surface'">
+        <div class="d-flex flex-column h-100">
+
+            <v-list class="mt-6">
+                <v-list-item v-for="(item, i) in navMenu" :key="i" :to="item.path" exact class="drawerItem"
+                    active-class="drawerActive">
+                    <v-list-item-title class="text-h6">
+                        {{ item.label }}
+                    </v-list-item-title>
+                </v-list-item>
+            </v-list>
+
+            <div class="flex-grow-1"></div>
+
+            <div class="pa-6 d-flex flex-column ga-4 mb-10" v-if="!userStore.is_logged_in">
+                <v-btn to="/login" variant="outlined" block height="50">Login</v-btn>
+                <v-btn to="/register" color="primary" block height="50">Sign Up</v-btn>
+            </div>
+
+        </div>
+    </v-navigation-drawer>
+
+</template>
+
+<script>
+import navbarItem from "@/enums/WebHeaderMenu";
+import darkLogo from "@/assets/images/header/darkfull.png";
+import lightLogo from "@/assets/images/header/lightfull.png";
+import { useTheme } from "vuetify";
+import { useUserStore } from "@/stores/userStore";
+import ProfileDropdown from "./profileDropdown.vue";
+
+export default {
+    name: "navbar",
+    components: {
+        ProfileDropdown,
+    },
+    data() {
+        return {
+            drawer: false,
+            navMenu: navbarItem,
+            theme: useTheme(),
+            userStore: useUserStore(),
+            isScrolled: false,
+        };
+    },
+    computed: {
+        isDark() {
+            return this.theme.global.name === "adminDark";
+        },
+        currentLogo() {
+            return this.isDark ? darkLogo : lightLogo;
+        },
+    },
+    methods: {
+        toggleTheme() {
+            this.theme.change(this.isDark ? "adminLight" : "adminDark");
+        },
+        onScroll() {
+            this.isScrolled = window.scrollY > 20;
+        },
+    },
+    mounted() {
+        window.addEventListener("scroll", this.onScroll);
+
+    },
+    beforeUnmount() {
+        window.removeEventListener("scroll", this.onScroll);
+    },
+};
+</script>
+
+<style scoped>
+
+
+.glass {
+    background: rgba(var(--v-theme-surface), 0.7) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgb(var(--v-theme-border));
+}
+
+.transition {
+    transition: all 0.3s ease;
+}
+
+
+.navItem {
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s;
+    padding: 0 !important;
+}
+
+.navItem:hover {
+    border-bottom: 3px solid rgb(var(--v-theme-primary));
+    color: rgb(var(--v-theme-whiteLight)) !important;
+
+}
+
+.activeNav {
+    color: rgb(var(--v-theme-whiteLight)) !important;
+    padding: 0;
+    border-bottom: 3px solid rgb(var(--v-theme-primary));
+}
+
+.drawerItem {
+    background: transparent !important;
+}
+
+.drawerItem:hover {
+    background: rgba(var(--v-theme-primary), 0.08);
+}
+
+.drawerActive {
+    background: rgba(var(--v-theme-primary), 0.15) !important;
+}
+</style>

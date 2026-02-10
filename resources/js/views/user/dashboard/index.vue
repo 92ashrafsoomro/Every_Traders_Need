@@ -6,14 +6,14 @@
       style="margin-top: -40px; max-width: 1400px;">
       <div style="max-width: 700px;  " class="">
         <div>
-          <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr Shan!</span> </h6>
+          <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr {{userStore.user.firstName}}!</span> </h6>
         </div>
-        <div class="pr-5 pb-5">
+        <!-- <div class="pr-5 pb-5">
           <p class="mt-3 text-body-1 pa-2 rounded-lg  text-whiteLite"
             style="background-color: #3399ff20; backdrop-filter: blur(5px)">
             Choose The best Plain For Your Need
           </p>
-        </div>
+        </div> -->
       </div>
       <div>
 
@@ -22,7 +22,7 @@
   </user-title-bar>
 
   <div style="max-width: 1400px; " class="mx-auto mb-5 ">
-      <v-row no-gutters="" class="ga-5" style="margin-top: -50px;  padding: 0">
+      <v-row no-gutters="" class="ga-5" style="margin-top: -30px;  padding: 0">
         <!-- Total Auctions -->
   
   
@@ -252,6 +252,7 @@ import VehicleStateChart from '@/views/user/dashboard/VehicleStateChart.vue';
 import Auction from './Auction.vue';
 import General from '@/models/general.model';
 import { useGeneralStore } from '@/stores/generalStore';
+import { useUserStore } from '@/stores/userStore';
 export default {
   name: 'AuctionDashboard',
   components: {
@@ -261,6 +262,7 @@ export default {
 
   data() {
     return {
+      userStore:useUserStore(),
       generalStore : useGeneralStore(),
       onlinePlatform: null,
       timePlatform: null,

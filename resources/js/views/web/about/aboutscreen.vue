@@ -2,7 +2,7 @@
   <main>
     <!-- HERO -->
     <section class="aboutScreen d-flex"
-      style="margin-top: 50px; background-color: rgb(var(--v-theme-primary)); min-height: 80vh;">
+      style=" background-color: rgb(var(--v-theme-primary)); min-height: 80vh;">
       <v-container fluid class="d-flex flex-column ga-4 flex-md-row align-items-center justify-center mx-auto"
         style="max-width: 1400px;">
         <!-- TEXT -->

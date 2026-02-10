@@ -7,14 +7,17 @@
         style="max-width: 1400px;">
         <!-- TEXT -->
         <div class="hero-text d-flex flex-column justify-center text-start" style="max-width: 700px;">
-          <span class="hero-about-heading text-on-primary">About</span>
-          <h1 class="text-h5 text-lg-h3   text-md-h3 font-weight-bold  mb-6">
-            Our vision is to inspire brands to thrive through exceptional content experiences
+          <span class="hero-about-heading text-on-primary">About Autoboli Ltd</span>
+          <h1 class="text-h5 text-lg-h3   text-md-h3 font-weight-bold mt-2 mb-6">
+            Empowering Dealers & Traders with Data-Backed Confidence
           </h1>
 
           <p class="text-body-1  mb-8 w-100  d-flex text-center text-lg-start justify-center">
-            Stay ahead of the market with real-time UK vehicle auction data,
-            transparent valuations, and powerful tools designed for dealers.
+            The vehicle auction industry is fast, competitive, and unforgiving—one wrong bid can cost thousands, and
+            missing the right opportunity can cost even more.
+             For years, dealers and traders have relied on guesswork, scattered data, and outdated pricing tools, making
+            every auction feel like a gamble instead of a calculated investment.
+            That's where Autoboli Ltd steps in.
           </p>
           <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
             <router-link to="auctionschedule" style="text-decoration: none ; ">

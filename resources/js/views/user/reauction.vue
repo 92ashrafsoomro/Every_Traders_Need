@@ -85,7 +85,7 @@
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
                             item-value="id"  hide-default-footer="">
 
-                            <template #item.title> {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </template>
+                            <template #item.title="{item}"> {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </template>
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
                             </template>

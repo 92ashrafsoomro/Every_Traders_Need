@@ -41,6 +41,9 @@ class BlogCategoryController extends Controller
                 $query->orWhere('blog_categories.type', 'like', '%'.$request->search.'%');
                 $query->orWhere('blog_categories.id', 'like', '%'.$request->search.'%');
         }
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
 
         $count = (clone $query)->count();
         $data = $query->select([

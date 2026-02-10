@@ -42,6 +42,14 @@
               <template #item.updated_at="{ item }">
                <span>{{ dateFormate(item.updated_at) }}</span>
               </template>
+              <template #item.category="{item}">
+                <span>{{ item.category.title }}</span>
+
+              </template>
+              <template #item.author="{item}">
+                <span>{{ item.author.firstName }} {{ item.author.surname }}</span>
+
+              </template>
 
               <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t">
@@ -95,11 +103,10 @@ export default {
       viewItem: null,
       headers: [
         { title: "id", value: "id" },
-        { title: "Image Preview", key: "image_preview" },
-        { title: "Category id", value: "category_id", },
+        { title: "Image", key: "image_preview" },
+        { title: "Category", value: "category", },
         { title: "Title", value: "title" },
-        { title: "Description", value: "description" },
-        { title: "Created by", value: "created_by" },
+        { title: "Created by", value: "author" },
         { title: "Date", value: "date" },
         { title: "Created At", key: "created_at" },
         { title: "Updated At", key: "updated_at" },

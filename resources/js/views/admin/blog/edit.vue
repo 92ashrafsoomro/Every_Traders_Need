@@ -5,9 +5,7 @@
 
         <!-- Header -->
         <div class="d-flex align-center justify-space-between px-4 py-3">
-
-          <h3 class="text-h6 font-weight-bold">Blog Edit</h3>
-
+          <h3 class="text-h6 font-weight-bold">News Blog Create</h3>
           <v-btn variant="text" color="primary" class="text-capitalize">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
@@ -16,44 +14,87 @@
 
         <div class="border-b"></div>
 
+     
         <v-container fluid>
           <v-row>
 
+       
             <v-col cols="12" md="6">
-              <v-text-field label="ID" v-model="form.id" readonly variant="outlined" density="compact" hide-details
+                <Blogcategory
+                  label="Category"
+                  v-model="form.category_id"
+                  type="blog"
+                  variant="outlined"
+                  density="compact"
+                  hide-details
+                  class="id-box"
+                  clearable
+                />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field label="Title" v-model="form.title"  variant="outlined" density="compact" hide-details clearable
                 class="id-box" />
             </v-col>
 
             <v-col cols="12" md="6">
-              <v-text-field label="Category Id" v-model="form.category_id"  variant="outlined" density="compact"
-                hide-details class="id-box" />
+              <v-text-field label="Date" v-model="form.date" type="date" variant="outlined" density="compact"
+                 hide-details />
+            </v-col>
+                          
+            <v-col cols="6">
+                <v-btn
+                  variant="outlined"
+                  class="w-100"
+                  color="primary"
+                  @click="uploadImage"
+                >
+                  <v-icon class="mr-2">mdi-upload</v-icon>
+                  Upload
+                </v-btn>
+
+                <v-file-input
+                  ref="uploadInput"
+                  accept="image/*"
+                  @update:modelValue="handleFileChange"
+                  style="position:absolute; left:-9999px; width:0; height:0;"
+                />
             </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field label="Title" v-model="form.title"  variant="outlined" density="compact" hide-details
-                class="id-box" />
+            <v-col cols="12">
+              <v-textarea
+                label="Description"
+                v-model="form.description"
+                variant="outlined"
+                density="compact"
+                rows="4"
+                auto-grow
+                hide-details
+                clearable
+                class="id-box"
+              />
             </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field label="Description" v-model="form.description" variant="outlined" density="compact"
-                clearable hide-details />
+            <v-col class="d-flex justify-center text-center mt-4 w-100">
+              <v-img
+                v-if="imageUrl"
+                :src="imageUrl"
+                max-width="200"
+                max-height="200"
+                cover
+              />
+
             </v-col>
+            
 
 
-            <v-col cols="12" md="6">
-              <v-text-field label="Date" v-model="form.date" type="datetime-local" variant="outlined" density="compact"
-                clearable hide-details />
-            </v-col>
-
-            <!-- Button -->
             <v-col cols="12" class="text-center mt-4">
-              <v-btn @click="updateData" color="primary" height="40">
-                Update
+              <v-btn @click="submitForm" color="primary" height="40">
+                Create
               </v-btn>
             </v-col>
 
           </v-row>
-
         </v-container>
 
       </v-card>
@@ -64,19 +105,22 @@
 
 <script>
 import General from '@/models/general.model';
-
+import Blogcategory from '@/components/blogcategory.vue'
 
 export default {
+  components: {
+      Blogcategory
+  },
   data() {
     return {
       form: {
-        id: '',
-        category_id: '',
+        category_id: null,
         title: '',
         description: '',
         date: '',
       },
-      loading: false
+      loading: false,
+      imageUrl: null,  
     }
   },
   async mounted() {
@@ -85,36 +129,35 @@ export default {
   methods: {
     
    async fetchSignleRecord() {
-  this.loading = true;
-  try {
-    const res = await General.get(
-      "/api/cruds/blogs/" + this.$route.params.id
-    );
+      this.loading = true;
+      try {
+        const res = await General.get(
+          "/api/cruds/blogs/" + this.$route.params.id
+        );
 
-    const data = res.data; 
+        const data = res.data; 
 
-    this.form.id = data.id;
-    this.form.category_id = data.category_id;
-    this.form.title = data.title;
-    this.form.description = data.description;
-    this.form.date = data.date;
+        this.form.id = data.id;
+        this.form.category_id = data.category_id;
+        this.form.title = data.title;
+        this.form.description = data.description;
+        this.form.date = data.date;
+        this.imageUrl = data.image_preview || null;
 
-      this.form.created_by = data.created_by;
-      this.form.created_at = data.created_at;
-    this.form.created_at = data.created_at;
-    this.form.updated_at = data.updated_at;
 
-  } catch (error) {
-    this.$alertStore.add(
-      error.message || 'Failed to fetch record',
-      'error'
-    );
-  } finally {
-    this.loading = false;
-  }
-},
+   
 
-    async updateData() {
+      } catch (error) {
+        this.$alertStore.add(
+          error.message || 'Failed to fetch record',
+          'error'
+        );
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async submitForm() {
       this.loading = true;
 
       try {
@@ -126,6 +169,27 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    uploadImage() {
+      this.$refs.uploadInput.$el
+        .querySelector('input')
+        .click();
+    },
+
+    handleFileChange(file) {
+      if (!file) return;
+
+      this.form.image = file;
+
+      if (this.imageUrl) {
+        URL.revokeObjectURL(this.imageUrl);
+      }
+
+      this.imageUrl = URL.createObjectURL(file);
+    },
+
+    goBack() {
+      this.$router.back();
     }
   }
 }

@@ -65,9 +65,39 @@
                                     density="compact" />
                             </v-col>
 
+                            <!-- Input for adding new description point -->
                             <v-col cols="12" md="12">
-                                <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
-                                    density="compact" />
+                                <v-text-field label="Add Description Point" v-model="newPoint" variant="outlined"
+                                    density="compact" @keyup.enter="addDescriptionPoint" />
+                                <v-btn color="primary" class="mt-2" @click="addDescriptionPoint">
+                                    Add Point
+                                </v-btn>
+                            </v-col>
+
+                            <!-- Display existing description points -->
+                            <v-col cols="12" md="12">
+                                <v-list two-line subheader>
+                                    <v-subheader>Description Points</v-subheader>
+                                    <v-list-item v-for="(point, index) in form.description" :key="index">
+                                        <div class="d-flex"><v-list-item-content>
+                                                <v-list-item-title>{{ point }}</v-list-item-title>
+                                            </v-list-item-content>
+                                            <v-list-item-action>
+                                                <v-btn icon @click="form.description.splice(index, 1)">
+                                                    <v-icon color="red">mdi-close</v-icon>
+                                                </v-btn>
+                                            </v-list-item-action>
+                                        </div>
+                                    </v-list-item>
+                                </v-list>
+                            </v-col>
+
+                            <v-col cols="12" md="12">
+                                <v-textarea label="Short Description" v-model="form.short_desc"
+                                    @keyup.enter="addDescriptionPoint" variant="outlined" density="compact" />
+                                <v-btn color="primary" class="mt-2" @click="addDescriptionPoint">
+                                    Add Point
+                                </v-btn>
                             </v-col>
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="editPlans" color="primary" height="40">
@@ -108,10 +138,12 @@ export default {
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',
+                description: [],
                 duration_value: '',
                 created_at: '',
                 updated_at: ''
             },
+            newPoint: '',
             loading: false,
         }
     },
@@ -120,6 +152,12 @@ export default {
         this.fetchSingleRecord();
     },
     methods: {
+        addDescriptionPoint() {
+            if (this.newPoint.trim() !== '') {
+                this.form.description.push(this.newPoint.trim());
+                this.newPoint = '';
+            }
+        },
         async fetchSingleRecord() {
             this.loading = true;
             try {

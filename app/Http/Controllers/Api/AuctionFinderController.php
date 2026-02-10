@@ -72,12 +72,16 @@ class AuctionFinderController extends Controller
         $vehicle->variant = ModelVariant::find($vehicle->variant_id);
         $vehicle->color = Color::find($vehicle->color_id);
 
-
         $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
+
+        $reAuctionHistory = Vehicle::where('reg', $vehicle->reg)
+            ->where('id', '!=', $vehicle->id) 
+            ->first();
 
         return response()->json([
             'status' => true,
             'data' => [
+                 'reauction' => $reAuctionHistory,
                  'vehicle' => $vehicle,
                  'views' => $viewCount,
                  'priceSymbol' => $priceSymbol,

@@ -67,6 +67,7 @@ class PlanController extends Controller
     }
 
 
+
       public function store(Request $request)
     {
 
@@ -113,6 +114,7 @@ class PlanController extends Controller
     }
 
 
+    
        public function update(Request $request,$id)
     {
 

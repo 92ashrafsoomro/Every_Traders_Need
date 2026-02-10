@@ -1,51 +1,98 @@
 <template>
-    <v-container style="max-width: 1400px ;" class="mx-auto ">
-        <div class="d-flex  text-center items-center justify-center">
+    <v-container style="max-width: 1400px ; margin: 100px ;" class="mx-auto ">
+        <div class="d-flex  text-center items-center justify-center mb-12">
             <h1 class="text-h2 font-weight-bold">Pricing</h1>
         </div>
-        <v-row justify="center" class="gap-5 mt-20">
-            <v-col v-for="item in data" :key="item.id" cols="12" sm="6" md="4">
-                <v-card class="border rounded-lg ma-3">
-                    <div class="rounded-lg  pa-2 shadow-lg" style="background-color: rgb(var(--v-theme-primary),0.2);
-        border-radius: 2px 2px 20px 20px !important ;  box-shadow: 0 10px 20px -4px rgba(var(--v-theme-primary),0.8);">
-                        <div class="bg-background px-2 py-4 rounded-xl">
-                            <div>
-                                <v-chip color="primary" class="mb-4 d-flex justify-center w-25" small>
+        <v-row justify="center" dense="" class=" mt-20">
+            <v-col v-for="item in data" :key="item.id" cols="12" sm="6" md="3" style=" width: 300px !important; ">
+                <v-card v-if="item.plan_name === 'Plus'" class="border  ma-3 bg-background  mt-n5"
+                    style="border-radius: 30px; height: 518px;" :class="{ 'plus-plan': item.plan_name === 'Plus' }">
+                    <div class="bg-primary">
+                        <div class="d-flex justify-center"> MOST POPULAR</div>
+                    </div>
+                    <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
+                            border-radius: 20px !important ;">
+                        <div class="bg-background pa-4 rounded-xl">
+                            <div class="d-flex justify-end">
+                                <v-chip color="primary" class="mb-4 d-flex justify-center px-2" small>
                                     {{ item.discount || 0 }} % off
                                 </v-chip>
                             </div>
                             <div>
 
-                                <h3 class="text-h5 font-weight-bold text-white  pt-6">${{ item.plan_name }} </h3>
-                                <h3 class="text-h5 font-weight-bold text-white  pt-2"> <span
-                                        style="text-decoration: line-through;">${{ item.price }}</span>
-                                    <span class="text-h4 font-weight-bold text-white mb-2">${{ discountPrice(item) }}
-                                        <span class="text-body-1">/{{ item.duration_unit }}</span>
-                                    </span>
-                                </h3>
-
-
+                                <h3 class="text-body-1 font-weight-bold text-white ">{{ item.plan_name }} </h3>
+                                <p class="text-body-subtitle mt-2 text-light_text_on"
+                                    style="text-decoration: line-through;">${{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-white d-inline-block pt-2"> ${{
+                                    discountPrice(item) }} </h3>
+                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
                             </div>
 
                         </div>
                         <div class="py-2 px-1">
-                            <p style="color:rgb(var(--v-theme-light));" class="pb-2">{{ item.short_desc }}</p>
+                            <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
+                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
+                                Plan</v-btn>
+                        </div>
+
+
+                    </div>
+                    <div class="pa-4 bg-background  position-relative" style="z-index: -10px;">
+                        <div class="d-flex align-start mb-3  ">
+                            <ul v-for="plan in PricePlanDes" :key="plan.plan_name" style="list-style: none; ">
+                                <li v-for="desc in plan.plan_Description" :key="desc.id" class="mb-4 d-flex">
+                                    <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
+                                        mdi-check-decagram
+                                    </v-icon>
+                                    <div class="d-flex items-center text-body-2 text-light_text_on">
+                                        {{ desc.label }}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </v-card>
+
+
+                <v-card v-else class="border ma-3 bg-background" style="border-radius: 30px;">
+                    <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
+                            border-radius: 2px 2px 20px 20px !important ;">
+                        <div class="bg-background pa-4 rounded-xl">
+                            <div class="d-flex justify-end">
+                                <v-chip color="primary" class="mb-4 d-flex justify-center px-2" small>
+                                    {{ item.discount || 0 }} % off
+                                </v-chip>
+                            </div>
+                            <div>
+
+                                <h3 class="text-body-1 font-weight-bold text-white ">{{ item.plan_name }} </h3>
+                                <p class="text-body-subtitle mt-2 text-light_text_on"
+                                    style="text-decoration: line-through;">${{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-white d-inline-block pt-2"> ${{
+                                    discountPrice(item) }} </h3>
+                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
+                            </div>
+
+                        </div>
+                        <div class="py-2 px-1">
+                            <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
                             <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
                                 Plan</v-btn>
                         </div>
                     </div>
 
-                    <div class="pa-4">
+                    <div class="pa-4 ">
                         <div class="d-flex align-start mb-3  ">
                             <ul v-for="plan in PricePlanDes" :key="plan.plan_name" style="list-style: none; ">
-                                <li v-for="desc in plan.plan_Description" :key="desc.id">
-                                    <v-icon size="13">mdi-circle</v-icon>
-                                    {{ desc.label }}
+                                <li v-for="desc in plan.plan_Description" :key="desc.id" class="mb-4 d-flex">
+                                    <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
+                                        mdi-check-decagram
+                                    </v-icon>
+                                    <div class="d-flex items-center text-body-2 text-light_text_on">
+                                        {{ desc.label }}</div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
                 </v-card>
             </v-col>
         </v-row>
@@ -121,7 +168,7 @@
                                         style="width:100%; height:220px; border-radius:15px; bottom:0px;">
                                         <p class="text-body-2">Built for active dealers & traders</p>
                                         <div class="d-flex align-center text-h6">
-                                            <p>£</p>
+                                            <p>$</p>
                                             <p class="text-h4 font-weight-bold">2.49</p>
                                             <p>/mo</p>
                                         </div>
@@ -224,4 +271,12 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.plus-plan {
+    border: 2px solid rgb(var(--v-theme-primary)) !important;
+    /* height: 520px; */
+
+    /* transform: scale(1.09); */
+
+}
+</style>

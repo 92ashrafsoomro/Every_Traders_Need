@@ -195,7 +195,7 @@ class PlanController extends Controller
         }
 
         if(Membership::where('plan_id',$id)->first()){
-            return response()->json(['message' =>'Cannot Delete Exist In Vehicle'], 422);
+            return response()->json(['message' =>'Cannot Delete Exist In User'], 422);
         }
 
         $model->delete();

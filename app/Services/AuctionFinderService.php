@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\AuctionCenter;
+use App\Models\AuctionPlatform;
 use App\Models\Auctions;
 use App\Models\Interest;
 use App\Models\Make;
@@ -35,8 +37,53 @@ class AuctionFinderService
         }
     }
 
+ 
+        public function platform()
+    {
+        
+        $query = AuctionPlatform::join('vehicles', 'vehicles.body_id', '=', 'auction_platform.id')
+                                ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id');
+        $data = $query->select(
+                    'auction_platform.id',
+                    'auction_platform.name as label',
+                    DB::raw('COUNT(vehicles.id) as count')
+                )
+                ->groupBy('auction_platform.id', 'auction_platform.name')
+                ->orderByDesc('count')
+                ->get();
 
-    public function body()
+                return [
+                    'total' => count($data),
+                    'data' => $data
+                ];
+
+    }
+
+
+        public function center()
+    {
+        
+        $query = AuctionCenter::join('vehicles', 'vehicles.body_id', '=', 'auction_center.id')
+                    ->join('auctions', 'auctions.id', '=', 'vehicles.auction_id');
+        $data = $query->select(
+                'auction_center.id',
+                'auction_center.name as label',
+                DB::raw('COUNT(vehicles.id) as count')
+                )
+                ->groupBy('auction_center.id', 'auction_center.name')
+                ->orderByDesc('count')
+                ->get();
+                
+                return [
+                    'total' => count($data),
+                    'data' => $data
+                ];
+
+    }
+
+
+
+        public function body()
     {
             $query = DB::table('body_types')
                 ->join('vehicles', 'vehicles.body_id', '=', 'body_types.id')

@@ -82,8 +82,8 @@ class News extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
     
-  public function category() {
-        return $this->belongsTo(NewSCategory::class, 'category_id');
+    public function category() {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
     }
 
 }

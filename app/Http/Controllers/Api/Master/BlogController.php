@@ -36,6 +36,9 @@ class BlogController extends Controller
         $query = Blog::query()->with('category', 'author');
 
         //Filter
+        if($request->filled('search')) {
+                $query->where('title', 'like', '%'.$request->search.'%');
+        }
         if($request->has('id') && $request->id != '') {
             $query->where('id',$request->id);
         }

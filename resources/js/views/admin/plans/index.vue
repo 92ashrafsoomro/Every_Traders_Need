@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="border">
-            <v-data-table-server class="" hide-default-footer="" :loading="loading" :headers="headers" :items="items"
+            <v-data-table-server class="" sort-asc-icon="" hide-default-footer="" :loading="loading" :headers="headers" :items="items"
                 :items-length="total" hover item-value="id" @update:options="getPlanData">
                 <template #item.created_at="{ item }">
                     <span>{{ item.created_at?.split('T')[0] }}</span>
@@ -29,13 +29,13 @@
                     <span>{{ item.updated_at?.split('T')[0] }}</span>
                 </template>
                 <template #item.is_officer="{ item }">
-                    <v-btn :color="item.is_officer == 0 ? 'primary' : 'warning'" size="small" variant="flat">
+                    <v-btn :color="item.is_officer == 0 ? 'primary' : 'warning'" size="small" variant="flat" class="cursor-text">
                         {{ item.is_officer == 0 ? 'Yes' : 'No' }}
                     </v-btn>
                 </template>
 
                 <template #item.status="{item}">
-                    <v-btn :color="item.status == 0 ? 'primary':'warning'" size="small" variant="flat">
+                    <v-btn :color="item.status == 0 ? 'primary':'warning'" size="small" variant="flat"  class="cursor-text">
                              {{ item.status == 0 ? 'Yes' : 'No' }}
                     </v-btn>
                 </template>

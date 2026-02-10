@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CfymWatz.js",
+    "file": "assets/app-DTaUt2Bf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-B2h7o-UD.css"
+      "assets/app-DV8ynl3C.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -142,8 +142,9 @@
       "assets/img6-B9NCu9jA.png",
       "assets/img5-CKLX1V7N.png",
       "assets/img2-DjL3MK6F.png",
-      "assets/Exists-GwQSYy8h.png",
+      "assets/AboutAutoboli-DOolGXaA.png",
       "assets/carAuction-Drlgd7oW.png",
+      "assets/Exists-GwQSYy8h.png",
       "assets/Different1-Bu2k_8QW.png",
       "assets/Different2-MYYaXsWR.png",
       "assets/differentimg-BfukXemL.png",
@@ -178,6 +179,10 @@
       "assets/MaterialIcons-Regular-FsbMSDLx.woff",
       "assets/MaterialIcons-Regular-DEUTIz1o.ttf"
     ]
+  },
+  "resources/js/assets/images/about/AboutAutoboli.png": {
+    "file": "assets/AboutAutoboli-DOolGXaA.png",
+    "src": "resources/js/assets/images/about/AboutAutoboli.png"
   },
   "resources/js/assets/images/about/Different1.png": {
     "file": "assets/Different1-Bu2k_8QW.png",

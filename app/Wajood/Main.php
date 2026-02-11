@@ -9,6 +9,7 @@ use App\Models\Interest;
 use App\Models\Make;
 use App\Models\ModelVariant;
 use App\Models\Prefix;
+use App\Models\ScrapedVehicle;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -21,22 +22,25 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class Main 
+class Main extends Row
 {
 
-    public $response;
-    public $auctionId;
-    public $auction;
-    public $prefixes = [];
+    protected $request;
+    protected $auctionId;
+    protected $auction;
+    protected $prefixes = [];
+    protected $items;
+
 
     public function __construct($request){
 
-        $this->response = $request;
+        $this->request  = $request;
         $this->auctionId = $request->route('id');
-
         $this->loadAuction();
         $this->loadPrefixes();
-        
+        $this->loadScraper();
+        parent::__construct();
+
     }
 
 
@@ -50,7 +54,6 @@ class Main
     }
 
 
-    
     public function loadPrefixes(){
 
         $prefixes = [];
@@ -63,20 +66,25 @@ class Main
     }
 
 
+    public function loadScraper(){
+        
+        $scrap = ScrapedVehicle::select('payload')->where('auction_id',$this->auction->id)->pluck('payload')->first();
+        $this->items = json_decode($scrap,true);
+
+    }
+
 
     public function get(){
-
-        // return $this->response;
-
+        
         return  [
-                        'message' => 'Record Updated Successfully',
-                        'auction' =>  $this->auction,
-                        'data' =>  [],
+                    'message' => 'Record Updated Successfully',
+                    'auction' =>  $this->auction,
+                    'data' =>  $this->items,
                 ];
-
 
     }
 
  
+
     
 }

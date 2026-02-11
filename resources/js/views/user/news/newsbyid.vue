@@ -3,18 +3,20 @@
     <v-main>
       <v-container fluid class="pa-0 fill-height bg-background">
         <v-row no-gutters class="fill-height">
+
+          <!-- SIDEBAR -->
           <v-col cols="12" md="3" class="border-e">
             <v-list lines="three" bg-color="transparent">
 
-<v-list-item
-  v-for="item in blogs"
-  :key="item.id"
-  :active="selectedBlog && selectedBlog.id === item.id"
-  active-color="primary"
-  class="border-b"
-  @click="selectBlog(item)"
->
-
+              <v-list-item
+                v-for="item in blogs"
+                :key="item.id"
+                :active="selectedBlog && selectedBlog.id === item.id"
+                active-color="primary"
+                class="border-b"
+                link
+                @click="selectBlog(item.id)"
+              >
                 <v-list-item-title class="font-weight-bold text-wrap mb-1">
                   {{ item.title }}
                 </v-list-item-title>
@@ -30,6 +32,7 @@
             </v-list>
           </v-col>
 
+          <!-- CONTENT -->
           <v-col cols="12" md="9" class="pa-6 pa-md-12">
             <v-card
               v-if="selectedBlog"
@@ -37,7 +40,7 @@
               rounded="lg"
               class="pa-6"
             >
-
+              <!-- META -->
               <div class="d-flex align-center mb-4">
                 <v-chip size="small" color="primary" class="mr-3">
                   {{ selectedBlog.category?.title || 'General' }}
@@ -47,14 +50,14 @@
                 </span>
               </div>
 
-
+              <!-- TITLE + IMAGE -->
               <v-row>
                 <v-col cols="12" md="7">
                   <h1 class="text-h4 font-weight-bold mb-6">
                     {{ selectedBlog.title }}
                   </h1>
 
-
+                  <!-- SHARE -->
                   <div class="d-flex align-center mt-4">
                     <span class="text-caption mr-3">Share:</span>
 
@@ -134,17 +137,28 @@ export default {
         const res = await General.get('/api/cruds/news');
         this.blogs = res.data;
 
-        if (this.blogs.length) {
-          this.selectBlog(this.blogs[0]);
+        const routeId = this.$route?.params?.id;
+
+        if (routeId) {
+          this.selectBlog(routeId);
+        } else if (this.blogs.length) {
+          this.selectBlog(this.blogs[0].id);
         }
       } catch (e) {
         console.error('Blogs error', e);
       }
     },
 
-    // ❌ NO ROUTER, NO URL CHANGE
-    selectBlog(blog) {
-      this.selectedBlog = blog;
+    async selectBlog(id) {
+      try {
+        const res = await General.get(`/api/cruds/news/${id}`);
+        this.selectedBlog = res.data;
+
+        // URL update without reload
+        this.$router.push({ params: { id } });
+      } catch (e) {
+        console.error('Single blog error', e);
+      }
     },
 
     shareFacebook() {
@@ -172,10 +186,8 @@ export default {
       );
     }
   }
-
 };
 </script>
-
 
 <style scoped>
 .text-wrap {

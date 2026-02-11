@@ -303,7 +303,6 @@ export default {
         if (!this.selectedPlan && this.userStore.selectedPlanId) {
             this.selectedPlan = this.userStore.selectedPlanId;
         }
-        console.log(this.userStore.selectedPlanId)
 
 
     },

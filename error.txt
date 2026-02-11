@@ -1,0 +1,10 @@
+create account 
+TypeError: e.onFileChange is not a function
+    at u.onChange.t.<computed>.t.<computed> (app-CutZxdn3.js:112:62872)
+    at of (app-CutZxdn3.js:13:1385)
+    at ir (app-CutZxdn3.js:13:1456)
+    at HTMLDivElement.n (app-CutZxdn3.js:18:8640)
+
+
+
+    SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'website' cannot be null (Connection: mysql, SQL: insert into `users` (`companyName`, `companyAddress1`, `companyAddress2`, `businessType`, `companyReg`, `website`, `businessEmail`, `motorTradeInsurance`, `vatNumber`, `townCity`, `country`, `postcode`, `telephone`, `firstName`, `surname`, `jobTitle`, `title`, `source`, `phone`, `avatar`, `motorTradeProof`, `addressProof`, `personalEmail`, `password`, `email_verification_token`, `email_verification_token_status`, `status`, `user_type`, `updated_at`, `created_at`) values (Huzaifa Company, Tokyo, UK, Motor Dealer, 12345678, ?, ?, Yes, ?, Karachi, Pakistan, 21233, 03400292040, Huzaifa, Abdulrab, CEO, CEO, Vehicle Trader Forum, 03400292040, 1770809331__ff__Group 4.png, 1770809331__ff__image.png, 1770809331__ff__image.png, huzaifaabdulrab@gmail.com, $2y$12$j9ExAXIgWi58N99SW9JEROMFO84uVRWDuklVz0ytwvlqJ4FGEwi2O, ?, 1, 1, 0, 2026-02-11 11:28:52, 2026-02-11 11:28:52))

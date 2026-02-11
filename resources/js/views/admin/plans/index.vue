@@ -35,7 +35,7 @@
                 </template>
 
                 <template #item.status="{item}">
-                    <v-btn :color="item.status == 0 ? 'primary':'warning'" size="small" variant="flat"  class="cursor-text">
+                    <v-btn :color="item.status == 0 ? 'warning':'primary'" size="small" variant="flat"  class="cursor-text">
                              {{ item.status == 0 ? 'No' : 'Yes' }}
                     </v-btn>
                 </template>

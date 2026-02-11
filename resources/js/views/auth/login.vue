@@ -119,8 +119,13 @@ export default {
             errors: {},
             loading: false,
             form: {
+<<<<<<< HEAD
                 email: "admin@autoboli",
                 password: "12345678",
+=======
+                email: "",
+                password: "",
+>>>>>>> c2549b96cad97b3b6713dba7a7f6b307fd2a27b2
             },
         };
     },

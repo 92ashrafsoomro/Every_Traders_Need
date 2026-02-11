@@ -41,11 +41,11 @@
                     </template>
                     <template #item.status="{ item }">
                         <v-btn
-                            :color="item.status == 0 ? 'primary':'warning'"
+                            :color="item.status == 0 ? 'warning':'primary'"
                             size="small"
                             variant="flat"
                         >
-                         {{ item.status == 0 ?  'Active' : 'Pending'   }}
+                         {{ item.status == 0 ?  'Pending' : 'Active'   }}
                         </v-btn>
                     </template>
 

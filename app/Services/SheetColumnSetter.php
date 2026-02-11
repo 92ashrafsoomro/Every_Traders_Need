@@ -217,6 +217,7 @@ class SheetColumnSetter
         $this->setMakeId();
        
         $this->setModelId();
+        $this->varientClean();
       
         $this->setVariantId();
         return $this->item;

@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Hash;
 class SheetService 
 {   
 
-        static public function getScrapperDataByAuction(Request $request,Auctions $model)
+        static public function getScrap(Request $request,Auctions $model)
     {
 
             $prefixes = [];

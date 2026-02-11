@@ -126,6 +126,16 @@ class UserController extends Controller
                         
                         return $row;
                     });
+                $planCounts = DB::table('membership_plans')
+                    ->leftJoin('memberships', 'memberships.plan_id', '=', 'membership_plans.id')
+                    ->select(
+                        'membership_plans.id',
+                        'membership_plans.plan_name',
+                        DB::raw('COUNT(memberships.user_id) as total_users')
+                    )
+                    ->where('membership_plans.status', 1)
+                    ->groupBy('membership_plans.id', 'membership_plans.plan_name')
+                    ->get();
 
 
                     return response()->json([
@@ -134,6 +144,7 @@ class UserController extends Controller
                         'offset' => $offset,
                         'last_page' => ceil($count / $length),
                         'data' => $data,
+                        'planCounts'=>$planCounts
                     ],200);
     }
 

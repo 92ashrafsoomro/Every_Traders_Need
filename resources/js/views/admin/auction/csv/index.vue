@@ -182,7 +182,7 @@ export default {
                 let res = await Auction.find(id, {});
                 this.form.table_id = res.data.table_id;
                 this.form.id = res.data.id;
-                this.form.auctionname = res.data.name;
+                this.form.auctionname = res.data.platform.name;
                 this.form.name = this.CsvStore.platformName;
                 this.form.type = res.data.type
             } catch (error) {

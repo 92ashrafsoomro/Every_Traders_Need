@@ -36,7 +36,7 @@ class SheetController extends Controller
                 
                 return response()->json([
                     'message' => 'Record Get Successfully',
-                    'data' => SheetService::getScrap($request,$id)
+                    'data' => SheetService::getScrapperDataByAuction($request,$model)
                 ],200);
 
                 // $main = new Main($request);

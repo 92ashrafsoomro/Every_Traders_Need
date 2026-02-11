@@ -123,15 +123,12 @@ import General from '@/models/general.model';
 import { useUserStore } from '@/stores/userStore';
 // import pricingplain from './pricingplain.vue';
 // import featureTable from './featureTable.vue';
-import { usePlanStore } from '@/stores/planStore';
-
 export default {
     name: "pricingCard",
     
     data() {
         return {
             userStore: useUserStore(),
-            planStore: usePlanStore(),
             data: [],
             billingType: 'month',
             loading: false,
@@ -156,8 +153,7 @@ export default {
             }
         },
         selectPlan(item) {
-            this.planStore.setPlanId(item.id);
-            console.log('Plan saved in Pinia:', item.id);
+            this.userStore.setPlanId(item.id);
         },
         discountPrice(item) {
             if (!item.discount) return item.price

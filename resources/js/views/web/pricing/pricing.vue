@@ -1,7 +1,8 @@
 <template>
     <v-container style="max-width: 1400px ; margin: 100px ;" class="mx-auto ">
-        <div class="d-flex  text-center items-center justify-center mb-12" v-if="$route.path !== '/user/settings/billing'">
-            <h1 class="text-h2 font-weight-bold" >Pricing</h1>
+        <div class="d-flex  text-center items-center justify-center mb-12"
+            v-if="$route.path !== '/user/settings/billing'">
+            <h1 class="text-h2 font-weight-bold">Pricing</h1>
         </div>
         <div class="d-flex justify-center mb-8 ">
             <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
@@ -10,23 +11,34 @@
             </v-btn-toggle>
         </div>
         <v-row justify="center" dense="" class=" mt-20">
+
+
             <v-col v-for="item in filteredPlans" :key="item.id" cols="12" sm="6" md="3"
-                style=" width: 300px !important; ">
+                style=" width: 300px !important; position: relative;">
+                <div class="  d-flex w-100 left-0  
+                        justify-center items-center " style=" position: absolute; z-index: 10; left: 0;">
+                    <v-chip v-if="item.plan_name === 'Plus'" color="primary"
+                    variant="flat"
+                        class="mb-4 d-flex justify-center items-center px-2" small>Most Popular</v-chip>
+                </div>
                 <v-card v-if="item.plan_name === 'Plus'" class="border  ma-3 bg-background  "
-                    style="border-radius: 30px;  min-height: 500px;" :class="{ 'plus-plan': item.plan_name === 'Plus' }">
+                    style="border-radius: 30px;  min-height: 700px;"
+                    :class="{ 'plus-plan': item.plan_name === 'Plus' }">
+
+
                     <div class="bg-primary">
 
                     </div>
                     <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
                             border-radius: 20px !important ;">
+
                         <div class="bg-background pa-4 rounded-xl" style=" height: 175px">
-                            <div class="d-flex justify-center  items-center  ">
-                                <v-chip color="primary" class="mb-4 d-flex  position-absolute top-0 justify-center px-2"
-                                    small>
+                            <div class="d-flex justify-end  ">
+                                <v-chip color="primary" class="mb-4 d-flex justify-end px-2" small>
                                     {{ item.discount || 0 }} % off
                                 </v-chip>
                             </div>
-                            <div class="mt-12">
+                            <div class="">
 
                                 <h3 class="text-body-1 font-weight-bold text-whiteLite ">{{ item.plan_name }} </h3>
                                 <p class="text-body-subtitle mt-2 text-light_text_on"
@@ -45,7 +57,7 @@
 
 
                     </div>
-                
+
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
@@ -66,7 +78,7 @@
                 </v-card>
 
 
-                <v-card v-else class="border ma-3 bg-background" style="border-radius: 30px;   min-height: 500px;">
+                <v-card v-else class="border ma-3 bg-background" style="border-radius: 30px;   min-height: 700px;">
                     <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
                             border-radius: 2px 2px 20px 20px !important ;">
                         <div class="bg-background pa-4 rounded-xl">
@@ -158,16 +170,25 @@ export default {
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
         },
-        buildPlanDescription(description) {
+      buildPlanDescription(description) {
     if (!description) return [];
 
-    return description
-        .split(/\r?\n/) 
-        .filter(line => line.trim() !== '')
-        .map((line, index) => ({
+    try {
+        // 1. Parse the JSON string into a real Javascript Array
+        const points = Array.isArray(description) 
+            ? description 
+            : JSON.parse(description);
+
+        // 2. Map the array to the format your template needs (id and label)
+        return points.map((line, index) => ({
             id: index + 1,
-            label: line.trim()
+            label: line
         }));
+    } catch (error) {
+        // Fallback: If it's not valid JSON, treat it as a plain string
+        console.error("Description format error:", error);
+        return [{ id: 1, label: description }];
+    }
 }
     },
     computed: {
@@ -184,7 +205,7 @@ export default {
 <style scoped>
 .plus-plan {
     border: 2px solid rgb(var(--v-theme-primary)) !important;
-    
+
 
 }
 </style>

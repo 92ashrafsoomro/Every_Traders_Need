@@ -64,18 +64,19 @@
                             <v-col cols="12" md="12">
                                 <v-text-field label="Add Description Point" v-model="newPoint" variant="outlined"
                                     density="compact" @keyup.enter="addDescriptionPoint" />
-                                     <v-btn color="primary" class="mt-2" @click="addDescriptionPoint">
+                                <v-btn color="primary" class="mt-2" @click="addDescriptionPoint">
                                     Add Point
                                 </v-btn>
                             </v-col>
                             <v-col cols="12" md="12">
-                                  <v-subheader>Description Points</v-subheader>
-                                      <div class="d-flex flex-wrap gap-2">
-                                        <v-chip v-for="(point , index) in form.description" :key="index" color="primary"
-                                        variant="outlined" closable @click:close="form.description.splice(index , 1)" class="ma-1">
-                                        {{ point }} 
-                                        </v-chip>
-                                      </div>
+                                <v-subheader>Description Points</v-subheader>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <v-chip v-for="(point, index) in points" :key="index" color="primary"
+                                        variant="outlined" closable @click="remove()"
+                                        class="ma-1">
+                                        {{ point }}
+                                    </v-chip>
+                                </div>
                             </v-col>
                             <v-col cols="12" md="12">
                                 <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
@@ -107,7 +108,7 @@ export default {
                 id: '',
                 plan_name: '',
                 short_desc: '',
-                description : [],
+                description: '["Huzaifa", "huzaifa@gmail.com", "Developer"]',
                 price: '',
                 status: '',
                 discount: '',
@@ -116,36 +117,61 @@ export default {
                 duration_unit: '',
                 duration_value: '',
             },
-            newPoint : '',
+            newPoint: '',
             loading: false,
         }
     },
     mounted() {
     },
+    computed:{
+        points(){
+            return JSON.parse(this.form.description)
+        }
+    },
     methods: {
-        addDescriptionPoint(){ 
-            if(this.newPoint.trim() !== ""){
-                this.form.description.push(this.newPoint.trim())
-                this.newPoint = "";
-            }
+        addDescriptionPoint() {
+        
+            let arr = [...this.points]; 
+        arr.push(this.newPoint);  
+        
+        this.form.description = JSON.stringify(arr);
+        this.newPoint = '';
+        },
+        remove(index) {
+            // let arr = [...this.points];
+            // arr.splice(index, 1);
+            // this.form.description = JSON.stringify(arr);
+            debugger
+            
+            let arr = this.points;
+
+            let vv = arr.filter(function(item,key){
+                    if(index === item){
+                        return false;
+                    }
+                    return true;
+            });
+
+            console.log(vv);
+            
+
+            this.form.description = JSON.stringify(vv);
+
         },
         async createPlans() {
             this.loading = true;
-            const descriptionBackup = [this.form.description];
+            
             try {
-                this.form.description = this.form.description.join('\n');
                 const res = await General.post("/api/cruds/plans", this.form);
                 this.$alertStore.add(res.message || 'Plan Created', 'success');
                 this.$router.push("/admin/plans");
-            } catch (error) {
-                console.error(error);
-                this.$alertStore.add(error.message || 'Something went wrong', 'error');
-            } finally {
-                this.form.description = descriptionBackup;
-                this.loading = false;
-            }
-        }
 
+            } catch (error) {
+                this.$alertStore.add(error.message || 'Something went wrong', 'error');
+            } 
+
+        }
     }
+
 }
 </script>

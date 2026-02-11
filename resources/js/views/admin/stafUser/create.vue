@@ -86,8 +86,8 @@ export default {
     data() {
         return {
              statusItems: [
-                { value: 'Active', id: 0 },
-                { value: 'Pending', id: 1 },
+                { value: 'Active', id: 1 },
+                { value: 'Pending', id: 0 },
                 ],
             form: {
                 id: '',

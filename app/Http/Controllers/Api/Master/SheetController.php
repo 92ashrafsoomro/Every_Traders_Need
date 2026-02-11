@@ -33,16 +33,13 @@ class SheetController extends Controller
                 }
 
                 
-
-                $main = new Main($request);
-
-           
-
+                
                 return response()->json([
                     'message' => 'Record Get Successfully',
                     'data' => SheetService::getScrap($request,$id)
                 ],200);
 
+                // $main = new Main($request);
                 // return response()->json($main->get());
 
         } catch (\Throwable $e) {

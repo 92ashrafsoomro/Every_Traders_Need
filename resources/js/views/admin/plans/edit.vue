@@ -76,28 +76,21 @@
 
                             <!-- Display existing description points -->
                             <v-col cols="12" md="12">
-                                <v-list two-line subheader>
-                                    <v-subheader>Description Points</v-subheader>
-                                    <v-list-item v-for="(point, index) in form.description" :key="index">
-                                        <div class="d-flex"><v-list-item-content>
-                                                <v-list-item-title>{{ point }}</v-list-item-title>
-                                            </v-list-item-content>
-                                            <v-list-item-action>
-                                                <v-btn icon @click="form.description.splice(index, 1)">
-                                                    <v-icon color="red">mdi-close</v-icon>
-                                                </v-btn>
-                                            </v-list-item-action>
-                                        </div>
-                                    </v-list-item>
-                                </v-list>
+                                <v-subheader>Description Points</v-subheader>
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    <v-chip v-for="(point, index) in form.description" :key="index" color="primary"
+                                        variant="outlined" closable @click:close="form.description.splice(index, 1)"
+                                        class="ma-1">
+                                        {{ point }}
+                                    </v-chip>
+                                </div>
                             </v-col>
 
+
                             <v-col cols="12" md="12">
-                                <v-textarea label="Short Description" v-model="form.short_desc"
-                                    @keyup.enter="addDescriptionPoint" variant="outlined" density="compact" />
-                                <v-btn color="primary" class="mt-2" @click="addDescriptionPoint">
-                                    Add Point
-                                </v-btn>
+                                <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
+                                    density="compact" />
                             </v-col>
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="editPlans" color="primary" height="40">
@@ -166,6 +159,7 @@ export default {
                 this.form.plan_name = res.data.plan_name;
                 this.form.short_desc = res.data.short_desc;
                 this.form.price = res.data.price;
+                this.form.description = res.data.description ? res.data.description.split(/\r?\n/).filter(d => d.trim() !== '') : [];
                 this.form.status = res.data.status;
                 this.form.discount = res.data.discount;
                 this.form.duration_unit = res.data.duration_unit;
@@ -184,7 +178,9 @@ export default {
 
         async editPlans() {
             this.loading = true;
+            const descriptionBackup = [...this.form.description];
             try {
+                this.form.description = this.form.description.join('\n');
                 let res = await General.put("/api/cruds/plans/" + this.form.id, this.form);
                 this.$alertStore.add(res.message, 'success');
                 // this.$router.push("/admin/plans")
@@ -193,6 +189,7 @@ export default {
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong', error)
             } finally {
+                this.form.description = descriptionBackup;
                 this.loading = false;
             }
         }

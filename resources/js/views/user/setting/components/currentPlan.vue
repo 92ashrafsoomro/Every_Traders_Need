@@ -37,22 +37,21 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4 pl-5">
-                                <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder" :to="'/checkout'"
+                            <div class="mt-4 mb-4 pl-5">
+                                <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder" 
                                     style="height: 50px; ">
                                     <span class="text-capitalize text-body-1">Upgrade Plain</span></v-btn>
 
                             </div>
 
-                            <v-container class="d-flex m-2">
-                                <v-dialog v-model="showDialog" max-width="">
+                             <v-dialog v-model="showDialog" max-width="" style="border: none !important;">
                                     <template v-slot:default="{ isActive }">
                                         <v-btn icon="mdi-close" variant="flat" @click="isActive.value = false"
                                             style="position: absolute; z-index: 1; right: 0;"></v-btn>
-                                        <PricePlan />
+                                        <pricingCard />
                                     </template>
                                 </v-dialog>
-                            </v-container>
+                     
                     
         
             </v-card>
@@ -75,18 +74,20 @@
 import { useUserStore } from '@/stores/userStore';
 import { usePageStore } from '@/stores/pageStore';
 import PaymentForm from './PaymentForm.vue';
-import PricePlan from './pricePlan.vue';
+// import PricePlan from './pricePlan.vue';
+import pricingCard from '@views/web/pricing/pricing.vue'
 
 export default {
     components: {
         PaymentForm,
-        PricePlan
+        // PricePlan,
+        pricingCard
     },
     data() {
         return {
             userStore: useUserStore(),
             pageStore: usePageStore(),
-            // showDialog: true,
+            showDialog: true,
             totalDays: 30,
         };
     },

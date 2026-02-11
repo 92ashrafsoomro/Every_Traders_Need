@@ -1,21 +1,36 @@
 <template>
-    <div v-for="(item, index) in masterStore.variants.data" :key="item.id"
-        class="d-flex align-center justify-space-between">
-        <v-checkbox v-model="auctionStore.filter.variant" v-if="showAll || index <= 7" :label="item.label"
-            :value="item.id" @change="handleChange" />
+   <div v-for="(variants, modelName) in groupedVariantsByModel" :key="modelName" class="mb-4">
 
-        <div class="d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite mb-2"
-            style="border: 1px solid rgba(var(--v-theme-primary),0.3);" v-if="showAll || index <= 7" >
-            <p>{{ item.count }}</p>
-        </div>
-    </div>
+  <p class="text-subtitle-2 text-grey mb-2 mt-2">
+    {{ modelName }} ({{ variants.length }})
+  </p>
 
-    <div class="py-4">
-        <p style="text-decoration: underline; cursor: pointer;" @click="showAll = !showAll"
-            v-if="masterStore.variants.data.length > 7">
-            {{ showAll ? "Show Less" : "Show More" }}
-        </p>
+  <div v-for="(item, index) in variants" :key="item.id" class="d-flex align-center justify-space-between">
+    <v-checkbox 
+      v-if="showAll || index <= 3"
+      v-model="auctionStore.filter.variant" 
+      :label="item.label"
+      :value="item.id" 
+      @change="handleChange" 
+    />
+    <div 
+      v-if="showAll || index <= 3"
+      class="d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite mb-2"
+      style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
+      <p>{{ item.count }}</p>
     </div>
+  </div>
+
+  <!-- Show More / Show Less -->
+  <div class="py-4" v-if="variants.length > 3">
+    <p style="text-decoration: underline; cursor: pointer;"
+       @click="showAll = !showAll">
+      {{ showAll ? "Show Less" : "Show More" }}
+    </p>
+  </div>
+
+</div>
+
 
 </template>
 
@@ -40,7 +55,21 @@ export default {
         }
     },
     computed: {
+        groupedVariantsByModel() {
+            const groups = {};
 
+            this.masterStore.variants.data.forEach(variant => {
+                const modelName = variant.model || "Variant Name";
+
+                if (!groups[modelName]) {
+                    groups[modelName] = [];
+                }
+
+                groups[modelName].push(variant);
+            });
+
+            return groups;
+        }
     },
 };
 

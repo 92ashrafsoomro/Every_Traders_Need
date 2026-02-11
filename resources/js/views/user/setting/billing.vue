@@ -27,7 +27,8 @@ export default {
      CurrentPlan,
     //  pricePlan,
     //  PaymentForm,
-     BillingHistory
+     BillingHistory,
+    
     },
     data() {
         return {

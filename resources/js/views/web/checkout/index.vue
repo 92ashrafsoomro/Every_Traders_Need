@@ -97,9 +97,9 @@
 
                         </div>
 
-                        <!-- <div v-if="showWarning" class="text-red-500 text-body-2 mt-1">
+                        <div v-if="showWarning" class="text-red-500 text-body-2 mt-1">
                             You must agree to the terms before submitting.
-                        </div> -->
+                        </div>
                         <v-btn color="primary" class="mt-3 text-whiteLite text-capitalize" style="height: 50px;"
                          @click="submit">
                             Submit
@@ -361,10 +361,10 @@ export default {
         async submit() {
             if (!this.agreed) {
                 this.showWarning = true;
-                   this.$alertStore.add("CLick Select", "error");
+                //    this.$alertStore.add("CLick Select", "error");
                 return;
             }
-            console.log(this.selectedPlan);
+            // console.log(this.selectedPlan);
             this.loading = true;
 
             try {

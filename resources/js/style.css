@@ -136,10 +136,10 @@ tbody tr:hover{
 }
 
 
-.v-overlay__content {
+/* .v-overlay__content {
     border: 1px solid rgb(var(--v-theme-border)) !important;
     
-}
+} */
 
 /* Targe/* Completely remove hover background tint */
 .v-expansion-panel-title__overlay {

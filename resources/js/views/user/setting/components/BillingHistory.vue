@@ -5,10 +5,10 @@
             <v-data-table-server sort-asc-icon=""  :headers="headers" :items="data"  hover :items-length="data.length" hide-default-footer
                 item-value="id">
 
-                <template #item.invoice="{ item }">
+                <!-- <template #item.invoice="{ item }">
                     <v-icon icon="mdi-eye-outline" class="mr-2"></v-icon>
                     <v-icon icon="mdi-download"></v-icon>
-                </template>
+                </template> -->
 
                 <template #item.updated_at="{ item }">
                     <span class="">
@@ -53,7 +53,7 @@ export default {
                 { title: "Expiry", value: "membership_expiry_date" },
                 { title: "Amount", value: "plan.price" },
                 { title: "Status", value: "membership_status" },
-                { title: "Invoice", value: "invoice" },
+                // { title: "Invoice", value: "invoice" },
             ],
         };
     },

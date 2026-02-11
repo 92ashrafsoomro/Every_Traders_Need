@@ -1,97 +1,139 @@
 <template>
-    <v-container fluid class="pa-8 pa-md-16 bg-surface" max-height="700px">
-        <v-row justify="center" class="gap-5">
-            <v-col v-for="item in data" :key="item.id" cols="12" sm="6" md="3">
-                <v-card class="border rounded-lg ma-3">
-                    <div class="rounded-lg  pa-2 shadow-lg" style="background-color: rgb(var(--v-theme-primary),0.2);
-        border-radius: 2px 2px 20px 20px !important ;  box-shadow: 0 10px 20px -4px rgba(var(--v-theme-primary),0.8);">
-                        <div class="bg-background px-2 py-4 rounded-xl">
-                            <div>
-                                <v-chip color="primary" class="mb-4 d-flex justify-center w-25" small>
+    <v-container style="max-width: 1400px ; margin: 100px ;" class="mx-auto ">
+        <div class="d-flex  text-center items-center justify-center mb-12">
+            <h1 class="text-h2 font-weight-bold">Pricing</h1>
+        </div>
+        <div class="d-flex justify-center mb-8">
+            <v-btn-toggle v-model="billingType" mandatory rounded color="primary">
+                <v-btn value="month">Monthly</v-btn>
+                <v-btn value="year">Yearly</v-btn>
+            </v-btn-toggle>
+        </div>
+        <v-row justify="center" dense="" class=" mt-20">
+            <v-col v-for="item in filteredPlans" :key="item.id" cols="12" sm="6" md="3"
+                style=" width: 300px !important; ">
+                <v-card v-if="item.plan_name === 'Plus'" class="border  ma-3 bg-background  "
+                    style="border-radius: 30px;  min-height: 500px;" :class="{ 'plus-plan': item.plan_name === 'Plus' }">
+                    <div class="bg-primary">
+
+                    </div>
+                    <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
+                            border-radius: 20px !important ;">
+                        <div class="bg-background pa-4 rounded-xl" style=" height: 175px">
+                            <div class="d-flex justify-center  items-center  ">
+                                <v-chip color="primary" class="mb-4 d-flex  position-absolute top-0 justify-center px-2"
+                                    small>
+                                    {{ item.discount || 0 }} % off
+                                </v-chip>
+                            </div>
+                            <div class="mt-12">
+
+                                <h3 class="text-body-1 font-weight-bold text-white ">{{ item.plan_name }} </h3>
+                                <p class="text-body-subtitle mt-2 text-light_text_on"
+                                    style="text-decoration: line-through;">${{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-white d-inline-block pt-2"> ${{
+                                    discountPrice(item) }} </h3>
+                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
+                            </div>
+
+                        </div>
+                        <div class="py-2 px-1">
+                            <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
+                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
+                                Plan</v-btn>
+                        </div>
+
+
+                    </div>
+                
+                    <div class="pa-4 " style="height: 200px;">
+                        <div class="d-flex align-start mb-3  ">
+                            <ul style="list-style: none;">
+                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
+                                    class="mb-4 d-flex">
+                                    <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
+                                        mdi-check-decagram
+                                    </v-icon>
+
+                                    <div class="d-flex items-center text-body-2 text-light_text_on">
+                                        {{ desc.label }}
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </v-card>
+
+
+                <v-card v-else class="border ma-3 bg-background" style="border-radius: 30px;   min-height: 500px;">
+                    <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
+                            border-radius: 2px 2px 20px 20px !important ;">
+                        <div class="bg-background pa-4 rounded-xl">
+                            <div class="d-flex justify-end">
+                                <v-chip color="primary" class="mb-4 d-flex justify-center px-2" small>
                                     {{ item.discount || 0 }} % off
                                 </v-chip>
                             </div>
                             <div>
 
-                                <h3 class="text-h5 font-weight-bold text-white  pt-6">${{ item.plan_name }} </h3>
-                                <h3 class="text-h5 font-weight-bold text-white  pt-2"> <span
-                                        style="text-decoration: line-through;">${{ item.price }}</span>
-                                    <span class="text-h4 font-weight-bold text-white mb-2">${{ discountPrice(item) }}
-                                        <span class="text-body-1">/{{ item.duration_unit }}</span>
-                                    </span>
-                                </h3>
-
-
+                                <h3 class="text-body-1 font-weight-bold text-white ">{{ item.plan_name }} </h3>
+                                <p class="text-body-subtitle mt-2 text-light_text_on"
+                                    style="text-decoration: line-through;">${{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-white d-inline-block pt-2"> ${{
+                                    discountPrice(item) }} </h3>
+                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
                             </div>
 
                         </div>
                         <div class="py-2 px-1">
-                            <p style="color:rgb(var(--v-theme-light));" class="pb-2">{{ item.short_desc }}</p>
+                            <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
                             <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
                                 Plan</v-btn>
                         </div>
                     </div>
 
-                    <div class="pa-4">
-                        <div class="d-flex align-center mb-3 d-flex align-start">
-                            <span class="text-whiteLight text-body-2">
-                                {{ item.description }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                blanditiis vero nemo tenetur repudiandae, impedit odio adipisci doloremque culpa
-                                consectetur maxime odit, soluta quibusdam aut id. Temporibus repellendus assumenda
-                                architecto?
-                            </span>
+                    <div class="pa-4 " style="height: 200px;">
+                        <div class="d-flex align-start mb-3  ">
+                            <ul style="list-style: none;">
+                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
+                                    class="mb-4 d-flex">
+                                    <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
+                                        mdi-check-decagram
+                                    </v-icon>
+
+                                    <div class="d-flex items-center text-body-2 text-light_text_on">
+                                        {{ desc.label }}
+                                    </div>
+                                </li>
+                            </ul>
+
                         </div>
                     </div>
                 </v-card>
             </v-col>
         </v-row>
     </v-container>
+
 </template>
+
 
 <script>
 import General from '@/models/general.model';
-import PriceCard from './PriceCard.vue';
-
-
+import { useUserStore } from '@/stores/userStore';
+// import pricingplain from './pricingplain.vue';
+// import featureTable from './featureTable.vue';
 export default {
-    components: {
-        PriceCard
-    },
+    name: "pricingCard",
     data() {
         return {
+            userStore: useUserStore(),
             data: [],
+            billingType: 'month',
             loading: false,
-            price: [
-                {
-                    id: 1,
-                    planType: 'Most Popular',
-                    title: 'Free',
-                    des: 'For small dealers.',
-                    price: '0.00',
-                },
-                {
-                    id: 2,
-                    planType: 'Most Popular',
-                    title: 'Ulta',
-                    des: 'For medium-sized businesses.',
-                    price: '100.00',
-                },
-                {
-                    id: 3,
-                    planType: 'Most Popular',
-                    title: 'Plus',
-                    des: 'For larger operations.',
-                    price: '50.00',
-                },
 
-            ],
-            problemItems: [
-                'Overbidding due to incomplete market insight',
-                'Missed opportunities hidden across different auction houses',
-                'Losses caused by unseen condition issues or misleading valuations',
-                'Hours wasted switching between platforms, spreadsheets, and guesswork'
-            ]
-        };
+
+        }
     },
     mounted() {
         this.getPlan()
@@ -101,7 +143,7 @@ export default {
             this.loading = false
             try {
                 let res = await General.get("/api/cruds/plans")
-                this.data = res.data
+                this.data = res.data.filter(plan => plan.status === 1);
                 this.loading = true
             } catch (error) {
                 console.error(error)
@@ -115,20 +157,34 @@ export default {
             return (
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
-        }
+        },
+        buildPlanDescription(description) {
+    if (!description) return [];
+
+    return description
+        .split(/\r?\n/) 
+        .filter(line => line.trim() !== '')
+        .map((line, index) => ({
+            id: index + 1,
+            label: line.trim()
+        }));
+}
     },
+    computed: {
+        filteredPlans() {
+            return this.data.filter(
+                plan => plan.duration_unit === this.billingType
+            )
+        }
+    }
 
 }
-
 </script>
 
 <style scoped>
-.pricing-card {
-    display: flex;
-    flex-direction: column;
-}
+.plus-plan {
+    border: 2px solid rgb(var(--v-theme-primary)) !important;
+    
 
-.v-application {
-    background: #0f0f1e !important;
 }
 </style>

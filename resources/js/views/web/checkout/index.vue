@@ -146,15 +146,18 @@
                             <div v-for="item in planList" :key="item.id">
                                 <div v-if="item.id === selectedPlan">
                                     <v-divider class="mb-4"></v-divider>
-                                    <div class="d-flex   justify-space-between px-6 py-3 rounded-sm "
-                                        style="background-color: rgb(var(--v-theme-primary));">
+
+                                    <div
+                                        class="d-flex justify-space-between px-6 py-3 rounded-sm"
+                                        style="background-color: rgb(var(--v-theme-primary));"
+                                    >
                                         <div class="d-flex align-center gap-2">
                                             <v-icon class="bg-white text-primary rounded-sm" size="25">
                                                 mdi-plus
                                             </v-icon>
-                                            <div class="ml-2">
-                                                <div class="text-lg-h6  text-body-1 font-weight-bold">
 
+                                            <div class="ml-2">
+                                                <div class="text-lg-h6 font-weight-bold">
                                                     {{ item.plan_name }}
                                                 </div>
                                                 <div class="text-body-2 d-lg-flex d-md-flex d-none">
@@ -162,19 +165,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-lg-h6  text-body-1  text-whiteLite font-weight-bold ">
+
+                                        <div class="text-lg-h6 text-whiteLite font-weight-bold">
                                             £{{ item.price }}
-                                            <div class="text-body-2 text-whiteLite ">
+                                            <div class="text-body-2 text-whiteLite">
                                                 Per {{ item.duration_unit }}
                                             </div>
                                         </div>
-
                                     </div>
-
-
-
                                 </div>
                             </div>
+
 
                             <!-- Custom Dropdown -->
                             <v-menu offset-y>
@@ -260,7 +261,7 @@
 import api from '@/plugins/axios';
 import { useUserStore } from '@/stores/userStore';
 import { loadStripe } from "@stripe/stripe-js";
-
+import { usePlanStore } from '@/stores/planStore';
 
 
 
@@ -269,6 +270,7 @@ export default {
     data() {
         return {
             userStore: useUserStore(),
+            planStore: usePlanStore(),
             stripe: null,
             cardElement: null,
             processing: false,
@@ -300,6 +302,7 @@ export default {
         this.getPlans();
         this.getAuth();
         this.stripeLoad();
+
 
     },
     computed: {

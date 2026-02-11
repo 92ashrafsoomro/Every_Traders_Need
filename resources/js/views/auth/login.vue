@@ -119,7 +119,7 @@ export default {
             errors: {},
             loading: false,
             form: {
-                email: "man411210@gmail.com",
+                email: "admin@autoboli",
                 password: "12345678",
             },
         };

@@ -49,6 +49,7 @@ use App\Http\Controllers\Api\StripeController;
     Route::get('/user', function (Request $request) {
         return $request->user();
     })->middleware('auth:sanctum');
+    
 
 
 
@@ -65,7 +66,9 @@ use App\Http\Controllers\Api\StripeController;
     });
 
 
-
+    Route::prefix('web')->group(function () {
+        Route::get('/getplans',[PlanController::class,'index']);
+    });
  
     
 

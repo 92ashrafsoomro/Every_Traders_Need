@@ -88,7 +88,7 @@
                         </div>
                         <div class="py-2 px-1">
                             <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
-                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Select
+                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100" @click="selectPlan(item)">Select
                                 Plan</v-btn>
                         </div>
                     </div>
@@ -123,11 +123,15 @@ import General from '@/models/general.model';
 import { useUserStore } from '@/stores/userStore';
 // import pricingplain from './pricingplain.vue';
 // import featureTable from './featureTable.vue';
+import { usePlanStore } from '@/stores/planStore';
+
 export default {
     name: "pricingCard",
+    
     data() {
         return {
             userStore: useUserStore(),
+            planStore: usePlanStore(),
             data: [],
             billingType: 'month',
             loading: false,
@@ -142,7 +146,7 @@ export default {
         async getPlan() {
             this.loading = false
             try {
-                let res = await General.get("/api/cruds/plans")
+                let res = await General.get("/api/web/getplans")
                 this.data = res.data.filter(plan => plan.status === 1);
                 this.loading = true
             } catch (error) {
@@ -150,6 +154,10 @@ export default {
             } finally {
                 this.loading = false
             }
+        },
+        selectPlan(item) {
+            this.planStore.setPlanId(item.id);
+            console.log('Plan saved in Pinia:', item.id);
         },
         discountPrice(item) {
             if (!item.discount) return item.price

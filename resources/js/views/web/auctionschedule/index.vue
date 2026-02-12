@@ -42,11 +42,7 @@
 
                 <div class="lowerSection d-flex justify-space-between mt-2">
                     <div class="d-flex align-center ">
-                        <svg width="15" height="15" viewBox="0 0 512 512" class="text-primary auction-svg"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill="currentColor"
-                                d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z" />
-                        </svg>
+                      <HammerIcon/>
 
                         <span class="pl-1 mt-1 text-body-2">
                             {{ value.auction }}
@@ -74,12 +70,7 @@
 
                         <div class="lowerSection d-flex justify-space-between mt-2 ">
                             <div class="d-flex align-center">
-                                <svg width="15" height="15" viewBox="0 0 512 512" class="text-primary auction-svg"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor"
-                                        d="M504.971 199.362l-22.627-22.627c-9.373-9.373-24.569-9.373-33.941 0l-5.657 5.657L329.608 69.255l5.657-5.657c9.373-9.373 9.373-24.569 0-33.941L312.638 7.029c-9.373-9.373-24.569-9.373-33.941 0L154.246 131.48c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l5.657-5.657 39.598 39.598-81.04 81.04-5.657-5.657c-12.497-12.497-32.758-12.497-45.255 0L9.373 412.118c-12.497 12.497-12.497 32.758 0 45.255l45.255 45.255c12.497 12.497 32.758 12.497 45.255 0l114.745-114.745c12.497-12.497 12.497-32.758 0-45.255l-5.657-5.657 81.04-81.04 39.598 39.598-5.657 5.657c-9.373 9.373-9.373 24.569 0 33.941l22.627 22.627c9.373 9.373 24.569 9.373 33.941 0l124.451-124.451c9.372-9.372 9.372-24.568 0-33.941z" />
-                                </svg>
-
+                             <HammerIcon/>
                                 <span class="pl-1 mt-1 text-body-2">
                                     {{ value.auction }}
                                 </span>
@@ -168,13 +159,13 @@ import { auctionSheldulerList } from '@/services/pageService';
 import CenterDropdown from '@/components/CenterDropdown.vue';
 import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import { useUserStore } from "@/stores/userStore";
+import HammerIcon from '@/views/admin/taskManagement/component/Icon.vue'
 export default {
     name: "auctionsolution",
     components: {
         CenterDropdown,
         PlateformDropdown,
-
-
+        HammerIcon
     },
     data() {
         return {

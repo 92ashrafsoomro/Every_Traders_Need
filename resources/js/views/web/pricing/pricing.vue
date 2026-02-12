@@ -6,8 +6,9 @@
         </div>
         <div class="d-flex justify-center mb-8 ">
             <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
-                <v-btn value="month">Monthly</v-btn>
-                <v-btn value="year">Yearly</v-btn>
+                <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Monthly</v-btn>
+                <v-btn value="Quaterly" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Quaterly</v-btn>
+                <v-btn value="year" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Yearly</v-btn>
             </v-btn-toggle>
         </div>
         <v-row justify="center" dense="" class=" mt-20">
@@ -17,13 +18,13 @@
                 style=" width: 300px !important; position: relative;">
                 <div class="  d-flex w-100 left-0  
                         justify-center items-center " style=" position: absolute; z-index: 10; left: 0;">
-                    <v-chip v-if="item.plan_name === 'Plus'" color="primary"
-                    variant="flat"
-                        class="mb-4 d-flex justify-center items-center px-2" small>Most Popular</v-chip>
+                    <v-chip v-if="item.plan_name === 'Trader Pro'" color="primary" variant="flat" class="mb-4 d-flex justify-center  items-center px-2" xsmall>
+                        <span class="">Most Popular</span>
+                    </v-chip>
                 </div>
-                <v-card v-if="item.plan_name === 'Plus'" class="border  ma-3 bg-background  "
-                    style="border-radius: 30px;  min-height: 700px;"
-                    :class="{ 'plus-plan': item.plan_name === 'Plus' }">
+                <v-card v-if="item.plan_name === 'Trader Pro'" class="border  ma-3 bg-background  "
+                    style="border-radius: 30px;  min-height: 700px; border: 2px solid rgb(var(--v-theme-primary)) !important;"
+                    :class="{ 'Trader-pro': item.plan_name === 'Trader Pro' }">
 
 
                     <div class="bg-primary">
@@ -196,20 +197,22 @@ export default {
 }
     },
     computed: {
-        filteredPlans() {
-            return this.data.filter(
-                plan => plan.duration_unit === this.billingType
-            )
+         filteredPlans() {
+        return this.data
+            .filter(plan => plan.duration_unit === this.billingType)
+            .sort((a, b) => (a.sort_by ?? 0) - (b.sort_by ?? 0));
+         }
         }
-    }
 
 }
 </script>
 
 <style scoped>
-.plus-plan {
+.Trader-pro {
     border: 2px solid rgb(var(--v-theme-primary)) !important;
-
-
 }
+:deep(.v-btn--active) {
+  background-color: rgb(var(--v-theme-primary),0.2) !important;
+}
+
 </style>

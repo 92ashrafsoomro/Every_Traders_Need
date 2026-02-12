@@ -4,8 +4,10 @@
            <v-list density="compact"   class="" nav>
 
                 <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 269" :src="logo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
-                    <img v-else :src="newLogo" 
+                    <img v-if="menuWidth == 269" 
+                        :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
+                    
+                    <img v-else :src="smallCurrent" 
                         style="width: 40px; height: 40px; " />
                 </v-list-item>
                <v-divider class="ps-0 pe-0"></v-divider>
@@ -68,17 +70,22 @@
 </template>
 
 <script>
-import newLogo from "@assets/images/logo/newLogo.png" 
-import { useDisplay } from "vuetify";
+import { useDisplay, useTheme } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
 import  userMenu  from "./adminMenu.json";
 import logo from "@assets/images/logo/logo.png"
+import newLogo from "@assets/images/logo/newLogo.png"
+import darkLogo from "@/assets/images/header/darkfull.png"
+import lightLogo from "@/assets/images/header/lightfull.png"
+import darkshortLogo from "@/assets/images/header/darkshort.png"
+import lightshortLogo from "@/assets/images/header/lightshort.png"
 export default {
     data() {
         return {
             userMenu,
             themeStore: useThemeStore(),
             display: useDisplay(),
+            vuetify: useTheme(),
             logo: logo,
             newLogo 
         };
@@ -95,9 +102,23 @@ export default {
             }
 
         },
+        isDark(){
+            return this.vuetify.global.name === "adminDark"
+        },
+        currentLogo(){
+            return this.isDark ? darkLogo : lightLogo
+        },
+         smallCurrent(){
+             return this.isDark ? darkshortLogo : lightshortLogo
+        }
     },
     methods: {
-
+        images(){
+            return this.isDark ? darkLogo : lightLogo;
+        },
+        toggleTheme(){
+            this.vuetify.change(this.isDark ? "adminLight" : "adminDark" )
+        }
     },
     mounted() { 
 

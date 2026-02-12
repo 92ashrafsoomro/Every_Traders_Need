@@ -3,8 +3,14 @@
         <v-list density="compact" class="" nav>
             <v-list-item class="d-flex " style="height: 57px; ">
 
-                <img v-if="menuWidth == 258" :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" />
-                <img v-else :src="smallCurrent" style="width: 40px; height: 40px;" /> </v-list-item>
+                <img v-if="menuWidth == 258"
+                    :src="currentLogo" 
+                    style="width: auto; height: 40px; margin-left: -1px;" />
+                
+                <img v-else :src="smallCurrent"
+                     style="width: 40px; height: 40px;" /> 
+            
+            </v-list-item>
 
 
 
@@ -43,11 +49,11 @@
 
             </template>
 
-            <!-- <div class="d-flex ga-6 ml-3 mt-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
+            <div v-if="userStore.user.role !== 'Subscriber'" class="d-flex ga-6 ml-3 mt-2"> <v-icon class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
                 <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay text-body-1">
                     <router-link to="/admin" style="text-decoration: none ;" class="text-whiteLight">
                         Admin</router-link></v-list-item>
-            </div> -->
+            </div>
         </v-list>
     </v-navigation-drawer>
 </template>

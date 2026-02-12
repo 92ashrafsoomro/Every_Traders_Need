@@ -365,31 +365,31 @@ export default {
             alertStore: useAlertStore(),
 
             form: {
-                companyName: 'tt',
-                companyAddress1: 'tt',
-                companyAddress2: 'tt',
+                companyName: '',
+                companyAddress1: '',
+                companyAddress2: '',
                 businessType: null,
-                companyReg: 'tt',
-                townCity: 'tt',
-                website: 'tt',
-                country: 'tt',
-                businessEmail: 'test@test.com',
-                postcode: '123',
+                companyReg: '',
+                townCity: '',
+                website: '',
+                country: '',
+                businessEmail: '',
+                postcode: '',
                 motorTradeInsurance: null,
-                telephone: '02340823',
-                vatNumber: '22',
-                firstName: 'dd',
-                surname: 'dd',
+                telephone: '',
+                vatNumber: '',
+                firstName: '',
+                surname: '',
                 source: null,
-                phone: 'dd',
-                jobTitle: 'dd',
+                phone: '',
+                jobTitle: '',
                 avatar: null,
 
                 motorTradeProof: null,
                 addressProof: null,
 
-                personalEmail: 'man411210@gmail.com',
-                password: '12345678',
+                personalEmail: '',
+                password: '',
 
             },
             errors: {
@@ -488,9 +488,9 @@ export default {
                 console.log(this.form);
 
                 let response = await this.userStore.registerRequest(this.form);
-                this.userStore.initializeUserSession(response.token, response.user);
-                this.themeStore.endLoading();
-                this.alertStore.add('Account Created Successfully', 'success');
+                // this.userStore.initializeUserSession(response.token, response.user);
+                // this.themeStore.endLoading();
+                this.alertStore.add('Send verification link Your Email', 'success');
                 this.$router.push("/login")
 
             } catch (error) {

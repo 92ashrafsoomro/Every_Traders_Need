@@ -21,12 +21,16 @@
 <script>
 import api from "@/plugins/axios";
 import { useAlertStore } from "@stores/alertStore";
+import { useThemeStore } from '@/stores/themeStore';
+import { useUserStore } from '@/stores/userStore';
 export default {
   name: 'VerifyEmail',
 
   data() {
     return {
       loading: true,
+      themeStore: useThemeStore(),
+      userStore: useUserStore(),
       alertStore: useAlertStore(),
       form: {
         email: this.$route.query.email || '',
@@ -53,8 +57,8 @@ export default {
       try {
 
         const res = await api.post('/api/auth/verifyemail', this.form)
-        console.log("shakeeb")
-        console.log(res)
+        this.userStore.initializeUserSession(res.data.data.token, res.data.data.user);
+        this.themeStore.endLoading();
         this.alertStore.add(res.data.message);
         this.$router.replace('/user/dashboard')
 

@@ -353,7 +353,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('autoboli_token')->plainTextToken;   
         return response()->json([
-            'message' => "User Created Successfuly",
+            'message' => "Send verification link Your Email",
             // 'data' =>[
             //     'user' => new UserProfileResource($user),
             //     'token' => $token

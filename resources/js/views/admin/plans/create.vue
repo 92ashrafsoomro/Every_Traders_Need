@@ -71,10 +71,14 @@
                             <v-col cols="12" md="12">
                                 <v-subheader>Description Points</v-subheader>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <v-chip v-for="(point, index) in points" :key="index" color="primary"
-                                        variant="outlined" closable @click="remove()"
-                                        class="ma-1">
+                                    <v-chip 
+                                            v-for="(point, index) in points"
+                                            :key="index" 
+                                            color="primary"
+                                            variant="outlined" 
+                                            class="ma-1">
                                         {{ point }}
+                                        <v-btn icon="mdi-close" size="x-small" variant="text" @click.stop="remove(index)"/>
                                     </v-chip>
                                 </div>
                             </v-col>
@@ -138,24 +142,10 @@ export default {
         this.newPoint = '';
         },
         remove(index) {
-            // let arr = [...this.points];
-            // arr.splice(index, 1);
-            // this.form.description = JSON.stringify(arr);
-            debugger
-            
-            let arr = this.points;
-
-            let vv = arr.filter(function(item,key){
-                    if(index === item){
-                        return false;
-                    }
-                    return true;
-            });
-
-            console.log(vv);
-            
-
-            this.form.description = JSON.stringify(vv);
+            let arr = [...this.points];
+            arr.splice(index, 1);
+            this.form.description = JSON.stringify(arr);
+           
 
         },
         async createPlans() {
@@ -164,7 +154,7 @@ export default {
             try {
                 const res = await General.post("/api/cruds/plans", this.form);
                 this.$alertStore.add(res.message || 'Plan Created', 'success');
-                this.$router.push("/admin/plans");
+                // this.$router.push("/admin/plans");
 
             } catch (error) {
                 this.$alertStore.add(error.message || 'Something went wrong', 'error');

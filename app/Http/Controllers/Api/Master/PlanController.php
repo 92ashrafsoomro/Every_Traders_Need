@@ -50,6 +50,9 @@ class PlanController extends Controller
                 ->orderByDesc('id')
                 ->get()
                 ->map(function($item){
+                    if (!empty($item->description)) {
+                            $item->description = json_decode($item->description, true);
+                        }
                     return $item;
                 });
             
@@ -76,7 +79,7 @@ class PlanController extends Controller
             'price' => 'required|numeric|min:0',
             'discount' => 'required|numeric|min:0',
             'short_desc' =>  'required|string|max:255',
-            'description' =>  'nullable|string|max:255',
+            'description' => 'nullable|array',
             'duration_unit' =>  'required|in:month,week,year|max:255',
             'duration_value' =>  'required|numeric|min:0',
             'status' =>  'required|integer|in:0,1|max:255',
@@ -95,8 +98,8 @@ class PlanController extends Controller
             'plan_name' => $request->plan_name,
             'price' => $request->price,
             'discount' => $request->discount,
-            'short_desc' => $request->short_desc,
-            'description' => $request->description,
+            'short_desc' => $request->short_desc, 
+            'description' => json_encode($request->description,true) ?? [] ,
             'duration_unit' => $request->duration_unit,
             'duration_value' => $request->duration_value,
             'status' => $request->status,
@@ -130,7 +133,7 @@ class PlanController extends Controller
             'price' => 'required|numeric|min:0',
             'discount' => 'required|numeric|min:0',
             'short_desc' =>  'required|string|max:255',
-            'description' =>  'nullable|string|max:255',
+            'description' => 'nullable|array',
             'duration_unit' =>  'required|in:month,week,year|max:255',
             'duration_value' =>  'required|numeric|min:0',
             'status' =>  'required|integer|in:0,1|max:255',
@@ -150,7 +153,7 @@ class PlanController extends Controller
             'price' => $request->price,
             'discount' => $request->discount,
             'short_desc' => $request->short_desc,
-            'description' => $request->description,
+            'description' => json_encode($request->description,true) ?? [] ,
             'duration_unit' => $request->duration_unit,
             'duration_value' => $request->duration_value,
             'status' => $request->status,
@@ -175,6 +178,9 @@ class PlanController extends Controller
             return response()->json([
                 'message' => 'Record Not Found',
             ], 422);
+        }
+        if (!empty($model->description)) {
+            $model->description = json_decode($model->description, true);
         }
         
         return response()->json([

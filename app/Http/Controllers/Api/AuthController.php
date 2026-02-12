@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
+use App\Mail\VerifyEmail;
 class AuthController extends Controller
 {
 
@@ -176,9 +177,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'User not found or not authorized.',], 422);
         }
 
-        // if ($user->email_verification_token_status == 0) {
-        //     return response()->json(['message' => 'This user verification not be done',], 422);
-        // }
+        if ($user->email_verification_token_status == 0) {
+            return response()->json(['message' => 'This user verification not be done',], 422);
+        }
 
         if ($user->status == 0) {
             return response()->json(['message' => 'Your account is deactivated or blocked. Please contact support.',], 422);
@@ -337,19 +338,26 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
         }
         
-        $user->email_verification_token = null;
-        $user->email_verification_token_status = 1;
+        $user->email_verification_token = strtoupper(Str::random(6));
+        $user->email_verification_token_status = 0;
         $user->status = 1;
         $user->user_type = 0;
         $user->save();
 
+        try {
+            Mail::to($user->personalEmail)->send(new VerifyEmail($user));
+        } catch (\Exception $e) {
+            \Log::error('Email sending failed: ' . $e->getMessage());
+        }
+
+
         $token = $user->createToken('autoboli_token')->plainTextToken;   
         return response()->json([
-            'message' => "User Created Successfuly",
-            'data' =>[
-                'user' => new UserProfileResource($user),
-                'token' => $token
-            ],  
+            'message' => "Send verification link Your Email",
+            // 'data' =>[
+            //     'user' => new UserProfileResource($user),
+            //     'token' => $token
+            // ],  
         ],200);
 
 
@@ -551,6 +559,58 @@ class AuthController extends Controller
             'message' => 'Password reset successfully!'
         ], 200);
     }
+
+public function verifyEmail(Request $request)
+{
+
+    $user = User::where('personalEmail', $request->email)->first();
+
+    if (!$user) {
+        return response()->json([
+            'success' => false,
+            'message' => 'User not found.'
+        ], 404);
+    }
+
+    if ($user->status == 0) {
+        if (!$user->last_resend_at || !Carbon::parse($user->last_resend_at)->addHours(24)->isPast()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is blocked. Please try again after 24 hours.'
+            ], 403);
+        }
+
+        // unblock
+        $user->status = 1;
+        $user->resend_count = 0;
+        $user->save();
+    }
+
+    if ($user->email_verification_token !== $request->token) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid verification code.'
+        ], 422);
+    }
+
+    // ✅ verified
+    $user->email_verification_token = null;
+    $user->email_verification_token_status = 1;
+    $user->save();
+
+    $token = $user->createToken('autoboli_token')->plainTextToken;
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Email verified successfully.',
+        'data' => [
+            'user' => new UserProfileResource($user),
+            'token' => $token
+        ]
+    ], 200);
+}
+
+
 
 
 }

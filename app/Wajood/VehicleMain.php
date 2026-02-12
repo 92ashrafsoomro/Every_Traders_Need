@@ -6,14 +6,10 @@ use App\Models\AuctionCenter;
 use App\Models\AuctionPlatform;
 use App\Models\Auctions;
 use App\Models\Interest;
-use App\Models\Make;
-use App\Models\ModelVariant;
 use App\Models\Prefix;
 use App\Models\ScrapedVehicle;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleModel;
+use App\Wajood\VehicleRow;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -22,13 +18,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class Main extends Row
+
+class VehicleMain extends VehicleHelper
+
 {
 
     protected $request;
     protected $auctionId;
-    protected $auction;
-    protected $prefixes = [];
+    public $auction;
+    public $prefixes = [];
     protected $items;
 
 
@@ -39,7 +37,8 @@ class Main extends Row
         $this->loadAuction();
         $this->loadPrefixes();
         $this->loadScraper();
-        parent::__construct();
+        $this->startFilteration();
+
 
     }
 
@@ -70,6 +69,19 @@ class Main extends Row
         
         $scrap = ScrapedVehicle::select('payload')->where('auction_id',$this->auction->id)->pluck('payload')->first();
         $this->items = json_decode($scrap,true);
+
+    }
+
+
+    public function startFilteration(){
+        
+
+        $this->items = array_map(function($item){
+
+            $VehicleRow = new VehicleRow($this,$item);
+            return $VehicleRow->get();
+
+        }, $this->items);
 
     }
 

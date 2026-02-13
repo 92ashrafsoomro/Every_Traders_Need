@@ -144,9 +144,9 @@ use Illuminate\Support\Facades\Hash;
         public function handle()
     {
 
-        if(in_array($this->row->main->auction->platform_id,[1,3,2,17,18,35,15])){
-            return $this->platforms();
-        }
+        // if(in_array($this->row->main->auction->platform_id,[1,3,2,17,18,35,15])){
+        //     return $this->platforms();
+        // }
 
         return $this->default();
 

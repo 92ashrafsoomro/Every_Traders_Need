@@ -218,6 +218,7 @@ export default {
                 .then((res) => {
 
                     this.vehicleStore.vehicle = res.data.vehicle;
+                    this.vehicleStore.reauction = res.data.reauction || null;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
 

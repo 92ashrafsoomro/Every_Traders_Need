@@ -22,6 +22,7 @@ class VerifyEmail extends Mailable
     public function build()
     {
         $verifyUrl = url('/emailverify?email='.$this->user->personalEmail.'&token='.$this->token);
+ 
         return $this->subject('Verify Your Email Address')
                     ->markdown('emails.verify')
                     ->with([

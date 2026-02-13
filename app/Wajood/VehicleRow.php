@@ -22,21 +22,19 @@ use Illuminate\Support\Facades\Hash;
     public $item = [];
     public $main;
 
-
     public $make = null;
     public $model = null;
     public $variant = null;
 
-
     public $makes = [];
     public $models = [];
-
     
 
-    public function __construct(VehicleMain $main,$item) {
-
+    public function __construct(VehicleMain $main,$item){
+        
         $this->main = $main;
         $this->item = $item;
+
     }
 
     
@@ -45,6 +43,7 @@ use Illuminate\Support\Facades\Hash;
         $this->item['body_id']  = (new BodyTypeField($this))->get();
         $this->item['make_id']  = (new MakeField($this))->get();
         $this->item['model_id'] = (new ModelField($this))->get();
+        $this->item['vairant_id'] = (new VariantField($this))->get();
         return $this->item;
 
     }

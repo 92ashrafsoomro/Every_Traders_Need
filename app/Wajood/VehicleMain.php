@@ -39,7 +39,6 @@ class VehicleMain extends VehicleHelper
         $this->loadScraper();
         $this->startFilteration();
 
-
     }
 
 
@@ -75,13 +74,13 @@ class VehicleMain extends VehicleHelper
 
     public function startFilteration(){
         
-
         $this->items = array_map(function($item){
 
             $VehicleRow = new VehicleRow($this,$item);
             return $VehicleRow->get();
 
         }, $this->items);
+
 
     }
 

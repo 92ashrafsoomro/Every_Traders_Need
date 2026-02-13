@@ -31,14 +31,18 @@ use Illuminate\Support\Facades\Hash;
 
     public $row;
     public $value;
-    public $lowerValue;
-
+    public $data = [];
 
     function __construct(VehicleRow $row) {
 
         $this->row = $row;
         $this->value = $this->row->item['model_id'];
-        $this->lowerValue = strtolower($this->value);
+        if($this->row->make){
+            $this->data = VehicleModel::where('make_id',$this->row->make->id)
+                          ->pluck('name')
+                          ->map(fn ($name) => strtolower($name))
+                          ->toArray();
+        }
 
     }
 
@@ -84,29 +88,28 @@ use Illuminate\Support\Facades\Hash;
                 }
             }
 
+            $value = implode(' ', $words);
 
 
-        $value = implode(' ', $words);
+            // Case 1 Direct Check
+            if(in_array($value,$this->data)){
+                return $this->value;
+            }
 
+            // Case 2 Check in Prefix
+            $prefixValue = $this->row->main->modelPrefix($value); 
+            if($prefixValue && in_array($prefixValue,$this->data)){
+                return $prefixValue;
+            }
 
-         // Direct Check
-        if(in_array($value,$this->row->models)){
             return $this->value;
-        }
-
-        // Check in Prefix
-        $value = $this->row->main->modelPrefix($value) ?? $value; 
-        if(in_array($value,$this->row->models)){
-            return $value;
-        }
-
-        return $this->value;
 
     }
 
 
 
-    public function wilianmSon(){
+    public function wilianmSon()
+    {
 
         $title  = strtolower($this->row->item['title']);
         $titles =  explode(' ',$title);
@@ -115,16 +118,38 @@ use Illuminate\Support\Facades\Hash;
         $value = $model1.$model2;
 
 
-        
-        // Direct Check
-        if(in_array($value,$this->row->models)){
+        // Case 1 Direct Check
+        if(in_array($value,$this->data)){
             return $this->value;
         }
 
-        // Check in Prefix
-        $value = $this->row->main->modelPrefix($value) ?? $value; 
-        if(in_array($value,$this->row->models)){
-            return $value;
+        // Case 2 Check in Prefix
+        $prefixValue = $this->row->main->modelPrefix($value); 
+        if($prefixValue && in_array($prefixValue,$this->data)){
+            return $prefixValue;
+        }
+ 
+        return $this->value;
+
+    }
+
+
+
+
+    public function default()
+    {
+
+        $value = strtolower($this->value);
+
+        // Case 1 Direct Check
+        if(in_array($value,$this->data)){
+            return $this->value;
+        }
+
+        // Case 2 Check in Prefix
+        $prefixValue = $this->row->main->modelPrefix($value); 
+        if($prefixValue && in_array($prefixValue,$this->data)){
+            return $prefixValue;
         }
 
         return $this->value;
@@ -133,49 +158,25 @@ use Illuminate\Support\Facades\Hash;
 
 
 
+    public function handle(){
 
-    public function platform(){
-
-
-        $value = strtolower($this->lowerValue);
-
-        // Direct Check
-        if(in_array($value,$this->row->models)){
-            return $this->value;
-        }
-
-        // Check in Prefix
-        $value = $this->row->main->modelPrefix($value) ?? $value; 
-        if(in_array($value,$this->row->models)){
-            return $value;
-        }
-
-        return $this->value;
-
-    }
-
-
-
-    public function handleByPlatform(){
-
-        $platform = $this->row->main->auction->platform_id;
-
-        if(in_array($platform,[2])){
+        if(in_array($this->row->main->auction->platform_id,[2])){
             return $this->astonBarlayClean();
-
-        }else if(in_array($platform,[9])){
-            return $this->wilianmSon();
-
-        }else{
-            return $this->platform();
         }
 
+        if(in_array($this->row->main->auction->platform_id,[9])){
+            return $this->wilianmSon();
+        }
+
+        return $this->default();
+
     }
+
 
 
       public function get()
     {
-        $value = $this->handleByPlatform();
+        $value = $this->handle();
         $this->row->model = VehicleModel::whereRaw('LOWER(name) = ?', [strtolower($value)])->first();
         return $value;
     }

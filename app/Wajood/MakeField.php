@@ -29,48 +29,63 @@ use Illuminate\Support\Facades\Hash;
     class MakeField 
 {
     
-
     public $row;
     public $value;
-
-    function __construct(VehicleRow $row) {
-
-        $this->row = $row;
-
-    }
+    public $data = [];
 
 
-      public function get()
-    {
+    function __construct(VehicleRow $row){
 
-            $prefixes = $this->row->main->prefixes['make'];
-            $value = strtolower($this->row->item['make_id']);
-
-            $value = isset($prefixes[$value]) ? $prefixes[$value] : $value;
-            $this->row->item['make_id'] = $value;
-
-            $make = Make::whereRaw('LOWER(name) = ?', [strtolower($this->row->item['make_id'])])->first();
-            if($make){
-
-                $this->row->make   = $make;
-                $this->row->models = VehicleModel::where('make_id',$make->id)->get()
-                                        ->pluck('name')
-                                        ->map(fn ($name) => strtolower($name))
-                                        ->toArray();
-            }else{
-                $this->row->make = null;
-                $this->row->models = [];
-            }
-
-
-            return $this->row->item['make_id'];
+        $this->row   = $row;
+        $this->value = $this->row->item['make_id'];
+        $this->data  = Make::pluck('name')->map(fn ($name) => strtolower($name))->toArray();
 
     }
-
-   
-
 
     
-   
 
+    public function platform(){
+
+        $value = strtolower($this->value);
+
+        // Case Direct Check
+        if(in_array($value,$this->data)){
+            return $value;
+        }
+
+        // Case Check in Prefix
+        $prefixValue = $this->row->main->makePrefix($value); 
+        if($prefixValue){
+            if(in_array($prefixValue,$this->data)){
+             return $prefixValue;
+            }
+        }
+        
+        // Return Default
+        return $this->value;
+
+    }
+
+
+
+    public function handle(){
+        
+        // Default
+        return $this->platform();
+    }
+
+
+
+        public function get()
+    {
+
+        $value = $this->handle();
+        $make = Make::whereRaw('LOWER(name) = ?', [$value])->first();
+
+        $this->row->make = $make ? $make : null;
+        return $value;
+
+    }
+
+   
 }

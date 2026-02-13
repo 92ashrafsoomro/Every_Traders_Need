@@ -73,8 +73,34 @@ class AuctionFinderController extends Controller
         $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
 
         $reAuctionHistory = Vehicle::where('reg', $vehicle->reg)
-            ->where('id', '!=', $vehicle->id) 
+            ->where('vehicles.id', '!=', $vehicle->id) // fixed here
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auctions.status as auction_status',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
             ->first();
+        if($reAuctionHistory){
+            $reAuctionHistory->auction = Auctions::find($vehicle->auction_id);
+            $reAuctionHistory->center = AuctionCenter::find($vehicle->center_id);
+            $reAuctionHistory->vehicleType = VehicleType::find($vehicle->vehicle_id);
+            $reAuctionHistory->make = Make::find($vehicle->make_id);
+            $reAuctionHistory->model = VehicleModel::find($vehicle->model_id);
+            $reAuctionHistory->variant = ModelVariant::find($vehicle->variant_id);
+        }
+
 
         return response()->json([
             'status' => true,

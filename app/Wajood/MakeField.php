@@ -44,7 +44,7 @@ use Illuminate\Support\Facades\Hash;
 
     
 
-    public function platform(){
+    public function default(){
 
         $value = strtolower($this->value);
 
@@ -54,10 +54,10 @@ use Illuminate\Support\Facades\Hash;
         }
 
         // Case Check in Prefix
-        $prefixValue = $this->row->main->makePrefix($value); 
-        if($prefixValue){
-            if(in_array($prefixValue,$this->data)){
-             return $prefixValue;
+        $makePrefix = $this->row->main->makePrefix($value); 
+        if($makePrefix){
+            if(in_array($makePrefix,$this->data)){
+             return $makePrefix;
             }
         }
         
@@ -71,7 +71,7 @@ use Illuminate\Support\Facades\Hash;
     public function handle(){
         
         // Default
-        return $this->platform();
+        return $this->default();
     }
 
 
@@ -83,6 +83,7 @@ use Illuminate\Support\Facades\Hash;
         $make = Make::whereRaw('LOWER(name) = ?', [$value])->first();
 
         $this->row->make = $make ? $make : null;
+
         return $value;
 
     }

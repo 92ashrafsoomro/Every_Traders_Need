@@ -13,7 +13,7 @@ use App\Services\SheetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Wajood\Main;
+use App\Wajood\VehicleMain;
 
 class SheetController extends Controller
 {
@@ -21,26 +21,18 @@ class SheetController extends Controller
     //
         public function getScrap(Request $request,$id)
     {
+
+        $model = Auctions::where('id',$id)->first();
+        if(!$model){
+            return response()->json([
+                'message' => 'Record Not Found',
+            ], 422);
+        }
        
 
         try {
-
-                $model = Auctions::where('id',$id)->first();
-                if(!$model){
-                    return response()->json([
-                        'message' => 'Record Not Found',
-                    ], 422);
-                }
-
-                
-                
-                return response()->json([
-                    'message' => 'Record Get Successfully',
-                    'data' => SheetService::getScrapperDataByAuction($request,$model)
-                ],200);
-
-                // $main = new Main($request);
-                // return response()->json($main->get());
+                $main = new VehicleMain($request);
+                return response()->json($main->get());
 
         } catch (\Throwable $e) {
 

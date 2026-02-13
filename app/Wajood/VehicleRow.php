@@ -26,8 +26,6 @@ use Illuminate\Support\Facades\Hash;
     public $model = null;
     public $variant = null;
 
-
-   
     public function __construct(VehicleMain $main,$item){
         
         $this->main = $main;
@@ -38,10 +36,12 @@ use Illuminate\Support\Facades\Hash;
     
     public function get(){
         
-        $this->item['body_id']  = (new BodyTypeField($this))->get();
+        
         $this->item['make_id']  = (new MakeField($this))->get();
         $this->item['model_id'] = (new ModelField($this))->get();
         $this->item['vairant_id'] = (new VariantField($this))->get();
+        $this->item['body_id']  = (new BodyTypeField($this))->get();
+
         return $this->item;
 
     }

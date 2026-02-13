@@ -106,7 +106,7 @@ use Illuminate\Support\Facades\Hash;
 
         // Case 1 Direct Check
         if(in_array($value,$this->data)){
-            return $this->value;
+            return $value;
         }
 
         // Case 2 Check in Prefix

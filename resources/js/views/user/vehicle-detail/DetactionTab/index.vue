@@ -22,10 +22,10 @@
                                 :href="`${vehicleStore.reauction?.inspection_report}`"
                                 target="_blank"
                                 class="text-body-2 pa-1 rounded-sm"
-                            style="background:rgb(var(--v-theme-primary));"
+                                style="background:rgb(var(--v-theme-primary));"
                                 >
                                 Report
-                                </v-btn>
+                            </v-btn>
                   
                     </div>
 

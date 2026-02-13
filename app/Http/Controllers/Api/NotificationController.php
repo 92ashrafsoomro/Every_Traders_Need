@@ -141,6 +141,8 @@ class NotificationController extends Controller
 
         $baseQuery = UserVehicleAlert::join('vehicles','vehicles.id','=','user_vehicle_alerts.vehicle_id')
             ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
+            ->leftJoin('auction_status','auction_status.id','=','auctions.status') 
+            ->leftJoin('auction_center','auction_center.id', '=','vehicles.center_id')    
             ->where('user_vehicle_alerts.user_id', $userId);
 
             // Apply filters
@@ -191,6 +193,8 @@ class NotificationController extends Controller
                     'auctions.auction_date',
                     'auctions.auction_type',
                     'auctions.end_date',
+                    'auction_status.title as auction_status',
+                    'auction_center.name as auction_center',
                 ])
                 ->orderByDesc('user_vehicle_alerts.id')
                 // ->skip($offset)
@@ -314,7 +318,9 @@ class NotificationController extends Controller
                         'vehicles.cap_below',
                         'vehicles.cap_average',
                         'vehicles.autotrader_retail_value',
-                        'auction_platform.name as platform_title'                        
+                        'vehicles.bidding_status as bidding_status',                      
+                        'auction_platform.name as platform_title',
+                        'auctions.auction_date as auction_date',                      
                 ])
                 ->orderByDesc('recent_views.id')
                 ->skip($offset)

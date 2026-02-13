@@ -1,6 +1,6 @@
 <template>
-       <user-title-bar title="User Setting"
-        subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity">
+       <user-title-bar title="Setting"
+        >
     <div max-width="1400px" fluid>
         <v-row no-gutters="">
             <v-col cols="12" style="padding-left: 0;">

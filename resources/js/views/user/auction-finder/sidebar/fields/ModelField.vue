@@ -3,7 +3,7 @@
 
     <!-- Make Name -->
     <p class="text-subtitle-2 text-grey mb-2 mt-4">
-      {{ makeName }} {{ models.length }}
+      {{ makeName }} ({{ models.length }})
     </p>
 
     <!-- Models -->

@@ -1,6 +1,6 @@
 <template>
-    <user-title-bar title="Reauction Tracker"
-        subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
+    <user-title-bar title="Identify Repeat Auction Vehicles"
+        subtitle="Detect vehicles returning to auction, review past results, and spot price drops before others do.">
 
         <div class="contentArea d-flex align-center justify-start pb-0 ga-6 pa-3 mb-n5"
             style="position: relative;  top: 10px; left:-10px; " fluid="">

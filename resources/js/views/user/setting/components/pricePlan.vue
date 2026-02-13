@@ -1,54 +1,23 @@
 <template>
-    <v-container style="max-width: 1400px ; margin: 100px ;" class="mx-auto ">
+    <div class="d-flex justify-center mb-8 ">
+        <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
+            <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                Monthly</v-btn>
+            <v-btn value="Quaterly" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                Quaterly</v-btn>
+            <v-btn value="year" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                Yearly</v-btn>
+        </v-btn-toggle>
+    </div>
+    <v-container style="max-width: 1400px ; margin: 100px ;" class="mx-auto my-10 d-flex">
 
-        <div class="d-flex justify-center mb-8 ">
-            <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
-                <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
-                    Monthly</v-btn>
-                <v-btn value="Quaterly" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
-                    Quaterly</v-btn>
-                <v-btn value="year" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
-                    Yearly</v-btn>
-            </v-btn-toggle>
-        </div>
-        <v-row justify="center" dense="" class=" mt-20">
-            <v-card class="border ma-3 bg-background" style="border-radius: 30px; width: 300px ;  min-height: 700px;">
-                <div class="bg-primary">
-
-                </div>
-                <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
-                            border-radius: 20px !important ;">
-
-                    <div class="bg-background pa-4 rounded-xl" style=" height: 175px">
-                        <div class="d-flex justify-end  ">
-                            <v-chip color="primary" class="mb-4 d-flex justify-end px-2" small>
-                                {{ userStore.user?.plan?.plan?.plan_name }}
-                            </v-chip>
-                        </div>
-                        <div class="">
-
-                            <h3 class="text-body-1 font-weight-bold text-whiteLite "> {{ userStore.user?.plan?.plan_name
-                                }}</h3>
-                            <p class="text-body-subtitle mt-2 text-light_text_on"
-                                style="text-decoration: line-through;">$ {{ userStore.user?.plan?.plan_name }}</p>
-                            <span class="text-body-1 ml-0  text-light_text_on">/ {{ userStore.user?.plan?.plan_name
-                                }}</span>
-                        </div>
-
-                    </div>
-                    <div class="py-2 px-1">
-                        <p style="color:rgb(var(--v-theme-light));" class="py-4"> {{ userStore.user?.plan?.plan_name }}
-                        </p>
-                        <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Upgrad
-                            Plan</v-btn>
-                    </div>
-
-
-                </div>
-            </v-card>
+        <v-row justify="center" align="start" dense>
+            <!-- user Active plan -->
+            <!-- plans -->
             <v-col v-for="item in filteredPlans" :key="item.id" cols="12" sm="6" md="3"
                 style=" width: 300px !important; position: relative;">
 
+                <!-- Popular -->
                 <div class="  d-flex w-100 left-0  
                         justify-center items-center " style=" position: absolute; z-index: 10; left: 0;">
                     <v-chip v-if="item.plan_name === 'Trader Pro'" color="primary" variant="flat"
@@ -56,9 +25,13 @@
                         <span class="">Most Popular</span>
                     </v-chip>
                 </div>
-                <v-card v-if="item.plan_name === 'Trader Pro'" class="border  ma-3 bg-background  "
-                    style="border-radius: 30px;  min-height: 700px; border: 2px solid rgb(var(--v-theme-primary)) !important;"
-                    :class="{ 'Trader-pro': item.plan_name === 'Trader Pro' }">
+                <v-card v-if="item.plan_name === 'Trader Pro'" class="ma-3 bg-background"
+                    :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }" :style="[
+                        { 'border-radius': '30px', 'min-height': '700px' },
+                        userStore.user?.plan?.plan_id === item.id
+                            ? { 'border': '2px solid white !important' }
+                            : { 'border': '2px solid rgb(var(--v-theme-primary)) !important' }
+                    ]">
 
 
                     <div class="bg-primary">
@@ -86,8 +59,15 @@
                         </div>
                         <div class="py-2 px-1">
                             <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
-                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100">Upgrad
-                                Plan</v-btn>
+                            <v-btn v-if="userStore.user?.plan?.plan_id === item.id" color="white" variant="outlined"
+                                size="large" class="text-capitalize disabled-btn w-100" disabled>
+                                Your Current Plan
+                            </v-btn>
+
+                            <v-btn v-else color="primary" size="large" :to="'/checkout'" class="text-capitalize w-100"
+                                @click="selectPlan(item)">
+                                Upgrade Plan
+                            </v-btn>
                         </div>
 
 
@@ -96,14 +76,14 @@
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
+                                <li v-for="desc in (item.description)" :key="desc.id"
                                     class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
 
                                     <div class="d-flex items-center text-body-2 text-light_text_on">
-                                        {{ desc.label }}
+                                        {{ desc }}
                                     </div>
                                 </li>
                             </ul>
@@ -112,8 +92,16 @@
                     </div>
                 </v-card>
 
+                <!-- Plans -->
 
-                <v-card v-else class="border ma-3 bg-background" style="border-radius: 30px;   min-height: 700px;">
+                <v-card v-else class="ma-3 bg-background border"
+                   :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }"
+    :style="[
+        { 'border-radius': '30px', 'min-height': '700px' },
+        userStore.user?.plan?.plan_id === item.id
+            ? { 'border': '2px solid white !important' } 
+            : { 'border': '1px solid rgba(255,255,255,0.1) !important' } 
+    ]">
                     <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
                             border-radius: 2px 2px 20px 20px !important ;">
                         <div class="bg-background pa-4 rounded-xl">
@@ -135,22 +123,29 @@
                         </div>
                         <div class="py-2 px-1">
                             <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
-                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100"
-                                @click="selectPlan(item)">Upgrad Plan</v-btn>
+                            <v-btn v-if="userStore.user?.plan?.plan_id === item.id" color="primary" size="large"
+                                class="text-capitalize w-100 disabled-btn" disabled>
+                                Your Current Plan
+                            </v-btn>
+
+                            <v-btn v-else color="primary" size="large" :to="'/checkout'" class="text-capitalize w-100"
+                                @click="selectPlan(item)">
+                                Upgrade Plan
+                            </v-btn>
                         </div>
                     </div>
 
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
+                                <li v-for="desc in (item.description)" :key="desc.id"
                                     class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
 
                                     <div class="d-flex items-center text-body-2 text-light_text_on">
-                                        {{ desc.label }}
+                                        {{ desc }}
                                     </div>
                                 </li>
                             </ul>
@@ -158,6 +153,7 @@
                         </div>
                     </div>
                 </v-card>
+
             </v-col>
         </v-row>
     </v-container>
@@ -209,40 +205,47 @@ export default {
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
         },
-        buildPlanDescription(description) {
-            if (!description) return [];
-
-            try {
-                // 1. Parse the JSON string into a real Javascript Array
-                const points = Array.isArray(description)
-                    ? description
-                    : JSON.parse(description);
-
-                // 2. Map the array to the format your template needs (id and label)
-                return points.map((line, index) => ({
-                    id: index + 1,
-                    label: line
-                }));
-            } catch (error) {
-                // Fallback: If it's not valid JSON, treat it as a plain string
-                console.error("Description format error:", error);
-                return [{ id: 1, label: description }];
-            }
-        }
+      
     },
     computed: {
         filteredPlans() {
-            return this.data.filter(
-                plan => plan.duration_unit === this.billingType
-            )
+            return this.data.filter(plan => {
+                if (this.billingType === 'month') {
+                    return plan.duration_unit === 'month' && plan.duration_value !== 4;
+                }
+                if (this.billingType === 'Quaterly') {
+                    return plan.duration_value === 4;
+                }
+                if (this.billingType === 'year') {
+                    return plan.duration_unit === 'year';
+                }
+                return false;
+            });
         }
+        // filteredPlans() {
+        //     return this.data.filter(
+        //         plan => plan.duration_unit === this.billingType
+        //     )
+        // }
     }
 
 }
 </script>
 
 <style scoped>
-.Trader-pro {
+.active-border {
+    border: 2px solid white !important;
+}
+
+.disabled-btn {
+    pointer-events: auto !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+    /* Thora sa fade taake disabled lage */
+}
+
+/* Trader Pro ka default style */
+.trader-pro {
     border: 2px solid rgb(var(--v-theme-primary)) !important;
 }
 

@@ -1,4 +1,8 @@
 <template>
+    <user-title-bar
+    title="Auction & Market Updates"
+    subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."
+  ></user-title-bar>
   <v-app>
     <v-main>
       <v-container fluid class="pa-0 fill-height bg-background">
@@ -6,14 +10,8 @@
           <v-col cols="12" md="3" class="border-e">
             <v-list lines="three" bg-color="transparent">
 
-<v-list-item
-  v-for="item in blogs"
-  :key="item.id"
-  :active="selectedBlog && selectedBlog.id === item.id"
-  active-color="primary"
-  class="border-b"
-  @click="selectBlog(item)"
->
+              <v-list-item v-for="item in blogs" :key="item.id" :active="selectedBlog && selectedBlog.id === item.id"
+                active-color="primary" class="border-b" @click="selectBlog(item)">
 
                 <v-list-item-title class="font-weight-bold text-wrap mb-1">
                   {{ item.title }}
@@ -31,12 +29,7 @@
           </v-col>
 
           <v-col cols="12" md="9" class="pa-6 pa-md-12">
-            <v-card
-              v-if="selectedBlog"
-              flat
-              rounded="lg"
-              class="pa-6"
-            >
+            <v-card v-if="selectedBlog" flat rounded="lg" class="pa-6">
 
               <div class="d-flex align-center mb-4">
                 <v-chip size="small" color="primary" class="mr-3">
@@ -58,40 +51,18 @@
                   <div class="d-flex align-center mt-4">
                     <span class="text-caption mr-3">Share:</span>
 
-                    <v-btn
-                      icon="mdi-facebook"
-                      size="small"
-                      color="primary"
-                      variant="tonal"
-                      class="mr-2"
-                      @click="shareFacebook"
-                    />
+                    <v-btn icon="mdi-facebook" size="small" color="primary" variant="tonal" class="mr-2"
+                      @click="shareFacebook" />
 
-                    <v-btn
-                      icon="mdi-twitter"
-                      size="small"
-                      color="primary"
-                      variant="tonal"
-                      class="mr-2"
-                      @click="shareTwitter"
-                    />
+                    <v-btn icon="mdi-twitter" size="small" color="primary" variant="tonal" class="mr-2"
+                      @click="shareTwitter" />
 
-                    <v-btn
-                      icon="mdi-whatsapp"
-                      size="small"
-                      color="success"
-                      variant="tonal"
-                      @click="shareWhatsapp"
-                    />
+                    <v-btn icon="mdi-whatsapp" size="small" color="success" variant="tonal" @click="shareWhatsapp" />
                   </div>
                 </v-col>
 
                 <v-col cols="12" md="5">
-                  <v-img
-                    :src="selectedBlog.image_preview || placeholder"
-                    cover
-                    rounded="lg"
-                  />
+                  <v-img :src="selectedBlog.image_preview || placeholder" cover rounded="lg" />
                 </v-col>
               </v-row>
 

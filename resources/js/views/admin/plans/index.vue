@@ -86,6 +86,7 @@ export default {
                 { title: "Duration Unit", key: "duration_unit" },
                 { title: "Duration Value", key: "duration_value" },
                 { title: "Offer", key: "is_officer" },
+                { title: "Sort By", key: "sort_by" },
                 { title: "Status", key: "status" },
                 { title: "Discount", key: "discount" },
                 { title: "Created At", key: "created_at" },

@@ -1,6 +1,6 @@
 <template>
-    <usertitlebarauctionfinder title="Smart Auction Search"
-        subtitle="  Filter, compare, and uncover vehicles that match your profit goals.">
+    <usertitlebarauctionfinder title="Find & Analyse Auction Vehicles" 
+        subtitle="Search live and recent auction lots with smart filters and instant valuation insights before you bid.">
 
         <div class="d-flex mt-6  ga-3">
 

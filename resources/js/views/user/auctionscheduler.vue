@@ -1,6 +1,6 @@
 <template>
-  <user-title-bar title="Auction Schedule" style="z-index: 1; margin-bottom: 0 !important;"
-    subtitle="Manage and view platform auctions across all centers in one place." class="" >
+  <user-title-bar title="Plan Your Auction Week" style="z-index: 1; margin-bottom: 0 !important;"
+    subtitle="View upcoming auctions by date, auction house, and centre — so you can prepare, shortlist vehicles, and bid with confidence." class="">
     <div class="d-flex  ga-2 mt-5 ">
       <div style="width: 200px;">
         <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
@@ -29,7 +29,7 @@
     <div class=" d-lg-flex d-md-flex  d-none align-center ga-5 ml-auto mr-auto mt-5">
       <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
         class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column cursor-pointer"
-        style="height: 95px; width: 13.5%;"  @click="!options.enableCurrent && handleTab(key)">
+        style="height: 95px; width: 13.5%;" @click="!options.enableCurrent && handleTab(key)">
 
         <div class="text-capitalize d-flex align-center justify-center pb-2 text-wrap"
           style="white-space: wrap !important; border-bottom: 1px solid #343E4B;">
@@ -38,7 +38,7 @@
 
         <div class="lowerSection d-flex justify-space-between mt-2">
           <div class="d-flex align-center">
-            <HammerIcon/>
+            <HammerIcon />
             <span class="pl-1 mt-1 text-body-2">{{ value.auction }}</span>
           </div>
 
@@ -57,7 +57,8 @@
       <v-slide-group hide-arrows class="pa-2 w-100 ">
         <v-slide-item v-for="(value, key, index) in days" :key="index" class="">
           <div class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" :class="{ 'active': options.day == key }"
-            style="width: 300px; min-width: 40%; height: 120px;padding-left: 20px; margin-right: 20px; "  @click="!options.enableCurrent && handleTab(key)">
+            style="width: 300px; min-width: 40%; height: 120px;padding-left: 20px; margin-right: 20px; "
+            @click="!options.enableCurrent && handleTab(key)">
             <div class="text-capitalize d-flex align-center justify-center  pb-2 text-wrap"
               style="border-bottom: 1px solid #343E4B;">
               {{ key }}
@@ -65,7 +66,7 @@
 
             <div class="lowerSection d-flex justify-space-between mt-2 ">
               <div class="d-flex align-center">
-                <HammerIcon/>
+                <HammerIcon />
 
                 <span class="pl-1 mt-1 text-body-2">
                   {{ value.auction }}
@@ -89,7 +90,7 @@
 
     <v-card class="border-sm border-white mt-5">
       <v-data-table-server :headers="headers" sort-asc-icon="" :items="data" :items-length="total" :loading="loading"
-        hover hide-default-footer item-value="id" >
+        hover hide-default-footer item-value="id">
 
         <template #item.action="{ item }">
           <div class="d-flex">
@@ -179,11 +180,12 @@ export default {
       loading: false,
 
       headers: [
-        { title: "Platform", key: "platform_name" },
-        { title: "Center", value: "center_name" },
-        { title: "Total Vehicles", value: "car_count" },
-        { title: "Date", value: "auction_date" },
-        { title: "Status", value: "status" },
+        { title: "Auction House", value: "platform_name" },
+        { title: "Center", value: "cc" },
+        { title: "Auction Name", value: "name" },
+        { title: "Total Lots", value: "vehicles_count" },
+        { title: "Time", value: "auction_date" },
+        { title: "Status", value: "auction_status" },
         { title: "Action", key: "action", sortable: false },
       ],
     };

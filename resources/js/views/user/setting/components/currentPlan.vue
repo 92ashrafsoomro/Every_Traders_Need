@@ -21,16 +21,14 @@
                             <div class="py-4 pl-5  ">
                                 <div class="mb-3 ">
                                     <p class="text-body-1 mb-2">Your Current Plan is
-                                        <span class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline "> "{{
-                                            userStore.user?.plan?.plan?.plan_name }}" </span>
+                                        <span class="activeUnit pa-lg-2 pa-md-2 pa-1 d-inline ">   {{ userStore.user?.plan?.plan?.plan_name ? userStore.user.plan.plan.plan_name : 'No Plan' }} </span>
                                     </p>
                                     <p class="text-body-2 " style="color:rgb(var(--v-theme-light))">For small dealers.
                                     </p>
                                 </div>
                                 <div class="mt-8">
-                                    <p class="text-body-1">Active until <span
-                                            class="activeUnit pa-2 d-lg-inline d-md-inline d-block">{{
-                                                userStore.user?.plan?.membership_expiry_date }}</span> </p>
+                                    <p class="text-body-1">Active until <span class="activeUnit pa-2 d-lg-inline d-md-inline d-block">  {{ userStore.user?.plan?.membership_expiry_date ? userStore.user.plan.membership_expiry_date : 'No' }}
+</span> </p>
                                     <p class="text-body-2 font-weight-thin mt-2"
                                         style="color:rgb(var(--v-theme-light))">We
                                         will send you a notification upon Subscription expiration</p>
@@ -40,7 +38,7 @@
                             <div class="mt-4 mb-4 pl-5">
                                 <v-btn @click="showDialog = true" color="primary" variant="flat" class="buttonBorder" 
                                     style="height: 50px; ">
-                                    <span class="text-capitalize text-body-1">Upgrade Plain</span></v-btn>
+                                    <span class="text-capitalize text-body-1">Upgrade Plan</span></v-btn>
 
                             </div>
 
@@ -87,7 +85,7 @@ export default {
         return {
             userStore: useUserStore(),
             pageStore: usePageStore(),
-            showDialog: true,
+            showDialog: false,
             totalDays: 30,
         };
     },

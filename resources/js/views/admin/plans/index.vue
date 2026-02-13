@@ -2,7 +2,7 @@
     <user-title-bar title="Plans" subtitle="Plans Page">
 
     </user-title-bar>
-    <v-container fluid="" max-width="1500px">
+    <v-container fluid="" max-width="1400px">
         <div class="d-flex align-center justify-space-between">
             <div class="d-flex align-center py-4">
                 <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact" variant="outlined"

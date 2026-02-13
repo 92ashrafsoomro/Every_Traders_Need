@@ -5,7 +5,7 @@
   >
     <div class="d-flex align-center ga-3 mt-6">
       <v-btn
-        variant="tonal"
+        variant="elevated"
         class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
         style="height: 50px;"
         :class="{ 'bg-primary text-white': activeTab === 'vehicle' }"
@@ -15,7 +15,7 @@
       </v-btn>
 
       <v-btn
-        variant="tonal"
+        variant="elevated"
         class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1"
         style="height: 50px;"
         :class="{ 'bg-primary text-white': activeTab === 'auction' }"
@@ -58,5 +58,6 @@ export default {
 <style>
 .buttonBorder {
   border-radius: 2px;
+  background-color: rgb(var(--v-theme-background));
 }
 </style>

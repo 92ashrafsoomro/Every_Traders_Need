@@ -4,12 +4,12 @@
 
         <div class="d-flex mt-6  ga-3">
 
-            <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2 "
+            <v-btn variant="elevated" class="buttonBorder text-none px-5 py-2 "
                 :class="{ 'bg-primary text-white ': auctionStore.auctionTab === true }"
                 @click="auctionStore.toggleAuctionTab()" style="height: 50px;"> <span
                     class="text-capitalize text-body-1 "> Auction Finder</span> </v-btn>
 
-            <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2"
+            <v-btn variant="elevated" class="buttonBorder text-none px-5 py-2"
                 :class="{ 'bg-primary text-white': auctionStore.auctionTab === false }"
                 @click="auctionStore.toggleAuctionTab()" style="height: 50px; "><span
                     class="text-capitalize text-body-1"> Vehicle Valuation </span></v-btn>
@@ -273,6 +273,7 @@ export default {
 
 .buttonBorder {
     border-radius: 2px;
+    background-color: rgb(var(--v-theme-background));
 }
 
 /* Desktop Sidebar */

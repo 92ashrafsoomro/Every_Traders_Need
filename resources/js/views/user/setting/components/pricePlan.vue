@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-center mb-8 ">
+    <div class="d-flex justify-center ">
         <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
             <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
                 Monthly</v-btn>
@@ -53,7 +53,7 @@
                                     style="text-decoration: line-through;">${{ item.price }}</p>
                                 <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> ${{
                                     discountPrice(item) }} </h3>
-                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
+                                <span class="text-body-1 ml-0  text-light_text_on"> /{{ durationLabel(item) }}</span>
                             </div>
 
                         </div>
@@ -115,7 +115,7 @@
                                     style="text-decoration: line-through;">${{ item.price }}</p>
                                 <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> ${{
                                     discountPrice(item) }} </h3>
-                                <span class="text-body-1 ml-0  text-light_text_on">/{{ item.duration_unit }}</span>
+                                <span class="text-body-1 ml-0  text-light_text_on">/{{ durationLabel(item) }}</span>
                             </div>
 
                         </div>
@@ -195,6 +195,15 @@ export default {
         selectPlan(item) {
             this.userStore.setPlanId(item.id);
         },
+        durationLabel(item) {
+    // quarterly case
+    if (item.duration_unit === 'month' && item.duration_value === 3) {
+      return 'Quarterly'
+    }
+
+    // baaki cases same
+    return item.duration_unit
+  },
         discountPrice(item) {
             if (!item.discount) return item.price
 
@@ -209,10 +218,10 @@ export default {
             return this.data
                 .filter(plan => {
                     if (this.billingType === 'month') {
-                        return plan.duration_unit === 'month' && plan.duration_value !== 4;
+                        return plan.duration_unit === 'month' && plan.duration_value !== 3;
                     }
                     if (this.billingType === 'Quaterly') {
-                        return plan.duration_value === 4 && plan.duration_unit === "month";
+                        return plan.duration_value === 3 && plan.duration_unit === "month";
                     }
                     if (this.billingType === 'year') {
                         return plan.duration_unit === 'year';
@@ -244,4 +253,5 @@ export default {
 :deep(.v-btn--active) {
     background-color: rgb(var(--v-theme-primary), 0.2) !important;
 }
+
 </style>

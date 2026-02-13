@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid style="padding: 100px 10px 100px 10px;">
-    <div class="mx-auto overflow-hidden position-relative" style="
+  <v-container fluid style="padding: 100px 0px 100px 0px !important;">
+    <div class="mx-auto  overflow-hidden position-relative" style="
         max-width: 1400px;
         height: 700px;
         background: linear-gradient(

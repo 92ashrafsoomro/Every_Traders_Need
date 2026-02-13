@@ -315,7 +315,7 @@
                             <v-col cols="12" class="d-flex flex-column flex-md-row align-center justify-space-between">
                                 <!-- Buttons: appear first on small screens -->
                                 <div class="d-flex justify-center justify-md-end ga-3 order-1 order-md-2 mb-3 mb-md-0">
-                                    <v-btn variant="tonal" color="primary" :disabled="step === 1" @click="step--">
+                                    <v-btn variant="elevated" color="primary" :disabled="step === 1" @click="step--">
                                         Previous
                                     </v-btn>
                                     <v-btn color="primary" @click="handleNext">

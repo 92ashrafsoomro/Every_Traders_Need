@@ -127,11 +127,11 @@ export default {
             headers: [
                 // { title: "View", key: 'view', sortable: false },
                 // { title: "Vehicle", value: "vehicle" , sortable: false},
-                { title: "ID", value: "id" },
-                { title: "Platform", value: "platform_name" },
+                // { title: "ID", value: "id" },
+                { title: "Auction House", value: "platform_name" },
+                { title: "Center", value: "cc" },
                 { title: "Auction Name", value: "name" },
-                // { title: "Center", value: "cc" },
-                { title: "Total Vehicle", value: "vehicles_count" },
+                { title: "Total Lots", value: "vehicles_count" },
                 { title: "Time", value: "auction_date" },
                 { title: "Status", value: "auction_status" },
                 { title: "Action", value: 'action' }

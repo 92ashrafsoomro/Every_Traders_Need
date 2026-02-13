@@ -1,18 +1,25 @@
 <template>
-    <user-title-bar
-    title="Auction & Market Updates"
-    subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."
-  ></user-title-bar>
+  <user-title-bar title="Auction & Market Updates"
+    subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."></user-title-bar>
   <v-app>
     <v-main>
-      <v-container fluid class="pa-0 fill-height bg-background">
+      <v-container fluid class="fill-height bg-background" style="padding: 0 !important;">
         <v-row no-gutters class="fill-height">
           <v-col cols="12" md="3" class="border-e">
-            <v-list lines="three" bg-color="transparent">
+            <div class="d-flex justify-space-between pa-4" style="background-color: rgb(var(--v-theme-primary));">
+              <div>
+                <h4>Blog</h4>
+              </div>
+              <div>
+                <!-- Toggle the list on click -->
+                <v-icon @click="toggleBlogList">mdi-arrow-down-thick</v-icon>
+              </div>
+            </div>
 
+            <!-- Show/Hide the list -->
+            <v-list v-if="showBlogs" lines="three" bg-color="transparent" class="pa-2">
               <v-list-item v-for="item in blogs" :key="item.id" :active="selectedBlog && selectedBlog.id === item.id"
                 active-color="primary" class="border-b" @click="selectBlog(item)">
-
                 <v-list-item-title class="font-weight-bold text-wrap mb-1">
                   {{ item.title }}
                 </v-list-item-title>
@@ -24,8 +31,8 @@
                   <span class="text-caption">{{ item.date }}</span>
                 </div>
               </v-list-item>
-
             </v-list>
+
           </v-col>
 
           <v-col cols="12" md="9" class="pa-6 pa-md-12">
@@ -51,13 +58,13 @@
                   <div class="d-flex align-center mt-4">
                     <span class="text-caption mr-3">Share:</span>
 
-                    <v-btn icon="mdi-facebook" size="small" color="primary" variant="tonal" class="mr-2"
+                    <v-btn icon="mdi-facebook" size="small" color="primary" variant="elevated" class="mr-2"
                       @click="shareFacebook" />
 
-                    <v-btn icon="mdi-twitter" size="small" color="primary" variant="tonal" class="mr-2"
+                    <v-btn icon="mdi-twitter" size="small" color="primary" variant="elevated" class="mr-2"
                       @click="shareTwitter" />
 
-                    <v-btn icon="mdi-whatsapp" size="small" color="success" variant="tonal" @click="shareWhatsapp" />
+                    <v-btn icon="mdi-whatsapp" size="small" color="success" variant="elevated" @click="shareWhatsapp" />
                   </div>
                 </v-col>
 
@@ -90,6 +97,7 @@ export default {
   data() {
     return {
       blogs: [],
+      showBlogs: true,
       selectedBlog: null,
       placeholder: 'https://placehold.co/600x400/000E20/FFFFFF?text=Blog+Image'
     };
@@ -113,11 +121,12 @@ export default {
       }
     },
 
-    // ❌ NO ROUTER, NO URL CHANGE
+    toggleBlogList() {
+      this.showBlogs = !this.showBlogs;
+    },
     selectBlog(blog) {
       this.selectedBlog = blog;
     },
-
     shareFacebook() {
       const url = encodeURIComponent(window.location.href);
       window.open(

@@ -119,7 +119,7 @@
 
                             <div class="ml-4">
                                 <div class="text-whiteLite font-weight-bold ">
-                                    {{ oldPlan?.plan?.plan_name }}
+                                    {{ oldPlan?.plan?.plan_name || 'No Plan Buyer' }}
                                 </div>
                                 <div class="text-body-2">
 
@@ -130,8 +130,8 @@
                         </div>
 
                         <div class="text-whiteLite text-right">
-                            <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price }}</div>
-                            <div class="text-body-2">{{dateFormate( oldPlan?.membership_expiry_date )}}</div>
+                            <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price || 'No Plan ' }}</div>
+                            <div class="text-body-2">{{dateFormate( oldPlan?.membership_expiry_date || "No Plan Buyer" )}}</div>
                         </div>
                     </div>
 

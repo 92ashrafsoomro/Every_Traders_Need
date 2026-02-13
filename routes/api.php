@@ -127,6 +127,8 @@ use App\Http\Controllers\Api\StripeController;
         Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
         Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
         Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
+        Route::get('/vehicleHistory/{id}',[AuctionFinderController::class,'vehicleHistory']);
+        
         Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
         
         Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);

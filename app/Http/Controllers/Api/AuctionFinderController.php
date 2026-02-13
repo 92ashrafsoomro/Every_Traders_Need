@@ -116,6 +116,40 @@ class AuctionFinderController extends Controller
     }
 
 
+
+    public function vehicleHistory(Request $request,$id)
+    {
+
+        $data = Vehicle::query()
+            ->where('id','!=',$id)
+            // ->where('vehicles.id', '!=', $vehicle->id) 
+            ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
+            ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
+            ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
+            ->leftJoin('make', 'make.id', '=', 'vehicles.make_id')
+            ->leftJoin('model', 'model.id', '=', 'vehicles.model_id')
+            ->leftJoin('model_variant', 'model_variant.id', '=', 'vehicles.variant_id')
+            ->select(
+                'vehicles.*',
+                'auctions.name as auction_name',
+                'auctions.auction_date',
+                'auctions.status as auction_status',
+                'auction_platform.name as platform_name',
+                'auction_center.name as center_name',
+                'make.name as make_name',
+                'model.name as model_name',
+                'model_variant.name as variant_name'
+            )
+            ->get();
+
+            return response()->json([
+                'count' => count($data),
+                'data' => $data,
+
+            ],200);
+
+    }
+
  
 
 

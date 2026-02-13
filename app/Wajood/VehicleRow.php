@@ -26,10 +26,8 @@ use Illuminate\Support\Facades\Hash;
     public $model = null;
     public $variant = null;
 
-    public $makes = [];
-    public $models = [];
-    
 
+   
     public function __construct(VehicleMain $main,$item){
         
         $this->main = $main;

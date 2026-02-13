@@ -47,6 +47,70 @@ use Illuminate\Support\Facades\Hash;
         $prefixes = $this->prefixes['bodyType'];
         return isset($prefixes[$value]) ? $prefixes[$value] : null;
     }
+
+
+        public  function findWithExplode($value,$data)
+    {
+
+            $words = explode(" ",$value);
+            foreach ($words as $word){
+                if(in_array($word,$data)){
+                    return  $word;
+                }
+            }
+
+            return false;
+    
+    }
+
+
+        public function matchVariantBySquence($value,$variants)
+    {
+
+            $words = explode(" ",$value); 
+            if(isset($words[2])){
+
+                if(in_array($words[0].' '.$words[1].' '.$words[2],$variants)){
+                return $words[0].' '.$words[1].' '.$words[2];
+                }else if(in_array($words[0].' '.$words[1],$variants)){
+                    return $words[0].' '.$words[1];
+                }else if(in_array($words[0],$variants)){
+                    return $words[0];
+                }
+
+            }else if(isset($words[1])){
+                
+                if(in_array($words[0].' '.$words[1],$variants)){ 
+                    return $words[0].' '.$words[1];
+                }else if(in_array($words[0],$variants)){ 
+                    return $words[0];
+                }
+
+            }else if(isset($words[0])){
+                if(in_array($words[0],$variants)){ 
+                    return $words[0];
+                }
+            }
+
+            return null;
+    
+    }
+
+
+    
+        public function findVariantByOldDerivative($derivative, Make $make,VehicleModel $model)
+    {
+        $v = Vehicle::where('make_id',$make->id)
+                    ->where('model_id',$model->id)
+                    ->whereRaw('LOWER(derivative) = ?', [strtolower($derivative)])
+                    ->first();
+        if($v){
+            return $v->variant->name;
+        }else{
+            return null;
+        }
+
+    }
     
 
 

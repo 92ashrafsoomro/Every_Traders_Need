@@ -2,18 +2,18 @@
 
   <user-title-bar>
 
-    <div class="d-flex flex-column flex-xs-row  flex-md-row  justify-space-between align-start pa-3  "
+    <div class="d-flex flex-column flex-xs-row  flex-md-row  justify-space-between align-start pa-3 ml-lg-n7 "
       style="margin-top: -40px; max-width: 1400px;">
       <div style="max-width: 700px;  " class="">
         <div>
           <h6 class="test-bg text-h5 font-weight-bold">Welcome back , <span class="text-primary">Mr {{userStore.user.firstName}}!</span> </h6>
         </div>
-        <!-- <div class="pr-5 pb-5">
+        <div class="pr-5 pb-5">
           <p class="mt-3 text-body-1 pa-2 rounded-lg  text-whiteLite"
             style="background-color: #3399ff20; backdrop-filter: blur(5px)">
-            Choose The best Plain For Your Need
+       Get a real-time snapshot of today’s auctions, reauctions, and market activity.
           </p>
-        </div> -->
+        </div>
       </div>
       <div>
 

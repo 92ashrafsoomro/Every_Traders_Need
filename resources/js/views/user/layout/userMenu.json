@@ -21,13 +21,13 @@
             "path": "/user/watchlist"
         },
          {
-            "icon": "mdi-alert",
-            "label": "Your Alert",
+            "icon": "mdi-alarm",
+            "label": "Your Reminder",
             "path": "/user/alert"
         },
         {
-            "icon": "mdi-calendar-sync-outline",
-            "label": "Reauction",
+            "icon": "mdi-repeat",
+            "label": "Reauction Tracker",
             "path": "/user/reauction"
         },
        
@@ -47,7 +47,7 @@
             "path": "/user/profile"
         },
         {
-            "icon": "mdi-post-outline",
+            "icon": "mdi-newspaper-variant-outline",
             "label": "News",
             "path": "/user/news"
         },

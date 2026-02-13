@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid  max-width="1500px">
+    <v-container fluid  max-width="1400px">
 
         <div class="mx-auto content d-flex w-100 ga-12">
             <div class="d-none d-md-block position-sticky"

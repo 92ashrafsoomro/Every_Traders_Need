@@ -12,7 +12,7 @@
                         </div> -->
                         <div class="d-flex align-center ml-2">
                             <span>
-                              Total Records {{ totalItems }}
+                                Total Records {{ totalItems }}
                             </span>
                         </div>
                     </div>
@@ -39,10 +39,11 @@
 
                         </div>
                         <div class="px-2">
-                            <YearDropdown label="All Years" :model-value="filter.year"
-                                @update:model-value="handleInput($event, 'year')" item-title="label" item-value="id"
-                                variant="outlined" color="primary" width="150" density="compact" clearable />
+                            <v-text-field type="number" placeholder="Enter Year" :value="filter.year" variant="outlined"
+                                color="primary" width="200" density="compact" clearable min="1900"
+                                :max="new Date().getFullYear()" @update:model-value="handleInput($event, 'year')" />
                         </div>
+
 
                     </div>
                 </div>
@@ -55,10 +56,16 @@
 
                         <template #item.vehicle="{ item }">
                             <router-link style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); "
-                                :to="'/user/vehicle-detail/'+item.vehicle_id" class="vehicleName pa-2 rounded-sm "
+                                :to="'/user/vehicle-detail/' + item.vehicle_id" class="vehicleName pa-2 rounded-sm "
                                 target="_blank">
                                 <span> {{ item.vehicle }} </span>
                             </router-link>
+                        </template>
+                        <template #item.auction_date="{ item }">
+                            <div>
+                                {{ item.auction_date.split(' ')[0] }}<br>
+                                {{ item.auction_date.split(' ')[1] }}
+                            </div>
                         </template>
 
 
@@ -67,8 +74,8 @@
                         </template>
 
                         <template #item.platform_title="{ item }">
-                            <span
-                                style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{ item.platform_title
+                            <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{
+                                item.platform_title
                                 }}</span>
                         </template>
 
@@ -135,15 +142,14 @@ export default {
             loading: false,
             headers: [
                 // { title: "View", key: 'view', sortable: false },
-                { title: "Vehicle", value: "vehicle", sortable: false },
                 { title: "Reg", value: "reg" },
+                { title: "Vehicle", value: "vehicle" },
+                { title: "Year", value: "year" },
                 { title: "CC", value: "cc" },
                 { title: "Milage", value: "mileage" },
-                { title: "Year", value: "year" },
                 { title: "Transmission", value: "transmission" },
+                { title: "Auction House", value: "platform_title" },
                 { title: "Date Time", value: "auction_date" },
-                { title: "Auction Name", value: "auction_name" },
-                { title: "Action", value: 'action' }
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],

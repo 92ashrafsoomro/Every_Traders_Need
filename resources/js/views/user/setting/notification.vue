@@ -52,7 +52,7 @@
               <v-btn color="primary" variant="flat" class="mx-2" >
                   Save changes
               </v-btn>
-              <v-btn variant="tonal" class="mx-2 bg-background">
+              <v-btn variant="elevated" class="mx-2 bg-background">
                   Cancel
               </v-btn>
               </div>

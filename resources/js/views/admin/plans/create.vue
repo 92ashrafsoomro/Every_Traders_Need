@@ -71,12 +71,12 @@
                             <v-col cols="12" md="12">
                                 <v-subheader>Description Points</v-subheader>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <v-chip 
-                                            v-for="(point, index) in points"
-                                            :key="index" 
-                                            color="primary"
-                                            variant="outlined" 
-                                            class="ma-1">
+                                   <v-chip 
+                                        v-for="(point, index) in form.description"
+                                        :key="index" 
+                                        color="primary"
+                                        variant="outlined" 
+                                        class="ma-1">
                                         {{ point }}
                                         <v-btn icon="mdi-close" size="x-small" variant="text" @click.stop="remove(index)"/>
                                     </v-chip>
@@ -103,16 +103,17 @@
 
 <script>
 import General from '@/models/general.model';
+import { toRaw } from 'vue';
 export default {
 
     data() {
         return {
-
+        points: [],
             form: {
                 id: '',
                 plan_name: '',
                 short_desc: '',
-                description: '["Huzaifa", "huzaifa@gmail.com", "Developer"]',
+                description:[],
                 price: '',
                 status: '',
                 discount: '',
@@ -128,31 +129,26 @@ export default {
     mounted() {
     },
     computed:{
-        points(){
-            return JSON.parse(this.form.description)
-        }
+
     },
     methods: {
-        addDescriptionPoint() {
-        
-            let arr = [...this.points]; 
-        arr.push(this.newPoint);  
-        
-        this.form.description = JSON.stringify(arr);
+  addDescriptionPoint() {
+        if (!this.newPoint) return;
+        this.form.description.push(this.newPoint);
         this.newPoint = '';
-        },
-        remove(index) {
-            let arr = [...this.points];
-            arr.splice(index, 1);
-            this.form.description = JSON.stringify(arr);
-           
+    },
 
-        },
+    remove(index) {
+        this.form.description.splice(index, 1);
+    },
         async createPlans() {
             this.loading = true;
             
             try {
-                const res = await General.post("/api/cruds/plans", this.form);
+
+                console.log(this.form);
+             
+                const res = await General.post("/api/cruds/plans",  this.form);
                 this.$alertStore.add(res.message || 'Plan Created', 'success');
                 // this.$router.push("/admin/plans");
 

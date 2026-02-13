@@ -79,24 +79,13 @@
                                 <v-subheader>Description Points</v-subheader>
 
                                 <div class="d-flex flex-wrap gap-2">
-                             <v-chip 
-                                    v-for="(point, index) in points" 
-                                    :key="index" 
-                                    color="primary"
-                                    variant="outlined" 
-                                    class="ma-1"
-                                >
-                                    {{ point }}
-                                    
-                                    <v-btn 
-                                        icon="mdi-close" 
-                                        size="x-small" 
-                                        variant="text" 
-                                        class="ml-2"
-                                        style="font-size: 10px;"
-                                        @click.stop="remove(index)" 
-                                    />
-                                </v-chip>
+                                    <v-chip v-for="(point, index) in form.description" :key="index" color="primary"
+                                        variant="outlined" class="ma-1">
+                                        {{ point }}
+
+                                        <v-btn icon="mdi-close" size="x-small" variant="text" class="ml-2"
+                                            style="font-size: 10px;" @click.stop="remove(index)" />
+                                    </v-chip>
                                 </div>
                             </v-col>
 
@@ -144,7 +133,7 @@ export default {
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',
-                description: "[]",
+                description: [],
                 duration_value: '',
                 created_at: '',
                 updated_at: ''
@@ -157,24 +146,21 @@ export default {
         this.form.id = this.$route.params.id;
         this.fetchSingleRecord();
     },
-    computed:{
-        points(){
-            return JSON.parse(this.form.description);
-        }
+    computed: {
+        // points(){
+        //     return JSON.parse(this.form.description);
+        // }
     },
     methods: {
+
         addDescriptionPoint() {
-            let arr = [...this.points];
-            arr.push(this.newPoint);
-
-            this.form.description = JSON.stringify(arr)
-            this.newPoint = ''
+            if (!this.newPoint) return;
+            this.form.description.push(this.newPoint);
+            this.newPoint = '';
         },
-         remove(index) {
-            let arr = [...this.points];
-            arr.splice(index, 1);
-            this.form.description = JSON.stringify(arr);
 
+        remove(index) {
+            this.form.description.splice(index, 1);
         },
         async fetchSingleRecord() {
             this.loading = true;
@@ -203,7 +189,7 @@ export default {
 
         async editPlans() {
             this.loading = true;
-    
+
             try {
                 let res = await General.put("/api/cruds/plans/" + this.form.id, this.form);
                 this.$alertStore.add(res.message, 'success');
@@ -212,7 +198,7 @@ export default {
 
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong', error)
-            } 
+            }
         }
     }
 }

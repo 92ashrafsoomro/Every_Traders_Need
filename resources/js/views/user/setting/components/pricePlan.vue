@@ -76,8 +76,7 @@
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in (item.description)" :key="desc.id"
-                                    class="mb-4 d-flex">
+                                <li v-for="desc in (item.description)" :key="desc.id" class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
@@ -95,13 +94,12 @@
                 <!-- Plans -->
 
                 <v-card v-else class="ma-3 bg-background border"
-                   :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }"
-    :style="[
-        { 'border-radius': '30px', 'min-height': '700px' },
-        userStore.user?.plan?.plan_id === item.id
-            ? { 'border': '2px solid white !important' } 
-            : { 'border': '1px solid rgba(255,255,255,0.1) !important' } 
-    ]">
+                    :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }" :style="[
+                        { 'border-radius': '30px', 'min-height': '700px' },
+                        userStore.user?.plan?.plan_id === item.id
+                            ? { 'border': '2px solid white !important' }
+                            : { 'border': '1px solid rgba(255,255,255,0.1) !important' }
+                    ]">
                     <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
                             border-radius: 2px 2px 20px 20px !important ;">
                         <div class="bg-background pa-4 rounded-xl">
@@ -138,8 +136,7 @@
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in (item.description)" :key="desc.id"
-                                    class="mb-4 d-flex">
+                                <li v-for="desc in (item.description)" :key="desc.id" class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
@@ -205,28 +202,25 @@ export default {
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
         },
-      
+
     },
     computed: {
         filteredPlans() {
-            return this.data.filter(plan => {
-                if (this.billingType === 'month') {
-                    return plan.duration_unit === 'month' && plan.duration_value !== 4;
-                }
-                if (this.billingType === 'Quaterly') {
-                    return plan.duration_value === 4;
-                }
-                if (this.billingType === 'year') {
-                    return plan.duration_unit === 'year';
-                }
-                return false;
-            });
+            return this.data
+                .filter(plan => {
+                    if (this.billingType === 'month') {
+                        return plan.duration_unit === 'month' && plan.duration_value !== 4;
+                    }
+                    if (this.billingType === 'Quaterly') {
+                        return plan.duration_value === 4 && plan.duration_unit === "month";
+                    }
+                    if (this.billingType === 'year') {
+                        return plan.duration_unit === 'year';
+                    }
+                    return false;
+                })
+                .sort((a, b) => a.sort_by - b.sort_by);
         }
-        // filteredPlans() {
-        //     return this.data.filter(
-        //         plan => plan.duration_unit === this.billingType
-        //     )
-        // }
     }
 
 }
@@ -241,10 +235,8 @@ export default {
     pointer-events: auto !important;
     cursor: not-allowed !important;
     opacity: 0.6;
-    /* Thora sa fade taake disabled lage */
 }
 
-/* Trader Pro ka default style */
 .trader-pro {
     border: 2px solid rgb(var(--v-theme-primary)) !important;
 }

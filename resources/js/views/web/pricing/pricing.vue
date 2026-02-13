@@ -6,9 +6,12 @@
         </div>
         <div class="d-flex justify-center mb-8 ">
             <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
-                <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Monthly</v-btn>
-                <v-btn value="Quaterly" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Quaterly</v-btn>
-                <v-btn value="year" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span> Yearly</v-btn>
+                <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                    Monthly</v-btn>
+                <v-btn value="Quaterly" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                    Quaterly</v-btn>
+                <v-btn value="year" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
+                    Yearly</v-btn>
             </v-btn-toggle>
         </div>
         <v-row justify="center" dense="" class=" mt-20">
@@ -18,7 +21,8 @@
                 style=" width: 300px !important; position: relative;">
                 <div class="  d-flex w-100 left-0  
                         justify-center items-center " style=" position: absolute; z-index: 10; left: 0;">
-                    <v-chip v-if="item.plan_name === 'Trader Pro'" color="primary" variant="flat" class="mb-4 d-flex justify-center  items-center px-2" xsmall>
+                    <v-chip v-if="item.plan_name === 'Trader Pro'" color="primary" variant="flat"
+                        class="mb-4 d-flex justify-center  items-center px-2" xsmall>
                         <span class="">Most Popular</span>
                     </v-chip>
                 </div>
@@ -62,14 +66,13 @@
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
-                                    class="mb-4 d-flex">
+                                <li v-for="desc in (item.description)" :key="desc.id" class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
 
                                     <div class="d-flex items-center text-body-2 text-light_text_on">
-                                        {{ desc.label }}
+                                        {{ desc }}
                                     </div>
                                 </li>
                             </ul>
@@ -101,7 +104,8 @@
                         </div>
                         <div class="py-2 px-1">
                             <p style="color:rgb(var(--v-theme-light));" class="py-4">{{ item.short_desc }}</p>
-                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100" @click="selectPlan(item)">Select
+                            <v-btn color="primary" size="large" :to="'/checkout'" class="text-capitalize  w-100"
+                                @click="selectPlan(item)">Select
                                 Plan</v-btn>
                         </div>
                     </div>
@@ -109,14 +113,13 @@
                     <div class="pa-4 " style="height: 200px;">
                         <div class="d-flex align-start mb-3  ">
                             <ul style="list-style: none;">
-                                <li v-for="desc in buildPlanDescription(item.description)" :key="desc.id"
-                                    class="mb-4 d-flex">
+                                <li v-for="desc in (item.description)" :key="desc.id" class="mb-4 d-flex">
                                     <v-icon style="color: rgb(var(--v-theme-primary));" class="mr-3">
                                         mdi-check-decagram
                                     </v-icon>
 
                                     <div class="d-flex items-center text-body-2 text-light_text_on">
-                                        {{ desc.label }}
+                                        {{ desc }}
                                     </div>
                                 </li>
                             </ul>
@@ -138,7 +141,7 @@ import { useUserStore } from '@/stores/userStore';
 // import featureTable from './featureTable.vue';
 export default {
     name: "pricingCard",
-    
+
     data() {
         return {
             userStore: useUserStore(),
@@ -175,44 +178,68 @@ export default {
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
         },
-      buildPlanDescription(description) {
-    if (!description) return [];
+        buildPlanDescription(description) {
+            if (!description) return [];
 
-    try {
-        // 1. Parse the JSON string into a real Javascript Array
-        const points = Array.isArray(description) 
-            ? description 
-            : JSON.parse(description);
+            try {
+                // 1. Parse the JSON string into a real Javascript Array
+                const points = Array.isArray(description)
+                    ? description
+                    : JSON.parse(description);
 
-        // 2. Map the array to the format your template needs (id and label)
-        return points.map((line, index) => ({
-            id: index + 1,
-            label: line
-        }));
-    } catch (error) {
-        // Fallback: If it's not valid JSON, treat it as a plain string
-        console.error("Description format error:", error);
-        return [{ id: 1, label: description }];
-    }
-}
+                // 2. Map the array to the format your template needs (id and label)
+                return points.map((line, index) => ({
+                    id: index + 1,
+                    label: line
+                }));
+            } catch (error) {
+                // Fallback: If it's not valid JSON, treat it as a plain string
+                console.error("Description format error:", error);
+                return [{ id: 1, label: description }];
+            }
+        }
     },
     computed: {
-         filteredPlans() {
-        return this.data
-            .filter(plan => plan.duration_unit === this.billingType)
-            .sort((a, b) => (a.sort_by ?? 0) - (b.sort_by ?? 0));
-         }
+        filteredPlans() {
+            return this.data
+                .filter(plan => {
+                    if (this.billingType === 'month') {
+                        return plan.duration_unit === 'month' && plan.duration_value !== 4;
+                    }
+
+                    if (this.billingType === 'Quaterly') {
+                        return plan.duration_unit === 'month' && plan.duration_value === 4;
+                    }
+
+                    if (this.billingType === 'year') {
+                        return plan.duration_unit === 'year';
+                    }
+
+                    return false;
+                })
+                .sort((a, b) => a.sort_by - b.sort_by);
         }
+    }
 
 }
 </script>
 
 <style scoped>
-.Trader-pro {
-    border: 2px solid rgb(var(--v-theme-primary)) !important;
-}
-:deep(.v-btn--active) {
-  background-color: rgb(var(--v-theme-primary),0.2) !important;
+.active-border {
+    border: 2px solid white !important;
 }
 
+.disabled-btn {
+    pointer-events: auto !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}
+
+.trader-pro {
+    border: 2px solid rgb(var(--v-theme-primary)) !important;
+}
+
+:deep(.v-btn--active) {
+    background-color: rgb(var(--v-theme-primary), 0.2) !important;
+}
 </style>

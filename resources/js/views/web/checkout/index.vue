@@ -300,9 +300,21 @@ export default {
         this.getPlans();
         this.getAuth();
         this.stripeLoad();
+        if (!this.selectedPlan && this.userStore.selectedPlanId) {
+            this.selectedPlan = this.userStore.selectedPlanId;
+        }
+
 
     },
     computed: {
+         selectedPlan: {
+            get() {
+                return this.userStore.selectedPlanId;
+            },
+            set(id) {
+                this.userStore.setSelectedPlan(id);
+            }
+        },
         oldPlan() {
             return this.userStore.user?.plan;
         },

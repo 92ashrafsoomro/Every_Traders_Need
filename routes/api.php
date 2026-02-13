@@ -49,6 +49,7 @@ use App\Http\Controllers\Api\StripeController;
     Route::get('/user', function (Request $request) {
         return $request->user();
     })->middleware('auth:sanctum');
+    
 
 
 
@@ -58,6 +59,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/profile/{id?}',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
         Route::post('/login',[AuthController::class,'login']);
         Route::post('/register',[AuthController::class,'register']);
+        Route::post('/verifyemail', [AuthController::class, 'verifyEmail']);
         Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
         Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('/resetpassword', [AuthController::class, 'resetpasswordsubmit']);
@@ -65,7 +67,9 @@ use App\Http\Controllers\Api\StripeController;
     });
 
 
-
+    Route::prefix('web')->group(function () {
+        Route::get('/getplans',[PlanController::class,'index']);
+    });
  
     
 

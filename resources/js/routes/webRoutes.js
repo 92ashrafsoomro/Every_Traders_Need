@@ -36,7 +36,7 @@ export default [
             },
             {
                 path : "pricing",
-                component : Pricing
+                component : Pricing,
             },
             {
                 path : "support",

@@ -79,11 +79,24 @@
                                 <v-subheader>Description Points</v-subheader>
 
                                 <div class="d-flex flex-wrap gap-2">
-                                    <v-chip v-for="(point, index) in form.description" :key="index" color="primary"
-                                        variant="outlined" closable @click:close="form.description.splice(index, 1)"
-                                        class="ma-1">
-                                        {{ point }}
-                                    </v-chip>
+                             <v-chip 
+                                    v-for="(point, index) in points" 
+                                    :key="index" 
+                                    color="primary"
+                                    variant="outlined" 
+                                    class="ma-1"
+                                >
+                                    {{ point }}
+                                    
+                                    <v-btn 
+                                        icon="mdi-close" 
+                                        size="x-small" 
+                                        variant="text" 
+                                        class="ml-2"
+                                        style="font-size: 10px;"
+                                        @click.stop="remove(index)" 
+                                    />
+                                </v-chip>
                                 </div>
                             </v-col>
 
@@ -131,7 +144,7 @@ export default {
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',
-                description: [],
+                description: "[]",
                 duration_value: '',
                 created_at: '',
                 updated_at: ''
@@ -144,12 +157,24 @@ export default {
         this.form.id = this.$route.params.id;
         this.fetchSingleRecord();
     },
+    computed:{
+        points(){
+            return JSON.parse(this.form.description);
+        }
+    },
     methods: {
         addDescriptionPoint() {
-            if (this.newPoint.trim() !== '') {
-                this.form.description.push(this.newPoint.trim());
-                this.newPoint = '';
-            }
+            let arr = [...this.points];
+            arr.push(this.newPoint);
+
+            this.form.description = JSON.stringify(arr)
+            this.newPoint = ''
+        },
+         remove(index) {
+            let arr = [...this.points];
+            arr.splice(index, 1);
+            this.form.description = JSON.stringify(arr);
+
         },
         async fetchSingleRecord() {
             this.loading = true;
@@ -159,7 +184,7 @@ export default {
                 this.form.plan_name = res.data.plan_name;
                 this.form.short_desc = res.data.short_desc;
                 this.form.price = res.data.price;
-                this.form.description = res.data.description ? res.data.description.split(/\r?\n/).filter(d => d.trim() !== '') : [];
+                this.form.description = res.data.description || "[]";
                 this.form.status = res.data.status;
                 this.form.discount = res.data.discount;
                 this.form.duration_unit = res.data.duration_unit;
@@ -178,9 +203,8 @@ export default {
 
         async editPlans() {
             this.loading = true;
-            const descriptionBackup = [...this.form.description];
+    
             try {
-                this.form.description = this.form.description.join('\n');
                 let res = await General.put("/api/cruds/plans/" + this.form.id, this.form);
                 this.$alertStore.add(res.message, 'success');
                 // this.$router.push("/admin/plans")
@@ -188,10 +212,7 @@ export default {
 
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong', error)
-            } finally {
-                this.form.description = descriptionBackup;
-                this.loading = false;
-            }
+            } 
         }
     }
 }

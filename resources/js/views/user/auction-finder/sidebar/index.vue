@@ -16,7 +16,7 @@
                         :removeValue="auctionStore.removeValue"/>
                 </v-expansion-panel>
                 
-            <v-expansion-panel :disabled="masterStore.bodyTypes.data ? false : true" title="BodyType" style="border-bottom: none;  ">
+            <!-- <v-expansion-panel :disabled="masterStore.bodyTypes.data ? false : true" title="BodyType" style="border-bottom: none;  ">
                     <v-expansion-panel-text >
                         <BodyType/>
                     </v-expansion-panel-text>
@@ -26,7 +26,7 @@
                         removeKey="bodyType"
                         class="pb-2"
                         :removeValue="auctionStore.removeValue" />
-                </v-expansion-panel>
+                </v-expansion-panel> -->
 
                  <v-expansion-panel :disabled="masterStore.makes.data.length ? false : true" title="Make" style="border-bottom: none;  ">
                     <v-expansion-panel-text >

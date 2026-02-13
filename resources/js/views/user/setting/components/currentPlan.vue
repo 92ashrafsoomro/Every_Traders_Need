@@ -48,7 +48,7 @@
                                     <template v-slot:default="{ isActive }">
                                         <v-btn icon="mdi-close" variant="flat" @click="isActive.value = false"
                                             style="position: absolute; z-index: 1; right: 0;"></v-btn>
-                                        <pricingCard />
+                                        <PricePlan />
                                     </template>
                                 </v-dialog>
                      
@@ -74,14 +74,14 @@
 import { useUserStore } from '@/stores/userStore';
 import { usePageStore } from '@/stores/pageStore';
 import PaymentForm from './PaymentForm.vue';
-// import PricePlan from './pricePlan.vue';
-import pricingCard from '@views/web/pricing/pricing.vue'
+import PricePlan from './pricePlan.vue';
+// import pricingCard from '@views/web/pricing/pricing.vue'
 
 export default {
     components: {
         PaymentForm,
         // PricePlan,
-        pricingCard
+        PricePlan
     },
     data() {
         return {

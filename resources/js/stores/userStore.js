@@ -26,6 +26,7 @@ export const useUserStore = defineStore("user", {
         ],
         loading: false,
         token: localStorage.getItem('auth_token'),
+        selectedPlanId: null,
     }),
 
     getters: {
@@ -122,6 +123,16 @@ export const useUserStore = defineStore("user", {
                 throw await errorHandler(error);
             }
         },
+
+        // ==============================
+        // Plan
+        // ==============================
+        setPlanId(id) {
+            this.selectedPlanId = id;
+        },
+        clearPlan() {
+            this.selectedPlanId = null;
+        }
        
 
     },

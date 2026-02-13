@@ -488,9 +488,9 @@ export default {
                 console.log(this.form);
 
                 let response = await this.userStore.registerRequest(this.form);
-                this.userStore.initializeUserSession(response.token, response.user);
-                this.themeStore.endLoading();
-                this.alertStore.add('Account Created Successfully', 'success');
+                // this.userStore.initializeUserSession(response.token, response.user);
+                // this.themeStore.endLoading();
+                this.alertStore.add('Send verification link Your Email', 'success');
                 this.$router.push("/login")
 
             } catch (error) {

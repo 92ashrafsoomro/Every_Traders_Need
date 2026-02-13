@@ -8,12 +8,12 @@
 
   {
     "label": "Task Management",
-    "icon": "mdi-circle-outline",
-    "path": "/admin/taskManagement/all"
+"icon": "mdi-checkbox-marked-circle-auto-outline",
+            "path": "/admin/taskManagement/all"
   },
   {
     "label": "Data Management",
-     "icon": "mdi-star-outline",
+     "icon": "mdi-database-check",
     "children": [
       {
         "label": "Import Auction",
@@ -30,7 +30,7 @@
 
   {
     "label": "Ids",
-    "icon": "mdi-star-outline",
+    "icon": "mdi-identifier",
     "children": [
       {
         "label": "Master",
@@ -48,7 +48,7 @@
 
   {
     "label": "User Management",
-    "icon": "mdi-star-outline",
+    "icon": "mdi-account-edit",
     "children": [
       {
         "label": "Members",
@@ -57,24 +57,24 @@
       },
       {
         "label": "Transaction history",
-        "icon": "mdi-account-multiple-outline",
+        "icon": "mdi-credit-card-outline",
         "path": "/admin/transaction"
       },
       {
         "label": "Support & Feedback",
-        "icon": "mdi-account-multiple-outline",
+        "icon": "mdi-face-agent",
         "path": ""
       },
       {
         "label": "Alerts ",
-        "icon": "mdi-account-multiple-outline",
+        "icon": "mdi-alert-outline",
         "path": ""
       }
     ]
   },
   {
     "label": "Subscriptions Control",
-    "icon": "mdi-star-outline",
+    "icon": "mdi-cash",
     "children": [
       {
         "label": "Plan",
@@ -83,49 +83,49 @@
       },
        {
         "label": "Restriction Control",
-        "icon": "mdi-circle",
+        "icon": "mdi-cancel",
         "path": ""
       }
     ]
   },
   {
     "label": "Content Management",
-    "icon": "mdi-star-outline",
+    "icon": "mdi-content-paste",
     "children": [
       {
         "label": "News",
-        "icon": "mdi-seal-variant",
+        "icon": "mdi-newspaper",
         "path": "/admin/newsBlog"
       },
       {
         "label": "Blog",
-        "icon": "mdi-seal-variant",
+        "icon": "mdi-post",
         "path": "/admin/blog"
       },
       {
         "label": "Category",
-        "icon": "mdi-layers",
+        "icon": "mdi-shape-plus-outline",
         "path": "/admin/category"
       }
     ]
   },
   {
     "label": "Admin Access",
-    "icon": "mdi-star-outline",
+    "icon": "mdi-shield-crown",
     "children": [
       {
         "label": "Admin & Staff",
-        "icon": "mdi-seal-variant",
+        "icon": "mdi-account-multiple",
         "path": "/admin/staffUser"
       },
       {
         "label": "Role",
-        "icon": "mdi-seal-variant",
+        "icon": "mdi-human-male-board",
         "path": "/admin/role"
       },
       {
         "label": "User restrictions",
-        "icon": "mdi-seal-variant",
+        "icon": "mdi-account-lock",
         "path": ""
       }
     ]

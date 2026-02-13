@@ -5,76 +5,27 @@
                     <div class="" >
                         <v-container fluid>
                             <v-row>
-                                <v-col cols="12">
-                                    <v-row cols="12" class="mt-1 text-center content-scroll">
-                                        
-                                        <v-col cols="4" sm="" class="pl-2">
-                                            <UserDropdown
-                                                v-model="filter.id"
-                                                variant="outlined"
-                                                label="User"
-                                                item-title="firstName"
-                                                item-value="id"
-                                                density="compact" 
-                                                color="primary"
-                                                clearable
-                                                />
-                                        </v-col>
-                                       <v-col cols="4" sm="" class="pl-2">
-                                            <v-select
-                                                v-model="filter.status"
-                                                variant="outlined"
-                                                label="Status"
-                                                :items="statusItems"
-                                                item-title="label"
-                                                item-value="value"
-                                                 density="compact" 
-                                                color="primary"
-                                                clearable
-                                                />
 
-                                        </v-col>
-                                       <v-col cols="4" sm="3" class="pl-2">
-                                            <PlansDropDron
-                                                v-model="filter.plan_name" 
-                                                variant="outlined" 
-                                                label="Plan Name"
-                                                base-color="white"
-                                                 density="compact"  
-                                                color="primary" 
-                                                clearable
-                                                  
-                                                    />
-                                        </v-col>
-                                       <v-col cols="4" sm="4" class="pl-2">
-                                            <v-text-field 
-                                                v-model="filter.search"  
-                                                 label="Search"
-                                                variant="outlined" 
-                                                  
-                                                 density="compact" 
-                                                clearable />
-                                        </v-col>
-                                        <v-col cols="3" sm="2" class="pl-2 d-flex align-center">
-                                                <div class="pl-2" >
-                                                    <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
-                                                        <v-icon icon="mdi-magnify"></v-icon>
-                                                    </v-btn>
-                                                </div>
-
-                                                <!-- <div class="pl-2" >
-                                                    <v-btn to="/admin/members/create" 
-                                                        color="primary" 
-                                                        style="height: 
-                                                        44px;" variant="flat" 
-                                                    >
-                                                        <v-icon icon="mdi-plus"></v-icon>
-                                                    </v-btn>
-                                                </div> -->
-                                            </v-col>
-                                        </v-row>
-                                </v-col>
-                            <UserCount/>
+                            <!-- <UserCount/> -->
+                                <div class="content-scroll d-flex mt-6 w-100 ga-3">
+                                    <div 
+                                        v-for="item in planCounts" 
+                                        :key="item.id"
+                                        class="status-card cursor-pointer"
+                                        @click="filter.plan_name = item.id"
+                                        :class="{ 'status-selected': Number(filter.plan_name) === item.id }"
+                                    >
+                                        <div class="d-flex justify-space-between">
+                                            <div class="d-flex align-center">
+                                                <small>{{ item.plan_name }}</small>
+                                            </div>
+                                            <div class="d-flex align-center">
+                                               <HammerIcon/>
+                                                <span class="ml-1">{{ item.total_users ?? 0 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </v-row>
                         </v-container>
                     </div>
@@ -84,7 +35,7 @@
 
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
-                <v-col cols="12">
+                <v-col cols="12"  class="d-flex justify-space-between">
                     <div class="d-flex flex-wrap ">
                         <div class="d-flex align-center">
                             <v-select 
@@ -99,6 +50,43 @@
 
                         <v-spacer />
                     </div>
+                    <v-col cols="12" md="6" class="d-flex justify-end align-center ga-2">
+                    <UserDropdown
+                        v-model="filter.id"
+                        variant="outlined"
+                        label="User"
+                        item-title="firstName"
+                        item-value="id"
+                        density="compact" 
+                        color="primary"
+                        clearable
+                    />
+
+                    <v-select
+                        v-model="filter.status"
+                        variant="outlined"
+                        label="Status"
+                        :items="statusItems"
+                        item-title="label"
+                        item-value="value"
+                            density="compact" 
+                        color="primary"
+                        clearable
+                    />
+                    
+                    <v-text-field 
+                        v-model="filter.search" 
+                        label="Search..." 
+                        variant="outlined" 
+                        density="compact"
+                        max-width="300px" 
+                        clearable />
+
+
+                    <v-btn to="/admin/members/create" color="primary" height="40" variant="flat">
+                        <v-icon icon="mdi-plus" />
+                    </v-btn>
+                    </v-col>
                 </v-col>
 
                 <v-col cols="12" class="mt-2"  >
@@ -197,7 +185,7 @@
             </v-row>
       </v-container>
 
-
+ 
     <UserDrawer
       :viewDrawer.sync="viewDrawer"
       :selectedUser="selectedUser"
@@ -215,23 +203,25 @@
 <script>
 
 import Members from '@/models/member.model';
-import PlansDropDron from "@components/PlanDropDown.vue"
 import UserDrawer from './component/UserDrawer.vue';
 import UserDropdown  from '@/components/UserDropdown.vue';
 import UserCount from './component/UserCount.vue';
+import HammerIcon from '../taskManagement/component/Icon.vue'
+
 export default {
 
   components: {
-        PlansDropDron,
         UserDrawer,
         UserDropdown ,
-        UserCount
+        UserCount,
+        HammerIcon
   },
 
   data() {
       return {
         viewDrawer: false,
         selectedUser: null,
+        planCounts:[],
         viewLoading: false,
             filter: {
                 search: null,
@@ -239,6 +229,7 @@ export default {
                 page: 1,
                 offset: 0,
                 id:null,
+                plan_name:null
             },
             
             last_page: 1,
@@ -276,6 +267,18 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
+        'filter.plan_name'(newVal, oldVal) {
+            this.loadItems()
+        },
+        'filter.id'(newVal, oldVal) {
+            this.loadItems()
+        },
+        'filter.Status'(newVal, oldVal) {
+            this.loadItems()
+        },
+        'filter.search'(newVal, oldVal) {
+            this.loadItems()
+        },
         'filter.make'(val) {
             this.filter.model = null
             this.filter.variant = null
@@ -293,6 +296,7 @@ export default {
                 try {
                     let res = await  Members.all(this.filter);
                     this.items = res.data;
+                    this.planCounts = res.planCounts;
                     this.total = res.total;
                     // this.filter.page = Number(res.page);
                     this.last_page = Number(res.last_page);
@@ -367,5 +371,31 @@ export default {
 .v-list-item__content{
     display: flex !important;
   justify-content: space-between !important;
+}
+
+:deep(th) {
+  white-space: nowrap !important;
+}
+
+.min-select {
+  min-width: 150px;
+}
+
+.status-card {
+  border-radius: 6px;
+  padding: 12px;
+  width: 17.3%;
+  background-color: rgb(var(--v-theme-background));
+  border: 1px solid rgb(var(--v-theme-border));
+  transition: all 0.2s ease;
+}
+
+.status-card:hover {
+  border-color: #0080FF;
+}
+
+.status-selected {
+  border: 2px solid #0080FF;
+ 
 }
 </style>

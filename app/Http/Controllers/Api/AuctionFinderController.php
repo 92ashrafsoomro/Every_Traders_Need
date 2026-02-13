@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\AuctionCenter;
 use App\Models\AuctionPlatform;
 use App\Models\Auctions;
-use App\Models\Color;
 use App\Models\Interest;
 use App\Models\Make;
 use App\Models\ModelVariant;
@@ -70,7 +69,6 @@ class AuctionFinderController extends Controller
         $vehicle->make = Make::find($vehicle->make_id);
         $vehicle->model = VehicleModel::find($vehicle->model_id);
         $vehicle->variant = ModelVariant::find($vehicle->variant_id);
-        $vehicle->color = Color::find($vehicle->color_id);
 
         $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
 
@@ -147,9 +145,7 @@ class AuctionFinderController extends Controller
             $query->whereIn('vehicles.body_id',$request->bodyType);
         }
 
-        if ($request->has('color') && $request->color != '') {
-            $query->whereIn('vehicles.color_id', explode(',', $request->color));
-        }
+
 
         if ($request->has('door') && $request->door != '') {
             $query->whereIn('vehicles.doors',$request->door);

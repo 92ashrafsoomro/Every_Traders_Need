@@ -17,10 +17,16 @@
                 <div>
                     <div class="text-h6 mt-2  font-weight-bold">
                         {{ vehicleStore.reauction?.make?.name }} {{ vehicleStore.reauction?.model?.name }}
-                        {{ vehicleStore.reauction?.variant?.name }} <span class="text-body-2 pa-1 rounded-sm"
-                            style="background:rgb(var(--v-theme-primary));">
-                            Report
-                        </span>
+                        {{ vehicleStore.reauction?.variant?.name }} 
+                            <v-btn
+                                :href="`${vehicleStore.reauction?.inspection_report}`"
+                                target="_blank"
+                                class="text-body-2 pa-1 rounded-sm"
+                                style="background:rgb(var(--v-theme-primary));"
+                                >
+                                Report
+                            </v-btn>
+                  
                     </div>
 
                 </div>
@@ -69,7 +75,7 @@
                 <div class="mb-5 mb-lg-0 mb-md-0">
                     <div class="text-body-2 text-light_text_on">Mileage</div>
                     <div class="mt-2">{{ vehicleStore.reauction.mileage }} <span class="text-danger px-1 rounded-sm"
-                            style="background-color: rgb(var(--v-theme-danger),0.2);">+216</span></div>
+                            style="background-color: rgb(var(--v-theme-danger),0.2);">+{{ mileageDiff }}</span></div>
                 </div>
                 <div class="mb-5 mb-lg-0 mb-md-0">
                     <p class="text-body-2 text-capitalize">Grade</p>
@@ -82,11 +88,11 @@
                 </div>
                 <div class="mb-5 mb-lg-0 mb-md-0">
                     <div class="text-body-2">Last Service</div>
-                    <div class="mt-2">{{ vehicleStore.reauction.lastService || "------" }}</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.last_service || "------" }}</div>
                 </div>
                 <div>
                     <div class="text-body-2">MOT Expiry</div>
-                    <div class="mt-2">{{ vehicleStore.reauction.motExpiryDate || "------" }}</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.mot_expiry_date || "------" }}</div>
                 </div>
             </div>
 
@@ -101,41 +107,104 @@
                     <div class="mt-2">Autotrader Trad Value</div>
                     <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.autotrader_trade_value || "?" }}
                     </div>
-                    <div class="d-flex  text-start flex-wrap mt-2"><span
-                            class="mr-2 text-danger d-flex  flex-wrap"><v-icon size="23">mdi-menu-down</v-icon>
-                            %5.6</span> <span class="text-body-2 mt-1 text-light_text_on">From previous value</span>
-                    </div>
-                </div>
+                    <div class="d-flex flex-wrap mt-2">
+                                <span
+                                class="mr-2 d-flex flex-wrap"
+                                :class="capCompare.autotrader.up ? 'text-success' : 'text-danger'"
+                                >
+                                <v-icon size="23">
+                                    {{ capCompare.autotrader.up ? 'mdi-menu-up' : 'mdi-menu-down' }}
+                                </v-icon>
+                                {{ capCompare.autotrader.percent }}%
+                                </span>
+
+                                <span class="text-body-2 mt-1 text-light_text_on">
+                                From current vehicle
+                                </span>
+                            </div>
+                        </div>
                 <v-divider vertical class="d-lg-block d-md-block d-none" />
                 <v-divider horizaontal class="d-block d-lg-none d-md-none" />
 
+
+
                 <div>
-                    <div class="mt-2">CAP Clean</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_clean }}</div>
-                    <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-success  d-flex  flex-wrap"><v-icon
-                                size="23">mdi-menu-up</v-icon> %5.6</span> <span
-                            class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
+                <div class="mt-2">CAP Clean</div>
+
+                <div class="text-h6 font-weight-bold">
+                    £{{ vehicleStore.reauction.cap_clean }}
                 </div>
+
+                <div class="d-flex flex-wrap mt-2">
+                    <span
+                    class="mr-2 d-flex flex-wrap"
+                    :class="capCompare.clean.up ? 'text-success' : 'text-error'"
+                    >
+                    <v-icon size="23">
+                        {{ capCompare.clean.up ? 'mdi-menu-up' : 'mdi-menu-down' }}
+                    </v-icon>
+                    {{ capCompare.clean.percent }}%
+                    </span>
+
+                    <span class="text-body-2 mt-1 text-light_text_on">
+                    From current vehicle
+                    </span>
+                </div>
+                </div>
+
                 <v-divider vertical class="d-lg-block d-md-block d-none" />
                 <v-divider horizaontal class="d-block d-lg-none d-md-none" />
-                <div>
+                    <div>
                     <div class="mt-2">CAP Average</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_average }}</div>
-                    <div class="d-flex  flex-wrap mt-2 "><span
-                            class="mr-2 text-success  d-flex text-success  flex-wrap"><v-icon
-                                size="23">mdi-menu-down</v-icon> %5.6</span> <span
-                            class="text-body-2 mt-1  text-light_text_on">From previous value</span></div>
-                </div>
+
+                    <div class="text-h6 font-weight-bold">
+                        £{{ vehicleStore.reauction.cap_average }}
+                    </div>
+
+                    <div class="d-flex flex-wrap mt-2">
+                        <span
+                        class="mr-2 d-flex flex-wrap"
+                        :class="capCompare.average.up ? 'text-success' : 'text-danger'"
+                        >
+                        <v-icon size="23">
+                            {{ capCompare.average.up ? 'mdi-menu-up' : 'mdi-menu-down' }}
+                        </v-icon>
+                        {{ capCompare.average.percent }}%
+                        </span>
+
+                        <span class="text-body-2 mt-1 text-light_text_on">
+                        From current vehicle
+                        </span>
+                    </div>
+                    </div>
+
                 <v-divider vertical class="d-lg-block d-md-block d-none" />
                 <v-divider horizaontal class="d-block d-lg-none d-md-none" />
 
                 <div>
-                    <div class="mt-2">CAP Blow</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_below }}</div>
-                    <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-danger d-flex  flex-wrap"><v-icon
-                                size="23">mdi-menu-down</v-icon> %5.6</span> <span
-                            class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
+                <div class="mt-2">CAP Below</div>
+
+                <div class="text-h6 font-weight-bold">
+                    £{{ vehicleStore.reauction.cap_below }}
                 </div>
+
+                <div class="d-flex flex-wrap mt-2">
+                    <span
+                    class="mr-2 d-flex flex-wrap"
+                    :class="capCompare.below.up ? 'text-success' : 'text-danger'"
+                    >
+                    <v-icon size="23">
+                        {{ capCompare.below.up ? 'mdi-menu-up' : 'mdi-menu-down' }}
+                    </v-icon>
+                    {{ capCompare.below.percent }}%
+                    </span>
+
+                    <span class="text-body-2 mt-1 text-light_text_on">
+                    From current vehicle
+                    </span>
+                </div>
+                </div>
+
             </div>
         </div>
     </custom-card>
@@ -230,6 +299,39 @@ export default {
             return bidding_history;
 
         },
+          capCompare() {
+            const current = this.vehicleStore.vehicle || {}
+            const re = this.vehicleStore.reauction || {}
+
+            const calc = (currentVal, reVal) => {
+            if (!currentVal || !reVal) {
+                return { percent: 0, up: false }
+            }
+
+            const diff = ((reVal - currentVal) / currentVal) * 100
+            return {
+                percent: Math.abs(diff).toFixed(2),
+                up: diff > 0
+            }
+            }
+
+            return {
+            clean: calc(current.cap_clean, re.cap_clean),
+            autotrader: calc(current.autotrader_trade_value, re.autotrader_trade_value),
+            average: calc(current.cap_average, re.cap_average),
+            below: calc(current.cap_below, re.cap_below),
+            }
+        },
+          mileageDiff() {
+            const current = this.vehicleStore.vehicle?.mileage || 0
+            const re = this.vehicleStore.reauction?.mileage || 0
+
+            if (!current || !re) return 0
+
+            // return re > current ? re - current : 0
+            return current > re ? current - re : 0
+        }
+                
     },
     methods: {
         getGradeStyle(grade) {

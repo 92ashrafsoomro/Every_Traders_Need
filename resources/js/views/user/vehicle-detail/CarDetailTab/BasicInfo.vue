@@ -32,12 +32,14 @@
         <v-col cols="6" sm="3">
             <p class="textSizes  text-capitalize">Report</p>
             <div class="mt-2">
-
-                <span
+                <v-btn
+                    :href="`${vehicleStore.vehicle?.inspection_report}`"
+                    target="_blank"
+                    class="text-body-2"
                     style="background-color: rgb(var(--v-theme-primary),0.3); border-radius: 5px ; padding: 5px 10px 5px 10px;"
-                    class="text-body-2">
-                    Report
-                </span>
+                    >
+                Report
+                </v-btn>
 
             </div>
         </v-col>
@@ -87,7 +89,7 @@
             <p class="textSizes text-light text-capitalize">Auction Status</p>
             <p class="text-body-2 mt-2 ">{{ vehicleStore.vehicle.bidding_status }}</p>
         </v-col>
-        <v-col cols="6" sm="3">
+        <v-col cols="6" sm="3" v-if="vehicleStore.reauction">
             <p class="textSizes text-light text-capitalize">Previous Auc</p>
             <div class="mt-2">
                 <span

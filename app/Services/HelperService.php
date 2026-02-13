@@ -63,7 +63,7 @@ class HelperService
                 }
             }
 
-            return false;
+            return null;
     
     }
 

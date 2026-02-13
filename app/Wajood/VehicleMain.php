@@ -6,13 +6,10 @@ use App\Models\AuctionCenter;
 use App\Models\AuctionPlatform;
 use App\Models\Auctions;
 use App\Models\Interest;
-use App\Models\Make;
-use App\Models\ModelVariant;
 use App\Models\Prefix;
+use App\Models\ScrapedVehicle;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleModel;
+use App\Wajood\VehicleRow;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -21,22 +18,27 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class Main 
+
+class VehicleMain extends VehicleHelper
+
 {
 
-    public $response;
-    public $auctionId;
+    protected $request;
+    protected $auctionId;
     public $auction;
     public $prefixes = [];
+    protected $items;
+
 
     public function __construct($request){
 
-        $this->response = $request;
+        $this->request  = $request;
         $this->auctionId = $request->route('id');
-
         $this->loadAuction();
         $this->loadPrefixes();
-        
+        $this->loadScraper();
+        $this->startFilteration();
+
     }
 
 
@@ -50,7 +52,6 @@ class Main
     }
 
 
-    
     public function loadPrefixes(){
 
         $prefixes = [];
@@ -63,20 +64,38 @@ class Main
     }
 
 
+    public function loadScraper(){
+        
+        $scrap = ScrapedVehicle::select('payload')->where('auction_id',$this->auction->id)->pluck('payload')->first();
+        $this->items = json_decode($scrap,true);
 
-    public function get(){
+    }
 
-        // return $this->response;
 
-        return  [
-                        'message' => 'Record Updated Successfully',
-                        'auction' =>  $this->auction,
-                        'data' =>  [],
-                ];
+    public function startFilteration(){
+        
+        $this->items = array_map(function($item){
+
+            $VehicleRow = new VehicleRow($this,$item);
+            return $VehicleRow->get();
+
+        }, $this->items);
 
 
     }
 
+
+    public function get(){
+        
+        return  [
+                    'message' => 'Record Updated Successfully',
+                    'auction' =>  $this->auction,
+                    'data' =>  $this->items,
+                ];
+
+    }
+
  
+
     
 }

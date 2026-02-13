@@ -72,8 +72,9 @@ class AuctionFinderController extends Controller
 
         $priceSymbol = config('app.custom.price_symbol', env('PRICE_SYMBOL', '£'));
 
-        $reAuctionHistory = Vehicle::where('reg', $vehicle->reg)
-            ->where('vehicles.id', '!=', $vehicle->id) // fixed here
+        $reAuctionHistory = Vehicle::query()
+            // ->where('reg', $vehicle->reg)
+            // ->where('vehicles.id', '!=', $vehicle->id) 
             ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')
             ->leftJoin('auction_center', 'auction_center.id', '=', 'vehicles.center_id')
@@ -91,7 +92,7 @@ class AuctionFinderController extends Controller
                 'model.name as model_name',
                 'model_variant.name as variant_name'
             )
-            ->first();
+            ->get();
         if($reAuctionHistory){
             $reAuctionHistory->auction = Auctions::find($vehicle->auction_id);
             $reAuctionHistory->center = AuctionCenter::find($vehicle->center_id);
@@ -113,6 +114,9 @@ class AuctionFinderController extends Controller
         ],200);
 
     }
+
+
+ 
 
 
     public function auctionList(Request $request)

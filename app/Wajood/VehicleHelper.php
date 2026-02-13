@@ -47,6 +47,10 @@ use Illuminate\Support\Facades\Hash;
         $prefixes = $this->prefixes['bodyType'];
         return isset($prefixes[$value]) ? $prefixes[$value] : null;
     }
+    public function vehicleTypePrefix($value){
+        $prefixes = $this->prefixes['vehicleType'];
+        return isset($prefixes[$value]) ? $prefixes[$value] : null;
+    }
 
 
         public  function findWithExplode($value,$data)

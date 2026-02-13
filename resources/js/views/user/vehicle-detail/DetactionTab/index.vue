@@ -1,105 +1,105 @@
 <template>
     <div class="bg-surface border rounded-sm " >
+  
+ <div v-if="vehicleStore && vehicleStore.reauction">
+    <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
 
-        <!-- Header Section -->
-        <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
+        <!-- LEFT -->
+        <div class="pr-lg-4 " style="width: 500px;">
+            <div class="mt-2 ">
+                <span class="text-body-2 pa-1 " style="border-left:5px solid rgb(var(--v-theme-primary));
+                border-radius:5px;
+                background:#fff;
+                color:rgb(var(--v-theme-light_text_on));">
+                    {{ vehicleStore.reauction.reg }}
+                </span>
 
-            <!-- LEFT -->
-            <div class="pr-lg-4 " style="width: 500px;">
-                <div class="mt-2 ">
-                    <span class="text-body-2 pa-1 " style="border-left:5px solid rgb(var(--v-theme-primary));
-                   border-radius:5px;
-                   background:#fff;
-                   color:rgb(var(--v-theme-light_text_on));">
-                        {{ vehicleStore.vehicle.reg }}
-                    </span>
-
-                    <div>
-                        <div class="text-h6 mt-2  font-weight-bold">
-                            {{ vehicleStore.vehicle?.make?.name }} {{ vehicleStore.vehicle?.model?.name }}
-                            {{ vehicleStore.vehicle?.variant?.name }} <span class="text-body-2 pa-1 rounded-sm"
-                                style="background:rgb(var(--v-theme-primary));">
-                                Report
-                            </span>
-                        </div>
-
+                <div>
+                    <div class="text-h6 mt-2  font-weight-bold">
+                        {{ vehicleStore.reauction?.make?.name }} {{ vehicleStore.reauction?.model?.name }}
+                        {{ vehicleStore.reauction?.variant?.name }} <span class="text-body-2 pa-1 rounded-sm"
+                            style="background:rgb(var(--v-theme-primary));">
+                            Report
+                        </span>
                     </div>
-                </div>
 
-                <div class="ma-4 ml-0 pa-4 w-lg-75 w-100  text-lg-h6 rounded-sm"
-                    style="background:rgb(var(--v-theme-danger),0.3);">
-                    <div class="text-lg-h5 text-md-h5 text-h6 text-danger font-weight-bold"
-                        style="color: rgb(var(--v-theme-danger),0.6);">Not Recommended</div>
-                    <div class=" mt-3 text-body-1 font-weight-bold"><span
-                            class="bg-danger px-4 py-1 rounded-sm ">75%</span> Risk ratio</div>
                 </div>
             </div>
 
-            <!-- RIGHT -->
-            <div class="mt-2  pl-4 bg-background pa-3"
-                style="width: 800px; border-left:3px solid rgb(var(--v-theme-primary));">
-
-                <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mb-6 justify-space-between">
-                    <div>
-                        <div class="text-body-2 text-light_text_on">Auction House</div>
-                        <v-chip label color="primary" class="mt-2">{{
-                            vehicleStore.vehicle?.auction?.name }}</v-chip>
-                    </div>
-                    <div>
-                        <div class=" text-body-2 text-light_text_on">Date Time/ End</div>
-                        <div class="mt-2">{{ vehicleStore.vehicle.auction_date }}</div>
-                    </div>
-                    <div>
-                        <div class="text-body-2 text-light_text_on">Auction Status</div>
-                        <div class="mt-2">{{ vehicleStore.vehicle.auction_status || "?" }}</div>
-                    </div>
-                    <div>
-                        <div class="text-body-2 text-light_text_on">Previous Auction</div>
-                        <div class="mt-2"> <span
-                                style="background-color: rgb(var(--v-theme-danger),0.2); border-radius: 5px ; padding: 5px 10px 5px 10px;"
-                                class="text-body-2 ">
-                                View Detail
-                            </span></div>
-                    </div>
-                </div>
-
-                <v-divider />
-
-                <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mt-6 justify-space-between">
-                    <div class="mb-5 mb-lg-0 mb-md-0">
-                        <div class="text-body-2 text-light_text_on">Mileage</div>
-                        <div class="mt-2">{{ vehicleStore.vehicle.mileage }} <span class="text-danger px-1 rounded-sm"
-                                style="background-color: rgb(var(--v-theme-danger),0.2);">+216</span></div>
-                    </div>
-                    <div class="mb-5 mb-lg-0 mb-md-0">
-                        <p class="text-body-2 text-capitalize">Grade</p>
-                        <p class="pa-2 text-dark grade-circle mt-2" :style="getGradeStyle(vehicleStore.vehicle.grade)">
-                            {{ vehicleStore.vehicle.grade }}
-                        </p>
-
-
-
-                    </div>
-                    <div class="mb-5 mb-lg-0 mb-md-0">
-                        <div class="text-body-2">Last Service</div>
-                        <div class="mt-2">{{ vehicleStore.vehicle.lastService || "------" }}</div>
-                    </div>
-                    <div>
-                        <div class="text-body-2">MOT Expiry</div>
-                        <div class="mt-2">{{ vehicleStore.vehicle.motExpiryDate || "------" }}</div>
-                    </div>
-                </div>
-
+            <div class="ma-4 ml-0 pa-4 w-lg-75 w-100  text-lg-h6 rounded-sm"
+                style="background:rgb(var(--v-theme-danger),0.3);">
+                <div class="text-lg-h5 text-md-h5 text-h6 text-danger font-weight-bold"
+                    style="color: rgb(var(--v-theme-danger),0.6);">Not Recommended</div>
+                <div class=" mt-3 text-body-1 font-weight-bold"><span
+                        class="bg-danger px-4 py-1 rounded-sm ">75%</span> Risk ratio</div>
             </div>
         </div>
+
+        <!-- RIGHT -->
+        <div class="mt-2  pl-4 bg-background pa-3"
+            style="width: 800px; border-left:3px solid rgb(var(--v-theme-primary));">
+
+            <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mb-6 justify-space-between">
+                <div>
+                    <div class="text-body-2 text-light_text_on">Auction House</div>
+                    <v-chip label color="primary" class="mt-2">{{
+                        vehicleStore.reauction?.auction?.name }}</v-chip>
+                </div>
+                <div>
+                    <div class=" text-body-2 text-light_text_on">Date Time/ End</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.auction_date }}</div>
+                </div>
+                <div>
+                    <div class="text-body-2 text-light_text_on">Auction Status</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.auction_status || "?" }}</div>
+                </div>
+                <div>
+                    <div class="text-body-2 text-light_text_on">Previous Auction</div>
+                    <div class="mt-2"> <span
+                            style="background-color: rgb(var(--v-theme-danger),0.2); border-radius: 5px ; padding: 5px 10px 5px 10px;"
+                            class="text-body-2 ">
+                            View Detail
+                        </span></div>
+                </div>
+            </div>
+
+            <v-divider />
+
+            <div class="d-flex flex-wrap ga-7 ga-lg-0 ga-md-0 mt-6 justify-space-between">
+                <div class="mb-5 mb-lg-0 mb-md-0">
+                    <div class="text-body-2 text-light_text_on">Mileage</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.mileage }} <span class="text-danger px-1 rounded-sm"
+                            style="background-color: rgb(var(--v-theme-danger),0.2);">+216</span></div>
+                </div>
+                <div class="mb-5 mb-lg-0 mb-md-0">
+                    <p class="text-body-2 text-capitalize">Grade</p>
+                    <p class="pa-2 text-dark grade-circle mt-2" :style="getGradeStyle(vehicleStore.vehicle.grade)">
+                        {{ vehicleStore.reauction.grade }}
+                    </p>
+
+
+
+                </div>
+                <div class="mb-5 mb-lg-0 mb-md-0">
+                    <div class="text-body-2">Last Service</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.lastService || "------" }}</div>
+                </div>
+                <div>
+                    <div class="text-body-2">MOT Expiry</div>
+                    <div class="mt-2">{{ vehicleStore.reauction.motExpiryDate || "------" }}</div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
     <custom-card title="Auction History" class="mt-5">
         <div class="pa-7">
             <h6 class="text-h6 font-weight-bold"> </h6>
             <div class=" d-flex ga-lg-0 ga-4 flex-wrap mt-4 justify-space-between  ">
                 <div>
                     <div class="mt-2">Autotrader Trad Value</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.autotrader_trade_value || "?" }}
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.autotrader_trade_value || "?" }}
                     </div>
                     <div class="d-flex  text-start flex-wrap mt-2"><span
                             class="mr-2 text-danger d-flex  flex-wrap"><v-icon size="23">mdi-menu-down</v-icon>
@@ -111,7 +111,7 @@
 
                 <div>
                     <div class="mt-2">CAP Clean</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_retail }}</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_clean }}</div>
                     <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-success  d-flex  flex-wrap"><v-icon
                                 size="23">mdi-menu-up</v-icon> %5.6</span> <span
                             class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
@@ -120,7 +120,7 @@
                 <v-divider horizaontal class="d-block d-lg-none d-md-none" />
                 <div>
                     <div class="mt-2">CAP Average</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_average }}</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_average }}</div>
                     <div class="d-flex  flex-wrap mt-2 "><span
                             class="mr-2 text-success  d-flex text-success  flex-wrap"><v-icon
                                 size="23">mdi-menu-down</v-icon> %5.6</span> <span
@@ -131,7 +131,7 @@
 
                 <div>
                     <div class="mt-2">CAP Blow</div>
-                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.vehicle.cap_below }}</div>
+                    <div class="text-h6  font-weight-bold">£{{ vehicleStore.reauction.cap_below }}</div>
                     <div class="d-flex  flex-wrap mt-2"><span class="mr-2 text-danger d-flex  flex-wrap"><v-icon
                                 size="23">mdi-menu-down</v-icon> %5.6</span> <span
                             class="text-body-2 mt-1 text-light_text_on">From previous value</span></div>
@@ -187,6 +187,14 @@
             </template>
         </v-data-table-server>
     </div>
+</div>
+<div v-else>
+     <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
+         <p class="text-red">Not found in reauction this vehicle!</p>
+        </div>
+</div>
+</div>
+
 
 </template>
 

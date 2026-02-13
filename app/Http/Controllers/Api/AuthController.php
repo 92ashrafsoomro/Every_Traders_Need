@@ -178,7 +178,21 @@ class AuthController extends Controller
         }
 
         if ($user->email_verification_token_status == 0) {
-            return response()->json(['message' => 'This user verification not be done',], 422);
+            if ($user->email_verification_token == NULL){
+                try {
+                    $user->email_verification_token = strtoupper(Str::random(6));
+                    $user->save();
+            
+                    Mail::to($user->personalEmail)->send(new VerifyEmail($user));
+                    return response()->json(['message' => 'user verification send You Email',], 422);
+                } catch (\Exception $e) {
+                    \Log::error('Email sending failed: ' . $e->getMessage());
+                }
+            }else{
+
+                return response()->json(['message' => 'This user verification not be done',], 422);
+            }
+
         }
 
         if ($user->status == 0) {

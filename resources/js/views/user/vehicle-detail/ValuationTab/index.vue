@@ -29,7 +29,7 @@
                             </v-col>
                             <v-col cols="6">
                                 <div class="text-body-2  mb-1">CAP Clean</div>
-                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
+                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_clean }}
                                 </div>
                                 <div class="d-lg-flex mt-2">
                                     <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
@@ -42,7 +42,7 @@
                             </v-col><v-col cols="6">
                                 <div class="text-body-2  mb-1">CAP Average</div>
                                 <div class="text-h6 font-weight-bold ">£{{
-                                    vehicleStore.vehicle.autotrader_trade_value }}</div>
+                                    vehicleStore.vehicle.cap_average }}</div>
                                 <div class="d-lg-flex mt-2">
                                     <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
                                         style="font-size: 10px;">
@@ -54,7 +54,7 @@
                             </v-col>
                             <v-col cols="6">
                                 <div class="text-body-2  mb-1">CAP Blow</div>
-                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail }}
+                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_below }}
                                 </div>
                                 <div class="d-lg-flex mt-2">
                                     <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
@@ -71,6 +71,9 @@
 
 
                     <div title="Retail Values" class="mt-4 rounded-none">
+                        <div class="pa-4">
+                            <h3 class="text-h5 ">Retail Values</h3>
+                        </div>
                         <v-container class="px-6 ">
                             <v-row class="px-4 py-3">
                                 <v-col cols="6">
@@ -88,7 +91,7 @@
                                     </div>
                                 </v-col>
                                 <v-col cols="6">
-                                    <div class="text-body-2  mb-1">CAP</div>
+                                    <div class="text-body-2  mb-1">Cap Retail</div>
                                     <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
                                         }}
                                     </div>
@@ -194,10 +197,10 @@
                                     <div class="d-flex justify-space-between  pb-2 pt-2">
                                         <div class="text-body-2">CAP</div>
 
-                                        <div class="text-body-2">{{ vehicleStore.vehicle.cap_average }}%</div>
+                                        <div class="text-body-2">{{ ((vehicleStore.vehicle.last_bid / vehicleStore.vehicle.cap_clean) * 100).toFixed(0) }}%</div>
 
                                     </div>
-                                    <v-progress-linear model-value="20" color="primary"></v-progress-linear>
+                                    <v-progress-linear :model-value="((vehicleStore.vehicle.last_bid / vehicleStore.vehicle.cap_clean) * 100)" color="primary"></v-progress-linear>
                                     <div class="d-flex justify-space-between mt-8 mb-3">
                                         <div class="text-body-2">AUTOTRADER</div>
                                         <div class="text-body-2">{{ vehicleStore.vehicle.autotrader_trade_value }}%

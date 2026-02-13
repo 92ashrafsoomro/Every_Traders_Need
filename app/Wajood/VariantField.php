@@ -50,11 +50,13 @@ use Illuminate\Support\Facades\Hash;
     public function platforms(){
 
 
-        // Case 3 findVariantByOldDerivative
-        $findVariantByOldDerivative = $this->row->main->findVariantByOldDerivative($this->row->item['derivative'],$this->row->make,$this->row->model);
-        if($findVariantByOldDerivative && in_array($findVariantByOldDerivative,$this->data)){
-           return $findVariantByOldDerivative;
-        }
+            // Case 3 findVariantByOldDerivative
+            if($this->row->make && $this->row->model){
+                $findVariantByOldDerivative = $this->row->main->findVariantByOldDerivative($this->row->item['derivative'],$this->row->make,$this->row->model);
+                if($findVariantByOldDerivative && in_array($findVariantByOldDerivative,$this->data)){
+                return $findVariantByOldDerivative;
+                }
+            }
 
 
             $value = strtolower($this->value);
@@ -114,11 +116,13 @@ use Illuminate\Support\Facades\Hash;
         }
 
         // Case 3 findVariantByOldDerivative
-        $findVariantByOldDerivative = $this->row->main->findVariantByOldDerivative($this->row->item['derivative'],$this->row->make,$this->row->model);
-        if($findVariantByOldDerivative && in_array($findVariantByOldDerivative,$this->data)){
-           return $findVariantByOldDerivative;
+        if($this->row->make && $this->row->model){
+            $findVariantByOldDerivative = $this->row->main->findVariantByOldDerivative($this->row->item['derivative'],$this->row->make,$this->row->model);
+            if($findVariantByOldDerivative && in_array($findVariantByOldDerivative,$this->data)){
+            return $findVariantByOldDerivative;
+            }
         }
-
+        
         // matchVariantBySquence
         $matchVariantBySquence = $this->row->main->matchVariantBySquence($value,$this->data);
         if($matchVariantBySquence && in_array($matchVariantBySquence,$this->data)){
@@ -147,7 +151,6 @@ use Illuminate\Support\Facades\Hash;
         return $this->default();
 
     }
-
 
 
       public function get()

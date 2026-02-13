@@ -2,7 +2,7 @@
     <user-title-bar title="Plans" subtitle="Plans Page">
 
     </user-title-bar>
-    <v-container fluid="" max-width="1500px">
+    <v-container fluid="" max-width="1400px">
         <div class="d-flex align-center justify-space-between">
             <div class="d-flex align-center py-4">
                 <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact" variant="outlined"
@@ -86,6 +86,7 @@ export default {
                 { title: "Duration Unit", key: "duration_unit" },
                 { title: "Duration Value", key: "duration_value" },
                 { title: "Offer", key: "is_officer" },
+                { title: "Sort By", key: "sort_by" },
                 { title: "Status", key: "status" },
                 { title: "Discount", key: "discount" },
                 { title: "Created At", key: "created_at" },

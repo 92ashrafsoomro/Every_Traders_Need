@@ -40,7 +40,7 @@
                 class="bg-background pa-2 rounded-sm px-3 d-flex align-center flex-shrink-0">
                 <v-icon icon="mdi-lightning-bolt" color="primary" />
                 <span class="text-body-2 px-2 text-capitalize">
-                  {{ userStore.user.plan.membership_type }}
+                  {{ userStore.user.plan.plan.plan_name }}
                 </span>
               </div>
             </div>

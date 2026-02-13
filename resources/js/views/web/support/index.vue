@@ -67,7 +67,7 @@
           <v-expansion-panels v-model="activeIndex" style="width: 100%; max-width: 560px; " elevation="0"
             variant="accordion" class="my-transparent-panels">
             <v-expansion-panel v-for="(item, index) in quickLinks" :key="index" elevation="0" variant="flat"
-              class="faq-panel bg-background pa-2 mb-3" style="border: 1px solid rgb(var(--v-theme-border));">
+              class="faq-panel bg-background pa-2 mb-3" >
               <v-expansion-panel-title class="v-theme--dark bg-transparent px-0" hide-actions>
                 <div class="d-flex align-center justify-space-between w-100">
                    <span class="text-whiteLite text-body-1">{{ item.heading }}</span>

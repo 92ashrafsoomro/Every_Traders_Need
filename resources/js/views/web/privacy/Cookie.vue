@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="" max-width="1500px">
+    <v-container fluid class="" max-width="1400px">
 
         <div class="mt-16 mx-auto content d-flex w-100 ga-12">
 

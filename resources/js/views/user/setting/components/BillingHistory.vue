@@ -46,7 +46,7 @@ export default {
             data: [],
             loading: true,
             headers: [
-                { title: "Id", key: "id" },
+                // { title: "Id", key: "id" },
                 { title: "Date", value: "updated_at" },
                 { title: "Plan Name", value: "plan.plan_name" },
                 { title: "Start", value: "membership_start_date" },

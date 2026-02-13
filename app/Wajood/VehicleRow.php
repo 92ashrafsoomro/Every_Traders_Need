@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Hash;
         
         $this->item['make_id']  = (new MakeField($this))->get();
         $this->item['model_id'] = (new ModelField($this))->get();
-        $this->item['vairant_id'] = (new VariantField($this))->get();
+        $this->item['variant_id'] = (new VariantField($this))->get();
         $this->item['body_id']  = (new BodyTypeField($this))->get();
         $this->item['vehicle_id']  = (new VehicleTypeField($this))->get();
 

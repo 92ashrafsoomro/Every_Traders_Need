@@ -15,7 +15,7 @@
                                 </div>
                                 <div class="pl-lg-3 pt-3">
                                     <v-btn color="primary" @click="this.$refs.fileInput.click();"
-                                        class="buttonBorder text-capitalize" variant="flat" style="height: 50px; "><span
+                                        class="buttonBorder text-capitalize" variant="elevated" style="height: 50px; "><span
                                             class="text-capitalize text-body-1">Update New Photo</span></v-btn>
                                     <p class="pt-3 text-light text-body-2">{{ UserModel.getField('avatar')?.placeholder
                                     }}</p>

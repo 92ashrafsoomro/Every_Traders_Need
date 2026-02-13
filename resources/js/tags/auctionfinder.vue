@@ -2,7 +2,7 @@
     <div class="position-relative  bg-surface h-auto pt-10 pb-8 pl-2 pl-lg-0 pl-md-0">
         <div class="pattern-bg"></div>
         <div class="position-relative  pt-5  mx-auto px-2 px-lg-6 " style="  z-index: 10">
-            <h1 class="text-lg-h3 text-md-h3 text-h4 mb-2 font-weight-bold">{{ title }}</h1>
+            <h1 class="text-lg-h4 text-md-h5 text-h4 mb-2 font-weight-bold">{{ title }}</h1>
             <p class="text-subtitle-1 mb-2 font-weight-medium">
                 {{ subtitle }}
             </p>

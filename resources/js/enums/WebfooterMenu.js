@@ -3,7 +3,7 @@ export default [
     title: "Company",
     links: [
       { label: "About Us", to: "/about" },
-      { label: "Auction Solution", to: "/auction-solution" },
+      { label: "Auction Schedule", to: "/auctionschedule" },
       { label: "Download", to: "/download" },
     ],
   },

@@ -1,12 +1,12 @@
 <template>
-    <user-title-bar title="Watched List"
-        subtitle="Track recently watched and alerted vehicles — stay ahead of every auction opportunity">
+    <user-title-bar title="Watchlist"
+        subtitle="Track recently watched vehicles  stay ahead of every auction opportunity.">
         <div class="d-flex align-center ga-3 mt-6">
-            <!-- <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1" style="height: 50px; "
+            <!-- <v-btn variant="elevated" class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1" style="height: 50px; "
                 :class="{ 'bg-primary text-white': activeTab === 'watchlist' }" @click="activeTab = 'watchlist'">
                 WatchList
             </v-btn>
-            <v-btn variant="tonal" class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1" style="height: 50px; "
+            <v-btn variant="elevated" class="buttonBorder text-none px-5 py-2 text-capitalize text-body-1" style="height: 50px; "
                 :class="{ 'bg-primary text-white': activeTab === 'alerts' }" @click="activeTab = 'alerts'">
                 Your Alerts
             </v-btn> -->

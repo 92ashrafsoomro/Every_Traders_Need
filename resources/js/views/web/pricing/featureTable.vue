@@ -4,7 +4,7 @@
 
 
         <!-- Desktop Table -->
-        <v-container class="" max-width="1500px">
+        <v-container class="" max-width="1400px">
 
             <div class="text-start pb-4 ">
                 <h2 class="text-h5 font-weight-bold ">

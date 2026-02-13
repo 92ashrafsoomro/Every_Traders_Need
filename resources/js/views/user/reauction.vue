@@ -1,6 +1,6 @@
 <template>
-    <user-title-bar title="Reauction Tracker"
-        subtitle="Monitor unsold lots making a comeback — compare prices, bids, and market movement.">
+    <user-title-bar title="Identify Repeat Auction Vehicles"
+        subtitle="Detect vehicles returning to auction, review past results, and spot price drops before others do.">
 
         <div class="contentArea d-flex align-center justify-start pb-0 ga-6 pa-3 mb-n5"
             style="position: relative;  top: 10px; left:-10px; " fluid="">
@@ -128,21 +128,16 @@ export default {
             pageStore: usePageStore(),
             headers: [
 
-                { title: "Vehical", value: "title" },
-                // { title: "Make", value: "make_name" },
-                // { title: "Model", value: "model_name" },
-                // { title: "Variant", value: "variant_name" },
+                      // { title: "view", key: 'view', sortable: false },
                 { title: "Reg", value: "reg" },
-                // { title: "Previous", value: "last_bid" },
-                // { title: "Platform", value: "platform_name" },
-                // { title: "Center", value: "center_name" },
-                // { title: "Cap Clean", value: "cap_clean" },
-                // { title: "Cap Average", value: "cap_average" },
-                { title: "Mileage", value: "mileage" },
-                { title: "Auction Status Time", value: "created_at" },
-                { title: "Auction Date", value: "date" },
-                { title: "Auction House", value: "platform_name" }
-                // Vehicle(make,model,V,year), Reg, Auction Time, Auc houes, Center,        Mileage,        Auc Status, Time,        Action(basic detail, full view)
+                { title: "Vehicle", value: "vehicle" },
+                { title: "Year", value: "year" },
+                { title: "CC", value: "cc" },
+                { title: "Milage", value: "mileage" },
+                { title: "Transmission", value: "transmission" },
+                { title: "Auction House", value: "platform_title" },
+                { title: "Date Time", value: "autotrader_retail_value" },
+                
             ],
         }
     },

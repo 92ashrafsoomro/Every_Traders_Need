@@ -65,7 +65,7 @@
                       icon="mdi-facebook"
                       size="small"
                       color="primary"
-                      variant="tonal"
+                      variant="elevated"
                       class="mr-2"
                       @click="shareFacebook"
                     />
@@ -74,7 +74,7 @@
                       icon="mdi-twitter"
                       size="small"
                       color="primary"
-                      variant="tonal"
+                      variant="elevated"
                       class="mr-2"
                       @click="shareTwitter"
                     />
@@ -83,7 +83,7 @@
                       icon="mdi-whatsapp"
                       size="small"
                       color="success"
-                      variant="tonal"
+                      variant="elevated"
                       @click="shareWhatsapp"
                     />
                   </div>

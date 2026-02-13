@@ -12,7 +12,7 @@
               
 
                     <!-- Time Auction -->
-                    <v-btn variant="tonal" class="buttonBorder text-none px-5"
+                    <v-btn variant="elevated" class="buttonBorder text-none px-5"
                         :class="{ 'bg-primary text-white': auctionType === 1 }" @click="auctionType = 1"
                         style="height: 50px;">
                         <span class="text-capitalize text-body-1">Time Auction</span>

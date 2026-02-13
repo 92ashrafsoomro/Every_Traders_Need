@@ -21,7 +21,7 @@
           </p>
           <div class="d-flex flex-wrap ga-4 justify-center  justify-lg-start">
             <router-link to="auctionschedule" style="text-decoration: none ; ">
-              <v-btn color="white" size="large" class="text-capitalize text-surface">Explore Auctions</v-btn>
+              <v-btn color="whiteLight" size="large" class="text-capitalize text-surface">Explore Auctions</v-btn>
             </router-link>
 
             <router-link to="pricing" style="text-decoration: none ;">

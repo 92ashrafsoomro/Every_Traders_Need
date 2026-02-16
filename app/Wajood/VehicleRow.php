@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Hash;
         $this->item['variant_id'] = (new VariantField($this))->get();
         $this->item['body_id']  = (new BodyTypeField($this))->get();
         $this->item['vehicle_id']  = (new VehicleTypeField($this))->get();
+        $this->item['center_id']  = (new CenterTypeField($this))->get();
+        $this->item['fuel_type']  = (new FuelTypeField($this))->get();
+        $this->item['transmission']  = (new TransmissionTypeField($this))->get();
+        $this->item['engine_runs']  = (new NonRunnerTypeField($this))->get();
 
         return $this->item;
 

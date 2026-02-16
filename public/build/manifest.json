@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CLCgzDbf.js",
+    "file": "assets/app-asBoIyly.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-B5p2R2CD.css"
+      "assets/app-CjaIC_dF.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -123,9 +123,9 @@
       "assets/lightshort-DQfsj8p_.png",
       "assets/user-BO2XbLa6.png",
       "assets/bg-NSSFVeCQ.png",
+      "assets/lightBg-DJruBfXL.png",
       "assets/darkBg-CvuQXcLG.png",
       "assets/darkLeft-Bc51BgBP.png",
-      "assets/lightBg-DJruBfXL.png",
       "assets/lightLeft-y33nC5mr.png",
       "assets/helping-DFRTUvcg.png",
       "assets/Asset 9-floLAZ7Q.png",

@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MembershipPlan extends Model
+class Package extends Model
 {
     use HasFactory;
 
-    protected $table = 'membership_plans'; 
+    protected $table = 'packages'; 
 
     protected $primaryKey = 'id'; 
 
     public $timestamps = true; 
 
     protected $fillable = [
-        'plan_name',
+        'plan_id',
+        'title',
         'short_desc',
         'description',
         'price',
@@ -34,7 +35,7 @@ class MembershipPlan extends Model
     // ✅ Relationship to plan
     public function plan()
     {
-        return $this->belongsTo(MembershipPlan::class, 'plan_id');
+        return $this->belongsTo(Plan::class, 'plan_id');
     }
 
     // ✅ Relationship to payment

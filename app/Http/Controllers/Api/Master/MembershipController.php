@@ -7,7 +7,7 @@ use App\Models\Membership;
 use App\Models\MembershipPayment;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\MembershipPlan;
+use App\Models\Package;
 use App\Models\UserPaymentMethod;
 use App\Models\UserVehicleAlert;
 use Illuminate\Support\Facades\Hash;
@@ -137,7 +137,7 @@ class MembershipController extends Controller
         }
 
 
-        $plan = MembershipPlan::find($request->plan_id);
+        $plan = Package::find($request->plan_id);
         $user = User::find($request->user_id);
 
         $start_date = now();

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Membership;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\MembershipPlan;
+use App\Models\Package;
 use App\Models\RecentView;
 use App\Models\UserPaymentMethod;
 use App\Models\UserVehicleAlert;

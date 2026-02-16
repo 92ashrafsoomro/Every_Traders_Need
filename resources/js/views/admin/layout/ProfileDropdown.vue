@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <p class="  profile-name text-subtitle-1">
-                                {{ userStore.user.title }}
+                                {{ userStore.user.firstName }}
                             </p>
                             <p class="profile-type text-caption text-light_text_on mt-n2">
                                 {{ userStore.user.role }}

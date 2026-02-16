@@ -148,7 +148,7 @@ export default {
             try {
 
                 let response = await this.userStore.loginRequest(this.form);
-                this.userStore.initializeUserSession(response.token,response.user);
+                this.userStore.initializeUserSession(response.token,response);
                 themeStore.endLoading();
                 this.alertStore.add('Logged In Success', 'success');
                 this.$router.replace("/user/dashboard");

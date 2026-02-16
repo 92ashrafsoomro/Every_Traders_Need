@@ -4,7 +4,9 @@
         :items="data"
         item-title="title"
         item-value="id"
+        :model-value="modelValue"
         :loading="loading"
+        @update:model-value="handleValue($event)"
      
     />
 </template>
@@ -15,7 +17,7 @@ export default {
     name: 'Blogcategory',
 
     props: {
-        type: {
+        modelValue: {
             type: String,
             default: 'blog' 
         }
@@ -47,13 +49,18 @@ export default {
                     { type: this.type }
                 );
                 this.data = response.data;
+                this.data.sort((a,b)=>a.name.localeCompare(b.name));
             } catch (error) {
                 console.error("Error loading categories:", error)
             } finally {
                 this.loading = false;
             }
+        },
+        handleValue(value){
+            this.$emit("update:modelValue" , value)
         }
-    }
+    },
+    emits:['update:modelValue']
 }
 
 </script>

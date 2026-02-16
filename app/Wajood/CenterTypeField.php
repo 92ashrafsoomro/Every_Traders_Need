@@ -52,7 +52,7 @@ use Illuminate\Support\Facades\Hash;
 
         // Direct Check
         if(in_array($value,$this->data)){
-            return $this->value;
+            return $value;
         }
 
         // Check in Prefix

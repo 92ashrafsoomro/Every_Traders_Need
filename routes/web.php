@@ -150,7 +150,7 @@ Route::get('/uploading1', function (Request $request) {
 
 
 Route::get('/{any?}', function () {
-    return view('user.test');
+    return view('main');
 })->where('any', '.*');
 
 

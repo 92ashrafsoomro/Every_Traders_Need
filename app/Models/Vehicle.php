@@ -36,24 +36,6 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Auctions::class, 'auction_id', 'id');
     }
-
-    
-
-    public function autoAdvance()
-
-    {
-        return $this->hasOne(AutoAdvance::class, 'auction_id' , 'auction_id');
-    }
-
-    public function autoLegal()
-    {
-        return $this->hasOne(AutoLegal::class, 'auction_id' , 'auction_id');
-    }
-
-    public function autoPrice()
-    {
-        return $this->hasOne(AutoPrice::class, 'auction_id', 'auction_id');
-    }
     
     public function make()
     {
@@ -66,10 +48,6 @@ class Vehicle extends Model
     public function body_types()
     {
         return $this->belongsTo(BodyType::class, 'body_id');
-    }
-    public function color()
-    {
-        return $this->belongsTo(Color::class, 'color_id');
     }
 
     public function model()

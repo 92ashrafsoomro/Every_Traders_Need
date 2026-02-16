@@ -21,14 +21,9 @@ class VehicleModel extends Model
         return $this->hasMany(ModelVariant::class, 'model_id');
     }
 
-    public function autoBasics()
-    {
-    return $this->hasMany(AutoBasic::class, 'model_id');
-    }
-
     public function vehicle()
     {
-    return $this->hasMany(Vehicle::class, 'model_id');
+        return $this->hasMany(Vehicle::class, 'model_id');
     }
 
 

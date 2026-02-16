@@ -10,10 +10,7 @@ class BodyType extends Model
     // protected $fillable = ['name'];
     protected $guarded = [];
 
-    public function autoBasics()
-    {
-        return $this->hasMany(AutoBasic::class, 'body_id');
-    }
+
 
     public function vehicle()
     {

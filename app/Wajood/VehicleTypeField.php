@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Hash;
 
         $this->row = $row;
         $this->value = $this->row->item['body_id'];
-
+        $this->data = VehicleType::pluck('name')->map(fn ($name) => strtolower($name))->toArray();
 
 
     }
@@ -49,11 +49,10 @@ use Illuminate\Support\Facades\Hash;
     {
 
         $value = strtolower($this->value);
-        // Check in Prefix
-        $bodyPrefix = $this->row->main->vehicleTypePrefix($value); 
-
-        if($bodyPrefix !== null){
-            return $bodyPrefix;
+        // Direct Check
+        $vehicleTypePrefix = $this->row->main->vehicleTypePrefix($value); 
+        if($vehicleTypePrefix && in_array($vehicleTypePrefix,$this->data)){
+            return $vehicleTypePrefix;
         }
 
         return $this->value;

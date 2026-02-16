@@ -120,7 +120,7 @@ use Illuminate\Support\Facades\Hash;
 
         // Case 1 Direct Check
         if(in_array($value,$this->data)){
-            return $this->value;
+            return $value;
         }
 
         // Case 2 Check in Prefix
@@ -139,13 +139,14 @@ use Illuminate\Support\Facades\Hash;
     public function default()
     {
 
-        $value = strtolower($this->value);
-
+        $value = strtolower($this->value);  
+        $value = $this->row->main->removeBodyInModel($value);
+    
         // Case 1 Direct Check
         if(in_array($value,$this->data)){
-            return $this->value;
+            return $value;
         }
-
+    
         // Case 2 Check in Prefix
         $prefixValue = $this->row->main->modelPrefix($value); 
         if($prefixValue && in_array($prefixValue,$this->data)){
@@ -160,16 +161,15 @@ use Illuminate\Support\Facades\Hash;
 
     public function handle(){
 
-        if(in_array($this->row->main->auction->platform_id,[2])){
-            return $this->astonBarlayClean();
-        }
+        // if(in_array($this->row->main->auction->platform_id,[2])){
+        //     return $this->astonBarlayClean();
+        // }
 
         if(in_array($this->row->main->auction->platform_id,[9])){
             return $this->wilianmSon();
         }
 
         return $this->default();
-
     }
 
 
@@ -181,7 +181,7 @@ use Illuminate\Support\Facades\Hash;
             $this->row->model = VehicleModel::where('make_id',$this->row->make->id)->whereRaw('LOWER(name) = ?', [strtolower($value)])->first();
         }
         return $value;
-        
+
     }
 
 

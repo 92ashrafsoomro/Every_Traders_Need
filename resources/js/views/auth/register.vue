@@ -327,11 +327,11 @@
                                 <div class="d-flex flex-column align-center align-md-start order-2 order-md-1">
                                     <span class="text-light_text_on text-body-1 text-center text-md-left">
                                         Already have an account? <router-link to="/login"
-                                        class="text-primary px-1 text-body-2 text-center text-md-left">
-                                        Login
-                                    </router-link>
+                                            class="text-primary px-1 text-body-2 text-center text-md-left">
+                                            Login
+                                        </router-link>
                                     </span>
-                                   
+
                                 </div>
                             </v-col>
                         </v-row>
@@ -439,6 +439,18 @@ export default {
 
     },
     methods: {
+        onFileChange(fieldOrEvent, event) {
+            let field, file;
+            if (typeof fieldOrEvent === 'string') {
+                field = fieldOrEvent;
+                file = event.target.files[0];
+            } else {
+                field = 'avatar';
+                file = fieldOrEvent.target.files[0];
+            }
+            this.form[field] = file;
+            // console.log(`File selected for ${field}:`, file);
+        },
         handleNext() {
             if (this.step === 4) {
                 this.onSubmit()

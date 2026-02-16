@@ -27,12 +27,15 @@ use App\Models\Role;
 
         $user = $request->user();
         $role = Role::find($user->user_type);
+
         $current = Membership::where('user_id',$user->id)
         ->with(['plan'])
         ->where('membership_status', 'Active')
         ->whereDate('membership_start_date', '<=', now())
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
+
+        $plan_name = $current ? $current->name : null;
         
         return response()->json([
             'message' => 'Get Profile Details',
@@ -44,12 +47,13 @@ use App\Models\Role;
                 'avatar'            => $user->avatar ? env('APP_URL') . 'public/uploads/avatar/' . $user->avatar: null,
                 'jobTitle'          => $user->jobTitle,
                 'personalEmail'     => $user->personalEmail,
-                'plan'              =>  $current,
+                'plan'              => $current,
+                'active_plan'       => $plan_name,
                 'joined' => 'Joined 10 Apr 2025',
             ],
         ]);
 
-        
+
     }
 
 

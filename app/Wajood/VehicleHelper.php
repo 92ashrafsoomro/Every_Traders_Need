@@ -48,6 +48,18 @@ use Illuminate\Support\Facades\Hash;
         $prefixes = $this->prefixes['bodyType'];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
+    public function centerPrefix($value){
+        $prefixes = $this->prefixes['center'];
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
+    }
+    public function fuelTypePrefix($value){
+        $prefixes = $this->prefixes['fuelType'];
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
+    }
+    public function transmissionTypePrefix($value){
+        $prefixes = $this->prefixes['transmission'];
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
+    }
     public function vehicleTypePrefix($value){
         $prefixes = $this->prefixes['vehicleType'];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;

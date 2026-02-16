@@ -34,22 +34,23 @@ use Illuminate\Support\Facades\Hash;
 
 
     public function modelPrefix($value){
+
         $prefixes = $this->prefixes['model'];
-        return isset($prefixes[$value]) ? $prefixes[$value] : null;
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 
     public function makePrefix($value){
         $prefixes = $this->prefixes['make'];
-        return isset($prefixes[$value]) ? $prefixes[$value] : null;
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 
     public function bodyPrefix($value){
         $prefixes = $this->prefixes['bodyType'];
-        return isset($prefixes[$value]) ? $prefixes[$value] : null;
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
     public function vehicleTypePrefix($value){
         $prefixes = $this->prefixes['vehicleType'];
-        return isset($prefixes[$value]) ? $prefixes[$value] : null;
+        return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 
 
@@ -59,7 +60,7 @@ use Illuminate\Support\Facades\Hash;
             $words = explode(" ",$value);
             foreach ($words as $word){
                 if(in_array($word,$data)){
-                    return  $word;
+                    return  strtolower($word);
                 }
             }
 
@@ -75,24 +76,25 @@ use Illuminate\Support\Facades\Hash;
             if(isset($words[2])){
 
                 if(in_array($words[0].' '.$words[1].' '.$words[2],$variants)){
-                return $words[0].' '.$words[1].' '.$words[2];
+                return strtolower($words[0].' '.$words[1].' '.$words[2]);
+
                 }else if(in_array($words[0].' '.$words[1],$variants)){
-                    return $words[0].' '.$words[1];
+                    return strtolower($words[0].' '.$words[1]);
                 }else if(in_array($words[0],$variants)){
-                    return $words[0];
+                    return strtolower($words[0]);
                 }
 
             }else if(isset($words[1])){
                 
                 if(in_array($words[0].' '.$words[1],$variants)){ 
-                    return $words[0].' '.$words[1];
+                    return strtolower($words[0].' '.$words[1]);
                 }else if(in_array($words[0],$variants)){ 
-                    return $words[0];
+                    return strtolower($words[0]);
                 }
 
             }else if(isset($words[0])){
                 if(in_array($words[0],$variants)){ 
-                    return $words[0];
+                    return strtolower($words[0]);
                 }
             }
 
@@ -104,16 +106,64 @@ use Illuminate\Support\Facades\Hash;
     
         public function findVariantByOldDerivative($derivative, Make $make,VehicleModel $model)
     {
-        $v = Vehicle::where('make_id',$make->id)
-                    ->where('model_id',$model->id)
-                    ->whereRaw('LOWER(derivative) = ?', [strtolower($derivative)])
-                    ->first();
-        if($v){
-            return $v->variant->name;
-        }else{
-            return null;
-        }
+            $v = Vehicle::where('make_id',$make->id)
+                        ->where('model_id',$model->id)
+                        ->whereRaw('LOWER(derivative) = ?', [strtolower($derivative)])
+                        ->first();
+            if($v){
+                return strtolower($v->variant->name);
+            }else{
+                return null;
+            }
 
+    }
+
+
+        public function removeBodyInModel($value)
+    {
+            $value = strtolower($value);
+
+            $bodyMap = $this->prefixes['bodyType'];
+            $fuelMap = $this->prefixes['fuelType'];
+            $manualFuel = ['diesel', 'petrol'];
+                
+            $words = preg_split('/\s+/', trim($value));
+
+            for ($i = count($words) - 1; $i >= 0; $i--) {
+
+                $word = trim(strtolower($words[$i]));
+                $remove = false;
+
+                if (in_array($word, $manualFuel)) {
+                    $remove = true;
+                }
+
+                if (!$remove) {
+                    foreach ($bodyMap as $key => $mappedValue) {
+                        if (stripos($word, strtolower($key)) !== false) {
+                            $remove = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!$remove) {
+                    foreach ($fuelMap as  $key => $mappedValue) {
+                        if (stripos($word, strtolower($key)) !== false) {
+                            $remove = true;
+                            break;
+                        }
+                    }
+                }
+
+                if ($remove) {
+                    array_splice($words, $i, 1);
+                }
+            }
+
+            $value = implode(' ', $words);
+
+            return strtolower($value);
     }
     
 

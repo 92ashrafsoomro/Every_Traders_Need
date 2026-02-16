@@ -211,8 +211,13 @@
     <div class="bg-surface  mt-5 border mb-5">
         <div class="text-h6 font-weight-bold px-7 py-4"> Auction History</div>
 
-        <v-data-table-server class="rounded " striped="even" :headers="preAucHeaders" hide-default-footer
-            :items="[vehicleStore.vehicle]" item-key="id">
+       <v-data-table-server
+  :headers="preAucHeaders"
+  :items="auctionHistory"
+  item-key="id"
+  hide-default-footer
+>
+        
             <!-- Date -->
             <template #item.auction_date="{ item }">
                 {{ item.auction?.auction_date || '-' }}
@@ -269,11 +274,14 @@
 
 
 <script>
+import General from '@/models/general.model';
 import { useVehicleStore } from '@/stores/vehicleStore';
 export default {
     data() {
         return {
+            loading : false,
             vehicleStore: useVehicleStore(), showDisclaimer: false,
+             auctionHistory: [],  
             preAucHeaders: [
                 { title: 'Date', key: 'auction_date' },
                 { title: 'Auc House', key: 'auction_house' },
@@ -333,6 +341,9 @@ export default {
         }
                 
     },
+    mounted(){
+        this.getData()
+    },
     methods: {
         getGradeStyle(grade) {
             switch (grade) {
@@ -357,6 +368,20 @@ export default {
                         backgroundColor: '#02de0a'
                     };
             }
+        },
+        async getData(){
+            this.loading = true;
+           
+                try {
+                   const id = this.$route.params.id  
+                    let res = await General.get(`/api/user/vehicleHistory/${id}`)   
+                      this.auctionHistory = res.data  
+                    console.log(res);
+                    this.loading = false;
+                
+                } catch (error) {
+                    console.error(error)
+                }
         }
     }
 }

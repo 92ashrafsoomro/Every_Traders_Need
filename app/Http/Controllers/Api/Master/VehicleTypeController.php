@@ -173,7 +173,7 @@ class VehicleTypeController extends Controller
     {
 
         $model = VehicleType::findOrFail($id);
-        if(Vehicle::where('body_id',$id)->first()){
+        if(Vehicle::where('vehicle_id',$id)->first()){
             return response()->json(['message' =>'Cannot Delete Exist In Vehicle'], 422);
         }
 

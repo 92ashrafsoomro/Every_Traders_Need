@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
+use App\Models\ModelVariant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -171,8 +172,11 @@ class ModelController extends Controller
         $model = VehicleModel::find($id);
         if(!$model){
             return response()->json(['message' =>'Record Not Found'], 422);
+            }
+        $ModelVariant = ModelVariant::where('model_id',$id)->delete();
+        if($ModelVariant){    
+            return response()->json(['message' =>'Cannot Delete Model Has Variants'], 422);
         }
-
         if(Vehicle::where('model_id',$id)->first()){
             return response()->json(['message' =>'Cannot Delete Exist In Vehicle'], 422);
         }

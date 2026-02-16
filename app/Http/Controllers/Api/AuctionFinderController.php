@@ -121,7 +121,7 @@ class AuctionFinderController extends Controller
     {
 
         $data = Vehicle::query()
-            ->where('id','!=',$id)
+            ->where('vehicles.id','!=',$id)
             // ->where('vehicles.id', '!=', $vehicle->id) 
             ->leftJoin('auctions', 'auctions.id', '=', 'vehicles.auction_id')
             ->leftJoin('auction_platform', 'auction_platform.id', '=', 'auctions.platform_id')

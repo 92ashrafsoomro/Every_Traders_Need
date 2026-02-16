@@ -92,11 +92,12 @@
                                                 <v-btn value="Reauction Detacted" height="50"
                                                     class="bell text-capitalize text-body-1 border"
                                                     :disabled="alertExists" @click="sendAlertdata" :style="{
-                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary))'   : 'transparent',
-                                                        
+                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary))' : 'transparent',
+
                                                         cursor: alertExists ? 'not-allowed' : 'pointer'
                                                     }">
-  <v-icon :color="alertExists ? 'white' : 'primary'">mdi-bell-outline</v-icon>
+                                                    <v-icon
+                                                        :color="alertExists ? 'white' : 'primary'">mdi-bell-outline</v-icon>
 
                                                 </v-btn>
 
@@ -130,7 +131,7 @@ import Detaction from './DetactionTab/index.vue'
 import VehicleSidebar from './VehicleSidebar.vue';
 import Vehicle from '@/models/vehicle.model';
 import General from '@/models/general.model';
-
+import { useGeneralStore } from '@/stores/generalStore';
 
 export default {
     components: {
@@ -142,11 +143,12 @@ export default {
     },
     data() {
         return {
+            generalStore: useGeneralStore(),
             vehicleStore: useVehicleStore(),
             loading: false,
             alertExists: false,
             filter: {
-                lenght: 1
+                length: 1
             }
         };
     },
@@ -163,6 +165,7 @@ export default {
         this.loading = false;
         this.vehicleStore.isVehicle = false;
     },
+
     computed: {
         currentComponent() {
             switch (this.vehicleStore.tab) {
@@ -202,14 +205,17 @@ export default {
             }
         },
     },
+
+
     watch: {
         '$route.params.id': {
             immediate: true,
             handler(newId) {
                 this.loadVehicle(newId);
             }
-        }
+        },
     },
+
     methods: {
         loadVehicle() {
 
@@ -221,6 +227,7 @@ export default {
                     this.vehicleStore.reauction = res.data.reauction || null;
                     this.loading = false;
                     this.vehicleStore.isVehicle = true;
+                     this.alertExist();
 
                 }).catch(() => {
 
@@ -231,35 +238,51 @@ export default {
 
                 });
         },
+
+
         async alertExist() {
+            if (!this.vehicleStore.vehicle.id) return;
+
             const options = {
                 vehicle_id: this.vehicleStore.vehicle.id,
-                lenght: this.filter.lenght
+                end_date: this.generalStore.date.end_date
             };
 
             try {
-                let res = await General.get("/api/notifications/userAlertList", options);
+                const res = await General.get("/api/notifications/userAlertList",  options );
 
-                this.alertExists = res.data?.some(alert => alert.vehicle_id === this.vehicleStore.vehicle.id);
+                const list = res.data?.data || [];
+
+                const alert = list.find(a => Number(a.vehicle_id) === Number(this.vehicleStore.vehicle.id));
+
+                this.alertExists = !!alert && !this.checkAlertExpiry(alert.end_date);
 
             } catch (e) {
                 console.error(e);
+                this.alertExists = false;
             }
-        }
-        ,
+        },
+ 
         async sendAlertdata() {
-            const options = { vehicle_id: this.vehicleStore.vehicle.id };
+            const options = {
+                vehicle_id: this.vehicleStore.vehicle.id,
+                end_date: this.generalStore.date.end_date
+            };
 
             try {
                 let res = await General.post("/api/notifications/addInVehicleAlert", options);
-                this.$alertStore.add("ALert Add Successfully" , "success")
-                this.alertExists = true; 
+                this.$alertStore.add("ALert Add Successfully", "success")
+                this.alertExists = true;
             } catch (e) {
                 console.error(e);
             }
+        },
+ 
+        checkAlertExpiry(endDate) {
+            const today = new Date();
+            const expiry = new Date(endDate);
+            return today > expiry;
         }
-
-
     }
 };
 </script>

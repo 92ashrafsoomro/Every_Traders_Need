@@ -15,144 +15,42 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
 use App\Mail\VerifyEmail;
-class AuthController extends Controller
+use App\Models\Membership;
+use App\Models\Role;
+
+    class AuthController extends Controller
 {
 
-     public function profile(Request $request)
+    
+        public function profile(Request $request)
     {
 
         $user = $request->user();
+        $role = Role::find($user->user_type);
+        $current = Membership::where('user_id',$user->id)
+        ->with(['plan'])
+        ->where('membership_status', 'Active')
+        ->whereDate('membership_start_date', '<=', now())
+        ->whereDate('membership_expiry_date', '>=', now())
+        ->first();
+        
         return response()->json([
             'message' => 'Get Profile Details',
             'data' => [
-                'user' => new UserProfileResource($user),
+                'id'                => $user->id,
+                'firstName'         => $user->firstName,
+                'role'              => $role ? $role->name : 'User',
+                'status'            => $user->status,
+                'avatar'            => $user->avatar ? env('APP_URL') . 'public/uploads/avatar/' . $user->avatar: null,
+                'jobTitle'          => $user->jobTitle,
+                'personalEmail'     => $user->personalEmail,
+                'plan'              =>  $current,
+                'joined' => 'Joined 10 Apr 2025',
             ],
         ]);
 
+        
     }
-
-    public function profileUpdate(Request $request)
-    {
-        $user = $request->id ? User::find($request->id) : $request->user();
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found.'
-            ], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'companyName' => 'required|string|max:255',
-            'companyAddress1' => 'required|string|max:255',
-            'companyAddress2' => 'required|string|max:255',
-            'businessType' => 'required|string|max:255',
-            'companyReg' => 'required|string|max:255',
-            'townCity' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'website' => 'required|url',
-            'postcode' => 'required|string|max:255',
-            'telephone' => 'required|string|max:255',
-            'businessEmail' => [
-                'required','string','email','max:255',
-                Rule::unique('users', 'businessEmail')->ignore($user->id)
-            ],
-            'motorTradeInsurance' => 'required|string|max:255',
-            'vatNumber' => 'required|string|max:255',
-            'firstName' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'jobTitle' => 'required|string|max:255',
-            'source' => 'nullable|string|max:255',
-            'phone' => 'required|string|max:255',
-            'personalEmail' => [
-                'required','string','email','max:255',
-                Rule::unique('users', 'personalEmail')->ignore($user->id)
-            ],
-            'password' => 'nullable|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        // Profile Company
-        $user->companyName = $request->companyName;
-        $user->companyAddress1 = $request->companyAddress1;
-        $user->companyAddress2 = $request->companyAddress2;
-        $user->businessType = $request->businessType;
-        $user->companyReg = $request->companyReg;
-        $user->website = $request->website;
-        $user->businessEmail = $request->businessEmail;
-        $user->motorTradeInsurance = $request->motorTradeInsurance;
-        $user->vatNumber = $request->vatNumber;
-        $user->townCity = $request->townCity;
-        $user->country = $request->country;
-        $user->postcode = $request->postcode;
-        $user->telephone = $request->telephone;
-
-        // Profile Personal
-        $user->firstName = $request->firstName;
-        $user->surname = $request->surname;
-        $user->jobTitle = $request->jobTitle;
-        $user->title = $request->jobTitle;
-        $user->source = $request->source;
-        $user->phone = $request->phone;
-
-        // Handle file uploads (uploadID, avatar, proofs)
-        if ($request->file('uploadID')) {
-            if ($user->uploadID && file_exists(public_path('uploads/uploadID/' . $user->uploadID))) {
-                unlink(public_path('uploads/uploadID/' . $user->uploadID));
-            }
-            $fileName = time() . '__ff__' . $request->file('uploadID')->getClientOriginalName();
-            $request->file('uploadID')->move(public_path('uploads/uploadID'), $fileName);
-            $user->uploadID = $fileName;
-        }
-
-        if ($request->file('avatar')) {
-            if ($user->avatar && file_exists(public_path('uploads/avatar/' . $user->avatar))) {
-                unlink(public_path('uploads/avatar/' . $user->avatar));
-            }
-            $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
-            $request->file('avatar')->move(public_path('uploads/avatar'), $fileName);
-            $user->avatar = $fileName;
-        }
-
-        if ($request->file('motorTradeProof')) {
-            if ($user->motorTradeProof && file_exists(public_path('uploads/motorTradeProof/' . $user->motorTradeProof))) {
-                unlink(public_path('uploads/motorTradeProof/' . $user->motorTradeProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('motorTradeProof')->getClientOriginalName();
-            $request->file('motorTradeProof')->move(public_path('uploads/motorTradeProof'), $fileName);
-            $user->motorTradeProof = $fileName;
-        }
-
-        if ($request->file('addressProof')) {
-            if ($user->addressProof && file_exists(public_path('uploads/addressProof/' . $user->addressProof))) {
-                unlink(public_path('uploads/addressProof/' . $user->addressProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('addressProof')->getClientOriginalName();
-            $request->file('addressProof')->move(public_path('uploads/addressProof'), $fileName);
-            $user->addressProof = $fileName;
-        }
-
-        // Account
-        $user->personalEmail = $request->personalEmail;
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
-
-        return response()->json([
-            'message' => "Profile Updated Successfully",
-            'data' => [
-                'user' => new UserProfileResource($user),
-            ],
-        ], 200);
-    }
-
 
 
     public function login(Request $request)
@@ -217,6 +115,8 @@ class AuthController extends Controller
         ],422);
 
     }
+
+
 
 
 
@@ -455,30 +355,7 @@ class AuthController extends Controller
     }
 
     
-    public function changePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required|min:6|string',
-            'new_password' => 'required|string|min:6|confirmed', // password_confirmation field required
-        ]);
-
-        $user = $request->user();
-
-        // Check current password
-        if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json([
-                'message' => 'Current password does not match'
-            ], 422);
-        }
-
-        // Update password
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-
-        return response()->json([
-            'message' => 'Password changed successfully'
-        ], 200);
-    }
+    
 
     public function forgotPassword(Request $request)
         {
@@ -530,6 +407,8 @@ class AuthController extends Controller
                 ], 500);
             }
     }
+
+
     public function resetPasswordSubmit(Request $request)
     {
     
@@ -574,55 +453,56 @@ class AuthController extends Controller
         ], 200);
     }
 
-public function verifyEmail(Request $request)
-{
 
-    $user = User::where('personalEmail', $request->email)->first();
+        public function verifyEmail(Request $request)
+    {
 
-    if (!$user) {
-        return response()->json([
-            'success' => false,
-            'message' => 'User not found.'
-        ], 404);
-    }
+        $user = User::where('personalEmail', $request->email)->first();
 
-    if ($user->status == 0) {
-        if (!$user->last_resend_at || !Carbon::parse($user->last_resend_at)->addHours(24)->isPast()) {
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Your account is blocked. Please try again after 24 hours.'
-            ], 403);
+                'message' => 'User not found.'
+            ], 404);
         }
 
-        // unblock
-        $user->status = 1;
-        $user->resend_count = 0;
+        if ($user->status == 0) {
+            if (!$user->last_resend_at || !Carbon::parse($user->last_resend_at)->addHours(24)->isPast()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your account is blocked. Please try again after 24 hours.'
+                ], 403);
+            }
+
+            // unblock
+            $user->status = 1;
+            $user->resend_count = 0;
+            $user->save();
+        }
+
+        if ($user->email_verification_token !== $request->token) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid verification code.'
+            ], 422);
+        }
+
+        // ✅ verified
+        $user->email_verification_token = null;
+        $user->email_verification_token_status = 1;
         $user->save();
-    }
 
-    if ($user->email_verification_token !== $request->token) {
+        $token = $user->createToken('autoboli_token')->plainTextToken;
+
         return response()->json([
-            'success' => false,
-            'message' => 'Invalid verification code.'
-        ], 422);
+            'success' => true,
+            'message' => 'Email verified successfully.',
+            'data' => [
+                'user' => new UserProfileResource($user),
+                'token' => $token
+            ]
+        ], 200);
     }
-
-    // ✅ verified
-    $user->email_verification_token = null;
-    $user->email_verification_token_status = 1;
-    $user->save();
-
-    $token = $user->createToken('autoboli_token')->plainTextToken;
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Email verified successfully.',
-        'data' => [
-            'user' => new UserProfileResource($user),
-            'token' => $token
-        ]
-    ], 200);
-}
 
 
 

@@ -37,7 +37,6 @@ use App\Http\Controllers\Api\Master\AuctionStatusController;
 use App\Http\Controllers\Api\Master\AuctionTypeController;
 use App\Http\Controllers\Api\Master\PrefixController;
 use App\Http\Controllers\Api\Master\SheetController;
-use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
@@ -51,57 +50,28 @@ use App\Http\Controllers\Api\StripeController;
     })->middleware('auth:sanctum');
     
 
-
-
+    //AUTH..
     Route::prefix('auth')->group(function(){
 
-        Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
-        Route::post('/profile/{id?}',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
         Route::post('/login',[AuthController::class,'login']);
         Route::post('/register',[AuthController::class,'register']);
         Route::post('/verifyemail', [AuthController::class, 'verifyEmail']);
-        Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
         Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('/resetpassword', [AuthController::class, 'resetpasswordsubmit']);
+        Route::get('/user',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
 
     });
 
 
-    Route::prefix('web')->group(function () {
-        Route::get('/getplans',[PlanController::class,'index']);
+    // Account Dettails
+    Route::prefix('profile')->middleware(['auth:sanctum'])->group(function(){
+        Route::get('/account-details/{id}',[ProfileController::class,'profile'])->middleware(['auth:sanctum']);
+        Route::post('/account-details/{id}',[ProfileController::class,'profileUpdate'])->middleware(['auth:sanctum']);
+        Route::post('/changePassword', [ProfileController::class, 'changePassword'])->middleware(['auth:sanctum']);
     });
- 
+
+
     
-
-    // Master data
-    Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
-
-        Route::get('/getVehicleTypes',[MasterController::class,'getVehicleTypes']);
-        Route::get('/getBodyTypes',[MasterController::class,'getBodyTypes']);
-        Route::get('/getAuctionHouse',[MasterController::class,'getAuctionHouse']);
-        Route::get('/getAuctionCenter',[MasterController::class,'getAuctionCenter']);
-        Route::get('/getMakes',[MasterController::class,'getMakes']);
-        Route::get('/getModels',[MasterController::class,'getModels']);
-        Route::get('/getVariants',[MasterController::class,'getVariants']);
-        
-        Route::get('/getColors',[MasterController::class,'getColors']);
-        Route::get('/getV5',[MasterController::class,'getV5']);
-        Route::get('/getGrade',[MasterController::class,'getGrade']);
-        Route::get('/getEngineSize',[MasterController::class,'getEngineSize']);
-        Route::get('/getFormerKeepers',[MasterController::class,'getFormerKeepers']);
-        Route::get('/getNoOfServices',[MasterController::class,'getNoOfServices']);
-        Route::get('/getYears',[MasterController::class,'getYears']);
-        Route::get('/getTransmissions',[MasterController::class,'getTransmissions']);
-        Route::get('/getFuelType',[MasterController::class,'getFuelType']);
-        Route::get('/getDoors',[MasterController::class,'getDoors']);
-        Route::get('/getSeats',[MasterController::class,'getSeats']);
-        Route::get('/getDates',[MasterController::class,'getDates']);
-
-    });
-
-
-
-
     // User Panel
     Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
 
@@ -229,4 +199,15 @@ use App\Http\Controllers\Api\StripeController;
 
         
     });
+
+
+    // Web Controller..
+    Route::prefix('web')->group(function () {
+
+        Route::get('/getplans',[PlanController::class,'index']);
+
+    });
+
+
+
     

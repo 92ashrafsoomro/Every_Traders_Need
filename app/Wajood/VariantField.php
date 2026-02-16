@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Hash;
         $this->row = $row;
         $this->value = $this->row->item['derivative'];
         if($this->row->model){
+
             $this->data = ModelVariant::where('model_id',$this->row->model->id)
                           ->pluck('name')
                           ->map(fn ($name) => strtolower($name))
@@ -57,6 +58,10 @@ use Illuminate\Support\Facades\Hash;
                 return $findVariantByOldDerivative;
                 }
             }
+
+           
+
+            
 
 
             $value = strtolower($this->value);
@@ -108,6 +113,11 @@ use Illuminate\Support\Facades\Hash;
         if(in_array($value,$this->data)){
             return $value;
         }
+
+        // if($this->value == '1.9 TDI S 5dr'){
+                // dd($this->row->model);
+        // }
+
 
         // Case 2 Check in Prefix
         $prefixValue = $this->row->main->modelPrefix($value); 

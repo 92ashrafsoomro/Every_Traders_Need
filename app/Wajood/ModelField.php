@@ -177,8 +177,11 @@ use Illuminate\Support\Facades\Hash;
       public function get()
     {
         $value = $this->handle();
-        $this->row->model = VehicleModel::whereRaw('LOWER(name) = ?', [strtolower($value)])->first();
+        if($this->row->make){
+            $this->row->model = VehicleModel::where('make_id',$this->row->make->id)->whereRaw('LOWER(name) = ?', [strtolower($value)])->first();
+        }
         return $value;
+        
     }
 
 

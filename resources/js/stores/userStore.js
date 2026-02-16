@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import api from "../plugins/axios";
 import { errorHandler } from "@/services/responseHandleService";
 import { toRaw } from "vue";
+import General from "@/models/general.model";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
@@ -132,9 +133,7 @@ export const useUserStore = defineStore("user", {
         },
         clearPlan() {
             this.selectedPlanId = null;
-        }
-       
-
+        },
     },
 
 });

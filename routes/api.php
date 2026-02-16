@@ -58,7 +58,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::post('/verifyemail', [AuthController::class, 'verifyEmail']);
         Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('/resetpassword', [AuthController::class, 'resetpasswordsubmit']);
-        Route::get('/user',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
+        Route::get('/account',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
 
     });
 

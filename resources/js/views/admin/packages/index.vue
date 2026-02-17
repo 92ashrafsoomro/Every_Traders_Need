@@ -1,5 +1,5 @@
 <template>
-    <user-title-bar title="Plans" subtitle="Plans Page">
+    <user-title-bar title="Packages" subtitle="Packages Page">
 
     </user-title-bar>
     <v-container fluid="" max-width="1400px">
@@ -13,10 +13,10 @@
 
             </div>
             <div class="pl-2">
-                <!-- <v-btn to="/admin/packages/create" color="primary" style="height: 44px;" variant="flat"
+                <v-btn to="/admin/packages/create" color="primary" style="height: 44px;" variant="flat"
                     @click="getPlanData">
                     <v-icon icon="mdi-plus"></v-icon>
-                </v-btn> -->
+                </v-btn>
             </div>
         </div>
         <div class="border">
@@ -81,9 +81,18 @@ export default {
             headers: [
                 { title: "ID", key: "id" },
                 { title: "Plan Name", key: "plan_name" },
+                { title: "Title", key: "title" },
+                { title: "Short Description", key: "short_desc" },
+                { title: "Price", key: "price" },
+                { title: "Duration Unit", key: "duration_unit" },
+                { title: "Duration Value", key: "duration_value" },
+                { title: "Offer", key: "is_officer" },
+                { title: "Sort By", key: "sort_by" },
+                { title: "Status", key: "status" },
+                { title: "Discount", key: "discount" },
                 { title: "Created At", key: "created_at" },
                 { title: "Update At", key: "updated_at" },
-
+                { title: "Action", key: 'action' }
             ]
         }
     },
@@ -103,7 +112,7 @@ export default {
         async getPlanData() {
             this.loading = true;
             try {
-                let res = await General.get("/api/cruds/plans", this.filter)
+                let res = await General.get("/api/cruds/packages", this.filter)
                 this.total = Number(res.recordsTotal)
                 this.items = res.data.data ?? res.data
                 this.last_page = Number(res.last_page)
@@ -119,7 +128,7 @@ export default {
         async deleteItems(id) {
             this.loading = true;
             try {
-                let res = await General.delete('/api/cruds/plans/' + id);
+                let res = await General.delete('/api/cruds/packages/' + id);
                 this.$alertStore.add(res.message, 'success');
                 this.getPlanData()
             } catch (error) {

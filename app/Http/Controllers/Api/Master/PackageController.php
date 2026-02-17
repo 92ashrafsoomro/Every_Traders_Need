@@ -37,24 +37,24 @@ class PackageController extends Controller
         $query = Package::query();
 
         //Filter
-        if($request->has('id') && $request->id != '') {
+        if($request->has('id') && $request->id != ''){
             $query->where('id',$request->id);
         }
         
-        $count = (clone $query)->count();
-        $data = $query->select([
+        $count  =   (clone $query)->count();
+        $data   =   $query->select([
                     'packages.*',
-                ])
-                ->skip($offset)
-                ->take($length)
-                ->orderByDesc('id')
-                ->get()
-                ->map(function($item){
-                    if (!empty($item->description)) {
+                    ])
+                    ->skip($offset)
+                    ->take($length)
+                    ->orderByDesc('id')
+                    ->get()
+                    ->map(function($item){
+                        if (!empty($item->description)) {
                             $item->description = json_decode($item->description, true);
                         }
-                    return $item;
-                });
+                        return $item;
+                    });
             
 
         return response()->json([
@@ -65,7 +65,6 @@ class PackageController extends Controller
             'last_page' => ceil($count / $length),
             'data' => $data,
         ]);
-
 
     }
 
@@ -170,6 +169,7 @@ class PackageController extends Controller
         ],200);
         
     }
+
 
         public function show(Request $request,$id)
     {

@@ -45,29 +45,29 @@ class StripeController extends Controller
 
             // dd($plan->price);
 
-            if ((float)$plan->price === 0.0) {
+            // if ((float)$plan->price === 0.0) {
 
-                    $data = [
-                        'transactionId' => uniqid(), 
-                        'first_name'   => $request->first_name,
-                        'last_name'    => $request->last_name,
-                        'phone'        => $request->phone,
-                        'country'      => $request->country,
-                        'state'        => $request->state,
-                        'city'         => $request->city,
-                        'zip_code'     => $request->zip_code,
-                        'address'      => $request->address,
-                    ];
+            //         $data = [
+            //             'transactionId' => uniqid(), 
+            //             'first_name'   => $request->first_name,
+            //             'last_name'    => $request->last_name,
+            //             'phone'        => $request->phone,
+            //             'country'      => $request->country,
+            //             'state'        => $request->state,
+            //             'city'         => $request->city,
+            //             'zip_code'     => $request->zip_code,
+            //             'address'      => $request->address,
+            //         ];
 
-                    $membership = PlanService::createMemberShip($plan,$user);
-                    $payment = PlanService::createPayment($membership,$data);
+            //         $membership = PlanService::createMemberShip($plan,$user);
+            //         $payment = PlanService::createPayment($membership,$data);
 
-                    return response()->json([
-                        'message'       => "Payment Successfully Created",
-                        'data'  => $payment
-                    ]);
+            //         return response()->json([
+            //             'message'       => "Payment Successfully Created",
+            //             'data'  => $payment
+            //         ]);
 
-            }else{
+            // }else{
 
 
         
@@ -116,19 +116,14 @@ class StripeController extends Controller
                 }
 
 
-        }
-        
-        
-
+        // }
 
     }
 
 
+
        private function planCreate($transactionId,Plan $plan, $request)
     {
-
-  
-
 
         $user = Auth::user();
         $startDate = now();

@@ -116,9 +116,7 @@ use App\Http\Controllers\Api\StripeController;
 
 
 
-    Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
-        Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
-    });
+  
 
     
 
@@ -142,10 +140,7 @@ use App\Http\Controllers\Api\StripeController;
         
         Route::get('/myNotifications',[NotificationController::class,'myNotifications']);
 
-        
-
     });
-
 
 
 
@@ -203,10 +198,14 @@ use App\Http\Controllers\Api\StripeController;
     });
 
 
+
     // Web Controller..
     Route::prefix('web')->group(function () {
 
         Route::get('/getplans',[PlanController::class,'index']);
+        Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
+            Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
+        });
 
     });
 

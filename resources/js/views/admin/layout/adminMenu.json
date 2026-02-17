@@ -77,14 +77,14 @@
     "icon": "mdi-cash",
     "children": [
       {
-        "label": "Plan",
+        "label": "Packages",
         "icon": "mdi-seal-variant",
-        "path": "/admin/plans"
+        "path": "/admin/packages"
       },
-       {
-        "label": "Restriction Control",
-        "icon": "mdi-cancel",
-        "path": ""
+      {
+        "label": "Plans",
+        "icon": "mdi-shield-crown",
+        "path": "/admin/plans"
       }
     ]
   },

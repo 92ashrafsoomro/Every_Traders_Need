@@ -4,9 +4,9 @@
             <v-card class="border">
                 <div class="d-flex align-center justify-space-between px-4 py-3">
                     <h3 class="text-h6 font-weight-bold">
-                        Create Plans
+                        Edit Packages
                     </h3>
-                    <router-link :to="'/admin/plans/'">
+                    <router-link :to="'/admin/packages/'">
                         <v-btn variant="text" color="primary" class="text-capitalize">
                             <v-icon start>mdi-arrow-left</v-icon>
                             Back
@@ -18,9 +18,12 @@
                 <v-card-text>
                     <v-container fluid>
                         <v-row>
-
                             <v-col cols="12" md="6">
-                                <v-text-field label="Plan Name" v-model="form.plan_name" variant="outlined"
+                                <PlansDropDown v-model="form.plan_id" label="Select Plan" variant="outlined" density="compact" />
+                           
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Packages Name" v-model="form.title" variant="outlined"
                                     density="compact" />
                             </v-col>
 
@@ -35,9 +38,7 @@
                                     variant="outlined" density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-select :items="[
-                                    { value: 'No', id: 0 },
-                                    { value: 'Yes', id: 1 }]" label="Status" v-model="form.status" item-title="value"
+                                <v-select :items="statusItems" label="Status" v-model="form.status" item-title="value"
                                     item-value="id" variant="outlined" density="compact" hide-details />
                             </v-col>
                             <v-col cols="12" md="6">
@@ -45,22 +46,19 @@
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Discount" type="number" v-model="form.discount" variant="outlined"
+                                <v-text-field label="Discount" v-model="form.discount" variant="outlined"
                                     density="compact" />
                             </v-col>
-
                             <v-col cols="12" md="6">
-                                <v-select :items="[
-                                    { value: 'No', id: 0 },
-                                    { value: 'Yes', id: 1 },
-                                ]" label="offer" v-model="form.is_officer" item-title="value" item-value="id"
-                                    variant="outlined" density="compact" hide-details />
+                                <v-select :items="offer" label="offer" v-model="form.is_officer" item-title="value"
+                                    item-value="id" variant="outlined" density="compact" hide-details />
                             </v-col>
-
                             <v-col cols="12" md="6">
                                 <v-text-field label="Sort By" v-model="form.sort_by" type="number" variant="outlined"
                                     density="compact" />
                             </v-col>
+
+                            <!-- Input for adding new description point -->
                             <v-col cols="12" md="12">
                                 <v-text-field label="Add Description Point" v-model="newPoint" variant="outlined"
                                     density="compact" @keyup.enter="addDescriptionPoint" />
@@ -68,27 +66,30 @@
                                     Add Point
                                 </v-btn>
                             </v-col>
+
+                            <!-- Display existing description points -->
                             <v-col cols="12" md="12">
                                 <v-subheader>Description Points</v-subheader>
+
                                 <div class="d-flex flex-wrap gap-2">
-                                   <v-chip 
-                                        v-for="(point, index) in form.description"
-                                        :key="index" 
-                                        color="primary"
-                                        variant="outlined" 
-                                        class="ma-1">
+                                    <v-chip v-for="(point, index) in form.description" :key="index" color="primary"
+                                        variant="outlined" class="ma-1">
                                         {{ point }}
-                                        <v-btn icon="mdi-close" size="x-small" variant="text" @click.stop="remove(index)"/>
+
+                                        <v-btn icon="mdi-close" size="x-small" variant="text" class="ml-2"
+                                            style="font-size: 10px;" @click.stop="remove(index)" />
                                     </v-chip>
                                 </div>
                             </v-col>
+
+
                             <v-col cols="12" md="12">
                                 <v-textarea label="Short Description" v-model="form.short_desc" variant="outlined"
                                     density="compact" />
                             </v-col>
                             <v-col cols="12" class="text-center mt-4">
-                                <v-btn @click="createPlans" color="primary" height="40">
-                                    create
+                                <v-btn @click="editPlans" color="primary" height="40">
+                                    Update
                                 </v-btn>
                             </v-col>
                         </v-row>
@@ -103,61 +104,99 @@
 
 <script>
 import General from '@/models/general.model';
-import { toRaw } from 'vue';
+import PlansDropDown from '@/components/PlansDropDown.vue';
 export default {
-
+    components: {
+        PlansDropDown
+    },
     data() {
         return {
-        points: [],
+            statusItems: [
+                { value: 'No', id: 0 },
+                { value: 'Yes', id: 1 },
+            ],
+            offer: [
+                { value: 'No', id: 0 },
+                { value: 'Yes', id: 1 },
+            ],
             form: {
                 id: '',
-                plan_name: '',
+                title: '',
+                plan_id: '',
                 short_desc: '',
-                description:[],
                 price: '',
                 status: '',
                 discount: '',
                 is_officer: '',
                 sort_by: '',
                 duration_unit: '',
+                description: [],
                 duration_value: '',
+                created_at: '',
+                updated_at: ''
             },
             newPoint: '',
             loading: false,
         }
     },
     mounted() {
+        this.form.id = this.$route.params.id;
+        this.fetchSingleRecord();
     },
-    computed:{
-
+    computed: {
+        // points(){
+        //     return JSON.parse(this.form.description);
+        // }
     },
     methods: {
-  addDescriptionPoint() {
-        if (!this.newPoint) return;
-        this.form.description.push(this.newPoint);
-        this.newPoint = '';
-    },
 
-    remove(index) {
-        this.form.description.splice(index, 1);
-    },
-        async createPlans() {
+        addDescriptionPoint() {
+            if (!this.newPoint) return;
+            this.form.description.push(this.newPoint);
+            this.newPoint = '';
+        },
+
+        remove(index) {
+            this.form.description.splice(index, 1);
+        },
+        async fetchSingleRecord() {
             this.loading = true;
-            
             try {
-
-                console.log(this.form);
-             
-                const res = await General.post("/api/cruds/plans",  this.form);
-                this.$alertStore.add(res.message || 'Plan Created', 'success');
-                // this.$router.push("/admin/plans");
+                let res = await General.get("/api/cruds/packages/" + this.form.id);;
+                this.form.title = res.data.title;
+                this.form.plan_id = res.data.plan_id;
+                this.form.short_desc = res.data.short_desc;
+                this.form.price = res.data.price;
+                this.form.description = res.data.description || "[]";
+                this.form.status = res.data.status;
+                this.form.discount = res.data.discount;
+                this.form.duration_unit = res.data.duration_unit;
+                this.form.duration_value = res.data.duration_value;
+                this.form.created_at = res.data.created_at;
+                this.form.sort_by = res.data.sort_by
+                this.form.is_officer = res.data.is_officer
+                this.form.updated_at = res.data.updated_at;
 
             } catch (error) {
-                this.$alertStore.add(error.message || 'Something went wrong', 'error');
-            } 
+                console.error(error)
+            } finally {
+                this.loading = false;
+            }
+        },
 
+        async editPlans() {
+            this.loading = true;
+
+            try {
+                let res = await General.put("/api/cruds/packages/" + this.form.id, this.form);
+                this.$alertStore.add(res.message, 'success');
+                // this.$router.push("/admin/plans")
+
+
+            } catch (error) {
+                this.$alertStore.add(error.message || 'Some Thing went wrong', error)
+            }
         }
     }
-
 }
 </script>

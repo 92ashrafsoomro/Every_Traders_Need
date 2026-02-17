@@ -13,6 +13,7 @@ import vehicle from "@/views/admin/vehicle/route"
 import members from "@views/admin/members/route" 
 import transaction from "@views/admin/transaction/route" 
 import dictionary from "@views/admin/dictionary/route"
+import packages from "@views/admin/packages/route"
 import plans from "@views/admin/plans/route"
 import marketing from "@views/admin/marketing/route"
 import access from "@views/admin/accessControl/route"
@@ -45,6 +46,7 @@ export default [
             ...members,
             ...transaction,
             ...dictionary,
+            ...packages,
             ...plans,
             ...marketing,
             ...access,

@@ -74,6 +74,7 @@ class PackageController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
+            'plan_id' => 'required|exists:plans,id',
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'discount' => 'required|numeric|min:0',
@@ -129,9 +130,10 @@ class PackageController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'plan_name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'discount' => 'required|numeric|min:0',
+            'plan_id'   => 'required|exists:plans,id',
+            'title'     => 'required|string|max:255',
+            'price'     => 'required|numeric|min:0',
+            'discount'  => 'required|numeric|min:0',
             'short_desc' =>  'required|string|max:255',
             'description' => 'nullable|array',
             'duration_unit' =>  'required|in:month,week,year|max:255',
@@ -149,7 +151,8 @@ class PackageController extends Controller
         }
 
         $model->where('id',$id)->update([
-            'plan_name' => $request->plan_name,
+            'plan_id' => $request->plan_id,
+            'title' => $request->title,
             'price' => $request->price,
             'discount' => $request->discount,
             'short_desc' => $request->short_desc,
@@ -201,9 +204,9 @@ class PackageController extends Controller
             return response()->json(['message' =>'Record Not Found'], 422);
         }
 
-        if(Membership::where('plan_id',$id)->first()){
-            return response()->json(['message' =>'Cannot Delete Exist In User'], 422);
-        }
+        // if(Membership::where('plan_id',$id)->first()){
+        //     return response()->json(['message' =>'Cannot Delete Exist In User'], 422);
+        // }
 
         $model->delete();
         return response()->json(['message' =>'Record deleted successfully.'], 200);

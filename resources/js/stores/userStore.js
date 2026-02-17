@@ -86,7 +86,7 @@ export const useUserStore = defineStore("user", {
             try {
                 api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 let res = await api.get('/api/auth/account');
-
+                this.user = res.data.data;
 
                 return res.data.data;
             } catch (error) {

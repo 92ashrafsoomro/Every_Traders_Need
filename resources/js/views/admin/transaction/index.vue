@@ -162,14 +162,11 @@
                             </template>
 
                             <template #item.membership_status="{ item }">
-                                <v-btn
-                                    size="small"
-                                    :color="getStatusColor(item.membership_status)"
-                                    variant="flat"
-                                    >
-                                    {{ getStatusLabel(item.membership_status) }}
-                                </v-btn>
-
+                   
+                    <v-btn :color="item.membership_status == 0 ? 'warning':'primary'" size="small" variant="flat"  class="cursor-text">
+                             {{ item.membership_status == 0 ? 'De Active' : 'Active' }}
+                    </v-btn>
+              
                             </template>
                               <template #item.user="{ item }">
                                 <div class="d-flex flex-column">
@@ -361,10 +358,6 @@ export default {
                 return "default";
             }
         },
-
-        getStatusLabel(status) {
-            return status ?? "N/A";
-        }
 
 
 

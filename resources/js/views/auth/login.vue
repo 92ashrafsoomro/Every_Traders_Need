@@ -133,7 +133,11 @@ export default {
         this.$themeStore.startLoading()
         this.userStore.getProfile().then(() => {
             this.$themeStore.endLoading()
-            this.$router.replace("/user/dashboard");
+            if (this.userStore.role === 'Subscriber' && !this.userStore.user.plan) {
+                    this.$router.replace("/user/settings/billing");
+                } else {
+                    this.$router.replace("/user/dashboard");
+                }
         }).catch(() => this.$themeStore.endLoading())
             
        
@@ -151,7 +155,15 @@ export default {
                 this.userStore.initializeUserSession(response.token,response);
                 themeStore.endLoading();
                 this.alertStore.add('Logged In Success', 'success');
-                this.$router.replace("/user/dashboard");
+                  await this.userStore.getProfile();
+                themeStore.endLoading();
+                this.alertStore.add('Logged In Success', 'success'); 
+                if (this.userStore.user.role === 'Subscriber' && !this.userStore.user.plan) {
+                    this.$router.replace("/user/settings/billing");
+                } else {
+                    this.$router.replace("/user/dashboard");
+                }
+
 
             } catch (error) {
                 themeStore.endLoading();

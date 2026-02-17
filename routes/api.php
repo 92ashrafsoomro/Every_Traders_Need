@@ -42,6 +42,9 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
+use App\Http\Controllers\Api\WebController;
+
+
 
 
 
@@ -206,6 +209,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
             Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
         });
+        Route::get('/getCardDetail',[WebController::class,'getCardDetail'])->middleware(['auth:sanctum']);
 
     });
 

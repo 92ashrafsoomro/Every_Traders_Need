@@ -200,6 +200,7 @@ class MembershipController extends Controller
         }
 
         $model->plan = Plan::where('id',$model->plan_id)->first();
+        $model->user = User::where('id',$model->user_id)->first();
 
         return response()->json([
             "data" => $model,

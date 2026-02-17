@@ -50,8 +50,14 @@ class StripeController extends Controller
             }
 
             
-            $total = intVal($package->price) - intval($package->discount);
-            $amount = (float) $total;
+            // $total = intVal($package->price) - intval($package->discount);
+            // $amount = (float) $total;
+
+            $price = floatval($package->price);
+            $discountPercent = floatval($package->discount);
+            $discountAmount = ($price * $discountPercent) / 100;
+            $amount = $price - $discountAmount;
+
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
             try {

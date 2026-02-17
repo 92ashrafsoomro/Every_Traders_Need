@@ -73,7 +73,6 @@ class StripeController extends Controller
                     ],
                 ]);
              
-
                 $transactionId = $paymentIntent->latest_charge;
 
                 $data = [

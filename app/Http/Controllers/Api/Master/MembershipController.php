@@ -126,7 +126,6 @@ class MembershipController extends Controller
          $validator = Validator::make($request->all(),[
             'user_id' => 'required|exists:users,id|max:255',
             'package_id' => 'required|exists:packages,id|max:255',
-            'membership_status' =>  'required|numeric|min:0',
         ]);
 
         if($validator->fails()) {
@@ -167,6 +166,12 @@ class MembershipController extends Controller
             'membership_status' => 1,
             'created_at' => Carbon::now(),
         ]);
+
+        if($membership){
+            Membership::whereNotIn('id',[$membership->id])->update(['membership_status' => 0]);
+        }
+        
+
 
         // MembershipPayment::create([
         //     'user_id' => $user->id,

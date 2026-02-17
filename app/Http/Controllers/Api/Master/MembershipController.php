@@ -85,7 +85,7 @@ class MembershipController extends Controller
                         'users.personalEmail',
                     )
                     
-                    ->orderBy('users.created_at', 'desc')
+                    ->orderBy('users.id', 'desc')
                     // ->offset($offset)
                     // ->limit($length)
                     ->get()
@@ -169,7 +169,7 @@ class MembershipController extends Controller
         ]);
 
         if($membership){
-            Membership::whereNotIn('id',[$membership->id])->update(['membership_status' => 0]);
+            Membership::whereNotIn('id',[$membership->id])->where('user_id',$user->id)->update(['membership_status' => 0]);
         }
 
 

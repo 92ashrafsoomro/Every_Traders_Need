@@ -33,6 +33,7 @@ class PlanService
         $discountPercent = floatval($package->discount);
         $total = ($price * $discountPercent) / 100;
 
+  
         $membership = Membership::create([
                 'user_id' => $user->id,
                 'plan_id' => $package->plan_id,
@@ -48,7 +49,7 @@ class PlanService
         ]);
 
         if($membership){
-            Membership::whereNotIn('id',[$membership->id])->update(['membership_status' => 0]);
+            Membership::whereNotIn('id',[$membership->id])->where('user_id',$user->id)->update(['membership_status' => 0]);
         }
 
         return $membership;

@@ -119,18 +119,18 @@
 
                             <div class="ml-4">
                                 <div class="text-whiteLite font-weight-bold ">
-                                    {{ oldPlan?.plan?.plan_name || 'No Plan Buyer' }}
+                                    {{ oldPlan?.plan?.plan_name || 'No Plan Buyer' }} 
                                 </div>
                                 <div class="text-body-2">
 
-                                    Your active plan
+                                    {{ oldPlan?.price ? 'Your plan is active' : 'No active plan found' }}
 
                                 </div>
                             </div>
                         </div>
 
                         <div class="text-whiteLite text-right">
-                            <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price || 'No Plan ' }}</div>
+                            <div class="text-body-1 font-weight-bold"> {{ oldPlan?.price ? '£' + oldPlan.price : 'No Plan Buyer' }}</div>
                             <div class="text-body-2">{{dateFormate( oldPlan?.membership_expiry_date || "No Plan Buyer" )}}</div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
 
                         <div class="text-whiteLite mt-7">
                             <div class="d-flex justify-space-between mb-2">
-                                <span>Base price</span>
+                                <span>Base price</span> 
                                 <span>£{{ currentPlan?.price }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-2">

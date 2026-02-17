@@ -49,11 +49,13 @@ class StripeController extends Controller
                 ], 400);
             }
 
-
+            
+            $total = intVal($package->price) + intval($package->discount);
+            $amount = (float) $total;
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
             try {
-                $amount = (float) $plan->price;
+              
                 $paymentIntent = PaymentIntent::create([
                     'amount'   => $amount * 100,     // £50 → 5000
                     'currency' => 'gbp',
@@ -64,6 +66,7 @@ class StripeController extends Controller
                         'allow_redirects' => 'never'   // THIS LINE KILLS THE ERROR FOREVER
                     ],
                 ]);
+             
 
                 $transactionId = $paymentIntent->latest_charge;
 
@@ -79,7 +82,7 @@ class StripeController extends Controller
                     'address'      => $request->address,
                 ];
 
-                $membership = PlanService::createMemberShip($plan,$user);
+                $membership = PlanService::createMemberShip($package,$user);
                 $payment = PlanService::createPayment($membership,$data);
 
                 return response()->json([

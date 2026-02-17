@@ -34,7 +34,7 @@ class PackageController extends Controller
         $offset = ($page - 1) * $length;
 
         //Query
-        $query = Package::query();
+        $query = Package::join('plans','plans.id','=','packages.plan_id');
 
         //Filter
         if($request->has('id') && $request->id != ''){
@@ -44,10 +44,11 @@ class PackageController extends Controller
         $count  =   (clone $query)->count();
         $data   =   $query->select([
                     'packages.*',
+                    'plans.plan_name'
                     ])
                     ->skip($offset)
                     ->take($length)
-                    ->orderByDesc('id')
+                    ->orderByDesc('packages.sort_by')
                     ->get()
                     ->map(function($item){
                         if (!empty($item->description)) {

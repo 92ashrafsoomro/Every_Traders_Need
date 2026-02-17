@@ -414,7 +414,7 @@ export default {
                 this.form.payment_method_id = paymentMethod.id;
                 this.form.plan_id = this.selectedPlan;
                 
-                const res = await api.post('/api/stripe/createPaymentIntent', this.form);
+                const res = await api.post('/api/web/stripe/createPaymentIntent', this.form);
                 this.$alertStore.add("Payment Success", "success");
                 this.$router.replace('/user/settings/billing')
                 this.processing = false;

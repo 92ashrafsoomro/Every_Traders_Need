@@ -6,7 +6,7 @@
                     <!-- <h3 class="text-h6 font-weight-bold">
                         Edit Role
                     </h3> -->
-                    <router-link :to="'/admin/role/'">
+                    <router-link :to="'/admin/transaction/'">
                         <v-btn variant="text" color="primary" class="text-capitalize">
                             <v-icon start>mdi-arrow-left</v-icon>
                             Back
@@ -17,125 +17,148 @@
                 <div class="border-b"></div>
                 <v-card-text>
                     <v-container fluid>
-                   
+
+                        <v-row class="pa-4">
                             <v-row>
+
+                                <v-col cols="12">
+                                    <h2 class="text-h6 font-weight-bold mb-1">User Detail</h2>
+                                </v-col>
+
+
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="ID" v-model="data.id" variant="outlined" density="compact" />
+                                    <v-text-field readonly="" label="User Id" v-model="user.id" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="User Status" v-model="user.status" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Business Type" v-model="user.businessType" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Personal Email" v-model="user.personalEmail" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Source" v-model="user.source" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+
+
+                            </v-row>
+                            
+                            
+                            <v-row>
+                                <v-col cols="12">
+                                    <h2 class="text-h6 font-weight-bold mb-1">Transaction Detail</h2>
+                                </v-col>
+                                <v-divider />
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Transaction ID" v-model="data.id" variant="outlined" density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="User Id" v-model="data.user_id" variant="outlined"
+                                    <v-text-field readonly="" label="User Id" v-model="data.user_id" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Plan Id" v-model="data.plan_id" variant="outlined"
+                                    <v-text-field readonly="" label="Plan Id" v-model="data.plan_id" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Membership Start Date" v-model="data.membership_start_date"
+                                    <v-text-field readonly="" label="Membership Start Date" v-model="data.membership_start_date"
                                         variant="outlined" density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Membership Expiry Date" v-model="data.membership_expiry_date"
+                                    <v-text-field readonly="" label="Membership Expiry Date" v-model="data.membership_expiry_date"
                                         variant="outlined" density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Membership Status" v-model="data.membership_status"
+                                    <v-text-field readonly="" label="Membership Status" v-model="data.membership_status"
                                         variant="outlined" density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Join Date" v-model="data.join_date" variant="outlined"
+                                    <v-text-field readonly="" label="Join Date" v-model="data.join_date" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+
+                                <!-- <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Created At" v-model="data.created_at" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Created At" v-model="data.created_at" variant="outlined"
+                                    <v-text-field readonly="" label="Updated At" v-model="data.updated_at" variant="outlined"
+                                        density="compact" />
+                                </v-col> -->
+
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Package Name" v-model="data.package_name" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Updated At" v-model="data.updated_at" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Package Name" v-model="data.package_name" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Package Description" v-model="data.package_description"
+                                    <v-text-field readonly="" label="Package Description" v-model="data.package_description"
                                         variant="outlined" density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Price" v-model="data.price" variant="outlined"
+                                    <v-text-field readonly="" label="Price" v-model="data.price" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Discount" v-model="data.discount" variant="outlined"
+                                    <v-text-field readonly="" label="Discount" v-model="data.discount" variant="outlined"
                                         density="compact" />
                                 </v-col>
 
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Total" v-model="data.total" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="First Name" v-model="data.firstName" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Surname" v-model="data.surname" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Phone" v-model="data.phone" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Business Type" v-model="data.businessType" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Role Name" v-model="data.role_name" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Company Name" v-model="data.companyName" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="User Type" v-model="data.user_type" variant="outlined"
-                                        density="compact" />
-                                </v-col>
-
-                                <v-col cols="12" md="6">
-                                    <v-text-field label="Personal Email" v-model="data.personalEmail" variant="outlined"
+                                    <v-text-field readonly="" label="Total" v-model="data.total" variant="outlined"
                                         density="compact" />
                                 </v-col>
                             </v-row>
 
-                            <!-- <v-col cols="12" class="text-center mt-4">
+
+                            <v-row>
+                                <v-col cols="12">
+                                    <h2 class="text-h6 font-weight-bold mb-1">Plan Detail</h2>
+                                </v-col>
+                                <v-divider />
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Plan Name" v-model="planData.plan_name" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Description" v-model="planData.description" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+
+                                <v-col cols="12" md="6">
+                                    <v-text-field readonly="" label="Sort" v-model="planData.sort_by" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+
+                            </v-row>
+
+
+                        </v-row>
+
+                        <!-- <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="editUser" color="primary" height="40">
                                     Update
                                 </v-btn>
                             </v-col> -->
 
-                 
+
                     </v-container>
                 </v-card-text>
 
@@ -151,7 +174,9 @@ export default {
 
     data() {
         return {
-            data : [],
+            data: [],
+            planData: [],
+            user: [],
             loading: false,
         }
     },
@@ -165,7 +190,9 @@ export default {
             try {
                 let res = await General.get("/api/cruds/memberships/" + this.data.id);
                 this.data = res.data || [];
-               
+                this.planData = res.data.plan || []
+                this.user = res.data.user || []
+
             } catch (error) {
                 console.error(error)
             } finally {
@@ -176,27 +203,3 @@ export default {
     }
 }
 </script>
-
-<!-- "id": 83,
-        "user_id": 58,
-        "plan_id": 3,
-        "membership_start_date": "2026-02-17 11:06:05",
-        "membership_expiry_date": "2027-02-17 11:06:05",
-        "membership_status": "Active",
-        "join_date": "2026-02-17 16:06:05",
-        "created_at": "2026-02-17T11:06:05.000000Z",
-        "updated_at": "2026-02-17T11:06:05.000000Z",
-        "package_name": "Trader Elite",
-        "package_description": null,
-        "price": "179.00",
-        "discount": "50",
-        "total": "229",
-        "plan": {
-            "id": 3,
-            "plan_name": "Trader Elite",
-            "description": null,
-            "sort_by": 0,
-            "created_at": "2026-02-16T19:58:39.000000Z",
-            "updated_at": "2026-02-16T19:58:39.000000Z"
-        }
-    } -->

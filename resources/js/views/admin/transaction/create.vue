@@ -22,13 +22,13 @@
                                 <v-text-field label="Name" v-model="form.name" variant="outlined"
                                     density="compact" hide-details class="id-box" />
                             </v-col> -->
-                            <v-col cols="12" md="6">
+                            <!-- <v-col cols="12" md="6">
                                 <v-select v-model="form.membership_status"
                                     :items="[{ value: 0, text: 'Pending' }, { value: 1, text: 'Active' }]"
                                     label="Membership Status" variant="outlined" density="comfortable" item-title="text"
                                     item-value="value" hide-details />
-                            </v-col>
-                            <v-col>
+                            </v-col> -->
+                            <v-col cols="12" md="6">
                                 <UserDropdown
                                     v-model="form.user_id"
                                        variant="outlined"
@@ -45,8 +45,9 @@
                            <v-select
                             v-model="form.package_id"
                                 :items="packages"
-                                item-title="title"
-                                item-value="id"
+                                 :item-title="item => `${item.plan_name} (${item.duration_value} ${item.duration_unit})`"
+                                     item-value="id"
+                                 density="compact" 
                                 variant="outlined"
                                 label="Select Package"
                             />
@@ -89,7 +90,7 @@ export default {
 
             form: {
                 id: '',
-                membership_status: '',
+                // membership_status: '',
                 package_id: '',
                 user_id: ''
             },
@@ -135,7 +136,7 @@ export default {
             try {
                 let res = await General.post("/api/cruds/memberships", this.form);
                 this.$alertStore.add(res.message, 'success');
-                // this.$router.push('/admin/transaction')
+                this.$router.push('/admin/transaction')
             } catch (error) {
                 this.$alertStore.add(error.message || 'Some Thing went wrong', error)
             } finally {

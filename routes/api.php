@@ -50,7 +50,7 @@ use App\Http\Controllers\Api\StripeController;
         return $request->user();
     })->middleware('auth:sanctum');
     
-
+    Route::get('/defaultvariant',[VariantController::class,'createDefaultVariants']);
     //AUTH..
     Route::prefix('auth')->group(function(){
 
@@ -208,6 +208,8 @@ use App\Http\Controllers\Api\StripeController;
         });
 
     });
+
+
 
 
 

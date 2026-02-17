@@ -194,4 +194,27 @@ class VariantController extends Controller
     }
 
 
+    public function createDefaultVariants()
+    {
+        $models = VehicleModel::all();
+
+        foreach ($models as $model) {
+            $hasVariant = ModelVariant::where('model_id', $model->id)->where('name', 'None')->exists();
+
+            if (!$hasVariant) {
+                ModelVariant::create([
+                    'name' => 'None',
+                    'model_id' => $model->id,
+                    'created_at' => now(),
+                    'updated_at' => null,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Default variants created where missing.'
+        ], 200);
+    }
+
+
 }

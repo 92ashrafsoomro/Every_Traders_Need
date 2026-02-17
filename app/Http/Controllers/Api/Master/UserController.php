@@ -95,6 +95,7 @@ class UserController extends Controller
                         'users.companyName',
                         'users.user_type',
                         'users.status',
+                        'users.email_verification_token_status',
                         'users.personalEmail',
                         DB::raw('COUNT(memberships.id) as memberships'),
 

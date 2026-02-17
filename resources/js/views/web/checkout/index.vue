@@ -233,8 +233,8 @@
                                 <span>£{{ currentPlan?.price }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-2">
-                                <span>Discount</span>
-                                <span>£0.00</span>
+                                <span>Discount  <v-chip color="primary">{{ currentPlan?.discount }}%</v-chip></span>
+                                <span>£{{ discountAmount.toFixed(2) }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-4">
                                 <span>GST</span>
@@ -244,7 +244,7 @@
                             <v-divider></v-divider>
                             <div class="d-flex justify-space-between mb-2 mt-4">
                                 <span>Total</span>
-                                <span>£{{ currentPlan?.price }}</span>
+                                <span>£{{ finalPrice.toFixed(2) }}</span>
                             </div>
 
                         </div>
@@ -297,11 +297,11 @@ export default {
     },
     async mounted() {
 
-        await this.userStore.getProfile();
-    if (this.userStore.user?.id) {
-        await this.userStore.getUserData();
-        this.getAuth(); 
-    }
+    //     await this.userStore.getProfile();
+    // if (this.userStore.user?.id) {
+    //     await this.userStore.getUserData();
+    //     this.getAuth(); 
+    // }
     this.getPlans();
     this.stripeLoad();
         if (!this.selectedPlan && this.userStore.selectedPlanId) {
@@ -324,6 +324,20 @@ export default {
         },
         currentPlan() {
             return this.planList.find((item) => item.id == this.selectedPlan)
+        },
+        discountAmount() {
+            const price = parseFloat(this.currentPlan?.price) || 0;
+            const discountPercent = parseFloat(this.currentPlan?.discount) || 0;
+            
+            if (discountPercent > 0) {
+                return (price * discountPercent) / 100;
+            }
+            return 0;
+        },
+
+        finalPrice() {
+            const price = parseFloat(this.currentPlan?.price) || 0;
+            return price - this.discountAmount;
         }
     },
     methods: {

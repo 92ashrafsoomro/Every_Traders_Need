@@ -33,17 +33,19 @@ class PlanController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
+
         //Query
         $query = Plan::query();
 
         //Filter
-        if($request->has('id') && $request->id != '') {
+        if($request->has('id') && $request->id != ''){
             $query->where('id',$request->id);
         }
         
         $count = (clone $query)->count();
         $data = $query->select([
                     'plans.*',
+                    
                 ])
                 ->skip($offset)
                 ->take($length)

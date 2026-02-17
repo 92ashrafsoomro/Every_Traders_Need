@@ -82,7 +82,7 @@ export default {
                 { title: "ID", key: "id" },
                 { title: "Plan Name", key: "plan_name" },
                 { title: "Title", key: "title" },
-                { title: "Short Description", key: "short_desc" },
+                // { title: "Short Description", key: "short_desc" },
                 { title: "Price", key: "price" },
                 { title: "Duration Unit", key: "duration_unit" },
                 { title: "Duration Value", key: "duration_value" },

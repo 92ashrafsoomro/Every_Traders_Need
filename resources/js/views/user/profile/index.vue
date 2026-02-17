@@ -25,7 +25,7 @@
               <div class="pr-3 d-flex align-center bg-background pa-2 rounded-sm flex-shrink-0">
                 <v-icon icon="mdi-equalizer" color="primary" />
                 <span class="text-body-2 px-2">
-                  {{ userStore.user.companyName }}
+                  {{ userStore.userData?.companyName }}
                 </span>
               </div>
 
@@ -133,6 +133,7 @@ export default {
   },
   mounted() {
     this.notificationFetch();
+    this.userStore.getUserData()
   },
   methods: {
     async notificationFetch() {

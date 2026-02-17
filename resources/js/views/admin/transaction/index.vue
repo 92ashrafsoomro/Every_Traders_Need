@@ -126,12 +126,13 @@
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn>
                         </div>
-                        </div>
-                        <!-- <div class="pl-2" >
-                            <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
+                          <div class="pl-2" >
+                            <v-btn to="/admin/transaction/create" color="primary" style="height: 40px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
-                        </div> -->
+                        </div>
+                        </div>
+                       
                     </div>
                 </v-col>
 
@@ -189,6 +190,35 @@
                             <template #item.membership_expiry_date="{ item }">
                                 {{ item.membership_expiry_date?.split(' ')[0] }}
                             </template>
+                      <template #item.created_at="{ item }">
+                        {{ item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : '' }}
+                        </template>
+                  
+                            <template #item.action="{ item }">
+                                
+                            <span class="px-2"></span>
+                            <v-icon
+                                color="info"
+                                class="clickable-icon pa-4" 
+                                >
+                                mdi-eye
+                            </v-icon>
+                         
+                            <router-link :to="'/admin/transaction/showTransaction/' + item.id" >
+                                <v-icon color="info" class="pa-4" >
+                                    mdi-circle
+                                </v-icon>
+                            </router-link>
+                            
+                        </template>
+                        <!-- @click="showDialog = true" -->
+                            <!-- <v-dialog  v-model="showDialog">
+                                <template v-slot:default="{isActive}">
+                                       <v-btn icon="mdi-close" variant="flat" @click="isActive.value = false"
+                                            style="position: absolute; z-index: 1; right: 0;"></v-btn>
+                                        <ShowInvoice/>
+                                </template>
+                            </v-dialog> -->
                   
                        
                         
@@ -203,12 +233,13 @@
 <script>
 import Subscriptions from '@/models/subscriptions.model';
 import PlansDropDron from "@components/PlanDropDown.vue"
-
+import ShowInvoice from './showInvoice.vue';
 
 export default {
 
   components: {
    PlansDropDron,
+   ShowInvoice
   },
 
   data() {
@@ -220,7 +251,7 @@ export default {
                 page: 1,
                 offset: 0,
             },
-            
+            showDialog: false,
             last_page: 1,
             items: [],
             total: 0,
@@ -231,19 +262,23 @@ export default {
                 { title: "User", value: "user" },
                 { title: "Company Name", value: "companyName", sortable: false },
                 { title: "Plan Name", value: "plan" },  
-                { title: "Type", value: "membership_type" },
+                // { title: "Type", value: "membership_type" },
                 { title: "Status", value: "membership_status" },
                 {   title: "Membership Start Date", 
                     value: "membership_start_date",
                     format: (value) => value ? value.split(' ')[0] : ''
-
-
                 },
                 {   title: "Membership Expiry Date", 
                     value: "membership_expiry_date",
                     format: (value) => value ? value.split(' ')[0] : ''
-
-
+                },
+                {   title: "Created At", 
+                    value: "created_at",
+                format: (value) => value ? new Date(value).toISOString().split('T')[0] : ''
+                },
+                {
+                    title:"Action",
+                    value: 'action'
                 },
         
             ],
@@ -254,18 +289,18 @@ export default {
                 { label: 'Expried', value: "Expired" },
             ],
                   months: [
-        { title: "January", value: 1 },
-        { title: "February", value: 2 },
-        { title: "March", value: 3 },
-        { title: "April", value: 4 },
-        { title: "May", value: 5 },
-        { title: "June", value: 6 },
-        { title: "July", value: 7 },
-        { title: "August", value: 8 },
-        { title: "September", value: 9 },
-        { title: "October", value: 10 },
-        { title: "November", value: 11 },
-        { title: "December", value: 12 },
+                { title: "January", value: 1 },
+                { title: "February", value: 2 },
+                { title: "March", value: 3 },
+                { title: "April", value: 4 },
+                { title: "May", value: 5 },
+                { title: "June", value: 6 },
+                { title: "July", value: 7 },
+                { title: "August", value: 8 },
+                { title: "September", value: 9 },
+                { title: "October", value: 10 },
+                { title: "November", value: 11 },
+                { title: "December", value: 12 },
       ],
    
     };

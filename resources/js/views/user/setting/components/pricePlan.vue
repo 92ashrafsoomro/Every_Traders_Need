@@ -183,7 +183,7 @@ export default {
         async getPlan() {
             this.loading = false
             try {
-                let res = await General.get("/api/web/getplans")
+                let res = await General.get("/api/cruds/packages")
                 this.data = res.data.filter(plan => plan.status === 1);
                 this.loading = true
             } catch (error) {

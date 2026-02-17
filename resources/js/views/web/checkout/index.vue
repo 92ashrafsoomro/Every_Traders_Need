@@ -1,7 +1,7 @@
 <template>
     <v-container fluid max-width="1400px" class="bg-background pa-8">
         <v-row class="mt-10 mb-10">
-            <v-col cols="12 User Details">
+            <v-col cols="12 ">
                 <h1 class="text-h4 text-whiteLiteLite font-weight-bold   ">Checkout</h1>
             </v-col>
             <v-col cols="12" lg="7">
@@ -165,7 +165,7 @@
                                         <div class="text-lg-h6  text-body-1  text-whiteLite font-weight-bold ">
                                             £{{ item.price }}
                                             <div class="text-body-2 text-whiteLite ">
-                                                Per {{ item.duration_unit }}
+                                                {{ item.duration_value }} {{ item.duration_unit }}
                                             </div>
                                         </div>
 
@@ -211,7 +211,7 @@
                                                 </div>
                                                 <div class="text-caption "
                                                     :class="selectedPlan === item.id ? 'text-whiteLite' : ''">
-                                                    Per {{ item.duration_unit }}
+                                                    {{ item.duration_value }} {{ item.duration_unit }}
                                                 </div>
                                             </div>
                                         </div>
@@ -285,21 +285,25 @@ export default {
                 city: '',
                 zip_code: '',
                 address: '',
-
+                status : '',
                 payment_method_id: '',
                 plan_id: null,
                 cardholderName: '',
             },
-            selectedPlan: null,
+            // selectedPlan: null,
             planList: [],
 
         }
     },
     async mounted() {
 
-        this.getPlans();
-        this.getAuth();
-        this.stripeLoad();
+        await this.userStore.getProfile();
+    if (this.userStore.user?.id) {
+        await this.userStore.getUserData();
+        this.getAuth(); 
+    }
+    this.getPlans();
+    this.stripeLoad();
         if (!this.selectedPlan && this.userStore.selectedPlanId) {
             this.selectedPlan = this.userStore.selectedPlanId;
         }
@@ -312,7 +316,7 @@ export default {
                 return this.userStore.selectedPlanId;
             },
             set(id) {
-                this.userStore.setSelectedPlan(id);
+                this.userStore.setPlanId(id);
             }
         },
         oldPlan() {
@@ -341,7 +345,8 @@ export default {
         },
         getPlans() {
             try {
-                api.get('/api/user/page/plansList').then((res) => {
+                // /api/user/page/plansList 
+                api.get('/api/cruds/packages').then((res) => {
                     this.planList = res.data.data.filter(plan => plan.status === 1);
 
                 }).catch((error) => {
@@ -354,16 +359,16 @@ export default {
         },
         getAuth() {
 
-            this.form.first_name = this.userStore.user?.firstName;
-            this.form.last_name = this.userStore.user?.firstName;
-            this.form.phone = this.userStore.user?.phone;
-            this.form.email = this.userStore.user?.personalEmail;
-            this.form.country = this.userStore.user?.country;
-            this.form.state = this.userStore.user?.townCity;
-            this.form.city = this.userStore.user?.townCity;
-            this.form.zip_code = this.userStore.user?.postcode;
-            this.form.address = this.userStore.user?.companyAddress1;
-            this.form.cardholderName = this.userStore.user?.firstName;
+            this.form.first_name = this.userStore.userData?.firstName;
+            // tthis.form.last_name = this.userStore.user?.lastName;
+            this.form.phone = this.userStore.userData?.phone;
+            this.form.email = this.userStore.userData?.personalEmail;
+            this.form.country = this.userStore.userData?.country;
+            this.form.state = this.userStore.userData?.townCity;
+            this.form.city = this.userStore.userData?.townCity;
+            this.form.zip_code = this.userStore.userData?.postcode;
+            this.form.address = this.userStore.userData?.companyAddress1;
+            this.form.cardholderName = this.userStore.userData?.firstName;
 
         },
         dateFormate(date){
@@ -408,6 +413,7 @@ export default {
 
                 this.form.payment_method_id = paymentMethod.id;
                 this.form.plan_id = this.selectedPlan;
+                
                 const res = await api.post('/api/stripe/createPaymentIntent', this.form);
                 this.$alertStore.add("Payment Success", "success");
                 this.$router.replace('/user/settings/billing')

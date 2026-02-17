@@ -35,33 +35,33 @@ use Illuminate\Support\Facades\Hash;
 
     public function modelPrefix($value){
 
-        $prefixes = $this->prefixes['model'];
+        $prefixes = $this->prefixes['model'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 
     public function makePrefix($value){
-        $prefixes = $this->prefixes['make'];
+        $prefixes = $this->prefixes['make'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 
     public function bodyPrefix($value){
-        $prefixes = $this->prefixes['bodyType'];
+        $prefixes = $this->prefixes['bodyType'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
     public function centerPrefix($value){
-        $prefixes = $this->prefixes['center'];
+        $prefixes = $this->prefixes['center'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
     public function fuelTypePrefix($value){
-        $prefixes = $this->prefixes['fuelType'];
+        $prefixes = $this->prefixes['fuelType'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
     public function transmissionTypePrefix($value){
-        $prefixes = $this->prefixes['transmission'];
+        $prefixes = $this->prefixes['transmission'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
     public function vehicleTypePrefix($value){
-        $prefixes = $this->prefixes['vehicleType'];
+        $prefixes = $this->prefixes['vehicleType'] ?? [];
         return isset($prefixes[$value]) ? strtolower($prefixes[$value]) : null;
     }
 

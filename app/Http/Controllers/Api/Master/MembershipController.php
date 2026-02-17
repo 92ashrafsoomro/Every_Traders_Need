@@ -85,7 +85,7 @@ class MembershipController extends Controller
                         'users.personalEmail',
                     )
                     
-                    ->orderBy('users.id', 'desc')
+                    ->orderBy('memberships.id', 'desc')
                     // ->offset($offset)
                     // ->limit($length)
                     ->get()

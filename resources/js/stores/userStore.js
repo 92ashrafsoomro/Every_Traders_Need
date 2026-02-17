@@ -6,8 +6,9 @@ import General from "@/models/general.model";
 
 export const useUserStore = defineStore("user", {
     state: () => ({
-        is_logged_in: false,        
+        is_logged_in: false,
         user: {},
+        userData  : null,
         notification: [
             {
                 title: "New Message",
@@ -38,7 +39,7 @@ export const useUserStore = defineStore("user", {
         // ==============================
         // LOGIN
         // ==============================
-        async loginRequest(data){
+        async loginRequest(data) {
             try {
                 const form = new FormData();
                 form.append("email", data.email);
@@ -55,14 +56,14 @@ export const useUserStore = defineStore("user", {
         // ==============================
         // REGISTER
         // ==============================
-        async registerRequest(data){
+        async registerRequest(data) {
             try {
                 const form = new FormData();
                 for (const key in data) {
                     if (!Object.hasOwn(data, key)) continue;
-                    form.append(key,data[key]);
+                    form.append(key, data[key]);
                 }
-                const res = await api.post("/api/auth/register",form);
+                const res = await api.post("/api/auth/register", form);
                 return res.data.data;
 
             } catch (error) {
@@ -72,8 +73,7 @@ export const useUserStore = defineStore("user", {
         // ==============================
         // GET PROFILE
         // ==============================
-        async getProfile(token = null)
-        {   
+        async getProfile(token = null) {
             if (!token) {
                 token = localStorage.getItem('auth_token');
             }
@@ -85,37 +85,37 @@ export const useUserStore = defineStore("user", {
             try {
                 api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 let res = await api.get('/api/auth/account');
-              
-                
+
+
                 return res.data.data;
             } catch (error) {
                 throw await errorHandler(error);
             }
         },
-         // ==============================
+        // ==============================
         // INITIALIZE SESSION
         // ==============================
-       async initializeUserSession(token, data) {  
-           
-           try {
-                
-                if(!token) {
+        async initializeUserSession(token, data) {
+
+            try {
+
+                if (!token) {
                     throw new Error("Token Not Found");
                 }
-               
+
                 api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 localStorage.setItem("auth_token", token);
                 this.user = data;
                 this.is_logged_in = true;
-                
+
             } catch (error) {
                 throw await errorHandler(error);
-           } 
+            }
         },
         // ==============================
         // LOGOUT
         // ==============================
-        async logOut(token){
+        async logOut(token) {
             try {
                 api.defaults.headers.common["Authorization"] = '';
                 localStorage.removeItem("auth_token", token);
@@ -126,14 +126,31 @@ export const useUserStore = defineStore("user", {
         },
 
         // ==============================
-        // Plan
+        // User Data
         // ==============================
-        setPlanId(id) {
-            this.selectedPlanId = id;
+        async getUserData() {
+             if (!this.user?.id) return;
+            this.is_logged_in = true;
+            try {
+                let res = await General.get('/api/profile/account-details/' + this.user.id);
+                this.userData = res.data.user;
+                // console.log(toRaw(this.userData));
+
+            } catch (error) {
+                console.error(error);
+            } finally {
+                this.is_logged_in = false;
+            }
         },
-        clearPlan() {
-            this.selectedPlanId = null;
-        },
+    // ==============================
+    // Plan
+    // ==============================
+    setPlanId(id) {
+        this.selectedPlanId = id;
     },
+    clearPlan() {
+        this.selectedPlanId = null;
+    },
+},
 
 });

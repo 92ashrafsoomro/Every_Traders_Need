@@ -46,7 +46,7 @@
                             <v-icon color="whiteLite" class="mr-4 ">{{ item.icon }}</v-icon>
                             <div class="d-flex align-center flex-wrap">
                                 <div class="text-body-1 text-light">{{ item.label }} : </div>
-                                <div class=" text-body-2 text-whiteLite font-weight-medium"> {{ userData?.[item.key] }}
+                                <div class=" text-body-2 text-whiteLite font-weight-medium"> {{ userStore?.userData?.[item.key] }}
                                 </div>
                             </div>
                         </div>
@@ -93,25 +93,25 @@ export default {
         return {
             userStore: useUserStore(),
             UserModel: UserModel,
-            userData: null,
+            // userData: null,
         }
     },
     computed: {
         companyItems() {
 
             return [
-                { icon: 'mdi-office-building', label: 'Business Name', value: this.userData.companyName },
-                { icon: 'mdi-web', label: 'Business Type', value: this.userData.businessType },
-                { icon: 'mdi-earth', label: 'Website', value: this.userData.website },
-                { icon: 'mdi-email-outline', label: 'Business Email', value: this.userData.businessEmail },
-                { icon: 'mdi-shield-check', label: 'Motor Trade Insurance', value: this.userData.motorTradeInsurance },
-                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: this.userData.vatNumber },
-                { icon: 'mdi-home-city', label: 'Company Address 1', value: this.userData.companyAddress1 },
-                { icon: 'mdi-home-city-outline', label: 'Company Address 2', value: this.userData.companyAddress2 },
-                { icon: 'mdi-map-marker', label: 'Town/City', value: this.userData.townCity },
-                { icon: 'mdi-flag', label: 'Country', value: this.userData.country },
-                { icon: 'mdi-mailbox', label: 'Postcode / Zip code', value: this.userData.postcode },
-                { icon: 'mdi-phone', label: 'Telephone', value: this.userData.telephone }
+                { icon: 'mdi-office-building', label: 'Business Name', value: this.userStore.userData.companyName },
+                { icon: 'mdi-web', label: 'Business Type', value: this.userStore.userData.businessType },
+                { icon: 'mdi-earth', label: 'Website', value: this.userStore.userData.website },
+                { icon: 'mdi-email-outline', label: 'Business Email', value: this.userStore.userData.businessEmail },
+                { icon: 'mdi-shield-check', label: 'Motor Trade Insurance', value: this.userStore.userData.motorTradeInsurance },
+                { icon: 'mdi-card-bulleted-outline', label: 'VAT Number', value: this.userStore.userData.vatNumber },
+                { icon: 'mdi-home-city', label: 'Company Address 1', value: this.userStore.userData.companyAddress1 },
+                { icon: 'mdi-home-city-outline', label: 'Company Address 2', value: this.userStore.userData.companyAddress2 },
+                { icon: 'mdi-map-marker', label: 'Town/City', value: this.userStore.userData.townCity },
+                { icon: 'mdi-flag', label: 'Country', value: this.userStore.userData.country },
+                { icon: 'mdi-mailbox', label: 'Postcode / Zip code', value: this.userStore.userData.postcode },
+                { icon: 'mdi-phone', label: 'Telephone', value: this.userStore.userData.telephone }
             ];
         },
         personalItems() {
@@ -127,22 +127,22 @@ export default {
 
     },
     mounted (){
-        this.getUserData()
+        this.userStore.getUserData()
     },
     methods: {
-      async getUserData() {
-    this.loading = true;
-    try {
-        let res = await General.get('/api/profile/account-details/' + this.userStore.user.id);
-              this.userData = res.data.user;
-              console.log(toRaw( this.userData));
+    //   async getUserData() {
+    // this.loading = true;
+    // try {
+    //     let res = await General.get('/api/profile/account-details/' + this.userStore.user.id);
+    //           this.userData = res.data.user;
+    //           console.log(toRaw( this.userData));
               
-            } catch (error) {
-                console.error(error);
-            } finally {
-                this.loading = false;
-            }
-        },
+    //         } catch (error) {
+    //             console.error(error);
+    //         } finally {
+    //             this.loading = false;
+    //         }
+    //     },
         downloadFile(label) {
             // Simulate file download
             alert(`Downloading ${label}...`)

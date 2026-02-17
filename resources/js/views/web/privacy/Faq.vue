@@ -9,14 +9,11 @@
 
             <div class="flex-grow-1 mt-10">
                 <div>
-                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mb-10">FAQ's</h1>
-                    <p class="mb-5">Effective as of: July 3, 2025</p>
-                    <p class="my-5 text-body-1">Your privacy is extremely important to us. To better protect you, we
-                        provide
-                        this notice explaining our online information practices and the choices you can make about
-                        the way your information is collected and used.</p>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mb-10">Frequently Asked Questions</h1>
+                    <p class="mb-5">What is Autoboli?</p>
+                    <p class="my-5 text-body-1">Autoboli is an auction insights platform designed for car dealers and traders. It helps you track live auctions, compare vehicle valuations, and identify reauction vehicles before you bid.</p>
 
-                    <p class="my-5 text-body-1">This Privacy Policy relates to information collected by Mango
+                    <!-- <p class="my-5 text-body-1">This Privacy Policy relates to information collected by Mango
                         Technologies, Inc.
                         DBA ClickUp (referred to in this Privacy Policy as "ClickUp" "we" or "us" or "our") through
                         your use of our website and our Services, features, browser extensions, integrations, API,
@@ -27,17 +24,13 @@
                     <p class="font-weight-bold text-body-1">
                         If you do not agree to our use of your personal data in line with this policy, please do not
                         use the ClickUp Services.
-                    </p>
+                    </p> -->
                 </div>
 
                 <div>
-                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Information we collect automatically when you use
-                        the
-                        Services:</h1>
-                    <p class="my-5 text-body-1">We collect information about you when you use our Services, such as
-                        browsing
-                        our websites and taking certain actions within the Services, including:</p>
-                    <ul>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Who is Autoboli for?</h1>
+                    <p class="my-5 text-body-1">Autoboli is built for independent dealers, trade buyers, and high-volume vehicle traders who want better data before making auction purchases.</p>
+                    <!-- <ul>
                         <li class="text-body-1 my-5"> <span class="font-weight-bold">Your use of the Services:</span>
                             We keep track of certain information about you when you visit and interact with any of our
                             Services. This information includes the features you use; the tasks, projects, teams and
@@ -60,8 +53,34 @@
                             of this information we collect depends on the type and settings of the device you use to
                             access the Services.
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
+                
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">What auction data do I get access to?</h1>
+                    <p class="my-5 text-body-1">You can access live auctions, completed and remaining lots, reauction data, vehicle details, inspection summaries, and valuation comparisons including CAP and AutoTrader values (depending on your plan).</p>
+                </div>
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">What is the Reauction Tracker?</h1>
+                    <p class="my-5 text-body-1">The Reauction Tracker identifies vehicles that return to auction. You can review past sale attempts and compare previous prices to avoid overpaying.</p>
+                </div>
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Can I compare vehicle values before bidding?</h1>
+                    <p class="my-5 text-body-1">Yes. Autoboli allows you to compare CAP, trade, and retail values side by side so you understand true market value before placing a bid.</p>
+                </div>
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Is there a free trial?</h1>
+                    <p class="my-5 text-body-1">Yes. You can start with a trial plan to explore key features before upgrading to a paid subscription.</p>
+                </div>
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">Can I upgrade or cancel anytime?</h1>
+                    <p class="my-5 text-body-1">You can upgrade your plan at any time. Subscription management is simple and flexible from your account settings.</p>
+                </div>
+                <div>
+                    <h1 class="text-h6 text-lg-h4  text-md-h5 font-weight-bold mt-12 mb-10">How do I get support?</h1>
+                    <p class="my-5 text-body-1">                        You can access live auctions, completed and remaining lots, reauction data, vehicle details, inspection summaries, and valuation comparisons including CAP and AutoTrader values (depending on your plan).</p>
+                </div>
+
             </div>
 
 

@@ -170,8 +170,9 @@ class MembershipController extends Controller
         if($membership){
             Membership::whereNotIn('id',[$membership->id])->update(['membership_status' => 0]);
         }
-        
 
+
+        
 
         // MembershipPayment::create([
         //     'user_id' => $user->id,
@@ -206,6 +207,7 @@ class MembershipController extends Controller
 
         $model->plan = Plan::where('id',$model->plan_id)->first();
         $model->user = User::where('id',$model->user_id)->first();
+        $model->payment = MembershipPayment::where('membership_id',$model->id)->first();
 
         return response()->json([
             "data" => $model,

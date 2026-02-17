@@ -26,14 +26,19 @@ class PlanService
         $startDate = now();
         $expiryDate = now()->addMonths($plan->duration_value);
 
-        return Membership::create([
+        $membership = Membership::create([
                 'user_id' => $user->id,
                 'plan_id' => $plan->id,
                 'membership_start_date' => $startDate,
                 'membership_expiry_date' => $expiryDate,
-                'membership_status' => 'Pending',
-                'membership_type' => 'monthly',
+                'membership_status' => 1,
         ]);
+
+        if($membership){
+            Membership::whereNotIn('id',[$membership->id])->update(['membership_status' => 0]);
+        }
+        
+        return $membership;
 
     }
 

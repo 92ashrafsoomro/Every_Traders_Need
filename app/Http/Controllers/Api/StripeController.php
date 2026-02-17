@@ -31,8 +31,7 @@ class StripeController extends Controller
 
     public function createPaymentIntent(Request $request)
     {
-
-              
+       
             $user = $request->user();
      
             $plan = Plan::find($request->plan_id);
@@ -43,80 +42,51 @@ class StripeController extends Controller
             }
 
 
-            // dd($plan->price);
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-            // if ((float)$plan->price === 0.0) {
+            try {
+                $amount = (float) $plan->price;
+                $paymentIntent = PaymentIntent::create([
+                    'amount'   => $amount * 100,     // £50 → 5000
+                    'currency' => 'gbp',
+                    'payment_method' => $request->payment_method_id,
+                    'confirm' => true,
+                    'automatic_payment_methods' => [
+                        'enabled' => true,
+                        'allow_redirects' => 'never'   // THIS LINE KILLS THE ERROR FOREVER
+                    ],
+                ]);
 
-            //         $data = [
-            //             'transactionId' => uniqid(), 
-            //             'first_name'   => $request->first_name,
-            //             'last_name'    => $request->last_name,
-            //             'phone'        => $request->phone,
-            //             'country'      => $request->country,
-            //             'state'        => $request->state,
-            //             'city'         => $request->city,
-            //             'zip_code'     => $request->zip_code,
-            //             'address'      => $request->address,
-            //         ];
+                $transactionId = $paymentIntent->latest_charge;
 
-            //         $membership = PlanService::createMemberShip($plan,$user);
-            //         $payment = PlanService::createPayment($membership,$data);
+                $data = [
+                    'transactionId' => $transactionId, 
+                    'first_name'   => $request->first_name,
+                    'last_name'    => $request->last_name,
+                    'phone'        => $request->phone,
+                    'country'      => $request->country,
+                    'state'        => $request->state,
+                    'city'         => $request->city,
+                    'zip_code'     => $request->zip_code,
+                    'address'      => $request->address,
+                ];
 
-            //         return response()->json([
-            //             'message'       => "Payment Successfully Created",
-            //             'data'  => $payment
-            //         ]);
+                $membership = PlanService::createMemberShip($plan,$user);
+                $payment = PlanService::createPayment($membership,$data);
 
-            // }else{
+                return response()->json([
+                    'success'       => true,
+                    'clientSecret'  => $paymentIntent->client_secret,  // Send this to frontend
+                ]);
+
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 400);
+            }
 
 
         
-                Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
-                
-                try {
-                    $amount = (float) $plan->price;
-                    $paymentIntent = PaymentIntent::create([
-                        'amount'   => $amount * 100,     // £50 → 5000
-                        'currency' => 'gbp',
-                        'payment_method' => $request->payment_method_id,
-                        'confirm' => true,
-                        'automatic_payment_methods' => [
-                            'enabled' => true,
-                            'allow_redirects' => 'never'   // THIS LINE KILLS THE ERROR FOREVER
-                        ],
-                    ]);
-
-                    $transactionId = $paymentIntent->latest_charge;
-
-                    $data = [
-                        'transactionId' => $transactionId, 
-                        'first_name'   => $request->first_name,
-                        'last_name'    => $request->last_name,
-                        'phone'        => $request->phone,
-                        'country'      => $request->country,
-                        'state'        => $request->state,
-                        'city'         => $request->city,
-                        'zip_code'     => $request->zip_code,
-                        'address'      => $request->address,
-                    ];
-
-                    $membership = PlanService::createMemberShip($plan,$user);
-                    $payment = PlanService::createPayment($membership,$data);
-
-                    return response()->json([
-                        'success'       => true,
-                        'clientSecret'  => $paymentIntent->client_secret,  // Send this to frontend
-                    ]);
-
-                } catch (\Exception $e) {
-                    return response()->json([
-                        'message' => $e->getMessage()
-                    ], 400);
-                }
-
-
-        // }
 
     }
 

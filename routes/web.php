@@ -36,7 +36,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\NotifyIntrestController;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Auth\GoogleController;
 
 
@@ -147,6 +147,12 @@ Route::get('/uploading1', function (Request $request) {
 });
 
 
+Route::get('/invoice', function () {
+
+    $pdf = Pdf::loadView('invoice.view', []);
+    return $pdf->stream();
+    
+});
 
 
 Route::get('/{any?}', function () {

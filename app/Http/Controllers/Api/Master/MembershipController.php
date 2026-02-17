@@ -8,6 +8,7 @@ use App\Models\MembershipPayment;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Package;
+use App\Models\Plan;
 use App\Models\UserPaymentMethod;
 use App\Models\UserVehicleAlert;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,7 @@ class MembershipController extends Controller
 
         $query = Membership::query()
                     ->leftJoin('users','users.id','=','memberships.user_id')
-                    ->leftJoin('membership_plans', 'membership_plans.id', '=', 'memberships.plan_id')
+                    ->leftJoin('plans', 'plans.id', '=', 'memberships.plan_id')
                     ->leftJoin('roles','roles.id','=','users.user_type');
                     
         if(!empty($search)) {
@@ -43,12 +44,12 @@ class MembershipController extends Controller
                 ->orWhere('users.phone', 'like', "%{$search}%")
                 ->orWhere('users.personalEmail', 'like', "%{$search}%")
                 ->orWhere('users.businessType', 'like', "%{$search}%")
-                ->orWhere('membership_plans.plan_name', 'like', "%{$search}%");
+                ->orWhere('plans.plan_name', 'like', "%{$search}%");
             });
         }
 
         if ($request->has('plan_id') && $request->plan_id !== '') {
-            $query->where('membership_plans.id', $request->plan_id);
+            $query->where('plans.id', $request->plan_id);
         }
 
         if ($request->status !== null && $request->status !== '') {
@@ -72,8 +73,8 @@ class MembershipController extends Controller
                         'memberships.*',
                         'users.id',
                         'users.firstName',
-                        'membership_plans.plan_name',
-                         DB::raw("COALESCE(membership_plans.plan_name, 'No Plan Purchased') as plan"),
+                        'plans.plan_name',
+                         DB::raw("COALESCE(plans.plan_name, 'No Plan Purchased') as plan"),
                         'users.phone',
                         'users.businessType',
                         'roles.name as role_name',
@@ -125,7 +126,7 @@ class MembershipController extends Controller
 
          $validator = Validator::make($request->all(),[
             'user_id' => 'required|exists:users,id|max:255',
-            'plan_id' => 'required|exists:membership_plans,id|max:255',
+            'package_id' => 'required|exists:packages,id|max:255',
             'membership_status' =>  'required|numeric|min:0',
         ]);
 
@@ -137,28 +138,35 @@ class MembershipController extends Controller
         }
 
 
-        $plan = Package::find($request->plan_id);
+        $package = Package::find($request->package_id);     
         $user = User::find($request->user_id);
 
         $start_date = now();
-        if ($plan->duration_unit === 'week') {
-            $expiry_date = now()->addWeek();
-        } elseif ($plan->duration_unit === 'month') {
+        if ($package->duration_unit === 'month') {
             $expiry_date = now()->addMonth();
-        } elseif ($plan->duration_unit === 'year') {
+        } elseif ($package->duration_unit === 'year') {
             $expiry_date = now()->addYear();
         } else {
             $start_date = $request->start_date;
             $expiry_date = $request->end_date;
         }
 
+        $total = intval($package->price) + intval($package->discount);
+
+        // dd($package->plan_id);
+
         $membership = Membership::create([
             'user_id' => $user->id,
-            'plan_id' => $plan->id,
+            'plan_id' => $package->plan_id,
+            'package_name' => $package->title,
+            'package_description' => $package->package_description,
+            'price' => $package->price,
+            'discount' => $package->discount,
+            'total' => $total,
             'membership_start_date' => $start_date,
             'membership_expiry_date' => $expiry_date,
-            'membership_status' => $request->membership_status,
-            'membership_type' => $plan->duration_unit,
+            'membership_status' => 1,
+            'created_at' => Carbon::now(),
         ]);
 
         // MembershipPayment::create([
@@ -187,10 +195,12 @@ class MembershipController extends Controller
     public function show($id)
     {
 
-        $model = Membership::find($id);
+        $model = Membership::where('id',$id)->first();
         if(!$model){
             return response()->json(["message" => "Record Not Found"],400);
         }
+
+        $model->plan = Plan::where('id',$model->plan_id)->first();
 
         return response()->json([
             "data" => $model,
@@ -203,28 +213,28 @@ class MembershipController extends Controller
     {
 
 
-        $model = Membership::find($id);
-        if(!$model){
-            return response()->json(["message" => "Record Not Found"],400);
-        }
+        // $model = Membership::find($id);
+        // if(!$model){
+        //     return response()->json(["message" => "Record Not Found"],400);
+        // }
         
-        $validator = Validator::make($request->all(),[
-            'membership_status' => 'required|string|max:100',
-        ]);
-        if($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
-            ], 422);
-        }
+        // $validator = Validator::make($request->all(),[
+        //     'membership_status' => 'required|string|max:100',
+        // ]);
+        // if($validator->fails()) {
+        //     return response()->json([
+        //         'message' => $validator->errors()->first(),
+        //         'errors' => $validator->errors()
+        //     ], 422);
+        // }
 
-        $model->membership_status = $request->membership_status;
-        $model->save();
+        // $model->membership_status = $request->membership_status;
+        // $model->save();
         
-        return response()->json([
-            "message" => 'Record Updated Successfully',
-            "data" => $model,
-        ],200);
+        // return response()->json([
+        //     "message" => 'Record Updated Successfully',
+        //     "data" => $model,
+        // ],200);
 
         
     }

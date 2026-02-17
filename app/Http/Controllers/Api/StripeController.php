@@ -50,7 +50,7 @@ class StripeController extends Controller
             }
 
             
-            $total = intVal($package->price) + intval($package->discount);
+            $total = intVal($package->price) - intval($package->discount);
             $amount = (float) $total;
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -95,9 +95,6 @@ class StripeController extends Controller
                     'message' => $e->getMessage()
                 ], 400);
             }
-
-
-        
 
     }
 

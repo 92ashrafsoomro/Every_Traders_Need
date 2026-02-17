@@ -27,7 +27,7 @@ class PlanService
 
         $startDate = now();
         $expiryDate = now()->addMonths($package->duration_value);
-        $total = intval($package->price) + intval($package->discount);
+        $total = intval($package->price) - intval($package->discount);
 
         $membership = Membership::create([
                 'user_id' => $user->id,

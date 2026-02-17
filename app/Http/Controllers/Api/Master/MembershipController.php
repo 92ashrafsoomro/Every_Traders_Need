@@ -149,7 +149,7 @@ class MembershipController extends Controller
             $expiry_date = $request->end_date;
         }
 
-        $total = intval($package->price) + intval($package->discount);
+        $total = intval($package->price) - intval($package->discount);
 
         // dd($package->plan_id);
 

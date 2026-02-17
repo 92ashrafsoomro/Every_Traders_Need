@@ -38,13 +38,17 @@ class PackageController extends Controller
 
         //Filter
         if($request->has('id') && $request->id != ''){
-            $query->where('id',$request->id);
+            $query->where('packages.id',$request->id);
         }
-        
+
+        if($request->has('plan_id') && $request->plan_id != ''){
+            $query->where('packages.plan_id',$request->plan_id);
+        }
+
         $count  =   (clone $query)->count();
         $data   =   $query->select([
-                    'packages.*',
-                    'plans.plan_name'
+                        'packages.*',
+                        'plans.plan_name'
                     ])
                     ->skip($offset)
                     ->take($length)
@@ -56,8 +60,7 @@ class PackageController extends Controller
                         }
                         return $item;
                     });
-            
-
+                    
         return response()->json([
             'recordsTotal' => $count,
             'recordsFiltered' => $count,

@@ -30,9 +30,14 @@ class UserController extends Controller
         $length = $request->input('length',100);
 
         $query = User::whereIn('users.user_type',[0])
-                    ->leftJoin('memberships', 'memberships.user_id', '=', 'users.id')
-                    ->leftJoin('membership_plans', 'membership_plans.id', '=', 'memberships.plan_id')
-                    ->leftJoin('roles','roles.id','=','users.user_type');
+                    ->leftJoin('roles','roles.id','=','users.user_type')
+                   
+                    ->leftJoin('memberships', function ($join) {
+                        $join->on('memberships.user_id', '=', 'users.id')
+                            ->where('memberships.membership_status', '=', 1);
+                    })
+                    ->leftJoin('plans','plans.id','=','memberships.plan_id');
+
                     // ->leftJoin('memberships', function($join) {
                     //     $join->on('memberships.user_id', '=', 'users.id')
                     //     ->whereRaw('memberships.id = (SELECT id FROM memberships m2 WHERE m2.user_id = users.id ORDER BY m2.created_at DESC LIMIT 1)');
@@ -40,7 +45,6 @@ class UserController extends Controller
 
 
         if(!empty($search)) {
-
             $query->where(function ($q) use ($search) {
                 $q->where('users.surname', 'like', "%{$search}%")
                 ->orWhere('users.id', 'like', "%{$search}%")
@@ -48,13 +52,14 @@ class UserController extends Controller
                 ->orWhere('users.companyName', 'like', "%{$search}%")
                 ->orWhere('users.phone', 'like', "%{$search}%")
                 ->orWhere('users.personalEmail', 'like', "%{$search}%")
-                ->orWhere('users.businessType', 'like', "%{$search}%")
-                ->orWhere('membership_plans.plan_name', 'like', "%{$search}%");
+                ->orWhere('users.businessType', 'like', "%{$search}%");
             });
         }
-        if($request->filled('plan_name')) {
-               $query->where('membership_plans.id', 'like', '%'.$request->plan_name.'%');
+
+        if($request->filled('plan_id')) {
+            $query->where('memberships.plan_id',$request->plan_id);
         }
+
         if($request->filled('status')) {
                $query->where('users.status', $request->status);
         }
@@ -80,27 +85,31 @@ class UserController extends Controller
         // }
 
             $count = (clone $query)->distinct('users.id')->count('users.id');
-
-       
             $data = $query->select(
                         'users.id',
                         'users.firstName',
-                        'membership_plans.plan_name',
-                         DB::raw("COALESCE(membership_plans.plan_name, 'No Plan Purchased') as plan"),
-
                         'users.phone',
                         'users.businessType',
                         'roles.name as role_name',
-
                         'users.surname',
                         'users.companyName',
                         'users.user_type',
-                        
                         'users.status',
-                        'memberships.membership_status',
-                        'memberships.membership_expiry_date',
                         'users.personalEmail',
+                        DB::raw('COUNT(memberships.id) as memberships'),
+
                         
+                        //Membership
+                        'plans.id as plan_id',
+                        'plans.plan_name',
+                        'memberships.package_name as package_name',
+                        'memberships.package_description',
+                        'memberships.price as package_price',
+                        'memberships.discount as package_discount',
+                        'memberships.total as package_total',
+                        'memberships.membership_start_date as package_membership_start_date',
+                        'memberships.membership_expiry_date as package_membership_expiry_date',
+                        'memberships.membership_status as package_membership_status',        
                     )
                     ->groupBy('users.id')
                     ->orderBy('users.created_at', 'desc')
@@ -126,15 +135,18 @@ class UserController extends Controller
                         
                         return $row;
                     });
-                $planCounts = DB::table('membership_plans')
-                    ->leftJoin('memberships', 'memberships.plan_id', '=', 'membership_plans.id')
+
+
+
+
+                    $planCounts = DB::table('plans')
+                    ->leftJoin('memberships', 'memberships.plan_id', '=', 'plans.id')
                     ->select(
-                        'membership_plans.id',
-                        'membership_plans.plan_name',
+                        'plans.id',
+                        'plans.plan_name',
                         DB::raw('COUNT(memberships.user_id) as total_users')
                     )
-                    ->where('membership_plans.status', 1)
-                    ->groupBy('membership_plans.id', 'membership_plans.plan_name')
+                    ->groupBy('plans.id','plans.plan_name')
                     ->get();
 
 

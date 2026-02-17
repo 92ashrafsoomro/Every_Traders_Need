@@ -71,7 +71,6 @@ class MembershipController extends Controller
 
             $data = $query->select(
                         'memberships.*',
-                        'users.id',
                         'users.firstName',
                         'plans.plan_name',
                          DB::raw("COALESCE(plans.plan_name, 'No Plan Purchased') as plan"),

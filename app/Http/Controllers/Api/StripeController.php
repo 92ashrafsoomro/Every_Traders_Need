@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\Interest;
 use App\Models\AuctionCenter;
+use App\Models\Package;
 use App\Models\UserNotificationAlert;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
@@ -33,8 +34,15 @@ class StripeController extends Controller
     {
        
             $user = $request->user();
-     
-            $plan = Plan::find($request->plan_id);
+
+            $package = Package::find($request->plan_id);
+            if(!$package){
+                return response()->json([
+                    'message' => 'Package Not Found'
+                ], 400);
+            }
+
+            $plan = Plan::find($package->plan_id);
             if(!$plan){
                 return response()->json([
                     'message' => 'Plan Not Found'

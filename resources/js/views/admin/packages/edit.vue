@@ -167,7 +167,7 @@ export default {
                 this.form.plan_id = res.data.plan_id;
                 this.form.short_desc = res.data.short_desc;
                 this.form.price = res.data.price;
-                this.form.description = res.data.description || "[]";
+                this.form.description = res.data.description || [];
                 this.form.status = res.data.status;
                 this.form.discount = res.data.discount;
                 this.form.duration_unit = res.data.duration_unit;

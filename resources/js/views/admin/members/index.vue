@@ -120,15 +120,7 @@
                                 {{ item.status == 1 ? 'Active' : 'Deactive' }}
                                 </v-btn>
                             </template>
-                            <template #item.membership_status="{ item }">
-                                <v-btn
-                                size="small"
-                                :color="item.membership_status == 'Active' ? 'primary' : 'error'"
-                                variant="flat"
-                                >
-                                {{ item.membership_status == 'Active' ? 'Active' : 'Expired' }}
-                                </v-btn>
-                            </template>
+
 
                             <template #item.action="{ item }">
                             <!-- <router-link :to="'/admin/members/edit/' + item.id">
@@ -177,6 +169,23 @@
                                 </span>
                                 </div>
                             </template>
+                            <template #item.package_membership_expiry_date="{ item }">
+                            <v-btn
+                                size="small"
+                                :color="
+                                getMembershipStatus(item.package_membership_expiry_date) === 'Active'
+                                    ? 'primary'
+                                    : getMembershipStatus(item.package_membership_expiry_date) === 'Expired'
+                                    ? 'error'
+                                    : 'secondary'
+                                "
+                                variant="flat"
+                            >
+                                {{ getMembershipStatus(item.package_membership_expiry_date) }}
+                            </v-btn>
+                            </template>
+
+
 
                             
                         </v-data-table-server>
@@ -242,8 +251,8 @@ export default {
                 { title: "User", value: "user",},
                 { title: "Company & Business Type", value: "company", sortable: false },
                 { title: "Status", value: "status" },
-                { title: "Plan Name", value: "plan" },  
-                { title: "Membership Status", value: "membership_status" },
+                { title: "Plan Name", value: "plan_name" },  
+                { title: "Membership Status", value: "package_membership_expiry_date" },
                 { title: "Action", key: "action" },
             ],
             statusItems: [
@@ -357,6 +366,14 @@ export default {
                 this.viewLoading = false;
             }
         },
+        getMembershipStatus(expiryDate) {
+            if (!expiryDate) return 'Not Buy Package'
+
+            const now = new Date().getTime()
+            const expiry = new Date(expiryDate.replace(' ', 'T')).getTime()
+
+            return expiry > now ? 'Active' : 'Expired'
+        }
 
     }
   

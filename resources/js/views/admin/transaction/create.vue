@@ -45,22 +45,15 @@
                            <v-select
                             v-model="form.package_id"
                                 :items="packages"
-                                 :item-title="item => `${item.plan_name} (${item.duration_value} ${item.duration_unit})`"
-                                     item-value="id"
-                                 density="compact" 
+                                item-title="label"
+                                item-value="id"
+                                density="compact" 
                                 variant="outlined"
                                 label="Select Package"
                             />
 
-
-
                             </v-col>
-                            <v-card v-if="selectedPackage" class="mt-4 pa-4">
-                            <div class="text-h6 font-weight-bold">{{ selectedPackage.plan_name }}</div>
-                            <div>{{ selectedPackage.short_desc }}</div>
-                            <div>Price: £{{ selectedPackage.price }}</div>
-                            <div>Duration: {{ selectedPackage.duration_value }} {{ selectedPackage.duration_unit }}</div>
-                            </v-card>
+                          
 
                             <v-col cols="12" class="text-center mt-4">
                                 <v-btn @click="createUser" color="primary" height="40">
@@ -81,6 +74,7 @@
 <script>
 import General from '@/models/general.model';
 import UserDropdown  from '@/components/UserDropdown.vue';
+import { toRaw } from 'vue';
 export default {
     components: {
         UserDropdown
@@ -109,11 +103,22 @@ export default {
     },
 
     methods: {
+  
+
        async getPackages() {
             this.loading = true;
             try {
                 let res = await General.get("/api/cruds/packages");
-                this.packages = res.data.filter(p => p.status === 1);
+                this.packages = res.data.map(item => {
+                    let price = Number(item.price) * Number(item.duration_value);
+                    let discount = Number(item.discount || 0);
+                    let finalPriceWithDiscount = price * (discount / 100)
+                    item.label = `${item.plan_name} ${item.price} (${item.duration_value} ${item.duration_unit}) £${finalPriceWithDiscount}`
+                    return item;
+
+                });
+             
+                
                 
                 if (this.packages.length) {
                     this.form.package_id = this.packages[0].id;

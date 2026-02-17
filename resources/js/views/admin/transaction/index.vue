@@ -196,17 +196,9 @@
                   
                             <template #item.action="{ item }">
                                 
-                            <span class="px-2"></span>
-                            <v-icon
-                                color="info"
-                                class="clickable-icon pa-4" 
-                                >
-                                mdi-eye
-                            </v-icon>
-                         
                             <router-link :to="'/admin/transaction/showTransaction/' + item.id" >
                                 <v-icon color="info" class="pa-4" >
-                                    mdi-circle
+                                   mdi-eye
                                 </v-icon>
                             </router-link>
                             

@@ -53,8 +53,8 @@
 
                                 <h3 class="text-body-1 font-weight-bold text-whiteLite ">{{ item.plan_name }} </h3>
                                 <p class="text-body-subtitle mt-2 text-light_text_on"
-                                    style="text-decoration: line-through;">${{ item.price }}</p>
-                                <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> ${{
+                                    style="text-decoration: line-through;">{{userStore.currencySymbol}}{{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> {{userStore.currencySymbol}}{{
                                     discountPrice(item) }} </h3>
                                 <span class="text-body-1 ml-0  text-light_text_on">/{{ durationLabel(item) }}</span>
                             </div>
@@ -115,8 +115,8 @@
 
                                 <h3 class="text-body-1 font-weight-bold text-whiteLite ">{{ item.plan_name }} </h3>
                                 <p class="text-body-subtitle mt-2 text-light_text_on"
-                                    style="text-decoration: line-through;">${{ item.price }}</p>
-                                <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> ${{
+                                    style="text-decoration: line-through;">{{userStore.currencySymbol}}{{ item.price }}</p>
+                                <h3 class="text-h5 font-weight-bold text-whiteLite d-inline-block pt-2"> {{userStore.currencySymbol}}{{
                                     discountPrice(item) }} </h3>
                                 <span class="text-body-1 ml-0  text-light_text_on">/{{ durationLabel(item) }}</span>
                             </div>

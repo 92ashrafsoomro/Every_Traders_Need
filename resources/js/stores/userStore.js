@@ -9,6 +9,7 @@ export const useUserStore = defineStore("user", {
         is_logged_in: false,
         user: {},
         userData  : null,
+        currencySymbol : "£",
         notification: [
             {
                 title: "New Message",

@@ -149,10 +149,11 @@ class MembershipController extends Controller
             $expiry_date = $request->end_date;
         }
 
-        $total = intval($package->price) - intval($package->discount);
-
-        // dd($package->plan_id);
-
+        $price = floatval($package->price);
+        $discountPercent = floatval($package->discount);
+        $discountAmount = ($price * $discountPercent) / 100;
+        $total = $price - $discountAmount;
+        
         $membership = Membership::create([
             'user_id' => $user->id,
             'plan_id' => $package->plan_id,

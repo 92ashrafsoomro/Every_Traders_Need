@@ -21,7 +21,7 @@ class UserProfileResource extends JsonResource
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
 
-        $membership = Membership::with(['plan'])->where('user_id',$this->id)
+        $membership = Membership::with(['plan','payment'])->where('user_id',$this->id)
         ->orderBy('created_at','desc')
         ->get();
 

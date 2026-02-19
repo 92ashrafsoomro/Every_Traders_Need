@@ -12,8 +12,8 @@
                                         v-for="item in planCounts" 
                                         :key="item.id"
                                         class="status-card cursor-pointer"
-                                        @click="filter.plan_name = item.id"
-                                        :class="{ 'status-selected': Number(filter.plan_name) === item.id }"
+                                        @click="filter.plan_id = item.id"
+                                        :class="{ 'status-selected': Number(filter.plan_id) === item.id }"
                                     >
                                         <div class="d-flex justify-space-between">
                                             <div class="d-flex align-center">
@@ -120,8 +120,19 @@
                                 {{ item.status == 1 ? 'Active' : 'Deactive' }}
                                 </v-btn>
                             </template>
+                            <template #item.email_verification_token_status="{ item }">
+                            <v-chip
+                                :color="item.email_verification_token_status == 1 ? 'primary' : 'error'"
+                                size="small"
+                                class="font-weight-medium"
+                                variant="tonal"
+                                :prepend-icon="item.email_verification_token_status == 1 ? 'mdi-check-circle' : 'mdi-alert-circle'"
+                            >
+                                {{ item.email_verification_token_status == 1 ? 'Verified' : 'Unverified' }}
+                            </v-chip>
+                            </template>
 
-
+ 
                             <template #item.action="{ item }">
                             <!-- <router-link :to="'/admin/members/edit/' + item.id">
                                 <v-icon color="primary" class="editIconHover pa-4" >mdi-pencil</v-icon>
@@ -238,7 +249,7 @@ export default {
                 page: 1,
                 offset: 0,
                 id:null,
-                plan_name:null
+                plan_id:null
             },
             
             last_page: 1,
@@ -251,6 +262,7 @@ export default {
                 { title: "User", value: "user",},
                 { title: "Company & Business Type", value: "company", sortable: false },
                 { title: "Status", value: "status" },
+                { title: "Verification Status", value: "email_verification_token_status" },
                 { title: "Plan Name", value: "plan_name" },  
                 { title: "Membership Status", value: "package_membership_expiry_date" },
                 { title: "Action", key: "action" },
@@ -276,7 +288,7 @@ export default {
         'filter.page'(newVal, oldVal) {
             this.loadItems()
         },
-        'filter.plan_name'(newVal, oldVal) {
+        'filter.plan_id'(newVal, oldVal) {
             this.loadItems()
         },
         'filter.id'(newVal, oldVal) {

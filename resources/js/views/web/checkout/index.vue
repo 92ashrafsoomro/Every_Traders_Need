@@ -119,18 +119,18 @@
 
                             <div class="ml-4">
                                 <div class="text-whiteLite font-weight-bold ">
-                                    {{ oldPlan?.plan?.plan_name || 'No Plan Buyer' }}
+                                    {{ oldPlan?.plan?.plan_name || 'No Plan Buyer' }} 
                                 </div>
                                 <div class="text-body-2">
 
-                                    Your active plan
+                                    {{ oldPlan?.price ? 'Your plan is active' : 'No active plan found' }}
 
                                 </div>
                             </div>
                         </div>
 
                         <div class="text-whiteLite text-right">
-                            <div class="text-body-1 font-weight-bold">{{ oldPlan?.plan?.price || 'No Plan ' }}</div>
+                            <div class="text-body-1 font-weight-bold"> {{ oldPlan?.price ? '£' + oldPlan.price : 'No Plan Buyer' }}</div>
                             <div class="text-body-2">{{dateFormate( oldPlan?.membership_expiry_date || "No Plan Buyer" )}}</div>
                         </div>
                     </div>
@@ -229,12 +229,12 @@
 
                         <div class="text-whiteLite mt-7">
                             <div class="d-flex justify-space-between mb-2">
-                                <span>Base price</span>
+                                <span>Base price</span> 
                                 <span>£{{ currentPlan?.price }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-2">
-                                <span>Discount</span>
-                                <span>£0.00</span>
+                                <span>Discount  <v-chip color="primary">{{ currentPlan?.discount }}%</v-chip></span>
+                                <span>£{{ discountAmount.toFixed(2) }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-4">
                                 <span>GST</span>
@@ -244,7 +244,7 @@
                             <v-divider></v-divider>
                             <div class="d-flex justify-space-between mb-2 mt-4">
                                 <span>Total</span>
-                                <span>£{{ currentPlan?.price }}</span>
+                                <span>£{{ finalPrice.toFixed(2) }}</span>
                             </div>
 
                         </div>
@@ -297,11 +297,16 @@ export default {
     },
     async mounted() {
 
-        await this.userStore.getProfile();
-    if (this.userStore.user?.id) {
-        await this.userStore.getUserData();
-        this.getAuth(); 
-    }
+    //     await this.userStore.getProfile();
+    // if (this.userStore.user?.id) {
+    //     await this.userStore.getUserData();
+    //     this.getAuth(); 
+    // }
+    await this.userStore.getUserData();
+    
+    // Jab data aa jaye, tab form bharein
+    this.populateForm();
+
     this.getPlans();
     this.stripeLoad();
         if (!this.selectedPlan && this.userStore.selectedPlanId) {
@@ -324,6 +329,20 @@ export default {
         },
         currentPlan() {
             return this.planList.find((item) => item.id == this.selectedPlan)
+        },
+        discountAmount() {
+            const price = parseFloat(this.currentPlan?.price) || 0;
+            const discountPercent = parseFloat(this.currentPlan?.discount) || 0;
+            
+            if (discountPercent > 0) {
+                return (price * discountPercent) / 100;
+            }
+            return 0;
+        },
+
+        finalPrice() {
+            const price = parseFloat(this.currentPlan?.price) || 0;
+            return price - this.discountAmount;
         }
     },
     methods: {
@@ -426,12 +445,48 @@ export default {
             } catch (error) {
 
                 this.loading = false;
-
+                console.log(error);
                 this.$alertStore.add(error.message, "error")
 
             }
 
-        }
+        },
+        populateForm() {
+            const user = this.userStore.userData;
+            
+            if (!user) {
+            console.warn("User data abhi tak load nahi hua.");
+            return;
+            }
+            const latestPayment = user.billingHistory?.[0]?.payment;
+
+            if (latestPayment) {
+            this.form.first_name = latestPayment.first_name || '';
+            this.form.last_name  = latestPayment.last_name || '';
+            this.form.phone      = latestPayment.phone || '';
+            this.form.country    = latestPayment.country || '';
+            this.form.state      = latestPayment.state || '';
+            this.form.city       = latestPayment.city || '';
+            this.form.zip_code   = latestPayment.zip_code || '';
+            this.form.address    = latestPayment.address || '';
+            this.form.cardholderName = latestPayment.first_name + ' ' + (latestPayment.last_name || '');
+            } else {
+            this.form.first_name = user.firstName || '';
+            this.form.last_name  = user.surname || '';
+            this.form.email      = user.personalEmail || '';
+            this.form.phone      = user.phone || '';
+            this.form.country    = user.country || '';
+            this.form.state      = user.townCity || ''; 
+            this.form.city       = user.townCity || '';
+            this.form.zip_code   = user.postcode || '';
+            this.form.address    = user.companyAddress1 || '';
+            this.form.cardholderName = user.firstName || '';
+            }
+
+            if (this.userStore.selectedPlanId) {
+            this.form.plan_id = this.userStore.selectedPlanId;
+            }
+        },
 
 
     },

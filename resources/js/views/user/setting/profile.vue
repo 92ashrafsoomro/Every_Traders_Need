@@ -113,6 +113,7 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 import UserModel from '@/models/user.model';
 import authService from '@/services/authService';
 import { useUserStore } from '@/stores/userStore';
@@ -176,50 +177,48 @@ export default {
 
         },
         async loadDataFromProfile() {
+                if (!this.userStore.user?.id) return; 
+                this.loading = true;
 
-            UserModel.fields.map(res => (this.form[res.key] = ''));
-            this.$refs.fileInput.value = null;
-            this.$refs.uploadeInfo.value = null;
-            this.loading = true;
+                try {
+                    let res = await General.get('/api/profile/account-details/' + this.userStore.user.id);
 
-            authService.getProfile().then((res) => {
-                let data = res.data.user
-                for (const key in this.form) {
-                    if (!Object.hasOwn(this.form, key)) continue;
-                    const value = this.form[key];
-                    // if (['uploadID', 'motorTradeProof', 'addressProof'].includes(key)) {
-                    //     continue;
-                    // }
-                    if (Object.hasOwn(data, key)) {
-                        this.form[key] = data[key];
-                    } else {
-                        this.form[key] = ''
+                    console.log("API Response:", res);
+
+                
+                    const data = res.data.user; 
+
+                    for (const key in this.form) {
+                        if (Object.hasOwn(data, key)) {
+                            this.form[key] = data[key];
+                        } else {
+                            this.form[key] = '';
+                        }
                     }
-                }
-                this.loading = false;
-            }).catch((error) => {
-                this.loading = false;
-            })
 
-        },
-        onSubmit() {
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    this.loading = false;
+                }
+            },
+        async onSubmit() {
 
             this.loading = true;
-            authService.updateProfile(this.form).then((res) => {
+            try{
+                let res = await General.post(`/api/profile/account-details/`+this.userStore.user.id, this.form);
+                console.log("API Response:", res);
                 console.log(res);
                 this.loadDataFromProfile();
                 this.loading = false;
                 this.$alertStore.add('Profile Updated', 'success');
-
-            }).catch((error) => {
-
-                this.loadDataFromProfile();
+            }
+            catch(error){
+                console.error(error);
+            }
+            finally{
                 this.loading = false;
-                this.$alertStore.add(error.message, 'error');
-            });
-
-
-        }
+            }}
 
     }
 };

@@ -40,7 +40,7 @@ router.beforeEach(async (to, from, next) => {
         try {
             
             const res = await auth.getProfile();
-            console.log(res);
+            // console.log(res);
             auth.user = res;
             auth.is_logged_in = true;
             //  alertStore.add('User Logged In','success')

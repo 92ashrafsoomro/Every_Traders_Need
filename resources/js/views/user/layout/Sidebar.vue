@@ -20,11 +20,7 @@
             <template v-for="(item, index) in userMenu" :key="index">
 
                 <!-- NORMAL ITEM -->
-                <v-list-item v-if="item.type !== 'group'"  link :ripple="false"
-                :to="isAllowed(item) ? item.path : null"  :class="[
-                        'menu-item text-subtitle-1',
-                        !isAllowed(item) ? 'locked-item' : ''
-                    ]" :disabled="!isAllowed(item)" 
+                <v-list-item v-if="item.type !== 'group'" :to="item.path" link :ripple="false"
                     class="menu-item text-subtitle-1" active-class="bg-primary on-primary rounded-sm my-active-menu">
 
                     <!-- CUSTOM ICON -->
@@ -107,9 +103,6 @@ export default {
         },
         smallCurrent(){
              return this.isDark ? darkshortLogo : lightshortLogo
-        },
-        planId(){
-            return this.userStore.user?.plan?.plan_id ?? null;
         }
     },
     methods: {
@@ -118,12 +111,6 @@ export default {
         },
         toggleTheme() {
             this.vuetify.change(this.isDark ? "adminLight" : "adminDark")
-        },
-        isAllowed(item){
-            if(this.userStore.user.role !== "Subscriber") return true;
-
-            if(!item.allowedPlans) return true;
-            return item.allowedPlans.includes(this.planId);
         }
 
     },
@@ -135,10 +122,4 @@ export default {
 .my-active-menu .v-list-item__overlay {
     display: none !important;
 }
-.locked-item {
-  opacity: 0.4;
-  pointer-events: none;
-  filter: grayscale(100%);
-}
-
 </style>

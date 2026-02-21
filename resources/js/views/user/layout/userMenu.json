@@ -6,64 +6,54 @@
         {
             "icon": "mdi-view-dashboard-outline",
             "label": "Dashboard",
-            "path": "/user/dashboard",
-            "allowedPlans": [1,2,3]
+            "path": "/user/dashboard"
             
         },
         {
             "icon": "mdi-car-search-outline",
             "label": "Auction Finder",
-            "path": "/user/auction-finder",
-            "allowedPlans": [1,2,3]
+            "path": "/user/auction-finder"
         },
        
         {
             "icon": "mdi-history",
             "label": "Watchlist",
-            "path": "/user/watchlist",
-            "allowedPlans": [2,3]
+            "path": "/user/watchlist"
         },
          {
             "icon": "mdi-alarm",
             "label": "Your Reminder",
-            "path": "/user/alert",
-            "allowedPlans": [3]
+            "path": "/user/alert"
         },
         {
             "icon": "mdi-repeat",
             "label": "Reauction Tracker",
-            "path": "/user/reauction",
-            "allowedPlans": [3]
+            "path": "/user/reauction"
         },
        
         {
             "icon": "mdi-calendar-check-outline",
             "label": "Auction Schedule",
-            "path": "/user/auctionscheduler",
-            "allowedPlans": [2,3]
+            "path": "/user/auctionscheduler"
         },
         {
             "label": "Profile",
             "type": "group"
-        
         },
        
         {
             "icon": "mdi-account-outline",
             "label": "Profile",
             "path": "/user/profile"
-          
         },
         {
             "icon": "mdi-newspaper-variant-outline",
             "label": "News",
             "path": "/user/news"
-          
         },
         {
             "icon": "mdi-cog-outline",
             "label": "Settings",
             "path": "/user/settings/profile"
-       
         }
 ]

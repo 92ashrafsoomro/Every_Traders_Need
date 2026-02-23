@@ -1,5 +1,6 @@
 <template>
-  <user-title-bar title="Plan Your Auction Week" style="z-index: 1; margin-bottom: 0 !important;"
+ 
+  <user-title-bar v-if="userStore.user.role != 'Subscriber' || userStore.user.plan" title="Plan Your Auction Week" style="z-index: 1; margin-bottom: 0 !important;"
     subtitle="View upcoming auctions by date, auction house, and centre — so you can prepare, shortlist vehicles, and bid with confidence." class="">
     <div class="d-flex  ga-2 mt-5 ">
       <div style="width: 200px;">
@@ -84,8 +85,9 @@
 
 
   </user-title-bar>
+  <Restriction v-else/>
 
-  <v-container fluid="" style="max-width: 1400px;">
+  <v-container fluid="" style="max-width: 1400px;" v-if="userStore.user.role != 'Subscriber' || userStore.user.plan ">
 
 
     <v-card class="border-sm border-white mt-5">
@@ -150,17 +152,20 @@ import PlateformDropdown from '@/components/PlateformDropdown.vue';
 import CenterDropdown from '@/components/CenterDropdown.vue';
 import General from '@/models/general.model';
 import HammerIcon from '@/views/admin/taskManagement/component/Icon.vue'
+import Restriction from './layout/Restriction.vue';
+import { useUserStore } from '@/stores/userStore';
 export default {
   components: {
     PlateformDropdown,
     CenterDropdown,
-    HammerIcon
+    HammerIcon,
+    Restriction
   },
 
   data() {
     return {
       pageStore: usePageStore(),
-
+      userStore : useUserStore(),
       days: {},
 
       options: {
@@ -192,10 +197,13 @@ export default {
   },
 
   mounted() {
-    this.nextDays();
-    this.options.date = this.days['Today'].date;
-    this.getRecords();
-    this.existAlert()
+    if (this.userStore.user.role != 'Subscriber' || this.userStore.user.plan) {
+          this.nextDays();
+      this.getRecords();
+      this.options.date = this.days['Today'].date;
+      this.existAlert()
+    }
+
   },
 
   methods: {

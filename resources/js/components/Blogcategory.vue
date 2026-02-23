@@ -1,14 +1,13 @@
 <template>
-    <v-select
-        v-bind="$attrs"
-        :items="data"
-        item-title="title"
-        item-value="id"
-        :model-value="modelValue"
-        :loading="loading"
-        @update:model-value="handleValue($event)"
-     
-    />
+  <v-select
+    v-bind="$attrs"
+    :items="data"
+    item-title="title"
+    item-value="id"
+    :model-value="modelValue"
+    :loading="loading"
+    @update:model-value="$emit('update:modelValue', $event)"
+  />
 </template>
 
 <script>
@@ -18,8 +17,8 @@ export default {
 
     props: {
         modelValue: {
-            type: String,
-            default: 'blog' 
+            type: [Number, null],
+            default: null
         }
     },
 
@@ -49,7 +48,7 @@ export default {
                     { type: this.type }
                 );
                 this.data = response.data;
-                this.data.sort((a,b)=>a.name.localeCompare(b.name));
+                // this.data.sort((a,b)=>a.name.localeCompare(b.name));
             } catch (error) {
                 console.error("Error loading categories:", error)
             } finally {

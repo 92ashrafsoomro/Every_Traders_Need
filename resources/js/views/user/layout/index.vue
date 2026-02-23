@@ -51,41 +51,7 @@
             </v-row>
         </v-app-bar>
         <v-main class="bg-background" >
-    
-            <v-dialog
-            v-model="showUpgradeCard"
-            persistent
-            max-width="420"
-            >
-            <v-card class="pa-4 text-center">
-                <v-icon size="48" color="primary">mdi-lock-outline</v-icon>
-
-                <v-card-title class="mt-2">
-                Upgrade Required
-                </v-card-title>
-
-                <v-card-text class="text-body-2">
-                {{ upgradeMessage }}
-                </v-card-text>
-
-                <v-card-actions class="justify-center mt-4">
-                <v-btn
-                    color="primary"
-                    to="/user/settings/billing"
-                >
-                    Upgrade Plan
-                </v-btn>
-
-                <v-btn
-                    variant="text"
-                    @click="$router.back()"
-                >
-                    Go Back
-                </v-btn>
-                </v-card-actions>
-            </v-card>
-            </v-dialog>
-
+        <!-- <Restriction/> -->
         <router-view/>
         </v-main>
     </v-app>
@@ -100,6 +66,7 @@ import { mdiFullscreen } from "@mdi/js";
 import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "./ThemeDropdown.vue";
 import { useUserStore } from "@/stores/userStore";
+import Restriction from "./Restriction.vue";
 export default {
     name: "App",
     components: {
@@ -107,12 +74,13 @@ export default {
         ProfileDropdown,
         Notificationdropdown,
         ThemeDropdown,
+        Restriction
     },
   
    
     data() {
         return {
-            drawer: true,
+      
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,
@@ -126,15 +94,6 @@ export default {
     return this.$route.meta.title || 'Dashboard';
   },
 
-  showUpgradeCard() {
-    const meta = this.$route.meta;
-    const planId = this.userStore.user?.plan?.plan_id;
-
-    if (this.userStore.user?.role !== 'Subscriber') return false;
-    if (!meta.allowedPlans) return false;
-
-    return !meta.allowedPlans.includes(planId);
-  },
 
   upgradeMessage() {
     return (

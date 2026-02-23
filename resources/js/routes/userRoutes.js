@@ -14,21 +14,16 @@ import Alert from "@/views/user/alert/index.vue"
 import News from "@views/user/news/index.vue"
 import NewsbyId from "@views/user/news/newsbyid.vue"
 export default [
-    {
+  {
         path: "/user",
         component: DashboardLayout,
         children: [
       { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true, title: 'Dashboard' } },
-      { path: 'auction-finder', component: AuctionFinder , meta: { requiresAuth: true, title: 'Auction Finder' ,  allowedPlans: [1,2,3],
-  upgradeMessage: "This page is not available on your plan"} },
-      { path: "auctionscheduler", component: Auctionscheduler, meta: { requiresAuth: true, title: 'Auction Scheduler' ,  allowedPlans: [2,3],
-  upgradeMessage: "This page is not available on your plan" } },
-      { path: "reauction", component: Reauction, meta: { requiresAuth: true, title: 'Reauction Tracker' ,  allowedPlans: [1,2,3],
-  upgradeMessage: "This page is not available on your plan" } },
-      { path: "alert", component: Alert, meta: { requiresAuth: true, title: 'Your Reminder' ,  allowedPlans: [2,3],
-  upgradeMessage: "This page is not available on your plan"} },
-      { path: "watchlist", component: Watchlist, meta: { requiresAuth: true, title: 'Watchlist' ,  allowedPlans: [1,2,3],
-  upgradeMessage: "This page is not available on your plan" } },
+      { path: 'auction-finder', component: AuctionFinder , meta: { requiresAuth: true, title: 'Auction Finder'  }},
+      { path: "auctionscheduler", component: Auctionscheduler, meta: { requiresAuth: true, title: 'Auction Scheduler' }},
+      { path: "reauction", component: Reauction, meta: { requiresAuth: true, title: 'Reauction Tracker'    }},
+      { path: "alert", component: Alert, meta: { requiresAuth: true, title: 'Your Reminder' }},
+      { path: "watchlist", component: Watchlist, meta: { requiresAuth: true, title: 'Watchlist'  }},
       { path: "interest", component: Interest , meta: { requiresAuth: true, title: 'Interest' } },
       { path: "compare", component: Compare, meta: { requiresAuth: true, title: 'Compare' } },
       { path: "profile", component: Profile, meta: { requiresAuth: true, title: 'Profile' } },
@@ -38,5 +33,5 @@ export default [
       { path: "singlenews/:id?", component: NewsbyId, meta: { requiresAuth: true, title: 'News' } },
       { path: "web", component: navbar, meta: { requiresAuth: true, title: 'Web' } },
     ],
-    },
+  },
 ]

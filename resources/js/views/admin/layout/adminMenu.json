@@ -85,6 +85,11 @@
         "label": "Plans",
         "icon": "mdi-shield-crown",
         "path": "/admin/plans"
+      },
+      {
+        "label": "Restrictions",
+        "icon": "mdi-lock",
+        "path": "/admin/restrictions"
       }
     ]
   },

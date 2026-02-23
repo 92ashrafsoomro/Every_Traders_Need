@@ -14,58 +14,74 @@
                     <v-divider></v-divider>
                     <v-container fluid="" class="px-10 pb-0 ">
                         <v-row class="px-4 py-3">
+
+                            <!-- Autotrader -->
                             <v-col cols="6">
-                                <div class="text-body-2  mb-1">Autotrader</div>
-                                <div class="text-h6 font-weight-bold ">£{{
-                                    vehicleStore.vehicle.autotrader_trade_value }}</div>
-                                <div class="d-lg-flex mt-2">
-                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                        style="font-size: 10px; ">
-                                        <span class="text-whiteLite">↑ 5.6%</span>
-                                    </v-chip>
-                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center  ">From last
-                                        month</p>
+                                <div class="text-body-2 mb-1">Autotrader</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan1">
+                                    £{{ vehicleStore.vehicle.autotrader_trade_value }}
+                                    <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
                                 </div>
+                                    <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
                             </v-col>
+
+                            <!-- CAP Clean -->
                             <v-col cols="6">
-                                <div class="text-body-2  mb-1">CAP Clean</div>
-                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_clean }}
+                                <div class="text-body-2 mb-1">CAP Clean</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan1">
+                                    £{{ vehicleStore.vehicle.cap_clean }}
+                                    <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
                                 </div>
-                                <div class="d-lg-flex mt-2">
-                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                        style="font-size: 10px;">
-                                        <span class="text-whiteLite">↑ 5.6%</span>
-                                    </v-chip>
-                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                        month</p>
-                                </div>
-                            </v-col><v-col cols="6">
-                                <div class="text-body-2  mb-1">CAP Average</div>
-                                <div class="text-h6 font-weight-bold ">£{{
-                                    vehicleStore.vehicle.cap_average }}</div>
-                                <div class="d-lg-flex mt-2">
-                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                        style="font-size: 10px;">
-                                        <span class="text-whiteLite">↑ 5.6%</span>
-                                    </v-chip>
-                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                        month</p>
-                                </div>
+                                    <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
                             </v-col>
+
+                            <!-- CAP Average (Plan 2+) -->
                             <v-col cols="6">
-                                <div class="text-body-2  mb-1">CAP Blow</div>
-                                <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_below }}
+                                <div class="text-body-2 mb-1">CAP Average</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">
+                                    £{{ vehicleStore.vehicle.cap_average }}
+                                    <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
                                 </div>
-                                <div class="d-lg-flex mt-2">
-                                    <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                        style="font-size: 10px;">
-                                        <span class="text-whiteLite">↑ 5.6%</span>
-                                    </v-chip>
-                                    <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From last
-                                        month</p>
-                                </div>
+                                    <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
                             </v-col>
+
+                            <!-- CAP Blow (Plan 2+) -->
+                            <v-col cols="6">
+                                <div class="text-body-2 mb-1">CAP Blow</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">
+                                    £{{ vehicleStore.vehicle.cap_below }}
+                                    <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
+                                </div>
+                                    <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
+                            </v-col>
+
+                            
+                            <v-col cols="6">
+                                    <div class="text-body-2 mb-1">Autotrader Retail</div>
+                                    <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
+                                        vehicleStore.vehicle.cap_retail }} <p
+                                            class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                            last month</p>
+                                    </div>
+                                        <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
+                                </v-col>
+
+                                 <v-col cols="6" >
+                                    <div class="text-body-2 mb-1">CAP Retail</div>
+                                    <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
+                                        vehicleStore.vehicle.cap_retail }} <p
+                                            class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                            last month</p>
+                                    </div>
+                                    <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
+                                </v-col>
                         </v-row>
+
+                      
                     </v-container>
 
 
@@ -78,31 +94,23 @@
                             <v-row class="px-4 py-3">
                                 <v-col cols="6">
                                     <div class="text-body-2  mb-1">Autotrader</div>
-                                    <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2">£{{ vehicleStore.vehicle.cap_retail
                                         }}
-                                    </div>
-                                    <div class="d-lg-flex mt-2">
-                                        <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                            style="font-size: 10px;">
-                                            <span class="text-whiteLite">↑ 5.6%</span>
-                                        </v-chip>
-                                        <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                         <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                             last month</p>
                                     </div>
+                                           <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
+                                  
                                 </v-col>
                                 <v-col cols="6">
                                     <div class="text-body-2  mb-1">Cap Retail</div>
-                                    <div class="text-h6 font-weight-bold ">£{{ vehicleStore.vehicle.cap_retail
+                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2" >£{{ vehicleStore.vehicle.cap_retail
                                         }}
-                                    </div>
-                                    <div class="d-lg-flex mt-2">
-                                        <v-chip color="danger" small label class=" text-whiteLite pa-1 py-0    "
-                                            style="font-size: 10px;">
-                                            <span class="text-whiteLite">↑ 5.6%</span>
-                                        </v-chip>
-                                        <p class="ml-lg-2 mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                         <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                             last month</p>
                                     </div>
+                                           <p v-else style="font-size: 14px; " class="text-light_text_on">Upgrade Plan</p>
+                                  
                                 </v-col>
                             </v-row></v-container>
                     </div>
@@ -197,10 +205,13 @@
                                     <div class="d-flex justify-space-between  pb-2 pt-2">
                                         <div class="text-body-2">CAP</div>
 
-                                        <div class="text-body-2">{{ ((vehicleStore.vehicle.last_bid / vehicleStore.vehicle.cap_clean) * 100).toFixed(0) }}%</div>
+                                        <div class="text-body-2">{{ ((vehicleStore.vehicle.last_bid /
+                                            vehicleStore.vehicle.cap_clean) * 100).toFixed(0) }}%</div>
 
                                     </div>
-                                    <v-progress-linear :model-value="((vehicleStore.vehicle.last_bid / vehicleStore.vehicle.cap_clean) * 100)" color="primary"></v-progress-linear>
+                                    <v-progress-linear
+                                        :model-value="((vehicleStore.vehicle.last_bid / vehicleStore.vehicle.cap_clean) * 100)"
+                                        color="primary"></v-progress-linear>
                                     <div class="d-flex justify-space-between mt-8 mb-3">
                                         <div class="text-body-2">AUTOTRADER</div>
                                         <div class="text-body-2">{{ vehicleStore.vehicle.autotrader_trade_value }}%
@@ -307,7 +318,7 @@
 import { useVehicleStore } from '@/stores/vehicleStore';
 import TradeHistory from './TradeHistory.vue';
 // import Trade from './Trade.vue';
-
+import { useUserStore } from '@/stores/userStore';
 
 
 export default {
@@ -321,6 +332,7 @@ export default {
             loading: false,
             image: '',
             dialog: false,
+            userStore: useUserStore(),
             headers: [
                 { title: 'Reg', key: 'reg' },
                 { title: 'Status', key: 'status' },
@@ -350,6 +362,32 @@ export default {
             return bidding_history;
 
         },
+     
+  planId() {
+    // NON-Subscriber (Admin / Owner) → full access
+    if (this.userStore.user?.role !== 'Subscriber') {
+      return 3; // max plan maan lo
+    }
+
+    // Subscriber
+    return this.userStore.user?.plan?.plan_id || null;
+  },
+
+  hasPlan() {
+    return !!this.planId;
+  },
+
+  showPlan1() {
+    return this.planId >= 1;
+  },
+
+  showPlan2() {
+    return this.planId >= 2;
+  },
+
+  showPlan3() {
+    return this.planId >= 3;
+  }
 
     },
     methods: {

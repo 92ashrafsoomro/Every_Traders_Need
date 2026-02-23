@@ -25,7 +25,7 @@ import staffUser from "@/views/admin/stafUser/route"
 import newsBlog from "@/views/admin/newsBlog/route"
 import blog from "@/views/admin/blog/route"
 import category from "@/views/admin/category/route"
-
+import restrictions from "@/views/admin/restrictions/route"
 export default [
     {
         path: "/admin",
@@ -58,6 +58,7 @@ export default [
             ...newsBlog,
             ...blog,
             ...category,
+            ...restrictions
             // ...upComing,
             // ...upGrade,
             // ...final,

@@ -55,13 +55,13 @@ use App\Models\Role;
                 'personalEmail'     => $user->personalEmail,
                 'restrictions'      => $features,
                 'plan'              =>  $current,
-                
             ],
         ]);
 
     }
 
 
+    
     public function login(Request $request)
     {
 

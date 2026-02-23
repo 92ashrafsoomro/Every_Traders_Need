@@ -148,7 +148,7 @@ Route::get('/uploading1', function (Request $request) {
 
 
 Route::get('/invoice', function () {
-
+    // return view('invoice.vieww');
     $pdf = Pdf::loadView('invoice.vieww', []);
     return $pdf->stream();
     

@@ -224,7 +224,7 @@
   <div class="invoice-header">
     <div class="header-content">
       <div class="company">
-        <img src="logo.png" alt="AutoBoli Logo">
+        <img src="{{ public_path('build/assets/newLogo-B4aftMUZ.png') }}" width="150">
         <div>
           <h2>AutoBoli Pvt Ltd</h2>
           <p>Karachi, Pakistan<br>info@autoboli.com | +92 21 1234567</p>

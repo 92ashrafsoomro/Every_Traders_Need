@@ -47,6 +47,46 @@
                                         density="compact" />
                                 </v-col>
                                 <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Company Address1" :model-value="user.companyAddress1" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Company Address2" :model-value="user.companyAddress2" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Town/City" :model-value="user.townCity" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Country" :model-value="user.country" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Postcode" :model-value="user.postcode" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Telephone" :model-value="user.telephone" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Phone" :model-value="user.phone" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Business Type" :model-value="user.businessType" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Company Registration" :model-value="user.companyReg" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field readonly="" label="Company Website" :model-value="user.website" variant="outlined"
+                                        density="compact" />
+                                </v-col>
+                                <v-col cols="12" md="4">
                                     <v-text-field readonly="" label="Business Type" :model-value="user.businessType" variant="outlined"
                                         density="compact" />
                                 </v-col>
@@ -127,8 +167,39 @@
                         
 
                             </v-row>
+                            <v-divider></v-divider>
+
+                                <v-row class="pa-4">
+
+                                <v-col cols="12">
+                                    <h2 class="text-h6 font-weight-bold mb-1">Transaction History</h2>
+                                </v-col>
+
+                                <v-col cols="12" class="mt-2">
+                                    <div class="border">
+                                        <v-data-table
+                                        :loading="loading"
+                                        :headers="headers"
+                                        :items="items"
+                                        item-value="id"
+                                        hide-default-footer
+                                        >
+                                        <template v-slot:item.amount="{ item }">
+                                            {{ item.currency }} {{ item.amount }}
+                                        </template>
+                                        <template v-slot:item.user_name="{ item }">
+                                            {{ item.first_name }} {{ item.last_name }}
+                                        </template>
+
+                                        <template v-slot:item.payment_date="{ value }">
+                                            {{ formatDate(value) }}
+                                        </template>
+                                        </v-data-table>
+                                    </div>
+                                </v-col>
 
 
+                            </v-row>
                         </v-row>
 
                         <!-- <v-col cols="12" class="text-center mt-4">
@@ -157,6 +228,22 @@ export default {
             planData: [],
             user: [],
             loading: false,
+            items: [],
+            headers: [
+                { title: "ID", key: "id", sortable: false },
+                { title: "Transaction ID", key: "transaction_id", sortable: false },
+                // { title: "Payer ID", key: "payer_id", sortable: false },
+                // { title: "Charge Id", key: "charge_id", sortable: false },
+                { title: "Name", key: "user_name", sortable: false },
+                { title: "Country", key: "country", sortable: false },
+                { title: "State", key: "state", sortable: false },
+                { title: "City", key: "city", sortable: false },
+                { title: "Zip Code", key: "zip_code", sortable: false },
+                { title: "Amount", key: "amount", sortable: false },
+                { title: "Payment Method", key: "payment_method", sortable: false },
+                { title: "Status", key: "payment_status", sortable: false },
+                { title: "Payment Date", key: "payment_date", sortable: false },
+            ],
         }
     },
     mounted() {
@@ -168,20 +255,28 @@ export default {
     if (!date) return '';
     return date.split(' ')[0];
   },
-        async fetchSingleRecord() {
-            this.loading = true;
-            try {
-                let res = await General.get("/api/cruds/memberships/" + this.data.id);
-                this.data = res.data || [];
-                this.planData = res.data.plan || []
-                this.user = res.data.user || []
-
-            } catch (error) {
-                console.error(error)
-            } finally {
-                this.loading = false;
+    async fetchSingleRecord() {
+        this.loading = true;
+        try {
+            let res = await General.get("/api/cruds/memberships/" + this.data.id);
+            const responseData = res.data || {};
+            
+            this.data = responseData;
+            this.planData = responseData.plan || {};
+            this.user = responseData.user || {};
+            if (responseData.payment) {
+            this.items = [responseData.payment]; 
+            } else {
+                this.items = [];
             }
-        },
+
+        } catch (error) {
+            console.error("Fetch Error:", error);
+            this.items = [];
+        } finally {
+            this.loading = false;
+        }
+    },
 
     }
 }

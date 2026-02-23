@@ -21,6 +21,7 @@ class FeatureSeeder extends Seeder
             Str::slug('Auction Data 1 Month'),
             Str::slug('Not Allow Dashboard'),
             Str::slug('Lmited Watch List'),
+            Str::slug('Not Allow Dashboard'),
         ];
               
         if (Feature::doesntExist()) {

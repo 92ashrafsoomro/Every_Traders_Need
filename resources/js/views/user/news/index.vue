@@ -4,53 +4,70 @@
 
   <v-container fluid class=" bg-background" style="padding: 0 !important;">
     <v-row no-gutters>
-      <v-col cols="12" md="3" class="pa-0" style="position: sticky; top: 70px; align-self: flex-start;">
-        <div class="d-flex justify-space-between align-center pa-4"
-          style="background-color: rgb(var(--v-theme-primary),0.2);">
-          <div>
-            <h4>Select Category</h4>
+      <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3" style="background-color: rgb(var(--v-theme-primary),0.3);">
+        <div>
+          <h5>News</h5>
+        </div>
+        <div>
+          <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="drawer = true">
+          Filter
+        </v-btn>
+        </div>
+      </div>
+      <v-col cols="12" md="3" class="d-none d-md-flex pa-0"
+        style="position: sticky; top: 70px; height: calc(100vh - 70px);">
+        <div class="w-100">
+
+          <!-- CATEGORY -->
+          <div class="d-flex align-center pa-4" style="background-color: rgb(var(--v-theme-primary),0.15);">
+            <h4 class="mr-3">Select Category</h4>
+            <Blogcategory label="Category" type="news" :model-value="filter.category_id"
+              @update:modelValue="handleBlogFilter" density="compact" variant="outlined" clearable />
           </div>
-          <div style="flex: 1; margin-left: 16px;">
-        <Blogcategory 
-  label="Category"
-  type="news"
-  variant="outlined"
-  item-title="title"
-  item-value="id"
-  density="compact"
-  hide-details 
-  :model-value="filter.blogFilter"
-  @update:modelValue="handleInput"
-  class="id-box" 
-  clearable 
-/>
 
+          <!-- BLOG LIST -->
+          <v-list lines="three" class="pa-0">
+            <v-list-item v-for="item in filteredBlogs" :key="item.id"
+              :class="{ 'selected-blog': selectedBlog?.id === item.id }" @click="selectBlog(item)">
+              <v-list-item-title class="font-weight-bold text-wrap mb-1">
+                {{ item.title }}
+              </v-list-item-title>
 
+              <div class="d-flex justify-space-between mt-2">
+                <v-chip size="x-small" color="primary">
+                  {{ item.category?.title || 'General' }}
+                </v-chip>
+                <span class="text-caption">{{ item.date }}</span>
+              </div>
+            </v-list-item>
+          </v-list>
+        </div>
+      </v-col>
 
-          </div>
+      <!-- MOBILE DRAWER -->
+      <v-navigation-drawer v-model="drawer" temporary location="left" width="300" class="d-md-none">
+        <div class="pa-4">
+          <h4 class="mb-3">Select Category</h4>
+          <Blogcategory label="Category" type="news" :model-value="filter.category_id"
+            @update:modelValue="handleBlogFilter" density="compact" variant="outlined" clearable />
         </div>
 
-        <!-- Show/Hide the list -->
-       <v-list lines="three" class="bg-background" style="padding: 0 !important;">
-  <v-list-item v-for="item in blogs" :key="item.id"
-    :class="{ 'selected-blog': selectedBlog && selectedBlog.id === item.id }"
-    @click="selectBlog(item)">
-    
-    <v-list-item-title class="font-weight-bold text-wrap mb-1">
-      {{ item.title }}
-    </v-list-item-title>
+        <v-list lines="three" class="pa-0">
+          <v-list-item v-for="item in filteredBlogs" :key="item.id"
+            :class="{ 'selected-blog': selectedBlog?.id === item.id }" @click="selectBlog(item); drawer = false">
+            <v-list-item-title class="font-weight-bold text-wrap mb-1">
+              {{ item.title }}
+            </v-list-item-title>
 
-    <div class="d-flex justify-space-between mt-2">
-      <v-chip size="x-small" color="primary">
-        {{ item.category?.title || 'General' }}
-      </v-chip>
-      <span class="text-caption">{{ item.date }}</span>
-    </div>
-  </v-list-item>
-</v-list>
-
-
-      </v-col>
+            <div class="d-flex justify-space-between mt-2">
+              <v-chip size="x-small" color="primary">
+                {{ item.category?.title || 'General' }}
+              </v-chip>
+              <span class="text-caption">{{ item.date }}</span>
+            </div>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
 
       <v-col cols="12" md="9" class="px-12" style="border-left: 2px solid  rgb(var(--v-theme-border));">
         <v-card v-if="selectedBlog" flat rounded="lg" class="">
@@ -69,13 +86,11 @@
               <div class="d-flex align-center mt-4">
                 <span class="text-caption mr-3">Share:</span>
 
-                <v-btn icon="mdi-facebook" size="small" color="primary" variant="text" class="mr-2"
-                  @click="shareFacebook" />
+                <v-btn icon="mdi-facebook" size="small" color="primary" variant="text" class="mr-2" />
 
-                <v-btn icon="mdi-twitter" size="small" color="primary" variant="text" class="mr-2"
-                  @click="shareTwitter" />
+                <v-btn icon="mdi-twitter" size="small" color="primary" variant="text" class="mr-2" />
 
-                <v-btn icon="mdi-whatsapp" size="small" color="success" variant="text" @click="shareWhatsapp" />
+                <v-btn icon="mdi-whatsapp" size="small" color="success" variant="text" />
               </div>
             </div>
 
@@ -199,13 +214,11 @@ export default {
   },
   data() {
     return {
-      filter:{
-        blogFilter : null,
-        length: 10,
-        page: 1,
-        offset: 0,
+      filter: {
+        category_id: null,
       },
       blogs: [],
+      drawer: false,
       image,
       showBlogs: true,
       selectedBlog: null,
@@ -218,10 +231,12 @@ export default {
   },
 
   methods: {
-     handleInput(value) {
-   this.filter.blogFilter = value;  
-    this.fetchBlogs();           
-  },
+    handleBlogFilter(value) {
+      this.filter.category_id = value;
+
+      const list = this.filteredBlogs;
+      this.selectedBlog = list.length ? list[0] : null;
+    },
     async fetchBlogs() {
       try {
         const res = await General.get('/api/cruds/news', this.filter);
@@ -240,33 +255,19 @@ export default {
     },
     selectBlog(blog) {
       this.selectedBlog = blog;
-    },
-    shareFacebook() {
-      const url = encodeURIComponent(window.location.href);
-      window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-        '_blank'
-      );
-    },
+    }
+  },
+  computed: {
+    filteredBlogs() {
+      if (!this.filter.category_id) {
+        return this.blogs;
+      }
 
-    shareTwitter() {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(this.selectedBlog.title);
-      window.open(
-        `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-        '_blank'
-      );
-    },
-
-    shareWhatsapp() {
-      const url = encodeURIComponent(window.location.href);
-      window.open(
-        `https://wa.me/?text=${url}`,
-        '_blank'
-      );
+      return this.blogs.filter(
+        blog => blog.category?.id === this.filter.category_id
+      )
     }
   }
-
 
 };
 </script>

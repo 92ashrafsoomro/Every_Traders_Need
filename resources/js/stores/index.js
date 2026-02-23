@@ -9,9 +9,9 @@ pinia.use(({ store }) => {
 
     store.$subscribe((mutation, state) => {
 
-      console.log(`[STORE CHANGE] ${store.$id}`)
+      // console.log(`[STORE CHANGE] ${store.$id}`)
       // console.log('Mutation:', mutation)
-      console.log('New State:',toRaw(state))
+      // console.log('New State:',toRaw(state))
 
     })
 })

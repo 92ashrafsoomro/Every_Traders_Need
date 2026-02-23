@@ -302,6 +302,11 @@ export default {
     //     await this.userStore.getUserData();
     //     this.getAuth(); 
     // }
+    await this.userStore.getUserData();
+    
+    // Jab data aa jaye, tab form bharein
+    this.populateForm();
+
     this.getPlans();
     this.stripeLoad();
         if (!this.selectedPlan && this.userStore.selectedPlanId) {
@@ -440,12 +445,48 @@ export default {
             } catch (error) {
 
                 this.loading = false;
-
+                console.log(error);
                 this.$alertStore.add(error.message, "error")
 
             }
 
-        }
+        },
+        populateForm() {
+            const user = this.userStore.userData;
+            
+            if (!user) {
+            console.warn("User data abhi tak load nahi hua.");
+            return;
+            }
+            const latestPayment = user.billingHistory?.[0]?.payment;
+
+            if (latestPayment) {
+            this.form.first_name = latestPayment.first_name || '';
+            this.form.last_name  = latestPayment.last_name || '';
+            this.form.phone      = latestPayment.phone || '';
+            this.form.country    = latestPayment.country || '';
+            this.form.state      = latestPayment.state || '';
+            this.form.city       = latestPayment.city || '';
+            this.form.zip_code   = latestPayment.zip_code || '';
+            this.form.address    = latestPayment.address || '';
+            this.form.cardholderName = latestPayment.first_name + ' ' + (latestPayment.last_name || '');
+            } else {
+            this.form.first_name = user.firstName || '';
+            this.form.last_name  = user.surname || '';
+            this.form.email      = user.personalEmail || '';
+            this.form.phone      = user.phone || '';
+            this.form.country    = user.country || '';
+            this.form.state      = user.townCity || ''; 
+            this.form.city       = user.townCity || '';
+            this.form.zip_code   = user.postcode || '';
+            this.form.address    = user.companyAddress1 || '';
+            this.form.cardholderName = user.firstName || '';
+            }
+
+            if (this.userStore.selectedPlanId) {
+            this.form.plan_id = this.userStore.selectedPlanId;
+            }
+        },
 
 
     },

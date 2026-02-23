@@ -35,6 +35,13 @@ class StripeController extends Controller
        
             $user = $request->user();
 
+            $checkMembership = Membership::where('user_id', $user->id)->get();
+
+            if ($checkMembership->isNotEmpty()) {
+                     return response()->json([
+                    'message' => 'You have already bought this package!'
+                ], 400);
+            }
             $package = Package::find($request->plan_id);
             if(!$package){
                 return response()->json([

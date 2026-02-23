@@ -23,7 +23,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\URL;
-use Pest\Support\Str;
+use Illuminate\Support\Str;
 
 class FeatureController extends Controller
 {

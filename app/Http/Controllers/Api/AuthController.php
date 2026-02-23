@@ -37,14 +37,11 @@ use App\Models\Role;
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
 
-      
+        $features = [];
         if($current){
             $featuresId = PlanFeature::where('plan_id',$current->plan_id)->pluck('feature_id')->toArray();
-            $current->features = Feature::select('name')->whereIn('id',$featuresId)->pluck('name')->toArray();
-            // dd($current->features);
+            $features = Feature::select('name')->whereIn('id',$featuresId)->pluck('name')->toArray();
         }
-
-        
 
         return response()->json([
             'message' => 'Get Profile Details',
@@ -56,7 +53,9 @@ use App\Models\Role;
                 'avatar'            => $user->avatar ? env('APP_URL') . 'public/uploads/avatar/' . $user->avatar: null,
                 'jobTitle'          => $user->jobTitle,
                 'personalEmail'     => $user->personalEmail,
+                'restrictions'      => $features,
                 'plan'              =>  $current,
+                
             ],
         ]);
 

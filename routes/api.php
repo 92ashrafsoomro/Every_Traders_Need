@@ -68,13 +68,7 @@ use App\Http\Controllers\Api\WebController;
     });
 
 
-    // Account Dettails
-    Route::prefix('profile')->middleware(['auth:sanctum'])->group(function(){
-        Route::get('/account-details/{id}',[ProfileController::class,'profile'])->middleware(['auth:sanctum']);
-        Route::post('/account-details/{id}',[ProfileController::class,'profileUpdate'])->middleware(['auth:sanctum']);
-        Route::post('/changePassword', [ProfileController::class, 'changePassword'])->middleware(['auth:sanctum']);
-    });
-
+   
 
     
     
@@ -132,7 +126,6 @@ use App\Http\Controllers\Api\WebController;
         Route::resource('features',FeatureController::class);
         
 
-        
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -172,7 +165,13 @@ use App\Http\Controllers\Api\WebController;
 
 
 
-    
+     // Account Dettails
+    Route::prefix('profile')->middleware(['auth:sanctum'])->group(function(){
+        Route::get('/account-details/{id}',[ProfileController::class,'profile'])->middleware(['auth:sanctum']);
+        Route::post('/account-details/{id}',[ProfileController::class,'profileUpdate'])->middleware(['auth:sanctum']);
+        Route::post('/changePassword', [ProfileController::class, 'changePassword'])->middleware(['auth:sanctum']);
+    });
+
     
     // User Panel
     Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {

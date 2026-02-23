@@ -23,7 +23,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\URL;
-
+use Pest\Support\Str;
 
 class FeatureController extends Controller
 {
@@ -54,7 +54,7 @@ class FeatureController extends Controller
 
                 foreach (Feature::all() as $f => $feature) {
                     $data[$p]['features'][$f]['id'] = $feature->id;
-                    $data[$p]['features'][$f]['title'] = $feature->name;
+                    $data[$p]['features'][$f]['title'] = Str::title(str_replace(['-', '_'], ' ', $feature->name));
                     $data[$p]['features'][$f]['status'] = PlanFeature::where('plan_id',$value->id)
                                                             ->where('feature_id',$feature->id)
                                                             ->exists();

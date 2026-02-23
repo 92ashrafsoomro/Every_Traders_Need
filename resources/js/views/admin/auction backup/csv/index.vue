@@ -1,26 +1,11 @@
 <template>
     <v-card :loading="CsvStore.loading" :disabled="CsvStore.loading" class="my-3 border">
         <div class="d-flex justify-space-between border-b py-3 px-4">
-            <div class="d-flex ga-5 justify-space-between align-self-center">
-                <h1 class="mt-2 text-h6 Sheet"> <span class="pointer bg-background">{{ form.table_id }}</span>
+            <div class="align-self-center">
+                <h1 class=" text-h6 Sheet"> <span class="pointer bg-background">{{ form.table_id }}</span>
                     <!-- <span class="pointer ml-2 bg-background">{{ form.name }}</span> -->
                     <span class="pointer ml-2 bg-background">{{ form.auctionname }}</span>
                 </h1>
-                <v-tabs 
-                v-model="CsvStore.activeTab" 
-                bg-color="background"
-                color="primary"          
-                slider-color="primary"
-                >
-                <v-tab 
-                    v-for="tab in [...new Set(CsvStore.columns.map(c => c.group))]" 
-                    :key="tab" 
-                    :value="tab"
-                    class="text-capitalize"
-                >
-                    {{ tab.replace('_', ' ') }}
-                </v-tab>
-                </v-tabs>
             </div>
             <div class="mx-3 d-flex">
                 <div class="px-2">
@@ -57,13 +42,12 @@
 
             </div>
         </div>
-
         <v-card-text>
             <v-table hover style="table-layout: auto; width: max-content;" height="700px" fixed-header>
                 <thead>
                     <tr>
                         <th>#</th>
-                        <!-- <th 
+                        <th 
                             v-for="value in CsvStore.columns" 
                             :key="value.title"
                             :class="['text-left', 'nowrap-text', value.required ? 'bg-primary text-white font-weight-bold' : '']"
@@ -73,22 +57,10 @@
                             }"
                             >
                             {{ value.title }}
-                        </th> -->
-                        <th 
-                            v-for="value in CsvStore.currentColumns" 
-                            :key="value.title"
-                            :class="['text-left', 'nowrap-text', value.required ? 'bg-primary text-white font-weight-bold' : '']"
-                            :style="{
-                                width: value.required  ? '120px' :'10px',
-                                fontWeight: value.required ? 'bold' : 'normal'
-                            }"
-                            >
-                            {{ value.title }}
-                        </th>
-
+                            </th>
                     </tr>
                 </thead>
-                <!-- <tbody>
+                <tbody>
                     <tr v-for="(item, id) in CsvStore.data">
                         <td>{{ id }}</td>
                         <td v-for="col in CsvStore.columns">
@@ -152,47 +124,7 @@
 
                         </td>
                     </tr>
-                </tbody> -->
-
-                <tbody>
-                    <tr v-for="(item, id) in CsvStore.data" :key="id">
-                        <td>{{ id }}</td>
-                        <td v-for="col in CsvStore.currentColumns" :key="col.key">
-
-                            <div v-if="col.key === 'title'">
-                                <span>{{ item[col.key] }}</span>
-                            </div>
-
-                            <div v-else-if="['vehicle_id', 'body_id', 'center_id'].includes(col.key)">
-                                <span :class="['pointer', { has_error: CsvStore.errors['data.' + id + '.' + col.key] }]"
-                                    @click="OpenModal(id, col.key, item[col.key])">
-                                    {{ item[col.key] ?? 'None' }}
-                                </span>
-                            </div>
-
-                            <div v-else-if="['make_id', 'model_id', 'variant_id'].includes(col.key)">
-                                <span :class="['pointer', { has_error: CsvStore.errors['data.' + id + '.' + col.key] }]"
-                                    @click="CsvStore.openModal(id)">
-                                    {{ item[col.key] ?? 'None' }}
-                                </span>
-                            </div>
-
-                            <div v-else-if="col.disabled">
-                                <input disabled class="py-2 border-0 bg-transparent" :value="item[col.key]" />
-                            </div>
-
-                            <div v-else>
-                                <input 
-                                    class="border py-2 px-1 w-full" 
-                                    v-model="item[col.key]" 
-                                    :class="{ 'border-red': CsvStore.errors['data.' + id + '.' + col.key] }"
-                                />
-                            </div>
-
-                        </td>
-                    </tr>
                 </tbody>
- 
             </v-table>
         </v-card-text>
     </v-card>
@@ -272,7 +204,6 @@ export default {
                     break;
             }
         },
-
 
     }
 

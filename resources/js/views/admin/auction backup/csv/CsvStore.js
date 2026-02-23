@@ -40,15 +40,11 @@ export const useCsvStore = defineStore("CsvStore", {
         columns: columns,
         errors: {},
         dailog: false,
-        auctionEditFilter : false,
-        activeTab: 'basic', 
- 
+        auctionEditFilter : false
 
     }),
     getters: {
-    currentColumns: (state) => {
-            return state.columns.filter(col => col.group === state.activeTab);
-        }
+
     },
     actions: {
   
@@ -153,7 +149,6 @@ export const useCsvStore = defineStore("CsvStore", {
         return item;
 
     },
-
     async makeSearch() {
         this.makes.loading = true;
         try {

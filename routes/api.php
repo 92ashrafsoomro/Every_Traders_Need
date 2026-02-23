@@ -127,8 +127,12 @@ use App\Http\Controllers\Api\WebController;
 
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
-        
+
+        Route::post('/features/handleStatus',[FeatureController::class,'handleStatus']);
         Route::resource('features',FeatureController::class);
+        
+
+        
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);

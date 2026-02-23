@@ -15,7 +15,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
 use App\Mail\VerifyEmail;
+use App\Models\Feature;
 use App\Models\Membership;
+use App\Models\PlanFeature;
 use App\Models\Role;
 
     class AuthController extends Controller
@@ -27,12 +29,22 @@ use App\Models\Role;
 
         $user = $request->user();
         $role = Role::find($user->user_type);
+
         $current = Membership::where('user_id',$user->id)
         ->with(['plan'])
         ->where('membership_status',1)
         ->whereDate('membership_start_date', '<=', now())
         ->whereDate('membership_expiry_date', '>=', now())
         ->first();
+
+      
+        if($current){
+            $featuresId = PlanFeature::where('plan_id',$current->plan_id)->pluck('feature_id')->toArray();
+            $current->features = Feature::select('name')->whereIn('id',$featuresId)->pluck('name')->toArray();
+            // dd($current->features);
+        }
+
+        
 
         return response()->json([
             'message' => 'Get Profile Details',

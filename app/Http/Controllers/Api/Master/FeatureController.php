@@ -71,6 +71,36 @@ class FeatureController extends Controller
     }
 
 
+    
+       public function handleStatus(Request $request)
+    {
+
+            $validator = Validator::make($request->all(),[
+                'plan_id' => 'required|exists:plans,id',
+                'feature_id' => 'required|exists:features,id'
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            if($model = PlanFeature::where('plan_id',$request->plan_id)->where('feature_id',$request->feature_id)->first()){
+                $model->delete($model->id);
+            }else{
+                $model = PlanFeature::create(['plan_id' => $request->plan_id , 'feature_id',$request->feature_id]);
+            }
+
+            return response()->json([
+                'message' => 'Record Updated Successfully',
+                'data' => $model
+            ],200);   
+
+    }
+
+
 
   
 

@@ -88,9 +88,12 @@ class FeatureController extends Controller
             }
 
             if($model = PlanFeature::where('plan_id',$request->plan_id)->where('feature_id',$request->feature_id)->first()){
-                $model->delete($model->id);
+                $model->delete();
             }else{
-                $model = PlanFeature::create(['plan_id' => $request->plan_id , 'feature_id',$request->feature_id]);
+                $model = PlanFeature::create([
+                    'plan_id' => $request->plan_id ,
+                    'feature_id' => $request->feature_id
+                ]);
             }
 
             return response()->json([

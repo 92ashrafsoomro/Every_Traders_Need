@@ -53,7 +53,7 @@ class FeatureController extends Controller
                 $data[$p]['title'] = $value->plan_name;
 
                 foreach (Feature::all() as $f => $feature) {
-                    $data[$p]['features'][$f]['title'] = $feature->id;
+                    $data[$p]['features'][$f]['id'] = $feature->id;
                     $data[$p]['features'][$f]['title'] = $feature->name;
                     $data[$p]['features'][$f]['status'] = PlanFeature::where('plan_id',$value->id)
                                                             ->where('feature_id',$feature->id)

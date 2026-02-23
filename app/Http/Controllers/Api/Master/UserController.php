@@ -229,11 +229,12 @@ class UserController extends Controller
         $model->user_type = 0;
 
 
-        if ($request->password) {
+        if($request->password) {
             $model->password = Hash::make($request->password);
         }
 
-        if ($request->file('avatar')) {
+
+        if($request->file('avatar')){
             // Remove existing thumbnail if it exists
             if ($model->avatar && file_exists(public_path('uploads/' . $model->avatar))) {
                 unlink(public_path('uploads/' . $model->avatar));
@@ -245,7 +246,8 @@ class UserController extends Controller
             // $user->save();
         }
 
-        if ($request->file('uploadID')) {
+
+        if($request->file('uploadID')){
             // Remove existing thumbnail if it exists
             if ($model->uploadID && file_exists(public_path('uploads/' . $model->uploadID))) {
                 unlink(public_path('uploads/' . $model->uploadID));
@@ -257,7 +259,8 @@ class UserController extends Controller
             // $user->save();
         }
 
-        if ($request->file('motorTradeProof')) {
+
+        if($request->file('motorTradeProof')){
             // Remove existing thumbnail if it exists
             if ($model->motorTradeProof && file_exists(public_path('uploads/' . $model->motorTradeProof))) {
                 unlink(public_path('uploads/' . $model->motorTradeProof));
@@ -268,6 +271,7 @@ class UserController extends Controller
             $model->motorTradeProof = $fileName;
             // $user->save();
         }
+
 
         if ($request->file('addressProof')) {
             // Remove existing thumbnail if it exists
@@ -281,6 +285,7 @@ class UserController extends Controller
             // $user->save();
         }
 
+
         $model->save();
         
         return response()->json([
@@ -288,7 +293,6 @@ class UserController extends Controller
             "data" => $model,
         ],200);
 
-        
     }
 
 

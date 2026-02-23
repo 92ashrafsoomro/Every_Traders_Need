@@ -1,211 +1,322 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Invoice #0001 • AutoBoli Pvt Ltd</title>
-<style>
-body { font-family: Arial, sans-serif; background:#f4f6fa; }
+  <meta charset="utf-8">
+  <title>Invoice #0001 • AutoBoli Pvt Ltd</title>
+  <style type="text/css">
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
 
-.invoice-wrapper {
-  max-width: 750px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+    .invoice-container {
+      max-width: 800px;
+      /* margin: 30px auto; */
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    }
 
-/* Header */
-.invoice-header {
-  background: #0a1930;
-  color: #fff;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    /* Header */
+    .invoice-header {
+      background: #0d1b3a;
+      color: white;
+      padding: 30px 40px;
+      overflow: hidden;
+    }
 
-.company-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.company-info img { width: 55px; }
+    .company {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
-.invoice-label span {
-  background: #0080ff;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-}
+    .company img {
+      width: 60px;
+      height: auto;
+    }
 
-.invoice-label p {
-  margin: 6px 0 0;
-  font-size: 12px;
-}
+    .company h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
 
-/* Customer Table */
-.customer-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  border: 1px solid #e0e6ef;
-  background: #f9fbfe;
-}
+    .company p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
 
-.customer-info-table td {
-  width: 50%;
-  padding: 15px 20px;
-  vertical-align: top;
-  border-right: 1px solid #e0e6ef;
-}
+    .invoice-meta {
+      text-align: right;
+    }
 
-.customer-info-table td:last-child { border-right: none; }
+    .invoice-meta .label {
+      background: #2563eb;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      display: inline-block;
+    }
 
-.customer-info-table h4 {
-  margin-bottom: 8px;
-  font-size: 15px;
-  color: #0080ff;
-}
+    .invoice-meta .number {
+      font-size: 28px;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
 
-/* Items Table */
-.invoice-items {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 25px;
-}
+    .invoice-meta .date {
+      font-size: 13px;
+      opacity: 0.9;
+    }
 
-.invoice-items th, 
-.invoice-items td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
+    /* Bill to & Details */
+    .bill-section {
+      padding: 35px 40px 20px;
+      background: #ffffff;
+    }
 
-.invoice-items th {
-  background: #f6f8fb;
-}
+    .bill-grid {
+      overflow: hidden;
+    }
 
-/* Status */
-.status {
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-}
+    .bill-grid table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-.paid {
-  background: #e6f8ec;
-  color: #1a8f3d;
-}
+    .bill-grid td {
+      width: 50%;
+      vertical-align: top;
+      padding: 0 15px;
+    }
 
-.unpaid {
-  background: #ffeaea;
-  color: #cc0000;
-}
+    .bill-grid td:first-child { padding-left: 0; }
+    .bill-grid td:last-child  { padding-right: 0; }
 
-/* Footer */
-.invoice-footer {
-  text-align: center;
-  background: #0a1930;
-  color: #fff;
-  padding: 20px;
-  margin-top: 30px;
-}
+    .bill-grid h4 {
+      margin: 0 0 12px;
+      color: #2563eb;
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-.download-btn {
-  text-align: center;
-  margin: 25px 0;
-}
+    .bill-grid p {
+      margin: 6px 0;
+      line-height: 1.5;
+    }
 
-.btn {
-  background: #0a1930;
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-}
-</style>
+    /* Items */
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+    }
+
+    .items-table th,
+    .items-table td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .items-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .items-table td {
+      font-size: 14px;
+    }
+
+    .items-table .amount {
+      text-align: right;
+    }
+
+    .items-table .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-active   { background: #ecfdf5; color: #065f46; }
+    .status-pending  { background: #fef3c7; color: #92400e; }
+    .status-paid     { background: #dbeafe; color: #1e40af; }
+
+    /* Totals */
+    .totals {
+      padding: 0 40px 30px;
+      text-align: right;
+    }
+
+    .totals table {
+      width: auto;
+      margin-left: auto;
+      border-collapse: collapse;
+    }
+
+    .totals td {
+      padding: 8px 0;
+      font-size: 15px;
+    }
+
+    .totals .label {
+      padding-right: 40px;
+      color: #64748b;
+    }
+
+    .totals .grand-total {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0f172a;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 12px;
+      margin-top: 8px;
+    }
+
+    /* Footer */
+    .invoice-footer {
+      background: #0d1b3a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+    }
+
+    .thank-you {
+      text-align: center;
+      padding: 30px 40px;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    @media print {
+      body { background: white; }
+      .invoice-container { box-shadow: none; margin: 0; border-radius: 0; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="invoice-wrapper">
+<div class="invoice-container">
 
   <!-- Header -->
   <div class="invoice-header">
-    <div class="company-info">
-      <img src="logo.png" alt="Logo">
-      <div>
-        <h2>AutoBoli Pvt Ltd</h2>
-        <p>Karachi, Pakistan<br>info@autoboli.com</p>
+    <div class="header-content">
+      <div class="company">
+        <img src="logo.png" alt="AutoBoli Logo">
+        <div>
+          <h2>AutoBoli Pvt Ltd</h2>
+          <p>Karachi, Pakistan<br>info@autoboli.com | +92 21 1234567</p>
+        </div>
       </div>
-    </div>
 
-    <div class="invoice-label">
-      <span>INVOICE</span>
-      <p>#0001<br>2026-02-19</p>
+      <div class="invoice-meta">
+        <div class="label">INVOICE</div>
+        <div class="number">#0001</div>
+        <div class="date">Issued: 19 February 2026</div>
+      </div>
     </div>
   </div>
 
-  <!-- Customer Info -->
-  <table class="customer-info-table">
-    <tr>
-      <td>
-        <h4>Billed To</h4>
-        <p><strong>Name:</strong> Muhammad Shakeeb</p>
-        <p><strong>Email:</strong> shakeeb@email.com</p>
-        <p><strong>Phone:</strong> +92 300 1234567</p>
-      </td>
-
-      <td>
-        <h4>Billing Details</h4>
-        <p><strong>Plan:</strong> Trader Basic</p>
-        <p><strong>Payment Method:</strong> Stripe</p>
-        <p><strong>Status:</strong> <span class="status paid">Active</span></p>
-      </td>
-    </tr>
-  </table>
+  <!-- Bill To & Details -->
+  <div class="bill-section">
+    <div class="bill-grid">
+      <table>
+        <tr>
+          <td>
+            <h4>Billed To</h4>
+            <p><strong>Muhammad Shakeeb</strong><br>
+               shakeeb@email.com<br>
+               +92 300 1234567<br>
+               Gulshan-e-Iqbal, Karachi</p>
+          </td>
+          <td>
+            <h4>Subscription Details</h4>
+            <p><strong>Plan:</strong> Trader Basic<br>
+               <strong>Payment Method:</strong> Stripe<br>
+               <strong>Period:</strong> 19 Feb 2026 – 19 Mar 2026<br>
+               <strong>Status:</strong> <span class="status status-active">Active</span></p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
   <!-- Items -->
-  <table class="invoice-items">
+  <table class="items-table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Date</th>
+        <th style="width:8%">ID</th>
+        <th style="width:18%">Date</th>
         <th>Plan</th>
-        <th>Start</th>
-        <th>Expiry</th>
-        <th>Amount</th>
-        <th>Status</th>
+        <th style="width:14%">Start Date</th>
+        <th style="width:14%">Expiry</th>
+        <th style="width:12%" class="amount">Amount</th>
+        <th style="width:12%">Status</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>1</td>
-        <td>2026-02-19</td>
-        <td>Trader Basic</td>
+        <td>19-Feb-2026</td>
+        <td>Trader Basic - Monthly</td>
         <td>19-Feb-2026</td>
         <td>19-Mar-2026</td>
-        <td>£49.00</td>
-        <td><span class="status paid">Active</span></td>
+        <td class="amount">£49.00</td>
+        <td><span class="status status-paid">Paid</span></td>
       </tr>
+      <!-- Add more rows if needed -->
     </tbody>
   </table>
 
-  <p style="padding:20px;">Thank you for your business!</p>
-
-  <div class="invoice-footer">
-    <p>AutoBoli Pvt Ltd © 2026 — All rights reserved</p>
-    <p>www.autoboli.com</p>
+  <!-- Totals -->
+  <div class="totals">
+    <table>
+      <tr>
+        <td class="label">Subtotal:</td>
+        <td>£49.00</td>
+      </tr>
+      <tr>
+        <td class="label">Tax (0%):</td>
+        <td>£0.00</td>
+      </tr>
+      <tr>
+        <td class="grand-total">Total Due:</td>
+        <td class="grand-total">£49.00</td>
+      </tr>
+    </table>
   </div>
 
-</div>
+  <div class="thank-you">
+    Thank you for your business!<br>
+    We appreciate your trust in AutoBoli.
+  </div>
 
-<div class="download-btn">
-  <a href="#" class="btn">Download PDF</a>
+  <div class="invoice-footer">
+    AutoBoli Pvt Ltd © 2026  •  www.autoboli.com
+  </div>
+
 </div>
 
 </body>

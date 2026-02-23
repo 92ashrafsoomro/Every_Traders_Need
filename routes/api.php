@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\Master\AuctionStatusController;
 use App\Http\Controllers\Api\Master\AuctionTypeController;
+use App\Http\Controllers\Api\Master\FeatureController;
 use App\Http\Controllers\Api\Master\PackageController;
 use App\Http\Controllers\Api\Master\PrefixController;
 use App\Http\Controllers\Api\Master\SheetController;
@@ -42,6 +43,9 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
+use App\Http\Controllers\Api\WebController;
+
+
 
 
 
@@ -64,53 +68,10 @@ use App\Http\Controllers\Api\StripeController;
     });
 
 
-    // Account Dettails
-    Route::prefix('profile')->middleware(['auth:sanctum'])->group(function(){
-        Route::get('/account-details/{id}',[ProfileController::class,'profile'])->middleware(['auth:sanctum']);
-        Route::post('/account-details/{id}',[ProfileController::class,'profileUpdate'])->middleware(['auth:sanctum']);
-        Route::post('/changePassword', [ProfileController::class, 'changePassword'])->middleware(['auth:sanctum']);
-    });
-
+   
 
     
-    // User Panel
-    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
-
-
-        Route::prefix('profile')->group(function () {
-            Route::get('/userDevices',[ProfileController::class,'userDevices']);
-        });
-
-        Route::prefix('page')->group(function () {
-            Route::get('/plansList',[PageController::class,'plansList']);
-            Route::post('/supportForm',[PageController::class,'supportForm']);
-        });
-
-
-        // Dashboard
-        Route::prefix('dashboard')->group(function () {
-            Route::get('/counters',[DashboardController::class,'counters']);
-            Route::get('/vehicleStates',[DashboardController::class,'vehicleStates']);
-            Route::get('/onlineAuctions',[DashboardController::class,'onlineAuctions']);
-            Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
-        });
-        
-        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
-        Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
-        Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
-        Route::get('/vehicleHistory/{id}',[AuctionFinderController::class,'vehicleHistory']);
-        
-        Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
-        
-        Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
-        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
-
-        Route::get('/compareList',[AuctionFinderController::class,'compareList']);
-        Route::prefix('interest')->group(function () {
-            Route::get('/myInterest',[InterestController::class,'myInterest']);
-        });
-        
-    });
+    
 
 
 
@@ -160,7 +121,11 @@ use App\Http\Controllers\Api\StripeController;
 
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
+
+        Route::post('/features/handleStatus',[FeatureController::class,'handleStatus']);
+        Route::resource('features',FeatureController::class);
         
+
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -199,6 +164,57 @@ use App\Http\Controllers\Api\StripeController;
 
 
 
+
+     // Account Dettails
+    Route::prefix('profile')->middleware(['auth:sanctum'])->group(function(){
+        Route::get('/account-details/{id}',[ProfileController::class,'profile'])->middleware(['auth:sanctum']);
+        Route::post('/account-details/{id}',[ProfileController::class,'profileUpdate'])->middleware(['auth:sanctum']);
+        Route::post('/changePassword', [ProfileController::class, 'changePassword'])->middleware(['auth:sanctum']);
+    });
+
+    
+    // User Panel
+    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+
+
+        Route::prefix('profile')->group(function () {
+            Route::get('/userDevices',[ProfileController::class,'userDevices']);
+        });
+
+        Route::prefix('page')->group(function () {
+            Route::get('/plansList',[PageController::class,'plansList']);
+            Route::post('/supportForm',[PageController::class,'supportForm']);
+        });
+
+
+        // Dashboard
+        Route::prefix('dashboard')->group(function () {
+            Route::get('/counters',[DashboardController::class,'counters']);
+            Route::get('/vehicleStates',[DashboardController::class,'vehicleStates']);
+            Route::get('/onlineAuctions',[DashboardController::class,'onlineAuctions']);
+            Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
+        });
+        
+        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
+        Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
+        Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
+        Route::get('/vehicleHistory/{id}',[AuctionFinderController::class,'vehicleHistory']);
+        
+        Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
+        
+        Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
+        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
+
+        Route::get('/compareList',[AuctionFinderController::class,'compareList']);
+        Route::prefix('interest')->group(function () {
+            Route::get('/myInterest',[InterestController::class,'myInterest']);
+        });
+        
+    });
+
+
+
+
     // Web Controller..
     Route::prefix('web')->group(function () {
 
@@ -206,6 +222,7 @@ use App\Http\Controllers\Api\StripeController;
         Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
             Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
         });
+        Route::get('/getCardDetail',[WebController::class,'getCardDetail'])->middleware(['auth:sanctum']);
 
     });
 

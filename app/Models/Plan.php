@@ -18,4 +18,9 @@ class Plan extends Model
         'duration_unit',
         'duration_value'
     ];
+
+    public function features() 
+    {
+        return $this->hasMany(PlanFeature::class, 'plan_id');
+    }
 }

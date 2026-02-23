@@ -157,12 +157,14 @@ export default [
     { title: 'Glass Trade', key: 'glass_trade' , disabled: true,group:'pricings' },
     { title: 'Autotrader Retail Value', key: 'autotrader_retail_value' , disabled: true,group:'pricings' },
     { title: 'Autotrader Trade Value', key: 'autotrader_trade_value' , disabled: true,group:'pricings' },
+    { title: 'Buy Now Price', key: 'buy_now_price', disabled: true,group:'pricings' },
     
 
 
     { title: 'Service History', key: 'service_history', disabled: true,group:'Service_History' },
     { title: 'No of Services', key: 'no_of_services', disabled: true,group:'Service_History' },
     { title: 'Inspection Report', key: 'inspection_report', disabled: true,group:'Service_History' },
+    { title: 'Inspection Date', key: 'inspection_date', disabled: true,group:'Service_History' },
     { title: 'Other Report', key: 'other_report', disabled: true,group:'Service_History' },
     { title: 'Service Notes', key: 'service_notes', disabled: true,group:'Service_History' },
     { title: 'Vendor', key: 'vendor', disabled: true,group:'Service_History' },
@@ -170,33 +172,35 @@ export default [
     { title: 'Last Service', key: 'last_service', disabled: true,group:'Service_History' },
     { title: 'Last Service Mileage', key: 'last_service_mileage', disabled: true,group:'Service_History' },
     { title: 'DVSA Mileage', key: 'dvsa_mileage', disabled: true,group:'Service_History' },
-    { title: 'Grade', key: 'grade', disabled: true,group:'Service_History' },
+
     
 
 
 
-    { title: 'Keys', key: 'keys', disabled: true,group:'specs' },
-    { title: 'Euro Status', key: 'euro_status', disabled: true,group:'specs' },
-    { title: 'Mileage', key: 'mileage', disabled: true,group:'specs' },
-    { title: 'Non Runner', key: 'engine_runs', disabled: true,group:'specs' },
     { title: 'Lot', key: 'lot', disabled: true,group:'specs' },
+    { title: 'Keys', key: 'keys', disabled: true,group:'specs' },
+    { title: 'Mileage', key: 'mileage', disabled: true,group:'specs' },
+    { title: 'Mileage Warranted', key: 'mileage_warranted', disabled: true,group:'specs' },
+    { title: 'Non Runner', key: 'engine_runs', disabled: true,group:'specs' },
     { title: 'DOR', key: 'dor', disabled: true,group:'specs' },
     { title: 'Former Keepers', key: 'former_keepers', disabled: true,group:'specs' },
-    { title: 'Mileage Warranted', key: 'mileage_warranted', disabled: true,group:'specs' },
     { title: 'MOT Expiry', key: 'mot_expiry_date', disabled: true,group:'specs' },
     { title: 'MOT Due', key: 'mot_due', disabled: true,group:'specs' },
     { title: 'V5', key: 'v5', disabled: true,group:'specs' },
     { title: 'Vat Status', key: 'vat_status', disabled: true,group:'specs' },
-    { title: 'Buy Now Price', key: 'buy_now_price', disabled: true,group:'specs' },
-    { title: 'Inspection Date', key: 'inspection_date', disabled: true,group:'specs' },
-    { title: 'Tyres Condition', key: 'tyres_condition', disabled: true,group:'specs' },
     { title: 'Features', key: 'features', disabled: true,group:'specs' },
     { title: 'Equipment', key: 'equipment', disabled: true,group:'specs' },
+    { title: 'Euro Status', key: 'euro_status', disabled: true,group:'specs' },
     { title: 'Additional Info', key: 'additional_information', disabled: true,group:'specs' },
     { title: 'Imported', key: 'imported', disabled: true,group:'specs' },
     { title: 'Declarations', key: 'declarations', disabled: true,group:'specs' },
     { title: 'Images', key: 'images', disabled: true,group:'specs' },
-    { title: 'Damaged Images', key: 'damaged_images', disabled: true,group:'specs' },
-    { title: 'Damage Details', key: 'damage_details', disabled: true,group:'specs' },
+    
+    { title: 'Tyres Condition', key: 'tyres_condition', disabled: true,group:'conditions' },
+    { title: 'General Condition', key: 'general_condition', disabled: true,group:'conditions' },
+        { title: 'Grade', key: 'grade', disabled: true,group:'conditions' },
+    { title: 'Damaged Images', key: 'damaged_images', disabled: true,group:'conditions' },
+    { title: 'Damage Details', key: 'damage_details', disabled: true,group:'conditions' },
+
 
 ]

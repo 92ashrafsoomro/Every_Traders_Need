@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\Api\Master\AuctionStatusController;
 use App\Http\Controllers\Api\Master\AuctionTypeController;
+use App\Http\Controllers\Api\Master\FeatureController;
 use App\Http\Controllers\Api\Master\PackageController;
 use App\Http\Controllers\Api\Master\PrefixController;
 use App\Http\Controllers\Api\Master\SheetController;
@@ -76,44 +77,7 @@ use App\Http\Controllers\Api\WebController;
 
 
     
-    // User Panel
-    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
-
-
-        Route::prefix('profile')->group(function () {
-            Route::get('/userDevices',[ProfileController::class,'userDevices']);
-        });
-
-        Route::prefix('page')->group(function () {
-            Route::get('/plansList',[PageController::class,'plansList']);
-            Route::post('/supportForm',[PageController::class,'supportForm']);
-        });
-
-
-        // Dashboard
-        Route::prefix('dashboard')->group(function () {
-            Route::get('/counters',[DashboardController::class,'counters']);
-            Route::get('/vehicleStates',[DashboardController::class,'vehicleStates']);
-            Route::get('/onlineAuctions',[DashboardController::class,'onlineAuctions']);
-            Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
-        });
-        
-        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
-        Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
-        Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
-        Route::get('/vehicleHistory/{id}',[AuctionFinderController::class,'vehicleHistory']);
-        
-        Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
-        
-        Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
-        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
-
-        Route::get('/compareList',[AuctionFinderController::class,'compareList']);
-        Route::prefix('interest')->group(function () {
-            Route::get('/myInterest',[InterestController::class,'myInterest']);
-        });
-        
-    });
+    
 
 
 
@@ -164,6 +128,7 @@ use App\Http\Controllers\Api\WebController;
         Route::post('/auctions/updatePublishColumn',[SheetController::class,'updatePublishColumn']);
 
         
+        Route::resource('features',FeatureController::class);
         Route::resource('bodyType',BodyTypeController::class);
         Route::resource('vehicleType',VehicleTypeController::class);
         Route::resource('platform',PlatformController::class);
@@ -199,6 +164,51 @@ use App\Http\Controllers\Api\WebController;
 
         
     });
+
+
+
+
+    
+    
+    // User Panel
+    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+
+
+        Route::prefix('profile')->group(function () {
+            Route::get('/userDevices',[ProfileController::class,'userDevices']);
+        });
+
+        Route::prefix('page')->group(function () {
+            Route::get('/plansList',[PageController::class,'plansList']);
+            Route::post('/supportForm',[PageController::class,'supportForm']);
+        });
+
+
+        // Dashboard
+        Route::prefix('dashboard')->group(function () {
+            Route::get('/counters',[DashboardController::class,'counters']);
+            Route::get('/vehicleStates',[DashboardController::class,'vehicleStates']);
+            Route::get('/onlineAuctions',[DashboardController::class,'onlineAuctions']);
+            Route::get('/timeAuctions',[DashboardController::class,'timeAuctions']);
+        });
+        
+        Route::get('/auction-finder/getFilter/{id}',[AuctionFinderController::class,'getFilter']);
+        Route::get('/auctionList',[AuctionFinderController::class,'auctionList']);
+        Route::get('/auctionList/{id}',[AuctionFinderController::class,'getVehicleDetails']);
+        Route::get('/vehicleHistory/{id}',[AuctionFinderController::class,'vehicleHistory']);
+        
+        Route::get('/getRelatedVehicle/{id}',[AuctionFinderController::class,'getRelatedVehicle']);
+        
+        Route::get('/reAuctionList',[AuctionFinderController::class,'reAuctionList']);
+        Route::get('/auctionSheduler',[AuctionFinderController::class,'auctionSheduler']);
+
+        Route::get('/compareList',[AuctionFinderController::class,'compareList']);
+        Route::prefix('interest')->group(function () {
+            Route::get('/myInterest',[InterestController::class,'myInterest']);
+        });
+        
+    });
+
 
 
 

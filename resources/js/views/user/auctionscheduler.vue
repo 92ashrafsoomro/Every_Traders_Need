@@ -1,7 +1,9 @@
 <template>
- 
-  <user-title-bar v-if="userStore.user.role != 'Subscriber' || userStore.user.plan" title="Plan Your Auction Week" style="z-index: 1; margin-bottom: 0 !important;"
-    subtitle="View upcoming auctions by date, auction house, and centre — so you can prepare, shortlist vehicles, and bid with confidence." class="">
+
+  <user-title-bar v-if="userStore.user.role != 'Subscriber' || userStore.user.plan" title="Plan Your Auction Week"
+    style="z-index: 1; margin-bottom: 0 !important;"
+    subtitle="View upcoming auctions by date, auction house, and centre — so you can prepare, shortlist vehicles, and bid with confidence."
+    class="">
     <div class="d-flex  ga-2 mt-5 ">
       <div style="width: 200px;">
         <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
@@ -85,9 +87,9 @@
 
 
   </user-title-bar>
-  <Restriction v-else/>
+  <Restriction v-else />
 
-  <v-container fluid="" style="max-width: 1400px;" v-if="userStore.user.role != 'Subscriber' || userStore.user.plan ">
+  <v-container fluid="" style="max-width: 1400px;" v-if="userStore.user.role != 'Subscriber' || userStore.user.plan">
 
 
     <v-card class="border-sm border-white mt-5">
@@ -95,16 +97,20 @@
         hover hide-default-footer item-value="id">
 
         <template #item.action="{ item }">
-          <div class="d-flex">
-            <v-btn :to="'/user/auction-finder/'">
-              <v-icon size="20">mdi-eye-outline</v-icon>
+          <div class="d-flex align-center ga-2">
+            <router-link :to="'/user/auction-finder/'">
+              <v-icon size="20" color="white">mdi-eye-outline</v-icon>
+            </router-link>
+            <v-btn variant="text" @click="sendAlert(item.id)" :style="{
+              backgroundColor: alertExists(item.id)
+                ? 'rgba(var(--v-theme-primary),0.2)' // already alerted
+                : 'transparent',
+              cursor: alertExists(item.id) && !isBasicSubscriber() ? 'not-allowed' : 'pointer'
+            }">
+              <v-icon size="20" :color="alertExists(item.id) ? 'primary' : 'white'">
+                mdi-bell-outline
+              </v-icon>
             </v-btn>
-            <v-icon class="bell text-capitalize text-body-1 border" :disabled="alertedAuctionIds.includes(item.id)"
-              @click="sendAlert(item.id)" :style="{
-                backgroundColor: alertedAuctionIds.includes(item.id) ? 'rgba(var(--v-theme-primary),0.2)' : 'transparent',
-                cursor: alertedAuctionIds.includes(item.id) ? 'not-allowed' : 'pointer'
-              }">mdi-bell-outline</v-icon>
-
           </div>
         </template>
 
@@ -165,7 +171,7 @@ export default {
   data() {
     return {
       pageStore: usePageStore(),
-      userStore : useUserStore(),
+      userStore: useUserStore(),
       days: {},
 
       options: {
@@ -188,7 +194,7 @@ export default {
         { title: "Auction House", value: "platform_name" },
         { title: "Center", value: "cc" },
         { title: "Auction Name", value: "name" },
-        { title: "Total Lots", value: "vehicles_count" },
+        // { title: "Total Lots", value: "vehicles_count" },
         { title: "Time", value: "auction_date" },
         { title: "Status", value: "auction_status" },
         { title: "Action", key: "action", sortable: false },
@@ -198,7 +204,7 @@ export default {
 
   mounted() {
     if (this.userStore.user.role != 'Subscriber' || this.userStore.user.plan) {
-          this.nextDays();
+      this.nextDays();
       this.getRecords();
       this.options.date = this.days['Today'].date;
       this.existAlert()
@@ -228,6 +234,12 @@ export default {
       this.getRecords();
     },
     handleTab(key) {
+      if (
+        this.isBasicSubscriber() && key !== 'Today'         
+      ) {
+        this.$alertStore.add("Upgrade your plan.", "error");
+        return; 
+      }
       this.options.day = key;
       this.options.date = this.days[key].date;
       this.getRecords();
@@ -250,8 +262,6 @@ export default {
           car: 0
         };
       }
-
-      // Step 2: merge API data (groups) into the 7-day placeholders
       const groups = apiData.groups || [];
       groups.forEach(group => {
         const d = new Date(group.auction_day);
@@ -343,35 +353,45 @@ export default {
         this.loading = false;
       }
     },
-
     async existAlert() {
       try {
-        const res = await General.get("/api/notifications/userAuctionList")
-
-        this.alertedAuctionIds = (res.data || []).map(
-          alert => alert.auction_id
-        )
-
+        const res = await General.get("/api/notifications/userAuctionList");
+        this.alertedAuctionIds = (res.data || []).map(a => a.id);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
 
+    isBasicSubscriber() {
+      return (
+        this.userStore.user?.role === 'Subscriber' &&
+        this.userStore.user?.plan?.plan_id === 1
+      );
+    },
+
+    alertExists(auction_id) {
+      return this.alertedAuctionIds.includes(auction_id);
+    },
+
     async sendAlert(auction_id) {
-      try {
-        await General.post("/api/notifications/addInUserAuction", {
-          auction_id
-        })
-
-        this.alertedAuctionIds.push(auction_id)
-        this.$alertStore.add("Added successfully", "success")
-
-      } catch (error) {
-        this.$alertStore.add("Error", "error")
+      // For plan 1 Subscribers show Upgrade alert
+      if (this.isBasicSubscriber()) {
+        this.$alertStore.add("Upgrade your plan.", "error");
+        return;
       }
-    }
 
+      // Already alerted, do nothing
+      if (this.alertExists(auction_id)) return;
 
+      try {
+        await General.post("/api/notifications/addInUserAuction", { auction_id });
+        this.alertedAuctionIds.push(auction_id);
+        this.$alertStore.add("Added successfully", "success");
+      } catch (error) {
+        this.$alertStore.add("Error", "error");
+        console.error(error);
+      }
+    },
   }
 };
 </script>

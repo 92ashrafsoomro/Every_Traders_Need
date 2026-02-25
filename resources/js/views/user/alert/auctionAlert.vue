@@ -1,7 +1,8 @@
 <template>
 
-    <v-col cols="12">
-        <v-row class="mt-4" no-gutters="">
+    <v-col cols="12"  v-if="userStore.user.role !== 'Subscriber' || (userStore.user.plan && userStore.user.plan.plan_id !== 1)">
+       
+        <v-row class="mt-4" no-gutters="" >           
             <v-col cols="12">
                 <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
                     <div class="d-flex  ">
@@ -83,9 +84,10 @@
         </v-row>
 
 
+    </v-col> 
+     <v-col cols="12"  v-else>
+    <Restriction />
     </v-col>
-
-
 </template>
 
 <script>
@@ -94,16 +96,17 @@ import MakeDropdown from "@/components/MakeDropdown.vue";
 import ModelDropdown from "@/components/ModelDropdown.vue";
 import YearDropdown from "@/components/YearDropdown.vue";
 import General from "@/models/general.model";
-import UserModel from "@/models/user.model";
-import { useVehicleStore } from "@/stores/vehicleStore";
+import { useUserStore } from "@/stores/userStore";
 // import { usePageStore } from "@/stores/pageStore";
 import PlateformDropdown from "@/components/PlateformDropdown.vue";
+import Restriction from "../layout/Restriction.vue";
 
 import { usePageStore } from "@/stores/pageStore";
 export default {
     name: "Alert",
     components: {
         MakeDropdown,
+        Restriction,
         ModelDropdown,
         YearDropdown,
         PlateformDropdown
@@ -121,6 +124,7 @@ export default {
             },
             last_page: 1,
             items: [],
+            userStore : useUserStore(),
             auctionSheldulerList : usePageStore(),
             totalItems: 0,
             loading: false,

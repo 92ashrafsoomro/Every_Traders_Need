@@ -14,7 +14,12 @@
                         </router-link>
                     </td>
 
-                    <td>{{ item.grade }}</td>
+                    <td> 
+                        <span class="grade-circle d-inline-flex align-center justify-center rounded-circle"
+                            :style="{ backgroundColor: getGradeColor(item.grade) }">
+                            {{ item.grade }}
+                        </span>
+                    </td>
                     <td>{{ item.cap_clean }}</td>
                     <td>{{ item.cap_average }}</td>
                     <td>{{ item.cap_below }}</td>
@@ -154,7 +159,7 @@ export default {
             }, 200)
         },
         getGradeColor(grade){
-            switch (grad) {
+            switch (grade) {
                 case 5:
                     return '#e51f1f'
                 case 4:
@@ -228,5 +233,12 @@ export default {
 .vehicleName:hover{
     background-color: rgb(var(--v-theme-primary),0.3);
     transition: 0.2s ease-in-out;
+}
+.grade-circle {
+    width: 32px;
+    height: 32px;
+    font-weight: 600;
+    color: #000;
+    font-size: 0.95rem;
 }
 </style>

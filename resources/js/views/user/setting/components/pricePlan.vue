@@ -203,7 +203,7 @@ export default {
 
     // baaki cases same
     return item.duration_unit
-  },
+        },
         discountPrice(item) {
             if (!item.discount) return item.price
 
@@ -211,7 +211,6 @@ export default {
                 item.price - (item.price * item.discount) / 100
             ).toFixed(2)
         },
-
     },
     computed: {
         filteredPlans() {

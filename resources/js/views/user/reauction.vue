@@ -1,5 +1,7 @@
 <template>
-    <user-title-bar title="Identify Repeat Auction Vehicles"
+    <user-title-bar
+        v-if="userStore.user.role !== 'Subscriber' || (userStore.user.plan && userStore.user.plan.plan_id !== 1)"
+        title="Identify Repeat Auction Vehicles"
         subtitle="Detect vehicles returning to auction, review past results, and spot price drops before others do.">
 
         <div class="contentArea d-flex align-center justify-start pb-0 ga-6 pa-3 mb-n5"
@@ -11,8 +13,8 @@
                 </div>
             </div>
             <div class=" ">
-   
-               <div class="d-flex mt-2 mb-0 align-center">
+
+                <div class="d-flex mt-2 mb-0 align-center">
                     <div style="min-width:120px">
                         <h3 class="mb-2 text-body-2">Auction house :</h3>
                     </div>
@@ -28,26 +30,39 @@
                     </div>
                 </div>
 
-         
+
 
                 <div class="d-flex mt-2 mb-0 ">
-                     <div style="width: 120px !important;"> <h3 class="mb-2 text-body-2 mr-2  d-flex items-center align-center" >Center:</h3></div>
+                    <div style="width: 120px !important;">
+                        <h3 class="mb-2 text-body-2 mr-2  d-flex items-center align-center">Center:</h3>
+                    </div>
                     <div class="scrollSec">
 
                         <div class="d-flex ">
-                            <div  v-for="(item, key) in pageStore.reauction.center"
-                            class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
-                            style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
-                            {{ item }}
+                            <div v-for="(item, key) in pageStore.reauction.center"
+                                class=" d-flex ml-2 align-center px-2 rounded-lg text-body-1 text-whiteLite ml-2 mb-2"
+                                style="border: 1px solid rgba(var(--v-theme-primary),0.3);">
+                                {{ item }}
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
-          
+
         </div>
     </user-title-bar>
-    <div  style="max-width: 1400px;" class="mx-auto">
+    <div v-else class="center-wrapper">
+        <div class=" pa-4 box">
+            <p>Upgrade to Your Plan The Current plan not supported this page..</p>
+            <router-link to="/settings/billing" style="text-decoration: none; color: white;">
+                <v-btn color="primary" size="large" class="text-capitalize mt-5">
+                    Upgrade Plan
+                </v-btn>
+            </router-link>
+        </div>
+    </div>
+    <div style="max-width: 1400px;" class="mx-auto"
+        v-if="userStore.user.role !== 'Subscriber' || (userStore.user.plan && userStore.user.plan.plan_id !== 1)">
         <div no-gutters="" class="">
             <!-- <v-col cols="12">
                 <div class="d-lg-none d-md-none align-self-center pl-2">
@@ -83,14 +98,15 @@
                     <div class="bg-surface">
                         <v-data-table-server hover :headers="headers" :items="pageStore.reauction.data"
                             :items-length="pageStore.reauction.total" :loading="pageStore.reauction.loading"
-                            item-value="id"  hide-default-footer="">
+                            item-value="id" hide-default-footer="">
 
-                            <template #item.title="{item}"> {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </template>
+                            <template #item.title="{ item }"> {{ item.make_name }} {{ item.model_name }}
+                                {{ item.variant_name }} </template>
                             <template #item.action="{ item }">
                                 <v-btn :to="'/user/vehicle-detail/' + item.id"> <v-icon>mdi-eye</v-icon></v-btn>
                             </template>
-                            <template #item.auction_date="{item}">
-                                <span>{{dateFormate(auction_date)}}</span>
+                            <template #item.auction_date="{ item }">
+                                <span>{{ dateFormate(auction_date) }}</span>
                             </template>
 
                             <!-- <template v-slot:bottom>
@@ -113,22 +129,23 @@
 
 
 import { usePageStore } from "@/stores/pageStore";
-import General from '@/models/general.model';
-
+import { useUserStore } from "@/stores/userStore";
+import Restriction from "./layout/Restriction.vue";
 export default {
     props: {},
     components: {
-
+        Restriction
     },
     data() {
 
         return {
             centerName: [],
-            platformName:[],
+            platformName: [],
+            userStore: useUserStore(),
             pageStore: usePageStore(),
             headers: [
 
-                      // { title: "view", key: 'view', sortable: false },
+                // { title: "view", key: 'view', sortable: false },
                 { title: "Reg", value: "reg" },
                 { title: "Vehicle", value: "vehicle" },
                 { title: "Year", value: "year" },
@@ -137,7 +154,7 @@ export default {
                 { title: "Transmission", value: "transmission" },
                 { title: "Auction House", value: "platform_title" },
                 { title: "Date Time", value: "autotrader_retail_value" },
-                
+
             ],
         }
     },
@@ -154,22 +171,22 @@ export default {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]
         },
-    //    async getCenter(){
-    //     try {
-    //         const res = await General.get("api/cruds/center");
-    //         this.centerName = res.data.slice(0 , 4).map(center => center.name) 
-    //     } catch (e) {
-    //         throw await errorHandler(e);
-    //     }
-    //     },
-    //    async getPlatform(){
-    //     try {
-    //         const res = await General.get("api/cruds/platform");
-    //         this.platformName = res.data.slice(0 , 4).map(platform => platform.name)
-    //     } catch (e) {
-    //         throw await errorHandler(e);
-    //     }
-    //     }
+        //    async getCenter(){
+        //     try {
+        //         const res = await General.get("api/cruds/center");
+        //         this.centerName = res.data.slice(0 , 4).map(center => center.name) 
+        //     } catch (e) {
+        //         throw await errorHandler(e);
+        //     }
+        //     },
+        //    async getPlatform(){
+        //     try {
+        //         const res = await General.get("api/cruds/platform");
+        //         this.platformName = res.data.slice(0 , 4).map(platform => platform.name)
+        //     } catch (e) {
+        //         throw await errorHandler(e);
+        //     }
+        //     }
 
     },
 };
@@ -182,15 +199,23 @@ export default {
     overflow-y: hidden;
 }
 
-.scrollSec > div {
+.scrollSec>div {
     display: flex;
     flex-wrap: nowrap;
     white-space: nowrap;
 }
+
 @media (max-width: 720px) {
     .scrollSec {
         max-width: calc(100vw - 250px);
     }
 }
 
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 80vh;
+}
 </style>

@@ -89,18 +89,13 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2">
-                                                <v-btn value="Reauction Detacted" height="50"
+                                                <v-btn height="50" variant="flat"
                                                     class="bell text-capitalize text-body-1 border"
-                                                    :disabled="alertExists" @click="sendAlertdata" :style="{
-                                                        backgroundColor: alertExists ? 'rgba(var(--v-theme-primary))' : 'transparent',
-
-                                                        cursor: alertExists ? 'not-allowed' : 'pointer'
-                                                    }">
-                                                    <v-icon
-                                                        :color="alertExists ? 'white' : 'primary'">mdi-bell-outline</v-icon>
-
+                                                    :class="{ 'alert-active': alertExists }" @click="onBellClick">
+                                                    <v-icon :color="alertExists ? 'white' : 'primary'">
+                                                        mdi-bell-outline
+                                                    </v-icon>
                                                 </v-btn>
-
                                             </div>
                                         </div>
                                     </v-col>
@@ -245,33 +240,36 @@ export default {
 
                 });
         },
+        // 
         async alertExist() {
             if (!this.vehicleStore.vehicle.id) return;
 
-            const options = {
-                vehicle_id: this.vehicleStore.vehicle.id,
-                end_date: this.generalStore.date.end_date
-            };
-
             try {
-                const res = await General.get("/api/notifications/userAlertList", options);
+                const res = await General.get("/api/notifications/userAlertList", {
+                    vehicle_id: this.vehicleStore.vehicle.id,
+                    end_date: this.generalStore.date.end_date
+                });
 
-                const list = res.data?.data || [];
-                console.log("Existing alerts:", list);
 
-                const alert = list.find(
+                this.alertExists = res.data?.some(
                     a => Number(a.vehicle_id) === Number(this.vehicleStore.vehicle.id)
                 );
-
-
-                this.alertExists = !!alert && !this.checkAlertExpiry(alert.end_date);
 
             } catch (e) {
                 console.error("alertExist error:", e);
                 this.alertExists = false;
             }
         },
+        onBellClick() {
+            console.log("Bell clicked");
 
+            if (this.alertExists) {
+                console.log("Alert already exists, click ignored");
+                return;
+            }
+
+            this.sendAlertdata();
+        },
         async sendAlertdata() {
             const currentAlerts = await General.get("/api/notifications/userAlertList");
             const alertCount = currentAlerts.recordsTotal || 0;
@@ -372,6 +370,14 @@ export default {
     gap: 10px;
 }
 
+:deep(.v-btn.alert-active) {
+    background-color: rgb(var(--v-theme-primary)) !important;
+    pointer-events: none;
+}
+
+:deep(.v-btn.alert-active:hover) {
+    background-color: rgb(var(--v-theme-primary)) !important;
+}
 
 @media (min-width: 601px) {
     .btn-scroll-wrapper {

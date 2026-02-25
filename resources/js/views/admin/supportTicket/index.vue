@@ -348,7 +348,7 @@ export default {
 
 <style scoped>
 .min-select {
-  min-width: 150px;
+  min-width: 170px;
 }
 
 .status-card {

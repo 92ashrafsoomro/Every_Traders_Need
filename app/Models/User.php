@@ -71,6 +71,11 @@ class User extends Authenticatable  // This should extend Authenticatable
     {
         return $this->hasMany(RecentView::class);
     }
+    public function latestMembership()
+    {
+        return $this->hasOne(Membership::class, 'user_id')
+                    ->latestOfMany();
+    }
 
 
 }

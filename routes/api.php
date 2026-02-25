@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\Master\TaskManagementController;
 use App\Http\Controllers\Api\Master\StaffController;
+use App\Http\Controllers\Api\Master\TicketController;
 
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
@@ -158,6 +159,16 @@ use App\Http\Controllers\Api\WebController;
         // Users
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
+
+
+        
+
+      
+
+        Route::post('/tickets/{id}/reply', [TicketController::class, 'reply']);
+        Route::post('/tickets/{id}/status', [TicketController::class, 'updateStatus']);
+        Route::post('/tickets/{id}/priority', [TicketController::class, 'updatePriority']);
+        Route::apiResource('tickets', TicketController::class);
 
         
     });

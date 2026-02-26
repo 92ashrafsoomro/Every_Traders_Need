@@ -168,6 +168,7 @@ use App\Http\Controllers\Api\TicketUserApiController;
 
         Route::post('/tickets/{id}/reply', [TicketController::class, 'reply']);
         Route::post('/tickets/{id}/status', [TicketController::class, 'updateStatus']);
+        Route::post('/tickets/{id}/closedAt', [TicketController::class, 'updateclosedat']);
         Route::post('/tickets/{id}/priority', [TicketController::class, 'updatePriority']);
         Route::apiResource('tickets', TicketController::class);
 

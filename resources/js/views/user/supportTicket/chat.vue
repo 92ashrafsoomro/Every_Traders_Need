@@ -129,6 +129,7 @@
             </div>
           </v-expand-transition>
 
+          <!-- <v-card variant="flat" class="rounded-xl bg-surface-variant-1 px-4 py-1 d-flex align-end border" > -->
           <v-card variant="flat" class="rounded-xl bg-surface-variant-1 px-4 py-1 d-flex align-end border"  v-if="ticket.closed_at == null && ticket.status != 0 && ticket.status != 3">
             
             <v-btn icon="mdi-paperclip" variant="text" color="light" size="small" @click="$refs.fileInput.click()"></v-btn>
@@ -307,12 +308,12 @@ export default {
       try {
         const payload = { message: this.newReply.message, ticket_id: this.ticket.id, attachment: this.newReply.attachment };
         await General.post(`/api/user/tickets/${this.ticket.id}/reply`, payload);
-        this.$alertStore.add("Response Sent", "success");
+        this.$alertStore.add("Reply submitted successfully", "success");
         this.newReply.message = '';
         this.newReply.attachment = null;
         await this.fetchTicketDetails();
       } catch (error) {
-        this.$alertStore.add('Update Error', 'error');
+        this.$alertStore.add(error.message || 'An error occurred', 'error');
       } finally {
         this.loading = false;
       }

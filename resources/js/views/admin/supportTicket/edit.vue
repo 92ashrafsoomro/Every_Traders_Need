@@ -248,15 +248,15 @@
           variant="flat" 
           class="font-weight-bold rounded-lg mb-2" 
           prepend-icon="mdi-lock-check-outline"
-          @click="closeTicket"
+          @click="closedat()"
           :loading="loading"
-          :disabled="ticket.status !== 1"
+          :disabled="ticket.closed_at !== null"
         >
-          {{ ticket.status === 1 ? 'Close This Ticket' : 'Ticket Is Closed' }}
+          {{ ticket.closed_at === null ? 'Close This Ticket' : 'Ticket Is Closed' }}
         </v-btn>
         
-        <p v-if="ticket.status !== 1" class="text-center text-caption text-disabled">
-          Closed on: {{ formatDate(ticket.updated_at) }}
+        <p v-if="ticket.closed_at !== null" class="text-center text-caption text-disabled">
+          Closed on: {{ formatDate(ticket.closed_at) }}
         </p>
       </div>
     </v-col>
@@ -359,6 +359,19 @@ export default {
         await this.fetchTicketDetails();
       } catch (error) {
         this.$alertStore.add('Update Error', 'error');
+      } finally {
+        this.loading = false;
+      }
+    },
+    async closedat() {
+      try {
+
+        await General.post(`/api/cruds/tickets/${this.ticket.id}/closedAt`);
+        this.$alertStore.add("Ticket Closed Successfully", "success");
+        await this.fetchTicketDetails();
+      } catch (error) {
+        this.$alertStore.add(error.message || 'Update Error', 'error');
+        
       } finally {
         this.loading = false;
       }

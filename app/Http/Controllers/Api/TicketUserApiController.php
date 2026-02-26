@@ -101,7 +101,13 @@ class TicketUserApiController extends Controller
 
         $ticket = Ticket::where("user_id", Auth::id())
                         ->findOrFail($ticket_id);
-
+                        
+        if ($ticket->closed_at !== null) {
+            return response()->json([
+                "success" => false,
+                "message" => "Ticket is already closed."
+            ], 404);
+        }
         $attachmentPath = null;
 
         if ($request->hasFile('attachment')) {

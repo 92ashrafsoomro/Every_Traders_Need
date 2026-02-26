@@ -105,6 +105,20 @@ class TicketController extends Controller
             'data' => $ticket
         ]);
     }
+    public function updateclosedat( $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->update([
+            'closed_at'    => now(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ticket closed successfully.',
+            'data' => $ticket
+        ]);
+    }
     public function updatePriority(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);

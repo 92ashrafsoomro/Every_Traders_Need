@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
-
+use App\Mail\SupportFormMail;
+use Illuminate\Support\Facades\Mail;
 class PageController extends Controller
 {
 
@@ -213,7 +214,8 @@ class PageController extends Controller
          
             'name' => 'required|min:3|string',
             'email' => 'required|email|min:6',
-            'description' => 'required|max:1000',
+            'subject' => 'required|string|max:255',
+            'description' => 'required|max:10000',
         ]);
 
          if ($validator->fails()) {
@@ -222,11 +224,24 @@ class PageController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        try {
+            $data = $request->only('name', 'email', 'subject', 'description');
+            $adminEmail = "man411210@gmail.com"; 
+
+            Mail::to($adminEmail)->send(new SupportFormMail($data));
+
+            return response()->json([
+                'message' => 'Your inquiry has been sent successfully!'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Email sending failed: ' . $e->getMessage()
+            ], 500);
+        }
 
 
-        return response()->json([
-            'message' => 'Record Submited successfully'
-        ], 200);
+
 
     }
 

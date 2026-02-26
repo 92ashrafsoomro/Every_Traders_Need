@@ -62,7 +62,7 @@ Route::get('/uploading1', function (Request $request) {
     Vehicle::query()->delete();
     BodyType::query()->delete();
     VehicleType::query()->delete();
-    Color::query()->delete();
+    // Color::query()->delete();
     ModelVariant::query()->delete();
     VehicleModel::query()->delete();
     Make::query()->delete();
@@ -73,12 +73,12 @@ Route::get('/uploading1', function (Request $request) {
     $rows = array_map('str_getcsv', $csv);
     foreach ($rows as $value) {
         if ($value[1]) {
-            Color::create([
-                'id' => $value[0],
-                'name' => $value[1],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+            // Color::create([
+            //     'id' => $value[0],
+            //     'name' => $value[1],
+            //     'created_at' => Carbon::now(),
+            //     'updated_at' => Carbon::now(),
+            // ]);
         }
     }
 

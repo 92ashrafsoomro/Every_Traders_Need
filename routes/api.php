@@ -67,20 +67,7 @@ use App\Http\Controllers\Api\WebController;
 
     });
 
-
-   
-
-    
-    
-
-
-
-
-
   
-
-    
-
 
     // Notifications
     Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function(){
@@ -98,7 +85,6 @@ use App\Http\Controllers\Api\WebController;
         Route::get('/userNotification',[NotificationController::class,'userNotification']);
         Route::post('/markRead/{id}',[NotificationController::class,'markRead']);
 
-        
         Route::get('/myNotifications',[NotificationController::class,'myNotifications']);
 
     });
@@ -174,7 +160,7 @@ use App\Http\Controllers\Api\WebController;
 
     
     // User Panel
-    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('user')->middleware(['auth:sanctum'])->group(function(){
 
 
         Route::prefix('profile')->group(function () {
@@ -209,6 +195,8 @@ use App\Http\Controllers\Api\WebController;
         Route::prefix('interest')->group(function () {
             Route::get('/myInterest',[InterestController::class,'myInterest']);
         });
+
+        Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
         
     });
 
@@ -216,7 +204,7 @@ use App\Http\Controllers\Api\WebController;
 
 
     // Web Controller..
-    Route::prefix('web')->group(function () {
+    Route::prefix('web')->group(function(){
 
         Route::get('/getplans',[PlanController::class,'index']);
         Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {

@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -94,12 +94,12 @@ class AuctionFinderController extends Controller
             )
             ->get();
         if($reAuctionHistory){
-            $reAuctionHistory->auction = Auctions::find($vehicle->auction_id);
-            $reAuctionHistory->center = AuctionCenter::find($vehicle->center_id);
-            $reAuctionHistory->vehicleType = VehicleType::find($vehicle->vehicle_id);
-            $reAuctionHistory->make = Make::find($vehicle->make_id);
-            $reAuctionHistory->model = VehicleModel::find($vehicle->model_id);
-            $reAuctionHistory->variant = ModelVariant::find($vehicle->variant_id);
+            // $reAuctionHistory->auction = Auctions::find($vehicle->auction_id);
+            // $reAuctionHistory->center = AuctionCenter::find($vehicle->center_id);
+            // $reAuctionHistory->vehicleType = VehicleType::find($vehicle->vehicle_id);
+            // $reAuctionHistory->make = Make::find($vehicle->make_id);
+            // $reAuctionHistory->model = VehicleModel::find($vehicle->model_id);
+            // $reAuctionHistory->variant = ModelVariant::find($vehicle->variant_id);
         }
 
 
@@ -803,6 +803,26 @@ class AuctionFinderController extends Controller
             $AuctionFinderService->response
         ,200);
     }
+
+
+       public function billing_view(Request $request,$id)
+    {
+        dd('test');
+        
+        //  DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+        // $AuctionFinderService = new AuctionFinderService($request,$id);
+
+        $pdf = Pdf::loadView('invoice.vieww', []);
+        return $pdf->stream();
+
+       
+        // return response()->json(
+        //     $AuctionFinderService->response
+        // ,200);
+    }
+
+
+    
 
 
     

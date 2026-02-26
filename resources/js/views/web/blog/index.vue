@@ -1,5 +1,5 @@
 <template>
-    <div   style="margin-top: 100px;">
+    <div style="margin-top: 100px;">
         <!-- Main Blog & Articles Section -->
         <div class="mx-auto" style="max-width: 1400px;">
             <h1 class="text-h4 font-weight-bold mb-6">Blog & articles</h1>
@@ -13,7 +13,7 @@
             </v-chip-group>
 
             <!-- Featured Card (Large one) -->
-            <div class=" rounded-lg d-flex d-flex-wrap " >
+            <div class=" rounded-lg d-flex d-flex-wrap ">
                 <div class="">
                     <img :src="featuredImage" height="380" width="700" />
                 </div>
@@ -58,65 +58,58 @@
             </div>
 
             <!-- Latest Insights Title -->
-         
+
         </div>
-        <div class="bg-surface mt-12">
+        <div class="bg-surface py-12">
             <div class="mx-auto" style="max-width: 1400px;">
 
-           
-               <div class="d-flex align-center mb-6 pt-6">
-                <v-icon color="primary" left class="mr-2">mdi-lightbulb-outline</v-icon>
-                <h2 class="text-h5 font-weight-medium">Latest insights and trends</h2>
-            </div>
 
-            <!-- Grid of Small Cards -->
-            <v-row dense="">
-                <!-- <v-col v-for="(item, i) in latestArticles" :key="i" cols="12" sm="6" md="4" lg="3" > -->
-                <v-col v-for="(item, i) in latestArticles" :key="i"  >
-                    <div class="rounded-lg  h-100 ml-2  d-flex flex-column"  hover style="background-color: rgb(var(--v-theme-background));">
-                     <div style="width: 400px; height: 180px; position: relative; overflow: hidden;">
-    
-                                    <!-- Image -->
-                                    <img 
-                                        :src="item.image"
-                                        style="width:100%; height:100%; object-fit:cover;"
-                                    />
+                <div class="d-flex align-center mb-6 pt-6">
+                    <v-icon color="primary" left class="mr-2">mdi-lightbulb-outline</v-icon>
+                    <h2 class="text-h5 font-weight-medium">Latest insights and trends</h2>
+                </div>
 
-                                    <!-- Gradient Overlay (optional but recommended) -->
-                                    <div style="
+                <!-- Grid of Small Cards -->
+                <v-row dense="">
+                    <!-- <v-col v-for="(item, i) in latestArticles" :key="i" cols="12" sm="6" md="4" lg="3" > -->
+                    <v-col v-for="(item, i) in latestArticles" :key="i">
+                        <div class="rounded-lg  h-100 ml-2  d-flex flex-column" hover
+                            style="background-color: rgb(var(--v-theme-background)); width:400px;">
+                            <div style="width:100%; height:180px; position:relative; overflow:hidden;">
+                                <img :src="item.image" style="width:100%; height:100%; object-fit:cover;" />
+
+                                <!-- Gradient Overlay (optional but recommended) -->
+                                <div style="
                                         position:absolute;
                                         inset:0;
                                         background: linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5));
                                     "></div>
 
-                                    <!-- Chip -->
-                                    <v-chip
-                                        small
-                                        color="primary"
-                                        class="ma-3 text-caption font-weight-medium"
-                                        style="position:absolute; top:0; left:0;"
-                                    >
-                                        News
-                                    </v-chip>
+                                <!-- Chip -->
+                                <v-chip small color="primary" class="ma-3 text-caption font-weight-medium"
+                                    style="position:absolute; top:0; left:0;">
+                                    News
+                                </v-chip>
 
-                                </div>
-                        <p class="text-subtitle-1 font-weight-medium py-3">
-                            {{ item.title }}
-                        </p>
+                            </div>
+                           <div class="pa-2">
+                             <p class="text-subtitle-1 font-weight-medium py-3">
+                                {{ item.title }}
+                            </p>
 
-                        <p class="text-body-2 grey--text text--darken-1 flex-grow-1">
-                            {{ item.description }}
-                        </p>
+                            <p class="text-body-2 grey--text text--darken-1 flex-grow-1">
+                                {{ item.description }}
+                            </p>
 
-                        <v-card-actions class="pb-4 px-4">
-                            <v-btn text color="primary" class="text-capitalize pa-0">
-                                Read more
-                            </v-btn>
-                        </v-card-actions>
-                    </div>
-                </v-col>
-            </v-row>
-             </div>
+                          
+                                <v-btn variant="elevated" color="primary" class="text-capitalize pa-2 mt-3"  >
+                                    Read more
+                                </v-btn>
+                           </div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </div>
         </div>
     </div>
 </template>

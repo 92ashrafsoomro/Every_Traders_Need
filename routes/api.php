@@ -210,13 +210,13 @@ use App\Http\Controllers\Api\TicketUserApiController;
         });
 
     
-    Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+        Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
 
-    Route::get('/tickets', [TicketUserApiController::class, 'index']);
-    Route::post('/tickets', [TicketUserApiController::class, 'store']);
-    Route::get('/tickets/{id}', [TicketUserApiController::class, 'show']);
-    Route::post('/tickets/{id}/reply', [TicketUserApiController::class, 'reply']);
-    Route::post('/tickets/{id}/feedback', [TicketUserApiController::class, 'submitFeedback']);
+        Route::get('/tickets', [TicketUserApiController::class, 'index']);
+        Route::post('/tickets', [TicketUserApiController::class, 'store']);
+        Route::get('/tickets/{id}', [TicketUserApiController::class, 'show']);
+        Route::post('/tickets/{id}/reply', [TicketUserApiController::class, 'reply']);
+        Route::post('/tickets/{id}/feedback', [TicketUserApiController::class, 'submitFeedback']);
 
         
     });

@@ -807,13 +807,14 @@ class AuctionFinderController extends Controller
 
        public function billing_view(Request $request,$id)
     {
-        dd('test');
+        
         
         //  DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         // $AuctionFinderService = new AuctionFinderService($request,$id);
 
         $pdf = Pdf::loadView('invoice.vieww', []);
-        return $pdf->stream();
+        // return $pdf->stream();
+         return $pdf->download('invoice.pdf');
 
        
         // return response()->json(

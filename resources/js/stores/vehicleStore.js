@@ -11,7 +11,7 @@ export const useVehicleStore = defineStore("vehicle", {
         sidebar: false,
         isMobile: false,
         isVehicle: true,
-        tab: 'details',
+        tab: 'detection',
         vehicle: Vehicle.getModelKeys(),
         auctionTab: true,
         platforms: [],

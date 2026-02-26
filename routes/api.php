@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\Master\TaskManagementController;
 use App\Http\Controllers\Api\Master\StaffController;
+use App\Http\Controllers\Api\Master\TicketController;
 
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
@@ -44,6 +45,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\WebController;
+use App\Http\Controllers\Api\TicketUserApiController;
 
 
 
@@ -145,6 +147,17 @@ use App\Http\Controllers\Api\WebController;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
+
+        
+
+      
+
+        Route::post('/tickets/{id}/reply', [TicketController::class, 'reply']);
+        Route::post('/tickets/{id}/status', [TicketController::class, 'updateStatus']);
+        Route::post('/tickets/{id}/closedAt', [TicketController::class, 'updateclosedat']);
+        Route::post('/tickets/{id}/priority', [TicketController::class, 'updatePriority']);
+        Route::apiResource('tickets', TicketController::class);
+
         
     });
 
@@ -196,7 +209,15 @@ use App\Http\Controllers\Api\WebController;
             Route::get('/myInterest',[InterestController::class,'myInterest']);
         });
 
-        Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+    
+    Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+
+    Route::get('/tickets', [TicketUserApiController::class, 'index']);
+    Route::post('/tickets', [TicketUserApiController::class, 'store']);
+    Route::get('/tickets/{id}', [TicketUserApiController::class, 'show']);
+    Route::post('/tickets/{id}/reply', [TicketUserApiController::class, 'reply']);
+    Route::post('/tickets/{id}/feedback', [TicketUserApiController::class, 'submitFeedback']);
+
         
     });
 

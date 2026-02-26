@@ -15,7 +15,6 @@
 
     .invoice-container {
       max-width: 800px;
-      /* margin: 30px auto; */
       background: white;
       border-radius: 12px;
       overflow: hidden;
@@ -27,24 +26,40 @@
       background: #0d1b3a;
       color: white;
       padding: 30px 40px;
-      overflow: hidden;
     }
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      vertical-align: middle;
+    }
+
+    .company-cell {
+      width: 60%;
+    }
+
+    .meta-cell {
+      width: 40%;
+      text-align: right;
     }
 
     .company {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      display: table;
     }
 
     .company img {
       width: 60px;
       height: auto;
+      vertical-align: middle;
+    }
+
+    .company-text {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 18px;
     }
 
     .company h2 {
@@ -57,10 +72,6 @@
       margin: 4px 0 0;
       font-size: 13px;
       opacity: 0.9;
-    }
-
-    .invoice-meta {
-      text-align: right;
     }
 
     .invoice-meta .label {
@@ -84,29 +95,35 @@
       opacity: 0.9;
     }
 
-    /* Bill to & Details */
+    /* Bill to & Details – gap kam kiya */
     .bill-section {
-      padding: 35px 40px 20px;
+      padding: 35px 0 20px;
       background: #ffffff;
     }
 
     .bill-grid {
-      overflow: hidden;
+      width: 100%;
     }
 
     .bill-grid table {
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed;   /* ← isse columns balanced rehte hain */
     }
 
     .bill-grid td {
       width: 50%;
       vertical-align: top;
-      padding: 0 15px;
+      padding: 0 10px;       /* ← gap ko 15px se 10px kiya (aur kam bhi kar sakte ho) */
     }
 
-    .bill-grid td:first-child { padding-left: 0; }
-    .bill-grid td:last-child  { padding-right: 0; }
+    .bill-grid td:first-child {
+      padding-left: 0;
+    }
+
+    .bill-grid td:last-child {
+      padding-right: 0;
+    }
 
     .bill-grid h4 {
       margin: 0 0 12px;
@@ -163,29 +180,51 @@
     .status-pending  { background: #fef3c7; color: #92400e; }
     .status-paid     { background: #dbeafe; color: #1e40af; }
 
-    /* Totals */
-    .totals {
-      padding: 0 40px 30px;
+    /* Totals + Thank you – same as before but padding fix */
+    .totals-section {
+      padding: 0 0px 30px;
+    }
+
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .thank-you-cell {
+      width: 55%;
+      vertical-align: top;
+      text-align: left;
+      color: #64748b;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-right: 20px;
+    }
+
+    .totals-cell {
+      width: 45%;
+      vertical-align: top;
       text-align: right;
     }
 
-    .totals table {
+    .totals-inner {
       width: auto;
       margin-left: auto;
       border-collapse: collapse;
     }
 
-    .totals td {
+    .totals-inner td {
       padding: 8px 0;
       font-size: 15px;
     }
 
-    .totals .label {
+    .totals-inner .label {
       padding-right: 40px;
       color: #64748b;
+      white-space: nowrap;
     }
 
-    .totals .grand-total {
+    .grand-total {
       font-size: 20px;
       font-weight: bold;
       color: #0f172a;
@@ -203,13 +242,6 @@
       font-size: 13px;
     }
 
-    .thank-you {
-      text-align: center;
-      padding: 30px 40px;
-      color: #64748b;
-      font-style: italic;
-    }
-
     @media print {
       body { background: white; }
       .invoice-container { box-shadow: none; margin: 0; border-radius: 0; }
@@ -222,24 +254,29 @@
 
   <!-- Header -->
   <div class="invoice-header">
-    <div class="header-content">
-      <div class="company">
-        <img src="{{ public_path('build/assets/newLogo-B4aftMUZ.png') }}" width="150">
-        <div>
-          <h2>AutoBoli Pvt Ltd</h2>
-          <p>Karachi, Pakistan<br>info@autoboli.com | +92 21 1234567</p>
-        </div>
-      </div>
-
-      <div class="invoice-meta">
-        <div class="label">INVOICE</div>
-        <div class="number">#0001</div>
-        <div class="date">Issued: 19 February 2026</div>
-      </div>
-    </div>
+    <table class="header-table">
+      <tr>
+        <td class="company-cell">
+          <div class="company">
+            <img src="{{ public_path('build/assets/newLogo-B4aftMUZ.png') }}" width="60">
+            <div class="company-text">
+              <h2>AutoBoli Pvt Ltd</h2>
+              <p>Karachi, Pakistan<br>info@autoboli.com | +92 21 1234567</p>
+            </div>
+          </div>
+        </td>
+        <td class="meta-cell">
+          <div class="invoice-meta">
+            <div class="label">INVOICE</div>
+            <div class="number">#0001</div>
+            <div class="date">Issued: 19 February 2026</div>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 
-  <!-- Bill To & Details -->
+  <!-- Bill To & Details – tight gap -->
   <div class="bill-section">
     <div class="bill-grid">
       <table>
@@ -247,16 +284,16 @@
           <td>
             <h4>Billed To</h4>
             <p><strong>Muhammad Shakeeb</strong><br>
-               shakeeb@email.com<br>
-               +92 300 1234567<br>
-               Gulshan-e-Iqbal, Karachi</p>
+              shakeeb@email.com<br>
+              +92 300 1234567<br>
+              Gulshan-e-Iqbal, Karachi</p>
           </td>
           <td>
             <h4>Subscription Details</h4>
             <p><strong>Plan:</strong> Trader Basic<br>
-               <strong>Payment Method:</strong> Stripe<br>
-               <strong>Period:</strong> 19 Feb 2026 – 19 Mar 2026<br>
-               <strong>Status:</strong> <span class="status status-active">Active</span></p>
+              <strong>Payment Method:</strong> Stripe<br>
+              <strong>Period:</strong> 19 Feb 2026 – 19 Mar 2026<br>
+              <strong>Status:</strong> <span class="status status-active">Active</span></p>
           </td>
         </tr>
       </table>
@@ -286,31 +323,35 @@
         <td class="amount">£49.00</td>
         <td><span class="status status-paid">Paid</span></td>
       </tr>
-      <!-- Add more rows if needed -->
     </tbody>
   </table>
 
-  <!-- Totals -->
-  <div class="totals">
-    <table>
+  <!-- Totals + Thank you in one row -->
+  <div class="totals-section">
+    <table class="totals-table">
       <tr>
-        <td class="label">Subtotal:</td>
-        <td>£49.00</td>
-      </tr>
-      <tr>
-        <td class="label">Tax (0%):</td>
-        <td>£0.00</td>
-      </tr>
-      <tr>
-        <td class="grand-total">Total Due:</td>
-        <td class="grand-total">£49.00</td>
+        <td class="thank-you-cell">
+          Thank you for your business!<br>
+          We appreciate your trust in AutoBoli.
+        </td>
+        <td class="totals-cell">
+          <table class="totals-inner">
+            <tr>
+              <td class="label">Subtotal:</td>
+              <td>£49.00</td>
+            </tr>
+            <tr>
+              <td class="label">Tax (0%):</td>
+              <td>£0.00</td>
+            </tr>
+            <tr>
+              <td class="grand-total">Total Due:</td>
+              <td class="grand-total" style="text-align: right;">£49.00</td>
+            </tr>
+          </table>
+        </td>
       </tr>
     </table>
-  </div>
-
-  <div class="thank-you">
-    Thank you for your business!<br>
-    We appreciate your trust in AutoBoli.
   </div>
 
   <div class="invoice-footer">

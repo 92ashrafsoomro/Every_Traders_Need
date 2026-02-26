@@ -126,6 +126,7 @@ export default {
             }
         },
         async deleteItems(id) {
+            if(!confirm("Are you sure you want to delete this item? ")) return;
             this.loading = true;
             try {
                 let res = await General.delete('/api/cruds/packages/' + id);

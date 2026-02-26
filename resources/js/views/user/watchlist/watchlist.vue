@@ -24,15 +24,8 @@
                                 density="compact" clearable />
                         </div>
                         <div class="px-lg-2 px-md-2 px-2">
-                            <MakeDropdown 
-                                width="200" 
-                                label="Select Make" 
-                                variant="outlined" 
-                                item-title="name"
-                                item-value="id" 
-                                color="primary" 
-                                density="compact" 
-                                :model-value="filter.make"
+                            <MakeDropdown width="200" label="Select Make" variant="outlined" item-title="name"
+                                item-value="id" color="primary" density="compact" :model-value="filter.make"
                                 @update:modelValue="handleInput($event, 'make')" clearable />
                         </div>
 
@@ -56,7 +49,7 @@
 
             <v-col cols="12" class="mt-3 ">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="items" :items-length="totalItems" hover
+                    <v-data-table-server class="" :headers="headers" :items="displayedItems" :items-length="totalItems" hover
                         hide-default-footer :loading="loading" item-value="id">
 
                         <template #item.vehicle="{ item }">
@@ -80,7 +73,7 @@
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{
                                 item.platform_title
-                            }}</span>
+                                }}</span>
                         </template>
 
                         <!-- <template #item.autotrader_retail_value="{item}">
@@ -99,6 +92,12 @@
 
 
                     </v-data-table-server>
+                      <div v-if="showUpgradeMessage" class="text-center  pa-4" style="background-color: rgb(var(--v-theme-primary),0.2);">
+                        Show full watchlist → 
+                        <router-link to="/pricing" class="text-primary font-weight-bold">
+                            Upgrade Plan
+                        </router-link>
+                    </div>
                 </div>
             </v-col>
         </v-row>
@@ -115,7 +114,7 @@ import MakeDropdown from "@/components/MakeDropdown.vue";
 import ModelDropdown from "@/components/ModelDropdown.vue";
 import YearDropdown from "@/components/YearDropdown.vue";
 import UserModel from "@/models/user.model";
-
+import { useUserStore } from "@/stores/userStore";
 export default {
     name: "Watchlist",
     components: {
@@ -136,6 +135,7 @@ export default {
             },
             last_page: 1,
             items: [],
+            userStore: useUserStore(),
             total: 0,
             totalItems: 0,
             loading: false,
@@ -178,37 +178,54 @@ export default {
 
             this.loadItems();
         },
-        async loadItems() {
+     async loadItems() {
+    this.loading = true;
+    try {
+        // Always fetch full list, ignore filter.length for basic subscriber
+        const apiFilter = { ...this.filter };
+        if (this.isBasicSubscriber()) {
+            apiFilter.length = 1000; // ya total items ka safe max
+        }
 
-            this.loading = true;
-            try {
+        const res = await UserModel.getWatchList(apiFilter);
 
-                const res = await UserModel.getWatchList(this.filter);
-                // console.log(res);
-
-
-                this.items = res.data || [];
-                this.totalItems = res.recordsTotal;
-                this.filter.offset = res.offset;
-                this.filter.page = res.page;
-                this.total = res.recordsTotal
-                this.last_page = res.last_page;
-
-            } catch (error) {
-                console.error("Error fetching userWatchList:", error);
-                this.totalItems = 0;
-                this.items = [];
-            } finally {
-                this.loading = false;
-            }
-
-        },
+        this.items = res.data || [];
+        this.totalItems = res.recordsTotal;
+        this.filter.offset = res.offset;
+        this.filter.page = res.page;
+        this.total = res.recordsTotal
+        this.last_page = res.last_page;
+    } catch (error) {
+        console.error("Error fetching userWatchList:", error);
+        this.totalItems = 0;
+        this.items = [];
+    } finally {
+        this.loading = false;
+    }
+},
+        isBasicSubscriber() {
+            return (
+                this.userStore.user?.role === 'Subscriber' &&
+                this.userStore.user?.plan?.plan_id === 1
+            );
+        }
         // dateFormate(date){
         //     if(!date) return ''
         //      return date?.split('T')[0].split(' ')[0]
         // }
 
     },
+    computed: {
+    displayedItems() {
+        if (this.isBasicSubscriber()) {
+            return this.items.slice(0, 10);
+        }
+        return this.items;
+    },
+    showUpgradeMessage() {
+        return this.isBasicSubscriber() && this.items.length > 10;
+    }
+}
 };
 </script>
 

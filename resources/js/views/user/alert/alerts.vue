@@ -150,6 +150,7 @@ export default {
                 { title: "Transmission", value: "transmission" },
                 { title: "Auction House", value: "platform_title" },
                 { title: "Date Time", value: "auction_date" },
+                { title: "Action", value: "action" },
                 // { title: "LAST BID", value: "last_bid" },
                 // { title: "AUTOBOLI", key: "autoboli", sortable: false },
             ],

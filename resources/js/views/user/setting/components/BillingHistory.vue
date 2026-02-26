@@ -2,7 +2,7 @@
     <v-card title="Billing History" class="mt-5 " border="">
         <div class="border"></div>
         <div class="border">
-            <v-data-table-server sort-asc-icon=""  :headers="headers" :items="data"  hover :items-length="data.length" hide-default-footer
+            <v-data-table-server sort-asc-icon=""  :headers="headers" :items="data"  hover :items-length="data" hide-default-footer
                 item-value="id">
 
                 <!-- <template #item.invoice="{ item }">

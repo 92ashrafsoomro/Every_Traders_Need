@@ -45,6 +45,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\WebController;
+use App\Http\Controllers\Api\TicketUserApiController;
 
 
 
@@ -220,6 +221,13 @@ use App\Http\Controllers\Api\WebController;
         Route::prefix('interest')->group(function () {
             Route::get('/myInterest',[InterestController::class,'myInterest']);
         });
+
+
+    Route::get('/tickets', [TicketUserApiController::class, 'index']);
+    Route::post('/tickets', [TicketUserApiController::class, 'store']);
+    Route::get('/tickets/{id}', [TicketUserApiController::class, 'show']);
+    Route::post('/tickets/{id}/reply', [TicketUserApiController::class, 'reply']);
+    Route::post('/tickets/{id}/feedback', [TicketUserApiController::class, 'submitFeedback']);
         
     });
 

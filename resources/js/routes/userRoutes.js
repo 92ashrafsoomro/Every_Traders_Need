@@ -13,6 +13,7 @@ import navbar from "@/views/web/layout/navbar.vue"
 import Alert from "@/views/user/alert/index.vue"
 import News from "@views/user/news/index.vue"
 import NewsbyId from "@views/user/news/newsbyid.vue"
+import supportTicket from "@views/user/supportTicket/route.js"
 export default [
   {
         path: "/user",
@@ -32,6 +33,7 @@ export default [
       { path: "news", component: News, meta: { requiresAuth: true, title: 'News' } },
       { path: "singlenews/:id?", component: NewsbyId, meta: { requiresAuth: true, title: 'News' } },
       { path: "web", component: navbar, meta: { requiresAuth: true, title: 'Web' } },
+      ...supportTicket
     ],
   },
 ]

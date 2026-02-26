@@ -59,7 +59,7 @@ class TicketController extends Controller
 
         $request->validate([
             'message' => 'nullable|string',
-            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:1048',
         ]);
 
         $ticket = Ticket::findOrFail($id);

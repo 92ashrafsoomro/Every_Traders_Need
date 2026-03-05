@@ -5,10 +5,10 @@
   <title>Invoice #0001 • AutoBoli Pvt Ltd</title>
   <style type="text/css">
     body {
-      font-family: Arial, Helvetica, sans-serif;
+       font-family: 'Inter', sans-serif !important;
       font-size: 14px;
       color: #333;
-      background: #f7f9fc;
+      /* background: #f7f9fc; */
       margin: 0;
       padding: 0;
     }
@@ -24,6 +24,7 @@
     /* Header */
     .invoice-header {
       background: #0d1b3a;
+      border-radius: 12px;
       color: white;
       padding: 30px 40px;
     }
@@ -58,8 +59,15 @@
 
     .company-text {
       display: inline-block;
+      margin-top: 20px;
       vertical-align: middle;
-      padding-left: 18px;
+      /* padding-left: 18px; */
+    }
+    .meta-text {
+      display: inline-block;
+      margin-top: 50px;
+      vertical-align: middle;
+      /* padding-left: 18px; */
     }
 
     .company h2 {
@@ -98,6 +106,7 @@
     /* Bill to & Details – gap kam kiya */
     .bill-section {
       padding: 35px 0 20px;
+      text-align: right;
       background: #ffffff;
     }
 
@@ -108,13 +117,13 @@
     .bill-grid table {
       width: 100%;
       border-collapse: collapse;
-      table-layout: fixed;   /* ← isse columns balanced rehte hain */
+      table-layout: fixed;  
     }
 
     .bill-grid td {
       width: 50%;
       vertical-align: top;
-      padding: 0 10px;       /* ← gap ko 15px se 10px kiya (aur kam bhi kar sakte ho) */
+      padding: 0 10px;     
     }
 
     .bill-grid td:first-child {
@@ -134,6 +143,7 @@
 
     .bill-grid p {
       margin: 6px 0;
+
       line-height: 1.5;
     }
 
@@ -142,6 +152,7 @@
       width: 100%;
       border-collapse: collapse;
       margin: 30px 0;
+        border: 1px solid #e2e8f0;
     }
 
     .items-table th,
@@ -152,8 +163,8 @@
     }
 
     .items-table th {
-      background: #f1f5f9;
-      color: #475569;
+      background: #0d1b3a;
+      color: #fff;
       font-weight: 600;
       text-transform: uppercase;
       font-size: 12px;
@@ -175,6 +186,7 @@
       font-size: 12px;
       font-weight: 600;
     }
+ 
 
     .status-active   { background: #ecfdf5; color: #065f46; }
     .status-pending  { background: #fef3c7; color: #92400e; }
@@ -232,7 +244,13 @@
       padding-top: 12px;
       margin-top: 8px;
     }
-
+    .footer-top{
+      margin: 10px 20px 40px 0px;
+    }
+    .footer-top p{
+    font-size : 12px;
+    color : #4e4e4f;
+  }
     /* Footer */
     .invoice-footer {
       background: #0d1b3a;
@@ -256,21 +274,30 @@
   <div class="invoice-header">
     <table class="header-table">
       <tr>
+        <td>
+
         <td class="company-cell">
+           <img src="{{ public_path('build/assets/darkfull.png') }}" width="140">
+     
           <div class="company">
-            <img src="{{ public_path('build/assets/newLogo-B4aftMUZ.png') }}" width="60">
             <div class="company-text">
               <h2>AutoBoli Pvt Ltd</h2>
-              <p>Karachi, Pakistan<br>info@autoboli.com | +92 21 1234567</p>
+              <p>Vehicle Auction Data & Market Intelligence Platform</p>
+              <p>Website: www.autoboli.com </p>
+              <p>Email: info@autoboli.com</p>
             </div>
           </div>
         </td>
         <td class="meta-cell">
-          <div class="invoice-meta">
-            <div class="label">INVOICE</div>
-            <div class="number">#0001</div>
-            <div class="date">Issued: 19 February 2026</div>
+         <div class="company">
+            <div class="meta-text">
+            <div >Invoice Number : 15 June 2026 </div>
+            <div>Invoice Date : 15 June 2026 </div>
+         
+            <div>  Payment Method : Direct DebitBilling </div>
+          <div>Cycle : Monthly <br></div>
           </div>
+        </div>
         </td>
       </tr>
     </table>
@@ -281,19 +308,47 @@
     <div class="bill-grid">
       <table>
         <tr>
-          <td>
-            <h4>Billed To</h4>
-            <p><strong>Muhammad Shakeeb</strong><br>
-              shakeeb@email.com<br>
-              +92 300 1234567<br>
-              Gulshan-e-Iqbal, Karachi</p>
+          <td >
+            <h4>Bill To</h4>
+            <p>
+              <p class="heading">Company Name:</p> <p class="value"> Autoboli </p><br>
+              <strong>Contact Person:</strong> 03400292040<br>
+              <strong>Email Address:</strong> autoboli@example.com <br>
+              <strong>Billing Address:</strong> Office #12, dubai<br>
+              <strong>Country:</strong> United Arab Emirates
+            </p>
+
           </td>
           <td>
-            <h4>Subscription Details</h4>
-            <p><strong>Plan:</strong> Trader Basic<br>
+            
+          <h4>Subscription Details</h4>
+          <p>
+            <strong>Plan :</strong>  Autoboli  Professional Plan <br>
+            <strong>Billing Period :</strong> June 2026 - July 2026 <br>
+            <strong>Qty :</strong> 1 <br>
+            <strong>Price :</strong>€49.00 <br>
+            <strong>Total:</strong> €49.00
+          </p>
+
+          <h4>Payment Summary</h4>
+          <p>
+            <strong>Subtotal</strong> €49.00  <br>
+            <strong>Vat (if applicable):</strong>€0.00 <br>
+            <strong>Discount:</strong> €0.00 <br>
+            <strong>Billing Address:</strong> Office #12, Business Avenue <br>
+            <strong>Total Amount:</strong>  €49.00 
+          </p>
+
+          <h4>Payment Information</h4>
+          <p>
+            <strong>Payment Method:</strong> Direct Debit  <br>
+            <strong>Transaction ID:</strong> XXXX XXXX XXXX <br>
+            <p>Payment will be automatically deducated according to your billing agreement.</p>
+          </p>
+            <!-- <p><strong>Plan:</strong> Trader Basic<br>
               <strong>Payment Method:</strong> Stripe<br>
               <strong>Period:</strong> 19 Feb 2026 – 19 Mar 2026<br>
-              <strong>Status:</strong> <span class="status status-active">Active</span></p>
+              <strong>Status:</strong> <span class="status status-active">Active</span></p> -->
           </td>
         </tr>
       </table>
@@ -303,31 +358,29 @@
   <!-- Items -->
   <table class="items-table">
     <thead>
-      <tr>
-        <th style="width:8%">ID</th>
+      <tr> 
+        <th>Plan Name</th>
+        <th>Billing Cycle</th>
         <th style="width:18%">Date</th>
-        <th>Plan</th>
         <th style="width:14%">Start Date</th>
-        <th style="width:14%">Expiry</th>
-        <th style="width:12%" class="amount">Amount</th>
-        <th style="width:12%">Status</th>
+        <th style="width:14%">Next billing date</th>
+        <th style="width:12%">Account Status</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>1</td>
+        <td>Trader Basic</td>
+        <td>Monthly</td>
         <td>19-Feb-2026</td>
-        <td>Trader Basic - Monthly</td>
         <td>19-Feb-2026</td>
         <td>19-Mar-2026</td>
-        <td class="amount">£49.00</td>
-        <td><span class="status status-paid">Paid</span></td>
+        <td><span class="status status-paid">Active</span></td>
       </tr>
     </tbody>
   </table>
 
   <!-- Totals + Thank you in one row -->
-  <div class="totals-section">
+  <!-- <div class="totals-section">
     <table class="totals-table">
       <tr>
         <td class="thank-you-cell">
@@ -352,6 +405,12 @@
         </td>
       </tr>
     </table>
+  </div> -->
+  <div class="footer-top">
+    <p>
+      This invoice confirms your subscription payment for Autoboli services <br>
+      Your subscription provides access to vehicle auction insights, valuation data, and analytics tools.
+    </p>
   </div>
 
   <div class="invoice-footer">

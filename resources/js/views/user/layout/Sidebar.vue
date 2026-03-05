@@ -49,9 +49,9 @@
             <div v-if="shouldShowProUpgradeCard" class=" pa-3 mt-lg-4"
                 :class="{ 'rounded-lg ': menuWidth == 258, ' text-center ': menuWidth !== 258 }" :style="menuWidth == 258
                     ? `background: linear-gradient(
-        rgb(var(--v-theme-primary),0.3) 0%,
-        rgba(var(--v-theme-primary), 0.7) 100%
-      );`
+                        rgb(var(--v-theme-primary),0.3) 0%,
+                        rgba(var(--v-theme-primary), 0.7) 100%
+                    );`
                     : 'background: none; margin-left : -5px'
                     ">
 
@@ -62,25 +62,27 @@
                             <v-icon color="primary" size="26">mdi-rocket-launch</v-icon>
                         </div>
                         <div class="ml-1">
-                           <p>You’re on:</p>  <p> Basic Plan</p>
+                            <p>You’re on:</p>
+                            <p> Basic Plan</p>
                         </div>
                     </div>
 
                     <div class="text-body-2 mb-3  d-flex w-100" style="text-align: start;">
-                      Get full auction data, reauction tracking, and unlimited watchlist access.
+                        Get full auction data, reauction tracking, and unlimited watchlist access.
                     </div>
 
-                    <v-btn variant="elevated" to="/user/settings/billing" color="primary" class="font-weight-medium text-caption w-100">
-                       Upgrade Your Plan
+                    <v-btn variant="elevated" to="/user/settings/billing" color="primary"
+                        class="font-weight-medium text-caption w-100">
+                        Upgrade Your Plan
                     </v-btn>
                 </div>
 
 
                 <div v-else>
-                    <router-link to="/user/settings/billing">
-                    <div style="width: 40px; height: 40px; background-color: white;"
-                        class="rounded-xl d-flex justify-center align-center">
-                            <v-icon color="primary" size="26"  class="cursor-pointer">mdi-rocket-launch</v-icon>
+                    <router-link to="/user/settings/billing " style="text-decoration: none;">
+                        <div style="width: 40px; height: 40px; background-color: white;"
+                            class="rounded-xl d-flex justify-center align-center">
+                            <v-icon color="primary" size="26" class="cursor-pointer">mdi-rocket-launch</v-icon>
                         </div>
                     </router-link>
                 </div>
@@ -124,17 +126,15 @@ export default {
     },
     computed: {
         shouldShowProUpgradeCard() {
-            const user = this.userStore.user;
-
-            // Safety checks + your exact condition
-            if (!user || !user.plan) {
-                return true;                    // plan is null / undefined → show card
-            }
-
-            const planId = user.plan.plan_id;
-
-            return planId === null || planId === 1;   // trial or no plan → show card
+            return (
+                this.userStore.user?.role === 'Subscriber' &&
+                (
+                    this.userStore.user?.plan?.plan_id === 1 ||
+                    this.userStore.user?.plan?.plan_id === 2
+                )
+            )
         },
+
         menuWidth() {
 
             // md, sm, xs

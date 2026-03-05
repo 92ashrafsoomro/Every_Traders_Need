@@ -1,19 +1,18 @@
 [
- 
   {
     "label": "Dashboard",
     "icon": "mdi-view-dashboard-outline",
     "path": "/admin/dashboard"
   },
-
   {
     "label": "Task Management",
-"icon": "mdi-checkbox-marked-circle-auto-outline",
-            "path": "/admin/taskManagement/all"
+    "icon": "mdi-checkbox-marked-circle-auto-outline",
+    "path": "/admin/taskManagement/all"
   },
   {
     "label": "Data Management",
-     "icon": "mdi-database-check",
+    "icon": "mdi-database-check",
+    "path" : "/admin/auction",
     "children": [
       {
         "label": "Import Auction",
@@ -27,7 +26,6 @@
       }
     ]
   },
-
   {
     "label": "Ids",
     "icon": "mdi-identifier",
@@ -44,8 +42,6 @@
       }
     ]
   },
-
-
   {
     "label": "User Management",
     "icon": "mdi-account-edit",
@@ -134,5 +130,10 @@
         "path": ""
       }
     ]
+  },
+  {
+    "label": "Back To User",
+    "icon": "mdi-account",
+    "path": "/user/dashboard"
   }
 ]

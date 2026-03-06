@@ -120,7 +120,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-navigation-drawer__content {
     overflow-y: auto;
     scrollbar-width: none;

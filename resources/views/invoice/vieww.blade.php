@@ -151,10 +151,37 @@
     .items-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 30px 0;
+      margin: 10px 0;
         border: 1px solid #e2e8f0;
     }
+.info-table{
+  width:100%;
+  border-collapse: collapse;
+  margin-bottom:5px;
+}
 
+.info-table td{
+  padding:6px 0;
+  border-bottom:1px solid #e2e8f0;
+  font-size:13px;
+}
+
+.info-table .label{
+  font-weight:600;
+  width:45%;
+  color:#475569;
+}
+
+.info-table .value{
+  text-align:right;
+  width:55%;
+}
+
+.payment-note{
+  font-size:12px;
+  color:#64748b;
+  margin-top:6px;
+}
     .items-table th,
     .items-table td {
       padding: 12px 10px;
@@ -245,7 +272,8 @@
       margin-top: 8px;
     }
     .footer-top{
-      margin: 10px 20px 40px 0px;
+      margin-top: 10px ;
+      margin-bottom: 20px;
     }
     .footer-top p{
     font-size : 12px;
@@ -304,56 +332,120 @@
   </div>
 
   <!-- Bill To & Details – tight gap -->
-  <div class="bill-section">
-    <div class="bill-grid">
-      <table>
-        <tr>
-          <td >
-            <h4>Bill To</h4>
-            <p>
-              <p class="heading">Company Name:</p> <p class="value"> Autoboli </p><br>
-              <strong>Contact Person:</strong> 03400292040<br>
-              <strong>Email Address:</strong> autoboli@example.com <br>
-              <strong>Billing Address:</strong> Office #12, dubai<br>
-              <strong>Country:</strong> United Arab Emirates
-            </p>
+<div class="bill-section">
+  <div class="bill-grid">
+    <table>
+      <tr>
 
-          </td>
-          <td>
-            
+        <!-- LEFT SIDE -->
+        <td>
+
+          <h4>Bill To</h4>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Company Name</td>
+              <td class="value">Autoboli</td>
+            </tr>
+            <tr>
+              <td class="label">Contact Person</td>
+              <td class="value">03400292040</td>
+            </tr>
+            <tr>
+              <td class="label">Email Address</td>
+              <td class="value">autoboli@example.com</td>
+            </tr>
+            <tr>
+              <td class="label">Billing Address</td>
+              <td class="value">Office #12, Dubai</td>
+            </tr>
+            <tr>
+              <td class="label">Country</td>
+              <td class="value">United Arab Emirates</td>
+            </tr>
+          </table>
+
+        </td>
+
+
+        <!-- RIGHT SIDE -->
+        <td>
+
           <h4>Subscription Details</h4>
-          <p>
-            <strong>Plan :</strong>  Autoboli  Professional Plan <br>
-            <strong>Billing Period :</strong> June 2026 - July 2026 <br>
-            <strong>Qty :</strong> 1 <br>
-            <strong>Price :</strong>€49.00 <br>
-            <strong>Total:</strong> €49.00
-          </p>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Plan</td>
+              <td class="value">Autoboli Professional Plan</td>
+            </tr>
+            <tr>
+              <td class="label">Billing Period</td>
+              <td class="value">June 2026 - July 2026</td>
+            </tr>
+            <tr>
+              <td class="label">Qty</td>
+              <td class="value">1</td>
+            </tr>
+            <tr>
+              <td class="label">Price</td>
+              <td class="value">€49.00</td>
+            </tr>
+            <tr>
+              <td class="label">Total</td>
+              <td class="value">€49.00</td>
+            </tr>
+          </table>
+
 
           <h4>Payment Summary</h4>
-          <p>
-            <strong>Subtotal</strong> €49.00  <br>
-            <strong>Vat (if applicable):</strong>€0.00 <br>
-            <strong>Discount:</strong> €0.00 <br>
-            <strong>Billing Address:</strong> Office #12, Business Avenue <br>
-            <strong>Total Amount:</strong>  €49.00 
-          </p>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Subtotal</td>
+              <td class="value">€49.00</td>
+            </tr>
+            <tr>
+              <td class="label">VAT (if applicable)</td>
+              <td class="value">€0.00</td>
+            </tr>
+            <tr>
+              <td class="label">Discount</td>
+              <td class="value">€0.00</td>
+            </tr>
+            <tr>
+              <td class="label">Billing Address</td>
+              <td class="value">Office #12, Business Avenue</td>
+            </tr>
+            <tr>
+              <td class="label">Total Amount</td>
+              <td class="value">€49.00</td>
+            </tr>
+          </table>
+
 
           <h4>Payment Information</h4>
-          <p>
-            <strong>Payment Method:</strong> Direct Debit  <br>
-            <strong>Transaction ID:</strong> XXXX XXXX XXXX <br>
-            <p>Payment will be automatically deducated according to your billing agreement.</p>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Payment Method</td>
+              <td class="value">Direct Debit</td>
+            </tr>
+            <tr>
+              <td class="label">Transaction ID</td>
+              <td class="value">XXXX XXXX XXXX</td>
+            </tr>
+          </table>
+
+          <p class="payment-note">
+            Payment will be automatically deducted according to your billing agreement.
           </p>
-            <!-- <p><strong>Plan:</strong> Trader Basic<br>
-              <strong>Payment Method:</strong> Stripe<br>
-              <strong>Period:</strong> 19 Feb 2026 – 19 Mar 2026<br>
-              <strong>Status:</strong> <span class="status status-active">Active</span></p> -->
-          </td>
-        </tr>
-      </table>
-    </div>
+
+        </td>
+
+      </tr>
+    </table>
   </div>
+</div>
 
   <!-- Items -->
   <table class="items-table">

@@ -13,7 +13,7 @@ import terms  from '@/views/web/privacy/Terms.vue'
 import disclaimer from '@/views/web/privacy/Disclaimer.vue'
 import faq from '@/views/web/privacy/Faq.vue'
 import blog from '@/views/web/blog/index.vue'
-
+import blogDetail from '@/views/web/blog-detail/index.vue'
 
 
 export default [
@@ -78,6 +78,10 @@ export default [
             {
                 path : "blog",
                 component : blog
+            },
+            {
+                path : 'blogDetail',
+                component : blogDetail
             }
         ],
     },

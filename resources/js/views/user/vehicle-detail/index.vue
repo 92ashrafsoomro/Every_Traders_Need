@@ -201,11 +201,6 @@ export default {
                 // height: '100vh',
             }
         },
-        // isBasicSubscriber() {
-        //     return (
-        //         this.userStore.user?.role === 'Subscriber' && this.userStore.user?.plan?.plan_id === 1
-        //     );
-        // }
     },
 
 
@@ -274,7 +269,7 @@ export default {
             const currentAlerts = await General.get("/api/notifications/userAlertList");
             const alertCount = currentAlerts.recordsTotal || 0;
 
-            const isBasic = this.isBasicSubscriber();
+            const isBasic = this.userStore.isBasicSubscriber();
 
             // Check limit
             if (isBasic && alertCount >= 10) {
@@ -304,13 +299,6 @@ export default {
             const expiry = new Date(endDate);
             return today > expiry;
         },
-
-        isBasicSubscriber() {
-            return (
-                this.userStore.user?.role === 'Subscriber' &&
-                this.userStore.user?.plan?.plan_id === 1
-            );
-        }
     }
 };
 </script>

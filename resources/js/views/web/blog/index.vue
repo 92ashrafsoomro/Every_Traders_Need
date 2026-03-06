@@ -26,11 +26,11 @@
                         <v-chip small color="primary" class="ma-3 text-caption font-weight-medium">
                             News
                         </v-chip>
-                        <div class="text-h5 font-weight-bold text-white pa-6">
+                        <div class="text-h5 font-weight-bold text-whiteLight pa-6">
                             Maximizing Efficiency in Operations
                         </div>
 
-                        <div class="text-white pa-6 pt-0">
+                        <div class="text-whiteLight pa-6 pt-0">
                             We offer a comprehensive range of services designed to meet the unique needs of your
                             business.
                             From strategy development, risk management, our expert team is dedicated to driving success.
@@ -44,7 +44,7 @@
                                 style="min-width:150px; max-width:200px; border-radius:40px;">
 
                                 <div class="text ml-2 mr-2">
-                                    View Detail
+                                    <router-link to="/blogDetail" style="text-decoration: none; color: rgb(var(--v-theme-whiteLight));">Read more </router-link>
                                 </div>
 
                                 <div class="icon bg-white rounded-xl pa-1">
@@ -102,7 +102,7 @@
                             </p>
 
                           
-                                <v-btn variant="elevated" color="primary" class="text-capitalize pa-2 mt-3"  >
+                                <v-btn variant="elevated" color="primary" class="text-capitalize pa-2 mt-3" to="/blogDetail" >
                                     Read more
                                 </v-btn>
                            </div>

@@ -12,7 +12,7 @@
   {
     "label": "Data Management",
     "icon": "mdi-database-check",
-    "path" : "/admin/auction",
+    "path": "/admin/auction",
     "children": [
       {
         "label": "Import Auction",
@@ -29,6 +29,7 @@
   {
     "label": "Ids",
     "icon": "mdi-identifier",
+    "path": "/admin/bodyType",
     "children": [
       {
         "label": "Master",
@@ -45,6 +46,7 @@
   {
     "label": "User Management",
     "icon": "mdi-account-edit",
+    "path": "/admin/members",
     "children": [
       {
         "label": "Members",
@@ -71,6 +73,7 @@
   {
     "label": "Subscriptions Control",
     "icon": "mdi-cash",
+    "path": "/admin/packages",
     "children": [
       {
         "label": "Packages",
@@ -92,6 +95,7 @@
   {
     "label": "Content Management",
     "icon": "mdi-content-paste",
+    "path": "/admin/newsBlog",
     "children": [
       {
         "label": "News",
@@ -113,6 +117,7 @@
   {
     "label": "Admin Access",
     "icon": "mdi-shield-crown",
+    "path": "/admin/staffUser",
     "children": [
       {
         "label": "Admin & Staff",

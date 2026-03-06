@@ -14,18 +14,18 @@
 
             <template v-for="(item, index) in userMenu" :key="index">
                 <!-- Group Title -->
-                <v-list-item v-if="item.type == 'group'" active-class="bg-primary on-primary rounded-sm my-active-menu"
-                    :subtitle="item.label">
+                <v-list-item v-if="item.type == 'group'" :to="item.path" link
+                    active-class="bg-primary on-primary rounded-sm my-active-menu" :subtitle="item.label">
                     <v-divider class="mt-2"></v-divider>
                 </v-list-item>
 
                 <!-- Parent With Children -->
-                <v-list-item v-else-if="item.children" @click="openSubMenu(item)"
+                <v-list-item v-else-if="item.children" :to="item.path" link @click="openSubMenu(item)"
                     active-class="bg-primary on-primary rounded my-active-menu hide-overlay"
                     class="d-flex align-center text-body-2" :class="{
                         'bg-primary on-primary': isChildActive(item)
                     }">
-                    <v-icon v-tooltip="item.label" size="25" class="ml-1">{{ item.icon }}</v-icon>
+                    <v-icon v-tooltip="item.label" size="25" :to="item.path" link class="ml-1">{{ item.icon }}</v-icon>
                     <span v-if="menuWidth == 269" class="ml-3">{{ item.label }}</span>
                 </v-list-item>
 
@@ -44,9 +44,15 @@
 
     </v-navigation-drawer>
 
-    <v-navigation-drawer v-model="showSubMenu" location="left" width="230" temporary style="margin-top: 70px;"
-        :disable-resize-watcher="true">
-        <v-list density="compact">
+    <v-navigation-drawer width="" :permanent="true" @mouseenter="hoverOpen" @mouseleave="hoverClose"
+        style="margin-top: 70px;">
+   <div class="position-absolute d-lg-flex d-md-flex d-none align-center cursor-pointer bg-primary"
+     style="width: 20px; height: 54px; border-radius: 0 10px 10px 0; z-index: 100; right: -20px;"
+     @click="toggleMenu">
+    <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="20"
+            :icon="isMenuOpen ? 'mdi-menu-right' : 'mdi-menu-left'"></v-icon>
+</div>
+        <v-list density="compact" style="width: 250px;">
             <v-list-item v-for="child in subMenuItems" :key="child.label" :to="child.path" link :class="{
                 'bg-primary rounded my-active-menu text-white mx-2 my-2':
                     $route.path === child.path
@@ -70,15 +76,17 @@ import lightshortLogo from "@/assets/images/header/lightshort.png";
 export default {
     data() {
         return {
-            userMenu,
-            themeStore: useThemeStore(),
-            display: useDisplay(),
-            vuetify: useTheme(),
-            isHovering: false,
-            activeMenu: null,
-            showSubMenu: false,
-            subMenuItems: [],
-        };
+        userMenu,
+        themeStore: useThemeStore(),
+        display: useDisplay(),
+        vuetify: useTheme(),
+        isHovering: false,
+        activeMenu: null,
+        showSubMenu: false,
+        subMenuItems: [],
+        menuWidth: 68,  // make it reactive
+        isMenuOpen: false, // track open/close state
+    };
     },
     computed: {
         menuWidth() {
@@ -96,27 +104,31 @@ export default {
             return this.isDark ? darkshortLogo : lightshortLogo;
         },
     },
-    methods: {
-        hoverOpen() {
-            this.isHovering = true;
-        },
-        hoverClose() {
-            this.isHovering = false;
-        },
-        openSubMenu(item) {
-            if (this.activeMenu === item.label) {
-                this.showSubMenu = !this.showSubMenu;
-            } else {
-                this.subMenuItems = item.children;
-                this.showSubMenu = true;
-            }
-            this.activeMenu = item.label;
-        },
-        isChildActive(item) {
-            if (!item.children) return false;
-            return item.children.some(child => child.path === this.$route.path);
-        },
+  methods: {
+    toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+        this.menuWidth = this.isMenuOpen ? 269 : 68;
     },
+    hoverOpen() {
+        if (!this.isMenuOpen) this.menuWidth = 269;
+    },
+    hoverClose() {
+        if (!this.isMenuOpen) this.menuWidth = 68;
+    },
+    openSubMenu(item) {
+        if (this.activeMenu === item.label) {
+            this.showSubMenu = !this.showSubMenu;
+        } else {
+            this.subMenuItems = item.children;
+            this.showSubMenu = true;
+        }
+        this.activeMenu = item.label;
+    },
+    isChildActive(item) {
+        if (!item.children) return false;
+        return item.children.some(child => child.path === this.$route.path);
+    },
+},
 };
 </script>
 

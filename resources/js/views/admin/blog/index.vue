@@ -42,14 +42,17 @@
               <template #item.updated_at="{ item }">
                <span>{{ dateFormate(item.updated_at) }}</span>
               </template>
-              <template #item.category="{item}">
-                <span>{{ item.category.title }}</span>
-
+              <template #item.category="{ item }">
+                <span>{{ item.category?.title || '-' }}</span>
               </template>
-              <template #item.author="{item}">
-                <span>{{ item.author.firstName }} {{ item.author.surname }}</span>
 
+              <template #item.author="{ item }">
+                <span v-if="item.author">
+                  {{ item.author.firstName }} {{ item.author.surname }}
+                </span>
+                <span v-else>-</span>
               </template>
+              
 
               <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t">

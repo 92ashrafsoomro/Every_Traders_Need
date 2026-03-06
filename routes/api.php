@@ -233,6 +233,8 @@ use App\Http\Controllers\Api\TicketUserApiController;
         });
         Route::get('/getCardDetail',[WebController::class,'getCardDetail'])->middleware(['auth:sanctum']);
 
+        Route::get('getBlogDashboard',[BlogController::class,'getBlogDashboard']);
+
     });
 
 

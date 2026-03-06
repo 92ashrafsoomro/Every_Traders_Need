@@ -73,7 +73,7 @@ class BlogController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|image',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:10000',
             'date' => 'required|string|max:255',
             'category_id' => 'required|exists:blog_categories,id',
         ]);
@@ -109,7 +109,7 @@ class BlogController extends Controller
     }
 
 
-             public function show(Request $request,$id)
+    public function show(Request $request,$id)
     {
 
             $model = Blog::find($id);
@@ -130,13 +130,13 @@ class BlogController extends Controller
     }
 
 
-       public function update(Request $request,$id)
+    public function update(Request $request,$id)
     {
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|image',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:10000',
             'date' => 'required|string|max:255',
             'category_id' => 'nullable|exists:blog_categories,id',
         ]);
@@ -194,6 +194,38 @@ class BlogController extends Controller
         ], 200);
 
     }
+public function getBlogDashboard(Request $request)
+{
 
+    $categories = DB::table('blog_categories')
+        ->join('blogs', 'blog_categories.id', '=', 'blogs.category_id')
+        ->select('blog_categories.id', 'blog_categories.title')
+        ->groupBy('blog_categories.id', 'blog_categories.title')
+        ->havingRaw('COUNT(blogs.id) > 0')
+        ->get();
+
+ 
+    $featured = Blog::with('category')->orderBy('created_at', 'desc')->first();
+
+
+    $query = Blog::with('category')->orderBy('created_at', 'desc');
+
+    if ($request->filled('category_id')) {
+        $query->where('category_id', $request->category_id);
+    }
+    
+   
+    if ($featured) {
+        $query->where('id', '!=', $featured->id);
+    }
+
+    $remaining = $query->get()->values();
+
+    return response()->json([
+        'categories' => $categories,
+        'featured'   => $featured,
+        'remaining'  => $remaining
+    ]);
+}
 
 }

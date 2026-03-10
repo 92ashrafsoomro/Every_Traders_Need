@@ -20,7 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -67,7 +67,7 @@ class BlogController extends Controller
     }
 
 
-      public function store(Request $request)
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(),[
@@ -85,27 +85,30 @@ class BlogController extends Controller
             ], 422);
         }
 
+        $slug = Str::slug($request->title);
+
+        $count = Blog::where('slug', 'LIKE', "{$slug}%")->count();
+        if ($count) {
+            $slug = $slug . '-' . ($count + 1);
+        }
+
         $model = Blog::create([
             'title' => $request->title,
+            'slug'  => $slug,
             'description' => $request->description,
             'date' => Carbon::parse($request->date),
             'category_id' => $request->category_id,
-            'created_at' => Carbon::now(),
-            'updated_at' => NULL,
             'author_id' => Auth::user()->id,
         ]);
 
         if ($request->file('image')) {
-             $model->updateImage($request->file('image'));
+            $model->updateImage($request->file('image'));
         }
-     
 
         return response()->json([
             'message' => 'Record Created Successfully',
             'data' => $model
         ],200);
-
-        
     }
 
 

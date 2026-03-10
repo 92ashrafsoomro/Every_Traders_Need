@@ -92,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .center-text {
   position: absolute;
   top: 50%;

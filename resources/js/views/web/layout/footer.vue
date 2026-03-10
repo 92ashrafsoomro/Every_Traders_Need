@@ -60,7 +60,7 @@
                             <v-btn v-for="(link, j) in section.links" :key="j" variant="text"
                                 class="text-left justify-start pa-0 footerElement text-body-2 text-light_text_on"
                                 :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener"
-                                :disabled="link.isdisable" @click.prevent="link.isdisable">
+                                :disabled="link.isdisable">
                                 {{ link.label }}
                             </v-btn>
                         </div>

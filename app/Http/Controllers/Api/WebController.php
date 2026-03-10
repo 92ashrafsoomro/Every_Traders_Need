@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
-
+use App\Models\Blog;
 
 class WebController extends Controller
 {
@@ -50,7 +50,39 @@ class WebController extends Controller
 
     }
 
+    public function getBlogDashboard(Request $request)
+    {
 
+        $categories = DB::table('blog_categories')
+            ->join('blogs', 'blog_categories.id', '=', 'blogs.category_id')
+            ->select('blog_categories.id', 'blog_categories.title')
+            ->groupBy('blog_categories.id', 'blog_categories.title')
+            ->havingRaw('COUNT(blogs.id) > 0')
+            ->get();
+
+    
+        $featured = Blog::with('category')->orderBy('created_at', 'desc')->first();
+
+
+        $query = Blog::with('category')->orderBy('created_at', 'desc');
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+        
+    
+        if ($featured) {
+            $query->where('id', '!=', $featured->id);
+        }
+
+        $remaining = $query->get()->values();
+
+        return response()->json([
+            'categories' => $categories,
+            'featured'   => $featured,
+            'remaining'  => $remaining
+        ]);
+    }
 
 }
 

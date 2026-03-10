@@ -139,5 +139,10 @@
         "path": ""
       }
     ]
+  },
+    {
+    "label": "Global Settings",
+    "icon": "mdi-cog-outline",
+    "path": "/admin/settings"
   }
 ]

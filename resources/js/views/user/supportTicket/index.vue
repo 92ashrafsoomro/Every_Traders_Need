@@ -13,10 +13,19 @@
           </div>
           <div class="w-50 d-flex">
             <v-text-field density="compact" variant="outlined" clearable v-model="filter.search" label="Search tickets..." hide-details />
-            <div class="pl-2 mr-2" >
-                <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
-                    <v-icon icon="mdi-magnify"></v-icon>
-                </v-btn>
+            <div class="pl-2" >
+              <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
+                <v-icon icon="mdi-magnify"></v-icon>
+              </v-btn>
+            </div>
+            <div class=" mr-2" >
+            <v-btn
+              style="height: 44px; margin-left: 10px;"
+              variant="outlined"
+              @click="loadItems"
+            >
+              <v-icon icon="mdi-reload"></v-icon>
+            </v-btn>
             </div>
             <div class=" pt-lg-0 pt-md-0 pt-2" >
                 <v-btn to="/user/supportTicket/create" color="primary" style="height: 44px;" variant="flat">

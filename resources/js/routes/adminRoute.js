@@ -27,6 +27,7 @@ import blog from "@/views/admin/blog/route"
 import category from "@/views/admin/category/route"
 import restrictions from "@/views/admin/restrictions/route"
 import supportTicket from "@/views/admin/supportTicket/route"
+import globalSettings from "@/views/admin/settings/route"
 export default [
     {
         path: "/admin",
@@ -60,7 +61,8 @@ export default [
             ...blog,
             ...category,
             ...restrictions,
-            ...supportTicket
+            ...supportTicket,
+            ...globalSettings
             // ...upComing,
             // ...upGrade,
             // ...final,

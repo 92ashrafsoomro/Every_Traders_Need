@@ -130,6 +130,11 @@
     ]
   },
   {
+    "label": "Global Settings",
+    "icon": "mdi-cog-outline",
+    "path": "/admin/settings"
+  },
+  {
     "label": "Back To User",
     "icon": "mdi-account",
     "path": "/user/dashboard"

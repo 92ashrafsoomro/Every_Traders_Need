@@ -24,10 +24,16 @@
             <h2 class="text-h5 mb-6">Site Information</h2>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field label="Email" v-model="form.email" variant="outlined" density="compact" />
+                <v-text-field label="Contact Email" v-model="form.email" variant="outlined" density="compact" />
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field label="Site Name" v-model="form.sitename" variant="outlined" density="compact" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Meta Title" v-model="form.meta_title" variant="outlined" density="compact" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Meta Description" v-model="form.meta_description" variant="outlined" density="compact" />
               </v-col>
             </v-row>
           </v-window-item>
@@ -57,16 +63,24 @@ export default {
     this.loadData()
   },
   methods: {
-        async loadData() {
-            this.loading = true;
-            try {
-                let res = await General.get("/api/cruds/settings", this.filter)
-                this.form = res.data.data ?? res.data
-            } catch (error) {
-                alert("Data Not Fetch ")
-                this.loading = false
-            }
-        },
+    async loadData() {
+        this.loading = true;
+        try {
+            let res = await General.get("/api/cruds/settings", this.filter)
+            const data = res.data.data ?? res.data;
+
+            // Convert array to object
+            this.form = {};
+            data.forEach(item => {
+                this.form[item.key] = item.value;
+            });
+
+            this.loading = false;
+        } catch (error) {
+            alert("Data Not Fetch ");
+            this.loading = false;
+        }
+    },
     },
 };
 </script>

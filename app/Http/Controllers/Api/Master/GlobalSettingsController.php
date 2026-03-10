@@ -3,68 +3,81 @@
 namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Make;
+use App\Models\Setting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-
 
 class GlobalSettingsController extends Controller
 {
-
-
-      public function index(Request $request)
+    // List all settings
+    public function index()
     {
-
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
-
-        //Query
-        $query = Make::query();
-
-        //Filter
-        if($request->has('id') && $request->id != '') {
-            $query->where('id',$request->id);
-        }
-
-        if($request->filled('name')){
-            $query->whereRaw('LOWER(name) = ?',[strtolower($request->name)]);
-        }
-        
-        if($request->filled('search')) {
-            $query->where('make.name', 'like', '%'.$request->search.'%');
-            $query->orWhere('make.id', 'like', '%'.$request->search.'%');
-        }
-
-        $count = (clone $query)->count();
-        $data  = $query->select([
-                    '*'
-                ])
-                ->skip($offset)
-                ->take($length)
-                ->orderByDesc('id')
-                ->get()
-                ->map(function($item){
-                     $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
-                    return $item;
-                });
-            
-        
+        $settings = Setting::all();
         return response()->json([
-            'recordsTotal' => $count,
-            'recordsFiltered' => $count,
-            'page' => $page,
-            'offset' => $offset,
-            'last_page' => ceil($count / $length),
-            'data' => $data,
+            'status' => true,
+            'data' => $settings
         ]);
-
     }
 
+    // Get single setting by id
+    public function show($id)
+    {
+        $setting = Setting::find($id);
+        if (!$setting) {
+            return response()->json(['status' => false, 'message' => 'Setting not found'], 404);
+        }
+        return response()->json(['status' => true, 'data' => $setting]);
+    }
 
+    // Create new setting
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'key' => 'required|unique:settings,key',
+            'value' => 'nullable|string',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 422);
+        }
 
+        $setting = Setting::create($request->only('key', 'value'));
+
+        return response()->json(['status' => true, 'data' => $setting, 'message' => 'Setting created successfully']);
+    }
+
+    // Update setting
+    public function update(Request $request, $id)
+    {
+        $setting = Setting::find($id);
+        if (!$setting) {
+            return response()->json(['status' => false, 'message' => 'Setting not found'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'key' => 'required|unique:settings,key,' . $id,
+            'value' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $setting->update($request->only('key', 'value'));
+
+        return response()->json(['status' => true, 'data' => $setting, 'message' => 'Setting updated successfully']);
+    }
+
+    // Delete setting
+    public function destroy($id)
+    {
+        $setting = Setting::find($id);
+        if (!$setting) {
+            return response()->json(['status' => false, 'message' => 'Setting not found'], 404);
+        }
+
+        $setting->delete();
+
+        return response()->json(['status' => true, 'message' => 'Setting deleted successfully']);
+    }
 }

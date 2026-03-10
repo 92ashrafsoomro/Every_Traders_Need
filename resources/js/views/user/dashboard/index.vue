@@ -362,6 +362,9 @@ export default {
 </script>
 
 <style scoped>
+.sidebarToggle{
+  display: none;
+}
 .bg-primary-darken-1 {
   background-color: #0d1b2a;
 }

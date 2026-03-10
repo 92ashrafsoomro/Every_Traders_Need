@@ -67,26 +67,32 @@
             <v-row class="my-12">
                 <v-col cols="12" md="4">
                     <v-card class=" rounded-lg elevation-4">
-                      <v-img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"  style="width:100%; height:100%; object-fit:cover;"/>
-                    <div class="pa-4 text-center">
-                        Maximizing Efficiency in Operations
-                    </div>
+                        <v-img
+                            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <div class="pa-4 text-center">
+                            Maximizing Efficiency in Operations
+                        </div>
                     </v-card>
                 </v-col>
-               <v-col cols="12" md="4">
+                <v-col cols="12" md="4">
                     <v-card class=" rounded-lg elevation-4">
-                      <v-img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"  style="width:100%; height:100%; object-fit:cover;"/>
-                    <div class="pa-4 text-center">
-                        Maximizing Efficiency in Operations
-                    </div>
+                        <v-img
+                            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <div class="pa-4 text-center">
+                            Maximizing Efficiency in Operations
+                        </div>
                     </v-card>
                 </v-col>
-                 <v-col cols="12" md="4">
+                <v-col cols="12" md="4">
                     <v-card class=" rounded-lg elevation-4">
-                      <v-img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"  style="width:100%; height:100%; object-fit:cover;"/>
-                    <div class="pa-4 text-center">
-                        Maximizing Efficiency in Operations
-                    </div>
+                        <v-img
+                            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <div class="pa-4 text-center">
+                            Maximizing Efficiency in Operations
+                        </div>
                     </v-card>
                 </v-col>
             </v-row>
@@ -99,26 +105,26 @@
                 <div class="text-subtitle-1 mb-8" style="max-width: 680px; margin: 0 auto;">
                     Get personalized recommendation in 60 seconds — answer 5 quick questions
                 </div>
-                <v-btn color="white" class="text-primary font-weight-bold text-body-1"  rounded>
+                <v-btn color="white" class="text-primary font-weight-bold text-body-1" rounded>
                     Find My Perfect Phone
                 </v-btn>
             </v-card>
 
             <!-- Conclusion -->
-           <div class="bg-surface py-4 rounded-lg">
-             <h2 class="text-h4 font-weight-bold text-center">
-                Final Thoughts
-            </h2>
-            <div class="text-body-1 text-center mx-auto" style=" line-height: 1.85;">
-               <ul style="list-style: none;">
-                <li v-for="value in [1,2,3,4]">
-                  <v-icon color="primary" class="mr-3">
-                    mdi-check-circle
-                  </v-icon>  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </li>
-               </ul>
+            <div class="bg-surface py-4 rounded-lg">
+                <h2 class="text-h4 font-weight-bold text-center">
+                    Final Thoughts
+                </h2>
+                <div class="text-body-1 text-center mx-auto" style=" line-height: 1.85;">
+                    <ul style="list-style: none;">
+                        <li v-for="value in [1, 2, 3, 4]">
+                            <v-icon color="primary" class="mr-3">
+                                mdi-check-circle
+                            </v-icon> Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </li>
+                    </ul>
+                </div>
             </div>
-           </div>
 
         </v-container>
     </v-container>
@@ -126,8 +132,14 @@
 
 <script>
 export default {
-    name: 'BlogPostExample'
+    name: 'BlogPostExample',
+
+    mounted() {
+        const slug = this.$route.params.slug
+        console.log(slug)
+    }
 }
+
 </script>
 
 <style scoped>

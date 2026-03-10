@@ -28,7 +28,7 @@
 
                     <!-- Button Bottom -->
                     <div class="mt-auto pa-6">
-                    <router-link :to="`/blog/detail/${featuredArticle.id}`" style="text-decoration: none;">
+                    <router-link :to="`/blog/${featuredArticle.slug}`" style="text-decoration: none;">
                         <div class="button-hover d-flex justify-space-between align-center pa-3"
                             style="min-width:100px; max-width:130px; border-radius:40px;">
 
@@ -95,7 +95,7 @@
 
                             <v-card-actions v-if="isLongText(item.description)" class="pb-4 px-4">
                                 <v-btn text color="primary" class="text-capitalize pa-0"
-                                    @click="$router.push(`/blog/detail/${item.id}`)">
+                                   @click="$router.push(`/blog/${item.slug}`)">
                                     Read more
                                 </v-btn>
                             </v-card-actions>

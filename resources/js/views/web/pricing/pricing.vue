@@ -32,16 +32,14 @@
                     :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }" :style="[
                         { 'border-radius': '30px', 'min-height': '700px' },
                         userStore.user?.plan?.plan_id === item.id
-                            ? { 'border': '2px solid white !important' }
+                            ? { 'border': '2px solid rgb(var(--v-theme-border)) !important' }
                             : { 'border': '2px solid rgb(var(--v-theme-primary)) !important' }
                     ]">
 
 
-                    <div class="bg-primary">
-
-                    </div>
-                    <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
-                            border-radius: 20px !important ;">
+                    
+                    <div class="rounded-lg   bg-surface pa-4 shadow-lg" style="
+                            border-radius: 20px !important ; ">
 
                         <div class="bg-background pa-4 rounded-xl" style=" height: 175px">
                             <div class="d-flex justify-end  ">

@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\Master\TaskManagementController;
 use App\Http\Controllers\Api\Master\StaffController;
 use App\Http\Controllers\Api\Master\TicketController;
+use App\Http\Controllers\Api\Master\GlobalSettingsController;
 
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
@@ -131,6 +132,7 @@ use App\Http\Controllers\Api\TicketUserApiController;
         Route::resource('newsCategory',NewsCategoryController::class);
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
+        Route::resource('settings',GlobalSettingsController::class);
         
         
         Route::get('/taskManagement/counters',[TaskManagementController::class,'counters']);

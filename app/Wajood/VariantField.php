@@ -48,8 +48,7 @@ use Illuminate\Support\Facades\Hash;
     }
 
 
-    public function removeDoor() {
-        $value = strtolower($this->value);
+    public function removeDoor( $value) {
         $value = preg_replace('/\d+\.\d+/i', '', $value);
         $value = preg_replace('/\d+\s*d+r/i', '', $value);
         $value = preg_replace('/\d+\s*kw/i', '', $value);
@@ -64,8 +63,8 @@ use Illuminate\Support\Facades\Hash;
         public function default()
     {
 
-        $this->value = $this->removeDoor();
         $value = strtolower($this->value);
+        $value = $this->removeDoor($value);
 
         // Case 1 Direct Check
         if(in_array($value,$this->data)){

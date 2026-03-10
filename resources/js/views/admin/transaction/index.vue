@@ -198,6 +198,13 @@
                                    mdi-eye
                                 </v-icon>
                             </router-link>
+                            <v-icon
+                            color="info"
+                            class="pa-4"
+                            @click="downloadPdf(item.id)"
+                            >
+                            mdi-download
+                            </v-icon>
                             
                         </template>
                         <!-- @click="showDialog = true" -->
@@ -223,7 +230,7 @@
 import Subscriptions from '@/models/subscriptions.model';
 import PlansDropDron from "@components/PlanDropDown.vue"
 import ShowInvoice from './showInvoice.vue';
-
+import General from '@/models/general.model';
 export default {
 
   components: {
@@ -358,6 +365,32 @@ export default {
                 return "default";
             }
         },
+
+        async downloadPdf(id) {
+            try {
+                const response = await General.get(`/api/user/billing/${id}`, {
+                    responseType: "blob" // Ye "blob" hona zaruri hai
+                });
+
+                // Response object se blob banayein
+                const blob = new Blob([response.data], { type: 'application/pdf' });
+                
+                // Agar aap browser window mein download trigger kar rahe hain
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", `invoice-${id}.pdf`);
+                document.body.appendChild(link);
+                link.click();
+                
+                // Memory free karein
+                // window.URL.revokeObjectURL(url);
+                link.remove();
+            } catch (error) {
+                console.error("PDF Download error:", error);
+                alert("PDF download failed");
+            }
+        }
 
 
 

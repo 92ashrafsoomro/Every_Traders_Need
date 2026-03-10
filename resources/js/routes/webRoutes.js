@@ -80,7 +80,7 @@ export default [
                 component : blog
             },
             {
-                path : 'blogDetail',
+               path: "blog/:slug",
                 component : blogDetail
             }
         ],

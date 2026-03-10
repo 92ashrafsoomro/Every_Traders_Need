@@ -90,9 +90,7 @@ export default {
         checkRole() {
             if (this.userStore.user.role === 'Subscriber') {
                 this.$router.replace("/user/dashboard");
-            } else {
-                this.$router.replace("/admin/dashboard");
-            }
+            } 
         }, toggleFullScreen() {
             if (!this.isFullScreen) {
                 const element = document.documentElement;

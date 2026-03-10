@@ -1,148 +1,187 @@
 <template>
-    <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
-        <div class="v-navigation-drawer__content">
-           <v-list density="compact"   class="" nav>
+  <v-navigation-drawer
+    class="pa-0"
+    app
+    dark
+    color=""
+    :width="68"
+    v-model="themeStore.menuOpen"
+  >
+    <div class="v-navigation-drawer__content">
+      <v-list density="compact" nav>
+        <v-list-item class="d-flex" style="height: 57px;">
+          <img
+            v-if="menuWidth == 269"
+            :src="currentLogo"
+            style="width: auto; height: 40px; margin-left: -1px;"
+            class="d-flex justify-center align-center"
+          />
+          <img
+            v-else
+            :src="smallCurrent"
+            style="width: 40px; height: 40px;"
+          />
+        </v-list-item>
 
-                <v-list-item class="d-flex " style="height: 57px; ">
-                    <img v-if="menuWidth == 269" 
-                        :src="currentLogo" style="width: auto; height: 40px; margin-left: -1px;" class="d-flex justify-center align-center" />
-                    
-                    <img v-else :src="smallCurrent" 
-                        style="width: 40px; height: 40px; " />
-                </v-list-item>
-               <v-divider class="ps-0 pe-0"></v-divider>
+        <v-divider class="ps-0 pe-0"></v-divider>
 
+        <template v-for="(item, index) in userMenu" :key="index">
+          <v-list-item
+            v-if="item.type == 'group'"
+            class="ml-n1 mt-8"
+            title=""
+            :subtitle="item.label"
+          >
+            <v-divider class="mt-2"></v-divider>
+          </v-list-item>
 
-                <!-- Dynamic Menu Items -->
-                <template v-for="(item, index) in userMenu" :key="index">
+          <v-list-item
+            v-else
+            :to="item.hasOwnProperty('children') ? undefined : item.path"
+            link
+            :ripple="false"
+            class="text-subtitle-1"
+            active-class="bg-primary on-primary rounded my-active-menu hide-overlay"
+            @click="item.hasOwnProperty('children') ? openSubSidebar(item) : null"
+          >
+            <template #prepend>
+              <v-icon v-tooltip="item.label" size="25" class="ml-1">
+                {{ item.icon }}
+              </v-icon>
+            </template>
+          </v-list-item>
+        </template>
+      </v-list>
+    </div>
+  </v-navigation-drawer>
 
-                    <v-list-item v-if="item.type == 'group'" class="ml-n1 mt-8"  title="" :subtitle="item.label">
-                        <v-divider class="mt-2"></v-divider>
-                    </v-list-item>
-
-                    <v-list-group :value="item.label" v-else-if="item.hasOwnProperty('children')">
-                        <template #activator="{ props }">
-                            <v-list-item 
-                            v-bind="props" 
-                           :subtitle="item.label"
-                            :prepend-icon="item.icon" class="text-body-2" />
-                              <v-divider></v-divider>
-                        
-                        </template>
-
-                        <v-list-item  
-                        v-for="child in item.children" 
-                        :to="child.path" 
-                        active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
-                            <div class="d-flex  position-absolute" style="top: 9px; left: 10px;">                            
-                                <v-icon>{{ child.icon }}</v-icon>
-                                <span class="ml-7">{{ child.label }}</span>
-                            </div>
-                    </v-list-item>
-                    </v-list-group>
-                
-                    <v-list-item v-else-if="!item.hasOwnProperty('children')"     
-                        :to="item.path" 
-                        link 
-                        :prepend-icon="item.icon" 
-                        :ripple="false"
-                        :hide-overlay="false"
-                        class="text-subtitle-1 "
-                        active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
-                        <template #title>
-                            <span :ripple="false" class="text-body-1 ">{{ item.label }}</span>
-                        </template>
-                    </v-list-item>
-
-                    <v-list-item class=" mt-8" v-else title="" :subtitle="item.label">
-                        <v-divider class="mt-2"></v-divider>
-                    </v-list-item>
-                </template>
-
-
-            <div class="d-flex ga-6 ml-2"> <v-icon size="24" class="mt-2 text-text_light_on">mdi-shield-crown</v-icon>
-                <v-list-item active-class="bg-primary on-primary  rounded my-active-menu hide-overlay " >
-                 <router-link to="/user/dashboard" style="text-decoration: none ; color: white;" class="text-body-1 text-whiteLight"> Back To User</router-link></v-list-item>
-            </div>
-           </v-list>
+  <v-navigation-drawer
+    v-model="subMenuOpen"
+    permanent
+    location="left"
+    dark
+    color=""
+    :width="269"
+    :style="{
+      left: '68px',
+      top: '',
+      height: '100vh',
+      position: 'fixed',
+      zIndex: 5,
+      transform: subMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
+      transition: 'transform 0.3s ease'
+    }"
+    class="child-sidebar"
+  >
+    <div class="v-navigation-drawer__content">
+      <v-list density="compact" nav>
+        <div
+          class="d-flex justify-space-between align-center pa-4"
+       
+        >
+          <span class="text-body-1 font-weight-medium">{{ currentGroupLabel }}</span>
+          <v-icon size="24" @click="closeSubSidebar" class="cursor-pointer">
+            mdi-close
+          </v-icon>
+          
         </div>
-    </v-navigation-drawer>
+        <v-divider class="pa-0"></v-divider>
+
+        <v-list-item
+          v-for="child in currentChildren"
+          :key="child.label"
+          link
+          :ripple="false"
+          class="text-subtitle-1"
+          :class="{ 'bg-primary on-primary rounded my-active-menu hide-overlay': $route.path === child.path }"
+          @click="navigateTo(child.path)"
+        >
+          <template #prepend>
+            <v-icon size="24">{{ child.icon }}</v-icon>
+          </template>
+          <template #title>
+            <span class="ml-3">{{ child.label }}</span>
+          </template>
+        </v-list-item>
+      </v-list>
+    </div>
+  </v-navigation-drawer>
 </template>
 
 <script>
 import { useDisplay, useTheme } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
-import  userMenu  from "./adminMenu.json";
-import logo from "@assets/images/logo/logo.png"
-import newLogo from "@assets/images/logo/newLogo.png"
-import darkLogo from "@/assets/images/header/darkfull.png"
-import lightLogo from "@/assets/images/header/lightfull.png"
-import darkshortLogo from "@/assets/images/header/darkshort.png"
-import lightshortLogo from "@/assets/images/header/lightshort.png"
+import userMenu from "./adminMenu.json";
+import darkLogo from "@/assets/images/header/darkfull.png";
+import lightLogo from "@/assets/images/header/lightfull.png";
+import darkshortLogo from "@/assets/images/header/darkshort.png";
+import lightshortLogo from "@/assets/images/header/lightshort.png";
+
 export default {
-    data() {
-        return {
-            userMenu,
-            themeStore: useThemeStore(),
-            display: useDisplay(),
-            vuetify: useTheme(),
-            logo: logo,
-            newLogo 
-        };
+  data() {
+    return {
+      userMenu,
+      themeStore: useThemeStore(),
+      display: useDisplay(),
+      vuetify: useTheme(),
+      subMenuOpen: false,
+      currentChildren: [],
+      currentGroupLabel: ""
+    };
+  },
+  computed: {
+    menuWidth() {
+      if (this.display.mdAndDown) return "269";
+      return this.themeStore.menuType === "expanded" ? "269" : "68";
     },
-    computed: {
-        menuWidth() {
-            
-            // md, sm, xs
-            if (this.display.mdAndDown) {
-                return  "269";
-            } else {
-                //for: lg, xl
-                return this.themeStore.menuType == "expanded" ? "269" : "68";
-            }
-
-        },
-        isDark(){
-            return this.vuetify.global.name === "adminDark"
-        },
-        currentLogo(){
-            return this.isDark ? darkLogo : lightLogo
-        },
-         smallCurrent(){
-             return this.isDark ? darkshortLogo : lightshortLogo
-        }
+    isDark() {
+      return this.vuetify.global.name === "adminDark";
     },
-    methods: {
-        images(){
-            return this.isDark ? darkLogo : lightLogo;
-        },
-        toggleTheme(){
-            this.vuetify.change(this.isDark ? "adminLight" : "adminDark" )
-        }
+    currentLogo() {
+      return this.isDark ? darkLogo : lightLogo;
     },
-    mounted() { 
-
+    smallCurrent() {
+      return this.isDark ? darkshortLogo : lightshortLogo;
+    }
+  },
+  methods: {
+    openSubSidebar(item) {
+      this.currentChildren = item.children || [];
+      this.currentGroupLabel = item.label;
+      this.subMenuOpen = true;
     },
+    closeSubSidebar() {
+      this.subMenuOpen = false;
+    },
+    navigateTo(path) {
+      if (path && path.trim() !== "") {
+        this.$router.push(path);
+      }
+    }
+  }
 };
 </script>
-<style >
 
-.my-active-menu  .v-list-item__overlay {
+<style>
+.my-active-menu .v-list-item__overlay {
   display: none !important;
 }
 
-.v-list-item--nav .v-list-item-title{
-    font-size: 16px !important;
+.v-list-item--nav .v-list-item-title {
+  font-size: 16px !important;
 }
+
 .v-navigation-drawer__content {
   overflow-y: auto;
-
-  scrollbar-width: none;     
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .v-navigation-drawer__content::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
+.child-sidebar {
+  box-shadow: 4px 0 12px rgba(0,0,0,0.35) !important;
+}
 </style>

@@ -181,10 +181,9 @@ export default {
      async loadItems() {
     this.loading = true;
     try {
-        // Always fetch full list, ignore filter.length for basic subscriber
         const apiFilter = { ...this.filter };
-        if (this.isBasicSubscriber()) {
-            apiFilter.length = 1000; // ya total items ka safe max
+        if (this.userStore.isBasicSubscriber()) {
+            apiFilter.length = 1000;
         }
 
         const res = await UserModel.getWatchList(apiFilter);
@@ -203,12 +202,6 @@ export default {
         this.loading = false;
     }
 },
-        isBasicSubscriber() {
-            return (
-                this.userStore.user?.role === 'Subscriber' &&
-                this.userStore.user?.plan?.plan_id === 1
-            );
-        }
         // dateFormate(date){
         //     if(!date) return ''
         //      return date?.split('T')[0].split(' ')[0]
@@ -217,13 +210,13 @@ export default {
     },
     computed: {
     displayedItems() {
-        if (this.isBasicSubscriber()) {
+        if (this.userStore.isBasicSubscriber()) {
             return this.items.slice(0, 10);
         }
         return this.items;
     },
     showUpgradeMessage() {
-        return this.isBasicSubscriber() && this.items.length > 10;
+        return this.userStore.isBasicSubscriber() && this.items.length > 10;
     }
 }
 };

@@ -4,14 +4,15 @@
 
   <v-container fluid class=" bg-background" style="padding: 0 !important;">
     <v-row no-gutters>
-      <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3" style="background-color: rgb(var(--v-theme-primary),0.3);">
+      <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3"
+        style="background-color: rgb(var(--v-theme-primary),0.3);">
         <div>
           <h5>News</h5>
         </div>
         <div>
           <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="drawer = true">
-          Filter
-        </v-btn>
+            Filter
+          </v-btn>
         </div>
       </div>
       <v-col cols="12" md="3" class="d-none d-md-flex pa-0"
@@ -72,8 +73,8 @@
       <v-col cols="12" md="9" class="px-12" style="border-left: 2px solid  rgb(var(--v-theme-border));">
         <v-card v-if="selectedBlog" flat rounded="lg" class="">
           <div class="bg-background pa-6">
-            <div class="bg-background rounded-lg overflow-hidden " style="height: 200px;">
-              <img :src="selectedBlog?.category?.image_preview || image" alt="Image" class="w-full h-full object-cover">
+            <div class="bg-background rounded-lg overflow-hidden " style="height: 200px; width: 100%;">
+              <v-img :src="selectedBlog.image_preview || placeholder" height="200" cover class="rounded-lg"></v-img>
             </div>
 
             <div class="d-flex align-center justify-space-between mb-4">
@@ -98,10 +99,9 @@
 
             <div cols="12" md="7">
               <h1 class="text-h4 font-weight-bold mb-6">
-                <!-- {{ selectedBlog.title }} -->
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt quo in, aspernatur
+                {{ selectedBlog.title }}
               </h1>
-              <p class="text-light_text_on text-body-1">by Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+              <p class="text-light_text_on text-body-1">{{ selectedBlog.subtitle || "No Sub Title" }}</p>
               <div class="text-body-2 mt-2">
                 {{ selectedBlog.date }}
               </div>
@@ -110,82 +110,13 @@
           <div>
             <v-divider />
             <div class="pa-6">
-              <!--<p> {{ selectedBlog.description }}</p> -->
-              <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt quo in, aspernatur laborum
-                obcaecati cupiditate minima maiores autem odio quasi atque at dolores suscipit ipsum minus corrupti
-                fuga dicta reprehenderit!
-                Recusandae modi aliquam, excepturi nam quam inventore neque asperiores! Ipsam culpa ipsa alias
-                adipisci? Eius velit dolores sapiente maiores id, quis veritatis ullam totam. Earum, dicta. Sapiente
-                iste sed magni.
-                Vitae adipisci laborum nostrum iusto quia quod doloremque veniam, ea recusandae et nisi magnam qui est
-                sapiente hic atque optio minus, sed culpa. Magnam ullam sint quam nostrum ab tempora.
-                Id cumque doloribus, sit repellat incidunt repellendus ipsum quibusdam inventore tempore perferendis,
-                animi, deleniti quis praesentium veritatis vero eum blanditiis iure sunt omnis! Quibusdam explicabo
-                voluptatibus quas, dolorem molestiae illo?
-                Quae eligendi accusantium laboriosam, doloribus quas, doloremque fugiat neque dicta, nihil in vero
-                dignissimos laborum veritatis ipsa ipsam similique tenetur explicabo error impedit iusto nulla sed
-                provident porro repellendus! Laborum!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-                quo in, aspernatur laborum
-                obcaecati cupiditate minima maiores autem odio quasi atque at dolores suscipit ipsum minus corrupti
-                fuga dicta reprehenderit!
-                Recusandae modi aliquam, excepturi nam quam inventore neque asperiores! Ipsam culpa ipsa alias
-                adipisci? Eius velit dolores sapiente maiores id, quis veritatis ullam totam. Earum, dicta. Sapiente
-                iste sed magni.
-                Vitae adipisci laborum nostrum iusto quia quod doloremque veniam, ea recusandae et nisi magnam qui est
-                sapiente hic atque optio minus, sed culpa. Magnam ullam sint quam nostrum ab tempora.
-                Id cumque doloribus, sit repellat incidunt repellendus ipsum quibusdam inventore tempore perferendis,
-                animi, deleniti quis praesentium veritatis vero eum blanditiis iure sunt omnis! Quibusdam explicabo
-                voluptatibus quas, dolorem molestiae illo?
-                Quae eligendi accusantium laboriosam, doloribus quas, doloremque fugiat neque dicta, nihil in vero
-                dignissimos laborum veritatis ipsa ipsam similique tenetur explicabo error impedit iusto nulla sed
-                provident porro repellendus! Laborum!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-                quo in, aspernatur laborum
-                obcaecati cupiditate minima maiores autem odio quasi atque at dolores suscipit ipsum minus corrupti
-                fuga dicta reprehenderit!
-                Recusandae modi aliquam, excepturi nam quam inventore neque asperiores! Ipsam culpa ipsa alias
-                adipisci? Eius velit dolores sapiente maiores id, quis veritatis ullam totam. Earum, dicta. Sapiente
-                iste sed magni.
-                Vitae adipisci laborum nostrum iusto quia quod doloremque veniam, ea recusandae et nisi magnam qui est
-                sapiente hic atque optio minus, sed culpa. Magnam ullam sint quam nostrum ab tempora.
-                Id cumque doloribus, sit repellat incidunt repellendus ipsum quibusdam inventore tempore perferendis,
-                animi, deleniti quis praesentium veritatis vero eum blanditiis iure sunt omnis! Quibusdam explicabo
-                voluptatibus quas, dolorem molestiae illo?
-                Quae eligendi accusantium laboriosam, doloribus quas, doloremque fugiat neque dicta, nihil in vero
-                dignissimos laborum veritatis ipsa ipsam similique tenetur explicabo error impedit iusto nulla sed
-                provident porro repellendus! Laborum!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-                quo in, aspernatur laborum
-                obcaecati cupiditate minima maiores autem odio quasi atque at dolores suscipit ipsum minus corrupti
-                fuga dicta reprehenderit!
-                Recusandae modi aliquam, excepturi nam quam inventore neque asperiores! Ipsam culpa ipsa alias
-                adipisci? Eius velit dolores sapiente maiores id, quis veritatis ullam totam. Earum, dicta. Sapiente
-                iste sed magni.
-                Vitae adipisci laborum nostrum iusto quia quod doloremque veniam, ea recusandae et nisi magnam qui est
-                sapiente hic atque optio minus, sed culpa. Magnam ullam sint quam nostrum ab tempora.
-                Id cumque doloribus, sit repellat incidunt repellendus ipsum quibusdam inventore tempore perferendis,
-                animi, deleniti quis praesentium veritatis vero eum blanditiis iure sunt omnis! Quibusdam explicabo
-                voluptatibus quas, dolorem molestiae illo?
-                Quae eligendi accusantium laboriosam, doloribus quas, doloremque fugiat neque dicta, nihil in vero
-                dignissimos laborum veritatis ipsa ipsam similique tenetur explicabo error impedit iusto nulla sed
-                provident porro repellendus! Laborum!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-                quo in, aspernatur laborum
-                obcaecati cupiditate minima maiores autem odio quasi atque at dolores suscipit ipsum minus corrupti
-                fuga dicta reprehenderit!
-                Recusandae modi aliquam, excepturi nam quam inventore neque asperiores! Ipsam culpa ipsa alias
-                adipisci? Eius velit dolores sapiente maiores id, quis veritatis ullam totam. Earum, dicta. Sapiente
-                iste sed magni.
-                Vitae adipisci laborum nostrum iusto quia quod doloremque veniam, ea recusandae et nisi magnam qui est
-                sapiente hic atque optio minus, sed culpa. Magnam ullam sint quam nostrum ab tempora.
-                Id cumque doloribus, sit repellat incidunt repellendus ipsum quibusdam inventore tempore perferendis,
-                animi, deleniti quis praesentium veritatis vero eum blanditiis iure sunt omnis! Quibusdam explicabo
-                voluptatibus quas, dolorem molestiae illo?
-                Quae eligendi accusantium laboriosam, doloribus quas, doloremque fugiat neque dicta, nihil in vero
-                dignissimos laborum veritatis ipsa ipsam similique tenetur explicabo error impedit iusto nulla sed
-                provident porro repellendus! Laborum!</p>
+              <p> {{ selectedBlog.description }}</p>
+
             </div>
           </div>
-          <div cols="12" md="5">
-            <v-img :src="selectedBlog.image_preview || placeholder" cover rounded="lg" />
-          </div>
+          <!-- <div cols="12" md="5">
+         
+          </div> -->
 
 
 

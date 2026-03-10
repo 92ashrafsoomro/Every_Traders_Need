@@ -1,19 +1,18 @@
 [
- 
   {
     "label": "Dashboard",
     "icon": "mdi-view-dashboard-outline",
     "path": "/admin/dashboard"
   },
-
   {
     "label": "Task Management",
-"icon": "mdi-checkbox-marked-circle-auto-outline",
-            "path": "/admin/taskManagement/all"
+    "icon": "mdi-checkbox-marked-circle-auto-outline",
+    "path": "/admin/taskManagement/all"
   },
   {
     "label": "Data Management",
-     "icon": "mdi-database-check",
+    "icon": "mdi-database-check",
+    "path": "/admin/auction",
     "children": [
       {
         "label": "Import Auction",
@@ -27,10 +26,10 @@
       }
     ]
   },
-
   {
     "label": "Ids",
     "icon": "mdi-identifier",
+    "path": "/admin/bodyType",
     "children": [
       {
         "label": "Master",
@@ -44,11 +43,10 @@
       }
     ]
   },
-
-
   {
     "label": "User Management",
     "icon": "mdi-account-edit",
+    "path": "/admin/members",
     "children": [
       {
         "label": "Members",
@@ -75,6 +73,7 @@
   {
     "label": "Subscriptions Control",
     "icon": "mdi-cash",
+    "path": "/admin/packages",
     "children": [
       {
         "label": "Packages",
@@ -96,6 +95,7 @@
   {
     "label": "Content Management",
     "icon": "mdi-content-paste",
+    "path": "/admin/newsBlog",
     "children": [
       {
         "label": "News",
@@ -117,6 +117,7 @@
   {
     "label": "Admin Access",
     "icon": "mdi-shield-crown",
+    "path": "/admin/staffUser",
     "children": [
       {
         "label": "Admin & Staff",
@@ -139,5 +140,10 @@
         "path": ""
       }
     ]
+  },
+  {
+    "label": "Back To User",
+    "icon": "mdi-account",
+    "path": "/user/dashboard"
   }
 ]

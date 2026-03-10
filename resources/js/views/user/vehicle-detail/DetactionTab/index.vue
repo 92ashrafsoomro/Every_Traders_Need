@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-surface border rounded-sm ">
+    <div class="bg-surface border rounded-sm " v-if="!hideForSubscriberPlanOne">
 
         <div v-if="vehicleStore && vehicleStore.reauction">
             <div class="pa-7 d-flex  flex-wrap flex-wrap align-start justify-space-between">
@@ -255,6 +255,57 @@
             </div>
         </div>
     </div>
+    <div
+  v-else
+  class="pa-7 d-flex align-center justify-center"
+  style="position: relative; min-height: 400px;"
+>
+    <!-- BLURRED IMAGE -->
+    <img
+        :src="image"
+        alt="Restricted"
+        style="
+          
+            filter: blur(6px);
+            opacity: 0.6;
+            border-radius: 8px;
+        "
+    />
+
+    <!-- OVERLAY TEXT -->
+    <div
+        class="d-flex flex-column align-center justify-center"
+        style="
+            position: absolute;
+            inset: 0;
+            text-align: center;
+        "
+    >
+        <v-icon size="64" color="error">mdi-alert-circle-outline</v-icon>
+
+        <div
+            class="text-h5 font-weight-bold mt-4"
+            style="color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.8);"
+        >
+            Page not exist for this plan
+        </div>
+
+        <div
+            class="text-body-1 mt-2"
+            style="color: #eee; text-shadow: 0 1px 6px rgba(0,0,0,0.8);"
+        >
+            Please upgrade your subscription
+        </div>
+
+        <v-btn
+            color="primary"
+            class="mt-4"
+            variant="elevated"
+        >
+            Upgrade Plan
+        </v-btn>
+    </div>
+</div>
 
 
 </template>
@@ -263,12 +314,16 @@
 <script>
 import General from '@/models/general.model';
 import { useVehicleStore } from '@/stores/vehicleStore';
+import { useUserStore } from '@/stores/userStore'
+import image from '@/assets/images/restrictions/image.png'
 export default {
     data() {
         return {
             loading: false,
             vehicleStore: useVehicleStore(), showDisclaimer: false,
             auctionHistory: [],
+            userStore: useUserStore(),
+            image,
             preAucHeaders: [
                 { title: 'Date', key: 'auction_date' },
                 { title: 'Auc House', key: 'auction_house' },
@@ -284,6 +339,12 @@ export default {
         }
     },
     computed: {
+        hideForSubscriberPlanOne() {
+            return (
+                this.userStore?.user?.role === 'Subscriber' &&
+                this.userStore?.user?.plan?.plan_id === 1
+            )
+        },
         bidding_history() {
             let bidding_history = this.vehicleStore.vehicle?.bidding_history;
 

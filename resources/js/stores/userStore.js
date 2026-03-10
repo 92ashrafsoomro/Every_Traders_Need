@@ -152,6 +152,12 @@ export const useUserStore = defineStore("user", {
     clearPlan() {
         this.selectedPlanId = null;
     },
+     isBasicSubscriber() {
+    return (
+      this.user?.role === "Subscriber" &&
+      this.user?.plan?.plan_id === 1
+    );
+  }
 },
 
 });

@@ -105,7 +105,7 @@
               backgroundColor: alertExists(item.id)
                 ? 'rgba(var(--v-theme-primary),0.2)' // already alerted
                 : 'transparent',
-              cursor: alertExists(item.id) && !isBasicSubscriber() ? 'not-allowed' : 'pointer'
+              cursor: alertExists(item.id) && !this.useUserStore.isBasicSubscriber() ? 'not-allowed' : 'pointer'
             }">
               <v-icon size="20" :color="alertExists(item.id) ? 'primary' : 'white'">
                 mdi-bell-outline
@@ -235,7 +235,7 @@ export default {
     },
     handleTab(key) {
       if (
-        this.isBasicSubscriber() && key !== 'Today'         
+        this.userStore.isBasicSubscriber() && key !== 'Today'         
       ) {
         this.$alertStore.add("Upgrade your plan.", "error");
         return; 
@@ -362,20 +362,13 @@ export default {
       }
     },
 
-    isBasicSubscriber() {
-      return (
-        this.userStore.user?.role === 'Subscriber' &&
-        this.userStore.user?.plan?.plan_id === 1
-      );
-    },
-
     alertExists(auction_id) {
       return this.alertedAuctionIds.includes(auction_id);
     },
 
     async sendAlert(auction_id) {
       // For plan 1 Subscribers show Upgrade alert
-      if (this.isBasicSubscriber()) {
+      if (this.userStore.isBasicSubscriber()) {
         this.$alertStore.add("Upgrade your plan.", "error");
         return;
       }

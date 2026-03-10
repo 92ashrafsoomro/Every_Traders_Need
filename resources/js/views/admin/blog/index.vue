@@ -33,23 +33,21 @@
             <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total" hover
               item-value="id" @update:options="loadItems">
 
-              <template #item.image_preview="{ item }">
-                <img :src="item.image_preview" alt="preview" style="width:80px; height:60px; object-fit:cover" />
-              </template>
-              <template #item.created_at="{ item }">
-               <span>{{ dateFormate(item.created_at) }}</span>
-              </template>
-              <template #item.updated_at="{ item }">
-               <span>{{ dateFormate(item.updated_at) }}</span>
-              </template>
-              <template #item.category="{item}">
-                <span>{{ item.category.title }}</span>
+             <template #item.image_preview="{ item }">
+              <img
+                :src="item.image_preview"
+                alt="preview"
+                style="width:80px; height:60px; object-fit:cover"
+              />
+            </template>
+             <template #item.created_at="{ item }">
+  {{ dateFormate(item.created_at) }}
+</template>
 
-              </template>
-              <template #item.author="{item}">
-                <span>{{ item.author.firstName }} {{ item.author.surname }}</span>
-
-              </template>
+<template #item.updated_at="{ item }">
+  {{ dateFormate(item.updated_at) }}
+</template>
+             
 
               <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t">
@@ -102,11 +100,10 @@ export default {
       viewDialog: false,
       viewItem: null,
       headers: [
-        { title: "id", value: "id" },
+        { title: "ID", value: "id" },
         { title: "Image", key: "image_preview" },
-        { title: "Category", value: "category", },
         { title: "Title", value: "title" },
-        { title: "Created by", value: "author" },
+        { title: "Status", value: "status" },
         { title: "Date", value: "date" },
         { title: "Created At", key: "created_at" },
         { title: "Updated At", key: "updated_at" },

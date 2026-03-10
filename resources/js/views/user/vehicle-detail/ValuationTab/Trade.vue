@@ -1,21 +1,39 @@
-<template >
-  <div class="" style="width: 100%; height: 400px;">
+<template>
+  <div v-if="!hideForSubscriberPlanOne" style="width:100%; height:400px;">
     <canvas ref="canvas"></canvas>
+  </div>
+  <div v-else style="
+      background-color: rgba(var(--v-theme-primary), 0.2);
+      width: 100%;
+      height: 400px;
+      border-radius: 10px;
+    " class="d-flex align-center justify-center">
+    <div class="text-primary font-weight-medium">
+      Upgrade your plan to view this chart
+    </div>
   </div>
 </template>
 
 <script>
 import { Chart } from "chart.js/auto";
-
+import { useUserStore } from '@/stores/userStore'
 export default {
   name: "Trade",
 
   data() {
     return {
       chart: null,
+      userStore: useUserStore(),
     };
   },
-
+  computed: {
+    hideForSubscriberPlanOne() {
+      return (
+        this.userStore?.user?.role === 'Subscriber' &&
+        this.userStore?.user?.plan?.plan_id === 1 &&  this.userStore?.user?.plan?.plan_id === 2
+      )
+    },
+  },
   mounted() {
     const canvas = this.$refs.canvas;
     const ctx = canvas.getContext("2d");
@@ -113,5 +131,3 @@ div {
   border-radius: 10px;
 }
 </style>
-
-

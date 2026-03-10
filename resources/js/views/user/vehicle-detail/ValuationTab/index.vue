@@ -23,7 +23,9 @@
                                     <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                         last month</p>
                                 </div>
-                                    <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"> <v-icon> mdi-lock-outline </v-icon> Upgrade Plan</p>
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);">
+                                    <v-icon> mdi-lock-outline </v-icon> Upgrade Plan</p>
                             </v-col>
 
                             <!-- CAP Clean -->
@@ -34,7 +36,10 @@
                                     <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                         last month</p>
                                 </div>
-                            <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> </v-col>
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon
+                                        icon="mdi-lock-outline" />Upgrade Plan</p>
+                            </v-col>
 
                             <!-- CAP Average (Plan 2+) -->
                             <v-col cols="6">
@@ -44,8 +49,11 @@
                                     <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                         last month</p>
                                 </div>
-                             <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> </v-col>
-                             
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon
+                                        icon="mdi-lock-outline" />Upgrade Plan</p>
+                            </v-col>
+
                             <!-- CAP Blow (Plan 2+) -->
                             <v-col cols="6">
                                 <div class="text-body-2 mb-1">CAP Blow</div>
@@ -54,32 +62,38 @@
                                     <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                         last month</p>
                                 </div>
-                                  <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> 
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon
+                                        icon="mdi-lock-outline" />Upgrade Plan</p>
                             </v-col>
 
-                            
-                            <v-col cols="6">
-                                    <div class="text-body-2 mb-1">Autotrader Retail</div>
-                                    <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
-                                        vehicleStore.vehicle.cap_retail }} <p
-                                            class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
-                                            last month</p>
-                                    </div>
-                                      <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> 
-                                </v-col>
 
-                                 <v-col cols="6" >
-                                    <div class="text-body-2 mb-1">CAP Retail</div>
-                                    <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
-                                        vehicleStore.vehicle.cap_retail }} <p
-                                            class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
-                                            last month</p>
-                                    </div>
-                                  <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> 
-                                </v-col>
+                            <v-col cols="6">
+                                <div class="text-body-2 mb-1">Autotrader Retail</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
+                                    vehicleStore.vehicle.cap_retail }} <p
+                                        class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
+                                </div>
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon
+                                        icon="mdi-lock-outline" />Upgrade Plan</p>
+                            </v-col>
+
+                            <v-col cols="6">
+                                <div class="text-body-2 mb-1">CAP Retail</div>
+                                <div class="text-h6 font-weight-bold" v-if="hasPlan && showPlan2">£{{
+                                    vehicleStore.vehicle.cap_retail }} <p
+                                        class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        last month</p>
+                                </div>
+                                <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                    style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon
+                                        icon="mdi-lock-outline" />Upgrade Plan</p>
+                            </v-col>
                         </v-row>
 
-                      
+
                     </v-container>
 
 
@@ -92,23 +106,29 @@
                             <v-row class="px-4 py-3">
                                 <v-col cols="6">
                                     <div class="text-body-2  mb-1">Autotrader</div>
-                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2">£{{ vehicleStore.vehicle.cap_retail
+                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2">£{{
+                                        vehicleStore.vehicle.cap_retail
                                         }}
-                                         <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                             last month</p>
                                     </div>
-                                         <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> 
-                                  
+                                    <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                        style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);">
+                                        <v-icon icon="mdi-lock-outline" />Upgrade Plan</p>
+
                                 </v-col>
                                 <v-col cols="6">
                                     <div class="text-body-2  mb-1">Cap Retail</div>
-                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2" >£{{ vehicleStore.vehicle.cap_retail
+                                    <div class="text-h6 font-weight-bold " v-if="hasPlan && showPlan2">£{{
+                                        vehicleStore.vehicle.cap_retail
                                         }}
-                                         <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
+                                        <p class=" mt-1 mt-lg-0 text-caption d-flex align-center ">From
                                             last month</p>
                                     </div>
-                                         <p v-else class="text-light_text_on py-1 px-1 rounded-lg" style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);"><v-icon icon="mdi-lock-outline" />Upgrade Plan</p> 
-                                  
+                                    <p v-else class="text-light_text_on py-1 px-1 rounded-lg"
+                                        style="font-size: 14px;  background-color: rgb(var(--v-theme-danger),0.2);">
+                                        <v-icon icon="mdi-lock-outline" />Upgrade Plan</p>
+
                                 </v-col>
                             </v-row></v-container>
                     </div>
@@ -134,7 +154,7 @@
 
                         <!-- Car Details -->
                         <div class="text-h5 mt-3 font-weight-bold mb-4">{{ vehicleStore.vehicle.title
-                            }}</div>
+                        }}</div>
 
                     </div>
 
@@ -253,8 +273,11 @@
                                 <div class="justify-space-between mt-3">
                                     <div class="text-body-2 pb-2">Bidding History</div>
                                     <div class="text-body-2">
-                                        <span v-for="(bid , index) in  vehicleStore.vehicle.bidding_history.split(',')" :key="index">
-                                            {{ bid.replace(/[\[\]']+/g, '') }}<span v-if="index < vehicleStore.vehicle.bidding_history.split(',').length - 1">, </span>
+                                        <span v-for="(bid, index) in vehicleStore.vehicle.bidding_history.split(',')"
+                                            :key="index">
+                                            {{ bid.replace(/[\[\]']+/g, '') }}<span
+                                                v-if="index < vehicleStore.vehicle.bidding_history.split(',').length - 1">,
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
@@ -268,17 +291,18 @@
 
                             <!-- TODAY -->
 
-                            <v-data-table-server class="bg-surface border rounded-lg " :headers="headers" :items="[vehicleStore.vehicle]" sort-asc-icon=""
-                                hide-default-footer hover striped="even">
+                            <v-data-table-server class="bg-surface border rounded-lg " :headers="headers"
+                                :items="[vehicleStore.vehicle]" sort-asc-icon="" hide-default-footer hover
+                                striped="even">
 
                                 <!-- Reg -->
-                                <template #item.reg="{ item }" >
-                                   <div class="d-flex  align-center " style="width: 150px;">
-                                     <v-img :src="image" style="width: 40px;" />
-                                    <span class="font-weight-medium ml-1 text-whiteLite">
-                                        {{ item.reg }}
-                                    </span>
-                                   </div>
+                                <template #item.reg="{ item }">
+                                    <div class="d-flex  align-center " style="width: 150px;">
+                                        <v-img :src="image" style="width: 40px;" />
+                                        <span class="font-weight-medium ml-1 text-whiteLite">
+                                            {{ item.reg }}
+                                        </span>
+                                    </div>
                                 </template>
 
                                 <!-- Status -->
@@ -316,20 +340,21 @@
 
         </v-row>
     </v-container>
+    <Trade />
 </template>
 
 <script>
 
 import { useVehicleStore } from '@/stores/vehicleStore';
 import TradeHistory from './TradeHistory.vue';
-// import Trade from './Trade.vue';
+import Trade from './Trade.vue';
 import { useUserStore } from '@/stores/userStore';
 
 
 export default {
     components: {
         TradeHistory,
-        // Trade
+        Trade
     },
     data() {
         return {
@@ -354,6 +379,12 @@ export default {
 
     },
     computed: {
+        hideForSubscriberPlanOne() {
+            return (
+                this.userStore?.user?.role === 'Subscriber' &&
+                this.userStore?.user?.plan?.plan_id === 1
+            )
+        },
         bidding_history() {
 
 
@@ -367,32 +398,32 @@ export default {
             return bidding_history;
 
         },
-     
-  planId() {
-   
-    if (this.userStore.user?.role !== 'Subscriber') {
-      return 3; 
-    }
 
-    // Subscriber
-    return this.userStore.user?.plan?.plan_id || null;
-  },
+        planId() {
 
-  hasPlan() {
-    return !!this.planId;
-  },
+            if (this.userStore.user?.role !== 'Subscriber') {
+                return 3;
+            }
 
-  showPlan1() {
-    return this.planId >= 1;
-  },
+            // Subscriber
+            return this.userStore.user?.plan?.plan_id || null;
+        },
 
-  showPlan2() {
-    return this.planId >= 2;
-  },
+        hasPlan() {
+            return !!this.planId;
+        },
 
-  showPlan3() {
-    return this.planId >= 3;
-  }
+        showPlan1() {
+            return this.planId >= 1;
+        },
+
+        showPlan2() {
+            return this.planId >= 2;
+        },
+
+        showPlan3() {
+            return this.planId >= 3;
+        }
 
     },
     methods: {
@@ -435,8 +466,9 @@ td {
     /* Firefox */
     -ms-overflow-style: none;
 }
+
 :deep(.v-data-table__thead th) {
-  
-  background-color: transparent !important;
+
+    background-color: transparent !important;
 }
 </style>

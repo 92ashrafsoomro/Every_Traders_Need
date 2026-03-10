@@ -39,6 +39,13 @@
             >
               <v-icon icon="mdi-magnify"></v-icon>
             </v-btn>
+            <v-btn
+              style="height: 44px; margin-left: 10px;"
+              variant="outlined"
+              @click="loadItems"
+            >
+              <v-icon icon="mdi-reload"></v-icon>
+            </v-btn>
           </div>
 
         </div>
@@ -149,7 +156,7 @@
             <template #item.action="{ item }">
               <div class="d-flex">
                 <router-link :to="'/admin/supportTicket/edit/' + item.id">
-                  <v-icon color="primary" class="pa-4">mdi-pencil</v-icon>
+                  <v-icon color="primary" class="pa-4">mdi-eye</v-icon>
                 </router-link>
 
                 <v-icon

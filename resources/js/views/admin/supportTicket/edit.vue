@@ -15,7 +15,7 @@
         </div> -->
       </div>
       <v-spacer></v-spacer>
-      <v-btn icon="mdi-dots-horizontal" variant="text" color="light"></v-btn>
+      <v-btn icon="mdi-reload" variant="text" color="light" @click="fetchTicketDetails()"></v-btn>
     </v-sheet>
 
     <v-row  class="overflow-hidden w-100 bg-background">

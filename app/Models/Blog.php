@@ -13,7 +13,7 @@ class Blog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'image', 'description', 'date', 'author_id',
+        'title','slug', 'image', 'description', 'date', 'author_id',
         'category_id', 'tag', 'meta_title', 'meta_description',
         'meta_keyword', 'slug', 'status'
     ];

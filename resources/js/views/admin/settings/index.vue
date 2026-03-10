@@ -10,10 +10,10 @@
             <v-icon start>mdi-account</v-icon>
             Site Information
           </v-tab>
-          <v-tab value="notifications">
+          <!-- <v-tab value="notifications">
             <v-icon start>mdi-bell</v-icon>
             Notification Setting
-          </v-tab>
+          </v-tab> -->
         </v-tabs>
       </v-col>
 
@@ -36,12 +36,20 @@
                 <v-text-field label="Meta Description" v-model="form.meta_description" variant="outlined" density="compact" />
               </v-col>
             </v-row>
+
+            <v-row class="mt-6">
+              <v-col cols="12" class="text-right">
+                <v-btn color="primary" @click="saveSettings">
+                  Save Settings
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-window-item>
 
-          <v-window-item value="notifications">
+          <!-- <v-window-item value="notifications">
             <h2 class="text-h5 mb-6">Notification Settings</h2>
             <p>Notification controls will go here.</p>
-          </v-window-item>
+          </v-window-item> -->
 
         </v-window>
       </v-col>
@@ -57,6 +65,8 @@ export default {
     form: {
       email: '',
       sitename: '',
+      meta_title: '',
+      meta_description: ''
     },
   }),
   mounted() {
@@ -81,6 +91,16 @@ export default {
             this.loading = false;
         }
     },
+    async saveSettings() {
+    try {
+        await General.post("/api/cruds/settings", this.form)
+
+        alert("Settings Saved Successfully")
+
+    } catch (error) {
+        alert("Settings Save Failed")
+    }
+}
     },
 };
 </script>

@@ -49,7 +49,8 @@ export default {
         async getFeature() {
             this.loading = true;
             try {
-                let res = await General.get("/api/cruds/features")
+                // let res = await General.get("/api/cruds/features")
+                let res = await General.get("")
                 this.items = res.data
 
                 this.loading = false

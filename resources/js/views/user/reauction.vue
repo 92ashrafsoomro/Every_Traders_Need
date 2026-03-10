@@ -150,7 +150,7 @@ export default {
                 { title: "Vehicle", value: "vehicle" },
                 { title: "Year", value: "year" },
                 { title: "CC", value: "cc" },
-                { title: "Milage", value: "mileage" },
+                { title: "mileage", value: "mileage" },
                 { title: "Transmission", value: "transmission" },
                 { title: "Auction House", value: "platform_title" },
                 { title: "Date Time", value: "autotrader_retail_value" },

@@ -64,7 +64,7 @@ AppButton
 }
 </script>
 
-<style>
+<style scoped>
 .custom-btn {
   font-weight: bold;
   padding-left: 30px;

@@ -4,16 +4,40 @@
     "icon": "mdi-view-dashboard-outline",
     "path": "/admin/dashboard"
   },
+  
   {
-    "label": "Task Management",
-    "icon": "mdi-checkbox-marked-circle-auto-outline",
-    "path": "/admin/taskManagement/all"
+    "label": "Admin Access",
+    "icon": "mdi-shield-crown",
+    "path": "/admin/staffUser",
+    "children": [
+      {
+        "label": "Admin & Staff",
+        "icon": "mdi-account-multiple",
+        "path": "/admin/staffUser"
+      },
+      {
+        "label": "Role",
+        "icon": "mdi-human-male-board",
+        "path": "/admin/role"
+      },
+      {
+        "label": "User restrictions",
+        "icon": "mdi-account-lock",
+        "path": ""
+      }
+    ]
   },
+
   {
     "label": "Data Management",
     "icon": "mdi-database-check",
-    "path": "/admin/auction",
+    "path": "/admin/taskManagement/all",
     "children": [
+      {
+        "label": "Task Management",
+        "icon": "mdi-checkbox-marked-circle-auto-outline",
+        "path": "/admin/taskManagement/all"
+      },
       {
         "label": "Import Auction",
         "icon": "mdi-database-import-outline",
@@ -23,14 +47,7 @@
         "label": "Vehicle List",
         "icon": "mdi-list-box-outline",
         "path": "/admin/vehicle"
-      }
-    ]
-  },
-  {
-    "label": "Ids",
-    "icon": "mdi-identifier",
-    "path": "/admin/bodyType",
-    "children": [
+      },
       {
         "label": "Master",
         "icon": "mdi-star-outline",
@@ -43,6 +60,7 @@
       }
     ]
   },
+
   {
     "label": "User Management",
     "icon": "mdi-account-edit",
@@ -70,6 +88,7 @@
       }
     ]
   },
+
   {
     "label": "Subscriptions Control",
     "icon": "mdi-cash",
@@ -92,6 +111,7 @@
       }
     ]
   },
+
   {
     "label": "Content Management",
     "icon": "mdi-content-paste",
@@ -114,28 +134,8 @@
       }
     ]
   },
-  {
-    "label": "Admin Access",
-    "icon": "mdi-shield-crown",
-    "path": "/admin/staffUser",
-    "children": [
-      {
-        "label": "Admin & Staff",
-        "icon": "mdi-account-multiple",
-        "path": "/admin/staffUser"
-      },
-      {
-        "label": "Role",
-        "icon": "mdi-human-male-board",
-        "path": "/admin/role"
-      },
-      {
-        "label": "User restrictions",
-        "icon": "mdi-account-lock",
-        "path": ""
-      }
-    ]
-  },
+
+  
   {
     "label": "Back To User",
     "icon": "mdi-account",

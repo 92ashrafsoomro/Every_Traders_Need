@@ -88,7 +88,7 @@ export default {
     methods: {
 
         checkRole() {
-            if (this.userStore.role === 'Subscriber') {
+            if (this.userStore.user.role === 'Subscriber') {
                 this.$router.replace("/user/dashboard");
             } else {
                 this.$router.replace("/admin/dashboard");

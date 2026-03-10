@@ -26,14 +26,14 @@ export default [
   {
     title: "Social",
     links: [
-    
-      { label: "Facebook", url: "https://facebook.com" },
-      { label: "Instagram", url: "https://instagram.com" },
-      { label: "LinkedIn", url: "https://linkedin.com" },
-      { label: "YouTube", url: "https://youtube.com" },
+
+      { label: "Facebook", url: "https://facebook.com", isdisable: true },
+      { label: "Instagram", url: "https://instagram.com", isdisable: true },
+      { label: "LinkedIn", url: "https://linkedin.com", isdisable: true },
+      { label: "YouTube", url: "https://youtube.com", isdisable: true },
       // { label: "TikTok", url: "https://tiktok.com" },
       // { label: "Pinterest", url: "https://pinterest.com" },
-        { label: "X", url: "https://x.com" },
+      { label: "X", url: "https://x.com", isdisable: true },
     ],
   },
 ];

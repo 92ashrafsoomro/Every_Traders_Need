@@ -91,7 +91,7 @@
                                             <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2">
                                                 <v-btn height="50" variant="flat"
                                                     class="bell text-capitalize text-body-1 border"
-                                                    :class="{ 'alert-active': alertExists }" @click="onBellClick">
+                                                    :class="{ 'alert-active': alertExists }" @click="sendAlertdata">
                                                     <v-icon :color="alertExists ? 'white' : 'primary'">
                                                         mdi-bell-outline
                                                     </v-icon>
@@ -255,30 +255,30 @@ export default {
                 this.alertExists = false;
             }
         },
-        onBellClick() {
-            console.log("Bell clicked");
+        // onBellClick() {
+        //     console.log("Bell clicked");
 
-            if (this.alertExists) {
-                console.log("Alert already exists, click ignored");
-                return;
-            }
+        //     if (this.alertExists) {
+        //         console.log("Alert already exists, click ignored");
+        //         return;
+        //     }
 
-            this.sendAlertdata();
-        },
+        //     this.sendAlertdata();
+        // },
         async sendAlertdata() {
             const currentAlerts = await General.get("/api/notifications/userAlertList");
-            const alertCount = currentAlerts.recordsTotal || 0;
+            // const alertCount = currentAlerts.recordsTotal || 0;
 
-            const isBasic = this.userStore.isBasicSubscriber();
+            // const isBasic = this.userStore.isBasicSubscriber();
 
             // Check limit
-            if (isBasic && alertCount >= 10) {
-                this.$alertStore.add(
-                    "You have reached your alert limit. Upgrade your plan to add more alerts.",
-                    "error"
-                );
-                return; // <-- fixed
-            }
+            // if (isBasic && alertCount >= 10) {
+            //     this.$alertStore.add(
+            //         "You have reached your alert limit. Upgrade your plan to add more alerts.",
+            //         "error"
+            //     );
+            //     return; // <-- fixed
+            // }
 
             const options = {
                 vehicle_id: this.vehicleStore.vehicle.id,

@@ -49,8 +49,8 @@
 
             <v-col cols="12" class="mt-3 ">
                 <div class="  border ">
-                    <v-data-table-server class="" :headers="headers" :items="displayedItems" :items-length="totalItems" hover
-                        hide-default-footer :loading="loading" item-value="id">
+                    <v-data-table-server class="" :headers="headers" :items="displayedItems" :items-length="totalItems"
+                        hover hide-default-footer :loading="loading" item-value="id">
 
                         <template #item.vehicle="{ item }">
                             <router-link style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); "
@@ -73,7 +73,7 @@
                         <template #item.platform_title="{ item }">
                             <span style="background-color: #0080ff50; padding: 7px ; border-radius: 3px;">{{
                                 item.platform_title
-                                }}</span>
+                            }}</span>
                         </template>
 
                         <!-- <template #item.autotrader_retail_value="{item}">
@@ -92,8 +92,9 @@
 
 
                     </v-data-table-server>
-                      <div v-if="showUpgradeMessage" class="text-center  pa-4" style="background-color: rgb(var(--v-theme-primary),0.2);">
-                        Show full watchlist → 
+                    <div v-if="showUpgradeMessage" class="text-center  pa-4"
+                        style="background-color: rgb(var(--v-theme-primary),0.2);">
+                        Show full watchlist →
                         <router-link to="/pricing" class="text-primary font-weight-bold">
                             Upgrade Plan
                         </router-link>
@@ -178,30 +179,27 @@ export default {
 
             this.loadItems();
         },
-     async loadItems() {
-    this.loading = true;
-    try {
-        const apiFilter = { ...this.filter };
-        if (this.userStore.isBasicSubscriber()) {
-            apiFilter.length = 1000;
-        }
+        async loadItems() {
+            this.loading = true;
+            try {
+                const apiFilter = { ...this.filter };
 
-        const res = await UserModel.getWatchList(apiFilter);
+                const res = await UserModel.getWatchList(apiFilter);
 
-        this.items = res.data || [];
-        this.totalItems = res.recordsTotal;
-        this.filter.offset = res.offset;
-        this.filter.page = res.page;
-        this.total = res.recordsTotal
-        this.last_page = res.last_page;
-    } catch (error) {
-        console.error("Error fetching userWatchList:", error);
-        this.totalItems = 0;
-        this.items = [];
-    } finally {
-        this.loading = false;
-    }
-},
+                this.items = res.data || [];
+                this.totalItems = res.recordsTotal;
+                this.filter.offset = res.offset;
+                this.filter.page = res.page;
+                this.total = res.recordsTotal
+                this.last_page = res.last_page;
+            } catch (error) {
+                console.error("Error fetching userWatchList:", error);
+                this.totalItems = 0;
+                this.items = [];
+            } finally {
+                this.loading = false;
+            }
+        },
         // dateFormate(date){
         //     if(!date) return ''
         //      return date?.split('T')[0].split(' ')[0]
@@ -209,16 +207,16 @@ export default {
 
     },
     computed: {
-    displayedItems() {
-        if (this.userStore.isBasicSubscriber()) {
-            return this.items.slice(0, 10);
+        displayedItems() {
+            if (this.userStore.isBasicSubscriber()) {
+                return this.items.slice(0, 10);
+            }
+            return this.items;
+        },
+        showUpgradeMessage() {
+            return this.userStore.isBasicSubscriber() && this.items.length > 10;
         }
-        return this.items;
-    },
-    showUpgradeMessage() {
-        return this.userStore.isBasicSubscriber() && this.items.length > 10;
     }
-}
 };
 </script>
 

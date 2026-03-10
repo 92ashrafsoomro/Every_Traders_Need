@@ -41,8 +41,8 @@
                     </v-col>
 -->
                     <v-col cols="auto" class="ml-n3">
-                        <ProfileDropdown/>
-                    </v-col> 
+                        <ProfileDropdown />
+                    </v-col>
                 </div>
             </v-row>
         </v-app-bar>
@@ -58,7 +58,7 @@
 import adminSideBar from "./adminSideBar.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
-
+import { useUserStore } from "@/stores/userStore";
 import { mdiFullscreen } from "@mdi/js";
 import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "@/views/user/layout/ThemeDropdown.vue";
@@ -70,19 +70,30 @@ export default {
         Notificationdropdown,
         ThemeDropdown,
     },
-    computed: {},
+
     data() {
         return {
             drawer: true,
             themeStore: useThemeStore(),
             path: mdiFullscreen,
-            isMenuOpen: false, 
+            isMenuOpen: false,
             isFullScreen: false,
+            userStore: useUserStore(),
             path: mdiFullscreen,
         };
     },
+    mounted() {
+        this.checkRole()
+    },
     methods: {
-        toggleFullScreen() {
+
+        checkRole() {
+            if (this.userStore.role === 'Subscriber') {
+                this.$router.replace("/user/dashboard");
+            } else {
+                this.$router.replace("/admin/dashboard");
+            }
+        }, toggleFullScreen() {
             if (!this.isFullScreen) {
                 const element = document.documentElement;
                 if (element.requestFullscreen) {
@@ -115,10 +126,11 @@ export default {
             this.themeStore.toggleMenuType();
         },
     }, computed: {
+
         pageTitle() {
             return this.$route.meta.title || this.$route.name || 'Dashboard';
         }
-    },  
+    },
 };
 </script>
 <style scoped>

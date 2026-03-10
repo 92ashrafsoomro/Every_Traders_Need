@@ -305,7 +305,7 @@
         <td>
 
         <td class="company-cell">
-           <img src="{{ public_path('build/assets/darkfull.png') }}" width="140">
+           <img src="resources/js/assets/images/header/darkfull.png" width="40">
      
           <div class="company">
             <div class="company-text">

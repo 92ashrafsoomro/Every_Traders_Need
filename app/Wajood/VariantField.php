@@ -50,18 +50,10 @@ use Illuminate\Support\Facades\Hash;
 
     public function removeDoor() {
         $value = strtolower($this->value);
-
-        // Remove decimal numbers like 2.0, 3.0, 1.9 etc
         $value = preg_replace('/\b\d+\.\d+\b/i', '', $value);
-
-        // Remove door indicators like 2dr, 3 dr, 4DR
         $value = preg_replace('/\b\d+\s*d+r\b/i', '', $value);
-
-        // Remove KW/KWh if any
         $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
         $value = preg_replace('/\b\d+\s*kwh\b/i', '', $value);
-
-        // Cleanup multiple spaces
         $value = preg_replace('/\s+/', ' ', trim($value));
 
         return $value;

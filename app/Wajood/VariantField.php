@@ -48,58 +48,15 @@ use Illuminate\Support\Facades\Hash;
     }
 
 
-    public function platforms(){
+    public function removeDoor() {
+        $value = strtolower($this->value);
+        $value = preg_replace('/\d+\.\d+/i', '', $value);
+        $value = preg_replace('/\d+\s*d+r/i', '', $value);
+        $value = preg_replace('/\d+\s*kw/i', '', $value);
+        $value = preg_replace('/\d+\s*kwh/i', '', $value);
+        $value = preg_replace('/\s+/', ' ', trim($value));
 
-
-            // Case 3 findVariantByOldDerivative
-            if($this->row->make && $this->row->model){
-                $findVariantByOldDerivative = $this->row->main->findVariantByOldDerivative($this->row->item['derivative'],$this->row->make,$this->row->model);
-                if($findVariantByOldDerivative && in_array($findVariantByOldDerivative,$this->data)){
-                return $findVariantByOldDerivative;
-                }
-            }
-
-           
-
-            
-
-
-            $value = strtolower($this->value);
-            $value = strtolower($this->item['derivative'] ?? '');
-            $value = preg_replace('/\b[0-2]\.\d\b/', '', $value);
-            $value = preg_replace('/\b\d+d?r\b/', '', $value);
-            $value = preg_replace('/\s+/', ' ', trim($value));
-            $value = preg_replace('/\b\d+\s*kw\b/i', '', $value);
-            $value = preg_replace('/\b\d+\s*kwh\b/i', '', $value);
-
-
-            // Case 1 Direct Check
-            if(in_array($value,$this->data)){
-                return $value;
-            }
-
-            // Case 2 Check in Prefix
-            $prefixValue = $this->row->main->modelPrefix($value); 
-            if($prefixValue && in_array($prefixValue,$this->data)){
-                return $prefixValue;
-            }
-
-
-            // matchVariantBySquence
-            $matchVariantBySquence = $this->row->main->matchVariantBySquence($value,$this->data);
-            if($matchVariantBySquence && in_array($matchVariantBySquence,$this->data)){
-            return $matchVariantBySquence;
-            }
-
-            // Exploded Value
-            $findWithExplode = $this->row->main->findWithExplode($value,$this->data); 
-            if($findWithExplode && in_array($findWithExplode,$this->data)){
-                return $findWithExplode;
-            }
-
-
-            return $this->value;
-
+        return $value;
     }
 
 
@@ -107,6 +64,7 @@ use Illuminate\Support\Facades\Hash;
         public function default()
     {
 
+        $this->value = $this->removeDoor();
         $value = strtolower($this->value);
 
         // Case 1 Direct Check

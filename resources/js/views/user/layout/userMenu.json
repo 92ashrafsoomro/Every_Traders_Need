@@ -40,6 +40,11 @@
             "label": "Profile",
             "type": "group"
         },
+        {
+            "label": "Support Ticket",
+            "icon": "mdi-ticket-account",
+            "path": "/user/supportTicket"
+        },
        
         {
             "icon": "mdi-account-outline",

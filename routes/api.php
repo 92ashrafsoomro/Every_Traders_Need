@@ -25,6 +25,8 @@ use App\Http\Controllers\Api\Master\NewsController;
 use App\Http\Controllers\Api\Master\PlanController;
 use App\Http\Controllers\Api\Master\TaskManagementController;
 use App\Http\Controllers\Api\Master\StaffController;
+use App\Http\Controllers\Api\Master\TicketController;
+use App\Http\Controllers\Api\Master\GlobalSettingsController;
 
 use App\Http\Controllers\Api\Master\VehicleController as VController;
 
@@ -44,6 +46,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\WebController;
+use App\Http\Controllers\Api\TicketUserApiController;
 
 
 
@@ -67,20 +70,7 @@ use App\Http\Controllers\Api\WebController;
 
     });
 
-
-   
-
-    
-    
-
-
-
-
-
   
-
-    
-
 
     // Notifications
     Route::prefix('notifications')->middleware(['auth:sanctum'])->group(function(){
@@ -98,7 +88,6 @@ use App\Http\Controllers\Api\WebController;
         Route::get('/userNotification',[NotificationController::class,'userNotification']);
         Route::post('/markRead/{id}',[NotificationController::class,'markRead']);
 
-        
         Route::get('/myNotifications',[NotificationController::class,'myNotifications']);
 
     });
@@ -143,6 +132,7 @@ use App\Http\Controllers\Api\WebController;
         Route::resource('newsCategory',NewsCategoryController::class);
         Route::resource('blogCategory',BlogCategoryController::class);
         Route::resource('auctionType',AuctionTypeController::class);
+        Route::resource('settings',GlobalSettingsController::class);
         
         
         Route::get('/taskManagement/counters',[TaskManagementController::class,'counters']);
@@ -159,6 +149,17 @@ use App\Http\Controllers\Api\WebController;
         Route::get('/users/changeStatus',[UserController::class,'changeStatus']);
         Route::resource('users',UserController::class);
 
+
+        
+
+      
+
+        Route::post('/tickets/{id}/reply', [TicketController::class, 'reply']);
+        Route::post('/tickets/{id}/status', [TicketController::class, 'updateStatus']);
+        Route::post('/tickets/{id}/closedAt', [TicketController::class, 'updateclosedat']);
+        Route::post('/tickets/{id}/priority', [TicketController::class, 'updatePriority']);
+        Route::apiResource('tickets', TicketController::class);
+
         
     });
 
@@ -174,7 +175,7 @@ use App\Http\Controllers\Api\WebController;
 
     
     // User Panel
-    Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('user')->middleware(['auth:sanctum'])->group(function(){
 
 
         Route::prefix('profile')->group(function () {
@@ -209,6 +210,16 @@ use App\Http\Controllers\Api\WebController;
         Route::prefix('interest')->group(function () {
             Route::get('/myInterest',[InterestController::class,'myInterest']);
         });
+
+    
+        Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+
+        Route::get('/tickets', [TicketUserApiController::class, 'index']);
+        Route::post('/tickets', [TicketUserApiController::class, 'store']);
+        Route::get('/tickets/{id}', [TicketUserApiController::class, 'show']);
+        Route::post('/tickets/{id}/reply', [TicketUserApiController::class, 'reply']);
+        Route::post('/tickets/{id}/feedback', [TicketUserApiController::class, 'submitFeedback']);
+
         
     });
 
@@ -216,13 +227,15 @@ use App\Http\Controllers\Api\WebController;
 
 
     // Web Controller..
-    Route::prefix('web')->group(function () {
+    Route::prefix('web')->group(function(){
 
         Route::get('/getplans',[PlanController::class,'index']);
         Route::prefix('stripe')->middleware(['auth:sanctum'])->group(function () {
             Route::post('/createPaymentIntent',[StripeController::class,'createPaymentIntent']);
         });
         Route::get('/getCardDetail',[WebController::class,'getCardDetail'])->middleware(['auth:sanctum']);
+
+        Route::get('getBlogDashboard',[WebController::class,'getBlogDashboard']);
 
     });
 

@@ -33,21 +33,27 @@
             <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total" hover
               item-value="id" @update:options="loadItems">
 
-             <template #item.image_preview="{ item }">
-              <img
-                :src="item.image_preview"
-                alt="preview"
-                style="width:80px; height:60px; object-fit:cover"
-              />
-            </template>
-             <template #item.created_at="{ item }">
-  {{ dateFormate(item.created_at) }}
-</template>
+              <template #item.image_preview="{ item }">
+                <img :src="item.image_preview" alt="preview" style="width:80px; height:60px; object-fit:cover" />
+              </template>
+              <template #item.created_at="{ item }">
+               <span>{{ dateFormate(item.created_at) }}</span>
+              </template>
+              <template #item.updated_at="{ item }">
+               <span>{{ dateFormate(item.updated_at) }}</span>
+              </template>
+              <template #item.category="{ item }">
+                <span>{{ item.category?.title || '-' }}</span>
+              </template>
 
-<template #item.updated_at="{ item }">
-  {{ dateFormate(item.updated_at) }}
-</template>
-             
+              <template #item.author="{ item }">
+                <span v-if="item.author">
+                  {{ item.author.firstName }} {{ item.author.surname }}
+                </span>
+                <span v-else>-</span>
+              </template>
+              
+
 
               <template v-slot:bottom>
                 <div class="py-2 d-flex justify-end border-t">
@@ -55,6 +61,7 @@
                     @page-changed="loadItems" />
                 </div>
               </template>
+
               <template #item.action="{ item }">
                 <div class="d-flex">
                   <router-link :to="'/admin/blog/edit/' + item.id">

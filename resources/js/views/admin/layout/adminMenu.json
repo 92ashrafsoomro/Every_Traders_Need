@@ -79,12 +79,7 @@
       {
         "label": "Support & Feedback",
         "icon": "mdi-face-agent",
-        "path": ""
-      },
-      {
-        "label": "Alerts ",
-        "icon": "mdi-alert-outline",
-        "path": ""
+        "path": "/admin/supportTicket"
       }
     ]
   },
@@ -134,8 +129,11 @@
       }
     ]
   },
-
-  
+  {
+    "label": "Global Settings",
+    "icon": "mdi-cog-outline",
+    "path": "/admin/settings"
+  },
   {
     "label": "Back To User",
     "icon": "mdi-account",

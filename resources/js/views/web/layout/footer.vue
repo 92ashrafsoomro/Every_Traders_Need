@@ -58,8 +58,9 @@
 
                         <div class="d-flex flex-column  ">
                             <v-btn v-for="(link, j) in section.links" :key="j" variant="text"
-                                class="text-left justify-start pa-0  footerElement text-body-2 text-light_text_on"
-                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener">
+                                class="text-left justify-start pa-0 footerElement text-body-2 text-light_text_on"
+                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener"
+                                :disabled="link.isdisable">
                                 {{ link.label }}
                             </v-btn>
                         </div>
@@ -71,7 +72,7 @@
                 style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
                 <div class="w-50 w-lg-100">
                     <p class="mt-6 mr-2">© AUTOBOLI Ltd 2025. All rights reserved.</p>
-                  
+
                 </div>
             </div>
         </div>

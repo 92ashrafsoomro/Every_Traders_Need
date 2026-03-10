@@ -40,6 +40,8 @@
 
                 <v-text-field label="Email" v-model="form.email" placeholder="john@example.com" variant="outlined"
                   bg-color="background" base-color="border" color="white" class="mb-2"></v-text-field>
+                <v-text-field label="Subject" v-model="form.subject" placeholder="Subject of your message" variant="outlined"
+                  bg-color="background" base-color="border" color="white" class="mb-2"></v-text-field>
 
                 <v-textarea label="Description *" v-model="form.description"
                   placeholder="I have a question about my subscription..." variant="outlined" bg-color="background"
@@ -121,6 +123,7 @@ export default {
       form: {
         name: "",
         email: "",
+        subject:"",
         description: ""
       }
     }
@@ -138,12 +141,14 @@ export default {
         let formResponse = ({
           name: this.form.name,
           email: this.form.email,
+          subject: this.form.subject,
           description: this.form.description
         })
         let res = await UserModel.supportForm(formResponse);
         this.$alertStore.add('Form Submited Succesfully', 'success');
         this.form.name = "";
         this.form.email = "";
+        this.form.subject = "";
         this.form.description = "";
 
 

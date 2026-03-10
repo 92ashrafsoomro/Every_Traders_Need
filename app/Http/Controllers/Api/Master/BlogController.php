@@ -73,7 +73,7 @@ class BlogController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|image',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:10000',
             'date' => 'required|string|max:255',
             'category_id' => 'required|exists:blog_categories,id',
         ]);
@@ -109,7 +109,7 @@ class BlogController extends Controller
     }
 
 
-             public function show(Request $request,$id)
+    public function show(Request $request,$id)
     {
 
             $model = Blog::find($id);
@@ -130,13 +130,13 @@ class BlogController extends Controller
     }
 
 
-       public function update(Request $request,$id)
+    public function update(Request $request,$id)
     {
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'image' => 'nullable|image',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:10000',
             'date' => 'required|string|max:255',
             'category_id' => 'nullable|exists:blog_categories,id',
         ]);

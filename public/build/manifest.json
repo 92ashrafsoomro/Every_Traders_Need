@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-D7rDVs9s.js",
+    "file": "assets/app-C8w7bgW2.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Ci9agimB.css"
+      "assets/app-fOne6tjB.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -122,6 +122,7 @@
       "assets/lightfull-Brk1alwe.png",
       "assets/lightshort-DQfsj8p_.png",
       "assets/user-BO2XbLa6.png",
+      "assets/image-CfZYeChK.png",
       "assets/bg-NSSFVeCQ.png",
       "assets/lightBg-DJruBfXL.png",
       "assets/darkBg-CvuQXcLG.png",
@@ -303,6 +304,10 @@
   "resources/js/assets/images/reauction/differentimg.png": {
     "file": "assets/differentimg-BfukXemL.png",
     "src": "resources/js/assets/images/reauction/differentimg.png"
+  },
+  "resources/js/assets/images/restrictions/image.png": {
+    "file": "assets/image-CfZYeChK.png",
+    "src": "resources/js/assets/images/restrictions/image.png"
   },
   "resources/js/assets/images/screen/darkBg.png": {
     "file": "assets/darkBg-CvuQXcLG.png",

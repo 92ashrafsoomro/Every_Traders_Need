@@ -7,22 +7,21 @@
 
                 <div style="flex:1; min-width:300px;">
                     <h4 class="text-h5 font-weight-bold mb-6">
-                        Maximizing Efficiency in Operations
+                        {{ data.title }}
                     </h4>
 
-                    <div class="text-body-1 mb-6 text-light_text_on" style="line-height:1.9;">
-                        We offer a comprehensive range of services designed to meet the unique needs of your business.
-                        From strategy development, risk management, our expert team is dedicated to driving success.
+                    <div class="text-body-1 mb-6 text-light_text_on" style="line-height:1.9;" v-html="data.description">
+                        
                     </div>
 
                     <v-chip style="background-color: rgb(var(--v-theme-primary));" class="text-body-1">
-                        Updated: March 2026 • 12 min read
+                        Updated: {{ data.date }} • 12 min read
                     </v-chip>
                 </div>
 
                 <div class="text-center" style="flex:1; min-width:300px;">
                     <v-img
-                        src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"
+                        :src="data.image_preview"
                         alt="Smartphones 2026" class="rounded-lg elevation-6 mx-auto" max-width="520" />
                 </div>
 
@@ -97,11 +96,13 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 export default {
 
     data() {
         return {
             activeSection: null,
+            data : [],
             sections: [
                 {
                     id: "intro",
@@ -289,6 +290,8 @@ export default {
 
         })
 
+         this.load();
+
     },
 
     methods: {
@@ -299,7 +302,19 @@ export default {
                 behavior: "smooth"
             })
 
-        }
+        },
+        async load() {
+
+            try {
+                const slug = this.$route.params.slug;
+                let res = await General.get(`/api/web/getBlogdetail/${slug}`);
+                this.data = res.data;
+            } catch (error) {
+                console.error("Dashboard load failed:", error);
+            } finally {
+             
+            }
+        },
 
     }
 

@@ -44,6 +44,12 @@ class User extends Authenticatable  // This should extend Authenticatable
 
     protected $hidden = [
         'password',
+        'email_verification_token',
+        'email_verification_token_status',
+        'resend_count',
+        'last_resend_at',
+        'motorTradeProof',
+        'addressProof',
     ];
 
     public function pinnedNews()

@@ -159,8 +159,17 @@ class BlogController extends Controller
             ], 422);
         }
 
+        $slug = Str::slug($request->title);
+
+        $count = Blog::where('slug', 'LIKE', "{$slug}%")->count();
+        if ($count) {
+            $slug = $slug . '-' . ($count + 1);
+        }
+
+
         $model->where('id',$id)->update([
             'title' => $request->title,
+            'slug'  => $slug,
             'description' => $request->description,
             'date' => Carbon::parse($request->date),
             'updated_at' => Carbon::now(),

@@ -85,5 +85,18 @@ public function getBlogDashboard(Request $request)
     ]);
 }
 
+public function getBlogdetail(Request $request,$slug)
+{
+    $blog = Blog::with('category','author')->where('slug', $slug)->first();
+
+    if (!$blog) {
+        return response()->json(['message' => 'Blog not found'], 404);
+    }
+
+    return response()->json([
+        'data' => $blog
+    ], 200); 
+}   
+
 }
 

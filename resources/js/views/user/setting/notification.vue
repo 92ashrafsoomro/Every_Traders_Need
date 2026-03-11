@@ -1,14 +1,14 @@
 <template>
 
   <v-col>
-    <v-card title="Notifications" subtitle="Change to notification settings, the user will get the update">
+    <v-card title="Notifications" subtitle="Change to notification settings, the user will get the update" class="border" style="padding: 0 !important;">
       <div class="border"></div>
-      <v-container fluid>
+      <v-container  fluid="" style="padding: 0 !important;">
 
         <!-- Notifications Table -->
-        <v-table class="bg-surface notification-table " density="comfortable" style="padding: 0  !important;">
+        <v-data-table-server hide-default-footer="" class="bg-surface notification-table  " density="" style="padding: 0  !important;">
           <thead>
-            <tr class="bg-surface">
+            <tr class="bg-surface" style="padding: 0 !important;">
               <th class="text-left text-white text-caption font-weight-bold pa-4">TYPE</th>
               <th class="text-center text-white text-caption font-weight-bold">EMAIL</th>
               <th class="text-center text-white text-caption font-weight-bold">BROWSER</th>
@@ -17,19 +17,19 @@
           <tbody>
             <tr v-for="(item, i) in notifications" :key="i" class="border-b border-grey-darken-3"
               :class="item.important ? 'bgColor' : ''">
-              <td class="text-white pa-6 text-subtitle-1 font-weight-medium">
+              <td class="text-white  text-subtitle-1 font-weight-medium">
                 {{ item.type }}
               </td>
               <td class="text-center">
-                <v-switch v-model="item.email" color="primary" hide-details inset class="d-inline-flex"></v-switch>
+                <v-switch v-model="item.email" color="primary" hide-details inset class="d-inline-flex  "></v-switch>
 
                 <!-- 👇 SIRF IMPORTANT KE LIYE -->
-                <div v-if="item.important" class="text-white text-caption mt-1 cursor-pointer" @click="selectAllEmail">
+                <p v-if="item.important" class="text-white text-caption  cursor-pointer" @click="selectAllEmail">
                   Select All (Email)
-                </div>
+                </p>
               </td>
               <td class="text-center">
-                <v-switch v-model="item.browser" color="green-accent-2" hide-details inset
+                <v-switch v-model="item.browser" color="primary" hide-details inset
                   class="d-inline-flex"></v-switch>
 
                 <div v-if="item.important" class="text-white text-caption mt-1 cursor-pointer"
@@ -39,9 +39,9 @@
               </td>
             </tr>
           </tbody>
-        </v-table>
+        </v-data-table-server>
 
-        <div class="mt-10">
+        <div class=" pa-4 border-t">
           <v-btn color="primary" variant="flat" class="mx-2" style="height: 50px;">
             Save changes
           </v-btn>
@@ -99,28 +99,4 @@ export default {
 </script>
 
 <style scoped>
-.v-application {
-  background: #0f0f1e !important;
-}
-
-.notification-table {
-  /* background: #1a1a2e; */
-}
-
-.notification-table tbody tr:hover {
-  background: rgba(138, 43, 226, 0.05) !important;
-}
-
-.v-table thead th {
-  /* background: #1e1e2e !important; */
-}
-
-/* Custom cursor for "Select All" links */
-.cursor-pointer {
-  cursor: pointer;
-  user-select: none;
-}
-.bgColor{
-  background-color: rgb(var(--v-theme-background)) !important;
-}
 </style>

@@ -16,8 +16,10 @@ use App\Models\Interest;
 use App\Models\AuctionCenter;
 use App\Models\UserAuction;
 use App\Models\UserNotificationAlert;
+use App\Models\UserNotificationSetting;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
+use App\Models\NotificationList;
 use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -529,9 +531,58 @@ class NotificationController extends Controller
     }
 
 
-    
+public function notificationSettings(Request $request)
+{
+    $userId = $request->user()->id;
 
+    $data = NotificationList::leftJoin('user_notification_settings as uns', function ($join) use ($userId) {
+        $join->on('notifications_list.id', '=', 'uns.type')
+            ->where('uns.user_id', $userId);
+    })
+    ->select(
+        'notifications_list.id',
+        'notifications_list.name',
+        \DB::raw('COALESCE(uns.email,0) as email'),
+        \DB::raw('COALESCE(uns.browser,0) as browser'),
+        \DB::raw("COALESCE(uns.send_preference,'online') as send_preference")
+    )
+    ->get();
 
+    return response()->json([
+        'status' => true,
+        'data' => $data
+    ]);
+}
+
+public function saveNotificationSettings(Request $request)
+{
+ 
+    $userId = $request->user()->id;
+
+    $settings = $request->input('settings', []);
+
+    foreach ($settings as $s) {
+        // Validate minimal required fields
+        if (!isset($s['notification_id'])) continue;
+
+        UserNotificationSetting::updateOrCreate(
+            [
+                'user_id' => $userId,
+                'type' => $s['notification_id'],
+            ],
+            [
+                'email' => isset($s['email']) ? $s['email'] : 0,
+                'browser' => isset($s['browser']) ? $s['browser'] : 0,
+                'send_preference' => 'online', 
+            ]
+        );
+    }
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Notification settings saved successfully'
+    ]);
+}
     
 
 

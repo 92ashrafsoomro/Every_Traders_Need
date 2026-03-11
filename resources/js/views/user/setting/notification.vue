@@ -18,31 +18,24 @@
             <tr v-for="(item, i) in notifications" :key="i" class="border-b border-grey-darken-3"
               :class="item.important ? 'bgColor' : ''">
               <td class="text-white  text-subtitle-1 font-weight-medium">
-                {{ item.type }}
+                {{ item.name  }}
               </td>
               <td class="text-center">
                 <v-switch v-model="item.email" color="primary" hide-details inset class="d-inline-flex  "></v-switch>
 
-                <!-- 👇 SIRF IMPORTANT KE LIYE -->
-                <p v-if="item.important" class="text-white text-caption  cursor-pointer" @click="selectAllEmail">
-                  Select All (Email)
-                </p>
               </td>
               <td class="text-center">
                 <v-switch v-model="item.browser" color="primary" hide-details inset
                   class="d-inline-flex"></v-switch>
 
-                <div v-if="item.important" class="text-white text-caption mt-1 cursor-pointer"
-                  @click="selectAllBrowser">
-                  Select All (Browser)
-                </div>
+        
               </td>
             </tr>
           </tbody>
         </v-data-table-server>
 
         <div class=" pa-4 border-t">
-          <v-btn color="primary" variant="flat" class="mx-2" style="height: 50px;">
+          <v-btn color="primary" @click="saveSettings" variant="flat" class="mx-2" style="height: 50px;">
             Save changes
           </v-btn>
           <v-btn variant="elevated" class="mx-2 bg-background" style="height: 50px;">
@@ -58,44 +51,52 @@
 </template>
 
 <script>
+import General from '@/models/general.model';
 export default {
-  name: 'NotificationSettings',
+   name: 'NotificationSettings',
 
   data() {
     return {
-      notifications: [
-        { type: 'Auction Activity', email: true, browser: true, important: true },
-        { type: 'New Auction Finder Alerts', email: true, browser: true },
-        { type: 'Upcoming Auction Reminder', email: true, browser: true },
-        { type: 'Auction Result Published', email: true, browser: true },
-        { type: 'Reauction Alerts', email: true, browser: true },
-        { type: 'Auction Delays / Status Updates', email: true, browser: true },
-        { type: 'Vehicle Tracking', email: false, browser: false, important: true },
-        { type: 'Interest-Based Alerts', email: true, browser: true },
-        { type: 'Scheduling', email: false, browser: false, important: true },
-        { type: 'Auction Calendar Reminder', email: true, browser: true },
-        { type: 'Daily/Weekly Auction Digest', email: true, browser: true },
-        { type: 'System', email: false, browser: false, important: true },
-        { type: 'Membership / Billing Updates', email: true, browser: true },
-        { type: 'System Updates & News Features', email: true, browser: true },
-        { type: 'Security Alerts', email: true, browser: true },
-        { type: 'News Engagement', email: false, browser: false, important: true },
-        { type: 'News & Blog Updates', email: true, browser: true },
-        { type: 'Special Offers & Promotions', email: true, browser: true },
-        { type: 'Survey & Feedback Requests', email: true, browser: true },
-      ]
+      notifications: []
     }
   },
 
+    mounted() {
+    this.loadNotifications();
+  },
   methods: {
-    selectAllEmail() {
-      this.notifications.forEach(n => n.email = true)
+    async loadNotifications() {
+      try {
+        const res = await General.get('/api/user/notification-list');
+        this.notifications = res.data.map(n => ({
+          ...n,
+          email: !!n.email,      
+          browser: !!n.browser,  
+
+        }));
+      } catch (err) {
+        console.error(err);
+      }
     },
-    selectAllBrowser() {
-      this.notifications.forEach(n => n.browser = true)
+
+    async saveSettings() {
+      try {
+        const payload = this.notifications.map(n => ({
+          notification_id: n.id,
+          email: n.email ? 1 : 0,
+          browser: n.browser ? 1 : 0
+        }));
+
+        await General.post('/api/user/notification/save', { settings: payload });
+        this.$alertStore.add("Notification settings saved successfully", "success");
+      } catch (err) {
+        console.error(err);
+        this.$alertStore.add("Failed to save notification settings", "error");
+      }
     }
   }
-}
+  }
+
 </script>
 
 <style scoped>

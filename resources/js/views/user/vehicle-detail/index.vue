@@ -290,6 +290,7 @@ export default {
                 this.$alertStore.add("Alert Added Successfully", "success");
                 this.alertExists = true;
             } catch (e) {
+                this.$alertStore.add(e.message || "An error occurred", "error");
                 console.error("sendAlertdata error:", e);
             }
         },

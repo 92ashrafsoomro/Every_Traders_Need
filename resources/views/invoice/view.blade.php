@@ -1,401 +1,552 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Invoice #0001 • AutoBoli Pvt Ltd</title>
-  <style>
- 
-    .invoice-wrapper {
-      max-width: 750px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 10px;
+  <style type="text/css">
+    body {
+       font-family: 'Inter', sans-serif !important;
+      font-size: 14px;
+      color: #333;
+      /* background: #f7f9fc; */
+      margin: 0;
+      padding: 0;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
     }
 
-.invoice-header {
-  background: #0a1930;
-  color: #fff;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.company-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.company-info .logo {
-  width: 60px;
-  height: auto;
-}
-
-.company-info h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.company-info p {
-  margin: 3px 0 0;
-  font-size: 12px;
-  color: #aab6d1;
-}
-
-.invoice-label {
-  text-align: right;
-}
-
-.invoice-label span {
-  background: #0080ff;
-  padding: 5px 12px;
-  border-radius: 6px;
-  color: #fff;
-  font-weight: bold;
-}
-
-.invoice-label p {
-  margin: 6px 0 0;
-  color: #aab6d1;
-  font-size: 12px;
-}
-
-
-    /* Customer Info */
-    .customer-info {
-      padding: 20px 30px;
-      background: #f8f9fc;
-      border-bottom: 1px solid #e0e6ef;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+    /* Header */
+    .invoice-header {
+      background: #0d1b3a;
+      border-radius: 12px;
+      color: white;
+      padding: 30px 40px;
     }
 
-    .customer-info div {
-      width: 48%;
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .customer-info h4 {
-      margin: 0 0 8px;
-      color: #0080ff;
+    .header-table td {
+      vertical-align: middle;
+    }
+
+    .company-cell {
+      width: 60%;
+    }
+
+    .meta-cell {
+      width: 40%;
+      text-align: right;
+    }
+
+    .company {
+      display: table;
+    }
+
+    .company img {
+      width: 60px;
+      height: auto;
+      vertical-align: middle;
+    }
+
+    .company-text {
+      display: inline-block;
+      margin-top: 20px;
+      vertical-align: middle;
+      /* padding-left: 18px; */
+    }
+    .meta-text {
+      display: inline-block;
+      margin-top: 50px;
+      vertical-align: middle;
+      /* padding-left: 18px; */
+    }
+
+    .company h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .company p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .invoice-meta .label {
+      background: #2563eb;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      display: inline-block;
+    }
+
+    .invoice-meta .number {
+      font-size: 28px;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+
+    .invoice-meta .date {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* Bill to & Details – gap kam kiya */
+    .bill-section {
+      padding: 35px 0 20px;
+      text-align: right;
+      background: #ffffff;
+    }
+
+    .bill-grid {
+      width: 100%;
+    }
+
+    .bill-grid table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;  
+    }
+
+    .bill-grid td {
+      width: 50%;
+      vertical-align: top;
+      padding: 0 10px;     
+    }
+
+    .bill-grid td:first-child {
+      padding-left: 0;
+    }
+
+    .bill-grid td:last-child {
+      padding-right: 0;
+    }
+
+    .bill-grid h4 {
+      margin: 0 0 12px;
+      color: #2563eb;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .bill-grid p {
+      margin: 6px 0;
+
+      line-height: 1.5;
+    }
+
+    /* Items */
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+        border: 1px solid #e2e8f0;
+    }
+.info-table{
+  width:100%;
+  border-collapse: collapse;
+  margin-bottom:5px;
+}
+
+.info-table td{
+  padding:6px 0;
+  border-bottom:1px solid #e2e8f0;
+  font-size:13px;
+}
+
+.info-table .label{
+  font-weight:600;
+  width:45%;
+  color:#475569;
+}
+
+.info-table .value{
+  text-align:right;
+  width:55%;
+}
+
+.payment-note{
+  font-size:12px;
+  color:#64748b;
+  margin-top:6px;
+}
+    .items-table th,
+    .items-table td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .items-table th {
+      background: #0d1b3a;
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .items-table td {
       font-size: 14px;
     }
 
-    .customer-info p {
-      margin: 3px 0;
-      font-size: 13px;
-      color: #333;
+    .items-table .amount {
+      text-align: right;
     }
 
-    /* Table */
-    table {
+    .items-table .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+ 
+
+    .status-active   { background: #ecfdf5; color: #065f46; }
+    .status-pending  { background: #fef3c7; color: #92400e; }
+    .status-paid     { background: #dbeafe; color: #1e40af; }
+
+    /* Totals + Thank you – same as before but padding fix */
+    .totals-section {
+      padding: 0 0px 30px;
+    }
+
+    .totals-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 25px;
     }
 
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: right;
-    }
-
-    th {
-      background: #f6f8fb;
+    .thank-you-cell {
+      width: 55%;
+      vertical-align: top;
       text-align: left;
+      color: #64748b;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-right: 20px;
     }
 
-    /* Totals */
-    .totals {
-      margin-top: 15px;
-      width: 100%;
-    }
-
-    .totals td {
-      border: none;
-      padding: 6px 0;
-    }
-
-    .totals tr:last-child td {
-      border-top: 1px dashed #ccc;
-      padding-top: 10px;
-    }
-
-    .totals strong {
-      color: #0080ff;
-    }
-
-    /* Button (for web only) */
-    .download-btn {
+    .totals-cell {
+      width: 45%;
+      vertical-align: top;
       text-align: right;
-      margin-top: 25px;
     }
 
-    .btn {
-      background: #0080ff;
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 6px;
+    .totals-inner {
+      width: auto;
+      margin-left: auto;
+      border-collapse: collapse;
+    }
+
+    .totals-inner td {
+      padding: 8px 0;
+      font-size: 15px;
+    }
+
+    .totals-inner .label {
+      padding-right: 40px;
+      color: #64748b;
+      white-space: nowrap;
+    }
+
+    .grand-total {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0f172a;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 12px;
+      margin-top: 8px;
+    }
+    .footer-top{
+      margin-top: 10px ;
+      margin-bottom: 20px;
+    }
+    .footer-top p{
+    font-size : 12px;
+    color : #4e4e4f;
+  }
+    /* Footer */
+    .invoice-footer {
+      background: #0d1b3a;
+      color: white;
+      text-align: center;
+      padding: 20px;
       font-size: 13px;
     }
 
     @media print {
-      .btn { display: none; }
+      body { background: white; }
+      .invoice-container { box-shadow: none; margin: 0; border-radius: 0; }
     }
-
-    /* Footer */
-    .invoice-footer {
-      position: relative;
-      text-align: center;
-      color: #fff;
-      background: #0a1930;
-      padding-top: 60px;
-      padding-bottom: 30px;
-    }
-
-    .invoice-footer::before {
-      content: "";
-        position: absolute;
-        top: 51px;
-        left: -2px;
-        width: 204%;
-        height: 157px;
-        background: url('{{ asset("public/theme/invoice/footer-wave.png") }}') no-repeat center;
-
-    }
-
-    .invoice-footer p {
-      margin: 5px 0;
-      font-size: 12px;
-      color: #aab6d1;
-    }
-.customer-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 25px;
-  border: 1px solid #e0e6ef;
-  background: #f9fbfe;
-  border-radius: 6px;
-}
-
-.customer-info-table td {
-  width: 50%;
-  padding: 15px 20px;
-  vertical-align: top;
-  border-right: 1px solid #e0e6ef;
-}
-
-.customer-info-table td:last-child {
-  border-right: none;
-}
-
-.customer-info-table h4 {
-  margin: 0 0 8px 0;
-  font-size: 15px;
-  color: #0080ff;
-  border-bottom: 1px solid #e0e6ef;
-  padding-bottom: 4px;
-}
-
-.customer-info-table p {
-  margin: 4px 0;
-  font-size: 13px;
-  color: #333;
-}
-
-.status {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.status.paid {
-  background: #e6f8ec;
-  color: #1a8f3d;
-  border: 1px solid #a8e0b5;
-}
-
-.status.unpaid {
-  background: #ffeaea;
-  color: #cc0000;
-  border: 1px solid #ffb3b3;
-}
-.tr_tables{
-border: 2px solid  rgb(10, 25, 48)  !important;
-}
-
   </style>
 </head>
-
 <body>
-  <div class="invoice-wrapper">
+@php
+    use Carbon\Carbon;
+@endphp
+<div class="invoice-container">
 
   <!-- Header -->
-@if ($downloadbtn != 0)
-    
   <div class="invoice-header">
-    <div class="company-info">
-      <img src="{{ asset('public/theme/assets/nave-icon.png') }}" alt="AutoBoli Logo" class="logo">
-      <div>
-        <h2>AutoBoli Pvt Ltd</h2>
-        <p>Karachi, Pakistan<br>info@autoboli.com</p>
-      </div>
-    </div>
-    
-    <div class="invoice-label">
-      <span>INVOICE</span>
-      <p>#{{ str_pad($membership->id, 4, '0', STR_PAD_LEFT) }}<br>{{ date('Y-m-d', strtotime($membership->created_at)) }}</p>
-    </div>
-  </div>
-  @else
-<table width="100%" cellspacing="0" cellpadding="0" 
-       style="border-collapse: collapse; margin-bottom: 20px; background-color: #0a1930; color: #ffffff; font-family: Arial, sans-serif;">
-  <tr>
-    <!-- Left: Company Info -->
-    <td style="width: 65%; vertical-align: middle; padding: 15px;">
-      <table cellspacing="0" cellpadding="0" style="border: none;">
-        <tr class="tr_tables">
-          <td style="width: 65px; vertical-align: middle;">
-            <img src="{{ asset('public/theme/assets/nave-icon.png') }}" alt="AutoBoli Logo" 
-                 style="width: 55px; height: auto;">
-          </td>
-          <td style="vertical-align: middle; padding-left: 10px; text-align: left;" class="tr_tables">
-            <h2 style="margin: 0; font-size: 20px; color: #ffffff;">AutoBoli Pvt Ltd</h2>
-            <p style="margin: 3px 0 0 0; font-size: 12px; line-height: 17px; color: #ffffff;">
-              Karachi, Pakistan<br>
-              info@autoboli.com
-            </p>
-          </td>
-        </tr>
-      </table>
-    </td>
-
-    <!-- Right: Compact Invoice Box -->
-    <td style="width: 35%; text-align: right; vertical-align: middle; padding: 10px 15px;">
-      <table cellspacing="0" cellpadding="6" align="right" 
-             style="border-collapse: collapse; background-color: #0a1930; color: #ffffff; width: 85%; border-radius: 8px;">
-        <tr class="tr_tables">
-          <td colspan="2" 
-              style="font-weight: bold; text-align: center; font-size: 16px; padding: 8px 0;">
-            INVOICE
-          </td>
-        </tr>
-        <tr class="tr_tables">
-          <td style="font-weight: bold; padding: 5px 8px;border: 1px solid #0a1930;">No:</td>
-          <td style="padding: 5px 8px; text-align: right;border: 1px solid #0a1930;">#{{ str_pad($membership->id, 4, '0', STR_PAD_LEFT) }}</td>
-        </tr>
-        <tr class="tr_tables">
-          <td style="font-weight: bold; padding: 5px 8px;border: 1px solid #0a1930;">Date:</td>
-          <td style="padding: 5px 8px; text-align: right;border: 1px solid #0a1930;">{{ date('Y-m-d', strtotime($membership->membership_start_date)) }}</td>
-        </tr>
-  
-      </table>
-    </td>
-  </tr>
-</table>
-
-
-
-
-  @endif
-
-  <!-- Customer Info -->
-  <table class="customer-info-table">
-    <tr>
-      <td class="info-box">
-        <h4>Billed To</h4>
-        <p><strong>Customer Name:</strong> {{ $membership->user->firstName ?? ' ' }}</p>
-        <p><strong>Email:</strong> {{ $membership->user->personalEmail ?? 'N/A' }}</p>
-        <p><strong>Phone:</strong> {{ $membership->user->phone ?? 'N/A' }}</p>
-      </td>
-
-      <td class="info-box">
-        <h4>Billing Details</h4>
-        <p><strong>Plan:</strong> {{ $membership->plan->plan_name ?? 'N/A' }}</p>
-        <p><strong>Payment Method:</strong> {{ $membership->payment->payment_method ?? 'None' }}</p>
-        <p><strong>Status:</strong>
-       @php
-            $today = \Carbon\Carbon::today();
-            $expiry = \Carbon\Carbon::parse($membership->membership_expiry_date);
-        @endphp
-
-        @if ($expiry->lt($today))
-            <span class="status unpaid">Expired</span>
-        @else
-            <span class="status paid">Active</span>
-        @endif
-        </p>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Body -->
-  <table class="invoice-items">
-    <thead>
+    <table class="header-table">
       <tr>
-        <th>ID</th>
-        <th>Date</th>
+        <td>
+
+        <td class="company-cell">
+           <img src="{{ $logo }}" width="100" alt="Company Logo">
+
+     
+          <div class="company">
+            <div class="company-text">
+              <h2>{{ $Setting['sitename'] ?? 'AutoBoli Pvt Ltd' }}</h2>
+              <p>Vehicle Auction Data & Market Intelligence Platform</p>
+              <p>Website: {{ $Setting['website'] ?? 'www.autoboli.com' }} </p>
+              <p>Email: {{ $Setting['email'] ?? 'info@autoboli.com' }} </p>
+            </div>
+          </div>
+        </td>
+        <td class="meta-cell">
+         <div class="company">
+            <div class="meta-text">
+            <div >Invoice Number : {{ $data->id ?? '' }}  </div>
+            <div>Invoice Date : {{ isset($data->payment->payment_date) ? date('d-m-Y', strtotime($data->payment->payment_date)) : '' }} </div>
+         
+            <div>  Payment Method : {{ $data->payment->payment_method ?? '' }} </div>
+          <div>Cycle : {{ $billingCycle }} <br></div>
+          </div>
+        </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Bill To & Details – tight gap -->
+<div class="bill-section">
+  <div class="bill-grid">
+    <table>
+      <tr>
+
+        <!-- LEFT SIDE -->
+        <td>
+
+          <h4>Bill To</h4>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Company Name</td>
+              <td class="value">{{ $data->user->companyName ?? '' }}</td>
+            </tr>
+            <tr>
+              <td class="label">Contact Person</td>
+              <td class="value">{{ $data->user->telephone ?? '' }}</td>
+            </tr>
+            <tr>
+              <td class="label">Email Address</td>
+              <td class="value">{{ $data->user->personalEmail ?? '' }}</td>
+            </tr>
+            <tr>
+              <td class="label">Billing Address</td>
+              <td class="value">{{ $data->payment->address ?? '' }}</td>
+            </tr>
+            <tr>
+              <td class="label">Country</td>
+              <td class="value">{{ $data->user->country ?? '' }}</td>
+            </tr>
+          </table>
+
+        </td>
+
+
+        <!-- RIGHT SIDE -->
+        <td>
+
+          <h4>Subscription Details</h4>
+
+          <table class="info-table">
+              <tr>
+                  <td class="label">Plan</td>
+                  <td class="value">{{ $data->package_name ?? 'N/A' }}</td>
+              </tr>
+              <tr>
+                  <td class="label">Billing Period</td>
+                  <td class="value">
+                      @if(isset($data->membership_start_date) && isset($data->membership_expiry_date))
+                          {{ \Carbon\Carbon::parse($data->membership_start_date)->format('M Y') }} - 
+                          {{ \Carbon\Carbon::parse($data->membership_expiry_date)->format('M Y') }}
+                      @else
+                          N/A
+                      @endif
+                  </td>
+              </tr>
+              {{-- <tr>
+                  <td class="label">Qty</td>
+                  <td class="value">1</td>
+              </tr> --}}
+              <tr>
+                  <td class="label">Price</td>
+                  <td class="value">€{{ number_format((float)($data->price ?? 0), 2) }}</td>
+              </tr>
+              @if(!empty($data->discount) && $data->discount > 0)
+              <tr>
+                  <td class="label">Discount</td>
+                  <td class="value">-€{{ number_format((float)$data->discount, 2) }}</td>
+              </tr>
+              @endif
+              <tr>
+                  <td class="label">Total</td>
+                  <td class="value"><strong>€{{ number_format((float)($data->total ?? 0), 2) }}</strong></td>
+              </tr>
+          </table>
+
+
+          <h4>Payment Summary</h4>
+          <table class="info-table">
+              <tr>
+                  <td class="label">Subtotal</td>
+                  <td class="value">€{{ number_format((float)($data->price ?? 0), 2) }}</td>
+              </tr>
+              
+              <tr>
+                  <td class="label">VAT (if applicable)</td>
+                  <td class="value">€0.00</td>
+              </tr>
+
+              <tr>
+                  <td class="label">Discount</td>
+                  <td class="value">
+                      @if(!empty($data->discount) && $data->discount > 0)
+                          -€{{ number_format((float)$data->discount, 2) }}
+                      @else
+                          €0.00
+                      @endif
+                  </td>
+              </tr>
+
+              <tr>
+                  <td class="label">Billing Address</td>
+                  <td class="value">
+           
+                      {{ $data->payment->address ?? 'Address Not Provided' }}
+                  </td>
+              </tr>
+
+              <tr>
+                  <td class="label">Total Amount</td>
+                  <td class="value" style="font-weight: bold;">
+                      €{{ number_format((float)($data->total ?? 0), 2) }}
+                  </td>
+              </tr>
+          </table>
+
+
+          <h4>Payment Information</h4>
+
+          <table class="info-table">
+            <tr>
+              <td class="label">Payment Method</td>
+              <td class="value">{{ $data->payment->payment_method ?? '' }}</td>
+            </tr>
+            <tr>
+              <td class="label">Transaction ID</td>
+              <td class="value">{{ $data->payment->transaction_id ?? 'N/A' }}</td>
+            </tr>
+          </table>
+
+          <p class="payment-note">
+            Payment will be automatically deducted according to your billing agreement.
+          </p>
+
+        </td>
+
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+  <!-- Items -->
+  <table class="items-table">
+    <thead>
+      <tr> 
         <th>Plan Name</th>
-        <th>Start</th>
-        <th>Expiry</th>
-        <th>Amount</th>
-        <th>Status</th>
+        <th>Billing Cycle</th>
+        <th style="width:18%">Date</th>
+        <th style="width:14%">Start Date</th>
+        <th style="width:14%">Next billing date</th>
+        <th style="width:12%">Account Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ $membership->id }}</td>
-        <td>{{ date('Y-m-d', strtotime($membership->created_at)) }}</td>
-        <td>{{ $membership->plan->plan_name ?? 'N/A' }}</td>
-        <td>{{ date('d-M-Y', strtotime($membership->membership_start_date)) }}</td>
-        <td>{{ date('d-M-Y', strtotime($membership->membership_expiry_date)) }}</td>
-        <td>{{ $membership->payment->amount ?? '0' }} {{ $membership->payment->currency ?? '£' }}</td>
+    <tr>
+        <td>{{ $data->package_name ?? 'N/A' }}</td>
+        <td>{{ $billingCycle }}</td>
+        <td>{{ isset($data->join_date) ? Carbon::parse($data->join_date)->format('d M, Y') : 'N/A' }}</td>
+        <td>{{ isset($data->membership_start_date) ? Carbon::parse($data->membership_start_date)->format('d M, Y') : 'N/A' }}</td>
+        <td>{{ $nextBillingDate }}</td>
         <td>
-           @if ($expiry->lt($today))
-            <span class="status unpaid">Expired</span>
-          @else
-              <span class="status paid">Active</span>
-          @endif
+            @if($isExpired)
+                <span class="status status-expired" style="color: red; font-weight: bold;">Expired</span>
+            @else
+                <span class="status status-paid" style="color: green; font-weight: bold;">Active</span>
+            @endif
         </td>
-      </tr>
+    </tr>
     </tbody>
   </table>
 
+  <!-- Totals + Thank you in one row -->
+  <!-- <div class="totals-section">
+    <table class="totals-table">
+      <tr>
+        <td class="thank-you-cell">
+          Thank you for your business!<br>
+          We appreciate your trust in AutoBoli.
+        </td>
+        <td class="totals-cell">
+          <table class="totals-inner">
+            <tr>
+              <td class="label">Subtotal:</td>
+              <td>£49.00</td>
+            </tr>
+            <tr>
+              <td class="label">Tax (0%):</td>
+              <td>£0.00</td>
+            </tr>
+            <tr>
+              <td class="grand-total">Total Due:</td>
+              <td class="grand-total" style="text-align: right;">£49.00</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div> -->
+  <div class="footer-top">
+    <p>
+      This invoice confirms your subscription payment for Autoboli services <br>
+      Your subscription provides access to vehicle auction insights, valuation data, and analytics tools.
+    </p>
+  </div>
 
-
-
-
-
-<p style="margin: 20;">Thank you for your business!</p>
-
-
-
-<div class="invoice-footer">
-    <p>AutoBoli Pvt Ltd © {{ date('Y') }} — All rights reserved</p>
-    <p>www.autoboli.com</p>
+  <div class="invoice-footer">
+    {{ $Setting['sitename'] ?? 'AutoBoli Pvt Ltd' }} © 2026  •  {{ $Setting['website'] ?? 'www.autoboli.com' }}
   </div>
 
 </div>
 
-@if ($downloadbtn != 0)
-<div class="download-btn" style="display: flex; justify-content: center; align-items: center; margin-top: 25px;">
-  <div style="margin-top: 20px; display: inline-block;">
-    <a href="{{ route('invoice.pdf', Crypt::encryptString($membership->id)) }}"
-       class="btn btn-primary"
-       style="padding: 10px 18px; border-radius: 6px; text-decoration: none; color: #ffffff; 
-              background-color: #0a1930; display: inline-flex; align-items: center; gap: 8px; font-weight: bold;">
-      <i class="fa fa-download" style="font-size: 14px;"></i> Download PDF
-    </a>
-  </div>
-@endif
-
-</div>
 </body>
 </html>

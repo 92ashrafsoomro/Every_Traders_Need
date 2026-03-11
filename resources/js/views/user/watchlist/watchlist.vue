@@ -214,7 +214,7 @@ export default {
             return this.items;
         },
         showUpgradeMessage() {
-            return this.userStore.isBasicSubscriber() && this.items.length > 10;
+            return this.userStore.isBasicSubscriber();
         }
     }
 };

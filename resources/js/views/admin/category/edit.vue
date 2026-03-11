@@ -8,7 +8,7 @@
 
           <h3 class="text-h6 font-weight-bold">Blog & News Category Edit</h3>
 
-          <v-btn variant="text" color="primary" class="text-capitalize">
+          <v-btn variant="text" color="primary" class="text-capitalize"  to="/admin/category">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>

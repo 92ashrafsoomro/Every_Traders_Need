@@ -29,7 +29,7 @@
                     :class="{ 'active-border': userStore.user?.plan?.plan_id === item.id }" :style="[
                         { 'border-radius': '30px', 'min-height': '700px' },
                         userStore.user?.plan?.plan_id === item.id
-                            ? { 'border': '2px solid white !important' }
+                            ? { 'border': '2px solid rgb(var(--v-theme-border)) !important' }
                             : { 'border': '2px solid rgb(var(--v-theme-primary)) !important' }
                     ]">
 
@@ -98,7 +98,7 @@
                         { 'border-radius': '30px', 'min-height': '700px' },
                         userStore.user?.plan?.plan_id === item.id
                             ? { 'border': '2px solid white !important' }
-                            : { 'border': '1px solid rgba(255,255,255,0.1) !important' }
+                            : { 'border': '1px solid rgb(var(--v-theme-border)) !important' }
                     ]">
                     <div class="rounded-lg  bg-surface pa-4 shadow-lg" style="
                             border-radius: 2px 2px 20px 20px !important ;">

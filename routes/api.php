@@ -213,6 +213,7 @@ use App\Http\Controllers\Api\TicketUserApiController;
 
     
         Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+        Route::get('/billing-history',[AuctionFinderController::class,'billing_history']);
 
         Route::get('/tickets', [TicketUserApiController::class, 'index']);
         Route::post('/tickets', [TicketUserApiController::class, 'store']);

@@ -162,11 +162,9 @@
                             </template>
 
                             <template #item.membership_status="{ item }">
-                   
-                    <v-btn :color="item.membership_status == 0 ? 'warning':'primary'" size="small" variant="flat"  class="cursor-text">
-                             {{ item.membership_status == 0 ? 'De Active' : 'Active' }}
-                    </v-btn>
-              
+                                <v-btn :color="item.membership_status == 0 ? 'warning':'primary'" size="small" variant="flat"  class="cursor-text">
+                                        {{ item.membership_status == 0 ? 'De Active' : 'Active' }}
+                                </v-btn>
                             </template>
                               <template #item.user="{ item }">
                                 <div class="d-flex flex-column">
@@ -366,32 +364,32 @@ export default {
             }
         },
 
-        async downloadPdf(id) {
-            try {
-                const response = await General.get(`/api/user/billing/${id}`, {
-                    responseType: "blob" // Ye "blob" hona zaruri hai
-                });
-
-                // Response object se blob banayein
-                const blob = new Blob([response.data], { type: 'application/pdf' });
-                
-                // Agar aap browser window mein download trigger kar rahe hain
-                const url = window.URL.createObjectURL(blob);
-                const link = document.createElement("a");
-                link.href = url;
-                link.setAttribute("download", `invoice-${id}.pdf`);
-                document.body.appendChild(link);
-                link.click();
-                
-                // Memory free karein
-                // window.URL.revokeObjectURL(url);
-                link.remove();
-            } catch (error) {
-                console.error("PDF Download error:", error);
-                alert("PDF download failed");
-            }
+    async downloadPdf(id) {
+        this.loading = true;
+        try {
+            
+            const response = await General.pdf(`/api/user/billing/${id}`, {}, {
+                responseType: "blob" 
+            });
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", `invoice-${id}.pdf`);
+            
+            document.body.appendChild(link);
+            link.click();
+            
+            // Cleanup
+            link.remove();
+            window.URL.revokeObjectURL(url);
+            this.loading = false;
+        } catch (error) {
+            console.error("PDF Download error:", error);
+            this.loading = false;
         }
-
+    }
 
 
     }

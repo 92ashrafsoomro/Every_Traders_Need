@@ -12,6 +12,8 @@ use App\Models\ModelVariant;
 use App\Models\Notification;
 use App\Models\RecentView;
 use Illuminate\Http\Request;
+use App\Models\Membership;
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
@@ -28,6 +30,7 @@ use App\Services\AuctionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
+
 
 class AuctionFinderController extends Controller
 {
@@ -805,24 +808,98 @@ class AuctionFinderController extends Controller
     }
 
 
-       public function billing_view(Request $request,$id)
+    public function billing_view(Request $request, $id)
     {
-        
-        
-        //  DB::statement("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
-        // $AuctionFinderService = new AuctionFinderService($request,$id);
+        $data = Membership::with('user','plan','payment')->find($id);
 
-        $pdf = Pdf::loadView('invoice.vieww', []);
-        // return $pdf->stream();
+        if(!$data){
+            return response()->json([
+                'message' => 'Record Not Found'
+            ],404);
+        }
+
+        $start = Carbon::parse($data->membership_start_date);
+        $expiry = Carbon::parse($data->membership_expiry_date);
+
+
+        $monthsDiff = round($start->diffInMonths($expiry));
+
+
+        if ($monthsDiff <= 1) {
+            $billingCycle = "Monthly";
+        } elseif ($monthsDiff <= 3) {
+            $billingCycle = "Quarterly";
+        } elseif ($monthsDiff <= 6) {
+            $billingCycle = "Half Yearly";
+        } else {
+            $billingCycle = "Yearly";
+        }
+
+
+        $expiryDate = $data->membership_expiry_date ? Carbon::parse($data->membership_expiry_date) : null;
+        $today = Carbon::now();
+
+        $isExpired = $expiryDate ? $expiryDate->isPast() : false;
+
+        $nextBillingDate = $expiryDate
+            ? $expiryDate->copy()->addDay()->format('d M, Y')
+            : 'N/A';
+
+        $imagePath = base_path('resources/js/assets/images/header/darkfull.png');
+          
+
+          if (file_exists($imagePath)) {
+              $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+              $imageData = file_get_contents($imagePath);
+              $base64 = 'data:image/' . $type . ';base64,' . base64_encode($imageData);
+          } else {
+              $base64 = ''; 
+          }
+
+        $Setting = Setting::all()->pluck('value', 'key')->toArray();
+      
+        $pdf = Pdf::loadView('invoice.view', [
+            'data' => $data,
+            'billingCycle' => $billingCycle,
+            'isExpired' => $isExpired,
+            'nextBillingDate' => $nextBillingDate,
+            'today' => $today,
+            'Setting' => $Setting,
+            'logo' => $base64
+        ]);
+      
+        // return view('invoice.view', [
+        //     'data' => $data,
+        //     'billingCycle' => $billingCycle,
+        //     'isExpired' => $isExpired,
+        //     'nextBillingDate' => $nextBillingDate,
+        //     'today' => $today,
+        //     'Setting' => $Setting,
+        //     'logo' => $base64
+        // ]);
+
+        // return $pdf->stream('invoice.pdf');
          return $pdf->download('invoice.pdf');
-
-       
-        // return response()->json(
-        //     $AuctionFinderService->response
-        // ,200);
+         
     }
+        
+    public function billing_history(Request $request)
+    {
+        $user = auth()->user(); 
 
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
 
+        $data = User::with(['memberships' => function($query) {
+            $query->orderBy('created_at', 'desc'); 
+        }, 'memberships.payment'])->find($user->id);
+
+        return response()->json([
+            'data' => $data->memberships 
+        ], 200);
+
+    }
     
 
 

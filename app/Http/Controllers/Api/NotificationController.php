@@ -273,10 +273,18 @@ class NotificationController extends Controller
         public function userWatchList(Request $request)
     {
 
-        $userId = $request->user()->id;
+        $user = $request->user();
+        $userId = $user->id;
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
+
+        $userMembership = $user->memberships()->where('membership_status', 1)->first();
+
+        if ($userMembership->plan_id == 1) {
+            $length = 10;
+            $offset = 0;
+        }
 
         $baseQuery = RecentView::join('vehicles','vehicles.id','=','recent_views.vehicle_id')
             ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
@@ -327,13 +335,19 @@ class NotificationController extends Controller
                 ->take($length)
                 ->get();
 
+            if ($userMembership->plan_id == 1) {
+                $displayCount = ($countQuery > 10) ? 10 : $countQuery;
+            } else {
+                $displayCount = $countQuery;
+            }
+
             return response()->json([
-                'recordsTotal' => $countQuery,
-                'recordsFiltered' => $countQuery,
+                'recordsTotal' => $displayCount,
+                'recordsFiltered' => $displayCount,
                 
                 'page' => $page,
                 'offset' => $offset,
-                'last_page' => ceil($countQuery / $length),
+                'last_page' => ceil($displayCount / $length),
                 'data' => $data,
             ]);
 
@@ -379,6 +393,7 @@ class NotificationController extends Controller
     public function addInVehicleAlert(Request $request)
     { 
 
+
         $validator = Validator::make($request->all(),[
             'vehicle_id' => 'required|exists:vehicles,id',
         ]);
@@ -396,6 +411,19 @@ class NotificationController extends Controller
                 'message' => 'Success',
                 'data' => $checkExisting
             ],200);
+        }
+        $user = $request->user();
+        $currentMembership = $user->memberships()->where('membership_status', 1)->first();
+   
+
+        if ($currentMembership && $currentMembership->plan_id == 1) {
+            $alertCount = UserVehicleAlert::where('user_id', $user->id)->count();
+
+            if ($alertCount >= 10) {
+                return response()->json([
+                    'message' => 'Limit reached. Basic plan allows only 10 vehicle alerts. Please upgrade your plan.',
+                ], 422); 
+            }
         }
 
         $query = UserVehicleAlert::create([

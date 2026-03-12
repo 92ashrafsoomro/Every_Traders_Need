@@ -66,13 +66,39 @@
                     <div style="width:400px; position:sticky; top:60px;">
                         <div>
                             <h4 class="mb-4">SHARE THIS POST</h4>
-                            <div class="d-flex  mb-6">
+                            <!-- <div class="d-flex  mb-6">
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-facebook</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-whatsapp</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-twitter</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-instagram</v-icon>
-                            </div>
+                            </div> -->
+                            <div class="d-flex mb-6">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('facebook')"
+                            >
+                                mdi-facebook
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('whatsapp')"
+                            >
+                                mdi-whatsapp
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('twitter')"
+                            >
+                                mdi-twitter
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="copyLink"
+                            >
+                                mdi-instagram
+                            </v-icon>
 
+                            </div>
                             <v-expansion-panels class="bg-transparent elevation-0">
                                 <v-expansion-panel class="bg-transparent elevation-0">
                                     <v-expansion-panel-title ripple="false">
@@ -94,10 +120,11 @@
             </v-container>
         </v-container>
     </v-container>
-</template>
 
+</template>
 <script>
 import General from '@/models/general.model';
+import { useGlobalSettingStore } from '@/stores/globalSetting';
 export default {
 
     data() {
@@ -262,7 +289,14 @@ export default {
             ]
         }
     },
-    mounted() {
+    setup() {
+        const globalStore = useGlobalSettingStore();
+        return { globalStore };
+    },
+    async  mounted() {
+        if (Object.keys(this.globalStore.settings).length === 0) {
+            await this.globalStore.loadSettings();
+            }
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -290,11 +324,16 @@ export default {
             }
 
         })
+        
 
          this.load();
 
     },
-
+    computed: {
+        shareUrl() {
+            return window.location.href
+        }
+    },  
     methods: {
 
         scrollTo(id) {
@@ -316,6 +355,37 @@ export default {
              
             }
         },
+
+        
+        share(platform) {
+
+            const url = encodeURIComponent(window.location.href)
+            const text = encodeURIComponent("Check this blog")
+
+            let shareLink = ""
+
+            if (platform === "facebook") {
+            shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+            }
+
+            if (platform === "whatsapp") {
+            shareLink = `https://api.whatsapp.com/send?text=${text}%20${url}`
+            }
+
+            if (platform === "twitter") {
+            shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+            }
+
+            window.open(shareLink, "_blank")
+
+        },
+
+        copyLink() {
+            navigator.clipboard.writeText(window.location.href)
+            this.$alertStore.add('Link copied! Share on Instagram', 'success');
+
+
+        }
 
     }
 

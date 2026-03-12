@@ -35,6 +35,18 @@
               <v-col cols="12" md="6">
                 <v-text-field label="Meta Description" v-model="form.meta_description" variant="outlined" density="compact" />
               </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Facebook URL" v-model="form.facebook" variant="outlined" density="compact" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Instagram URL" v-model="form.instagram" variant="outlined" density="compact" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Whatsapp" v-model="form.whatsapp" variant="outlined" density="compact" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Website URL" v-model="form.weburl" variant="outlined" density="compact" />
+              </v-col>
             </v-row>
 
             <v-row class="mt-6">
@@ -66,7 +78,11 @@ export default {
       email: '',
       sitename: '',
       meta_title: '',
-      meta_description: ''
+      meta_description: '',
+      facebook: '',
+      instagram: '',
+      whatsapp: '',
+      weburl: '',
     },
   }),
   mounted() {
@@ -78,8 +94,6 @@ export default {
         try {
             let res = await General.get("/api/cruds/settings", this.filter)
             const data = res.data.data ?? res.data;
-
-            // Convert array to object
             this.form = {};
             data.forEach(item => {
                 this.form[item.key] = item.value;
@@ -93,12 +107,11 @@ export default {
     },
     async saveSettings() {
     try {
-        await General.post("/api/cruds/settings", this.form)
-
-        alert("Settings Saved Successfully")
+        const res = await General.post("/api/cruds/settings", this.form)
+        this.$alertStore.add(res.message || 'Settings Saved Successfully', 'success');
 
     } catch (error) {
-        alert("Settings Save Failed")
+        this.$alertStore.add(error.message || 'Settings Save Failed', 'error');
     }
 }
     },

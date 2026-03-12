@@ -2,8 +2,8 @@
   <user-title-bar title="Auction & Market Updates"
     subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."></user-title-bar>
 
-  <v-container fluid class=" bg-background" style="padding: 0 !important;">
-    <v-row no-gutters>
+  <v-container fluid class=" bg-background " style="padding: 0 !important;">
+    <v-row no-gutters class="pa-2">
       <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3"
         style="background-color: rgb(var(--v-theme-primary),0.3);">
         <div>
@@ -70,10 +70,10 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-col cols="12" md="9" class="px-12" style="border-left: 2px solid  rgb(var(--v-theme-border));">
-        <v-card v-if="selectedBlog" flat rounded="lg" class="">
-          <div class="bg-background pa-6">
-            <div class="bg-background rounded-lg overflow-hidden " style="height: 200px; width: 100%;">
+      <v-col cols="12" md="9" class="pa-2" style="border-left: 2px solid  rgb(var(--v-theme-border));">
+        <v-card v-if="selectedBlog" flat rounded="lg" class="" style="padding: 0 !important;">
+          <div class=" pa-6">
+            <div class=" rounded-lg overflow-hidden " style="height: 200px; width: 100%;">
               <v-img :src="selectedBlog.image_preview || placeholder" height="200" cover class="rounded-lg"></v-img>
             </div>
 
@@ -110,7 +110,7 @@
           <div>
             <v-divider />
             <div class="pa-6">
-              <p> {{ selectedBlog.description }}</p>
+             {{ selectedBlog.description }}
 
             </div>
           </div>
@@ -213,6 +213,6 @@ export default {
   border-top: 2px solid rgb(var(--v-theme-border));
   border-bottom: 2px solid rgb(var(--v-theme-border));
   background-color: rgb(var(--v-theme-background));
-  /* border-radius: 0.5rem; */
+
 }
 </style>

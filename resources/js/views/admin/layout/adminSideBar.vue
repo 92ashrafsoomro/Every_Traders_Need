@@ -64,9 +64,6 @@
           class="text-subtitle-1 mt-2"
           :class="{ 'bg-primary on-primary rounded my-active-menu hide-overlay': $route.path === child.path }"
           @click="navigateTo(child.path)">
-          <template #prepend>
-            <v-icon size="24">{{ child.icon }}</v-icon>
-          </template>
           <template #title>
             <span class="ml-3">{{ child.label }}</span>
           </template>
@@ -155,5 +152,5 @@ export default {
   display: none;
 }
 
-  
+
 </style>

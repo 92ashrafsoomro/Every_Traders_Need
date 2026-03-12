@@ -33,6 +33,7 @@
 
                     <!-- LEFT ARTICLE -->
                     <div style="flex:1; min-width:700px;">
+                        <h1 class="mb-2">How Car Dealers Make Money from Vehicle Auctions</h1>
                         <section v-for="section in sections" :key="section.id" :id="section.id" class="mb-12">
                             <h2 class="text-h5 font-weight-bold mb-4">{{ section.title }}</h2>
                             <div v-for="(block, i) in section.blocks" :key="i">
@@ -79,7 +80,7 @@
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         <div v-for="section in sections" :key="section.id" @click="scrollTo(section.id)"
-                                        class="hoverElement"
+                                            class="hoverElement"
                                             :class="activeSection === section.id ? 'text-primary font-weight-bold cursor-pointer mb-2' : 'text-disabled cursor-pointer mb-2'">
                                             {{ section.title }}
                                         </div>
@@ -333,7 +334,8 @@ export default {
 .d-flex>div:last-child {
     width: 400px;
 }
-.hoverElement:hover{
+
+.hoverElement:hover {
     text-decoration: underline;
 }
 </style>

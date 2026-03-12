@@ -16,8 +16,10 @@ use App\Models\Interest;
 use App\Models\AuctionCenter;
 use App\Models\UserAuction;
 use App\Models\UserNotificationAlert;
+use App\Models\UserNotificationSetting;
 use App\Models\UserVehicleAlert;
 use App\Models\Vehicle;
+use App\Models\NotificationList;
 use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -273,10 +275,18 @@ class NotificationController extends Controller
         public function userWatchList(Request $request)
     {
 
-        $userId = $request->user()->id;
+        $user = $request->user();
+        $userId = $user->id;
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
+
+        $userMembership = $user->memberships()->where('membership_status', 1)->first();
+
+        if ($userMembership->plan_id == 1) {
+            $length = 10;
+            $offset = 0;
+        }
 
         $baseQuery = RecentView::join('vehicles','vehicles.id','=','recent_views.vehicle_id')
             ->leftJoin('auctions','auctions.id', '=','vehicles.auction_id')
@@ -327,13 +337,19 @@ class NotificationController extends Controller
                 ->take($length)
                 ->get();
 
+            if ($userMembership->plan_id == 1) {
+                $displayCount = ($countQuery > 10) ? 10 : $countQuery;
+            } else {
+                $displayCount = $countQuery;
+            }
+
             return response()->json([
-                'recordsTotal' => $countQuery,
-                'recordsFiltered' => $countQuery,
+                'recordsTotal' => $displayCount,
+                'recordsFiltered' => $displayCount,
                 
                 'page' => $page,
                 'offset' => $offset,
-                'last_page' => ceil($countQuery / $length),
+                'last_page' => ceil($displayCount / $length),
                 'data' => $data,
             ]);
 
@@ -379,6 +395,7 @@ class NotificationController extends Controller
     public function addInVehicleAlert(Request $request)
     { 
 
+
         $validator = Validator::make($request->all(),[
             'vehicle_id' => 'required|exists:vehicles,id',
         ]);
@@ -396,6 +413,19 @@ class NotificationController extends Controller
                 'message' => 'Success',
                 'data' => $checkExisting
             ],200);
+        }
+        $user = $request->user();
+        $currentMembership = $user->memberships()->where('membership_status', 1)->first();
+   
+
+        if ($currentMembership && $currentMembership->plan_id == 1) {
+            $alertCount = UserVehicleAlert::where('user_id', $user->id)->count();
+
+            if ($alertCount >= 10) {
+                return response()->json([
+                    'message' => 'Limit reached. Basic plan allows only 10 vehicle alerts. Please upgrade your plan.',
+                ], 422); 
+            }
         }
 
         $query = UserVehicleAlert::create([
@@ -501,9 +531,58 @@ class NotificationController extends Controller
     }
 
 
-    
+public function notificationSettings(Request $request)
+{
+    $userId = $request->user()->id;
 
+    $data = NotificationList::leftJoin('user_notification_settings as uns', function ($join) use ($userId) {
+        $join->on('notifications_list.id', '=', 'uns.type')
+            ->where('uns.user_id', $userId);
+    })
+    ->select(
+        'notifications_list.id',
+        'notifications_list.name',
+        \DB::raw('COALESCE(uns.email,0) as email'),
+        \DB::raw('COALESCE(uns.browser,0) as browser'),
+        \DB::raw("COALESCE(uns.send_preference,'online') as send_preference")
+    )
+    ->get();
 
+    return response()->json([
+        'status' => true,
+        'data' => $data
+    ]);
+}
+
+public function saveNotificationSettings(Request $request)
+{
+ 
+    $userId = $request->user()->id;
+
+    $settings = $request->input('settings', []);
+
+    foreach ($settings as $s) {
+        // Validate minimal required fields
+        if (!isset($s['notification_id'])) continue;
+
+        UserNotificationSetting::updateOrCreate(
+            [
+                'user_id' => $userId,
+                'type' => $s['notification_id'],
+            ],
+            [
+                'email' => isset($s['email']) ? $s['email'] : 0,
+                'browser' => isset($s['browser']) ? $s['browser'] : 0,
+                'send_preference' => 'online', 
+            ]
+        );
+    }
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Notification settings saved successfully'
+    ]);
+}
     
 
 

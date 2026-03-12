@@ -4,7 +4,7 @@
       <v-card class="border">
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">News Blog Category Create</h3>
-          <v-btn variant="text" color="primary" class="text-capitalize">
+          <v-btn variant="text" color="primary" class="text-capitalize" to="/admin/category">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>

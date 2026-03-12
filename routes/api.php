@@ -213,6 +213,9 @@ use App\Http\Controllers\Api\TicketUserApiController;
 
     
         Route::get('/billing/{id}',[AuctionFinderController::class,'billing_view']);
+        Route::get('/billing-history',[AuctionFinderController::class,'billing_history']);
+        Route::get('/notification-list',[NotificationController::class,'notificationSettings']);
+        Route::post('/notification/save', [NotificationController::class, 'saveNotificationSettings']);
 
         Route::get('/tickets', [TicketUserApiController::class, 'index']);
         Route::post('/tickets', [TicketUserApiController::class, 'store']);
@@ -236,6 +239,8 @@ use App\Http\Controllers\Api\TicketUserApiController;
         Route::get('/getCardDetail',[WebController::class,'getCardDetail'])->middleware(['auth:sanctum']);
 
         Route::get('getBlogDashboard',[WebController::class,'getBlogDashboard']);
+        Route::get('getBlogdetail/{slug}',[WebController::class,'getBlogdetail']);
+        Route::get('globalsettings',[GlobalSettingsController::class,"index"]);
 
     });
 

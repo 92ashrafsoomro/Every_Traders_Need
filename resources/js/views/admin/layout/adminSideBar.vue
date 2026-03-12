@@ -42,7 +42,7 @@
     </div>
   </v-navigation-drawer>
 
-  <v-navigation-drawer v-model="subMenuOpen" permanent location="left" dark color="" :width="269" :style="{
+  <v-navigation-drawer  v-model="subMenuOpen" permanent location="left" dark color="" :width="269" :style="{
     left: '68px',
     height: '100vh',
     position: 'fixed',
@@ -64,9 +64,6 @@
           class="text-subtitle-1 mt-2"
           :class="{ 'bg-primary on-primary rounded my-active-menu hide-overlay': $route.path === child.path }"
           @click="navigateTo(child.path)">
-          <template #prepend>
-            <v-icon size="24">{{ child.icon }}</v-icon>
-          </template>
           <template #title>
             <span class="ml-3">{{ child.label }}</span>
           </template>
@@ -155,7 +152,5 @@ export default {
   display: none;
 }
 
-.child-sidebar {
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.35) !important;
-}
+
 </style>

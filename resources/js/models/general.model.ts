@@ -21,6 +21,14 @@ export default class General {
             }
 
     }
+    static async pdf(url: any, params: any = {}, config: any = {}) {
+        try {
+            const res = await api.get(url, { params, ...config });
+            return res;
+        } catch (e) {
+            throw await errorHandler(e);
+        }
+    }
     
     static async put(url:any,options:any) {
         try {

@@ -7,22 +7,21 @@
 
                 <div style="flex:1; min-width:300px;">
                     <h4 class="text-h5 font-weight-bold mb-6">
-                        Maximizing Efficiency in Operations
+                        {{ data.title }}
                     </h4>
 
-                    <div class="text-body-1 mb-6 text-light_text_on" style="line-height:1.9;">
-                        We offer a comprehensive range of services designed to meet the unique needs of your business.
-                        From strategy development, risk management, our expert team is dedicated to driving success.
+                    <div class="text-body-1 mb-6 text-light_text_on" style="line-height:1.9;" v-html="data.description">
+                        
                     </div>
 
                     <v-chip style="background-color: rgb(var(--v-theme-primary));" class="text-body-1">
-                        Updated: March 2026 • 12 min read
+                        Updated: {{ data.date }} • 12 min read
                     </v-chip>
                 </div>
 
                 <div class="text-center" style="flex:1; min-width:300px;">
                     <v-img
-                        src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1470"
+                        :src="data.image_preview"
                         alt="Smartphones 2026" class="rounded-lg elevation-6 mx-auto" max-width="520" />
                 </div>
 
@@ -67,13 +66,39 @@
                     <div style="width:400px; position:sticky; top:60px;">
                         <div>
                             <h4 class="mb-4">SHARE THIS POST</h4>
-                            <div class="d-flex  mb-6">
+                            <!-- <div class="d-flex  mb-6">
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-facebook</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-whatsapp</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-twitter</v-icon>
                                 <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-instagram</v-icon>
-                            </div>
+                            </div> -->
+                            <div class="d-flex mb-6">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('facebook')"
+                            >
+                                mdi-facebook
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('whatsapp')"
+                            >
+                                mdi-whatsapp
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('twitter')"
+                            >
+                                mdi-twitter
+                            </v-icon>
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="copyLink"
+                            >
+                                mdi-instagram
+                            </v-icon>
 
+                            </div>
                             <v-expansion-panels class="bg-transparent elevation-0">
                                 <v-expansion-panel class="bg-transparent elevation-0">
                                     <v-expansion-panel-title ripple="false">
@@ -95,14 +120,17 @@
             </v-container>
         </v-container>
     </v-container>
-</template>
 
+</template>
 <script>
+import General from '@/models/general.model';
+import { useGlobalSettingStore } from '@/stores/globalSetting';
 export default {
 
     data() {
         return {
             activeSection: null,
+            data : [],
             sections: [
                 {
                     id: "intro",
@@ -261,7 +289,14 @@ export default {
             ]
         }
     },
-    mounted() {
+    setup() {
+        const globalStore = useGlobalSettingStore();
+        return { globalStore };
+    },
+    async  mounted() {
+        if (Object.keys(this.globalStore.settings).length === 0) {
+            await this.globalStore.loadSettings();
+            }
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -289,9 +324,16 @@ export default {
             }
 
         })
+        
+
+         this.load();
 
     },
-
+    computed: {
+        shareUrl() {
+            return window.location.href
+        }
+    },  
     methods: {
 
         scrollTo(id) {
@@ -299,6 +341,49 @@ export default {
             document.getElementById(id).scrollIntoView({
                 behavior: "smooth"
             })
+
+        },
+        async load() {
+
+            try {
+                const slug = this.$route.params.slug;
+                let res = await General.get(`/api/web/getBlogdetail/${slug}`);
+                this.data = res.data;
+            } catch (error) {
+                console.error("Dashboard load failed:", error);
+            } finally {
+             
+            }
+        },
+
+        
+        share(platform) {
+
+            const url = encodeURIComponent(window.location.href)
+            const text = encodeURIComponent("Check this blog")
+
+            let shareLink = ""
+
+            if (platform === "facebook") {
+            shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+            }
+
+            if (platform === "whatsapp") {
+            shareLink = `https://api.whatsapp.com/send?text=${text}%20${url}`
+            }
+
+            if (platform === "twitter") {
+            shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+            }
+
+            window.open(shareLink, "_blank")
+
+        },
+
+        copyLink() {
+            navigator.clipboard.writeText(window.location.href)
+            this.$alertStore.add('Link copied! Share on Instagram', 'success');
+
 
         }
 

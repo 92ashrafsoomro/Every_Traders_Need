@@ -101,12 +101,13 @@
             <router-link :to="'/user/auction-finder/'">
               <v-icon size="20" color="white">mdi-eye-outline</v-icon>
             </router-link>
-            <v-btn variant="text" @click="sendAlert(item.id)" :style="{
-              backgroundColor: alertExists(item.id)
-                ? 'rgba(var(--v-theme-primary),0.2)' // already alerted
-                : 'transparent',
-              cursor: alertExists(item.id) && !this.useUserStore.isBasicSubscriber() ? 'not-allowed' : 'pointer'
-            }">
+            <v-btn variant="text" @click="sendAlert(item.id)" :loading="sendingAlertId === item.id"
+              :disabled="sendingAlertId === item.id || alertExists(item.id)" :style="{
+                backgroundColor: alertExists(item.id)
+                  ? 'rgba(var(--v-theme-primary),0.2)'
+                  : 'transparent',
+                cursor: alertExists(item.id) && !this.userStore.isBasicSubscriber() ? 'not-allowed' : 'pointer'
+              }">
               <v-icon size="20" :color="alertExists(item.id) ? 'primary' : 'white'">
                 mdi-bell-outline
               </v-icon>
@@ -173,7 +174,8 @@ export default {
       pageStore: usePageStore(),
       userStore: useUserStore(),
       days: {},
-
+      sendingAlertId: null,
+      alertPopupLock: false,
       options: {
         length: 10,
         page: 1,
@@ -234,11 +236,18 @@ export default {
       this.getRecords();
     },
     handleTab(key) {
+      if (this.alertPopupLock) return;
+
       if (
-        this.userStore.isBasicSubscriber() && key !== 'Today'         
+        this.userStore.isBasicSubscriber() && key !== 'Today'
       ) {
+        this.alertPopupLock = true;
         this.$alertStore.add("Upgrade your plan.", "error");
-        return; 
+
+        setTimeout(() => {
+          this.alertPopupLock = false;
+        }, 1500);
+        return;
       }
       this.options.day = key;
       this.options.date = this.days[key].date;
@@ -365,26 +374,49 @@ export default {
     alertExists(auction_id) {
       return this.alertedAuctionIds.includes(auction_id);
     },
-
+    
     async sendAlert(auction_id) {
-      // For plan 1 Subscribers show Upgrade alert
+
+      if (this.alertPopupLock) return;
+
       if (this.userStore.isBasicSubscriber()) {
+
+        this.alertPopupLock = true;
+
         this.$alertStore.add("Upgrade your plan.", "error");
+
+        setTimeout(() => {
+          this.alertPopupLock = false;
+        }, 1500);
+
         return;
       }
 
-      // Already alerted, do nothing
+      if (this.sendingAlertId) return;
+
       if (this.alertExists(auction_id)) return;
 
       try {
+
+        this.sendingAlertId = auction_id;
+
         await General.post("/api/notifications/addInUserAuction", { auction_id });
+
         this.alertedAuctionIds.push(auction_id);
+
         this.$alertStore.add("Added successfully", "success");
+
       } catch (error) {
+
         this.$alertStore.add("Error", "error");
-        console.error(error);
+
+      } finally {
+
+        this.sendingAlertId = null;
+
       }
-    },
+    }
+
   }
 };
 </script>

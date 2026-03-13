@@ -91,7 +91,8 @@
                                             <div class="d-flex ga-3  w-sm-auto mb-3 mb-sm-0 ml-2">
                                                 <v-btn height="50" variant="flat"
                                                     class="bell text-capitalize text-body-1 border"
-                                                    :class="{ 'alert-active': alertExists }" @click="sendAlertdata">
+                                                    :class="{ 'alert-active': alertExists }"
+                                                    @click="!alertExists && sendAlertdata()">
                                                     <v-icon :color="alertExists ? 'white' : 'primary'">
                                                         mdi-bell-outline
                                                     </v-icon>
@@ -142,6 +143,8 @@ export default {
             generalStore: useGeneralStore(),
             vehicleStore: useVehicleStore(),
             loading: false,
+            sendingAlertId: null,
+            alertPopupLock: false,
             alertExists: false,
             userStore: useUserStore(),
             filter: {
@@ -266,32 +269,32 @@ export default {
         //     this.sendAlertdata();
         // },
         async sendAlertdata() {
-            const currentAlerts = await General.get("/api/notifications/userAlertList");
-            // const alertCount = currentAlerts.recordsTotal || 0;
-
-            // const isBasic = this.userStore.isBasicSubscriber();
-
-            // Check limit
-            // if (isBasic && alertCount >= 10) {
-            //     this.$alertStore.add(
-            //         "You have reached your alert limit. Upgrade your plan to add more alerts.",
-            //         "error"
-            //     );
-            //     return; // <-- fixed
-            // }
 
             const options = {
                 vehicle_id: this.vehicleStore.vehicle.id,
                 end_date: this.generalStore.date.end_date
             };
 
+            // prevent spam click
+            if (this.alertPopupLock) return;
+
+            this.alertPopupLock = true;
+
+            setTimeout(() => {
+                this.alertPopupLock = false;
+            }, 1500);
+
             try {
                 await General.post("/api/notifications/addInVehicleAlert", options);
+
                 this.$alertStore.add("Alert Added Successfully", "success");
                 this.alertExists = true;
+
             } catch (e) {
+
                 this.$alertStore.add(e.message || "An error occurred", "error");
                 console.error("sendAlertdata error:", e);
+
             }
         },
 

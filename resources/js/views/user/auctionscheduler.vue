@@ -105,7 +105,6 @@
             <v-btn variant="text" 
               @click="sendAlert(item.id)" 
               :loading="sendingAlertId === item.id"
-              :disabled="alertPopupLock" 
               :style="{
                 backgroundColor: alertExists(item.id)
                   ? 'rgba(var(--v-theme-primary),0.2)'

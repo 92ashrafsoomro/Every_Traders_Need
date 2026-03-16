@@ -243,10 +243,7 @@ export default {
       ) {
         this.alertPopupLock = true;
         this.$alertStore.add("Upgrade your plan.", "error");
-
-        setTimeout(() => {
-          this.alertPopupLock = false;
-        }, 1500);
+        this.alertPopupLock = false;
         return;
       }
       this.options.day = key;
@@ -384,10 +381,8 @@ export default {
         this.alertPopupLock = true;
 
         this.$alertStore.add("Upgrade your plan.", "error");
-
-        setTimeout(() => {
+       
           this.alertPopupLock = false;
-        }, 1500);
 
         return;
       }

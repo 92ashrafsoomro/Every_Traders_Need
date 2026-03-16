@@ -23,7 +23,7 @@
                                 {{ featuredArticle.category?.title || 'General' }}
                             </v-chip>
                             <span class="text-caption font-weight-medium">{{ dateFormate(featuredArticle.created_at)
-                                }}</span>
+                            }}</span>
 
                         </div>
                         <div class=" mt-6" v-html="truncateText(featuredArticle.description)">
@@ -115,7 +115,7 @@
                                 {{ item.title }}
                             </h4>
 
-                            <p class="text-body-2 text-light_text_on " v-html="truncateText(item.description, 30)">
+                            <p class=" text-light_text_on " v-html="truncateText(item.description, 30)">
                             </p>
 
                             <div v-if="isLongText(item.description)" class="">
@@ -189,15 +189,26 @@ export default {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]
         },
+        // truncateText(text, wordlimit = 30) {
+        //     if (!text) return '';
+        //     const words = text.split(' ');
+        //     if (words.length > wordlimit) {
+        //         return words.slice(0, wordlimit).join(' ') + '...';
+        //     }
+        //     return text;
+        // },
         truncateText(text, wordlimit = 30) {
             if (!text) return '';
-            const words = text.split(' ');
+            
+            // Remove HTML tags
+            const plainText = text.replace(/<\/?[^>]+(>|$)/g, "");
+            
+            const words = plainText.split(' ');
             if (words.length > wordlimit) {
                 return words.slice(0, wordlimit).join(' ') + '...';
             }
-            return text;
+            return plainText;
         },
-
 
         isLongText(text) {
             if (!text) return false;

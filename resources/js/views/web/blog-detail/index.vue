@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-surface d-flex align-items-center justify-center" style="height: 80vh; padding: 20px;">
+    <div class="bg-surface d-flex align-items-center justify-center" style="height: 80vh; padding: 20px;  background: linear-gradient(to top, rgba(var(--v-theme-primary),0.2) 5%, transparent 80%);">
         <div class="mx-auto d-flex flex-wrap align-items-center justify-center" style="max-width:1400px; gap:40px;">
 
             <!-- Left Text Section -->
@@ -9,7 +9,8 @@
                     {{ data.title }}
                 </h2>
 
-                <div class="text-body-1 text-light_text_on mb-6" style="line-height:1.9;" v-html="data.description">
+                <div class="text-body-1 text-light_text_on mb-6" style="line-height:1.9;"
+                    v-html="truncateText(data.description)">
                 </div>
 
                 <div class="d-flex  align-center" style="height: 40px;">
@@ -28,13 +29,13 @@
 
             <!-- Right Image Section -->
             <div class="d-flex justify-center align-items-center" style="flex:1; min-width:300px;">
-                <v-img :src="data.image_preview" alt="Smartphones 2026" class="rounded-lg elevation-6"
+                <v-img :src="data.image_preview" alt="Smartphones 2026" class="rounded-lg "
                     max-width="520" />
             </div>
 
         </div>
     </div>
-    <v-container fluid class="pa-0 mt-12">
+        <v-container fluid class="pa-0 mt-12">
         <v-container style="max-width:1400px;">
             <div class="d-flex" style="gap:40px; align-items:flex-start; position:relative;">
 
@@ -351,6 +352,20 @@ export default {
         },
 
 
+        truncateText(text, wordlimit = 30) {
+            if (!text) return '';
+
+            const plainText = text.replace(/<\/?[^>]+(>|$)/g, "");
+            
+            const words = plainText.split(' ');
+            
+            if (words.length > wordlimit) {
+                return words.slice(0, wordlimit).join(' ') + '...';
+            }
+            
+            return plainText;
+        },
+        
         share(platform) {
 
             const url = encodeURIComponent(window.location.href)

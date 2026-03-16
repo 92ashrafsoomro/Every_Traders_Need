@@ -1,23 +1,11 @@
 <template>
-  <v-data-table-server
-    :loading="loading"
-    :headers="headers"
-    :items="items"
-    :items-length="total"
-    item-value="reg"
-    hover
-    v-model:expanded="expanded"
-    class="border"
-  >
+  <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total" item-value="reg" hover
+    v-model:expanded="expanded" class="border">
     <!-- Pagination -->
     <template v-slot:bottom>
       <div class="py-2 d-flex justify-end border-t">
-        <custom-pagination
-          :loading="loading"
-          v-model:page="filter.page"
-          :lastPage="last_page"
-          @page-changed="$emit('page-changed')"
-        />
+        <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
+          @page-changed="$emit('page-changed')" />
       </div>
     </template>
 
@@ -26,11 +14,8 @@
       <tr @mouseenter="onHover(item.reg)" class="hover-row">
         <td v-for="col in columns" :key="col.key">
           <template v-if="col.key === 'reg'">
-            <router-link
-                :to="`/admin/vehicle/show/${item.id}`"
-              target="_blank"
-              class="text-primary font-weight-bold text-decoration-none"
-            >
+            <router-link :to="`/admin/vehicle/show/${item.id}`" target="_blank"
+              class="text-primary font-weight-bold text-decoration-none">
               {{ item.reg }}
             </router-link>
           </template>
@@ -45,30 +30,19 @@
     </template>
 
     <!-- Expanded row -->
-    <template #expanded-row="{ columns, item }">
+    <template #expanded-row="{ columns, item }"  >
       <tr @mouseleave="expanded = []">
-        <td :colspan="columns.length">
-          <div class="expanded-box">
-            <div class="image-row" v-if="item.images">
-              <v-img
-                v-for="(img, i) in splitImages(item.images)"
-                :key="i"
-                :src="img"
-                width="140"
-                height="100"
-                cover
-                class="hover-img"
-              />
+        <td :colspan="columns.length" style=" padding: 0 !important;">
+          <div class="expanded-box d-flex justify-space-between">
+            <div class="image-row " style="overflow: hidden;" v-if="item.images">
+              <img v-for="(img, i) in splitImages(item.images)" :key="i" :src="img" width="60" height="60" cover
+                class="hover-img" />
             </div>
             <div class="info-row mt-3">
               <div class="info-item"><b>Last Bid:</b> £{{ item.last_bid }}</div>
               <div class="info-item">
                 <b>Status: </b>
-                <v-chip
-                  :color="item.bidding_status === 'Sold' ? 'green' : 'orange'"
-                  text-color="white"
-                  small
-                >
+                <v-chip :color="item.bidding_status === 'Sold' ? 'green' : 'orange'" text-color="white" small>
                   {{ item.bidding_status }}
                 </v-chip>
               </div>
@@ -120,8 +94,8 @@ export default {
 <style>
 .expanded-box {
   background: #0f1c2b;
-  padding: 12px;
-  border-left: 4px solid #0080ff;
+  /* padding: 12px;
+  border-left: 4px solid #0080ff; */
 }
 
 .image-row {
@@ -136,15 +110,13 @@ export default {
   transition: transform 0.2s ease;
 }
 
-.hover-img:hover {
-  transform: scale(1.05);
-}
+
 
 
 .expanded-box {
   background: #0f1c2b;
-  padding: 12px;
-  border-left: 4px solid #0080ff;
+  /* padding: 12px;
+  border-left: 4px solid #0080ff; */
 }
 
 .image-row {
@@ -156,12 +128,12 @@ export default {
 .hover-img {
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  /* transition: transform 0.2s ease; */
 }
-
+/* 
 .hover-img:hover {
   transform: scale(1.05);
-}
+} */
 
 .info-row {
   display: flex;
@@ -176,6 +148,6 @@ export default {
 }
 
 .gapin {
-    gap:12px !important;
+  gap: 12px !important;
 }
 </style>

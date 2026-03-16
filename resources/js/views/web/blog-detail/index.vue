@@ -1,44 +1,35 @@
 <template>
-    <div class="bg-surface d-flex align-items-center justify-center" style="height: 80vh; padding: 20px;  background: linear-gradient(to top, rgba(var(--v-theme-primary),0.2) 5%, transparent 80%);">
-        <div class="mx-auto d-flex flex-wrap align-items-center justify-center" style="max-width:1400px; gap:40px;">
+    <v-container fluid class="pa-0 mt-12" style="padding: 0 !important;">
 
-            <!-- Left Text Section -->
-            <div style="flex:1; min-width:300px;" class="d-flex flex-column justify-center">
-                <app-breadcrumb class="mb-3 px-0" />
-                <h2 class="text-h4 font-weight-bold mb-4">
-                    {{ data.title }}
-                </h2>
+        <div class="mb-12 rounded-lg py-10 px-0" style="background-color: rgb(var(--v-theme-surface));">
+            <div class="mx-auto d-flex flex-wrap align-center justify-space-between"
+                style="max-width:1400px; gap:40px;">
 
-                <div class="text-body-1 text-light_text_on mb-6" style="line-height:1.9;"
-                    v-html="truncateText(data.description)">
-                </div>
+                <div style="flex:1; min-width:300px;">
+                    <h4 class="text-h5 font-weight-bold mb-6">
+                        {{ data.title }}
+                    </h4>
 
-                <div class="d-flex  align-center" style="height: 40px;">
-                    <!-- Left Section -->
-                    <div class="d-flex align-items-center px-2"
-                        style="border-right: 1px solid rgb(var(--v-theme-border)); width: 220px;">
-                        <span>Updated : {{ data.date }}</span>
+                    <div class="text-body-1 mb-6 text-light_text_on" style="line-height:1.9;" v-html="data.description">
+                        
                     </div>
 
-                    <!-- Right Section -->
-                    <div class="d-flex align-items-center justify-center px-2 ml-4">
-                        <span>12 min read</span>
-                    </div>
+                    <v-chip style="background-color: rgb(var(--v-theme-primary));" class="text-body-1">
+                        Updated: {{ data.date }} • 12 min read
+                    </v-chip>
                 </div>
-            </div>
 
-            <!-- Right Image Section -->
-            <div class="d-flex justify-center align-items-center" style="flex:1; min-width:300px;">
-                <v-img :src="data.image_preview" alt="Smartphones 2026" class="rounded-lg "
-                    max-width="520" />
-            </div>
+                <div class="text-center" style="flex:1; min-width:300px;">
+                    <v-img
+                        :src="data.image_preview"
+                        alt="Smartphones 2026" class="rounded-lg elevation-6 mx-auto" max-width="520" />
+                </div>
 
+            </div>
         </div>
-    </div>
         <v-container fluid class="pa-0 mt-12">
-        <v-container style="max-width:1400px;">
-            <div class="d-flex" style="gap:40px; align-items:flex-start; position:relative;">
-
+            <v-container style="max-width:1400px;">
+                <div class="d-flex" style="gap:40px; align-items:flex-start; position:relative;">
 
                     <!-- LEFT ARTICLE -->
                     <div style="flex:1; min-width:700px;">
@@ -75,49 +66,62 @@
                         </section>
                     </div>
 
-
-                <!-- RIGHT SIDEBAR -->
-                <div style="width:400px; position:sticky; top:60px;">
-                    <div>
-                        <h4 class="mb-4">Share this post
-                        </h4>
-                        <div class="d-flex ga-2 mb-6">
-                            <v-icon class="rounded-xl pa-6 bg-primary text-white cursor-pointer"
-                                @click="share('facebook')">
+                    <!-- RIGHT SIDEBAR -->
+                    <div style="width:400px; position:sticky; top:60px;">
+                        <div>
+                            <h4 class="mb-4">SHARE THIS POST</h4>
+                            <!-- <div class="d-flex  mb-6">
+                                <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-facebook</v-icon>
+                                <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-whatsapp</v-icon>
+                                <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-twitter</v-icon>
+                                <v-icon class="rounded-xl pa-4 bg-primary text-white">mdi-instagram</v-icon>
+                            </div> -->
+                            <div class="d-flex mb-6">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('facebook')"
+                            >
                                 mdi-facebook
                             </v-icon>
-                            <v-icon class="rounded-xl pa-6 bg-primary text-white cursor-pointer"
-                                @click="share('whatsapp')">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('whatsapp')"
+                            >
                                 mdi-whatsapp
                             </v-icon>
-                            <v-icon class="rounded-xl pa-6 bg-primary text-white cursor-pointer"
-                                @click="share('twitter')">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="share('twitter')"
+                            >
                                 mdi-twitter
                             </v-icon>
-                            <v-icon class="rounded-xl pa-6 bg-primary text-white cursor-pointer" @click="copyLink">
+                            <v-icon
+                                class="rounded-xl pa-4 bg-primary text-white cursor-pointer"
+                                @click="copyLink"
+                            >
                                 mdi-instagram
                             </v-icon>
 
+                            </div>
+                            <v-expansion-panels class="bg-transparent elevation-0">
+                                <v-expansion-panel class="bg-transparent elevation-0">
+                                    <v-expansion-panel-title ripple="false">
+                                        <h3>Content</h3>
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        <div v-for="section in sections" :key="section.id" @click="scrollTo(section.id)"
+                                            class="hoverElement text-white"
+                                            :class="activeSection === section.id ? 'text-primary font-weight-bold cursor-pointer mb-2' : 'text-disabled cursor-pointer mb-2'">
+                                            {{ section.title }}
+                                        </div>
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                            </v-expansion-panels>
                         </div>
-                        <v-expansion-panels v-model="expandedPanel" class="bg-transparent elevation-0">
-                            <v-expansion-panel class="bg-transparent elevation-0">
-                                <v-expansion-panel-title ripple="false">
-                                    <h3>Content</h3>
-                                </v-expansion-panel-title>
-                                <v-expansion-panel-text>
-                                    <div v-for="section in sections" :key="section.id" @click="scrollTo(section.id)"
-                                        class="hoverElement" :class="activeSection === section.id
-                                            ? 'text-primary font-weight-bold cursor-pointer mb-2'
-                                            : 'text-disabled cursor-pointer mb-2'">
-                                        {{ section.title }}
-                                    </div>
-                                </v-expansion-panel-text>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
                     </div>
-                </div>
 
-            </div>
+                </div>
+            </v-container>
         </v-container>
     </v-container>
 
@@ -131,6 +135,7 @@ export default {
         return {
             activeSection: null,
             data : [],
+            expandedPanel: 0,
             sections: []
         }
     },
@@ -138,10 +143,10 @@ export default {
         const globalStore = useGlobalSettingStore();
         return { globalStore };
     },
-    async mounted() {
+    async  mounted() {
         if (Object.keys(this.globalStore.settings).length === 0) {
             await this.globalStore.loadSettings();
-        }
+            }
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -169,16 +174,16 @@ export default {
             }
 
         })
+        
 
-
-        this.load();
+         this.load();
 
     },
     computed: {
         shareUrl() {
             return window.location.href
         }
-    },
+    },  
     methods: {
 
         scrollTo(id) {
@@ -186,6 +191,7 @@ export default {
             document.getElementById(id).scrollIntoView({
                 behavior: "smooth"
             })
+            this.activeSection = id
 
         },
         async load() {
@@ -204,24 +210,10 @@ export default {
             } catch (error) {
                 console.error("Dashboard load failed:", error);
             } finally {
-
+             
             }
         },
 
-
-        truncateText(text, wordlimit = 30) {
-            if (!text) return '';
-
-            const plainText = text.replace(/<\/?[^>]+(>|$)/g, "");
-            
-            const words = plainText.split(' ');
-            
-            if (words.length > wordlimit) {
-                return words.slice(0, wordlimit).join(' ') + '...';
-            }
-            
-            return plainText;
-        },
         
         share(platform) {
 
@@ -231,15 +223,15 @@ export default {
             let shareLink = ""
 
             if (platform === "facebook") {
-                shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+            shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`
             }
 
             if (platform === "whatsapp") {
-                shareLink = `https://api.whatsapp.com/send?text=${text}%20${url}`
+            shareLink = `https://api.whatsapp.com/send?text=${text}%20${url}`
             }
 
             if (platform === "twitter") {
-                shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+            shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
             }
 
             window.open(shareLink, "_blank")
@@ -258,6 +250,19 @@ export default {
 }
 </script>
 <style scoped>
+.d-flex {
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.d-flex>div:first-child {
+    flex: 1;
+}
+
+.d-flex>div:last-child {
+    width: 400px;
+}
+
 .hoverElement:hover {
     text-decoration: underline;
 }

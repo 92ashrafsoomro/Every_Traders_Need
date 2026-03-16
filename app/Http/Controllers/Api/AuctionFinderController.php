@@ -713,39 +713,32 @@ class AuctionFinderController extends Controller
 
         public function auctionSheduler(Request $request)
     {
-        
         $user = $request->user();
         $currentMembership = $user->memberships()->where('membership_status', 1)->first();
-        if ($currentMembership && $currentMembership->plan_id == 1) {
-            $groups = DB::table('auctions as a')
-                ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
-                ->select(
-                    DB::raw('DATE(a.auction_date) as auction_day'),
-                    DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
-                    DB::raw('COUNT(v.id) as total_vehicles')
-                )
-                // Sirf aaj ka data filter karne ke liye
-                ->whereDate('a.auction_date', '=', now()->toDateString()) 
-                ->groupBy(DB::raw('DATE(a.auction_date)'))
-                ->orderBy('auction_day', 'ASC')
-                ->get();
-        }else{
-            $groups =  DB::table('auctions as a')
+   
+        $groups = DB::table('auctions as a')
             ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
             ->select(
                 DB::raw('DATE(a.auction_date) as auction_day'),
                 DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
                 DB::raw('COUNT(v.id) as total_vehicles')
             )
+            // Agar Plan ID 1 hai, to baaki saari dates nikal do, sirf Today rakho
+            ->when(($currentMembership && $currentMembership->plan_id == 1), function($q) {
+                return $q->whereDate('a.auction_date', '=', now()->toDateString());
+            })
             ->groupBy(DB::raw('DATE(a.auction_date)'))
             ->orderBy('auction_day', 'ASC')
             ->get();
-        }
-
 
         $length = $request->input('length', 10);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
+
+        $filterDate = $request->date;
+        if ($currentMembership && $currentMembership->plan_id == 1) {
+            $filterDate = now()->toDateString();
+        }
 
         $query = Auctions::leftjoin('auction_platform','auction_platform.id','=','auctions.platform_id')
                 ->when($request->platform_id, function($q) use ($request) {
@@ -765,14 +758,8 @@ class AuctionFinderController extends Controller
                 // ->when($request->date, function($q) use ($request) {
                 //     $q->whereDate('auctions.auction_date',$request->date);
                 // })
-                ->when($request->date || ($currentMembership && $currentMembership->plan_id == 1), function($q) use ($request, $currentMembership) {
-
-                    if ($currentMembership && $currentMembership->plan_id == 1) {
-                        $q->whereDate('auctions.auction_date', now()->toDateString());
-                    } 
-                    elseif ($request->date) {
-                        $q->whereDate('auctions.auction_date', $request->date);
-                    }
+                ->when($filterDate, function($q) use ($filterDate) {
+                    $q->whereDate('auctions.auction_date', $filterDate);
                 })
                 ->when($request->enableCurrent, function($q) use ($request) {
                     if ($request->enableCurrent == 'true'){

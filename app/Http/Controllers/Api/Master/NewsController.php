@@ -137,7 +137,7 @@ class NewsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|image',
             'description' => 'required|string',
             'date' => 'required|string|max:255',
             'category_id' => 'required|exists:blog_categories,id',

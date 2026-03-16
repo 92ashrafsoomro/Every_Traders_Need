@@ -109,12 +109,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DSuQVOoj.js",
+    "file": "assets/app-BZ-8hgbf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-CpmEwY41.css"
+      "assets/app-D4lJIDZs.css"
     ],
     "assets": [
       "assets/logo-DpZ5Ok-7.png",
@@ -153,6 +153,7 @@
       "assets/Reauction-tP7Tm7wy.png",
       "assets/supportImage-C5pGktL4.png",
       "assets/mslogo-jZzES09S.png",
+      "assets/image-BLc6OZj3.png",
       "assets/inter-cyrillic-ext-400-normal-BQZuk6qB.woff2",
       "assets/inter-cyrillic-ext-400-normal-DQukG94-.woff",
       "assets/inter-cyrillic-400-normal-obahsSVq.woff2",
@@ -180,6 +181,10 @@
       "assets/MaterialIcons-Regular-FsbMSDLx.woff",
       "assets/MaterialIcons-Regular-DEUTIz1o.ttf"
     ]
+  },
+  "resources/js/assets/images/Blog/image.png": {
+    "file": "assets/image-BLc6OZj3.png",
+    "src": "resources/js/assets/images/Blog/image.png"
   },
   "resources/js/assets/images/about/AboutAutoboli.png": {
     "file": "assets/AboutAutoboli-DOolGXaA.png",

@@ -160,9 +160,15 @@ export default {
                 this.alertStore.add('Logged In Success', 'success'); 
                 if (this.userStore.user.role === 'Subscriber' && !this.userStore.user.plan) {
                     this.$router.replace("/user/settings/billing");
-                } else {
-                    this.$router.replace("/user/dashboard");
+                } 
+               
+                if (this.userStore.user.user_type === 0) {
+                        this.$router.replace("/user/dashboard");
+                }else{
+                        this.$router.replace("/admin/dashboard");
+
                 }
+              
 
 
             } catch (error) {

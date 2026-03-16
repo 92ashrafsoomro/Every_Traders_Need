@@ -12,6 +12,7 @@ use App\Models\Membership;
 use App\Models\MembershipPayment;
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use App\Models\Setting;
 use App\Models\Interest;
 use App\Models\AuctionCenter;
 use App\Models\UserNotificationAlert;
@@ -226,7 +227,8 @@ class PageController extends Controller
         }
         try {
             $data = $request->only('name', 'email', 'subject', 'description');
-            $adminEmail = "man411210@gmail.com"; 
+            // $adminEmail = "man411210@gmail.com"; 
+            $adminEmail = Setting::where("key", "email")->value('value');
 
             Mail::to($adminEmail)->send(new SupportFormMail($data));
 

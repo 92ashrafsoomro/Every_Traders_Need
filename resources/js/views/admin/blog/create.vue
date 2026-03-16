@@ -82,6 +82,9 @@
 
             </v-col>
             
+            <v-col cols="12">
+              <BlogSections v-model="form.sections" />
+            </v-col>
 
 
             <v-col cols="12" class="text-center mt-4">
@@ -104,11 +107,13 @@ import General from '@/models/general.model';
 import Blogcategory from '@/components/blogcategory.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import BlogSections from './BlogSections.vue';
 
 export default {
     components: {
       Blogcategory,
       QuillEditor,
+      BlogSections
     },
 
   data() {
@@ -129,6 +134,7 @@ export default {
         title: '',
         description: '',
         date: '',
+        sections: [],
       },
       loading: false
     }

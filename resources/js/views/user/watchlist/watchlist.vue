@@ -94,7 +94,7 @@
                     </v-data-table-server>
                     <div v-if="showUpgradeMessage" class="text-center  pa-4"
                         style="background-color: rgb(var(--v-theme-primary),0.2);">
-                        Show full watchlist →
+                        Show more watchlist 
                         <router-link to="/pricing" class="text-primary font-weight-bold">
                             Upgrade Plan
                         </router-link>

@@ -140,15 +140,25 @@ class UserController extends Controller
 
 
 
-                    $planCounts = DB::table('plans')
-                    ->leftJoin('memberships', 'memberships.plan_id', '=', 'plans.id')
+                $planCounts = DB::table('plans')
+                    ->leftJoin('memberships', function($join) {
+                        $join->on('memberships.plan_id', '=', 'plans.id')
+                            ->where('memberships.membership_status', '=', 1)
+                            ->whereIn('memberships.id', function($query) {
+                                $query->select(DB::raw('MAX(id)'))
+                                    ->from('memberships')
+                                    ->groupBy('user_id');
+                            });
+                    })
                     ->select(
                         'plans.id',
                         'plans.plan_name',
                         DB::raw('COUNT(memberships.user_id) as total_users')
                     )
-                    ->groupBy('plans.id','plans.plan_name')
+                    ->groupBy('plans.id', 'plans.plan_name')
                     ->get();
+
+
 
 
                     return response()->json([

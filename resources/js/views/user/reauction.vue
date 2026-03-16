@@ -54,7 +54,7 @@
     <div v-else class="center-wrapper">
         <div class=" pa-4 box">
             <p>Upgrade to Your Plan The Current plan not supported this page..</p>
-            <router-link to="/settings/billing" style="text-decoration: none; color: white;">
+            <router-link to="/user/settings/billing" style="text-decoration: none; color: white;">
                 <v-btn color="primary" size="large" class="text-capitalize mt-5">
                     Upgrade Plan
                 </v-btn>

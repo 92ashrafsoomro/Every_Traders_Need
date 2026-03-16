@@ -9,7 +9,7 @@ import auctionsolutions from "@/views/web/auctionsolutions/index.vue"
 import auctionschedule from "@views/web/auctionschedule/index.vue"
 import privacy from '@/views/web/privacy/index.vue'
 import cookie from '@views/web/privacy/Cookie.vue'
-import terms  from '@/views/web/privacy/Terms.vue'
+import terms from '@/views/web/privacy/Terms.vue'
 import disclaimer from '@/views/web/privacy/Disclaimer.vue'
 import faq from '@/views/web/privacy/Faq.vue'
 import blog from '@/views/web/blog/index.vue'
@@ -22,66 +22,77 @@ export default [
         component: Layout,
         children: [
 
-            { 
-                path: '/', 
+            {
+                path: '/',
                 component: HomeView
             },
             {
-                path : 'home',
-                component : Home ,
+                path: 'home',
+                component: Home,
             },
             {
-                path : "about",
+                path: "about",
                 component: About,
             },
             {
-                path : "pricing",
-                component : Pricing,
+                path: "pricing",
+                component: Pricing,
             },
             {
-                path : "support",
-                component : Support
+                path: "support",
+                component: Support
             },
             {
-                path : "checkout",
+                path: "checkout",
                 component: Checkout,
-                meta:{requiresAuth:true}
+                meta: { requiresAuth: true }
             },
             {
-                path : "auctionsolution",
-                component : auctionsolutions
+                path: "auctionsolution",
+                component: auctionsolutions
             },
             {
-                path : "auctionschedule",
-                component : auctionschedule
+                path: "auctionschedule",
+                component: auctionschedule
             },
             {
-                path:"privacy",
-                component : privacy
+                path: "privacy",
+                component: privacy
             },
             {
-                path : "cookie",
-                component : cookie
+                path: "cookie",
+                component: cookie
             },
             {
-                path : "terms",
-                component : terms
+                path: "terms",
+                component: terms
             },
             {
-                path : "disclaimer",
-                component : disclaimer
+                path: "disclaimer",
+                component: disclaimer
             },
             {
-                path : "faqs",
-                component : faq
+                path: "faqs",
+                component: faq
             },
             {
-                path : "blog",
-                component : blog
+                path: "blog",
+                component: blog,
+                meta: { breadcrumb: "Blogs" }
             },
             {
-               path: "blog/:slug",
-                component : blogDetail
+                path: "blog/:slug",
+                component: blogDetail,
+                meta: {
+
+                    breadcrumb: [
+                        { text: 'Blogs', to: '/blog' },
+                        (route) => {
+                            const slug = route.params.slug || '';
+                            return slug
+
+                        }]
+                }
             }
         ],
     },

@@ -79,7 +79,7 @@
 
 
                 <div v-else>
-                    <router-link to="/user/settings/billing " style="text-decoration: none;">
+                    <router-link to="/user/settings/billing" style="text-decoration: none;">
                         <div style="width: 40px; height: 40px; background-color: white;"
                             class="rounded-xl d-flex justify-center align-center">
                             <v-icon color="primary" size="26" class="cursor-pointer">mdi-rocket-launch</v-icon>

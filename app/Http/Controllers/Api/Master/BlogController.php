@@ -81,8 +81,8 @@ class BlogController extends Controller
             'sections' => 'nullable|array',
             'sections.*.distitle' => 'nullable|string|max:255',
             'sections.*.disdescription' => 'nullable|string',
-            'sections.*.alignment' => 'nullable|string|in:left,center,right',
-            'sections.*.disimage' => 'nullable|image|max:2048',
+            // 'sections.*.alignment' => 'nullable|string|in:left,center,right',
+            // 'sections.*.disimage' => 'nullable|image|max:2048',
         ]);
 
         if($validator->fails()) {
@@ -162,11 +162,11 @@ class BlogController extends Controller
             'description' => 'required|string|max:10000',
             'date' => 'required|string|max:255',
             'category_id' => 'nullable|exists:blog_categories,id',
-            'sections' => 'nullable|array',
-            'sections.*.distitle' => 'nullable|string|max:255',
-            'sections.*.disdescription' => 'nullable|string',
-            'sections.*.alignment' => 'nullable|string|in:left,center,right',
-            'sections.*.disimage' => 'nullable|image|max:2048',
+            // 'sections' => 'nullable|array',
+            // 'sections.*.distitle' => 'nullable|string|max:255',
+            // 'sections.*.disdescription' => 'nullable|string',
+            // 'sections.*.alignment' => 'nullable|string|in:left,center,right',
+            // 'sections.*.disimage' => 'nullable|image|max:2048',
         ]);
 
         if ($validator->fails()) {

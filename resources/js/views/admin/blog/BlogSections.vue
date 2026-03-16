@@ -18,13 +18,13 @@
       </div>
 
       <v-row>
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="12">
           <v-text-field v-model="section.distitle" label="Section Title" variant="outlined" density="compact" />
         </v-col>
 
-        <v-col cols="12" md="4">
+        <!-- <v-col cols="12" md="4">
           <v-select v-model="section.alignment" :items="['left', 'center', 'right']" label="Alignment" variant="outlined" density="compact" />
-        </v-col>
+        </v-col> -->
 
         <v-col cols="12" class="mb-4">
           <p class="text-caption mb-1">Section Description</p>
@@ -44,7 +44,7 @@
         </v-col>
 
         <v-col cols="12" class="mt-12">
-          <v-file-input
+          <!-- <v-file-input
             label="Section Image"
             variant="outlined"
             density="compact"
@@ -53,13 +53,13 @@
             @update:modelValue="(file) => handleFile(file, index)"
           />
           <v-img 
-            v-if="section.preview || section.disimage_url" 
-            :src="section.preview || section.disimage_url" 
+            v-if="section.preview || section.disimage" 
+            :src="section.preview || section.disimage" 
             max-height="150" 
             class="mt-2 rounded border"
             width="200"
             cover
-          ></v-img>
+          ></v-img> -->
         </v-col>
       </v-row>
     </v-card>

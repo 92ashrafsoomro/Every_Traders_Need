@@ -51,52 +51,52 @@ class WebController extends Controller
 
     }
 
-public function getBlogDashboard(Request $request)
-{
+    public function getBlogDashboard(Request $request)
+    {
 
-    $categories = DB::table('blog_categories')
-        ->join('blogs', 'blog_categories.id', '=', 'blogs.category_id')
-        ->select('blog_categories.id', 'blog_categories.title')
-        ->groupBy('blog_categories.id', 'blog_categories.title')
-        ->havingRaw('COUNT(blogs.id) > 0')
-        ->get();
+        $categories = DB::table('blog_categories')
+            ->join('blogs', 'blog_categories.id', '=', 'blogs.category_id')
+            ->select('blog_categories.id', 'blog_categories.title')
+            ->groupBy('blog_categories.id', 'blog_categories.title')
+            ->havingRaw('COUNT(blogs.id) > 0')
+            ->get();
 
- 
-    $featured = Blog::with('category')->orderBy('created_at', 'desc')->first();
-
-
-    $query = Blog::with('category')->orderBy('created_at', 'desc');
-
-    if ($request->filled('category_id')) {
-        $query->where('category_id', $request->category_id);
-    }
     
-   
-    if ($featured) {
-        $query->where('id', '!=', $featured->id);
+        $featured = Blog::with('category')->orderBy('created_at', 'desc')->first();
+
+
+        $query = Blog::with('category')->orderBy('created_at', 'desc');
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+        
+    
+        if ($featured) {
+            $query->where('id', '!=', $featured->id);
+        }
+
+        $remaining = $query->get()->values();
+
+        return response()->json([
+            'categories' => $categories,
+            'featured'   => $featured,
+            'remaining'  => $remaining
+        ]);
     }
 
-    $remaining = $query->get()->values();
+    public function getBlogdetail(Request $request,$slug)
+    {
+        $blog = Blog::with('category','author','details')->where('slug', $slug)->first();
 
-    return response()->json([
-        'categories' => $categories,
-        'featured'   => $featured,
-        'remaining'  => $remaining
-    ]);
-}
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found'], 404);
+        }
 
-public function getBlogdetail(Request $request,$slug)
-{
-    $blog = Blog::with('category','author')->where('slug', $slug)->first();
-
-    if (!$blog) {
-        return response()->json(['message' => 'Blog not found'], 404);
-    }
-
-    return response()->json([
-        'data' => $blog
-    ], 200); 
-}   
+        return response()->json([
+            'data' => $blog
+        ], 200); 
+    }   
 
 }
 

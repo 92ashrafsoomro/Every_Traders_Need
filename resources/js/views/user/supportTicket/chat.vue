@@ -188,25 +188,107 @@
       <v-divider class="mb-4"></v-divider>
 
       <div class="mb-6">
-        <div class="d-flex align-center justify-space-between mb-2">
-          <span class="text-overline font-weight-black text-primary">Ticket Info</span>
-          <v-chip :color="ticket.status === 1 ? 'success' : 'grey'" size="x-small" variant="flat" class="text-uppercase">
-            {{ ticket.status === 1 ? 'Open' : 'Closed' }}
+        <div class="d-flex align-center justify-space-between mb-4">
+          <span class="text-overline font-weight-black text-primary">Ticket Details</span>
+          <v-chip :color="getStatusColor(ticket.status)" size="x-small" variant="flat" class="text-uppercase">
+            {{ getStatusText(ticket.status) }}
           </v-chip>
         </div>
         
         <v-list density="compact" class="bg-transparent pa-0">
-          <v-list-item class="px-0 min-h-0">
-            <v-list-item-title class="text-caption text-disabled">Issue Topic</v-list-item-title>
-            <v-list-item-subtitle class="text-body-2 text-white">{{ ticket.issue_topic }}</v-list-item-subtitle>
-          </v-list-item>
           
-          <v-list-item class="px-0 min-h-0">
-            <v-list-item-title class="text-caption text-disabled">Priority</v-list-item-title>
-            <v-chip :color="priorityColor(ticket.priority)" size="x-small" variant="outlined" class="mt-1">
-              {{ ticket.priority }}
-            </v-chip>
+          <v-list-item class="px-0 min-h-0 mb-3">
+            <v-list-item-title class="text-caption text-disabled">Submitted By</v-list-item-title>
+            <v-list-item-subtitle class="text-body-2 text-white">{{ ticket.user_name }}</v-list-item-subtitle>
           </v-list-item>
+
+          <v-divider class="mb-3 opacity-20"></v-divider>
+
+          <v-row no-gutters>
+            <v-col cols="6">
+              <v-list-item class="px-0 min-h-0">
+                <v-list-item-title class="text-caption text-disabled">Topic</v-list-item-title>
+                <v-list-item-subtitle class="text-body-2 text-white">{{ ticket.issue_topic }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+            <v-col cols="6">
+              <v-list-item class="px-0 min-h-0">
+                <v-list-item-title class="text-caption text-disabled">Type</v-list-item-title>
+                <v-list-item-subtitle class="text-body-2 text-white text-uppercase">{{ ticket.issue_type }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+          </v-row>
+
+          <v-row no-gutters class="mt-3">
+            <v-col cols="6">
+              <v-list-item class="px-0 min-h-0">
+                <v-list-item-title class="text-caption text-disabled">Priority</v-list-item-title>
+                <v-chip :color="priorityColor(ticket.priority)" size="x-small" variant="outlined" class="mt-1">
+                  {{ ticket.priority }}
+                </v-chip>
+              </v-list-item>
+            </v-col>
+            <v-col cols="6">
+              <v-list-item class="px-0 min-h-0">
+                <v-list-item-title class="text-caption text-disabled">Created At</v-list-item-title>
+                <v-list-item-subtitle class="text-body-2 text-white">
+                  {{ new Date(ticket.created_at).toLocaleDateString() }}
+                </v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+          </v-row>
+
+          <v-list-item class="px-0 min-h-0 mt-4">
+            <v-list-item-title class="text-caption text-disabled">Issue Description</v-list-item-title>
+            <div class="text-body-2 text-white mt-1 border pa-2 rounded-sm bg-grey-darken-4" style="white-space: normal; line-height: 1.4;">
+              {{ ticket.details }}
+            </div>
+          </v-list-item>
+
+          <v-list-item v-if="ticket.attachment" class="px-0 min-h-0 mt-4">
+            <v-list-item-title class="text-caption text-disabled mb-2">Attachment</v-list-item-title>
+            
+            <v-img
+              v-if="isImage(ticket.attachment)"
+              :src="this.url + ticket.attachment"
+              max-height="150"
+              cover
+              class="rounded-lg border mb-2 cursor-pointer"
+              @click="openImage(ticket.attachment)"
+            ></v-img>
+
+            <v-btn
+              prepend-icon="mdi-download"
+              variant="tonal"
+              size="x-small"
+              color="primary"
+              :href="this.url + ticket.attachment" 
+              target="_blank"
+            >
+              Download File
+            </v-btn>
+          </v-list-item>
+
+          <v-divider v-if="ticket.rating" class="my-4 opacity-20"></v-divider>
+          
+          <v-list-item v-if="ticket.rating" class="px-0 min-h-0">
+            <v-list-item-title class="text-caption text-disabled">User Rating & Feedback</v-list-item-title>
+            <div class="d-flex align-center mt-1">
+              <v-rating
+                v-model="ticket.rating"
+                color="amber"
+                density="compact"
+                half-increments
+                readonly
+                size="small"
+              ></v-rating>
+              <span class="text-caption ml-2 text-amber">({{ ticket.rating }}/5)</span>
+            </div>
+            <v-list-item-subtitle class="text-body-2 text-italic text-grey-lighten-1 mt-2">
+              "{{ ticket.feedback }}"
+            </v-list-item-subtitle>
+          </v-list-item>
+
         </v-list>
       </div>
 
@@ -232,6 +314,7 @@ export default {
       },
       selectedFileName: '',
       loading: false,
+      url:'https://localhost/autoboli/public/uploads/tickets/'
     }
   },
   async mounted() {
@@ -247,7 +330,7 @@ export default {
     },
 
     openFile(filename) {
-      window.open(`https://localhost/autoboli/public/uploads/tickets/${filename}`, '_blank');
+      window.open(`${this.url}${filename}`, '_blank');
     },
 
     getFileExtension(filename) {
@@ -344,6 +427,21 @@ export default {
     priorityColor(priority) {
       const colors = { 'High': 'error', 'Medium': 'warning', 'Low': 'info' };
       return colors[priority] || 'primary';
+    },
+
+    getStatusColor(status) {
+      const colors = ['success', 'warning', 'info', 'grey'];
+      return colors[status] || 'grey';
+      },
+
+    getStatusText(status) {
+      const texts = ['Open', 'In Progress', 'Resolved', 'Closed'];
+      return texts[status] || 'Unknown';
+    },
+
+
+    openImage(imageurl) {
+      window.open(`${this.url}${imageurl}`, '_blank');
     },
     
     goBack() { this.$router.back(); }

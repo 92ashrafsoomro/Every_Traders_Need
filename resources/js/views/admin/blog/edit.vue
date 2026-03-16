@@ -84,7 +84,7 @@
 
 
             <v-col cols="12" class="text-center mt-4">
-              <v-btn @click="submitForm" color="primary" height="40">
+              <v-btn :disabled="loading" @click="submitForm" color="primary" height="40">
                 Update
               </v-btn>
             </v-col>
@@ -100,7 +100,7 @@
 
 <script>
 import General from '@/models/general.model';
-import Blogcategory from '@/components/blogcategory.vue';
+import Blogcategory from '@/components/Blogcategory.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
@@ -172,6 +172,7 @@ export default {
         const res = await General.put("/api/cruds/blogs/"+this.form.id, this.form);
         this.$alertStore.add(res.message || "Edit SuccessFully ", "success")
         // this.$router.push('/admin/blog');
+        this.loading = false
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {

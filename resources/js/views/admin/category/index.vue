@@ -37,10 +37,10 @@
                 <img :src="item.image_preview" alt="preview" style="width:80px; height:60px; object-fit:cover" />
               </template>
               <template #item.created_at="{ item }">
-               <span>{{ dateFormate(item.created_at) }}</span>
+                <span>{{ dateFormate(item.created_at) }}</span>
               </template>
               <template #item.updated_at="{ item }">
-               <span>{{ dateFormate(item.updated_at) }}</span>
+                <span>{{ dateFormate(item.updated_at) }}</span>
               </template>
 
               <template v-slot:bottom>
@@ -57,7 +57,7 @@
 
                   <span class="px-2"></span>
 
-                  <v-icon class="clickable-icon pa-4" color="danger" @click="deleteItem(item.id)">
+                  <v-icon class="clickable-icon pa-4" color="danger" :disabled="loading" @click="deleteItem(item.id)">
                     mdi-delete
                   </v-icon>
                 </div>
@@ -144,12 +144,14 @@ export default {
       if (!confirm("Are you sure you want to delete this item?")) return;
       this.loading = true;
       try {
-        let res = await General.delete("/api/cruds/blogCategory/"+id);
+        let res = await General.delete("/api/cruds/blogCategory/" + id);
         this.$alertStore.add(res.message || "deleted", "success");
         this.loadItems();
+        this.loading = false
       } catch (error) {
         console.error(error);
         this.$alertStore.add(error.message || "Delete failed", "error");
+        this.loading = false
       } finally {
         this.loading = false;
       }

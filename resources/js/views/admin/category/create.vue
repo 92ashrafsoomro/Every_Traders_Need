@@ -40,7 +40,7 @@
 
 
             <v-col cols="12" class="text-center mt-4">
-              <v-btn @click="submitForm" color="primary" height="40">
+              <v-btn :disabled="loading" @click="submitForm" color="primary" height="40">
                 Create
               </v-btn>
             </v-col>
@@ -74,6 +74,7 @@ export default {
   methods: {
     
   async submitForm() {
+    this.loading = true
   try {
     const res = await General.post(
       "/api/cruds/blogCategory",
@@ -81,13 +82,14 @@ export default {
     );
 
     this.$alertStore.add("News Created Successfully", "success");
-
-
+    this.loading = false
+    
   } catch (error) {
     this.$alertStore.add(
       error.response?.data?.message || "Something went wrong",
       "error"
     );
+    this.loading = false
   }
 }
 

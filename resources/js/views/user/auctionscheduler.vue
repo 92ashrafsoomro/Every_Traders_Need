@@ -32,7 +32,7 @@
     <div class=" d-lg-flex d-md-flex  d-none align-center ga-5 ml-auto mr-auto mt-5">
       <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
         class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column cursor-pointer"
-        style="height: 95px; width: 13.5%;" @click="!options.enableCurrent && handleTab(key)">
+        style="height: 95px; width: 13.5%;" @click="!options.enableCurrent && handleTab(key)" :disabled="alertPopupLock">
 
         <div class="text-capitalize d-flex align-center justify-center pb-2 text-wrap"
           style="white-space: wrap !important; border-bottom: 1px solid #343E4B;">
@@ -101,8 +101,12 @@
             <router-link :to="'/user/auction-finder/'">
               <v-icon size="20" color="white">mdi-eye-outline</v-icon>
             </router-link>
-            <v-btn variant="text" @click="sendAlert(item.id)" :loading="sendingAlertId === item.id"
-              :disabled="sendingAlertId === item.id || alertExists(item.id)" :style="{
+            
+            <v-btn variant="text" 
+              @click="sendAlert(item.id)" 
+              :loading="sendingAlertId === item.id"
+              :disabled="alertPopupLock" 
+              :style="{
                 backgroundColor: alertExists(item.id)
                   ? 'rgba(var(--v-theme-primary),0.2)'
                   : 'transparent',
@@ -112,6 +116,7 @@
                 mdi-bell-outline
               </v-icon>
             </v-btn>
+          
           </div>
         </template>
 
@@ -238,14 +243,14 @@ export default {
     handleTab(key) {
       if (this.alertPopupLock) return;
 
-      if (
-        this.userStore.isBasicSubscriber() && key !== 'Today'
-      ) {
-        this.alertPopupLock = true;
-        this.$alertStore.add("Upgrade your plan.", "error");
-        this.alertPopupLock = false;
-        return;
-      }
+      // if (
+      //   this.userStore.isBasicSubscriber() && key !== 'Today'
+      // ) {
+      //   this.alertPopupLock = true;
+      //   this.$alertStore.add("Upgrade your plan.", "error");
+      //   this.alertPopupLock = false;
+      //   return;
+      // }
       this.options.day = key;
       this.options.date = this.days[key].date;
       this.getRecords();
@@ -374,19 +379,19 @@ export default {
     
     async sendAlert(auction_id) {
 
-      if (this.alertPopupLock) return;
+      // if (this.alertPopupLock) return;
 
-      if (this.userStore.isBasicSubscriber()) {
+      // if (this.userStore.isBasicSubscriber()) {
 
-        this.alertPopupLock = true;
+      //   this.alertPopupLock = true;
 
-        this.$alertStore.add("Upgrade your plan.", "error");
+      //   this.$alertStore.add("Upgrade your plan.", "error");
        
-          this.alertPopupLock = false;
+      //     this.alertPopupLock = false;
 
-        return;
-      }
-
+      //   return;
+      // }
+      this.alertPopupLock = true
       if (this.sendingAlertId) return;
 
       if (this.alertExists(auction_id)) return;
@@ -401,10 +406,11 @@ export default {
 
         this.$alertStore.add("Added successfully", "success");
 
+      this.alertPopupLock = false
       } catch (error) {
 
         this.$alertStore.add("Error", "error");
-
+this.alertPopupLock = false
       } finally {
 
         this.sendingAlertId = null;

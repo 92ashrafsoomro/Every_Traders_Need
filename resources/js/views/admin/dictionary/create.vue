@@ -66,8 +66,6 @@
             </v-row>
           </v-container >
        
-          </v-card-text>
-
           <v-row class="mb-2">
             <v-col cols="12" class="text-end">
               <v-btn color="primary" @click="submitForm">
@@ -75,6 +73,8 @@
               </v-btn>
             </v-col>
           </v-row>
+          </v-card-text>
+
 
 
 
@@ -90,7 +90,7 @@ import api from "@/plugins/axios";
 import BaseField from "./component/BaseField.vue";
 import BaseSelect from "./component/BaseSelect.vue";
 import BodyType from "@/models/body-type.model";
-
+import Center from "@/models/center.model";
 import Make from "@/models/make.model";
 import Model from '@/models/vehicle-model.model';
 import Variant from "@/models/variant.model";
@@ -137,6 +137,12 @@ export default {
 
     case "bodyType":
       this.searchItem = (await BodyType.all({
+        search: this.form.value
+      })).data
+      break
+    
+    case "center":
+      this.searchItem = (await Center.all({
         search: this.form.value
       })).data
       break

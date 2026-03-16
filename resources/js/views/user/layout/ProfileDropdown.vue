@@ -76,7 +76,7 @@
             </v-list-item>
              <v-list-item link>
                 <v-list-item-title class="profileDropDown cursor-pointer">
-                    <router-link to="/support" target="_blank" class="text-decoration-none" >
+                    <router-link to="/user/supportTicket" target="_blank" class="text-decoration-none" >
                         <div class=" d-flex align-center ga-2 wrapper">
                           <v-icon class="icon text-light_text_on" icon="mdi-face-agent"></v-icon>
 

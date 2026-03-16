@@ -199,7 +199,7 @@
     }
 
     .items-table td {
-      font-size: 14px;
+      /* font-size: 14px; */
     }
 
     .items-table .amount {
@@ -397,45 +397,7 @@
           </table>
 
 
-          <h4>Payment Summary</h4>
-
-          <table class="info-table">
-            <tr>
-              <td class="label">Subtotal</td>
-              <td class="value">€49.00</td>
-            </tr>
-            <tr>
-              <td class="label">VAT (if applicable)</td>
-              <td class="value">€0.00</td>
-            </tr>
-            <tr>
-              <td class="label">Discount</td>
-              <td class="value">€0.00</td>
-            </tr>
-            <tr>
-              <td class="label">Billing Address</td>
-              <td class="value">Office #12, Business Avenue</td>
-            </tr>
-            <tr>
-              <td class="label">Total Amount</td>
-              <td class="value">€49.00</td>
-            </tr>
-          </table>
-
-
-          <h4>Payment Information</h4>
-
-          <table class="info-table">
-            <tr>
-              <td class="label">Payment Method</td>
-              <td class="value">Direct Debit</td>
-            </tr>
-            <tr>
-              <td class="label">Transaction ID</td>
-              <td class="value">XXXX XXXX XXXX</td>
-            </tr>
-          </table>
-
+          
           <p class="payment-note">
             Payment will be automatically deducted according to your billing agreement.
           </p>
@@ -470,34 +432,73 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- Totals + Thank you in one row -->
-  <!-- <div class="totals-section">
-    <table class="totals-table">
+  
+  <!-- Bill To & Details – tight gap -->
+<div class="bill-section">
+  <div class="bill-grid">
+    <table>
       <tr>
-        <td class="thank-you-cell">
-          Thank you for your business!<br>
-          We appreciate your trust in AutoBoli.
+
+        <!-- LEFT SIDE -->
+        <td>
+
+             <h4>Payment Summary</h4>
+
+          <table class="info-table">
+             <tr>
+            <td class="label">Subtotal</td>
+            <td class="value">€49.00</td>
+          </tr>
+          <tr>
+            <td class="label">VAT (if applicable)</td>
+            <td class="value">€0.00</td>
+          </tr>
+          <tr>
+            <td class="label">Discount</td>
+            <td class="value">€0.00</td>
+          </tr>
+          <tr>
+            <td class="label">Billing Address</td>
+            <td class="value">Office #12, Business Avenue</td>
+          </tr>
+          <tr>
+            <td class="label">Total Amount</td>
+            <td class="value">€49.00</td>
+          </tr>
+        </table>
+
         </td>
-        <td class="totals-cell">
-          <table class="totals-inner">
+
+
+        <!-- RIGHT SIDE -->
+        <td>
+
+            <h4>Payment Information</h4>
+
+          <table class="info-table">
             <tr>
-              <td class="label">Subtotal:</td>
-              <td>£49.00</td>
-            </tr>
-            <tr>
-              <td class="label">Tax (0%):</td>
-              <td>£0.00</td>
-            </tr>
-            <tr>
-              <td class="grand-total">Total Due:</td>
-              <td class="grand-total" style="text-align: right;">£49.00</td>
-            </tr>
+            <td class="label">Payment Method</td>
+            <td class="value">Direct Debit</td>
+          </tr>
+          <tr>
+            <td class="label">Transaction ID</td>
+            <td class="value">XXXX XXXX XXXX</td>
+          </tr>
           </table>
+
+
+          
+          <p class="payment-note">
+            Payment will be automatically deducted according to your billing agreement.
+          </p>
+
         </td>
+
       </tr>
     </table>
-  </div> -->
+  </div>
+</div>
+
   <div class="footer-top">
     <p>
       This invoice confirms your subscription payment for Autoboli services <br>

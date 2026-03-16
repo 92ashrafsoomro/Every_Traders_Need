@@ -442,7 +442,7 @@ class NotificationController extends Controller
     }
 
 
-    public function addInUserAuction(Request $request)
+    public function addInUserAuction(Request $request) 
     { 
 
         $validator = Validator::make($request->all(),[
@@ -455,6 +455,17 @@ class NotificationController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+
+        $user = $request->user();
+        $currentMembership = $user->memberships()->where('membership_status', 1)->first();
+   
+
+        if ($currentMembership && $currentMembership->plan_id == 1) {
+                return response()->json([
+                    'message' => 'upgrade your plan.',
+                ], 422);
+        }
+
 
         $checkExisting = UserAuction::where([
             'user_id' => $request->user()->id, 

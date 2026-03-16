@@ -403,7 +403,7 @@ export default {
 
       } catch (error) {
 
-        this.$alertStore.add("Error", "error");
+        this.$alertStore.add(error.message, "error");
 
       } finally {
 

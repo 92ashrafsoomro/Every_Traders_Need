@@ -9,6 +9,7 @@
           <v-btn
             variant="text"
             color="primary"
+            to="/admin/model"
             class="text-capitalize"
             @click="goBack"
           >
@@ -69,6 +70,7 @@
                   class="buttonBorder bg-primary"
                   variant="flat"
                   style="height: 40px;"
+                  :disabled="loading"
                 >
                   <span class="text-capitalize text-body-1 text-white">
                     Update
@@ -136,9 +138,11 @@ export default {
         }      
         const res = await General.put("/api/cruds/model/"+this.form.id , this.form);
         this.$alertStore.add(res.message || 'Model updated', 'success');
+        this.loading = false;
         this.$router.push('/admin/model');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
+        this.loading = false;
       } finally {
         this.loading = false;
       }

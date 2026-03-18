@@ -1,12 +1,12 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12">
-      <v-card class="border">
+      <v-card class="border" :disabled="loading" >
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">Edit Variant</h3>
 
-          <v-btn variant="text" color="primary" @click="goBack">
+          <v-btn variant="text" color="primary"    to="/admin/variant" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>
@@ -107,14 +107,16 @@ export default {
           this.$alertStore.add('Id not found' , 'error');
           return false
         }
-          const res = await General.put("/api/cruds/variant/" + this.form.id, this.form);
+        const res = await General.put("/api/cruds/variant/" + this.form.id, this.form);
           console.log(res);
-
+          
           this.$alertStore.add(res.message || 'variant updated', 'success');
+          this.loading = false;
           this.$router.push('/admin/variant');
-        
-      } catch (error) {
-        this.$alertStore.add(error.message || 'Update failed', 'error');
+          
+        } catch (error) {
+          this.$alertStore.add(error.message || 'Update failed', 'error');
+          this.loading = false;
       } finally {
         this.loading = false;
       }

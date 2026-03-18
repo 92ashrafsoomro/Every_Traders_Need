@@ -1,12 +1,12 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12">
-      <v-card class="border">
+      <v-card class="border" :disabled="loading" >
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">Edit Platform</h3>
 
-          <v-btn variant="text" color="primary" @click="goBack">
+          <v-btn variant="text"     to="/admin/platform" color="primary" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>
@@ -74,7 +74,7 @@
 
               <!-- UPDATE -->
               <v-col cols="12" class="text-center mt-3">
-                <v-btn color="primary" @click="updatePlatform">
+                <v-btn color="primary" :disabled="loading" @click="updatePlatform">
                   Update
                 </v-btn>
               </v-col>
@@ -104,8 +104,8 @@ export default {
         id: '',
         name: '',
         image: null, 
-        imageUrl: null,   // preview (old or new)
-      },     // NEW image (File)
+        imageUrl: null,  
+      },    
       loading: false,
     };
   },
@@ -167,9 +167,11 @@ export default {
 
         const res = await General.put("/api/cruds/platform/"+this.form.id, this.form);
         this.$alertStore.add(res.message || 'Platform updated', 'success');
+        this.loading = false;
         this.$router.push('/admin/platform');
       } catch (error) {
         this.$alertStore.add(error.message, 'error');
+        this.loading = false;
       } finally {
         this.loading = false;
       }

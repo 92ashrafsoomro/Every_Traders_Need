@@ -1,12 +1,12 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12">
-      <v-card class="border">
+      <v-card class="border"  :disabled="loading">
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">Create Variant</h3>
 
-          <v-btn variant="text" color="primary" @click="goBack">
+          <v-btn  to="/admin/variant" variant="text" color="primary" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>
@@ -63,6 +63,7 @@
                   color="primary"
                   variant="flat"
                   @click="submitId"
+                  :disabled="loading"
                 >
                   Submit
                 </v-btn>
@@ -117,9 +118,11 @@ export default {
 
         const res = await General.post("api/cruds/variant", this.form);
         this.$alertStore.add(res.message, 'success');
-        this.$router.push('/admin/variant');
-      } catch (err) {
-        this.$alertStore.add(err.message || 'Failed', 'error');
+           this.loading = false;
+           this.$router.push('/admin/variant');
+          } catch (err) {
+            this.$alertStore.add(err.message || 'Failed', 'error');
+            this.loading = false;
       } finally {
         this.loading = false;
       }

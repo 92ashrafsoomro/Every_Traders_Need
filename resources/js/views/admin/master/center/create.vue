@@ -1,13 +1,14 @@
 <template>
 <v-container  max-width="1400px">
     <v-col cols="12" md="12">
-        <v-card class="border " >
+       <v-card class="border " :disabled="loading" >
             <div class="d-flex align-center justify-space-between px-4 py-3">
                 <h3 class="text-h6 font-weight-bold">
                 {{ title }}
                 </h3>
                 <v-btn
                 variant="text"
+                to="/admin/center"
                 color="primary"
                 class="text-capitalize"
                 @click="goBack"
@@ -47,6 +48,7 @@
                         @click="submitId"
                         class="buttonBorder bg-primary"
                         variant="flat"
+                        :disabled="loading" 
                         style="height: 40px;"
                     >
                         <span class="text-capitalize text-body-1 text-white">
@@ -92,10 +94,12 @@ export default {
             let res = await General.post("/api/cruds/center" , this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/center');
-
+            this.loading = false
+            
         } catch (error) {
             console.error(error);
             this.$alertStore.add(error.message, 'error');
+            this.loading = false
         } finally {
             this.loading = false;
             this.resetForm();

@@ -1,7 +1,7 @@
 <template>
 <v-container  max-width="1400px">
     <v-col cols="12" md="12">
-        <v-card class="border " >
+        <v-card class="border " :disabled="loading" >
             <div class="d-flex align-center justify-space-between px-4 py-3">
                 <h3 class="text-h6 font-weight-bold">
                 {{ title }}
@@ -9,6 +9,7 @@
                 <v-btn
                 variant="text"
                 color="primary"
+                  to="/admin/vehicleType"
                 class="text-capitalize"
                 @click="goBack"
             
@@ -46,6 +47,7 @@
                         @click="submit"
                         class="buttonBorder bg-primary"
                         variant="flat"
+                        :disabled="loading"
                         style="height: 40px;"
                     >
                         <span class="text-capitalize text-body-1 text-white">
@@ -75,8 +77,9 @@ export default {
      form:{
         id: '',      
         name: ''
-     } 
-    }
+     } ,
+     loading : false
+    }    
   },
    methods: {
     async  submit() {
@@ -87,11 +90,13 @@ export default {
             let res = await General.post('/api/cruds/vehicleType', this.form);
             
             this.$alertStore.add(res.message, 'success');
+            this.loading = false
             this.$router.push('/admin/vehicleType');
-
+            
         } catch (error) {
             console.error(error);
             this.$alertStore.add(error.message, 'error');
+            this.loading = false
         } finally {
             this.loading = false;
         }

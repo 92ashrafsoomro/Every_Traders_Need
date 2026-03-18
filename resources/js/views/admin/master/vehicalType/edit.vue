@@ -1,7 +1,7 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12" md="12">
-      <v-card class="border">
+      <v-card class="border " :disabled="loading" >
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
            Edit Vehicle Type
@@ -9,6 +9,7 @@
           <v-btn
             variant="text"
             color="primary"
+            to="/admin/vehicalType"
             class="text-capitalize"
             @click="goBack"
           >
@@ -57,6 +58,7 @@
                   @click="updateBodyType"
                   class="buttonBorder bg-primary"
                   variant="flat"
+                  :disabled="loading"
                   style="height: 40px;"
                 >
                   <span class="text-capitalize text-body-1 text-white">
@@ -115,9 +117,11 @@ export default {
         const res = await General.put('/api/cruds/vehicleType/'+this.form.id , this.form);
         console.log(res);
         this.$alertStore.add(res.message || 'Vehicle Type updated', 'success');
+        this.loading = false;
         this.$router.push('/admin/vehicleType');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
+        this.loading = false;
       } finally {
         this.loading = false;
       }

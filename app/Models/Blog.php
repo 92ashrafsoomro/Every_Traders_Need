@@ -76,5 +76,10 @@ class Blog extends Model
         }
     }
 
+    public function details()
+    {
+        return $this->hasMany(BlogDetail::class, 'blog_id', 'id');
+    }
+
 
 }

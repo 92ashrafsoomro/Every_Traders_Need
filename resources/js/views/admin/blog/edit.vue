@@ -81,7 +81,9 @@
 
             </v-col>
             
-
+            <v-col cols="12">
+              <BlogSections v-model="form.sections" />
+            </v-col>
 
             <v-col cols="12" class="text-center mt-4">
               <v-btn :disabled="loading" @click="submitForm" color="primary" height="40">
@@ -103,11 +105,12 @@ import General from '@/models/general.model';
 import Blogcategory from '@/components/Blogcategory.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
+import BlogSections from './BlogSections.vue';
 export default {
   components: {
       Blogcategory,
       QuillEditor,
+      BlogSections
   },
   data() {
     return {
@@ -126,9 +129,11 @@ export default {
         title: '',
         description: '',
         date: '',
+        sections: [],
       },
       loading: false,
       imageUrl: null,  
+      
     }
   },
   async mounted() {
@@ -151,6 +156,13 @@ export default {
         this.form.description = data.description;
         this.form.date = data.date;
         this.imageUrl = data.image_preview || null;
+        this.form.sections = data.details.map(section => ({
+          distitle: section.title,
+          disdescription: section.description,
+          alignment: section.alignment,
+          disimage: section.image || null, 
+          preview: section.preview_image || null, 
+        }));
 
 
    

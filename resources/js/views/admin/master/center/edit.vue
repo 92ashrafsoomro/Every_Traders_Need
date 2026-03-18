@@ -7,6 +7,7 @@
            Edit Center
           </h3>
           <v-btn
+              to="/admin/center"
             variant="text"
             color="primary"
             class="text-capitalize"
@@ -57,6 +58,7 @@
                   @click="updateBodyType"
                   class="buttonBorder bg-primary"
                   variant="flat"
+                  :disabled="loading"
                   style="height: 40px;"
                 >
                   <span class="text-capitalize text-body-1 text-white">
@@ -122,9 +124,12 @@ export default {
         // formData.append('name', this.name);
         const res = await General.put("/api/cruds/center/"+this.form.id, this.form);
         this.$alertStore.add(res.message || 'Center updated', 'success');
+        this.loading = false;
         this.$router.push('/admin/center');
+        
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
+        this.loading = false;
       } finally {
         this.loading = false;
       }

@@ -1,13 +1,14 @@
 <template>
 <v-container  max-width="1400px">
     <v-col cols="12" md="12">
-        <v-card class="border " >
+        <v-card class="border " :disabled="loading" >
             <div class="d-flex align-center justify-space-between px-4 py-3">
                 <h3 class="text-h6 font-weight-bold">
                 {{ title }}
                 </h3>
                 <v-btn
                 variant="text"
+                to="/admin/bodyType"
                 color="primary"
                 class="text-capitalize"
                 @click="goBack"
@@ -47,6 +48,7 @@
                         class="buttonBorder bg-primary"
                         variant="flat"
                         style="height: 40px;"
+                        :disabled="loading"
                     >
                         <span class="text-capitalize text-body-1 text-white">
                         Submit
@@ -76,7 +78,8 @@ export default {
      form:{
         id: '',      
         name: '' 
-     }
+     },
+     loading : false
     }
   },
    methods: {
@@ -91,6 +94,8 @@ export default {
             let res = await General.post("/api/cruds/bodyType", this.form);
             this.$alertStore.add(res.message, 'success');
             this.$router.push('/admin/bodyType');
+            this.loading = false;
+
 
         } catch (error) {
             console.error(error);

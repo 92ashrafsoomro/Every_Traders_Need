@@ -278,7 +278,7 @@ export default {
     this.loadItems()
   },
   computed: {
- 
+
     },
     watch: {
         'filter.length'(newVal, oldVal) {
@@ -313,16 +313,18 @@ export default {
     
      methods: {         
         async loadItems() {
-                this.loading = true;
-                try {
-                    let res = await  Members.all(this.filter);
-                    this.items = res.data;
-                    this.planCounts = res.planCounts;
-                    this.total = res.total;
-                    // this.filter.page = Number(res.page);
-                    this.last_page = Number(res.last_page);
-                    this.loading = false
-                   
+            this.loading = true;
+            try {
+                let res = await Members.all(this.filter);
+                let counts = res.planCounts || [];
+                this.items = res.data;
+                this.total = res.total;
+                this.planCounts = [
+                    { id: '', plan_name: 'All', total_users: this.total }, 
+                    ...counts
+                ];
+                this.last_page = Number(res.last_page);
+                this.loading = false; 
                 } catch (error) {
                     alert(error)
                     this.loading = false

@@ -68,7 +68,7 @@
        
           <v-row class="mb-2">
             <v-col cols="12" class="text-end">
-              <v-btn color="primary" @click="submitForm">
+              <v-btn color="primary" @click="submitForm" :disabled="loading">
                 Add Dictionary
               </v-btn>
             </v-col>
@@ -104,6 +104,7 @@ export default {
     return {
       Dictionary,
       showList: false,
+      loading : false,
       searchItem: [
 
       ],
@@ -175,6 +176,7 @@ export default {
     },
 
     async submitForm() {
+      this.loading = true
       try {
         let res = await api.post("/api/cruds/prefixes", {
           name: this.form.name,
@@ -185,12 +187,14 @@ export default {
         this.form.key = "",
           this.form.value = ""
         this.$alertStore.add("Prefixes Add");
+       this.loading = false
       }
       catch (error) {
         this.$alertStore.add(
           error.response?.data?.message || "Something went wrong",
           "error"
         );
+        this.loading = false
       }
     },
     goBack() {

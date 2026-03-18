@@ -32,7 +32,8 @@
     <div class=" d-lg-flex d-md-flex  d-none align-center ga-5 ml-auto mr-auto mt-5">
       <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
         class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column cursor-pointer"
-        style="height: 95px; width: 13.5%;" @click="!options.enableCurrent && handleTab(key)" :disabled="alertPopupLock">
+        style="height: 95px; width: 13.5%;" @click="!options.enableCurrent && handleTab(key)"
+        :disabled="alertPopupLock">
 
         <div class="text-capitalize d-flex align-center justify-center pb-2 text-wrap"
           style="white-space: wrap !important; border-bottom: 1px solid #343E4B;">
@@ -101,21 +102,18 @@
             <router-link :to="'/user/auction-finder/'">
               <v-icon size="20" color="white">mdi-eye-outline</v-icon>
             </router-link>
-            
-            <v-btn variant="text" 
-              @click="sendAlert(item.id)" 
-              :loading="sendingAlertId === item.id"
-              :style="{
-                backgroundColor: alertExists(item.id)
-                  ? 'rgba(var(--v-theme-primary),0.2)'
-                  : 'transparent',
-                cursor: alertExists(item.id) && !this.userStore.isBasicSubscriber() ? 'not-allowed' : 'pointer'
-              }">
+
+            <v-btn variant="text" @click="sendAlert(item.id)" :loading="sendingAlertId === item.id" :style="{
+              backgroundColor: alertExists(item.id)
+                ? 'rgba(var(--v-theme-primary),0.2)'
+                : 'transparent',
+              cursor: alertExists(item.id) && !this.userStore.isBasicSubscriber() ? 'not-allowed' : 'pointer'
+            }">
               <v-icon size="20" :color="alertExists(item.id) ? 'primary' : 'white'">
                 mdi-bell-outline
               </v-icon>
             </v-btn>
-          
+
           </div>
         </template>
 
@@ -375,7 +373,7 @@ export default {
     alertExists(auction_id) {
       return this.alertedAuctionIds.includes(auction_id);
     },
-    
+
     async sendAlert(auction_id) {
 
       // if (this.alertPopupLock) return;
@@ -385,7 +383,7 @@ export default {
       //   this.alertPopupLock = true;
 
       //   this.$alertStore.add("Upgrade your plan.", "error");
-       
+
       //     this.alertPopupLock = false;
 
       //   return;
@@ -405,11 +403,10 @@ export default {
 
         this.$alertStore.add("Added successfully", "success");
 
-      this.alertPopupLock = false
+        this.alertPopupLock = false
       } catch (error) {
 
-        this.$alertStore.add("Error", "error");
-this.alertPopupLock = false
+        this.$alertStore.add(error.message, "error");
       } finally {
 
         this.sendingAlertId = null;

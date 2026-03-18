@@ -1,13 +1,14 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12" md="12">
-      <v-card class="border">
+      <v-card class="border" :disabled="loading">
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
             Edit Body Type
           </h3>
           <v-btn
             variant="text"
+            to="/admin/bodyType/"
             color="primary"
             class="text-capitalize"
             @click="goBack"
@@ -58,6 +59,7 @@
                   class="buttonBorder bg-primary"
                   variant="flat"
                   style="height: 40px;"
+                  :disabled="loading"
                 >
                   <span class="text-capitalize text-body-1 text-white">
                     Update
@@ -120,7 +122,9 @@ export default {
         // formData.append('name', this.name);
         const res = await General.put('/api/cruds/bodyType/'+this.form.id, this.form);
         this.$alertStore.add(res.message || 'Body Type updated', 'success');
-        this.$router.push('/admin/bodyType');
+        this.loading = false;
+          // this.$router.push('/admin/bodyType');
+
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
       } finally {

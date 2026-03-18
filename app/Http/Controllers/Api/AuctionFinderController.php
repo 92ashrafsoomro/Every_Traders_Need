@@ -713,17 +713,35 @@ class AuctionFinderController extends Controller
 
         public function auctionSheduler(Request $request)
     {
+        
+        $user = $request->user();
+        $currentMembership = $user->memberships()->where('membership_status', 1)->first();
+        if ($currentMembership && $currentMembership->plan_id == 1) {
+            $groups = DB::table('auctions as a')
+                ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
+                ->select(
+                    DB::raw('DATE(a.auction_date) as auction_day'),
+                    DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
+                    DB::raw('COUNT(v.id) as total_vehicles')
+                )
+                // Sirf aaj ka data filter karne ke liye
+                ->whereDate('a.auction_date', '=', now()->toDateString()) 
+                ->groupBy(DB::raw('DATE(a.auction_date)'))
+                ->orderBy('auction_day', 'ASC')
+                ->get();
+        }else{
+            $groups =  DB::table('auctions as a')
+            ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
+            ->select(
+                DB::raw('DATE(a.auction_date) as auction_day'),
+                DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
+                DB::raw('COUNT(v.id) as total_vehicles')
+            )
+            ->groupBy(DB::raw('DATE(a.auction_date)'))
+            ->orderBy('auction_day', 'ASC')
+            ->get();
+        }
 
-        $groups =  DB::table('auctions as a')
-        ->leftJoin('vehicles as v', 'v.auction_id', '=', 'a.id')
-        ->select(
-            DB::raw('DATE(a.auction_date) as auction_day'),
-            DB::raw('COUNT(DISTINCT a.id) as total_auctions'),
-            DB::raw('COUNT(v.id) as total_vehicles')
-        )
-        ->groupBy(DB::raw('DATE(a.auction_date)'))
-        ->orderBy('auction_day', 'ASC')
-        ->get();
 
         $length = $request->input('length', 10);
         $page   = $request->input('page', 1);
@@ -744,8 +762,17 @@ class AuctionFinderController extends Controller
                 ->when($request->center_id, function($q) use ($request) {
                     $q->where('auctions.status', $request->status);
                 })
-                ->when($request->date, function($q) use ($request) {
-                    $q->whereDate('auctions.auction_date',$request->date);
+                // ->when($request->date, function($q) use ($request) {
+                //     $q->whereDate('auctions.auction_date',$request->date);
+                // })
+                ->when($request->date || ($currentMembership && $currentMembership->plan_id == 1), function($q) use ($request, $currentMembership) {
+
+                    if ($currentMembership && $currentMembership->plan_id == 1) {
+                        $q->whereDate('auctions.auction_date', now()->toDateString());
+                    } 
+                    elseif ($request->date) {
+                        $q->whereDate('auctions.auction_date', $request->date);
+                    }
                 })
                 ->when($request->enableCurrent, function($q) use ($request) {
                     if ($request->enableCurrent == 'true'){

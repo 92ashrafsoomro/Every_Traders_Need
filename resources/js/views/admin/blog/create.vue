@@ -17,8 +17,6 @@
 
         <v-container fluid>
           <v-row>
-
-
             <v-col cols="12" md="6">
               <Blogcategory label="Category" v-model="form.category_id" type="blog" variant="outlined" density="compact"
                 hide-details class="id-box" clearable />
@@ -54,6 +52,10 @@
               <v-img v-if="imageUrl" :src="imageUrl" max-width="200" max-height="200" cover />
 
             </v-col>
+            
+            <v-col cols="12">
+              <BlogSections v-model="form.sections" />
+            </v-col>
 
 
 
@@ -77,12 +79,14 @@ import General from '@/models/general.model';
 import Blogcategory from '@/components/Blogcategory.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
+import BlogSections from './BlogSections.vue';
 export default {
-  components: {
-    Blogcategory,
-    QuillEditor,
-  },
+    components: {
+      Blogcategory,
+      QuillEditor,
+      BlogSections
+    },
+
 
   data() {
     return {
@@ -102,6 +106,7 @@ export default {
         title: '',
         description: '',
         date: '',
+        sections: [],
       },
       loading: false
     }

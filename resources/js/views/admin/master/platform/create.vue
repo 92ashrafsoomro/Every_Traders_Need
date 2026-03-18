@@ -1,12 +1,13 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12">
-      <v-card class="border">
+           <v-card class="border " :disabled="loading" >
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">Create Platform</h3>
 
-          <v-btn variant="text" color="primary" @click="goBack">
+          <v-btn variant="text" color="primary" 
+                to="/admin/platform" @click="goBack">
             <v-icon start>mdi-arrow-left</v-icon>
             Back
           </v-btn>
@@ -63,7 +64,7 @@
 
    
               <v-col cols="12" class="text-center mt-3">
-                <v-btn color="primary" @click="submitForm">
+                <v-btn color="primary"    :disabled="loading"  @click="submitForm">
                   Submit
                 </v-btn>
               </v-col>
@@ -90,6 +91,7 @@ export default {
         image: null,
       },
       imageUrl: null,
+      loading : false
     };
   },
 
@@ -116,19 +118,21 @@ export default {
     },
 
     async submitForm() {
-      
-
-     try {
-      //  const formData = new FormData();
-      // formData.append('id', this.id);
-      // formData.append('name', this.name);
-      // formData.append('image', this.image);
-
-      const res = await General.post("/api/cruds/platform",this.form);
-      this.$alertStore.add(res.message, 'success');
-      this.$router.push('/admin/platform');
-     } catch (error) {
-        this.$alertStore.add(error.message, 'error');
+       this.loading = true;
+       
+       try {
+         //  const formData = new FormData();
+         // formData.append('id', this.id);
+         // formData.append('name', this.name);
+         // formData.append('image', this.image);
+         
+         const res = await General.post("/api/cruds/platform",this.form);
+         this.$alertStore.add(res.message, 'success');
+         this.loading = false;
+         this.$router.push('/admin/platform');
+        } catch (error) {
+          this.$alertStore.add(error.message, 'error');
+          this.loading = false;
      }
     },
 

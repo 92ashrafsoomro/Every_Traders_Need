@@ -1,12 +1,13 @@
 <template>
   <v-container max-width="1400px">
     <v-col cols="12" md="12">
-      <v-card class="border">
+     <v-card class="border " :disabled="loading" >
         <div class="d-flex align-center justify-space-between px-4 py-3">
           <h3 class="text-h6 font-weight-bold">
            Edit Make
           </h3>
           <v-btn
+            to="/admin/make"
             variant="text"
             color="primary"
             class="text-capitalize"
@@ -59,6 +60,7 @@
                   class="buttonBorder bg-primary"
                   variant="flat"
                   style="height: 40px;"
+                  :disabled="loading"
                 >
                   <span class="text-capitalize text-body-1 text-white">
                     Update
@@ -122,9 +124,11 @@ export default {
         console.log(res);
         
         this.$alertStore.add(res.message || 'Make updated', 'success');
+        this.loading = false;
         this.$router.push('/admin/make');
       } catch (error) {
         this.$alertStore.add(error.message || 'Update failed', 'error');
+        this.loading = false;
       } finally {
         this.loading = false;
       }

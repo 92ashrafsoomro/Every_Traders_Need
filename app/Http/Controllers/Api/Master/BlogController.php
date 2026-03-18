@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\BlogDetail;
+use App\Models\Setting;
+use App\Models\UserNotificationSetting;
 use App\Models\VehicleModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +25,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use App\Services\NewsAndBlogService;
+
+
 class BlogController extends Controller
 {
 
@@ -67,8 +72,7 @@ class BlogController extends Controller
 
     }
 
-
-    public function store(Request $request)
+    public function store(Request $request ,NewsAndBlogService $newsService)
     {
 
         $validator = Validator::make($request->all(),[
@@ -125,6 +129,10 @@ class BlogController extends Controller
                 }
             }
         }
+
+
+        $newsService->sendNotification($model->title, $model->description);
+
 
         return response()->json([
             'message' => 'Record Created Successfully',

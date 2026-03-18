@@ -143,6 +143,16 @@ export const useUserStore = defineStore("user", {
                 this.is_logged_in = false;
             }
         },
+
+        async resendVerificationRequest(payload) {
+            try {
+                // Aapki API ka sahi path yahan aayega
+                const response = await General.post('/api/auth/resend-verification', payload);
+                return response.data;
+            } catch (error) {
+                throw error.response ? error.response.data : error;
+            }
+        },
     // ==============================
     // Plan
     // ==============================

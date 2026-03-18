@@ -126,7 +126,49 @@ use App\Models\Role;
     }
 
 
+    public function resendVerification(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
 
+        $user = User::where('personalEmail', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        if ($user->email_verification_token_status != 0) {
+            return response()->json([
+                'message' => 'This account is already verified or cannot be verified again.',
+            ], 422);
+        }
+
+        if ($user->resend_count >= 3) {
+            return response()->json([
+                'message' => 'Maximum email limit reached. Please contact support.',
+                'resend' => false 
+            ], 429); 
+        }
+
+        try {
+
+            $user->email_verification_token = strtoupper(Str::random(6));
+            $user->resend_count += 1; 
+            $user->save();
+
+            Mail::to($user->personalEmail)->send(new VerifyEmail($user));
+
+            return response()->json([
+                'message' => 'A new verification code has been sent to your email.',
+                'resend_count' => $user->resend_count
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Email sending failed for User ID ' . $user->id . ': ' . $e->getMessage());
+            
+            return response()->json([
+                'message' => 'Failed to send email. Please try again later.',
+            ], 500);
+        }
+    }
 
 
      public function register(Request $request)

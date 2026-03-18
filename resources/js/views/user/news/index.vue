@@ -109,8 +109,7 @@
           </div>
           <div>
             <v-divider />
-            <div class="pa-6">
-             {{ selectedBlog.description }}
+            <div class="pa-6" v-html="selectedBlog.description">
 
             </div>
           </div>

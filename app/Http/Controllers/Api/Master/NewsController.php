@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-
+use App\Services\NewsAndBlogService;
 
 class NewsController extends Controller
 {
@@ -86,7 +86,7 @@ class NewsController extends Controller
     }
 
 
-      public function store(Request $request)
+      public function store(Request $request ,NewsAndBlogService $newsService)
     {
 
         $validator = Validator::make($request->all(),[
@@ -122,6 +122,8 @@ class NewsController extends Controller
             $model->image = $fileName;
             $model->save();
         }
+
+        $newsService->sendNotification($model->title, $model->description);
 
         return response()->json([
             'message' => 'Record Created Successfully',

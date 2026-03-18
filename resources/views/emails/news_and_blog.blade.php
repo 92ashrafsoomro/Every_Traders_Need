@@ -156,12 +156,12 @@
         <div class="email-body">
             <p class="greeting">Hello,</p>
             
-            <p>{{ $messageContent }}</p>
+            <p>{!! $messageContent !!}</p>
             
             <div class="divider"></div>
             
             <div class="btn-container">
-                <a href="{{ url('/') }}" class="btn">Visit Our Website</a>
+                <a href="{{ $settings['weburl'] }}" class="btn">Visit Our Website</a>
             </div>
             
             <p style="margin-top: 30px; font-size: 14px; color: #b0b0b0;">
@@ -171,20 +171,23 @@
 
         <div class="email-footer">
             <div class="footer-content">
-                <p><span class="company-name">Autoboli</span></p>
+                <p><span class="company-name">{{ $settings['sitename'] ?? "Autoboli" }}</span></p>
                 
-                <div class="social-links">
-                    <a href="#">Facebook</a> | 
-                    <a href="#">Twitter</a> | 
-                    <a href="#">Instagram</a> | 
-                    <a href="#">LinkedIn</a>
-                </div>
+            <div class="social-links">
+                <a href="{{ $settings['facebook'] ?? '#' }}" target="_blank">Facebook</a> | 
+                
+                <a href="{{ $settings['twitter'] ?? '#' }}" target="_blank">Twitter</a> | 
+                
+                <a href="{{ $settings['instagram'] ?? '#' }}" target="_blank">Instagram</a> | 
+                
+                <a href="https://wa.me/{{ $settings['whatsapp'] ?? '' }}" target="_blank">WhatsApp</a>
+            </div>
                 
                 <p>123 Business Street, City, Country</p>
-                <p>Email: support@autoboli.com | Phone: +1 234 567 8900</p>
+                <p>Email: {{ $settings['email'] ?? '' }} | Phone: {{ $settings['phone'] ?? '' }}</p>
                 
                 <div class="copyright">
-                    &copy; {{ date('Y') }} Autoboli. All rights reserved.
+                    &copy; {{ date('Y') }} {{ $settings['sitename'] ?? "Autoboli" }}. All rights reserved.
                 </div>
             </div>
         </div>

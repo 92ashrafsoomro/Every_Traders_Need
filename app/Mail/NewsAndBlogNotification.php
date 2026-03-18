@@ -12,11 +12,13 @@ class NewsAndBlogNotification extends Mailable
 
     public $title;
     public $messageContent;
+    public $settings;
 
-    public function __construct($title, $messageContent)
+    public function __construct($title, $messageContent ,$settings )
     {
         $this->title = $title;
         $this->messageContent = $messageContent;
+        $this->settings = $settings;
     }
 
     public function build()
@@ -25,7 +27,8 @@ class NewsAndBlogNotification extends Mailable
                     ->view('emails.news_and_blog')
                     ->with([
                         'title' => $this->title,
-                        'messageContent' => $this->messageContent
+                        'messageContent' => $this->messageContent,
+                        'settings' => $this->settings
                     ]);
     }
 }

@@ -76,11 +76,24 @@
                                             </v-col>
 
                                             <v-col cols="12" class="text-center pt-2">
-                                               <p>
-                                              Don't have an account?
-                                              <span><router-link to="register" class="text-primary">Sign Up</router-link></span>
-                                               </p>
-                                               
+                                                <div v-if="resent">
+                                                    <p class="mb-1">Didn't receive the email?</p>
+                                                    <v-btn 
+                                                        variant="text" 
+                                                        color="primary" 
+                                                        @click="resendEmailMethod"
+                                                        class="text-none"
+                                                    >
+                                                        Resend Verification Email
+                                                    </v-btn>
+                                                </div>
+
+                                                <p v-else>
+                                                    Don't have an account?
+                                                    <span>
+                                                        <router-link to="register" class="text-primary">Sign Up</router-link>
+                                                    </span>
+                                                </p>
                                             </v-col>
                                         </v-row>
                                     </div>
@@ -122,6 +135,7 @@ export default {
                 email: "",
                 password: "",
             },
+            resent:false,
         };
     },
     computed: {
@@ -173,10 +187,32 @@ export default {
 
             } catch (error) {
                 themeStore.endLoading();
+                this.resent = error.message == 'This user verification not be done' ? true : false ;
                 this.errors = error.validation || {};
                 this.alertStore.add(error.message, 'error');
             }
         },
+        async resendEmailMethod() {
+            const themeStore = useThemeStore();
+            themeStore.startLoading();
+            this.errors = {};
+
+            try {
+                let response = await this.userStore.resendVerificationRequest({ 
+                    email: this.form.email 
+                });
+
+                themeStore.endLoading();
+                this.alertStore.add('Verification email sent! Please check your inbox.', 'success');
+                this.resent = false; 
+
+            } catch (error) {
+                themeStore.endLoading();
+                const errorData = error.response ? error.response.data : error;
+                this.errors = errorData.validation || {};
+                this.alertStore.add(errorData.message || 'Failed to resend email', 'error');
+            }
+        }
     }
 
 };

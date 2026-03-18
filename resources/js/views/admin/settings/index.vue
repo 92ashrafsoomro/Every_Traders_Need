@@ -47,6 +47,9 @@
               <v-col cols="12" md="6">
                 <v-text-field label="Website URL" v-model="form.weburl" variant="outlined" density="compact" />
               </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="Phone" v-model="form.phone" variant="outlined" density="compact" />
+              </v-col>
             </v-row>
 
             <v-row class="mt-6">
@@ -83,6 +86,7 @@ export default {
       instagram: '',
       whatsapp: '',
       weburl: '',
+      phone: '',
     },
   }),
   mounted() {

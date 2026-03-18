@@ -67,6 +67,7 @@ use App\Http\Controllers\Api\TicketUserApiController;
         Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('/resetpassword', [AuthController::class, 'resetpasswordsubmit']);
         Route::get('/account',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
+        Route::post('/resend-verification', [AuthController::class, 'resendVerification']);
 
     });
 

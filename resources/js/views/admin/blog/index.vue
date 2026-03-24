@@ -11,8 +11,6 @@
               <div class="align-self-center pl-2">
                 {{ filter.offset + 1 }} - {{ Math.min(filter.offset + filter.length, total) }} of {{ total }} Records
               </div>
-
-
             </div>
 
             <div class="w-50 d-flex">
@@ -30,7 +28,7 @@
         </v-col>
         <v-col cols="12" class="mt-2">
           <div class="border">
-            <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total" hover
+            <v-data-table-server sort-asc-icon="" :loading="loading" :headers="headers" :items="items" :items-length="total" hover
               item-value="id" @update:options="loadItems">
 
               <template #item.image_preview="{ item }">
@@ -156,7 +154,7 @@ export default {
       }
     },
     async deleteItem(id) {
-      if (!confirm("Are you sure you want to delete this item?")) return;
+     if (!confirm("Are you sure you want to delete this item?")) return;
       this.loading = true;
       try {
         let res = await General.delete("/api/cruds/blogs/"+id);

@@ -3,7 +3,7 @@
     subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."></user-title-bar>
 
   <v-container fluid class=" bg-background " style="padding: 0 !important;">
-    <v-row no-gutters class="pa-2">
+    <div no-gutters class="pa-2 d-flex">
       <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3"
         style="background-color: rgb(var(--v-theme-primary),0.3);">
         <div>
@@ -129,7 +129,7 @@
         </v-card>
       </v-col>
 
-    </v-row>
+    </div>
   </v-container>
 
 </template>

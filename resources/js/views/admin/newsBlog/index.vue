@@ -43,7 +43,7 @@
                <span>{{ dateFormate(item.updated_at) }}</span>
               </template>
               <template #item.category="{item}">
-                <span>{{ item.category }}</span>
+                <span>{{ item.category.title}}</span>
 
               </template>
               <template #item.creator="{item}">

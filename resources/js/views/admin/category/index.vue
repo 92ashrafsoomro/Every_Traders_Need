@@ -30,7 +30,7 @@
         </v-col>
         <v-col cols="12" class="mt-2">
           <div class="border">
-            <v-data-table-server :loading="loading" :headers="headers" :items="items" :items-length="total" hover
+            <v-data-table-server sort-asc-icon="" :loading="loading" :headers="headers" :items="items" :items-length="total" hover
               item-value="id" @update:options="loadItems">
 
               <template #item.image_preview="{ item }">

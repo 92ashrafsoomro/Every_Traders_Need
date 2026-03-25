@@ -3,19 +3,31 @@
     <v-col class="ma-0">
         <v-row class="mt-4 " no-gutters="">
             <v-col cols="12">
-                <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2 ">
-                    <div class="d-flex  ">
-                        <div class="px-0 ">
-                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
-                                @update:model-value="handleInput" variant="outlined" color="primary" width="120"
-                                density="compact" />
-                        </div>
-                        <div class="d-flex align-center ml-2">
-                            <span>
-                                {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ total }} watch
-                            </span>
-                        </div>
+                <div class="d-lg-none d-md-none d-flex  ">
+                    <div class="px-0 ">
+                        <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+                            @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                            density="compact" />
                     </div>
+                    <div class="d-flex align-center ml-2">
+                        <span>
+                            {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ total }} watch
+                        </span>
+                    </div>
+                </div>
+                <div class="scrollSec pt-1 pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2 ">
+                      <div class="d-none d-lg-flex d-md-flex  ">
+                    <div class="px-0 ">
+                        <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+                            @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                            density="compact" />
+                    </div>
+                    <div class="d-flex align-center ml-2">
+                        <span>
+                            {{ filter.offset }} - {{ filter.offset + filter.length }} of {{ total }} watch
+                        </span>
+                    </div>
+                </div>
                     <div class="d-flex ">
 
                         <div class="px-0">

@@ -4,15 +4,15 @@
   <v-container max-width="1400px" class="mx-auto">
     <v-row>
       <v-col cols="12">
-        <div class="d-flex justify-space-between w-100 mt-4">
-          <div class="d-flex w-50">
+        <div class="d-lg-flex justify-space-between d-md-flex  w-100 mt-4">
+          <div class="d-flex">
             <v-select v-model="filter.length" :items="[10, 50, 100]" density="compact" variant="outlined" max-width="90px" class="mr-2" />
             <div class="align-self-center pl-2 text-caption">
               {{ filter.offset + 1 }}-{{ Math.min(filter.offset + filter.length, total) }} of {{ total }}
             </div>
           </div>
-          <div class="w-50 d-flex">
-            <v-text-field density="compact" variant="outlined" clearable v-model="filter.search" label="Search tickets..." hide-details />
+          <div class="d-flex w-lg-50 w-md-50">
+            <v-text-field density="compact" variant="outlined" clearable v-model="filter.search" label="Search tickets..." hide-details  style="height: 44px;" />
             <div class="pl-2" >
               <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                 <v-icon icon="mdi-magnify"></v-icon>
@@ -27,7 +27,7 @@
               <v-icon icon="mdi-reload"></v-icon>
             </v-btn>
             </div>
-            <div class=" pt-lg-0 pt-md-0 pt-2" >
+            <div class=" pt-lg-0 pt-md-0 " >
                 <v-btn to="/user/supportTicket/create" color="primary" style="height: 44px;" variant="flat">
                     <v-icon icon="mdi-plus"></v-icon>
                 </v-btn>

@@ -1,20 +1,20 @@
 <template>
   <user-title-bar title="Auction & Market Updates"
     subtitle="Stay informed with the latest auction insights, market trends, and important platform updates."></user-title-bar>
+  <div class="d-flex align-center pa-2 d-md-none justify-space-between w-100 px-4 mb-3"
+    style="background-color: rgb(var(--v-theme-primary),0.3);">
+    <div>
+      <h5>News</h5>
+    </div>
+    <div>
+      <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="drawer = true">
+        Filter
+      </v-btn>
+    </div>
+  </div>
+  <div fluid class=" bg-background " style="padding: 0 !important;">
+    <div class="d-flex">
 
-  <v-container fluid class=" bg-background " style="padding: 0 !important;">
-    <div no-gutters class="pa-2 d-flex">
-      <div class="d-flex d-md-none justify-space-between w-100 px-4 mb-3"
-        style="background-color: rgb(var(--v-theme-primary),0.3);">
-        <div>
-          <h5>News</h5>
-        </div>
-        <div>
-          <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="drawer = true">
-            Filter
-          </v-btn>
-        </div>
-      </div>
       <v-col cols="12" md="3" class="d-none d-md-flex pa-0"
         style="position: sticky; top: 70px; height: calc(100vh - 70px);">
         <div class="w-100">
@@ -22,7 +22,7 @@
           <!-- CATEGORY -->
           <div class="d-flex align-center pa-4" style="background-color: rgb(var(--v-theme-primary),0.15);">
             <h4 class="mr-3">Select Category</h4>
-            <Blogcategory label="Category" type="news" :model-value="filter.category_id"
+            <Blogcategory label="Category" :model-value="filter.category_id" :type="'news'"
               @update:modelValue="handleBlogFilter" density="compact" variant="outlined" clearable />
           </div>
 
@@ -70,10 +70,10 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-col cols="12" md="9" class="pa-2" style="border-left: 2px solid  rgb(var(--v-theme-border));">
+      <v-col cols="12" md="9" class="  px-4 lg-border-left" >
         <v-card v-if="selectedBlog" flat rounded="lg" class="" style="padding: 0 !important;">
           <div class=" pa-6">
-            <div class=" rounded-lg overflow-hidden " style="height: 200px; width: 100%;">
+            <div class=" rounded-lg overflow-hidden border" style="height: 200px; width: 100%;">
               <v-img :src="selectedBlog.image_preview || placeholder" height="200" cover class="rounded-lg"></v-img>
             </div>
 
@@ -109,9 +109,7 @@
           </div>
           <div>
             <v-divider />
-            <div class="pa-6">
-             {{ selectedBlog.description }}
-
+            <div class="pa-6" v-html="selectedBlog.description">
             </div>
           </div>
           <!-- <div cols="12" md="5">
@@ -130,7 +128,7 @@
       </v-col>
 
     </div>
-  </v-container>
+  </div>
 
 </template>
 
@@ -208,7 +206,15 @@ export default {
 .text-wrap {
   white-space: normal;
 }
+.lg-border-left {
+  border-left: none;
+}
 
+@media (min-width: 960px) {  
+  .lg-border-left {
+    border-left: 2px solid rgb(var(--v-theme-border));
+  }
+}
 .selected-blog {
   border-top: 2px solid rgb(var(--v-theme-border));
   border-bottom: 2px solid rgb(var(--v-theme-border));

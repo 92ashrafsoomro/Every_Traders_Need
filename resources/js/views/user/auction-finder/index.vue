@@ -20,7 +20,7 @@
     </usertitlebarauctionfinder>
 
     <v-container class=" mx-0 mb-5 mt-0 " fluid="">
-        <div class="px-5">
+        <div class="">
             <div class="d-flex flex-wrap w-100  mb-5 mt-2  mx-auto align-center">
 
                 <!-- LEFT -->

@@ -2,7 +2,7 @@
     <div class="d-flex  text-center items-center justify-center mt-12 mb-12">
         <h1 class="text-h2 font-weight-bold">Pricing</h1>
     </div>
-    <div class="d-flex justify-center mb-8 ">
+    <div class="d-flex justify-center mb-8 px-4 ">
         <v-btn-toggle v-model="billingType" mandatory rounded color="primary" class="border pa-1">
             <v-btn value="month" class="text-capitalize"><span class="text-body-2 text-primary mr-1">-10% </span>
                 Monthly</v-btn>

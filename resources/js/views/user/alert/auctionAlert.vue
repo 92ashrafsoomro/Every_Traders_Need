@@ -4,20 +4,30 @@
        
         <v-row class="mt-4" no-gutters="" >           
             <v-col cols="12">
-                <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
-                    <div class="d-flex  ">
-                        <div class=" ">
-
-                            <!-- <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+               <div class="d-lg-none d-md-none d-flex mb-4 ">
+                        <!-- <div class=" ">
+                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="120"
-                                density="compact" /> -->
-                        </div>
-                            <div class="d-flex align-center ml-2">
-                                <span>
-                                     Total Records  {{ totalItems }}
+                                density="compact" />
+                        </div> -->
+                        <div class="d-flex align-center ">
+                            <span>
+                                Total Records {{ totalItems }}
                             </span>
-                            </div>
-                    
+                        </div>
+                    </div>
+                <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
+                      <div class="d-lg-flex d-md-flex d-none mb-4 ">
+                        <!-- <div class=" ">
+                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+                                @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                                density="compact" />
+                        </div> -->
+                        <div class="d-flex align-center ">
+                            <span>
+                                Total Records {{ totalItems }}
+                            </span>
+                        </div>
                     </div>
                     <div class="d-flex ">
 

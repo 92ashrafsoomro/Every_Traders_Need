@@ -3,14 +3,26 @@
     <v-col cols="12">
         <v-row class="mt-4" no-gutters="">
             <v-col cols="12">
-                <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
-                    <div class="d-flex  ">
+                   <div class="d-lg-none d-md-none d-flex mb-4 ">
                         <!-- <div class=" ">
                             <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
                                 @update:model-value="handleInput" variant="outlined" color="primary" width="120"
                                 density="compact" />
                         </div> -->
-                        <div class="d-flex align-center ml-2">
+                        <div class="d-flex align-center ">
+                            <span>
+                                Total Records {{ totalItems }}
+                            </span>
+                        </div>
+                    </div>
+                <div class="scrollSec  pt-lg-0 pt-md-0  d-flex justify-md-space-between  h-100 pb-2">
+                      <div class="d-lg-flex d-md-flex d-none mb-4 ">
+                        <!-- <div class=" ">
+                            <v-select label="Length" v-model="filter.length" :items="[10, 20, 30]"
+                                @update:model-value="handleInput" variant="outlined" color="primary" width="120"
+                                density="compact" />
+                        </div> -->
+                        <div class="d-flex align-center ">
                             <span>
                                 Total Records {{ totalItems }}
                             </span>
@@ -55,11 +67,12 @@
                         :items-length="totalItems" hover :loading="loading" item-value="id">
 
                         <template #item.vehicle="{ item }">
-                            <router-link style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); "
+                           
+                           <div class="text-truncate d-block" style="max-width:200px;"> <router-link style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); "
                                 :to="'/user/vehicle-detail/' + item.vehicle_id" class="vehicleName pa-2 rounded-sm "
                                 target="_blank">
                                 <span> {{ item.vehicle }} </span>
-                            </router-link>
+                            </router-link></div>
                         </template>
                         <template #item.auction_date="{ item }">
                             <div>
@@ -242,5 +255,10 @@ export default {
 .vehicleName:hover {
     background-color: rgb(var(--v-theme-primary), 0.3);
     transition: 0.2s ease-in-out;
+}
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

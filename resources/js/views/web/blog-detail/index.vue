@@ -37,11 +37,11 @@
     </div>
     <v-container fluid class="pa-0 mt-12">
         <v-container style="max-width:1400px;">
-            <div class="d-flex" style="gap:40px; align-items:flex-start; position:relative;">
+            <div class="d-flex flex-wrap" style="gap:40px; align-items:flex-start; position:relative;">
 
 
                 <!-- LEFT ARTICLE -->
-                <div style="flex:1; min-width:700px;">
+                <div style="flex:1; ">
                     <section v-for="section in sections" :key="section.id" :id="section.id" class="mb-12">
 
                         <h2 class="text-h5 font-weight-bold mb-2 mt-10">{{ section.title }}</h2>
@@ -91,7 +91,7 @@
                             </v-icon>
 
                         </div>
-                        <v-expansion-panels v-model="expandedPanel" class="bg-transparent elevation-0">
+                        <v-expansion-panels v-model="expandedPanel" class="bg-transparent elevation-0 d-lg-flex d-md-flex d-none">
                             <v-expansion-panel class="bg-transparent elevation-0">
                                 <v-expansion-panel-title ripple="false">
                                     <h3>Content</h3>

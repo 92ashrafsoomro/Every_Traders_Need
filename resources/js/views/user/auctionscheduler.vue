@@ -4,6 +4,7 @@
     style="z-index: 1; margin-bottom: 0 !important;"
     subtitle="View upcoming auctions by date, auction house, and centre — so you can prepare, shortlist vehicles, and bid with confidence."
     class="">
+    
     <div class="d-flex  ga-2 mt-5 ">
       <div style="width: 200px;">
         <PlateformDropdown label="Select Platform" variant="outlined" :model-value="options.platform_id"
@@ -22,6 +23,8 @@
       </div>
 
     </div>
+
+    <!-- Small Screen -->
     <div class="d-flex d-lg-none d-md-none ">
       <v-switch :model-value="options.enableCurrent" color="primary" density="compact" hide-details
         @change="handleInput($event, 'enableCurrent')" class="ml-3" />
@@ -29,6 +32,7 @@
       <span class="mt-lg-5 mt-md-5 mt-2 ml-3">In Progress</span>
     </div>
 
+    <!--Large Screen  -->
     <div class=" d-lg-flex d-md-flex  d-none align-center ga-5 ml-auto mr-auto mt-5">
       <div v-for="(value, key, index) in days" :key="index" :class="{ 'active': options.day == key }"
         class="border rounded bg-surface-variant-1 pa-3 d-flex flex-column cursor-pointer"
@@ -58,7 +62,7 @@
 
 
     <div class="d-lg-none d-md-none d-flex mt-4 w-100 mb-5">
-      <v-slide-group hide-arrows class="pa-2 w-100 ">
+      <v-slide-group hide-arrows class=" w-100 ">
         <v-slide-item v-for="(value, key, index) in days" :key="index" class="">
           <div class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" :class="{ 'active': options.day == key }"
             style="width: 300px; min-width: 40%; height: 120px;padding-left: 20px; margin-right: 20px; "

@@ -18,11 +18,18 @@
                 <tr @mouseenter="hoveredRowId = item.id" :class="{ 'hovered-main-row': hoveredRowId === item.id }"
                     class="main-row">
                     <td>
-                        <router-link  style="text-decoration: none; color: rgb(var(--v-theme-whiteLight)); " :to="'/user/vehicle-detail/'+ item.id" class="vehicleName pa-2 rounded-sm " target="_blank">
-                            <span>   {{ item.make_name }} {{ item.model_name }} {{item.variant_name }} </span>
-                        </router-link>
+                        <div style="width:300px;">
+                            <router-link style="text-decoration:none; color:rgb(var(--v-theme-whiteLight));"
+                                :to="'/user/vehicle-detail/' + item.id" class="vehicleName pa-2 rounded-sm d-block"
+                                target="_blank">
+                                {{ item.make_name }} {{ item.model_name }} {{ item.variant_name }}
+                            </router-link>
+                        </div>
                     </td>
-                    <td><div style="width: 200px !important;"><span>{{ item.year }}</span> - <span>{{ item.cc }}</span></div></td>
+                    <td>
+                        <div style="width: 200px !important;"><span>{{ item.year }}</span> - <span>{{ item.cc }}</span>
+                        </div>
+                    </td>
                     <td>{{ item.mileage }}</td>
                     <td>{{ item.transmission }}</td>
                     <td>
@@ -31,8 +38,10 @@
                             {{ item.grade }}
                         </span>
                     </td>
-                    <td><div style="width: 200px !important;">{{item.auction_date}} <br> {{ item.auction_time }}</div></td>
-                             <!-- {{ item.auction_time }} -->
+                    <td>
+                        <div style="width: 200px !important;">{{ item.auction_date }} <br> {{ item.auction_time }}</div>
+                    </td>
+                    <!-- {{ item.auction_time }} -->
                     <td class="d-lg-none d-md-none">
                         <div class="d-flex flex-column ">
                             <span class="auction-badge mt-1">
@@ -40,7 +49,7 @@
                             </span>
                         </div>
                     </td>
-                    <td class="d-none d-lg-block pt-lg-4 d-md-block pt-md-4">  <span class="auction-badge">{{
+                    <td class="d-none d-lg-block pt-lg-4 d-md-block pt-md-4"> <span class="auction-badge">{{
                         item.auction_name }}</span> </td>
 
                 </tr>
@@ -56,39 +65,42 @@
                                     @click="openImage(item.images, i)" />
 
 
-                                <v-dialog v-model="dialog" class=" w-lg-50 w-md-50 w-100 "  >
+                                <v-dialog v-model="dialog" class=" w-lg-50 w-md-50 w-100 ">
                                     <v-card elevation="0"></v-card>
-                                        <!-- Close Button -->
-                                        <v-btn icon="mdi-close"  class="position-absolute "
-                                            style="top: 10px; right: 10px; z-index: 10;"    color="primary" @click="dialog = false" />
+                                    <!-- Close Button -->
+                                    <v-btn icon="mdi-close" class="position-absolute "
+                                        style="top: 10px; right: 10px; z-index: 10;" color="primary"
+                                        @click="dialog = false" />
 
-                                        <!-- Left Arrow -->
-                                        <v-btn icon="mdi-chevron-left" class="position-absolute d-lg-block d-md-block d-none"
-                                            style="top: 50%; left: 10px; transform: translateY(-50%); z-index: 10"
-                                            :disabled="currentIndex === 0" @click="prevImage"  color="primary" />
+                                    <!-- Left Arrow -->
+                                    <v-btn icon="mdi-chevron-left"
+                                        class="position-absolute d-lg-block d-md-block d-none"
+                                        style="top: 50%; left: 10px; transform: translateY(-50%); z-index: 10"
+                                        :disabled="currentIndex === 0" @click="prevImage" color="primary" />
 
-                                        <!-- Right Arrow -->
-                                        <v-btn icon="mdi-chevron-right" class="position-absolute d-lg-block d-md-block d-none"
-                                            style="top: 50%; right: 10px; transform: translateY(-50%); z-index: 10"
-                                            :disabled="currentIndex === currentImages.length - 1" @click="nextImage" color="primary" />
+                                    <!-- Right Arrow -->
+                                    <v-btn icon="mdi-chevron-right"
+                                        class="position-absolute d-lg-block d-md-block d-none"
+                                        style="top: 50%; right: 10px; transform: translateY(-50%); z-index: 10"
+                                        :disabled="currentIndex === currentImages.length - 1" @click="nextImage"
+                                        color="primary" />
 
-                                        <!-- Image -->
-                                        <v-img :src="currentImages[currentIndex]" max-height="500" cover
-                                            class="rounded" style="border: none !important;" />
-                                
-                                       <div class="d-flex mt-10 mt-lg-0 mt-md-0 justify-space-between" >
-                                         <v-btn icon="mdi-chevron-left" class="d-flex d-lg-none d-md-none" color="primary"
-                                            style="transform: translateY(-50%);"
+                                    <!-- Image -->
+                                    <v-img :src="currentImages[currentIndex]" max-height="500" cover class="rounded"
+                                        style="border: none !important;" />
+
+                                    <div class="d-flex mt-10 mt-lg-0 mt-md-0 justify-space-between">
+                                        <v-btn icon="mdi-chevron-left" class="d-flex d-lg-none d-md-none"
+                                            color="primary" style="transform: translateY(-50%);"
                                             :disabled="currentIndex === 0" @click="prevImage" />
 
                                         <!-- Right Arrow -->
                                         <v-btn icon="mdi-chevron-right" class="  d-flex d-lg-none d-md-none"
-                                         color="primary"
-                                            style=" transform: translateY(-50%);"
+                                            color="primary" style=" transform: translateY(-50%);"
                                             :disabled="currentIndex === currentImages.length - 1" @click="nextImage" />
-                                       </div>    
+                                    </div>
                                 </v-dialog>
-                                
+
 
 
                             </div>
@@ -98,8 +110,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    
-                <td></td>
+
+                    <td></td>
                     <td> <v-btn color="primary" variant="flat" size="small" :href="item.inspection_report"
                             target="_blank" @click.stop>
                             View Report
@@ -137,7 +149,7 @@ export default {
                 { title: "Transmission", key: "transmission" },
                 { title: "Grade", key: "grade" },
                 { title: "Date Time", key: "date" },
-        
+
                 { title: "Auction House", key: "auction_name" },
             ],
         }
@@ -193,7 +205,7 @@ export default {
             this.currentIndex =
                 (this.currentIndex + 1) % this.currentImages.length
         },
-         
+
     }
 }
 
@@ -252,8 +264,8 @@ export default {
     font-size: 0.875rem;
 }
 
-.vehicleName:hover{
-    background-color: rgb(var(--v-theme-primary),0.3);
+.vehicleName:hover {
+    background-color: rgb(var(--v-theme-primary), 0.3);
     transition: 0.2s ease-in-out;
 }
 </style>

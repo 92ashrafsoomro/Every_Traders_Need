@@ -38,7 +38,7 @@
                     <div class="d-lg-flex d-md-flex d-none flex-lg-row flex-column">
                         <div class="mt-2  text-body-2 font-weight-bold " style="width: 100px;">{{ section.title }}</div>
                         <div class=" text-light_text_on w-lg-100 w-50">
-                            <v-btn v-for="(link, i) in section.links" :key="i" variant="text"
+                            <v-btn v-for="(link, i)  in section.links" :key="i" variant="text"
                                 class="footerElement mr-lg-2 ml-n4 ml-lg-0 text-body-2" :to="link.to" :href="link.url"
                                 :target="link.url ? '_blank' : null">
                                 <span class="text-light_text_on"> {{ link.label }}</span>
@@ -59,7 +59,7 @@
                         <div class="d-flex flex-column  ">
                             <v-btn v-for="(link, j) in section.links" :key="j" variant="text"
                                 class="text-left justify-start pa-0  footerElement text-body-2 text-light_text_on"
-                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener" :disabled="true">
+                                :to="link.to" :href="link.url" :target="link.url ? '_blank' : null" rel="noopener" >
                                 {{ link.label }}
                             </v-btn>
                         </div>

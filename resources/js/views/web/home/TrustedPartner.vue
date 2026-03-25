@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-surface d-flex align-center mt-12 " style="min-height: 900px;">
-    <div class="mx-auto my-auto d-flex flex-column flex-md-row ga-16 " style="max-width: 1400px;">
+  <div class="bg-surface d-flex align-center mt-lg-12 " style="min-height: 900px;">
+    <div class="mx-auto my-auto d-flex justify-center flex-column flex-md-row ga-16 mb-10 mb-lg-0 mb-md-0 " style=" max-width: 1400px;">
       <!-- IMAGE -->
-      <div class="rightImage">
+      <div class="rightImage  d-flex justify-center">
         <img :src="TrustedPartnerImage" class="trusted-img" alt="Trusted Partner" />
       </div>
 
       <!-- CONTENT -->
-      <div class="leftContent  pl-10 pr-10 pl-lg-0 pl-md-0 text-center text-lg-start ">
+      <div class="leftContent   text-center text-lg-start ">
         <v-chip class="mb-4 text-primary  " style="border-radius: 0px 20px 0px 0px; padding: 6px 16px;">
           Our Vision
         </v-chip>
@@ -25,7 +25,7 @@
           <p class="text-light_text_on text-body-1">
             We believe in transforming the automotive trade industry with clarity, innovation, and intelligence.
           </p>
-          <div class="d-flex flex-wrap  mt-4 ga-4"  >
+          <div class="d-flex flex-wrap justify-center justify-lg-start justify-md-start  mt-4 ga-4"  >
                                   <div v-for="item in [
                                     'Know the real value before bidding',
                                     'Spot risky vehicles early',

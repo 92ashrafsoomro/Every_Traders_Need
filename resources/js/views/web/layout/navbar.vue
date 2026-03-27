@@ -87,7 +87,7 @@ import lightLogo from "@/assets/images/header/lightfull.png";
 import { useTheme } from "vuetify";
 import { useUserStore } from "@/stores/userStore";
 import ProfileDropdown from "./profileDropdown.vue";
-
+import { useGlobalSettingStore } from '@/stores/globalSetting';
 export default {
     name: "navbar",
     components: {
@@ -102,12 +102,18 @@ export default {
             isScrolled: false,
         };
     },
+    setup() {
+        const globalStore = useGlobalSettingStore();
+        return { globalStore };
+    },
     computed: {
         isDark() {
             return this.theme.global.name === "adminDark";
         },
         currentLogo() {
-            return this.isDark ? darkLogo : lightLogo;
+            const darkLogoWebsite = this.globalStore.settings['darkLogo'] ?? darkLogo;
+            const lightLogoWebsite = this.globalStore.settings['lightLogo'] ?? lightLogo;
+            return this.isDark ? darkLogoWebsite  : lightLogoWebsite;
         },
     },
     methods: {
@@ -118,7 +124,10 @@ export default {
             this.isScrolled = window.scrollY > 20;
         },
     },
-    mounted() {
+    async mounted() {
+        if (Object.keys(this.globalStore.settings).length === 0) {
+            await this.globalStore.loadSettings();
+        }
         window.addEventListener("scroll", this.onScroll);
     },
     beforeUnmount() {

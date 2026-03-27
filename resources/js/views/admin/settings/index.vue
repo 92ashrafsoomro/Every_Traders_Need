@@ -1,71 +1,33 @@
 <template>
-      <user-title-bar title="Global Settings" >
-
-    </user-title-bar>
+  <user-title-bar title="Global Settings" />
   <v-container fluid class="pa-4" max-width="1400px">
-    <v-row no-gutters >
+    <v-row no-gutters>
       <v-col cols="12" md="3" class="bg-surface">
         <v-tabs v-model="tab" direction="vertical" color="primary">
-          <v-tab value="profile">
-            <v-icon start>mdi-account</v-icon>
-            Site Information
-          </v-tab>
-          <!-- <v-tab value="notifications">
-            <v-icon start>mdi-bell</v-icon>
-            Notification Setting
-          </v-tab> -->
+          <v-tab value="profile"><v-icon start>mdi-account</v-icon>Site Information</v-tab>
+          <v-tab value="website"><v-icon start>mdi-earth</v-icon>Website Settings</v-tab>
         </v-tabs>
       </v-col>
 
-      <v-col cols="12" md="9" class="pa-8 bg-surface" >
+      <v-col cols="12" md="9" class="pa-8 bg-surface">
         <v-window v-model="tab">
-          
           <v-window-item value="profile">
-            <h2 class="text-h5 mb-6">Site Information</h2>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field label="Contact Email" v-model="form.email" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Site Name" v-model="form.sitename" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Meta Title" v-model="form.meta_title" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Meta Description" v-model="form.meta_description" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Facebook URL" v-model="form.facebook" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Instagram URL" v-model="form.instagram" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Whatsapp" v-model="form.whatsapp" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Website URL" v-model="form.weburl" variant="outlined" density="compact" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field label="Phone" v-model="form.phone" variant="outlined" density="compact" />
-              </v-col>
-            </v-row>
-
-            <v-row class="mt-6">
-              <v-col cols="12" class="text-right">
-                <v-btn color="primary" @click="saveSettings">
-                  Save Settings
-                </v-btn>
-              </v-col>
-            </v-row>
+            <site-information :form="form" />
           </v-window-item>
 
-          <!-- <v-window-item value="notifications">
-            <h2 class="text-h5 mb-6">Notification Settings</h2>
-            <p>Notification controls will go here.</p>
-          </v-window-item> -->
+          <v-window-item value="website">
+            <website-settings
+              :form="form"
+              :darkLogoUrl="darkLogoUrl"
+              :lightLogoUrl="lightLogoUrl"
+            />
+          </v-window-item>
 
+          <v-row class="mt-6">
+            <v-col cols="12" class="text-right">
+              <v-btn color="primary" @click="saveSettings">Save Settings</v-btn>
+            </v-col>
+          </v-row>
         </v-window>
       </v-col>
     </v-row>
@@ -74,9 +36,17 @@
 
 <script>
 import General from '@/models/general.model';
+import SiteInformation from './SiteInformation.vue';
+import WebsiteSettings from './WebsiteSettings.vue';
 export default {
+  components: {
+      SiteInformation, 
+      WebsiteSettings
+    },
   data: () => ({
     tab: 'profile',
+    darkLogoUrl: null,
+    lightLogoUrl: null,
     form: {
       email: '',
       sitename: '',
@@ -85,14 +55,31 @@ export default {
       facebook: '',
       instagram: '',
       whatsapp: '',
+      linkedin: '',
+      youtube: '',
       weburl: '',
       phone: '',
+      footertext: '',
     },
   }),
   mounted() {
     this.loadData()
   },
   methods: {
+    uploadImage(type) {
+      this.$refs[type + 'Input'].$el.querySelector('input').click();
+    },
+
+    handleFileChange(type, file) {
+      if (!file) return;
+      this.form[type + 'Logo'] = file;
+
+      if (this[type + 'LogoUrl']) {
+        URL.revokeObjectURL(this[type + 'LogoUrl']);
+      }
+
+      this[type + 'LogoUrl'] = URL.createObjectURL(file);
+    },
     async loadData() {
         this.loading = true;
         try {
@@ -101,7 +88,11 @@ export default {
             this.form = {};
             data.forEach(item => {
                 this.form[item.key] = item.value;
+                if(item.key === 'darkLogo') this.darkLogoUrl = item.value;
+                if(item.key === 'lightLogo') this.lightLogoUrl = item.value;
             });
+
+            console.log("logo testing ",data);
 
             this.loading = false;
         } catch (error) {

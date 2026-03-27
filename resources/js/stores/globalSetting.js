@@ -9,26 +9,28 @@ export const useGlobalSettingStore = defineStore('globalSetting', {
   }),
 
 actions: {
-  async loadSettings() {
-    try {
-      this.loading = true;
-      const res = await General.get('/api/web/globalsettings');
+async loadSettings() {
+  try {
+    this.loading = true;
 
-      // Agar data array hai: [{key: 'site_name', value: 'Autoboli'}, ...]
-      // Toh isse object mein convert karein:
-      const settingsMap = {};
-      res.data.forEach(item => {
-        settingsMap[item.key] = item.value;
-      });
+    const res = await General.get('/api/web/globalsettings');
 
-      this.settings = settingsMap; // Ab ye { site_name: 'Autoboli' } ban gaya
+    const settingsMap = {};
 
-    } catch (error) {
-      console.error('Global Settings Load Error', error);
-    } finally {
-      this.loading = false;
-    }
+    res.data.forEach(item => {
+      settingsMap[item.key] = item.value;
+    });
+
+    this.settings = settingsMap;
+
+    console.log("FINAL SETTINGS:", this.settings);
+
+  } catch (error) {
+    console.error('Global Settings Load Error', error);
+  } finally {
+    this.loading = false;
   }
+}
 },
 
   getters: {

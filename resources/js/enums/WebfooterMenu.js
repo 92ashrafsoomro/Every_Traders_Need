@@ -23,17 +23,5 @@ export default [
       { label: "Disclaimer", to: "/disclaimer" },
     ],
   },
-  {
-    title: "Social",
-    links: [
 
-      { label: "Facebook", url: null, isdisable: true },
-      { label: "Instagram", url: null, isdisable: true },
-      { label: "LinkedIn", url: null, isdisable: true },
-      { label: "YouTube", url: null, isdisable: true },
-      // { label: "TikTok", url: "https://tiktok.com" },
-      // { label: "Pinterest", url: "https://pinterest.com" },
-      { label: "X", url: null, isdisable: true },
-    ],
-  },
 ];

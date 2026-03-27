@@ -12,6 +12,9 @@ class Setting extends Model
         'key',
         'value',
     ];
-
+    public function getUrlAttribute()
+    {
+        return $this->value ? asset('uploads/' . $this->value) : null;
+    }
     public $timestamps = true; 
 }

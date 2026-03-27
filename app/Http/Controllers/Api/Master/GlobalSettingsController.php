@@ -22,22 +22,32 @@ class GlobalSettingsController extends Controller
 
 
 
-    public function store(Request $request)
-    {
-        foreach ($request->all() as $key => $value) {
-
+public function store(Request $request)
+{
+    foreach ($request->all() as $key => $value) {
+        if ($request->hasFile($key)) {
+            $file = $request->file($key);
+            $filename = time() . '__ff__' . $file->getClientOriginalName();
+            $url = asset('uploads/' . $filename);
+            $file->move(public_path('uploads'), $filename);
+            
             Setting::updateOrCreate(
                 ['key' => $key],
-                ['value' => $value]
+                ['value' => $url]
             );
-
+            continue;
         }
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Settings saved successfully'
-        ]);
+        Setting::updateOrCreate(
+            ['key' => $key],
+            ['value' => $value]
+        );
     }
 
+    return response()->json([
+        'status' => true,
+        'message' => 'Settings saved successfully'
+    ]);
+}
 
 }

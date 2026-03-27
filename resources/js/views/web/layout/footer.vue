@@ -25,11 +25,12 @@
                 </div>
                 <div class=" mt-4">
                     <div class="w-50 pr-10">
-                        <p class="text-light_text_on "> Helping dealers, exporters, and traders buy smarter with
+                        <!-- <p class="text-light_text_on "> Helping dealers, exporters, and traders buy smarter with
                             real-time
                             auction data from across the UK & Japan. Save money, reduce risk,
                             and grow your automotive business all in one platform.
-                        </p>
+                        </p> -->
+                       <p class="text-light_text_on" v-html="globalStore.settings['footertext']"></p>
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@
             <div class="text-light_text_on mt-10    pb-2 text-body-2"
                 style="width: 700px; border-top: 1px solid rgb(var(--v-theme-border));">
                 <div class="w-50 w-lg-100">
-                    <p class="mt-6 mr-2">© AUTOBOLI Ltd 2025. All rights reserved.</p>
+                    <p class="mt-6 mr-2">© {{ globalStore.settings['sitename'] }} 2025. All rights reserved.</p>
                   
                 </div>
             </div>
@@ -79,6 +80,8 @@
 
 
     </div>
+
+
 </template>
 <script>
 import footerData from "@/enums/WebfooterMenu"
@@ -88,29 +91,60 @@ import lightLogo from "@/assets/images/header/lightshort.png"
 import longdarkLogo from "@/assets/images/header/darkfull.png"
 import longlightLogo from "@/assets/images/header/lightfull.png"
 import { useTheme } from "vuetify"
+import { useGlobalSettingStore } from '@/stores/globalSetting';
 
 export default {
     data() {
         return {
-            footerData,
+            footerData: [...footerData],
             logoAutoBoli,
             currentLogo: lightLogo,
-            currentLongLogo: longdarkLogo,
+            // currentLongLogo: longdarkLogo,
+            currentLongLogo: null,
             vuetify: useTheme(),
         }
+    },
+    setup() {
+        const globalStore = useGlobalSettingStore();
+        return { globalStore };
+    },
+
+    async mounted() {
+        if (Object.keys(this.globalStore.settings).length === 0) {
+            await this.globalStore.loadSettings();
+        }
+        this.footerData.push({
+            title: "Social",
+            links: [
+                { label: "Facebook", url: this.globalStore.settings['facebook'],isdisable: !this.globalStore.getSetting('facebook') },
+                { label: "Instagram", url: this.globalStore.settings['instagram'],isdisable: !this.globalStore.getSetting('instagram') },
+                { label: "LinkedIn", url: this.globalStore.settings['linkedin'],isdisable: !this.globalStore.getSetting('linkedin') },
+                { label: "YouTube", url: this.globalStore.settings['youtube'],isdisable: !this.globalStore.getSetting('youtube') },
+                { label: "X", url: this.globalStore.settings['weburl'],isdisable: !this.globalStore.getSetting('weburl') },
+            ],
+        });
+
+        console.log("FINAL FOOTER", this.footerData);
     },
     computed: {
         isDark() {
             return this.vuetify.global.name === "adminDark"
+        },
+            
+        currentLongLogo() {
+            return this.vuetify.global.name === "adminDark"
+                ? this.globalStore.settings['darkLogo'] || longdarkLogo
+                : this.globalStore.settings['lightLogo'] || longlightLogo
         }
+
+ 
     },
     watch: {
-        // Watch theme changes and update currentLogo
         'vuetify.global.name': {
             immediate: true,
             handler(newTheme) {
                 this.currentLogo = newTheme === "adminDark" ? darkLogo : lightLogo
-                this.currentLongLogo = newTheme === "adminDark" ? longdarkLogo : longlightLogo
+                // this.currentLongLogo = newTheme === "adminDark" ? longdarkLogo : longlightLogo
 
             }
         }

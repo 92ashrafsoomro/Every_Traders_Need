@@ -15,20 +15,20 @@
 
             <v-expand-transition>
                 <div v-show="showFilters">
-                    <v-container fluid>
+                    <div fluid>
                         <div class="d-flex justify flex-wrap ga-2 ">
                             <v-text-field density="comfortable" variant="outlined" clearable v-model="filter.table_id"
-                                label="Id" min-width="130px" max-width="130px" />
+                                label="Id"  />
 
-                            <PlateformDropdown min-width="350px" max-width="374px" v-model="filter.platform"
+                            <PlateformDropdown  v-model="filter.platform"
                                 label="Auction House" clearable variant="outlined" base-color="white"
                                 density="comfortable" />
                                 
-                            <AuctionTypeDropdown min-width="350px" max-width="374px" v-model="filter.auction_type"
+                            <AuctionTypeDropdown  v-model="filter.auction_type"
                                 label="Auction Type" variant="outlined" base-color="white" clearable
                                 density="comfortable" />
 
-                            <v-text-field density="comfortable" variant="outlined" min-width="350px" max-width="374px"
+                            <v-text-field density="comfortable" variant="outlined" 
                                 type="date" v-model="filter.auction_date" label="Auction Date" />
                             <div class="">
                                 <v-btn style="height: 47px; ;" variant="outlined" @click="loadItems(true)" class="mr-2">
@@ -38,18 +38,18 @@
                             </div>
                         </div>
           
-                    </v-container>
+                    </div>
      
 
                     <div class="content-scroll d-flex mt-6 w-100 ga-3">
                     <div 
                         v-for="item in items_status" 
                         :key="item.id"
-                        class="status-card cursor-pointer"
+                        class="status-card cursor-pointer border"
                         @click="filter.status = item.id"
                         :class="{ 'status-selected': Number(filter.status) === item.id }"
                     >
-                        <div class="d-flex justify-space-between">
+                        <div class="d-flex justify-space-between" style="width: 160px;">
                             <div class="d-flex align-center">
                                 <small>{{ item.name }}</small>
                             </div>
@@ -397,8 +397,8 @@ export default {
 .status-card {
   border-radius: 6px;
   padding: 12px;
-  width: 15.5%;
-  background-color:rgb(15, 28, 43);
+  width: 186px;
+  background-color:rgb(var(--v-theme-surface-variant-1));
   transition: all 0.2s ease;
 }
 
@@ -407,7 +407,7 @@ export default {
 }
 
 .status-selected {
-  border: 2px solid #0080FF;
+  border: 1px solid rgb(var(--v-theme-primary)) !important;
  
 }
 

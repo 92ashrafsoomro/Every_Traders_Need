@@ -23,9 +23,9 @@
         <v-card-text v-if="!loading">
           <v-container fluid>
             <v-row>
-              <v-col cols="12">
+            <v-col cols="12">
                 <v-row align="center" no-gutters>
-                  <v-col cols="1" sm="3">
+                  <v-col cols="3" md="1" lg="1">
                     <v-text-field
                       v-model="form.id"
                       label="ID"
@@ -39,7 +39,7 @@
                       hide-details
                     />
                   </v-col>
-                  <v-col cols="11" sm="9" class="pl-2">
+                  <v-col cols="9" md="11" lg="11"  class="pl-2">
                     <v-text-field
                       v-model="form.name"
                       label="Title"

@@ -1,6 +1,6 @@
 <template>
     <user-title-bar title="Task Management">
-        <v-row no-gutters="" class="ga-2">
+        <v-row no-gutters="" class="ga-4">
             <!-- Total Task -->
             <v-col cols="12" sm="6" md="3" lg="" class="">
                 <v-card class="border-bottom border border-sm">
@@ -120,13 +120,13 @@
                             <div class="text-body-2 pr-2">
                                 <span class="white">Lots : </span>
                                 <span class=""
-                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ taskManagementStore.totaLots }}</span>
+                                    style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">{{ taskManagementStore.totaLots || 0}}</span>
                             </div>
                             <div class=" text-body-2 pl-2">
                                 <span class="white">Publish: </span>
                                 <span class=""
                                     style="background-color: rgba(var(--v-theme-background)); padding: 8px; border-radius: 4px; ">
-                                    {{ taskManagementStore.publishLots }}</span>
+                                    {{ taskManagementStore.publishLots || 0}}</span>
                             </div>
                         </div>
 
@@ -136,14 +136,14 @@
         </v-row>
 
 
-        <div class="content-scroll d-flex mt-6 w-100 ga-3">
+        <div class="content-scroll d-flex  mt-6  ga-3">
             <div v-for="item in taskManagementStore.taskPages" :key="item.path"
-                class="border rounded bg-surface-variant-1 pa-3 cursor-pointer" style="width:13.5%"
+                class="border rounded bg-surface-variant-1 pa-3 cursor-pointer " style="width:189px !important"
                @click="changeTab(item)"
 
                :class="{ active: $route.path === item.path }"
 >
-                <div class="d-flex justify-space-between ">
+                <div class="d-flex justify-space-between " style="width:150px !important">
                     <div class="d-flex align-center">
                         <small> {{ item.title }}</small>
                     </div>

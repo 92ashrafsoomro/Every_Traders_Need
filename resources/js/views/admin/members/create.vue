@@ -17,64 +17,75 @@
         <h3 class="text-h4 font-weight-bold mb-4">Company Details</h3>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.company_name" label="Company / Trading or Business Name" required />
-          </v-col>
+          </v-col>:v-list-item
+  v-else
+  :to="item.path"
+  link
+  :ripple="false"
+  class="text-subtitle-1 mt-2"
+  :class="{
+    'bg-primary on-primary rounded my-active-menu hide-overlay':
+      $route.path === item.path || isChildActive(item)
+  }"
+  @click="item.children?.length ? openSubSidebar(item) : closeSubSidebar()"
+>v-
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseSelect v-model="form.business_type" label="Business Type" :items="businessTypes" required />
 
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.company_registration" label="Company Registration" required/>
           </v-col>
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.website" label="Website" />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.business_email" label="Business Email" />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.motor_trade_insurance" label="Motor Trade Insurance" />
           </v-col>
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.vat_number" label="VAT Number" />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.address_1" label="Company Address 1" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.address_2" label="Company Address 2" />
           </v-col>
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.city" label="Town / City" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.country" label="Country" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.postcode" label="Postcode" required/>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.telephone" label="Telephone" required/>
           </v-col>
         </v-row>
@@ -86,49 +97,49 @@
         <h3 class="text-h4 font-weight-bold mb-4">Personal Information</h3>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.first_name" label="First Name" required />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.surname" label="Surname" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.title" label="Title" required/>
           </v-col>
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.job_title" label="Job Title" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.phone" label="Phone" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.personal_email" label="Personal Email" required/>
           </v-col>
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseField v-model="form.password" label="Password" required/>
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseImageUpload v-model="form.upload_id" label="Upload ID" />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
              <BaseImageUpload v-model="form.avatar" label="Avatar" />
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <BaseSelect v-model="form.status" label="Status" :items="Status" required />
             
           </v-col>
@@ -140,11 +151,11 @@
         <h3 class="text-h4 font-weight-bold mb-4">Proof</h3>
 
         <v-row class="mb-6">
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
              <BaseImageUpload v-model="form.proof_motor_trade" label="Proof of Motor Trade" />
           </v-col>
 
-          <v-col cols="4">
+          <v-col  cols="12" lg="4" md="4" sm="12">
             <!-- <BaseField v-model="form.proof_address" label="Proof of Address" required/> -->
              <BaseImageUpload v-model="form.proof_address" label="Upload Proof of Address" />
           </v-col>

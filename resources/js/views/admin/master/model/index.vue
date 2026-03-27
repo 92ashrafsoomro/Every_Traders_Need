@@ -6,7 +6,7 @@
         <v-row no-gutters class="mt-3">
             <v-col cols="12">
         
-                <div class="d-flex align-center justify-space-between ga-4">
+                <div class="flex-lg-row d-lg-flex ga-4">
 
                     <!-- Left: Page Length + Records -->
                     <div class="d-flex align-center ga-2">
@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Middle: Make + Search -->
-                    <div class="d-flex align-center ga-3 flex-grow-1 justify-end">
+                    <div class="d-lg-flex align-center ga-3 flex-lg-grow-1 justify-end">
                         <MakeDropdown
                             :modelValue="makeId"
                             @update:value="handleMake($event)"
@@ -35,28 +35,17 @@
                             max-width="220"
                         />
 
-                        <v-text-field
+                       <div class="d-flex">
+                         <v-text-field
                             v-model="filter.search"
                             label="Search..."
                             variant="outlined"
                             density="compact"
-                            max-width="260"
+                            min-width="200"
+                            class="mr-2"
                             clearable
                         />
-                        
-                    </div>
-
-                        <div class="mt-n2 d-flex ga-2">    
-                    
-                    <v-btn 
-                        base-color="#bdbdbd" 
-                        style="height: 40px;" 
-                        variant="outlined" 
-                        @click="loadItems"
-                    >
-                    <v-icon>mdi-magnify</v-icon>
-                    </v-btn> 
-                        <v-btn 
+                         <v-btn 
                             to="/admin/model/create"
                             color="primary"
                             class=""
@@ -66,8 +55,23 @@
                     >
                         <v-icon icon="mdi-plus"></v-icon>
                     </v-btn>
+                       </div>
                 
-                </div>
+                    </div>
+
+                    <!-- <div class="mt-n2 d-flex ga-2">    
+                    
+                    <v-btn 
+                        base-color="#bdbdbd" 
+                        style="height: 40px;" 
+                        variant="outlined" 
+                        @click="loadItems"
+                    >
+                    <v-icon>mdi-magnify</v-icon>
+                    </v-btn> 
+                       
+                
+                    </div> -->
 
                 </div>
             </v-col>

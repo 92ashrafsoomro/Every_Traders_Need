@@ -4,7 +4,7 @@
 
     <v-container max-width="1400px">
      
-          <div class="d-flex w-100 align-center  ga-3">
+          <div class="flex-lg-row d-lg-flex justify-space-between">
 
                
                 <div class="d-flex align-center">
@@ -20,8 +20,8 @@
 
                 </div>
             
-      
-                <div class="d-flex w-50 ga-2">
+                
+                <div class="flex-lg-row d-lg-flex  ga-2">
                     
                     <MakeDropdown
                         :modelValue="makeId"
@@ -29,6 +29,7 @@
                         label="Make"
                         item-title="name"
                         item-value="id"
+                        min-width="200px"
                         return-object 
                         clearable
                     />
@@ -40,41 +41,42 @@
                         label="Model"
                         item-title="name"
                         item-value="id"   
+                        min-width="200px" 
                         return-object 
                         clearable
                     />
                   
-                </div>
+                
 
-                    <v-text-field 
+                   <div class="d-flex">
+                     <v-text-field 
                         v-model="filter.search" 
                         label="Search..." 
                         variant="outlined" 
                         density="compact"
-                        max-width="300px" 
+                        min-width="200px" 
                         clearable
                     />
                  
-                <div class="mt-n2 d-flex ga-2">    
-                    
-                    <v-btn 
+                    <!-- <v-btn 
                         base-color="#bdbdbd" 
                         style="height: 40px;" 
                         variant="outlined" 
                         @click="loadItems"
                     >
                     <v-icon>mdi-magnify</v-icon>
-                    </v-btn> 
+                    </v-btn>  -->
                         <v-btn 
                             to="/admin/variant/create"
                             color="primary"
-                            class=""
+                            class="ml-2"
                             style="height: 40px;"
                             variant="flat"
                             @click="loadItems"
                     >
                         <v-icon icon="mdi-plus"></v-icon>
                     </v-btn>
+                   </div>
                 
                 </div>
 

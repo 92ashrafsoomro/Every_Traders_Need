@@ -16,66 +16,63 @@
                     <v-container fluid>
                         <v-row>
                             <v-col cols="12">
-                                <v-row cols="12" class="mt-1 text-center">
-                                    <v-col cols="4" sm="4" class="pl-2">
+                                <!-- Row 1 -->
+                                <v-row class="mt-1 text-center">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <PlateformDropdown label="Select Platform" variant="outlined" color="primary"
                                             class="id-box" v-model="filter.platform" hide-details clearable
                                             density="comfortable" />
                                     </v-col>
-                                    <v-col cols="4" sm="4" class="pl-2">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <CenterDropdown label="Select Center" variant="outlined" color="primary"
                                             class="id-box" v-model="filter.center" hide-details clearable
                                             density="comfortable" />
                                     </v-col>
-                                    <v-col cols="4" sm="4" class="pl-2">
-                                        <AuctionTypeDropdown v-model="filter.vehicleType" label="Select Auction Type"
-                                            variant="outlined" color="primary" class="id-box" hide-details clearable
-                                            density="comfortable" />
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
+                                        <AuctionTypeDropdown label="Select Auction Type" variant="outlined"
+                                            color="primary" class="id-box" v-model="filter.vehicleType" hide-details
+                                            clearable density="comfortable" />
                                     </v-col>
-
-
                                 </v-row>
-                                <v-row cols="12" class="mt-1 text-center">
-                                    <v-col cols="4" sm="4" class="pl-2">
+
+                                <!-- Row 2 -->
+                                <v-row class="mt-1 text-center">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <MakeDropdown label="Select Make" variant="outlined" color="primary"
                                             class="id-box" v-model="filter.make" item-title="name" item-value="id"
-                                            hide-details density="compact" clearable />
+                                            hide-details density="comfortable" clearable />
                                     </v-col>
-
-                                    <v-col cols="4" sm="4" class="pl-2">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <ModelDropdown label="Select Model" variant="outlined" item-title="name"
                                             item-value="id" color="primary" class="id-box" v-model="filter.model"
                                             :make="filter.make" hide-details density="comfortable" clearable />
                                     </v-col>
-
-                                    <v-col cols="4" sm="4" class="pl-2">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <VariantDropdown label="Select Variant" variant="outlined" color="primary"
                                             class="id-box" v-model="filter.variant" :model-id="filter.model"
                                             hide-details density="comfortable" clearable />
                                     </v-col>
                                 </v-row>
 
-                                <v-row cols="12" class="mt-1 text-center">
-                                    <v-col cols="12" sm="4" class="pl-2">
+                                <!-- Row 3 -->
+                                <v-row class="mt-1 text-center">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <v-text-field v-model="filter.registration" label="Search Registration"
                                             variant="outlined" color="primary" density="comfortable" hide-details
                                             clearable />
                                     </v-col>
-                                    <v-col cols="12" sm="4" class="pl-2">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2">
                                         <v-text-field v-model="filter.tableid" label="Search Auction ID"
                                             variant="outlined" type="number" color="primary" density="comfortable"
                                             hide-details clearable />
                                     </v-col>
-                                    <v-col cols="12" sm="2" class="pl-2 d-flex align-center">
-                                        <v-btn color="primary" block class="mt-sm-0 mt-2" @click="loadItems">
+                                    <v-col cols="12" sm="12" md="4" class="pl-2 d-flex align-center">
+                                        <v-btn color="primary" block class="mt-sm-2 mt-md-0" @click="loadItems">
                                             Search
                                         </v-btn>
                                     </v-col>
                                 </v-row>
-
-
                             </v-col>
-
                         </v-row>
                     </v-container>
                 </div>
@@ -83,7 +80,7 @@
         </div>
     </user-title-bar>
 
-    <v-container max-width="1500px">
+    <v-container max-width="1400px">
         <v-row no-gutters class="mt-3">
             <v-col cols="12" v-if="!Auction.auction_date">
                 <div class="d-flex flex-wrap ">

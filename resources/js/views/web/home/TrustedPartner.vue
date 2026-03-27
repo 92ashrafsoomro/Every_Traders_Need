@@ -1,8 +1,8 @@
 <template>
   <div class="bg-surface d-flex align-center mt-lg-12 " style="min-height: 900px;">
-    <div class="mx-auto my-auto d-flex justify-center flex-column flex-md-row ga-16 mb-10 mb-lg-0 mb-md-0 " style=" max-width: 1400px;">
+    <div class="mx-auto d-flex justify-center flex-column flex-md-row ga-16 mb-10 mb-lg-0 mb-md-0 " style=" max-width: 1400px;">
       <!-- IMAGE -->
-      <div class="rightImage  d-flex justify-center">
+      <div class="rightImage  d-flex ">
         <img :src="TrustedPartnerImage" class="trusted-img" alt="Trusted Partner" />
       </div>
 

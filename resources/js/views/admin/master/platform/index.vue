@@ -4,7 +4,7 @@
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
                 <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
+                    <div class="flex-lg-row d-lg-flex">
                         <div class="d-flex align-center">
                             <v-select 
                                 v-model="filter.length" 
@@ -19,12 +19,13 @@
 
                         <v-spacer />
 
-                        <v-text-field 
+                        <div class="d-flex">
+                            <v-text-field 
                             v-model="filter.search" 
                             label="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px" 
+                            min-width="200px" 
                             clearable />
                         <div class="pl-2" >
                             <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
@@ -35,6 +36,7 @@
                             <v-btn to="/admin/platform/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
+                        </div>
                         </div>
                     </div>
                 </v-col>

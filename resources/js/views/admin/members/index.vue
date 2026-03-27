@@ -15,7 +15,7 @@
                                         @click="filter.plan_id = item.id"
                                         :class="{ 'status-selected': Number(filter.plan_id) === item.id }"
                                     >
-                                        <div class="d-flex justify-space-between">
+                                        <div class="d-flex justify-space-between" style="width: 130px;">
                                             <div class="d-flex align-center">
                                                 <small>{{ item.plan_name }}</small>
                                             </div>
@@ -34,60 +34,69 @@
     </user-title-bar>
 
       <v-container max-width="1400px" >
-            <v-row no-gutters class="mt-3">
-                <v-col cols="12"  class="d-flex justify-space-between">
-                    <div class="d-flex flex-wrap ">
-                        <div class="d-flex align-center">
-                            <v-select 
-                                v-model="filter.length" 
-                                :items="[100, 500, 1000, 2000]" 
-                                 density="compact"  
-                                variant="outlined"
-                                max-width="150px" class="mr-2" 
-                                />
-                                <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
-                        </div>
+          <div class="d-lg-flex  justify-space-between  mt-4">
+              <div class="d-flex  ">
+                <v-select 
+                      v-model="filter.length" 
+                      :items="[100, 500, 1000, 2000]" 
+                       density="compact"  
+                      variant="outlined"
+                      max-width="150px" class="mr-2" 
+                      />
+                      <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
+              </div>
 
-                        <v-spacer />
-                    </div>
-                    <v-col cols="12" md="6" class="d-flex justify-end align-center ga-2">
-                    <UserDropdown
-                        v-model="filter.id"
-                        variant="outlined"
-                        label="User"
-                        item-title="firstName"
-                        item-value="id"
-                        density="compact" 
-                        color="primary"
-                        clearable
-                    />
-
-                    <v-select
-                        v-model="filter.status"
-                        variant="outlined"
-                        label="Status"
-                        :items="statusItems"
-                        item-title="label"
-                        item-value="value"
-                            density="compact" 
-                        color="primary"
-                        clearable
-                    />
-                    
-                    <v-text-field 
-                        v-model="filter.search" 
-                        label="Search..." 
-                        variant="outlined" 
-                        density="compact"
-                        max-width="300px" 
-                        clearable />
+              <v-spacer />
+             <div class="d-lg-flex d-md-flex justify-end">
+               <div class="d-flex">
 
 
-                    <v-btn to="/admin/members/create" color="primary" height="40" variant="flat">
-                        <v-icon icon="mdi-plus" />
-                    </v-btn>
-                    </v-col>
-                </v-col>
+          <UserDropdown
+              v-model="filter.id"
+              min-width="200px"
+              variant="outlined"
+              label="User"
+              item-title="firstName"
+              item-value="id"
+              density="compact" 
+              color="primary"
+              clearable
+          />
+
+          <v-select
+              v-model="filter.status"
+              variant="outlined"
+              min-width="200px"
+              label="Status"
+              :items="statusItems"
+              item-title="label"
+              item-value="value"
+                  density="compact" 
+              color="primary"
+              clearable
+          />
+      </div>
+      <div class="d-flex">
+          <v-text-field 
+          v-model="filter.search" 
+          label="Search..." 
+          variant="outlined" 
+          density="compact"
+          class="mr-2"
+          min-width="200px" 
+          clearable />
+
+
+      <v-btn to="/admin/members/create" color="primary" height="40" variant="flat">
+          <v-icon icon="mdi-plus" />
+      </v-btn>
+      </div>
+             </div>
+          </div>
+            <v-row no-gutters class="">
+               
+                
+             
 
                 <v-col cols="12" class="mt-2"  >
                     <div class="border"> 
@@ -415,7 +424,7 @@ export default {
 .status-card {
   border-radius: 6px;
   padding: 12px;
-  width: 17.3%;
+  width: 168px;
   background-color: rgb(var(--v-theme-background));
   border: 1px solid rgb(var(--v-theme-border));
   transition: all 0.2s ease;
@@ -426,7 +435,7 @@ export default {
 }
 
 .status-selected {
-  border: 2px solid #0080FF;
+  border: 1px solid rgb(var(--v-theme-primary)) !important;
  
 }
 </style>

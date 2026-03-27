@@ -3,44 +3,34 @@
       <Nav/>
       <v-container max-width="1400px" >
             <v-row no-gutters class="mt-3">
-                <v-col cols="12">
-                    <div class="d-flex flex-wrap ">
-                        <div class="d-flex align-center">
-                            <v-select 
-                                v-model="filter.length" 
-                                :items="[10, 25, 50, 100]" 
-                                density="compact" 
-                                variant="outlined"
-                       
-                                max-width="150px" class="mr-2" 
-                                />
-                                <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }} of {{ total }} Records </div>
-                            
-                        </div>
+                    <v-col cols="12">
+                <div class="flex-lg-row d-lg-flex ">
+                    <div class="d-flex align-center">
+                        <v-select v-model="filter.length" :items="[10, 25, 50, 100]" density="compact"
+                            variant="outlined" max-width="150px" class="mr-2" />
+                        <div class="align-self-center pl-2">{{ filter.offset }} - {{ Math.min(filter.length, total) }}
+                            of {{ total }} Records </div>
 
-                        <v-spacer />
+                    </div>
 
-                        <v-text-field 
-                            v-model="filter.search" 
-                        
-                            label="Search..." 
-                            variant="outlined" 
-                            density="compact"
-                            max-width="300px" 
-                            clearable />
+                    <v-spacer />
 
-                        <div class="pl-2" >
+                    <div class="d-flex">
+                        <v-text-field v-model="filter.search" label="Search..." variant="outlined" density="compact"
+                            min-width="200px" clearable />
+
+                        <div class="pl-2">
                             <!-- <v-btn base-color="#bdbdbd" style="height: 44px;" variant="outlined" @click="loadItems">
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn> -->
                         </div>
-                        <div class="pl-2" >
-                            <v-btn to="/admin/make/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
-                                <v-icon icon="mdi-plus"></v-icon>
-                            </v-btn>
-                        </div>
+                        <v-btn to="/admin/center/create" color="primary" style="height: 44px;" variant="flat"
+                            @click="loadItems">
+                            <v-icon icon="mdi-plus"></v-icon>
+                        </v-btn>
                     </div>
-                </v-col>
+                </div>
+            </v-col>
 
                 <v-col cols="12" class="mt-2"  >
                     <div class="border"> 

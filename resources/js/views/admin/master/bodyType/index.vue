@@ -19,12 +19,13 @@
 
                         <v-spacer />
 
-                      <v-text-field  
+                     <div class="d-flex">
+                         <v-text-field  
                             v-model="filter.search" 
                             label="Search..." 
                             variant="outlined" 
                             density="compact"
-                            max-width="300px" 
+                            min-width="200px" 
                             clearable />
 
                         <div class="pl-2" >
@@ -32,11 +33,12 @@
                                 <v-icon icon="mdi-magnify"></v-icon>
                             </v-btn> -->
                         </div>
-                        <div class=" pt-lg-0 pt-md-0 pt-2" >
+                        <div class=" pt-lg-0 pt-md-0 " >
                             <v-btn to="/admin/bodyType/create" color="primary" style="height: 44px;" variant="flat" @click="loadItems">
                                 <v-icon icon="mdi-plus"></v-icon>
                             </v-btn>
                         </div>
+                     </div>
 
                     </div>
                 </v-col>

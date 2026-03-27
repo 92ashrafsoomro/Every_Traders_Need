@@ -17,7 +17,7 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-              <v-col cols="4" class="pl-2">
+              <v-col cols="12" lg="4" md="4" sm="12" class="pl-2">
                 <MakeDropdown
                   label="Select Make"
                   variant="outlined"
@@ -31,7 +31,7 @@
                 />
               </v-col>
 
-              <v-col cols="4" class="pl-2">
+              <v-col cols="12" lg="4" md="4" sm="12" class="pl-2">
                 <ModelDropdown
                   label="Select Model"
                   variant="outlined"
@@ -46,7 +46,7 @@
               </v-col>
 
 
-              <v-col cols="4" class="">
+              <v-col cols="12" lg="4" md="4" sm="12" class="">
                 <v-text-field
                   v-model="form.name"
                   label="Title"

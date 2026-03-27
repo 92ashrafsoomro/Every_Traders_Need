@@ -1,6 +1,6 @@
 <template>
     <user-title-bar title="Dictionary">
-         <div class="d-flex ga-3 mb-4 mt-6">
+         <div class=" content-scroll d-flex ga-3 mb-4 mt-6">
                                 <v-btn
                                     v-for="item in Dictionary.prefixName"
                                     :key="item.value"
@@ -19,8 +19,8 @@
 
 
     <v-container max-width="1400px">
-        <div class="d-flex  justify-space-between w-100 mt-4">
-            <div class="d-flex w-50 ">
+        <div class="d-lg-flex  justify-space-between w-100 mt-4">
+            <div class="d-flex  ">
                 <v-select v-model="filter.length" :items="[100, 500, 1000, 2000]" density="compact" variant="outlined"
                     max-width="90px" class="mr-2" />
                 <div class="align-self-center pl-2">
@@ -30,8 +30,8 @@
 
             </div>
 
-            <div class="w-50 d-flex">
-                <v-text-field density="compact" variant="outlined" clearable v-model="filter.search"
+            <div class="d-flex">
+                <v-text-field density="compact" min-width="200px" variant="outlined" clearable v-model="filter.search"
                     label="Search" />
 
                 <v-btn style="height: 44px; margin-left: 10px;" variant="outlined" @click="loadItems" class="mr-2">

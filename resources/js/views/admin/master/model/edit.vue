@@ -25,7 +25,7 @@
             <v-row>
               <v-col cols="12">
                 <v-row align="center" no-gutters>
-                  <v-col cols="4" sm="4">
+                  <v-col cols="12" md="4" lg="4" sm="12">
                     <v-text-field
                       v-model="form.id"
                       label="ID"
@@ -38,7 +38,7 @@
                       hide-details
                     />
                   </v-col>
-                  <v-col cols="4" sm="4" class="pl-2">
+                  <v-col cols="12" md="4" lg="4" sm="12" class="pl-lg-2 pl-md-2 mt-lg-0 mt-md-0 mt-2">
                       <MakeDropdown 
                         label="Select Make"
                   variant="outlined"
@@ -49,7 +49,7 @@
                   density="compact"
                   hide-details />
                   </v-col>
-                  <v-col cols="4" sm="4" class="pl-2">
+                  <v-col cols="12" md="4" lg="4" sm="12" class="pl-lg-2 pl-md-2 mt-lg-0 mt-md-0 mt-2">
                     <v-text-field
                       v-model="form.name"
                       label="Title"

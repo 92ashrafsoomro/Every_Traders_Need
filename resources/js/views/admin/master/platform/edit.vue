@@ -19,7 +19,7 @@
             <v-row>
 
               <!-- ID -->
-              <v-col cols="4">
+              <v-col cols="4" sm="12" lg="1">
                 <v-text-field
                   v-model="form.id"
                   label="ID"
@@ -31,7 +31,7 @@
               </v-col>
 
               <!-- TITLE -->
-              <v-col cols="4">
+              <v-col cols="8" lg="4" md="6">
                 <v-text-field
                   v-model="form.name"
                   label="Title"
@@ -42,7 +42,7 @@
               </v-col>
 
               <!-- UPLOAD (SAME AS CREATE) -->
-              <v-col cols="4">
+              <v-col cols="12" sm="12" lg="5">
                 <v-btn
                   variant="outlined"
                   class="w-100"

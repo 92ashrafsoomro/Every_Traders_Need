@@ -10,7 +10,7 @@
 
         <v-divider class="ps-0 pe-0"></v-divider>
 
-        <div class="sidebarToggle position-fixed d-lg-flex d-md-flex d-none align-center cursor-pointer bg-primary"
+        <div class="position-fixed d-flex align-center cursor-pointer bg-primary"
           v-if="!subMenuOpen && lastOpenedParent && $route.path !== '/admin/dashboard'"
           style="width: 20px; height: 54px; border-radius: 0 10px 10px 0; z-index: 100; left: 70px; top: 80px;"
           @click="toggleSubSidebar">
@@ -22,9 +22,10 @@
             <v-divider class="mt-2"></v-divider>
           </v-list-item>
 
-          <v-list-item v-else :to="item.path" link :ripple="false" class="text-subtitle-1 mt-2"
-            :class="{ 'bg-primary on-primary rounded my-active-menu hide-overlay': $route.path === item.path }"
-            @click="item.children?.length ? openSubSidebar(item) : closeSubSidebar()">
+          <v-list-item v-else :to="item.path" link :ripple="false" class="text-subtitle-1 mt-2" :class="{
+            'bg-primary on-primary rounded my-active-menu hide-overlay':
+              $route.path === item.path || isChildActive(item)
+          }" @click="item.children?.length ? openSubSidebar(item) : closeSubSidebar()">
             <template #prepend>
               <v-icon v-tooltip="item.label" size="25" class="ml-1">
                 {{ item.icon }}
@@ -42,14 +43,11 @@
     </div>
   </v-navigation-drawer>
 
-  <v-navigation-drawer  v-model="subMenuOpen" permanent location="left" dark color="" :width="269" :style="{
-    left: '68px',
-    height: '100vh',
-    position: 'fixed',
-    zIndex: 5,
-    transform: subMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
-    transition: 'transform 0.3s ease'
-  }" class="child-sidebar">
+  <v-navigation-drawer v-model="subMenuOpen" location="left" :width="269" :permanent="$vuetify.display.mdAndUp"
+    :temporary="$vuetify.display.smAndDown" :style="{
+      transform: subMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
+      transition: 'transform 0.3s ease'
+    }" class="sidebar_drawer">
     <div class="v-navigation-drawer__content">
       <v-list density="compact" nav>
         <div class="d-flex justify-space-between align-center pa-4">
@@ -71,6 +69,28 @@
       </v-list>
     </div>
   </v-navigation-drawer>
+  <!-- <div class="d-lg-none d-md-none d-flex smallNav">
+<div class="v-navigation-drawer__content">
+      <v-list density="compact" nav>
+        <div class="d-flex justify-space-between align-center pa-4">
+          <span class="text-body-1 font-weight-medium">{{ currentGroupLabel }}</span>
+          <v-icon size="24" @click="closeSubSidebar" class="cursor-pointer">
+            mdi-close
+          </v-icon>
+        </div>
+        <v-divider class="pa-0 mt-1"></v-divider>
+
+        <v-list-item v-for="child in currentChildren" :key="child.label" link :to="child.path" :ripple="false"
+          class="text-subtitle-1 mt-2"
+          :class="{ 'bg-primary on-primary rounded my-active-menu hide-overlay': $route.path === child.path }"
+          @click="navigateTo(child.path)">
+          <template #title>
+            <span class="ml-3">{{ child.label }}</span>
+          </template>
+        </v-list-item>
+      </v-list>
+    </div>
+  </div> -->
 </template>
 
 <script>
@@ -115,19 +135,27 @@ export default {
     toggleSubSidebar() {
       this.subMenuOpen = !this.subMenuOpen;
     },
+
     openSubSidebar(item) {
       this.currentChildren = item.children || [];
       this.currentGroupLabel = item.label;
       this.subMenuOpen = true;
       this.lastOpenedParent = item;
     },
+
     closeSubSidebar() {
       this.subMenuOpen = false;
     },
+
     navigateTo(path) {
       if (path && path.trim() !== "") {
         this.$router.push(path);
       }
+    },
+
+    isChildActive(item) {
+      if (!item.children) return false;
+      return item.children.some(child => this.$route.path === child.path);
     }
   }
 };
@@ -142,15 +170,30 @@ export default {
   font-size: 16px !important;
 }
 
+.sidebar_drawer {
+  /* left: 67px; */
+  height: '100vh';
+  position: fixed;
+  z-index: 5;
+}
+
 .v-navigation-drawer__content {
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
+@media (max-width: 786px) {
+
+  .sidebar_drawer {
+    position: absolute;
+    left: 0;
+    z-index: 1006;
+  }
+
+}
+
 .v-navigation-drawer__content::-webkit-scrollbar {
   display: none;
 }
-
-
 </style>

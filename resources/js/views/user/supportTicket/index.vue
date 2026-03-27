@@ -230,7 +230,7 @@ export default {
   border-radius: 6px;
   padding: 12px;
   width: 15.5%;
-  background-color:rgb(15, 28, 43);
+  background-color:rgb(var(--v-theme-surface-variant-1));
   transition: all 0.2s ease;
 }
 

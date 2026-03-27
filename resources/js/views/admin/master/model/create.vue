@@ -25,7 +25,7 @@
                 <v-row>
                     <v-col cols="12">
                         <v-row align="center" no-gutters>
-                            <v-col cols="6" sm="6"  class="pl-2">
+                            <v-col cols="12" md="6" lg="6" sm="12"  class="pl-2">
                                 <MakeDropdown 
                                 label="Select Make" 
                                 variant="outlined"
@@ -38,7 +38,7 @@
                                  density="compact"  
                                 />
                             </v-col>
-                            <v-col cols="6" sm="6"  class="pl-2">
+                            <v-col cols="12" md="6" lg="6" sm="12"  class="pl-2 mt-lg-0 mt-md-0 mt-2">
                               <v-text-field
                                   v-model="form.name"    
                                   label="Title"

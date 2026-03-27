@@ -19,18 +19,18 @@
             <v-row>
 
 
-              <v-col cols="4">
+              <v-col cols="12" lg="4" md="4" sm="12">
                 <v-text-field v-model="form.id" label="ID" disabled="" variant="outlined" density="compact"
                   color="primary" hide-details />
               </v-col>
 
 
-              <v-col cols="4" class="pl-2">
+              <v-col cols="12" lg="4" md="4" sm="12" class="pl-2">
                 <MakeDropdown label="Select Make" variant="outlined" item-title="name" item-value="id"
                   v-model="form.makeid" color="primary" density="compact" hide-details clearable/>
               </v-col>
 
-              <v-col cols="4" class="pl-2">
+              <v-col cols="12" lg="4" md="4" sm="12" class="pl-2">
                 <ModelDropdown label="Select Model" variant="outlined" color="primary" item-title="name" item-value="id"
                   v-model="form.model_id" :make="form.makeid" density="compact" hide-details  clearable/>
               </v-col>

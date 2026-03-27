@@ -19,9 +19,9 @@
 
     </usertitlebarauctionfinder>
 
-    <v-container class=" mx-0 mb-5 mt-0 " fluid="">
-        <div class="">
-            <div class="d-flex flex-wrap w-100  mb-5 mt-2  mx-auto align-center">
+    <v-container class=" mx-auto mb-5 mt-0 "  fluid="">
+        <div class="mx-auto px-lg-5" >
+            <div class="d-flex flex-wrap w-100  mb-5 mt-2  mx-auto align-center" >
 
                 <!-- LEFT -->
                 <div class="d-flex flex-wrap align-center    ga-2 flex-grow-1">

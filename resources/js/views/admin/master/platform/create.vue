@@ -18,7 +18,7 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-                <v-col cols="6  ">
+                <v-col cols="12" lg="6" md="6">
                 <v-text-field
                   v-model="form.name"
                   label="Title"
@@ -32,7 +32,7 @@
 
 
 
-              <v-col cols="6">
+              <v-col cols="12" lg="6" md="6">
                 <v-btn
                   variant="outlined"
                   class="w-100"

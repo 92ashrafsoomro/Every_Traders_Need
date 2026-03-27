@@ -19,7 +19,7 @@
      
             <v-row class="mb-6">
 
-              <v-col cols="4">
+              <v-col cols="12" lg="4" md="4" sm="12">
 
                 <v-select label="Select" 
                 :items="Dictionary.prefixName"
@@ -31,7 +31,7 @@
               </v-col>
 
 
-              <v-col cols="4">
+              <v-col cols="12" lg="4" md="4" sm="12">
               <v-text-field
                 v-model="form.key"
                 label="Prefixes Key"
@@ -43,7 +43,7 @@
 
 
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" lg="4" md="4" sm="12">
                 <v-text-field  v-model="form.value"
                   label="Prefixes Value"
                   clearable

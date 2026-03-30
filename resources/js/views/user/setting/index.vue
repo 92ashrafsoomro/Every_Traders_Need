@@ -25,7 +25,7 @@
                         </div>
                         <div class="py-2">
                             <v-btn to="/user/settings/notification" class="buttonBorder text-capitalize " variant="elevated"
-                                :class="{ 'bg-primary': this.$route.params.id == 'notification' }" prepend-icon="mdi-lock"
+                                :class="{ 'bg-primary': this.$route.params.id == 'notification' }" prepend-icon="mdi-bell"
                                 style="height: 50px;"> <span
                                     class="text-capitalize text-body-1 ">Notifications</span></v-btn>
                         </div>

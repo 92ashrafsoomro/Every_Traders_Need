@@ -71,6 +71,12 @@
               </span>
             </template>
 
+            <template #item.created_at="{ item }">
+             
+                {{dateFormate( item.created_at) }}
+         
+            </template>
+
             <template #item.user_name="{ item }">
               {{ item.user_name }}
             </template>
@@ -175,6 +181,7 @@ export default {
   },
 
   methods: {
+    
     openFeedback(item) {
       this.selectedItem = item;
       this.feedbackDialog = true;

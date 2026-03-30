@@ -1,40 +1,46 @@
 <template>
-    <div class="bg-surface d-flex align-items-center justify-center"
-        style="height: 80vh; padding: 20px;  background: linear-gradient(to top, rgba(var(--v-theme-primary),0.2) 5%, transparent 80%);">
-        <div class="mx-auto d-flex flex-wrap align-items-center justify-center" style="max-width:1400px; gap:40px;">
+   <div class="hero-section bg-surface d-flex align-items-center justify-center"
+    style="padding:20px; background: linear-gradient(to top, rgba(var(--v-theme-primary),0.2) 5%, transparent 80%);">
 
-            <!-- Left Text Section -->
-            <div style="flex:1; min-width:300px;" class="d-flex flex-column justify-center">
-                <app-breadcrumb class="mb-3 px-0" />
-                <h2 class="text-h4 font-weight-bold mb-4">
-                    {{ data.title }}
-                </h2>
+    <!-- Pattern Background -->
+    <div class="pattern-bg"></div>
 
-                <div class="text-body-1 text-light_text_on mb-6" style="line-height:1.9;"
-                    v-html="truncateText(data.description)">
-                </div>
+    <!-- Content -->
+    <div class="hero-content mx-auto d-flex flex-wrap align-items-center justify-center"
+        style="max-width:1400px; gap:40px;">
 
-                <div class="d-flex  align-center" style="height: 40px;">
-                    <!-- Left Section -->
-                    <div class="d-flex align-items-center px-2"
-                        style="border-right: 1px solid rgb(var(--v-theme-border)); width: 220px;">
-                        <span>Updated : {{ data.date }}</span>
-                    </div>
+        <!-- Left Text -->
+        <div style="flex:1; min-width:300px;" class="d-flex flex-column justify-center">
+            <app-breadcrumb class="mb-3 px-0" />
 
-                    <!-- Right Section -->
-                    <div class="d-flex align-items-center justify-center px-2 ml-4">
-                        <span>12 min read</span>
-                    </div>
-                </div>
+            <h2 class="text-h4 font-weight-bold mb-4">
+                {{ data.title }}
+            </h2>
+
+            <div class="text-body-1 text-light_text_on mb-6"
+                style="line-height:1.9;"
+                v-html="truncateText(data.description)">
             </div>
 
-            <!-- Right Image Section -->
-            <div class="d-flex justify-center align-items-center" style="flex:1; min-width:300px;">
-                <v-img :src="data.image_preview" alt="Smartphones 2026" class="rounded-lg " max-width="520" />
-            </div>
+            <div class="d-flex align-center" style="height:40px;">
+                <div class="d-flex align-items-center px-2"
+                    style="border-right:1px solid rgb(var(--v-theme-border)); width:220px;">
+                    <span>Updated : {{ data.date }}</span>
+                </div>
 
+                <div class="d-flex align-items-center justify-center px-2 ml-4">
+                    <span>12 min read</span>
+                </div>
+            </div>
         </div>
+
+        <!-- Right Image -->
+        <div class="d-flex justify-center align-items-center" style="flex:1; min-width:300px;">
+            <v-img :src="data.image_preview" class="rounded-lg" max-width="520" />
+        </div>
+
     </div>
+</div>
     <v-container fluid class="pa-0 mt-12">
         <v-container style="max-width:1400px;">
             <div class="d-flex flex-wrap" style="gap:40px; align-items:flex-start; position:relative;">
@@ -246,19 +252,47 @@ export default {
 }
 </script>
 <style scoped>
+.hero-section{
+  position: relative;
+  overflow: hidden;
+  height: 80vh;
+}
+
+/* small + medium screens */
+@media (max-width: 960px){
+  .hero-section{
+    height: 100vh;
+  }
+}
+
+.pattern-bg{
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#0080ff 1.5px, transparent 1.2px);
+  background-size: 16px 16px;
+  background-repeat: repeat;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content{
+  position: relative;
+  z-index: 1;
+}
 .hoverElement:hover {
     text-decoration: underline;
 }
 
 :deep(.blog-content ul) {
-    list-style: none;
+    /* list-style: ; */
     padding-left: 0;
     margin-left: 15px;
 }
 
 :deep(.blog-content ul li) {
     position: relative;
-    padding-left: 28px;
+    
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -270,7 +304,7 @@ export default {
     top: 5px;
     width: 16px;
     height: 16px;
-    background-image: url('@/assets/images/icons/checkIcon.png');
+    /* background-image: url('@/assets/images/icons/checkIcon.png'); */
     background-size: contain;
     background-repeat: no-repeat;
 }

@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid class="bg-background pa-0 align-start" max-width="1600px" >
+  <v-container fluid class="bg-white  align-start" style="padding: 0 !important; height: 100vh;">
 
 
-    <v-row  class="overflow-hidden w-100 bg-background">
+    <v-row no-gutters  class="overflow-hidden w-100 bg-background h-screen" >
       
       <v-col class="d-flex flex-column chat-main-col border-r border-border">
         
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="pa-4 bg-background border-t">
+        <div class="pa-4 bg-background border-t chat-input-bar">
           <v-expand-transition>
             <div v-if="newReply.attachment" class="px-4 py-2 d-flex align-center">
               <v-chip closable color="primary" size="small" @click:close="newReply.attachment = null">
@@ -449,11 +449,28 @@ export default {
 }
 </script>
 <style scoped>
-.chat-main-col {
+/* .chat-main-col {
   height: calc(100vh - 75px); 
+} */
+
+.chat-main-col {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+.messages-viewport {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
 
+.chat-input-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: rgb(var(--v-theme-background));
+}
 
 .max-w-75 { max-width: 75%; }
 .chat-bubble {

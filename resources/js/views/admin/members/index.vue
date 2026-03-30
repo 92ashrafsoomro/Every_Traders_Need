@@ -192,6 +192,7 @@
                             <template #item.package_membership_expiry_date="{ item }">
                             <v-btn
                                 size="small"
+                                class="cursor-text"
                                 :color="
                                 getMembershipStatus(item.package_membership_expiry_date) === 'Active'
                                     ? 'primary'

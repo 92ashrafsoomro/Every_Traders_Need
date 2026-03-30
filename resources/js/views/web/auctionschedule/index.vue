@@ -218,20 +218,7 @@ export default {
 
       this.getRecords();
     },
-    handleTab(key) {
-      if (this.userStore.is_logged_in) {
-                if (this.options.enableCurrent) {
-                } else {
-                    this.options.day = key;
-                }
-                this.getRecords();
-            } else {
-                this.$router.replace("/login");
-    }
-      this.options.day = key;
-      this.options.date = this.days[key].date;
-      this.getRecords();
-    },
+  
     prepareDays(apiData) {
       const days = {};
       const today = new Date();

@@ -1,6 +1,6 @@
 <template>
 
-    <div class="bg-surface d-flex align-center justify-center py-8" style="height: 80vh;">
+ <div class="bg-surface d-flex align-center justify-center py-8 hero-section">
         <div class="mx-auto w-100 px-4" style="max-width:1400px;">
 
             <div v-if="featuredArticle" class="d-flex flex-column flex-md-row align-center ga-6">
@@ -63,7 +63,6 @@
 
         </div>
     </div>
-
 
 
     <div class="bg-background py-12">
@@ -175,6 +174,7 @@ export default {
 
     mounted() {
         this.loadDashboard();
+        this.loadFeatured();
         this.selectedCategoryId = null;
         window.addEventListener("scroll", this.handleScroll);
     },
@@ -200,14 +200,6 @@ export default {
             if (!date) return ""
             return date?.split('T')[0].split(' ')[0]
         },
-        // truncateText(text, wordlimit = 30) {
-        //     if (!text) return '';
-        //     const words = text.split(' ');
-        //     if (words.length > wordlimit) {
-        //         return words.slice(0, wordlimit).join(' ') + '...';
-        //     }
-        //     return text;
-        // },
         truncateText(text, wordlimit = 30) {
             if (!text) return '';
 
@@ -220,7 +212,6 @@ export default {
             }
             return plainText;
         },
-
         isLongText(text) {
             if (!text) return false;
             return text.split(' ').length > 20;
@@ -228,41 +219,31 @@ export default {
         async loadDashboard(categoryId = null) {
             this.loading = true;
             try {
-                const finalCategoryId = categoryId ?? this.selectedCategoryId;
 
                 const params = {
-                    category_id: finalCategoryId
+                    category_id: categoryId
                 };
 
                 let res = await General.get("/api/web/getBlogDashboard", params);
 
                 this.categories = [{ id: null, title: 'All' }, ...res.categories];
 
-                if (this.selectedCategoryId === null) {
-                    this.selectedCategoryId = null;
-                }
-
-                if (!finalCategoryId) {
-                    this.featuredArticle = res.featured;
-                    this.remainingArticles = res.remaining;
-                    this.allArticles = [res.featured, ...res.remaining];
-                } else {
-                    this.featuredArticle = null;
-                    this.remainingArticles = res.remaining;
-                    this.allArticles = [...res.remaining];
-                }
-
-                this.allArticles = this.featuredArticle
-                    ? [res.featured, ...res.remaining]
-                    : [...res.remaining];
-
-                this.currentIndex = 0;
-
+                this.remainingArticles = res.remaining;
 
             } catch (error) {
                 console.error("Dashboard load failed:", error);
             } finally {
                 this.loading = false;
+            }
+        },
+        async loadFeatured() {
+            try {
+                let res = await General.get("/api/web/getBlogDashboard");
+
+                this.featuredArticle = res.featured;
+                this.allArticles = [res.featured, ...res.remaining];
+            } catch (error) {
+                console.error(error);
             }
         },
         nextArticle() {
@@ -339,5 +320,14 @@ export default {
 
 .sticky-active {
     border-bottom: 1px solid rgba(var(--v-theme-border));
+}
+.hero-section {
+  height: 80vh;
+}
+
+@media (max-width: 960px) {  
+  .hero-section {
+    height: 100vh;
+  }
 }
 </style>

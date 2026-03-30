@@ -51,15 +51,8 @@
 
         </div>
     </user-title-bar>
-    <div v-else class="center-wrapper">
-        <div class=" pa-4 box">
-            <p>Upgrade to Your Plan The Current plan not supported this page..</p>
-            <router-link to="/user/settings/billing" style="text-decoration: none; color: white;">
-                <v-btn color="primary" size="large" class="text-capitalize mt-5">
-                    Upgrade Plan
-                </v-btn>
-            </router-link>
-        </div>
+    <div v-else >
+        <Restriction/>
     </div>
     <div style="max-width: 1400px;" class="mx-auto"
         v-if="userStore.user.role !== 'Subscriber' || (userStore.user.plan && userStore.user.plan.plan_id !== 1)">
@@ -126,8 +119,7 @@
     </div>
 </template>
 <script>
-
-
+    
 import { usePageStore } from "@/stores/pageStore";
 import { useUserStore } from "@/stores/userStore";
 import Restriction from "./layout/Restriction.vue";
@@ -211,11 +203,4 @@ export default {
     }
 }
 
-.center-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 80vh;
-}
 </style>

@@ -21,13 +21,27 @@
                 {{ item.name  }}
               </td>
               <td class="text-center">
-                <v-switch v-model="item.email" color="primary" hide-details inset class="d-inline-flex  "></v-switch>
+              <v-checkbox
+                  v-model="item.email"
+                  hide-details
+                  inset
+                  density="compact"
+                  color="primary"
+                  base-color="grey-darken-2"
+                  class="small-switch"
+                />
 
               </td>
               <td class="text-center">
-                <v-switch v-model="item.browser" color="primary" hide-details inset
-                  class="d-inline-flex"></v-switch>
-
+              <v-checkbox
+                  v-model="item.browser"
+                  hide-details
+                  inset
+                  density="compact"
+                  color="primary"
+                  base-color="grey-darken-2"
+                  class="small-switch"
+                />
         
               </td>
             </tr>
@@ -100,4 +114,11 @@ export default {
 </script>
 
 <style scoped>
+.small-switch {
+  display: inline-block;
+}
+
+.small-switch .v-selection-control__wrapper {
+  margin: auto;
+}
 </style>

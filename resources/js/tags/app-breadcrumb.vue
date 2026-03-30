@@ -5,12 +5,14 @@
     </template>
 
     <template v-slot:item="{ item }">
-      <v-breadcrumbs-item
-        :to="item.to"
-        :disabled="item.disabled"
-      >
-        {{ item.text }}
-      </v-breadcrumbs-item>
+    <v-breadcrumbs-item
+      :to="item.to"
+      :disabled="item.disabled"
+    >
+      <span :title="item.text">
+        {{ truncateText(item.text, 5) }}
+      </span>
+    </v-breadcrumbs-item>
     </template>
   </v-breadcrumbs>
 </template>
@@ -75,6 +77,26 @@ export default {
 
       return items;
     }
+  },
+  methods:{
+   truncateText(text, wordlimit = 5) {
+  if (!text) return ''
+
+  // slug ko readable text banado
+  const formatted = text
+    .replace(/-/g, ' ') 
+    .split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+
+  const words = formatted.split(' ')
+
+  if (words.length > wordlimit) {
+    return words.slice(0, wordlimit).join(' ') + '...'
+  }
+
+  return formatted
+}
   }
 }
 </script>

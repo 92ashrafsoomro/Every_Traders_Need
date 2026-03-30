@@ -7,11 +7,11 @@
       <h5>News</h5>
     </div>
     <div>
-      <v-btn color="primary" variant="outlined" prepend-icon="mdi-filter" @click="drawer = true">
-        Filter
-      </v-btn>
+      <v-icon color="primary" @click="drawer = true">mdi-dots-horizontal</v-icon>
     </div>
   </div>
+
+
   <div fluid class=" bg-background " style="padding: 0 !important;">
     <div class="d-flex">
 
@@ -70,33 +70,41 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-col cols="12" md="9" class="  px-4 lg-border-left" >
+      <v-col cols="12" md="9" class="  px-4 lg-border-left">
         <v-card v-if="selectedBlog" flat rounded="lg" class="" style="padding: 0 !important;">
           <div class=" pa-6">
             <div class=" rounded-lg overflow-hidden border" style="height: 200px; width: 100%;">
               <v-img :src="selectedBlog.image_preview || placeholder" height="200" cover class="rounded-lg"></v-img>
             </div>
 
-            <div class="d-flex align-center justify-space-between mb-4">
+            <div class="d-flex  align-center  justify-space-between mb-4">
               <div>
                 <v-chip size="small" color="primary" class="mr-3">
                   {{ selectedBlog.category?.title || 'General' }}
                 </v-chip>
-
               </div>
-              <div class="d-flex align-center mt-4">
-                <span class="text-caption mr-3">Share:</span>
 
-                <v-btn icon="mdi-facebook" size="small" color="primary" variant="text" class="mr-2" />
+              <!-- Like Section -->
+              <div class="d-flex align-center">
+                <div class="d-flex mr-4" @click="toggleLike" style="cursor: pointer;">
+                  <span class="mr-2 text-body-2">{{ likeCount }}</span>
+                  <v-icon :class="liked ? 'text-primary' : 'text-white'" size="20">
+                    mdi-thumb-up
+                  </v-icon>
+                </div>
 
-                <v-btn icon="mdi-twitter" size="small" color="primary" variant="text" class="mr-2" />
 
-                <v-btn icon="mdi-whatsapp" size="small" color="success" variant="text" />
+                <div>
+
+                  <span class="text-body-2 mr-3">Share:</span>
+                  <!-- Social Buttons -->
+                  <v-btn icon="mdi-facebook" size="small" color="primary" variant="text" class="mr-2" />
+                  <v-btn icon="mdi-twitter" size="small" color="primary" variant="text" class="mr-2" />
+                  <v-btn icon="mdi-whatsapp" size="small" color="success" variant="text" />
+                </div>
               </div>
+
             </div>
-
-
-
             <div cols="12" md="7">
               <h1 class="text-h4 font-weight-bold mb-6">
                 {{ selectedBlog.title }}
@@ -112,22 +120,64 @@
             <div class="pa-6" v-html="selectedBlog.description">
             </div>
           </div>
-          <!-- <div cols="12" md="5">
-         
-          </div> -->
 
 
-
-          <!-- DESCRIPTION -->
-          <!-- <div v-html="selectedBlog.description"></div> -->
         </v-card>
-
         <v-card v-else class="pa-6">
           Select a blog
         </v-card>
+        <div class="pa-6 bg-surface rounded-lg mt-4">
+
+          <h3 class="text-h6 font-weight-bold mb-4">Comments (2)</h3>
+
+          <!-- Add New Comment (Static, disabled for demo) -->
+          <div class="d-flex align-center mb-5">
+            <v-textarea placeholder="Write a comment..." auto-grow variant="outlined" density="compact"
+              class="flex-grow-1" rows="1" hide-details></v-textarea>
+
+            <v-btn color="primary" class="ml-3 rounded-circle" width="42" height="42" icon>
+              <v-icon color="white">mdi-send</v-icon>
+            </v-btn>
+          </div>
+
+          <!-- Example Comment 1 -->
+          <div class="d-flex mb-4">
+            <v-avatar size="40" class="mr-3">
+              <v-img src="https://randomuser.me/api/portraits/men/1.jpg"></v-img>
+            </v-avatar>
+
+            <div class="flex-grow-1">
+              <div class="d-flex align-center justify-space-between mb-1">
+                <span class="font-weight-medium text-body-2">John Doe</span>
+                <span class="text-caption text-grey">Mar 30, 2026</span>
+              </div>
+              <div class="text-body-2">Great post! Learned a lot.</div>
+            </div>
+          </div>
+          <div style="border: 1px solid rgb(var(--v-theme-border));"></div>
+
+          <!-- Example Comment 2 -->
+          <div class="d-flex my-4">
+            <v-avatar size="40" class="mr-3">
+              <v-img src="https://randomuser.me/api/portraits/women/2.jpg"></v-img>
+            </v-avatar>
+
+            <div class="flex-grow-1">
+              <div class="d-flex align-center justify-space-between mb-1">
+                <span class="font-weight-medium text-body-2">Jane Smith</span>
+                <span class="text-caption text-grey">Mar 29, 2026</span>
+              </div>
+              <div class="text-body-2">Thanks for sharing!</div>
+
+              <!-- Like / Reply Actions -->
+            </div>
+          </div>
+
+        </div>
       </v-col>
 
     </div>
+
   </div>
 
 </template>
@@ -147,6 +197,8 @@ export default {
         category_id: null,
       },
       blogs: [],
+      liked: false,
+      likeCount: 2000,
       drawer: false,
       image,
       showBlogs: true,
@@ -160,6 +212,10 @@ export default {
   },
 
   methods: {
+    toggleLike() {
+      this.liked = !this.liked
+      this.liked ? this.likeCount++ : this.likeCount--
+    },
     handleBlogFilter(value) {
       this.filter.category_id = value;
 
@@ -203,18 +259,24 @@ export default {
 
 
 <style scoped>
+.bg-primary {
+  color: #1976d2 !important;
+}
+
 .text-wrap {
   white-space: normal;
 }
+
 .lg-border-left {
   border-left: none;
 }
 
-@media (min-width: 960px) {  
+@media (min-width: 960px) {
   .lg-border-left {
     border-left: 2px solid rgb(var(--v-theme-border));
   }
 }
+
 .selected-blog {
   border-top: 2px solid rgb(var(--v-theme-border));
   border-bottom: 2px solid rgb(var(--v-theme-border));

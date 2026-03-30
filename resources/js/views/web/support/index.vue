@@ -64,29 +64,63 @@
 
         </v-col>
 
+        
 
-        <v-col cols="12" lg="6" class="pa-8 pa-md-12 d-flex align-center justify-center" style="min-height: 100vh;">
-          <v-expansion-panels v-model="activeIndex" style="width: 100%; max-width: 560px; " elevation="0"
-            variant="accordion" class="my-transparent-panels">
-            <v-expansion-panel v-for="(item, index) in quickLinks" :key="index" elevation="0" variant="flat"
-              class="faq-panel bg-background pa-2 mb-3" >
-              <v-expansion-panel-title class="v-theme--dark bg-transparent px-0" hide-actions>
-                <div class="d-flex align-center justify-space-between w-100">
-                   <span class="text-whiteLite text-body-1">{{ item.heading }}</span>
-                  <v-icon v-if="activeIndex === index">mdi-minus</v-icon>
-                  <v-icon v-else>mdi-plus</v-icon>
-                </div>
-              </v-expansion-panel-title>
-              
+       <v-col cols="12" lg="6"
+        class="pa-8 pa-md-12 d-flex flex-column align-center justify-center"
+        style="min-height:100vh;">
 
-              <v-expansion-panel-text>
-                  <div v-if="activeIndex === index" class="mt-3  text-whiteLite text-light pb-4">
-                  {{ item.description }}
-                </div>
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-col>
+        <!-- FAQ Heading -->
+        <div class="mb-6 text-start" style="width:100%; max-width:560px; ">
+          <h2 class="text-h4 font-weight-bold mb-2">
+            FAQ's
+          </h2>
+          <p class="text-body-2 text-medium-emphasis">
+            Frequently Asked Questions
+          </p>
+          <div style="border-bottom: 1px solid rgb(var(--v-theme-border)); margin-top: 20px;"></div>
+        </div>
+
+        <!-- FAQ Panels -->
+        <v-expansion-panels
+          v-model="activeIndex"
+          style="width:100%; max-width:560px;"
+          elevation="0"
+          variant="accordion"
+          class="my-transparent-panels"
+        >
+          <v-expansion-panel
+            v-for="(item,index) in quickLinks"
+            :key="index"
+            elevation="0"
+            variant="flat"
+            class="faq-panel bg-background pa-2 mb-3"
+          >
+
+            <v-expansion-panel-title
+              class="v-theme--dark bg-transparent px-0"
+              hide-actions
+            >
+              <div class="d-flex align-center justify-space-between w-100">
+                <span class="text-whiteLite text-body-1">
+                  {{ item.heading }}
+                </span>
+
+                <v-icon v-if="activeIndex === index">mdi-minus</v-icon>
+                <v-icon v-else>mdi-plus</v-icon>
+              </div>
+            </v-expansion-panel-title>
+
+            <v-expansion-panel-text>
+              <div v-if="activeIndex === index" class="mt-3 text-whiteLite pb-4">
+                {{ item.description }}
+              </div>
+            </v-expansion-panel-text>
+
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+      </v-col>
 
 
       </v-row>
